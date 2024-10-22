@@ -88,27 +88,11 @@ public class ModItems {
     public static final RegistryObject<Item> SALT_CROISSANT = ITEMS.register("salt_croissant",() ->
             new Item(foodItem(ModFoods.salt_croissant)));
 
-    //SALT CROISSANT
-
-
-
-
     public static Item.Properties foodItem(FoodProperties food) {
         return new Item.Properties().food(food);
     }
 
-
-
-
-    //bagel_dough
-
-
-
-
-
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
-
-
     }
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "bakery:block/wood_counter_bottom",
+    "east": "bakery:block/wood_counter_side",
+    "north": "bakery:block/wood_counter_side",
+    "particle": "bakery:block/wood_counter_top",
+    "south": "bakery:block/wood_counter_side",
+    "up": "bakery:block/wood_counter_top",
+    "west": "bakery:block/wood_counter_side"
+  }
+}

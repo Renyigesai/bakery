@@ -1,3 +1,15 @@
 {
-  "item.bakery.flour": "面粉"
+  "item.bakery.flour": "面粉",
+  "item.bakery.flour_rye": "全麦面粉",
+  "item.bakery.salt": "盐",
+  "item.bakery.butter_cube": "黄油块",
+  "item.bakery.brown_sugar_cube": "红糖块",
+  "item.bakery.bagel": "贝果",
+  "item.bakery.baguette": "法棍",
+  "item.bakery.cinnamon_roll": "红糖卷",
+  "item.bakery.country_bread": "乡村面包",
+  "item.bakery.croissant": "可颂",
+  "item.bakery.pineapple_bun": "菠萝包",
+  "item.bakery.round_bread": "圆面包",
+  "item.bakery.salt_croissant": "盐可颂"
 }

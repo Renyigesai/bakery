@@ -1,3 +1,15 @@
 {
-  "item.bakery.flour": "Flour"
+  "item.bakery.flour": "Flour",
+  "item.bakery.flour_rye": "Flour Rye",
+  "item.bakery.salt": "Salt",
+  "item.bakery.butter_cube": "Butter Cube",
+  "item.bakery.brown_sugar_cube": "Brown Sugar Cube",
+  "item.bakery.bagel": "Bagel",
+  "item.bakery.baguette": "Baguette",
+  "item.bakery.cinnamon_roll": "Cinnamon Roll",
+  "item.bakery.country_bread": "Country Bread",
+  "item.bakery.croissant": "Croissant",
+  "item.bakery.pineapple_bun": "Pineapple Bun",
+  "item.bakery.round_bread": "Round Bread",
+  "item.bakery.salt_croissant": "Salt Croissant"
 }
