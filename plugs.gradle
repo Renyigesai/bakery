@@ -1,0 +1,52 @@
+// 定义仓库  
+repositories {
+    maven {
+        url "https://cursemaven.com"
+    }
+    maven {
+        name = "BlameJared Maven"
+        url = "https://maven.blamejared.com"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+}
+
+// 定义依赖  
+dependencies {
+    // WorldEdit 依赖  
+    implementation fg.deobf("curse.maven:worldedit-225608:4586218")
+
+    // CraftTweaker 依赖  
+    compileOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.17')
+    runtimeOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.17')
+
+    // JEI 依赖  
+    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
+    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.2.0.27")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
+
+}
+
+// Minecraft 配置  
+minecraft {
+    runs {
+        client {
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+        }
+        server {
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+        }
+        data {
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+        }
+    }
+}

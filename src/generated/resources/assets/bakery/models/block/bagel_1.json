@@ -1,0 +1,7 @@
+{
+  "parent": "bakery:custom/bagel_1",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakery:block/bagel"
+  }
+}
