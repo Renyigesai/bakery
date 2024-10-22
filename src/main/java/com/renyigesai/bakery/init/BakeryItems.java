@@ -102,7 +102,7 @@ public class BakeryItems {
             }
             @Override
             public InteractionResult useOn(UseOnContext context) {
-                super.useOn(context);
+
                 Player player = context.getPlayer();
                 InteractionHand hand = context.getHand();
                 Level level = context.getLevel();
@@ -122,7 +122,7 @@ public class BakeryItems {
                         return pileUp(level, pos, state, handStack);
                     }
                 }
-                return InteractionResult.FAIL;
+                return super.useOn(context);
             }
             public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
                 int pile = state.getValue(PileBlock.PILE);
