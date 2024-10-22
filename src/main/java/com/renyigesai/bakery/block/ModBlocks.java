@@ -5,6 +5,7 @@ import com.renyigesai.bakery.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -19,10 +20,19 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, bakery.MODID);
 
     public static final RegistryObject<Block> BAGEL_BLOCK = registerBlock("bagel_block",() ->
-        new BagelBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f)));
+        new PileBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f).sound(SoundType.WOOL)));
 
     public static final RegistryObject<Block> BAGUETTE_BLOCK = registerBlock("baguette_block",() ->
-            new BaguetteBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f)));
+            new PileBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f).sound(SoundType.WOOL)));
+
+    public static final RegistryObject<Block> CINNAMON_ROLL_BLOCK = registerBlock("cinnamon_roll_block",() ->
+            new PileBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f).sound(SoundType.WOOL)));
+
+    public static final RegistryObject<Block> COUNTRY_BREAD_BLOCK = registerBlock("country_bread_block",() ->
+            new PileBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f).sound(SoundType.WOOL)));
+
+    public static final RegistryObject<Block> CROISSANT_BLOCK = registerBlock("croissant_block",() ->
+            new PileBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f).sound(SoundType.WOOL)));
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String nmae, Supplier<T> block){

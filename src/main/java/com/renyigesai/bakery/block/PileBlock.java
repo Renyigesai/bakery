@@ -32,9 +32,10 @@ public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_F
     public static final IntegerProperty PILE = IntegerProperty.create("pile", 1, 4);
     protected static final VoxelShape X_SHAPE = Block.box(6.0D, 0.0D, 5.0D, 10.0D, 4.0D, 11.0D);
     protected static final VoxelShape Z_SHAPE = Block.box(5.0D, 0.0D, 6.0D, 11.0D, 4.0D, 10.0D);
+
     private static final VoxelShape X_AXIS_SHAPE = Shapes.or(X_SHAPE);
     private static final VoxelShape Z_AXIS_SHAPE = Shapes.or(Z_SHAPE);
-    protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
+    protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
 
 
     public PileBlock(Properties p_49795_) {
@@ -43,17 +44,18 @@ public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_F
     }
 
     public ItemStack getPileItem() {
-        return new ItemStack(Blocks.AIR.asItem());
+        return new ItemStack(asItem());
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        Direction direction = state.getValue(FACING);
-        int pile = state.getValue(PILE);
-        if(pile > 1){
-            return SHAPE;
-        }
-        return direction.getAxis() == Direction.Axis.X ? X_AXIS_SHAPE : Z_AXIS_SHAPE;
+//        Direction direction = state.getValue(FACING);
+//        int pile = state.getValue(PILE);
+//        if(pile > 1){
+//            return SHAPE;
+//        }
+//        return direction.getAxis() == Direction.Axis.X ? X_AXIS_SHAPE : Z_AXIS_SHAPE;
+        return SHAPE;
     }
 
 
@@ -74,6 +76,7 @@ public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_F
         }
         if (heldStack.is(getPileItem().getItem()) && pile < 4){
             return pileUp(level, pos, state, player);
+            //heldStack.is(getPileItem().getItem()) && pile < 4
         }
         return InteractionResult.FAIL;
 
