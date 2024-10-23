@@ -1,4 +1,4 @@
-package com.renyigesai.bakery.api;
+package com.renyigesai.bakery.api.block;
 
 import lombok.Getter;
 import net.minecraft.client.gui.screens.Screen;

@@ -1,7 +1,7 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.api.PileBlock;
+import com.renyigesai.bakery.api.block.PileBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

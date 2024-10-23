@@ -28,6 +28,7 @@ public class BItemModelProvider extends net.minecraftforge.client.model.generato
         blockItem(BakeryBlocks.BAGUETTE_BLOCK,"_1");
         blockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK,"_1");
         blockItem(BakeryBlocks.CROISSANT_BLOCK,"_1");
+        blockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, "_1");
 
 //        basicItem(BakeryItems.BAGEL_DOUGH.get());
 //        basicItem(BakeryItems.BAGUETTE_DOUGH.get());
@@ -69,6 +70,7 @@ public class BItemModelProvider extends net.minecraftforge.client.model.generato
         return getBuilder(this.name(item.get()))
                 .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(item.get()))));
     }
+
     private ItemModelBuilder blockItem(Supplier<Block> block, String index) {
         return this.getBuilder(this.name(block.get()))
                 .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index)));

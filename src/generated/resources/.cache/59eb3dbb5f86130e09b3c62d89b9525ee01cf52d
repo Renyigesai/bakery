@@ -1,6 +1,6 @@
-// 1.20.1	2024-10-22T22:04:20.6415334	Loot Tables
-5f50f7cfeacfce788a58cde1ce2a0b251e5c346a data/bakery/loot_tables/blocks/bagel.json
-83842736568c8af932b8b58d06a1e3306dcf11b0 data/bakery/loot_tables/blocks/baguette.json
-838450f85378026bc901fd0d5c266c8611619b34 data/bakery/loot_tables/blocks/cinnamon_roll.json
-58fe1f3d5d745d3866a8bf91a4a6113fc89880ac data/bakery/loot_tables/blocks/country_bread.json
-49dddd24c9900438c291bc2f827ca3f5ae7f3906 data/bakery/loot_tables/blocks/croissant.json
+// 1.20.1	2024-10-23T21:32:57.4589736	Loot Tables
+7d3cec0e7ec94ccef39c0fdf7f2685a0882f6962 data/bakery/loot_tables/blocks/bagel.json
+186c58762a7034486e81d107c95bdb0b445394df data/bakery/loot_tables/blocks/baguette.json
+b8a51df78ce017c6302568b4f43c3de1c528652f data/bakery/loot_tables/blocks/cinnamon_roll.json
+f8dfd7c554c3750f5f85f308dd063f81c84b5386 data/bakery/loot_tables/blocks/country_bread.json
+94b1d8e281472b8e304bf7e55622f382dfb18bfe data/bakery/loot_tables/blocks/croissant.json

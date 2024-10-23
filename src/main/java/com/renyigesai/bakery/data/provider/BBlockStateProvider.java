@@ -2,16 +2,12 @@ package com.renyigesai.bakery.data.provider;
 
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.api.PileBlock;
+import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.init.BakeryBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -32,6 +28,7 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
         pileBlock(BakeryBlocks.BAGUETTE_BLOCK);
         pileBlock(BakeryBlocks.CINNAMON_ROLL_BLOCK);
         pileBlock(BakeryBlocks.CROISSANT_BLOCK);
+        country_bread(BakeryBlocks.COUNTRY_BREAD_BLOCK);
     }
     public void pileBlock(Supplier<? extends Block> block) {
         for(int pile : PileBlock.PILE.getPossibleValues()) {
@@ -40,6 +37,25 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
                             this.modLoc("custom/"+ this.name(block.get())+ "_" + pile))
                     .texture("0", this.modLoc("block/" + this.name(block.get())))
                     .renderType(CUTOUT);
+            for (Direction facing :  Direction.Plane.HORIZONTAL) {
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(PileBlock.FACING, facing)
+                        .with(PileBlock.PILE, pile)
+                        .modelForState()
+                        .modelFile(modelFile)
+                        .rotationY((int) facing.toYRot())
+                        .addModel();
+            }
+        }
+    }
+    public void country_bread(Supplier<? extends Block> block) {
+        ModelFile modelFile = this.models().withExistingParent(
+                        this.name(block.get()) ,
+                        this.modLoc("custom/"+ this.name(block.get())+"_1"))
+                .texture("0", this.modLoc("block/" + this.name(block.get())))
+                .renderType(CUTOUT);
+        for(int pile : PileBlock.PILE.getPossibleValues()) {
             for (Direction facing :  Direction.Plane.HORIZONTAL) {
                 this.getVariantBuilder(block.get())
                         .partialState()

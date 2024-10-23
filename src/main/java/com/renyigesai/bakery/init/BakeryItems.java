@@ -1,7 +1,8 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.api.PileBlock;
+import com.renyigesai.bakery.api.block.PileBlock;
+import com.renyigesai.bakery.api.item.FoodBlockSwordItem;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -13,8 +14,10 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -75,10 +78,13 @@ public class BakeryItems {
         SALT_CROISSANT = foodItem("salt_croissant", BakeryFoodProperties.SALT_CROISSANT);
         //Bread Items
         BAGEL_BLOCK = foodBlockItem(BakeryBlocks.BAGEL_BLOCK, BakeryFoodProperties.BAGEL);
-        BAGUETTE_BLOCK = foodBlockItem(BakeryBlocks.BAGUETTE_BLOCK, BakeryFoodProperties.BAGUETTE);
         CINNAMON_ROLL_BLOCK = foodBlockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK, BakeryFoodProperties.CINNAMON_ROLL);
         COUNTRY_BREAD_BLOCK = foodBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, BakeryFoodProperties.COUNTRY_BREAD);
         CROISSANT_BLOCK = foodBlockItem(BakeryBlocks.CROISSANT_BLOCK, BakeryFoodProperties.CROISSANT);
+
+        BAGUETTE_BLOCK = foodBlockSwordItem(BakeryBlocks.BAGUETTE_BLOCK, BakeryFoodProperties.BAGUETTE,
+                1000, 0.0F, 0.0F, 0, 0, null, 0, 0);
+
     }
 
     private static RegistryObject<Item> item(String pName) {
@@ -89,6 +95,89 @@ public class BakeryItems {
     }
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().food(foodProperties)){
+            @Override
+            protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
+                int pile = pState.getValue(PileBlock.PILE);
+                BlockPos pos = pContext.getClickedPos();
+                Level level = pContext.getLevel();
+                if(Screen.hasShiftDown()) {
+                    return super.placeBlock(pContext, pState);
+                }else {
+                    return false;
+                }
+            }
+            @Override
+            public InteractionResult useOn(UseOnContext context) {
+
+                Player player = context.getPlayer();
+                InteractionHand hand = context.getHand();
+                Level level = context.getLevel();
+                BlockPos pos = context.getClickedPos();
+                BlockState state = level.getBlockState(pos);
+                Block block = state.getBlock();
+                ItemStack handStack = player.getItemInHand(hand);
+                boolean isPile = handStack.is(asItem());
+                if(block instanceof PileBlock){
+                    if (!level.isClientSide) {
+                        if (isPile && Screen.hasShiftDown()) {
+                            return pileUp(level, pos, state, handStack);
+
+                        }
+                    }
+                    if (isPile && Screen.hasShiftDown()) {
+                        return pileUp(level, pos, state, handStack);
+                    }
+                }
+                return super.useOn(context);
+            }
+            public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
+                int pile = state.getValue(PileBlock.PILE);
+                if (pile < 4) {
+                    level.setBlock(pos,state.setValue(PileBlock.PILE, pile + 1),4);
+                    handStack.shrink(1);
+                    level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
+                }else {
+                    return InteractionResult.FAIL;
+                }
+                return InteractionResult.SUCCESS;
+
+            }
+
+
+        });
+    }
+    private static RegistryObject<Item> foodBlockSwordItem(RegistryObject<Block> block, FoodProperties foodProperties, int pUses, float pSpeed, float pAttackDamageBonus, int pLevel, int pEnchantmentValue, Ingredient pRepairIngredient, int pAttackDamageModifier, float pAttackSpeedModifier) {
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockSwordItem(block.get(), new Item.Properties().food(foodProperties), new Tier() {
+            @Override
+            public int getUses() {
+                return pUses;
+            }
+
+            @Override
+            public float getSpeed() {
+                return pSpeed;
+            }
+
+            @Override
+            public float getAttackDamageBonus() {
+                return pAttackDamageBonus;
+            }
+
+            @Override
+            public int getLevel() {
+                return pLevel;
+            }
+
+            @Override
+            public int getEnchantmentValue() {
+                return pEnchantmentValue;
+            }
+
+            @Override
+            public Ingredient getRepairIngredient() {
+                return pRepairIngredient;
+            }
+        }, pAttackDamageModifier, pAttackSpeedModifier){
             @Override
             protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
                 int pile = pState.getValue(PileBlock.PILE);
