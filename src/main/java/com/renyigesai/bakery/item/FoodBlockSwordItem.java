@@ -1,18 +1,12 @@
-package com.renyigesai.bakery.api.item;
+package com.renyigesai.bakery.item;
 
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import javax.annotation.Nullable;
-
-public class FoodBlockSwordItem extends BlockSwordItem{
+public class FoodBlockSwordItem extends BlockSwordItem {
     public FoodBlockSwordItem(Block pBlock, Properties pProperties, Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier) {
         super(pBlock, pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }

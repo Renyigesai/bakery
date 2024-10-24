@@ -2,6 +2,7 @@ package com.renyigesai.bakery.data;
 
 
 import com.renyigesai.bakery.BakeryMod;
+//import com.renyigesai.bakery.data.loot.BLootTableProvider;
 import com.renyigesai.bakery.data.loot.BLootTableProvider;
 import com.renyigesai.bakery.data.provider.BBlockStateProvider;
 import com.renyigesai.bakery.data.provider.BItemModelProvider;

@@ -1,5 +1,5 @@
 {
-  "block.bakery.bagel": "Bagel",
+  "block.bakery.bagel_block": "Bagel",
   "block.bakery.baguette": "Baguette",
   "block.bakery.cinnamon_roll": "Cinnamon Roll",
   "block.bakery.country_bread": "Country Bread",
@@ -19,11 +19,15 @@
   "item.bakery.pineapple_bun_dough": "Pineapple Bun",
   "item.bakery.raw_egg_tart": "Raw Egg Tart",
   "item.bakery.raw_pumpkin_pie": "Pumpkin Pie",
-  "item.bakery.raw_tare_crust": "Tare Crust",
+  "item.bakery.raw_tare_crust": "Raw Tare Crust",
   "item.bakery.round_bread": "Round Bread",
   "item.bakery.round_bread_dough": "Round Bread Dough",
   "item.bakery.salt": "Salt",
-  "item.bakery.salt_croissant": "Salted Bagel",
-  "item.bakery.salt_croissant_dough": "Salted Croissant",
-  "item.bakery.tart_shell": "Tart Shell"
+  "item.bakery.salt_croissant": "Salt Croissant",
+  "item.bakery.salt_croissant_dough": "Salt Croissant Dough",
+  "item.bakery.tart_shell": "Tart Shell",
+  "raw_item.tips.bakery.salted_dough": "§6Salted Dough ",
+  "raw_item.tips.bakery.sweet_dough": "§6Sweet Dough ",
+  "raw_item.tips.bakery.whole_wheat_dough": "§6Whole Wheat Dough ",
+  "raw_item.tips.bakery.shift": "Hold §6Shift§f to view "
 }

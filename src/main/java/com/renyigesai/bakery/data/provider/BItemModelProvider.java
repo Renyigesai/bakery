@@ -3,7 +3,6 @@ package com.renyigesai.bakery.data.provider;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.init.BakeryBlocks;
-import com.renyigesai.bakery.init.BakeryItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

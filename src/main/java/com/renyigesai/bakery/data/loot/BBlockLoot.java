@@ -2,7 +2,7 @@ package com.renyigesai.bakery.data.loot;
 
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.api.block.PileBlock;
+import com.renyigesai.bakery.block.PileBlock;
 import com.renyigesai.bakery.init.BakeryBlocks;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;

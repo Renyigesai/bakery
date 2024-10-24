@@ -39,35 +39,35 @@ public class BLanguageProvider extends net.minecraftforge.common.data.LanguagePr
     }
     @Override
     protected void addTranslations() {
-        addBlock(BakeryBlocks.BAGEL_BLOCK, "Bagel", "百吉饼");
-        addBlock(BakeryBlocks.BAGUETTE_BLOCK, "Baguette", "法式长棍面包");
+        addBlock(BakeryBlocks.BAGEL_BLOCK, "Bagel", "贝果");
+        addBlock(BakeryBlocks.BAGUETTE_BLOCK, "Baguette", "法棍");
         addBlock(BakeryBlocks.CINNAMON_ROLL_BLOCK, "Cinnamon Roll", "肉桂卷");
         addBlock(BakeryBlocks.COUNTRY_BREAD_BLOCK, "Country Bread", "乡村面包");
-        addBlock(BakeryBlocks.CROISSANT_BLOCK, "Croissant", "牛角面包");
+        addBlock(BakeryBlocks.CROISSANT_BLOCK, "Croissant", "可颂");
 
-        addItem(BakeryItems.BAGEL_DOUGH, "Bagel Dough", "百吉饼面团");
-        addItem(BakeryItems.BAGUETTE_DOUGH, "Baguette Dough", "法式长棍面包面团");
-        addItem(BakeryItems.BROWN_SUGAR_CUBE, "Brown Sugar Cube", "糖块");
+        addItem(BakeryItems.BAGEL_DOUGH, "Bagel Dough", "贝果面胚");
+        addItem(BakeryItems.BAGUETTE_DOUGH, "Baguette Dough", "法棍面胚");
+        addItem(BakeryItems.BROWN_SUGAR_CUBE, "Brown Sugar Cube", "红糖块");
         addItem(BakeryItems.BUTTER_CUBE, "Butter Cube", "黄油块");
-        addItem(BakeryItems.CINNAMON_ROLL_DOUGH, "Cinnamon Roll Dough", "肉桂卷面团");
-        addItem(BakeryItems.COUNTRY_BREAD_DOUGH, "Country Bread Dough", "乡村面包面团");
-        addItem(BakeryItems.CROISSANT_DOUGH, "Croissant Dough", "牛角面包面团");
+        addItem(BakeryItems.CINNAMON_ROLL_DOUGH, "Cinnamon Roll Dough", "肉桂卷面胚");
+        addItem(BakeryItems.COUNTRY_BREAD_DOUGH, "Country Bread Dough", "乡村面包面胚");
+        addItem(BakeryItems.CROISSANT_DOUGH, "Croissant Dough", "可颂面胚");
         addItem(BakeryItems.FLOUR, "Flour", "面粉");
-        addItem(BakeryItems.FLOUR_RYE, "Rye Flour", "黑麦面粉");
-        addItem(BakeryItems.PINEAPPLE_BUN, "Pineapple Bun", "菠萝饼");
-        addItem(BakeryItems.PINEAPPLE_BUN_DOUGH, "Pineapple Bun", "菠萝饼");
+        addItem(BakeryItems.FLOUR_RYE, "Rye Flour", "全麦面粉");
+        addItem(BakeryItems.PINEAPPLE_BUN, "Pineapple Bun", "菠萝包");
+        addItem(BakeryItems.PINEAPPLE_BUN_DOUGH, "Pineapple Bun", "菠萝包面胚");
         addItem(BakeryItems.RAW_EGG_TART, "Raw Egg Tart", "生蛋挞");
         addItem(BakeryItems.RAW_PUMPKIN_PIE, "Pumpkin Pie", "南瓜派");
-        addItem(BakeryItems.RAW_TARE_CRUST, "Tare Crust", "白皮面团");
-        addItem(BakeryItems.ROUND_BREAD_DOUGH, "Round Bread Dough", "圆面包面团");
+        addItem(BakeryItems.RAW_TARE_CRUST, "Raw Tare Crust", "生派壳");
+        addItem(BakeryItems.ROUND_BREAD_DOUGH, "Round Bread Dough", "圆面包面胚");
         addItem(BakeryItems.SALT, "Salt", "盐");
-        addItem(BakeryItems.SALT_CROISSANT, "Salted Bagel", "咸味百吉饼");
-        addItem(BakeryItems.SALT_CROISSANT_DOUGH, "Salted Croissant", "咸味牛角面包");
+        addItem(BakeryItems.SALT_CROISSANT, "Salt Croissant", "盐可颂");
+        addItem(BakeryItems.SALT_CROISSANT_DOUGH, "Salt Croissant Dough", "盐可颂面胚");
         addItem(BakeryItems.ROUND_BREAD, "Round Bread", "圆面包");
-        addItem(BakeryItems.TART_SHELL, "Tart Shell", "甜甜圈壳");
+        addItem(BakeryItems.TART_SHELL, "Tart Shell", "蛋挞壳");
 
-        addTab(BakeryGroup.BAKERY_TAB, "Bakery", "面包");
-        addTab(BakeryGroup.BAKERY_SEMI_MANUFACTURED_PRODUCT_TAB, "Bakery Semi-Manufactured Product", "半成品面包");
+        addTab(BakeryGroup.BAKERY_TAB, "Bakery", "烘焙房");
+        addTab(BakeryGroup.BAKERY_SEMI_MANUFACTURED_PRODUCT_TAB, "Bakery Semi-Manufactured Product", "半成品");
 
     }
     @Override
