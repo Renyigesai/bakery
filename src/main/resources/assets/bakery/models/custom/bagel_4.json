@@ -1,10 +1,4 @@
 {
-	"credit": "Made with Blockbench",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"0": "bakery:block/bagel",
-		"particle": "bakery:block/bagel"
-	},
 	"elements": [
 		{
 			"from": [5, -1.25, 4.75],

@@ -1,6 +1,26 @@
-// 1.20.1	2024-10-23T21:32:57.4561341	Item Models: bakery
+// 1.20.1	2024-10-24T19:29:12.5900127	Item Models: bakery
 0ef06fc2b1227fc4f246cc7bea467f2aa150af34 assets/bakery/models/item/bagel.json
+69c813e723bb3ccdd031a01a6538860cc5da4cc3 assets/bakery/models/item/bagel_dough.json
 f0469160abf6974ebf8c2e8e18ebfe53abe055f3 assets/bakery/models/item/baguette.json
+9c8bc044dade262f28652bda193536136f3d1cfc assets/bakery/models/item/baguette_dough.json
+54c810a21f1c41a03a3d827e9da29df34314205c assets/bakery/models/item/brown_sugar_cube.json
+c20fac81bab74f0fa473885f72b04aae49ca831d assets/bakery/models/item/butter_cube.json
 d4264a9814a163e3ff4835cec408efb900fa9b8f assets/bakery/models/item/cinnamon_roll.json
-d94089bef3e407647766d85a08e217c24ee4a479 assets/bakery/models/item/country_bread.json
+bfdced502b51872e419f3679f4760ec174d7bfb8 assets/bakery/models/item/cinnamon_roll_dough.json
+dee6580124e2438de737ba10a74a53d0eb9b352d assets/bakery/models/item/country_bread.json
+6f66f1ddcb3b8173fc869ff690816ff15ff60861 assets/bakery/models/item/country_bread_dough.json
 aa7ff01e20cf46fbd67c033a4539fa66a5a86c01 assets/bakery/models/item/croissant.json
+e0330c362c0e043b118ce357d306ae9ccdbdbfa3 assets/bakery/models/item/croissant_dough.json
+1eb25ae41661b1e43d2378ba9a6ddaf5edaf6913 assets/bakery/models/item/flour.json
+0bee9bab95ec7eda2e499df477689bd911655764 assets/bakery/models/item/flour_rye.json
+38553b5c521d6782c506baeeacdb17d73193cf68 assets/bakery/models/item/pineapple_bun.json
+477747822f98b43964d6a4af25c182b04c2f8cb3 assets/bakery/models/item/pineapple_bun_dough.json
+476e043e8d243b9d38597be97fcc9ed223806b54 assets/bakery/models/item/raw_egg_tart.json
+d782636d0de9f931a2b712907a3e047477be3e70 assets/bakery/models/item/raw_pumpkin_pie.json
+d3a25bdc7f794bea17c88a16b35591a7e413a3e7 assets/bakery/models/item/raw_tare_crust.json
+df212330993e230a3858878c7729d0ee2e6d0812 assets/bakery/models/item/round_bread.json
+aedabeb766c9d46118d99864c0ea7e394580d0ac assets/bakery/models/item/round_bread_dough.json
+677cbeead03396a0cb9d28a47ec91fc3de0db0e3 assets/bakery/models/item/salt.json
+2b71423f191d848e604e1a8e8bbf180b0915f4a8 assets/bakery/models/item/salt_croissant.json
+0a3e30a0db0ab5bb0156fb829c41ed31cd2e3e5d assets/bakery/models/item/salt_croissant_dough.json
+a658b19a9378284c38ab1b426a06bc8f729efa52 assets/bakery/models/item/tart_shell.json

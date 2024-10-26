@@ -2,7 +2,7 @@ package com.renyigesai.bakery.data.provider;
 
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.block.PileBlock;
+import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.init.BakeryBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;

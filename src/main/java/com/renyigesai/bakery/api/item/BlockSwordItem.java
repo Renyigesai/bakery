@@ -1,4 +1,4 @@
-package com.renyigesai.bakery.item;
+package com.renyigesai.bakery.api.item;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
@@ -36,7 +37,7 @@ public class BlockSwordItem extends SwordItem  {
     public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
     public static final String BLOCK_STATE_TAG = "BlockStateTag";
     private final Block block;
-    public BlockSwordItem(Block pBlock, Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
+    public BlockSwordItem(Block pBlock, Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
         this.block = pBlock;
     }

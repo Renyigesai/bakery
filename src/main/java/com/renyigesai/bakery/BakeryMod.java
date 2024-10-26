@@ -1,10 +1,11 @@
 package com.renyigesai.bakery;
 
 import com.mojang.logging.LogUtils;
-import com.renyigesai.bakery.config.BakeryConfig;
 import com.renyigesai.bakery.init.BakeryBlocks;
+import com.renyigesai.bakery.config.BakeryConfig;
 import com.renyigesai.bakery.init.BakeryGroup;
 import com.renyigesai.bakery.init.BakeryItems;
+import com.renyigesai.bakery.init.BakeryMenuType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,10 +27,11 @@ public class BakeryMod {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        BakeryItems.register(bus);
-        BakeryBlocks.register(bus);
-        BakeryGroup.register(bus);
-
+        BakeryItems.REGISTER.register(bus);
+        BakeryBlocks.BLOCK_REGISTRY.register(bus);
+        BakeryBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
+        BakeryGroup.REGISTER.register(bus);
+        BakeryMenuType.REGISTRY.register(bus);
 
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BakeryConfig.SPEC);
