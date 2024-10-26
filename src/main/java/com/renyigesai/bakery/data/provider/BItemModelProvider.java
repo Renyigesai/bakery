@@ -49,7 +49,7 @@ public class BItemModelProvider extends net.minecraftforge.client.model.generato
         basicItem(BakeryItems.SALT_CROISSANT, "custom/salt_croissant", "block/salt_croissant");
         basicItem(BakeryItems.SALT_CROISSANT_DOUGH, "custom/salt_croissant","item/raw_dough");
         basicItem(BakeryItems.TART_SHELL, "custom/tart_shell", "item/tart_shell");
-
+        basicBlockItem(BakeryBlocks.OVEN, "custom/oven", "block/oven");
     }
     public void basicItem(Supplier<Item> item, String pModelFile, String pTexture, String pTexture1) {
         this.withExistingParent(this.name(item.get()), this.modLoc(pModelFile))

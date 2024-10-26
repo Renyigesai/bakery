@@ -1,0 +1,26 @@
+// 1.20.1	2024-10-26T19:06:19.490587	Block States: bakery
+270cd2f2368914cd04703f8c8c1c1b438e10485a assets/bakery/blockstates/bagel.json
+b622910031363c927c7a1e741d319f9c2bc9dbc6 assets/bakery/blockstates/baguette.json
+15cd2cfc5672659d4fe280a35029380716b7b5dd assets/bakery/blockstates/cinnamon_roll.json
+f39f58368d88e15f16821fafa5307f45f3619fc0 assets/bakery/blockstates/country_bread.json
+872f55f44a9397575ed972ae84291fd7775f211f assets/bakery/blockstates/croissant.json
+d75509f2e5dbf8af91c010f3d15d8a1b84b8d121 assets/bakery/blockstates/oven.json
+f54d4ca6e4da6e8ba02aa4af3331c5aff54e31f6 assets/bakery/models/block/bagel_1.json
+11ccd859eeb47fa44b0f50b913c4ae6c670dcc59 assets/bakery/models/block/bagel_2.json
+daf190b63acacfb1b5da53566494239def6686ee assets/bakery/models/block/bagel_3.json
+ac61f6b9bf28009337674c5a131eece87e37c456 assets/bakery/models/block/bagel_4.json
+28972c7a0a71daf05243dfcd21f4f6c686a5b581 assets/bakery/models/block/baguette_1.json
+5b42ebaa521040250234c8e1f93d53ce50a479ba assets/bakery/models/block/baguette_2.json
+4a9d1272fee207ea87b5672d89e76943aa0c7f57 assets/bakery/models/block/baguette_3.json
+b904c1e1dd93bc588171a15f7a63441cd759abec assets/bakery/models/block/baguette_4.json
+9573d77dcde8a08c4ed5689d916f8b1f85a6ea85 assets/bakery/models/block/cinnamon_roll_1.json
+ecbc8b5c4d95e0c3e494e0736d9fc9d96883c959 assets/bakery/models/block/cinnamon_roll_2.json
+73f386e4910b8d9f4d2a60d427b49d623b50828c assets/bakery/models/block/cinnamon_roll_3.json
+db1e9cab903376ee620be7dafad557cd2ca09555 assets/bakery/models/block/cinnamon_roll_4.json
+f2df04b61f2c7ac9ae1e64afd8774ae144f36973 assets/bakery/models/block/country_bread.json
+a83276db104ae58848c41fc75dd8af6ec1ef0008 assets/bakery/models/block/croissant_1.json
+695bafb132383e33c63f06d4259f67c6075b8e06 assets/bakery/models/block/croissant_2.json
+87907904694eb5efcb039aadc39ca64c18c255d3 assets/bakery/models/block/croissant_3.json
+c045937675873469b68d3310384cc7dfb832d710 assets/bakery/models/block/croissant_4.json
+cd9b5419e2b43cd603db48a1c271dc8f200cbc2e assets/bakery/models/block/oven.json
+8a8ab52b2e34fa97daf623d38dde25c5e222b84b assets/bakery/models/block/oven_fire.json

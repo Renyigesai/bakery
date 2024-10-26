@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,10 +56,10 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
                 });
         }
 
-        this.customSlots.put(0, this.addSlot(new OvenSlot(internal, 0, 79, 17) {
+        this.customSlots.put(0, this.addSlot(new OvenSlot(internal, 0, 79, 17,false) {
             private final int slot = 0;
         }));
-        this.customSlots.put(1, this.addSlot(new OvenSlot(internal, 1, 79, 62) {
+        this.customSlots.put(1, this.addSlot(new OvenSlot(internal, 1, 79, 62,false) {
             private final int slot = 1;
 
             @Override

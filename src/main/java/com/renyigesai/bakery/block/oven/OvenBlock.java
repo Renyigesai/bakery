@@ -29,7 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import javax.annotation.Nullable;
 
 public class OvenBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public BooleanProperty LIT = BooleanProperty.create("lit");
+    public static BooleanProperty LIT = BooleanProperty.create("lit");
 
     public OvenBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);

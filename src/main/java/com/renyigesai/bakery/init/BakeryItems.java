@@ -1,27 +1,12 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
-import com.renyigesai.bakery.api.item.FoodBlockSwordItem;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
+import com.renyigesai.bakery.item.BaguetteItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -55,6 +40,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> PINEAPPLE_BUN;
     public static final RegistryObject<Item> ROUND_BREAD;
     public static final RegistryObject<Item> SALT_CROISSANT;
+    public static final RegistryObject<Item> OVEN;
 
     static {
         FLOUR = item("flour");
@@ -83,9 +69,8 @@ public class BakeryItems {
         COUNTRY_BREAD_BLOCK = foodBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, BakeryFoodProperties.COUNTRY_BREAD);
         CROISSANT_BLOCK = foodBlockItem(BakeryBlocks.CROISSANT_BLOCK, BakeryFoodProperties.CROISSANT);
 
-        BAGUETTE_BLOCK = foodBlockSwordItem(BakeryBlocks.BAGUETTE_BLOCK, BakeryFoodProperties.BAGUETTE,
-                1000, 0.0F, 0.0F, 0, 0, null, 0, 0);
-
+        BAGUETTE_BLOCK = REGISTER.register(BakeryBlocks.BAGUETTE_BLOCK.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE_BLOCK.get(), new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
+        OVEN = block(BakeryBlocks.OVEN);
     }
 
     private static RegistryObject<Item> item(String pName) {
@@ -96,89 +81,6 @@ public class BakeryItems {
     }
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
-    }
-    private static RegistryObject<Item> foodBlockSwordItem(RegistryObject<Block> block, FoodProperties foodProperties, int pUses, float pSpeed, float pAttackDamageBonus, int pLevel, int pEnchantmentValue, Ingredient pRepairIngredient, int pAttackDamageModifier, float pAttackSpeedModifier) {
-        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockSwordItem(block.get(), new Item.Properties().food(foodProperties), new Tier() {
-            @Override
-            public int getUses() {
-                return pUses;
-            }
-
-            @Override
-            public float getSpeed() {
-                return pSpeed;
-            }
-
-            @Override
-            public float getAttackDamageBonus() {
-                return pAttackDamageBonus;
-            }
-
-            @Override
-            public int getLevel() {
-                return pLevel;
-            }
-
-            @Override
-            public int getEnchantmentValue() {
-                return pEnchantmentValue;
-            }
-
-            @Override
-            public Ingredient getRepairIngredient() {
-                return pRepairIngredient;
-            }
-        }, pAttackDamageModifier, pAttackSpeedModifier){
-            @Override
-            protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
-                int pile = pState.getValue(PileBlock.PILE);
-                BlockPos pos = pContext.getClickedPos();
-                Level level = pContext.getLevel();
-                if(Screen.hasShiftDown()) {
-                    return super.placeBlock(pContext, pState);
-                }else {
-                    return false;
-                }
-            }
-            @Override
-            public InteractionResult useOn(UseOnContext context) {
-
-                Player player = context.getPlayer();
-                InteractionHand hand = context.getHand();
-                Level level = context.getLevel();
-                BlockPos pos = context.getClickedPos();
-                BlockState state = level.getBlockState(pos);
-                Block block = state.getBlock();
-                ItemStack handStack = player.getItemInHand(hand);
-                boolean isPile = handStack.is(asItem());
-                if(block instanceof PileBlock){
-                    if (!level.isClientSide) {
-                        if (isPile && Screen.hasShiftDown()) {
-                            return pileUp(level, pos, state, handStack);
-
-                        }
-                    }
-                    if (isPile && Screen.hasShiftDown()) {
-                        return pileUp(level, pos, state, handStack);
-                    }
-                }
-                return super.useOn(context);
-            }
-            public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
-                int pile = state.getValue(PileBlock.PILE);
-                if (pile < 4) {
-                    level.setBlock(pos,state.setValue(PileBlock.PILE, pile + 1),4);
-                    handStack.shrink(1);
-                    level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
-                }else {
-                    return InteractionResult.FAIL;
-                }
-                return InteractionResult.SUCCESS;
-
-            }
-
-
-        });
     }
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {
         return REGISTER.register(pName, () -> new Item(new Item.Properties().food(foodProperties)));
