@@ -1,6 +1,6 @@
-[22:48:13.714][INFO][CraftTweaker-EarlyInit]: CraftTweaker is running on a Minecraft 1.20.1 development client modded with platform Forge
-[22:48:13.721][INFO][CraftTweaker-EarlyInit]: Successfully injected RecipeFS file system
-[22:48:13.755][INFO][CraftTweaker-Plugins]: Successfully identified and loaded plugin crafttweaker:builtin
-[22:48:13.756][INFO][CraftTweaker-Plugins]: Successfully identified and loaded plugin crafttweaker:builtin_forge
-[22:48:14.239][INFO][CraftTweaker]: The following mods have explicit CraftTweaker support through the default plugin:
-[22:48:14.240][INFO][CraftTweaker]: - 'crafttweaker' at version '14.0.17'
+[13:23:16.161][INFO][CraftTweaker-EarlyInit]: CraftTweaker is running on a Minecraft 1.20.1 development client modded with platform Forge
+[13:23:16.177][INFO][CraftTweaker-EarlyInit]: Successfully injected RecipeFS file system
+[13:23:16.228][INFO][CraftTweaker-Plugins]: Successfully identified and loaded plugin crafttweaker:builtin
+[13:23:16.228][INFO][CraftTweaker-Plugins]: Successfully identified and loaded plugin crafttweaker:builtin_forge
+[13:23:16.802][INFO][CraftTweaker]: The following mods have explicit CraftTweaker support through the default plugin:
+[13:23:16.805][INFO][CraftTweaker]: - 'crafttweaker' at version '14.0.17'

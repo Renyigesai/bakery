@@ -40,6 +40,7 @@ public class BLanguageProvider extends net.minecraftforge.common.data.LanguagePr
     @Override
     protected void addTranslations() {
         add("container.oven", "Oven", "烤炉");
+        addBlock(BakeryBlocks.FERMENTATION_TANK, "Fermentation Tank", "发酵罐");
         addBlock(BakeryBlocks.BAGEL_BLOCK, "Bagel", "贝果");
         addBlock(BakeryBlocks.BAGUETTE_BLOCK, "Baguette", "法棍");
         addBlock(BakeryBlocks.CINNAMON_ROLL_BLOCK, "Cinnamon Roll", "肉桂卷");

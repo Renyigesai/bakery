@@ -1,7 +1,6 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "liquid_storage_pot",
-	"ambientocclusion": false,
 	"textures": {
 		"1": "bakery:block/fermentation_tank",
 		"particle": "minecraft:block/glass"

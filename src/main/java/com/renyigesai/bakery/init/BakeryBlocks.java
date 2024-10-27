@@ -1,10 +1,12 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
+import com.renyigesai.bakery.api.block.FermentationTankBlock;
 import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,20 +19,40 @@ public class BakeryBlocks {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BakeryMod.MODID);
 
+    //Brean Pile Block
+
     public static final RegistryObject<Block> BAGEL_BLOCK;
     public static final RegistryObject<Block> BAGUETTE_BLOCK;
     public static final RegistryObject<Block> CINNAMON_ROLL_BLOCK;
     public static final RegistryObject<Block> COUNTRY_BREAD_BLOCK;
     public static final RegistryObject<Block> CROISSANT_BLOCK;
+    public static final RegistryObject<Block> PINEAPPLE_BUN;
+    public static final RegistryObject<Block> ROUND_BREAD;
+    public static final RegistryObject<Block> SALT_CROISSANT;
+
+    //common
+
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
+    public static final RegistryObject<Block> FERMENTATION_TANK;
+
     static {
+
+        //Brean Pile Block
+
         BAGEL_BLOCK = BLOCK_REGISTRY.register("bagel", PileBlock::new);
         BAGUETTE_BLOCK = BLOCK_REGISTRY.register("baguette", PileBlock::new);
         CINNAMON_ROLL_BLOCK = BLOCK_REGISTRY.register("cinnamon_roll", PileBlock::new);
         COUNTRY_BREAD_BLOCK = BLOCK_REGISTRY.register("country_bread", PileBlock::new);
         CROISSANT_BLOCK = BLOCK_REGISTRY.register("croissant", PileBlock::new);
+        PINEAPPLE_BUN = BLOCK_REGISTRY.register("pineapple_bun", PileBlock::new);
+        ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);
+        SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
+
+        //common
+
         OVEN = BLOCK_REGISTRY.register("oven", () -> new OvenBlock(BlockBehaviour.Properties.of()));
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
+        FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
     }
 }
