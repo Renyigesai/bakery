@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,7 +34,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 public class FermentationTankBlock extends Block {
     public static final IntegerProperty FLOUR = IntegerProperty.create("flour", 0, 3);
     public static final IntegerProperty WATER = IntegerProperty.create("water", 0, 1);
-    protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
+    protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
 
     public FermentationTankBlock(Properties pProperties) {
         super(pProperties);
@@ -99,13 +101,11 @@ public class FermentationTankBlock extends Block {
         int flour = pState.getValue(FLOUR);
         int water = pState.getValue(WATER);
         if (flour == 3 && water == 1){
-//            for (int i = 0; i < 4; i++) {
                 Direction direction = Direction.getRandom(pRandom);
                 double d0 = direction.getStepX() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepX() * 0.6D;
                 double d1 = direction.getStepY() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepY() * 0.6D;
                 double d2 = direction.getStepZ() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepZ() * 0.6D;
                 pLevel.addParticle(ParticleTypes.EFFECT, (double) pPos.getX() + d0, (double) pPos.getY() + d1, (double) pPos.getZ() + d2, 0.0D, 0.0D, 0.0D);
-//            }
         }
 
     }
@@ -128,5 +128,17 @@ public class FermentationTankBlock extends Block {
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
+    }
+
+    @Override
+    public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
+        int flour = pState.getValue(FLOUR);
+        for (int i = 0; i < flour; i++) {
+            double x = pPos.getX() + 0.5;
+            double y = pPos.getY() + 0.15;
+            double z = pPos.getZ() + 0.5;
+            ItemEntity entity = new ItemEntity((Level) pLevel, x, y, z, new ItemStack(BakeryItems.FLOUR_RYE.get()));
+            pLevel.addFreshEntity(entity);
+        }
     }
 }

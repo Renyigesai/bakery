@@ -28,5 +28,6 @@
   "item.bakery.salt_croissant_dough": "盐可颂面胚",
   "item.bakery.tart_shell": "蛋挞壳",
   "block.bakery.fermentation_tank": "发酵罐",
-  "block.bakery.yeast_tank": "满装酵母罐"
+  "block.bakery.yeast_tank": "满装酵母罐",
+  "item.bakery.bottle_yeast": "瓶装鲜酵母"
 }

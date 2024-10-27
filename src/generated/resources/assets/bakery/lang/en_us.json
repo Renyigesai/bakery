@@ -28,5 +28,6 @@
   "item.bakery.salt_croissant_dough": "Salt Croissant Dough",
   "item.bakery.tart_shell": "Tart Shell",
   "block.bakery.fermentation_tank": "Fermentation Tank",
-  "block.bakery.yeast_tank": "Yeast Tank"
+  "block.bakery.yeast_tank": "Yeast Tank",
+  "item.bakery.bottle_yeast": "Bottle Yeast"
 }

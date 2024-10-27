@@ -43,6 +43,8 @@ public class BakeryItems {
     public static final RegistryObject<Item> OVEN;
     public static final RegistryObject<Item> FERMENTATION_TANK;
     public static final RegistryObject<Item> YEAST_TANK;
+    public static final RegistryObject<Item> BOTTLE_YEAST;
+    //Bottle yeast
 
 
     static {
@@ -63,6 +65,7 @@ public class BakeryItems {
         ROUND_BREAD_DOUGH = item("round_bread_dough");
         SALT_CROISSANT_DOUGH = item("salt_croissant_dough");
         TART_SHELL = item("tart_shell");
+        BOTTLE_YEAST = item("bottle_yeast");
 //        PINEAPPLE_BUN = foodItem("pineapple_bun", BakeryFoodProperties.PINEAPPLE_BUN);
 //        ROUND_BREAD = foodItem("round_bread", BakeryFoodProperties.ROUND_BREAD);
 //        SALT_CROISSANT = foodItem("salt_croissant", BakeryFoodProperties.SALT_CROISSANT);

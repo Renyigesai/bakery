@@ -1,7 +1,10 @@
 package com.renyigesai.bakery.api.block;
 
 import com.renyigesai.bakery.init.BakeryBlocks;
+import com.renyigesai.bakery.init.BakeryItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +26,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 public class YeastTankBlock extends Block {
 
     public static final IntegerProperty YEAST = IntegerProperty.create("yeast", 0, 3);
-    protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
+    protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
 
     public YeastTankBlock(Properties pProperties) {
         super(pProperties);
@@ -41,10 +44,6 @@ public class YeastTankBlock extends Block {
         ItemStack hand = pPlayer.getItemInHand(pHand);
 
         if (hand.is(Items.GLASS_BOTTLE)){
-            int yeast = pState.getValue(YEAST);
-//            if (yeast == 1){
-//                pLevel.setBlock(pPos, BakeryBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
-//            }
             return ladleOut(pLevel,pPos,pState,pPlayer,pHand);
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
@@ -59,7 +58,8 @@ public class YeastTankBlock extends Block {
             level.setBlock(pos, BakeryBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
         hand.shrink(1);
-        ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(Items.APPLE));
+        ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(BakeryItems.BOTTLE_YEAST.get()));
+        level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 
