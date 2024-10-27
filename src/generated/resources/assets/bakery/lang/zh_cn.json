@@ -1,9 +1,10 @@
 {
-  "block.bakery.bagel_block": "贝果",
+  "block.bakery.bagel": "贝果",
   "block.bakery.baguette": "法棍",
   "block.bakery.cinnamon_roll": "肉桂卷",
   "block.bakery.country_bread": "乡村面包",
   "block.bakery.croissant": "可颂",
+  "container.oven": "烤炉",
   "creativetab_bakery_semi_manufactured_product_tab": "半成品",
   "creativetab_bakery_tab": "烘焙房",
   "item.bakery.bagel_dough": "贝果面胚",
@@ -25,9 +26,5 @@
   "item.bakery.salt": "盐",
   "item.bakery.salt_croissant": "盐可颂",
   "item.bakery.salt_croissant_dough": "盐可颂面胚",
-  "item.bakery.tart_shell": "蛋挞壳",
-  "raw_item.tips.bakery.salted_dough": "§6咸面团 ",
-  "raw_item.tips.bakery.sweet_dough": "§6甜面团 ",
-  "raw_item.tips.bakery.whole_wheat_dough": "§6全麦面团 ",
-  "raw_item.tips.bakery.shift": "按住 §6Shift§f 查看更多"
+  "item.bakery.tart_shell": "蛋挞壳"
 }

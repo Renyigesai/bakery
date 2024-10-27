@@ -2,67 +2,62 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakery:baguette",
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": 1,
+              "add": false,
               "conditions": [
                 {
-                  "condition": "minecraft:block_state_property",
                   "block": "bakery:baguette",
-                  "properties": {
-                    "pile": "1"
-                  }
-                }
-              ]
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 2,
-              "conditions": [
-                {
                   "condition": "minecraft:block_state_property",
-                  "block": "bakery:baguette",
                   "properties": {
                     "pile": "2"
                   }
                 }
-              ]
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
             },
             {
-              "function": "minecraft:set_count",
-              "count": 3,
+              "add": false,
               "conditions": [
                 {
-                  "condition": "minecraft:block_state_property",
                   "block": "bakery:baguette",
+                  "condition": "minecraft:block_state_property",
                   "properties": {
                     "pile": "3"
                   }
                 }
-              ]
+              ],
+              "count": 3.0,
+              "function": "minecraft:set_count"
             },
             {
-              "function": "minecraft:set_count",
-              "count": 4,
+              "add": false,
               "conditions": [
                 {
-                  "condition": "minecraft:block_state_property",
                   "block": "bakery:baguette",
+                  "condition": "minecraft:block_state_property",
                   "properties": {
                     "pile": "4"
                   }
                 }
-              ]
+              ],
+              "count": 4.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "function": "minecraft:explosion_decay"
             }
-          ]
+          ],
+          "name": "minecraft:air"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "bakery:blocks/baguette"
 }

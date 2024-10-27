@@ -1,109 +1,92 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
+import com.renyigesai.bakery.api.item.FoodBlockItem;
 import com.renyigesai.bakery.item.BaguetteItem;
-import com.renyigesai.bakery.item.BakeryBlockFoodItem;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class BakeryItems {
+    public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, BakeryMod.MODID);
+    public static final RegistryObject<Item> FLOUR;
+    public static final RegistryObject<Item> FLOUR_RYE;
+    public static final RegistryObject<Item> SALT;
+    public static final RegistryObject<Item> BUTTER_CUBE;
+    public static final RegistryObject<Item> BROWN_SUGAR_CUBE;
+    public static final RegistryObject<Item> BAGEL_DOUGH;
+    public static final RegistryObject<Item> BAGUETTE_DOUGH;
+    public static final RegistryObject<Item> CINNAMON_ROLL_DOUGH;
+    public static final RegistryObject<Item> COUNTRY_BREAD_DOUGH;
+    public static final RegistryObject<Item> CROISSANT_DOUGH;
+    public static final RegistryObject<Item> PINEAPPLE_BUN_DOUGH;
+    public static final RegistryObject<Item> RAW_EGG_TART;
+    public static final RegistryObject<Item> RAW_PUMPKIN_PIE;
+    public static final RegistryObject<Item> RAW_TARE_CRUST;
+    public static final RegistryObject<Item> ROUND_BREAD_DOUGH;
+    public static final RegistryObject<Item> SALT_CROISSANT_DOUGH;
+    public static final RegistryObject<Item> TART_SHELL;
 
-    public static String SWEET_DOUGH = "raw_item.tips.bakery.sweet_dough";
-    public static String SALTED_DOUGH = "raw_item.tips.bakery.salted_dough";
-    public static String WHOLE_WHEAT_DOUGH = "raw_item.tips.bakery.whole_wheat_dough";
-    public static String TEMPERATURE_100 ="§7100°C";
-    public static String TEMPERATURE_150 ="§7150°C";
-    public static String TEMPERATURE_200 ="§7200°C";
-    public static String TEMPERATURE_250 ="§7250°C";
-    public static String TEMPERATURE_300 ="§7300°C";
+    public static final RegistryObject<Item> BAGEL_BLOCK;
+    public static final RegistryObject<Item> BAGUETTE_BLOCK;
+    public static final RegistryObject<Item> CINNAMON_ROLL_BLOCK;
+    public static final RegistryObject<Item> COUNTRY_BREAD_BLOCK;
+    public static final RegistryObject<Item> CROISSANT_BLOCK;
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BakeryMod.MODID);
+    public static final RegistryObject<Item> PINEAPPLE_BUN;
+    public static final RegistryObject<Item> ROUND_BREAD;
+    public static final RegistryObject<Item> SALT_CROISSANT;
+    public static final RegistryObject<Item> OVEN;
 
-    public static final RegistryObject<Item> FLOUR = ITEMS.register("flour",() ->
-            new Item(new Item.Properties()));
+    static {
+        FLOUR = item("flour");
+        FLOUR_RYE = item("flour_rye");
+        SALT = item("salt");
+        BUTTER_CUBE = item("butter_cube");
+        BROWN_SUGAR_CUBE = item("brown_sugar_cube");
+        BAGEL_DOUGH = item("bagel_dough");
+        BAGUETTE_DOUGH = item("baguette_dough");
+        CINNAMON_ROLL_DOUGH = item("cinnamon_roll_dough");
+        COUNTRY_BREAD_DOUGH = item("country_bread_dough");
+        CROISSANT_DOUGH = item("croissant_dough");
+        PINEAPPLE_BUN_DOUGH = item("pineapple_bun_dough");
+        RAW_EGG_TART = item("raw_egg_tart");
+        RAW_PUMPKIN_PIE = item("raw_pumpkin_pie");
+        RAW_TARE_CRUST = item("raw_tare_crust");
+        ROUND_BREAD_DOUGH = item("round_bread_dough");
+        SALT_CROISSANT_DOUGH = item("salt_croissant_dough");
+        TART_SHELL = item("tart_shell");
+        PINEAPPLE_BUN = foodItem("pineapple_bun", BakeryFoodProperties.PINEAPPLE_BUN);
+        ROUND_BREAD = foodItem("round_bread", BakeryFoodProperties.ROUND_BREAD);
+        SALT_CROISSANT = foodItem("salt_croissant", BakeryFoodProperties.SALT_CROISSANT);
+        //Bread Items
+        BAGEL_BLOCK = foodBlockItem(BakeryBlocks.BAGEL_BLOCK, BakeryFoodProperties.BAGEL);
+        CINNAMON_ROLL_BLOCK = foodBlockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK, BakeryFoodProperties.CINNAMON_ROLL);
+        COUNTRY_BREAD_BLOCK = foodBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, BakeryFoodProperties.COUNTRY_BREAD);
+        CROISSANT_BLOCK = foodBlockItem(BakeryBlocks.CROISSANT_BLOCK, BakeryFoodProperties.CROISSANT);
 
-    public static final RegistryObject<Item> FLOUR_RYE = ITEMS.register("flour_rye",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> SALT = ITEMS.register("salt",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> BUTTER_CUBE = ITEMS.register("butter_cube",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> BROWN_SUGAR_CUBE = ITEMS.register("brown_sugar_cube",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> BAGEL_DOUGH = ITEMS.register("bagel_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> BAGUETTE_DOUGH = ITEMS.register("baguette_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> CINNAMON_ROLL_DOUGH = ITEMS.register("cinnamon_roll_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> COUNTRY_BREAD_DOUGH = ITEMS.register("country_bread_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> CROISSANT_DOUGH = ITEMS.register("croissant_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> PINEAPPLE_BUN_DOUGH = ITEMS.register("pineapple_bun_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> RAW_EGG_TART = ITEMS.register("raw_egg_tart",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> RAW_PUMPKIN_PIE = ITEMS.register("raw_pumpkin_pie",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> RAW_TARE_CRUST = ITEMS.register("raw_tare_crust",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> ROUND_BREAD_DOUGH = ITEMS.register("round_bread_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> SALT_CROISSANT_DOUGH = ITEMS.register("salt_croissant_dough",() ->
-            new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> TART_SHELL = ITEMS.register("tart_shell",() ->
-            new Item(new Item.Properties()));
-
-    //Bread Items
-    public static final RegistryObject<Item> BAGEL = ITEMS.register("bagel",() ->
-            new BakeryBlockFoodItem(BakeryBlocks.BAGEL_BLOCK,foodItem(BakeryFoods.BAGEL)));
-
-    public static final RegistryObject<Item> BAGUETTE = ITEMS.register("baguette",() ->
-            new BaguetteItem(foodItem(BakeryFoods.BAGUETTE)));
-
-    public static final RegistryObject<Item> CINNAMON_ROLL = ITEMS.register("cinnamon_roll",() ->
-            new BakeryBlockFoodItem(BakeryBlocks.CINNAMON_ROLL_BLOCK,foodItem(BakeryFoods.CINNAMON_ROLL)));
-
-    public static final RegistryObject<Item> COUNTRY_BREAD = ITEMS.register("country_bread",() ->
-            new BakeryBlockFoodItem(BakeryBlocks.COUNTRY_BREAD_BLOCK,foodItem(BakeryFoods.COUNTRY_BREAD)));
-
-    public static final RegistryObject<Item> CROISSANT = ITEMS.register("croissant",() ->
-            new BakeryBlockFoodItem(BakeryBlocks.CROISSANT_BLOCK,foodItem(BakeryFoods.CROISSANT)));
-
-    public static final RegistryObject<Item> PINEAPPLE_BUN = ITEMS.register("pineapple_bun",() ->
-            new BakeryBlockFoodItem(BakeryBlocks.PINEAPPLE_BUN_BLOCK,foodItem(BakeryFoods.PINEAPPLE_BUN)));
-
-    public static final RegistryObject<Item> ROUND_BREAD = ITEMS.register("round_bread",() ->
-            new BakeryBlockFoodItem(BakeryBlocks.ROUND_BREAD_BLOCK,foodItem(BakeryFoods.ROUND_BREAD)));
-
-    public static final RegistryObject<Item> SALT_CROISSANT = ITEMS.register("salt_croissant",() ->
-            new BakeryBlockFoodItem(BakeryBlocks.SALT_CROISSANTt_BLOCK,foodItem(BakeryFoods.SALT_CROISSANT)));
-
-    public static Item.Properties foodItem(FoodProperties food) {
-        return new Item.Properties().food(food);
+        BAGUETTE_BLOCK = REGISTER.register(BakeryBlocks.BAGUETTE_BLOCK.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE_BLOCK.get(), new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
+        OVEN = block(BakeryBlocks.OVEN);
     }
 
-    public static void register(IEventBus eventBus){
-        ITEMS.register(eventBus);
+    private static RegistryObject<Item> item(String pName) {
+        return REGISTER.register(pName, () -> new Item(new Item.Properties()));
     }
+    private static RegistryObject<Item> block(RegistryObject<Block> block) {
+        return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
+    }
+    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
+    }
+    private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {
+        return REGISTER.register(pName, () -> new Item(new Item.Properties().food(foodProperties)));
+    }
+
+
+
+
 }

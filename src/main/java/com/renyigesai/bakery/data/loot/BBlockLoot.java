@@ -2,7 +2,7 @@ package com.renyigesai.bakery.data.loot;
 
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.block.PileBlock;
+import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.init.BakeryBlocks;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
@@ -27,6 +27,7 @@ public class BBlockLoot extends VanillaBlockLoot {
         this.add(BakeryBlocks.CINNAMON_ROLL_BLOCK.get(), this::createPileDrops);
         this.add(BakeryBlocks.COUNTRY_BREAD_BLOCK.get(), this::createPileDrops);
         this.add(BakeryBlocks.CROISSANT_BLOCK.get(), this::createPileDrops);
+        this.dropSelf(BakeryBlocks.OVEN.get());
     }
     protected LootTable.Builder createPileDrops(Block pPileBlock) {
         return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(pPileBlock, LootItem.lootTableItem(pPileBlock).apply(List.of(2, 3, 4), (p_249985_) -> {

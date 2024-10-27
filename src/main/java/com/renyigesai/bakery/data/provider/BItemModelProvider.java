@@ -3,6 +3,7 @@ package com.renyigesai.bakery.data.provider;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.init.BakeryBlocks;
+import com.renyigesai.bakery.init.BakeryItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -16,7 +17,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class BItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
-
+    public static String CUTOUT = "cutout";
     public BItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, BakeryMod.MODID, existingFileHelper);
     }
@@ -27,29 +28,58 @@ public class BItemModelProvider extends net.minecraftforge.client.model.generato
         blockItem(BakeryBlocks.BAGUETTE_BLOCK,"_1");
         blockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK,"_1");
         blockItem(BakeryBlocks.CROISSANT_BLOCK,"_1");
-        blockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, "_1");
-
-//        basicItem(BakeryItems.BAGEL_DOUGH.get());
-//        basicItem(BakeryItems.BAGUETTE_DOUGH.get());
-//        basicItem(BakeryItems.BROWN_SUGAR_CUBE.get());
-//        basicItem(BakeryItems.BUTTER_CUBE.get());
-//        basicItem(BakeryItems.CINNAMON_ROLL_DOUGH.get());
-//        basicItem(BakeryItems.COUNTRY_BREAD_DOUGH.get());
-//        basicItem(BakeryItems.CROISSANT_DOUGH.get());
-//        basicItem(BakeryItems.FLOUR.get());
-//        basicItem(BakeryItems.FLOUR_RYE.get());
-//        basicItem(BakeryItems.PINEAPPLE_BUN.get());
-//        basicItem(BakeryItems.PINEAPPLE_BUN_DOUGH.get());
-//        basicItem(BakeryItems.RAW_EGG_TART.get());
-//        basicItem(BakeryItems.RAW_PUMPKIN_PIE.get());
-//        basicItem(BakeryItems.RAW_TARE_CRUST.get());
-//        basicItem(BakeryItems.ROUND_BREAD_DOUGH.get());
-//        basicItem(BakeryItems.SALT.get());
-//        basicItem(BakeryItems.SALT_CROISSANT.get());
-//        basicItem(BakeryItems.SALT_CROISSANT_DOUGH.get());
-//        basicItem(BakeryItems.ROUND_BREAD.get());
-//        basicItem(BakeryItems.TART_SHELL.get());
-
+        basicBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK,"block/country_bread");
+        basicItem(BakeryItems.BAGEL_DOUGH, "custom/bagel_1", "item/raw_dough");
+        basicItem(BakeryItems.BAGUETTE_DOUGH, "custom/baguette_1", "item/raw_dough_2");
+        basicItem(BakeryItems.CINNAMON_ROLL_DOUGH, "custom/cinnamon_roll_dough", "item/cinnamon_roll_dough");
+        basicItem(BakeryItems.COUNTRY_BREAD_DOUGH, "custom/country_bread_1", "item/raw_dough_2");
+        basicItem(BakeryItems.CROISSANT_DOUGH, "custom/croissant_1", "item/raw_dough");
+        basicItem(BakeryItems.BROWN_SUGAR_CUBE.get());
+        basicItem(BakeryItems.BUTTER_CUBE.get());
+        basicItem(BakeryItems.FLOUR.get());
+        basicItem(BakeryItems.FLOUR_RYE.get());
+        basicItem(BakeryItems.SALT.get());
+        basicItem(BakeryItems.PINEAPPLE_BUN, "custom/pineapple_bun", "block/pineapple_bun");
+        basicItem(BakeryItems.PINEAPPLE_BUN_DOUGH, "custom/pineapple_bun", "item/raw_dough");
+        basicItem(BakeryItems.RAW_EGG_TART, "custom/raw_egg_tart", "item/tart_shell");
+        basicItem(BakeryItems.RAW_PUMPKIN_PIE, "custom/raw_pumpkin_pie", "item/pumpkin_stuffing", "item/raw_tare_crust");
+        basicItem(BakeryItems.RAW_TARE_CRUST, "custom/raw_tare_crust", "item/raw_tare_crust");
+        basicItem(BakeryItems.ROUND_BREAD, "custom/round_bread","block/round_bread");
+        basicItem(BakeryItems.ROUND_BREAD_DOUGH, "custom/round_bread","item/raw_dough");
+        basicItem(BakeryItems.SALT_CROISSANT, "custom/salt_croissant", "block/salt_croissant");
+        basicItem(BakeryItems.SALT_CROISSANT_DOUGH, "custom/salt_croissant","item/raw_dough");
+        basicItem(BakeryItems.TART_SHELL, "custom/tart_shell", "item/tart_shell");
+        basicBlockItem(BakeryBlocks.OVEN, "custom/oven", "block/oven");
+    }
+    public void basicItem(Supplier<Item> item, String pModelFile, String pTexture, String pTexture1) {
+        this.withExistingParent(this.name(item.get()), this.modLoc(pModelFile))
+                .texture("0", this.modLoc(pTexture))
+                .texture("1", this.modLoc(pTexture1))
+                .renderType(CUTOUT);;
+    }
+    public void basicBlockItem(Supplier<Block> block, String pModelFile, String pTexture, String pTexture1) {
+        this.withExistingParent(this.name(block.get()), this.modLoc(pModelFile))
+                .texture("0", this.modLoc(pTexture))
+                .texture("1", this.modLoc(pTexture1))
+                .renderType(CUTOUT);;
+    }
+    public void basicItem(Supplier<Item> item, String pModelFile, String pTexture) {
+        this.withExistingParent(this.name(item.get()), this.modLoc(pModelFile))
+                .texture("0", this.modLoc(pTexture))
+                .renderType(CUTOUT);;
+    }
+    public void basicBlockItem(Supplier<Block> block, String pModelFile, String pTexture) {
+        this.withExistingParent(this.name(block.get()), this.modLoc(pModelFile))
+                .texture("0", this.modLoc(pTexture))
+                .renderType(CUTOUT);;
+    }
+    public void basicItem(Supplier<Item> item, String pModelFile) {
+        this.withExistingParent(this.name(item.get()), this.modLoc(pModelFile))
+                .renderType(CUTOUT);;
+    }
+    public void basicBlockItem(Supplier<Block> block, String pModelFile) {
+        this.withExistingParent(this.name(block.get()), this.modLoc(pModelFile))
+                .renderType(CUTOUT);;
     }
 
     public ItemModelBuilder toolItem(Item item) {
