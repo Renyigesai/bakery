@@ -8,8 +8,11 @@ import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -37,6 +40,7 @@ public class BakeryBlocks {
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
     public static final RegistryObject<Block> FERMENTATION_TANK;
     public static final RegistryObject<Block> YEAST_TANK;
+    public static final RegistryObject<Block> GLASS_CABINET_DOOR;
 
     static {
 
@@ -57,5 +61,6 @@ public class BakeryBlocks {
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.METAL), BlockSetType.OAK));
     }
 }

@@ -33,6 +33,7 @@ public class BakeryGroup {
                         output.accept(BakeryBlocks.FERMENTATION_TANK.get());
                         output.accept(BakeryBlocks.YEAST_TANK.get());
                         output.accept(BakeryItems.BOTTLE_YEAST.get());
+                        output.accept(BakeryBlocks.GLASS_CABINET_DOOR.get());
                     }))
                     .build());
 

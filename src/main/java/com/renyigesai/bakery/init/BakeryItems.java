@@ -30,13 +30,11 @@ public class BakeryItems {
     public static final RegistryObject<Item> ROUND_BREAD_DOUGH;
     public static final RegistryObject<Item> SALT_CROISSANT_DOUGH;
     public static final RegistryObject<Item> TART_SHELL;
-
     public static final RegistryObject<Item> BAGEL_BLOCK;
     public static final RegistryObject<Item> BAGUETTE_BLOCK;
     public static final RegistryObject<Item> CINNAMON_ROLL_BLOCK;
     public static final RegistryObject<Item> COUNTRY_BREAD_BLOCK;
     public static final RegistryObject<Item> CROISSANT_BLOCK;
-
     public static final RegistryObject<Item> PINEAPPLE_BUN;
     public static final RegistryObject<Item> ROUND_BREAD;
     public static final RegistryObject<Item> SALT_CROISSANT;
@@ -44,7 +42,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> FERMENTATION_TANK;
     public static final RegistryObject<Item> YEAST_TANK;
     public static final RegistryObject<Item> BOTTLE_YEAST;
-    //Bottle yeast
+    public static final RegistryObject<Item> GLASS_CABINET_DOOR;
 
 
     static {
@@ -65,10 +63,11 @@ public class BakeryItems {
         ROUND_BREAD_DOUGH = item("round_bread_dough");
         SALT_CROISSANT_DOUGH = item("salt_croissant_dough");
         TART_SHELL = item("tart_shell");
+        OVEN = block(BakeryBlocks.OVEN);
+        FERMENTATION_TANK = block(BakeryBlocks.FERMENTATION_TANK);
+        YEAST_TANK = block(BakeryBlocks.YEAST_TANK);
         BOTTLE_YEAST = item("bottle_yeast");
-//        PINEAPPLE_BUN = foodItem("pineapple_bun", BakeryFoodProperties.PINEAPPLE_BUN);
-//        ROUND_BREAD = foodItem("round_bread", BakeryFoodProperties.ROUND_BREAD);
-//        SALT_CROISSANT = foodItem("salt_croissant", BakeryFoodProperties.SALT_CROISSANT);
+        GLASS_CABINET_DOOR = block(BakeryBlocks.GLASS_CABINET_DOOR);
 
         //Bread Items
         BAGEL_BLOCK = foodBlockItem(BakeryBlocks.BAGEL_BLOCK, BakeryFoodProperties.BAGEL);
@@ -79,9 +78,6 @@ public class BakeryItems {
         PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT);
-        OVEN = block(BakeryBlocks.OVEN);
-        FERMENTATION_TANK = block(BakeryBlocks.FERMENTATION_TANK);
-        YEAST_TANK = block(BakeryBlocks.YEAST_TANK);
     }
 
     private static RegistryObject<Item> item(String pName) {
