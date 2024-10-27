@@ -42,6 +42,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> SALT_CROISSANT;
     public static final RegistryObject<Item> OVEN;
     public static final RegistryObject<Item> FERMENTATION_TANK;
+    public static final RegistryObject<Item> YEAST_TANK;
 
 
     static {
@@ -77,6 +78,7 @@ public class BakeryItems {
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT);
         OVEN = block(BakeryBlocks.OVEN);
         FERMENTATION_TANK = block(BakeryBlocks.FERMENTATION_TANK);
+        YEAST_TANK = block(BakeryBlocks.YEAST_TANK);
     }
 
     private static RegistryObject<Item> item(String pName) {

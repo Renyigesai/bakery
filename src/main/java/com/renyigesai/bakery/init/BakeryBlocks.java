@@ -3,6 +3,7 @@ package com.renyigesai.bakery.init;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.block.FermentationTankBlock;
 import com.renyigesai.bakery.api.block.PileBlock;
+import com.renyigesai.bakery.api.block.YeastTankBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
 import net.minecraft.world.level.block.Block;
@@ -35,6 +36,7 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
     public static final RegistryObject<Block> FERMENTATION_TANK;
+    public static final RegistryObject<Block> YEAST_TANK;
 
     static {
 
@@ -53,6 +55,7 @@ public class BakeryBlocks {
 
         OVEN = BLOCK_REGISTRY.register("oven", () -> new OvenBlock(BlockBehaviour.Properties.of()));
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
-        FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
+        YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
     }
 }

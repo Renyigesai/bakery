@@ -1,7 +1,14 @@
 package com.renyigesai.bakery.api.block;
 
+import com.renyigesai.bakery.init.BakeryBlocks;
 import com.renyigesai.bakery.init.BakeryItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,11 +30,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class FermentationTankBlock extends Block {
-//    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-//    public static final IntegerProperty FILL = IntegerProperty.create("fill", 0, 4);
     public static final IntegerProperty FLOUR = IntegerProperty.create("flour", 0, 3);
     public static final IntegerProperty WATER = IntegerProperty.create("water", 0, 1);
-//    public static final IntegerProperty MILK = IntegerProperty.create("milk", 0, 1);
     protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
 
     public FermentationTankBlock(Properties pProperties) {
@@ -41,11 +45,6 @@ public class FermentationTankBlock extends Block {
         return SHAPE;
     }
 
-//    @Override
-//    public BlockState getStateForPlacement(BlockPlaceContext context) {
-//        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
-//    }
-
     public static ItemStack isFlour(){
         return new ItemStack(BakeryItems.FLOUR_RYE.get());
     }
@@ -55,13 +54,9 @@ public class FermentationTankBlock extends Block {
                                  InteractionHand pHand, BlockHitResult pHit) {
         ItemStack handStack = pPlayer.getItemInHand(pHand);
         int flour = pState.getValue(FLOUR);
-//        int milk = pState.getValue(MILK);
         if (handStack.is(BakeryItems.FLOUR_RYE.get()) && flour < 3){
             return fillFlour(pLevel,pPos,pState,pPlayer,pHand);
         }
-//        if (handStack.is(Items.MILK_BUCKET) && milk == 0){
-//            return fillMilk(pLevel,pPos,pState,pPlayer,pHand);
-//        }
         if (PotionUtils.getPotion(handStack) == Potions.WATER && flour == 3){
             return fillWater(pLevel,pPos,pState,pPlayer,pHand);
 
@@ -74,28 +69,45 @@ public class FermentationTankBlock extends Block {
         int flour = state.getValue(FLOUR);
             level.setBlock(pos, state.setValue(FLOUR, flour + 1), 3);
             handStack.shrink(1);
+            level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
     }
 
-//    public static InteractionResult fillMilk(Level level, BlockPos pos, BlockState state, Player playerIn, InteractionHand pHand){
-//        ItemStack handStack = playerIn.getItemInHand(pHand);
-//        int milk = state.getValue(MILK);
-//        level.setBlock(pos, state.setValue(MILK, milk + 1), 1);
-//        handStack.shrink(1);
-//        ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(Items.BUCKET));
-//        return InteractionResult.SUCCESS;
-//    }
-
     public static InteractionResult fillWater(Level level, BlockPos pos, BlockState state, Player playerIn,InteractionHand pHand){
-//
         ItemStack handStack = playerIn.getItemInHand(pHand);
-        int flour = state.getValue(WATER);
-        level.setBlock(pos, state.setValue(WATER, flour + 1), 1);
+        int water = state.getValue(WATER);
+        level.setBlock(pos, state.setValue(WATER, water + 1), 1);
         handStack.shrink(1);
-//        new ItemStack(Items.GLASS_BOTTLE).grow(1);
-//        handStack.grow(1);
         ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(Items.GLASS_BOTTLE));
+        level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        int flour = pState.getValue(FLOUR);
+        int water = pState.getValue(WATER);
+        if (flour == 3 && water == 1) {
+            if (pRandom.nextInt(3) == 0) {
+                pLevel.setBlock(pPos, BakeryBlocks.YEAST_TANK.get().defaultBlockState(), 3);
+            }
+        }
+    }
+
+    @Override
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        int flour = pState.getValue(FLOUR);
+        int water = pState.getValue(WATER);
+        if (flour == 3 && water == 1){
+//            for (int i = 0; i < 4; i++) {
+                Direction direction = Direction.getRandom(pRandom);
+                double d0 = direction.getStepX() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepX() * 0.6D;
+                double d1 = direction.getStepY() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepY() * 0.6D;
+                double d2 = direction.getStepZ() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepZ() * 0.6D;
+                pLevel.addParticle(ParticleTypes.EFFECT, (double) pPos.getX() + d0, (double) pPos.getY() + d1, (double) pPos.getZ() + d2, 0.0D, 0.0D, 0.0D);
+//            }
+        }
+
     }
 
     @Override
