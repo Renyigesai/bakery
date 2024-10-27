@@ -1,7 +1,10 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
+import com.renyigesai.bakery.api.FermentationTankBlock;
 import com.renyigesai.bakery.block.PileBlock;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -45,15 +48,32 @@ public class BakeryBlocks {
             new PileBlock(BlockBehaviour.Properties.of().strength(0.1f,0.1f).sound(SoundType.WOOL)));
 
     //Block
-    public static final RegistryObject<Block> WOOD_COUNTER = registerBlock("wood_counter",() ->
+    public static final RegistryObject<Block> WOOD_COUNTER = registerBlockItem("wood_counter",() ->
             new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> FERMENTATION_TANK = registerBlockItem("fermentation_tank",() ->
+            new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+
+
 
     private static <T extends Block> RegistryObject<T> registerBlock(String nmae, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(nmae,block);
+//        registryBlockItem(nmae,toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block> RegistryObject<T> registerBlockItem(String nmae, Supplier<T> block){
+        RegistryObject<T> toReturn = BLOCKS.register(nmae,block);
+        registryBlockItem(nmae,toReturn);
         return toReturn;
     }
 
     public static void register(IEventBus eventBus){
         BLOCKS.register(eventBus);
 }
+
+    private static <T extends Block> RegistryObject<Item> registryBlockItem (String name, RegistryObject<T>block){
+        return BakeryItems.ITEMS.register(name,() -> new BlockItem(block.get(), new Item.Properties()));
+    }
 }
