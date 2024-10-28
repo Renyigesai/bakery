@@ -3,6 +3,7 @@ package com.renyigesai.bakery.data.provider;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.block.PileBlock;
+import com.renyigesai.bakery.block.FermentationTankBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.init.BakeryBlocks;
 import net.minecraft.core.Direction;
@@ -31,6 +32,38 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
         pileBlock(BakeryBlocks.CROISSANT_BLOCK);
         country_bread(BakeryBlocks.COUNTRY_BREAD_BLOCK);
         ovenBlock(BakeryBlocks.OVEN);
+        fermentation_tank(BakeryBlocks.FERMENTATION_TANK);
+    }
+    public void fermentation_tank(Supplier<? extends Block> block) {
+        for(boolean water : OvenBlock.LIT.getPossibleValues()) {
+            for (int flour :  FermentationTankBlock.FLOUR.getPossibleValues()) {
+
+                ModelFile modelFile;
+                if(flour ==0){
+                    modelFile = this.models().withExistingParent(
+                                    this.name(block.get()),
+                                    this.modLoc("custom/" + this.name(block.get())))
+                            .texture("0", this.modLoc("block/" + this.name(block.get())))
+                            .texture("particle", this.modLoc("block/" + this.name(block.get())))
+                            .renderType(CUTOUT);
+                }else {
+                    modelFile = this.models().withExistingParent(
+                                    this.name(block.get())+"_flour_"+flour,
+                                    this.modLoc("custom/" + this.name(block.get()) +"_flour_"+flour))
+                            .texture("0", this.modLoc("block/" + this.name(block.get())))
+                            .texture("1",  this.modLoc("block/whole_wheat_flour"))
+                            .texture("particle", this.modLoc("block/" + this.name(block.get())))
+                            .renderType(CUTOUT);
+                }
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(FermentationTankBlock.FLOUR, flour)
+                        .with(FermentationTankBlock.WATER, water)
+                        .modelForState()
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
     }
     public void ovenBlock(Supplier<? extends Block> block) {
         for(boolean lit : OvenBlock.LIT.getPossibleValues()) {

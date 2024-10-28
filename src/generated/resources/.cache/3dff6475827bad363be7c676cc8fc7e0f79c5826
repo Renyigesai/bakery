@@ -1,4 +1,4 @@
-// 1.20.1	2024-10-26T19:04:35.8825756	Item Models: bakery
+// 1.20.1	2024-10-28T21:42:00.1938177	Item Models: bakery
 0ef06fc2b1227fc4f246cc7bea467f2aa150af34 assets/bakery/models/item/bagel.json
 69c813e723bb3ccdd031a01a6538860cc5da4cc3 assets/bakery/models/item/bagel_dough.json
 f0469160abf6974ebf8c2e8e18ebfe53abe055f3 assets/bakery/models/item/baguette.json
@@ -8,7 +8,7 @@ c20fac81bab74f0fa473885f72b04aae49ca831d assets/bakery/models/item/butter_cube.j
 d4264a9814a163e3ff4835cec408efb900fa9b8f assets/bakery/models/item/cinnamon_roll.json
 bfdced502b51872e419f3679f4760ec174d7bfb8 assets/bakery/models/item/cinnamon_roll_dough.json
 dee6580124e2438de737ba10a74a53d0eb9b352d assets/bakery/models/item/country_bread.json
-6f66f1ddcb3b8173fc869ff690816ff15ff60861 assets/bakery/models/item/country_bread_dough.json
+632bfcd4fbd69ef738adf96389ec1af3123c8a0a assets/bakery/models/item/country_bread_dough.json
 aa7ff01e20cf46fbd67c033a4539fa66a5a86c01 assets/bakery/models/item/croissant.json
 e0330c362c0e043b118ce357d306ae9ccdbdbfa3 assets/bakery/models/item/croissant_dough.json
 1eb25ae41661b1e43d2378ba9a6ddaf5edaf6913 assets/bakery/models/item/flour.json

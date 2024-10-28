@@ -32,7 +32,7 @@ public class BItemModelProvider extends net.minecraftforge.client.model.generato
         basicItem(BakeryItems.BAGEL_DOUGH, "custom/bagel_1", "item/raw_dough");
         basicItem(BakeryItems.BAGUETTE_DOUGH, "custom/baguette_1", "item/raw_dough_2");
         basicItem(BakeryItems.CINNAMON_ROLL_DOUGH, "custom/cinnamon_roll_dough", "item/cinnamon_roll_dough");
-        basicItem(BakeryItems.COUNTRY_BREAD_DOUGH, "custom/country_bread_1", "item/raw_dough_2");
+        basicItem(BakeryItems.COUNTRY_BREAD_DOUGH, "custom/country_bread_1", "item/raw_dough");
         basicItem(BakeryItems.CROISSANT_DOUGH, "custom/croissant_1", "item/raw_dough");
         basicItem(BakeryItems.BROWN_SUGAR_CUBE.get());
         basicItem(BakeryItems.BUTTER_CUBE.get());

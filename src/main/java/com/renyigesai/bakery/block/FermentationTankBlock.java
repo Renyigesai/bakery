@@ -1,4 +1,4 @@
-package com.renyigesai.bakery.api.block;
+package com.renyigesai.bakery.block;
 
 import com.renyigesai.bakery.init.BakeryBlocks;
 import com.renyigesai.bakery.init.BakeryItems;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
@@ -33,13 +34,13 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public class FermentationTankBlock extends Block {
     public static final IntegerProperty FLOUR = IntegerProperty.create("flour", 0, 3);
-    public static final IntegerProperty WATER = IntegerProperty.create("water", 0, 1);
+    public static final BooleanProperty WATER = BooleanProperty.create("water");
     protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
 
     public FermentationTankBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FLOUR, 0)
-                .setValue(WATER, 0));
+                .setValue(WATER, false));
     }
 
     @Override
@@ -61,7 +62,7 @@ public class FermentationTankBlock extends Block {
                 return fillFlour(pLevel, pPos, pState, pPlayer, pHand);
             }
         }else {
-            if(PotionUtils.getPotion(handStack) == Potions.WATER && pState.getValue(WATER) <1){
+            if(PotionUtils.getPotion(handStack) == Potions.WATER && !pState.getValue(WATER)){
                 return fillWater(pLevel, pPos, pState, pPlayer, pHand);
             }
 
@@ -80,8 +81,7 @@ public class FermentationTankBlock extends Block {
 
     public static InteractionResult fillWater(Level level, BlockPos pos, BlockState state, Player playerIn,InteractionHand pHand){
         ItemStack handStack = playerIn.getItemInHand(pHand);
-        int water = state.getValue(WATER);
-        level.setBlock(pos, state.setValue(WATER, Math.min(water + 1, 1)), 1);
+        level.setBlock(pos, state.setValue(WATER, true), 1);
         handStack.shrink(1);
         ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(Items.GLASS_BOTTLE));
         level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
@@ -91,8 +91,8 @@ public class FermentationTankBlock extends Block {
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         int flour = pState.getValue(FLOUR);
-        int water = pState.getValue(WATER);
-        if (flour == 3 && water == 1) {
+        boolean water = pState.getValue(WATER);
+        if (flour == 3 && water) {
             if (pRandom.nextInt(3) == 0) {
                 pLevel.setBlock(pPos, BakeryBlocks.YEAST_TANK.get().defaultBlockState(), 3);
             }
@@ -102,8 +102,8 @@ public class FermentationTankBlock extends Block {
     @Override
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         int flour = pState.getValue(FLOUR);
-        int water = pState.getValue(WATER);
-        if (flour == 3 && water == 1){
+        boolean water = pState.getValue(WATER);
+        if (flour == 3 && water){
                 Direction direction = Direction.getRandom(pRandom);
                 double d0 = direction.getStepX() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepX() * 0.6D;
                 double d1 = direction.getStepY() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepY() * 0.6D;

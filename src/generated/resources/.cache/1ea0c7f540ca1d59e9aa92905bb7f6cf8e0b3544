@@ -1,9 +1,10 @@
-// 1.20.1	2024-10-26T21:14:02.0527264	Block States: bakery
+// 1.20.1	2024-10-28T22:03:36.7172174	Block States: bakery
 270cd2f2368914cd04703f8c8c1c1b438e10485a assets/bakery/blockstates/bagel.json
 b622910031363c927c7a1e741d319f9c2bc9dbc6 assets/bakery/blockstates/baguette.json
 15cd2cfc5672659d4fe280a35029380716b7b5dd assets/bakery/blockstates/cinnamon_roll.json
 f39f58368d88e15f16821fafa5307f45f3619fc0 assets/bakery/blockstates/country_bread.json
 872f55f44a9397575ed972ae84291fd7775f211f assets/bakery/blockstates/croissant.json
+f10dcdbcfefce93966092d0b9101a5ad6163bdbe assets/bakery/blockstates/fermentation_tank.json
 d75509f2e5dbf8af91c010f3d15d8a1b84b8d121 assets/bakery/blockstates/oven.json
 7d5f7b8b7099bfea7af0bc67f2b657e4643ff92b assets/bakery/models/block/bagel_1.json
 98f37e698341afe70f43e8fb8ceb45e71abd2a36 assets/bakery/models/block/bagel_2.json
@@ -22,5 +23,9 @@ ee7c1989c1d89c98321d6f4dc4c7aa718f5a4c89 assets/bakery/models/block/croissant_1.
 852b24bbb468750f7a67b8ea0451e76f2a6b90b0 assets/bakery/models/block/croissant_2.json
 6bb6407a66cb3bd42a087d79d42cb8327f4ea5ad assets/bakery/models/block/croissant_3.json
 5d67b320e0cc329ebfd9869536a68995f2eea087 assets/bakery/models/block/croissant_4.json
+490c0208bc82f9e09ea685ce63036569ebd10671 assets/bakery/models/block/fermentation_tank.json
+95b9d5f6081e66e4ef0106d9fc8bad5c69365a7b assets/bakery/models/block/fermentation_tank_flour_1.json
+1ffa89813d68d60810bdf5f63daf80ae09a4045a assets/bakery/models/block/fermentation_tank_flour_2.json
+3dd1ad786a63b9df6efc92ad7d2c4352b0d0fc4d assets/bakery/models/block/fermentation_tank_flour_3.json
 186a823d63ed47d0258fe5cc4ad075d3e8ba0567 assets/bakery/models/block/oven.json
 c69c796efcf7fb66c9d360f75b24217d8ab7aca9 assets/bakery/models/block/oven_fire.json

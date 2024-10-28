@@ -28,6 +28,12 @@ public class BBlockLoot extends VanillaBlockLoot {
         this.add(BakeryBlocks.COUNTRY_BREAD_BLOCK.get(), this::createPileDrops);
         this.add(BakeryBlocks.CROISSANT_BLOCK.get(), this::createPileDrops);
         this.dropSelf(BakeryBlocks.OVEN.get());
+        this.dropSelf(BakeryBlocks.FERMENTATION_TANK.get());
+        this.dropSelf(BakeryBlocks.YEAST_TANK.get());
+        this.dropSelf(BakeryBlocks.GLASS_CABINET_DOOR.get());
+        this.dropSelf(BakeryBlocks.PINEAPPLE_BUN.get());
+        this.dropSelf(BakeryBlocks.ROUND_BREAD.get());
+        this.dropSelf(BakeryBlocks.SALT_CROISSANT.get());
     }
     protected LootTable.Builder createPileDrops(Block pPileBlock) {
         return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(this.applyExplosionDecay(pPileBlock, LootItem.lootTableItem(pPileBlock).apply(List.of(2, 3, 4), (p_249985_) -> {

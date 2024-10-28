@@ -1,9 +1,0 @@
-{
-  "parent": "bakery:custom/yeast_tank",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakery:block/fermentation_tank",
-    "1": "bakery:block/yeast",
-    "particle": "minecraft:block/glass"
-  }
-}

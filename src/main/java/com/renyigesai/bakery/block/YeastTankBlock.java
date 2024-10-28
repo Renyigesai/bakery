@@ -1,4 +1,4 @@
-package com.renyigesai.bakery.api.block;
+package com.renyigesai.bakery.block;
 
 import com.renyigesai.bakery.init.BakeryBlocks;
 import com.renyigesai.bakery.init.BakeryItems;

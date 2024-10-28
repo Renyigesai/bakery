@@ -1,18 +1,27 @@
 {
   "variants": {
-    "flour=0,water=0": {
+    "flour=0,water=false": {
       "model": "bakery:block/fermentation_tank"
     },
-    "flour=1,water=0": {
-      "model": "bakery:block/fermentation_tank_flour"
+    "flour=0,water=true": {
+      "model": "bakery:block/fermentation_tank"
     },
-    "flour=2,water=0": {
+    "flour=1,water=false": {
+      "model": "bakery:block/fermentation_tank_flour_1"
+    },
+    "flour=1,water=true": {
+      "model": "bakery:block/fermentation_tank_flour_1"
+    },
+    "flour=2,water=false": {
       "model": "bakery:block/fermentation_tank_flour_2"
     },
-    "flour=3,water=0": {
+    "flour=2,water=true": {
+      "model": "bakery:block/fermentation_tank_flour_2"
+    },
+    "flour=3,water=false": {
       "model": "bakery:block/fermentation_tank_flour_3"
     },
-    "flour=3,water=1": {
+    "flour=3,water=true": {
       "model": "bakery:block/fermentation_tank_flour_3"
     }
   }

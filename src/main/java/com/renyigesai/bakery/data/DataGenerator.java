@@ -2,12 +2,13 @@ package com.renyigesai.bakery.data;
 
 
 import com.renyigesai.bakery.BakeryMod;
-//import com.renyigesai.bakery.data.loot.BLootTableProvider;
 import com.renyigesai.bakery.data.loot.BLootTableProvider;
 import com.renyigesai.bakery.data.provider.BBlockStateProvider;
 import com.renyigesai.bakery.data.provider.BItemModelProvider;
 import com.renyigesai.bakery.data.provider.BLanguageProvider;
 import com.renyigesai.bakery.data.provider.BRecipeProvider;
+import com.renyigesai.bakery.data.tag.BBlockTagProvider;
+import com.renyigesai.bakery.data.tag.BItemTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -30,10 +31,10 @@ public class DataGenerator {
 
 
 
-//        MSModBlockTagProvider blockTagsProvider = new MSModBlockTagProvider(output, provider, existingFileHelper);
-//        generator.addProvider(event.includeServer(), blockTagsProvider);
-//        generator.addProvider(event.includeServer(), new MSModItemTagsProvider(
-//                output, provider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        BBlockTagProvider blockTagsProvider = new BBlockTagProvider(output, provider, existingFileHelper);
+        generator.addProvider(event.includeServer(), blockTagsProvider);
+        generator.addProvider(event.includeServer(), new BItemTagsProvider(
+                output, provider, blockTagsProvider.contentsGetter(), existingFileHelper));
 
         generator.addProvider(event.includeClient(),  new RegistryDataGenerator(output, provider));
         generator.addProvider(event.includeServer(), new BBlockStateProvider(output, existingFileHelper));

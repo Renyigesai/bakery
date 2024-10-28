@@ -3,6 +3,7 @@
   "render_type": "minecraft:cutout",
   "textures": {
     "0": "bakery:block/fermentation_tank",
-    "1": "bakery:block/whole_wheat_flour"
+    "1": "bakery:block/whole_wheat_flour",
+    "particle": "bakery:block/fermentation_tank"
   }
 }
