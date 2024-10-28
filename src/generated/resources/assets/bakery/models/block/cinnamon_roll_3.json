@@ -2,6 +2,7 @@
   "parent": "bakery:custom/cinnamon_roll_3",
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakery:block/cinnamon_roll"
+    "0": "bakery:block/cinnamon_roll",
+    "particle": "bakery:block/cinnamon_roll"
   }
 }

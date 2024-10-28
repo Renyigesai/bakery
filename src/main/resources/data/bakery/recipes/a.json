@@ -1,0 +1,13 @@
+{
+  "type": "bakery:oven",
+  "ingredient": [
+    {
+      "item": "bakery:bagel_dough"
+    }
+  ],
+  "output": {
+    "item": "bakery:bagel",
+    "count": 1
+  }
+}
+   

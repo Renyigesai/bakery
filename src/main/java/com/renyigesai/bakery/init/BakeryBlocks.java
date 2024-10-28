@@ -57,7 +57,7 @@ public class BakeryBlocks {
 
         //common
 
-        OVEN = BLOCK_REGISTRY.register("oven", () -> new OvenBlock(BlockBehaviour.Properties.of()));
+        OVEN = BLOCK_REGISTRY.register("oven", () -> new OvenBlock());
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));

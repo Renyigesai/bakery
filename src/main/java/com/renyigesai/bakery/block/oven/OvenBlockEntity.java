@@ -9,6 +9,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -31,110 +33,127 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class OvenBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(3);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(4);
+    public Component name = Component.translatable("container.oven");
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
     public CompoundTag oven;
+
     public OvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeryBlocks.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
+
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+        if (this.level != null) {
+            Containers.dropContents(this.level, this.worldPosition, inventory);
+        }
+    }
+
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("container.oven");
+        return name;
     }
+
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
         return new OvenMenu(pContainerId, pPlayerInventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition));
     }
+
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory",itemHandler.serializeNBT());
+        pTag.put("inventory", itemHandler.serializeNBT());
         if (this.oven != null) pTag.put("oven", this.oven.copy());
         super.saveAdditional(pTag);
     }
+
     @Override
     public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
         if (pTag.contains("oven")) this.oven = pTag.getCompound("oven");
     }
+
     public CompoundTag getOven() {
         if (this.oven == null)
             this.oven = new CompoundTag();
         return this.oven;
     }
+
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
         if (capability == ForgeCapabilities.ITEM_HANDLER)
             return lazyItemHandlers.cast();
         return super.getCapability(capability, facing);
     }
+
     @Override
     public void onLoad() {
         super.onLoad();
         lazyItemHandlers = LazyOptional.of(() -> itemHandler);
     }
+
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandlers.invalidate();
     }
-    public static void serverTick(Level level, BlockPos pos, BlockState blockState, OvenBlockEntity ovenBlockEntity) {
-        BlockEntity _blockEntity = level.getBlockEntity(pos);
-        if (_blockEntity == ovenBlockEntity) {
-            setChanged( level,pos,blockState);
-            craftRecipe(0,level, pos, blockState, ovenBlockEntity);
-            craftRecipe(1,level, pos, blockState, ovenBlockEntity);
-            craftRecipe(2,level, pos, blockState, ovenBlockEntity);
-            craftRecipe(3,level, pos, blockState, ovenBlockEntity);
-        }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
-    private static void craftRecipe(int slot, Level level, BlockPos pos, BlockState blockState, OvenBlockEntity ovenBlockEntity) {
-        if (ovenBlockEntity.hasRecipe(slot)) {
-            if (!level.isClientSide()) {
-                ovenBlockEntity.getOven().putDouble("progress" + slot,
-                        (ovenBlockEntity.getOven().getDouble(  "progress" + slot) + 1));
-                level.sendBlockUpdated(pos, blockState, blockState, 3);
-            }
-            if ( ovenBlockEntity.getOven().getDouble(  "progress" + slot)
-                    >= ovenBlockEntity.getOven().getDouble( "max_progress" + slot)) {
-                if (!level.isClientSide()) {
-                    ovenBlockEntity.getOven().putDouble("progress" + slot, 0);
-                    level.sendBlockUpdated(pos, blockState, blockState, 3);
+
+    public static void serverTick(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
+        int has_power =200;
+        BlockEntity _blockEntity = world.getBlockEntity(pos);
+        if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
+            setChanged( world,pos,state);
+            if (ovenBlockEntity.hasRecipe()) {
+                if (!world.isClientSide()) {
+                    ovenBlockEntity.getOven().putDouble("progress",
+                            ( ovenBlockEntity.getOven().getDouble(  "progress") + 1));
+                    world.sendBlockUpdated(pos, state, state, 3);
                 }
-                ovenBlockEntity.craftItem(slot);
-            }
-        } else {
-            if (!level.isClientSide()) {
-                ovenBlockEntity.getOven().putDouble("progress" + slot, 0);
-                level.sendBlockUpdated(pos, blockState, blockState, 3);
+                if ( ovenBlockEntity.getOven().getDouble(  "progress")
+                        >= ovenBlockEntity.getOven().getDouble( "max_progress")) {
+                    if (!world.isClientSide()) {
+
+                        ovenBlockEntity.getOven().putDouble("progress", 0);
+
+                        world.sendBlockUpdated(pos, state, state, 3);
+                    }
+                    ovenBlockEntity.craftItem();
+                }
+            } else {
+                if (!world.isClientSide()) {
+                    ovenBlockEntity.getOven().putDouble("progress", 0);
+
+                    world.sendBlockUpdated(pos, state, state, 3);
+                }
             }
         }
     }
-    private void craftItem(int slot) {
+    private void craftItem() {
         Optional<OvenRecipe> recipe = getCurrentRecipe();
         if(recipe.isPresent()) {
             ItemStack result = recipe.get().getResultItem(null);
-            this.itemHandler.extractItem(slot, 1, false);
-            this.itemHandler.setStackInSlot(slot, new ItemStack(result.getItem(),
-                    1));
+            int INPUT_SLOT = 0;
+            this.itemHandler.extractItem(INPUT_SLOT, 1, false);
+
+            this.itemHandler.setStackInSlot(2, new ItemStack(result.getItem(),
+                    this.itemHandler.getStackInSlot(2).getCount() + result.getCount()));
         }
     }
-    private boolean hasRecipe(int slot) {
-        if (slot ==0){
-            return hasRecipe();
-        }else if (slot ==1){
-            return hasRecipe1();
-        }else if (slot ==2){
-            return hasRecipe2();
-        }else if (slot ==3){
-            return hasRecipe3();
-        }
-        return false;
-    }
+
 
     private boolean hasRecipe() {
         Optional<OvenRecipe> recipe = getCurrentRecipe();
+
+
         if(recipe.isPresent()) {
             ItemStack result = recipe.get().getResultItem(Objects.requireNonNull(getLevel()).registryAccess());
             return canInsertAmountIntoOutputSlot(result.getCount())
@@ -143,36 +162,7 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             return false;
         }
     }
-    private boolean hasRecipe1() {
-        Optional<OvenRecipe> recipe = getCurrentRecipe();
-        if(recipe.isPresent()) {
-            ItemStack result = recipe.get().getResultItem(Objects.requireNonNull(getLevel()).registryAccess());
-            return canInsertAmountIntoOutputSlot1(result.getCount())
-                    && canInserItemIntoOutputSlot1(result.getItem());
-        }else {
-            return false;
-        }
-    }
-    private boolean hasRecipe2() {
-        Optional<OvenRecipe> recipe = getCurrentRecipe();
-        if(recipe.isPresent()) {
-            ItemStack result = recipe.get().getResultItem(Objects.requireNonNull(getLevel()).registryAccess());
-            return canInsertAmountIntoOutputSlot2(result.getCount())
-                    && canInserItemIntoOutputSlot2(result.getItem());
-        }else {
-            return false;
-        }
-    }
-    private boolean hasRecipe3() {
-        Optional<OvenRecipe> recipe = getCurrentRecipe();
-        if(recipe.isPresent()) {
-            ItemStack result = recipe.get().getResultItem(Objects.requireNonNull(getLevel()).registryAccess());
-            return canInsertAmountIntoOutputSlot3(result.getCount())
-                    && canInserItemIntoOutputSlot3(result.getItem());
-        }else {
-            return false;
-        }
-    }
+
     private Optional<OvenRecipe> getCurrentRecipe() {
         SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -187,35 +177,11 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean canInserItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(0).is(item);
+        return this.itemHandler.getStackInSlot(2).isEmpty() || this.itemHandler.getStackInSlot(2).is(item);
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemHandler.getStackInSlot(0).getMaxStackSize() == 1;
+        return this.itemHandler.getStackInSlot(2).getCount() + count <= this.itemHandler.getStackInSlot(2).getMaxStackSize();
     }
-    private boolean canInserItemIntoOutputSlot1(Item item) {
-        return this.itemHandler.getStackInSlot(1).is(item);
-    }
-
-    private boolean canInsertAmountIntoOutputSlot1(int count) {
-        return this.itemHandler.getStackInSlot(1).getMaxStackSize() == 1
-               ;
-    }
-    private boolean canInserItemIntoOutputSlot2(Item item) {
-        return this.itemHandler.getStackInSlot(2).is(item);
-    }
-
-    private boolean canInsertAmountIntoOutputSlot2(int count) {
-        return this.itemHandler.getStackInSlot(2).getMaxStackSize() == 1;
-    }
-    private boolean canInserItemIntoOutputSlot3(Item item) {
-        return  this.itemHandler.getStackInSlot(3).is(item);
-    }
-
-    private boolean canInsertAmountIntoOutputSlot3(int count) {
-        return  this.itemHandler.getStackInSlot(3).getMaxStackSize() == 1;
-    }
-
-
 
 }

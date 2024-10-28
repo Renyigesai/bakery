@@ -56,11 +56,14 @@ public class FermentationTankBlock extends Block {
                                  InteractionHand pHand, BlockHitResult pHit) {
         ItemStack handStack = pPlayer.getItemInHand(pHand);
         int flour = pState.getValue(FLOUR);
-        if (handStack.is(BakeryItems.FLOUR_RYE.get()) && flour < 3){
-            return fillFlour(pLevel,pPos,pState,pPlayer,pHand);
-        }
-        if (PotionUtils.getPotion(handStack) == Potions.WATER && flour == 3){
-            return fillWater(pLevel,pPos,pState,pPlayer,pHand);
+        if ( flour < 3){
+            if (handStack.is(BakeryItems.FLOUR_RYE.get())){
+                return fillFlour(pLevel, pPos, pState, pPlayer, pHand);
+            }
+        }else {
+            if(PotionUtils.getPotion(handStack) == Potions.WATER && pState.getValue(WATER) <1){
+                return fillWater(pLevel, pPos, pState, pPlayer, pHand);
+            }
 
         }
         return InteractionResult.FAIL;
@@ -69,7 +72,7 @@ public class FermentationTankBlock extends Block {
     public static InteractionResult fillFlour(Level level, BlockPos pos, BlockState state, Player playerIn, InteractionHand pHand){
         ItemStack handStack = playerIn.getItemInHand(pHand);
         int flour = state.getValue(FLOUR);
-            level.setBlock(pos, state.setValue(FLOUR, flour + 1), 3);
+            level.setBlock(pos, state.setValue(FLOUR, Math.min(flour + 1, 3)), 3);
             handStack.shrink(1);
             level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
@@ -78,7 +81,7 @@ public class FermentationTankBlock extends Block {
     public static InteractionResult fillWater(Level level, BlockPos pos, BlockState state, Player playerIn,InteractionHand pHand){
         ItemStack handStack = playerIn.getItemInHand(pHand);
         int water = state.getValue(WATER);
-        level.setBlock(pos, state.setValue(WATER, water + 1), 1);
+        level.setBlock(pos, state.setValue(WATER, Math.min(water + 1, 1)), 1);
         handStack.shrink(1);
         ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(Items.GLASS_BOTTLE));
         level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);

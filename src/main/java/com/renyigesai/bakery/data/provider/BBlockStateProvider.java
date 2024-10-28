@@ -40,12 +40,14 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
                                 this.name(block.get()) + "_fire",
                                 this.modLoc("custom/"+ this.name(block.get())))
                         .texture("0", this.modLoc("block/" + this.name(block.get()) + "_fire"))
+                        .texture("particle", this.modLoc("block/" + this.name(block.get()) + "_fire"))
                         .renderType(CUTOUT);
             }else {
                 modelFile = this.models().withExistingParent(
                                 this.name(block.get()),
                                 this.modLoc("custom/"+ this.name(block.get())))
                         .texture("0", this.modLoc("block/" + this.name(block.get())))
+                        .texture("particle", this.modLoc("block/" + this.name(block.get())))
                         .renderType(CUTOUT);
             }
             for (Direction facing :  Direction.Plane.HORIZONTAL) {
@@ -66,6 +68,7 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
                             this.name(block.get())+ "_" + pile,
                             this.modLoc("custom/"+ this.name(block.get())+ "_" + pile))
                     .texture("0", this.modLoc("block/" + this.name(block.get())))
+                    .texture("particle", this.modLoc("block/" + this.name(block.get())))
                     .renderType(CUTOUT);
             for (Direction facing :  Direction.Plane.HORIZONTAL) {
                 this.getVariantBuilder(block.get())
@@ -84,6 +87,7 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
                         this.name(block.get()) ,
                         this.modLoc("custom/"+ this.name(block.get())+"_1"))
                 .texture("0", this.modLoc("block/" + this.name(block.get())))
+                .texture("particle", this.modLoc("block/" + this.name(block.get())))
                 .renderType(CUTOUT);
         for(int pile : PileBlock.PILE.getPossibleValues()) {
             for (Direction facing :  Direction.Plane.HORIZONTAL) {

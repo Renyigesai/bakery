@@ -11,7 +11,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = BakeryMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BakeryRecipeTypes {
@@ -25,6 +24,8 @@ public class BakeryRecipeTypes {
 			RECIPE_TYPE.register(bus);
 			SERIALIZERS.register("oven", () -> OvenRecipe.Serializer.INSTANCE);
 			RECIPE_TYPE.register("oven", () -> OvenRecipe.Type.INSTANCE);
+
+
 		});
 	}
 }

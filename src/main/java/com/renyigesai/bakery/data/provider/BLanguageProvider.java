@@ -41,11 +41,11 @@ public class BLanguageProvider extends net.minecraftforge.common.data.LanguagePr
     protected void addTranslations() {
         add("container.oven", "Oven", "烤炉");
         addBlock(BakeryBlocks.FERMENTATION_TANK, "Fermentation Tank", "发酵罐");
-        addBlock(BakeryBlocks.BAGEL_BLOCK, "Bagel", "贝果");
-        addBlock(BakeryBlocks.BAGUETTE_BLOCK, "Baguette", "法棍");
-        addBlock(BakeryBlocks.CINNAMON_ROLL_BLOCK, "Cinnamon Roll", "肉桂卷");
-        addBlock(BakeryBlocks.COUNTRY_BREAD_BLOCK, "Country Bread", "乡村面包");
-        addBlock(BakeryBlocks.CROISSANT_BLOCK, "Croissant", "可颂");
+        addItem(BakeryItems.BAGEL_BLOCK, "Bagel", "贝果");
+        addItem(BakeryItems.BAGUETTE_BLOCK, "Baguette", "法棍");
+        addItem(BakeryItems.CINNAMON_ROLL_BLOCK, "Cinnamon Roll", "肉桂卷");
+        addItem(BakeryItems.COUNTRY_BREAD_BLOCK, "Country Bread", "乡村面包");
+        addItem(BakeryItems.CROISSANT_BLOCK, "Croissant", "可颂");
 
         addItem(BakeryItems.BAGEL_DOUGH, "Bagel Dough", "贝果面胚");
         addItem(BakeryItems.BAGUETTE_DOUGH, "Baguette Dough", "法棍面胚");

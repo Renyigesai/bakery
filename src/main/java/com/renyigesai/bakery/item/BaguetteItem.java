@@ -2,32 +2,24 @@ package com.renyigesai.bakery.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.core.BlockPos;
+import com.renyigesai.bakery.api.item.FoodBlockItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BaguetteItem extends Item {
-    public BaguetteItem(Properties p_41383_) {
-        super(p_41383_);
+public class BaguetteItem extends FoodBlockItem {
+    public BaguetteItem(Block pBlock, Properties properties) {
+        super(pBlock, properties);
     }
     @Override
     public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
         return 1;
     }
-
-    @Override
-    public boolean mineBlock(ItemStack itemstack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
-        itemstack.hurtAndBreak(1, entity, i -> i.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        return true;
-    }
-
     @Override
     public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
         itemstack.hurtAndBreak(2, entity, i -> i.broadcastBreakEvent(EquipmentSlot.MAINHAND));

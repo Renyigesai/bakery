@@ -6,12 +6,12 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class BakeryConfig {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 	public static final ForgeConfigSpec SPEC;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> IS_GUI_ENABLE;
+//	public static final ForgeConfigSpec.ConfigValue<> oven;
 	static {
-		BUILDER.push("gui");//标体类
-		IS_GUI_ENABLE = BUILDER.comment("是否启用默认GUI")
-				.define("is_gui_enable", true);
-
+		BUILDER.push("oven");//标体类
+//
+//		oven = BUILDER.comment("max_progress")
+//				.define("max_progress", OvenMaxProgress.BAGEL_DOUGH);
 		BUILDER.pop();
 		SPEC = BUILDER.build();
 	}
