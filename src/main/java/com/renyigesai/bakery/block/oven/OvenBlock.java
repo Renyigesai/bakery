@@ -66,7 +66,7 @@ public class OvenBlock extends BaseEntityBlock implements EntityBlock {
         BlockEntity _blockEntity = world.getBlockEntity(pos);
         if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
             ovenBlockEntity.getOven().putInt("progress", 0);
-            ovenBlockEntity.getOven().putInt("max_progress", 200);
+            ovenBlockEntity.getOven().putInt("max_progress", 0);
         }
     }
     @org.jetbrains.annotations.Nullable

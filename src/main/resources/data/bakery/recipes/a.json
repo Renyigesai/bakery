@@ -1,6 +1,6 @@
 {
   "type": "bakery:oven",
-  "ingredient": [
+  "ingredient":  [
     {
       "item": "bakery:bagel_dough"
     }
@@ -8,6 +8,8 @@
   "output": {
     "item": "bakery:bagel",
     "count": 1
-  }
+  },
+  "time": 200,
+  "temperature": 100
 }
    

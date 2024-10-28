@@ -32,8 +32,8 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
-        String A =gettag("power",world,x,y,z);
-        String C =gettag("max_power",world,x,y,z);
+        String A =gettag("progress",world,x,y,z);
+        String C =gettag("max_progress",world,x,y,z);
         String D = A+"/"+C;
         pGuiGraphics.drawString(font, D, 140, 50, 4210752, false);
 

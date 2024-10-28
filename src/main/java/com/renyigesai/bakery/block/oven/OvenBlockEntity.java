@@ -16,7 +16,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -29,7 +28,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class OvenBlockEntity extends BlockEntity implements MenuProvider {
@@ -108,11 +106,16 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public static void serverTick(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
-        int has_power =200;
+        recipeItem(world, pos, state, 0);
+    }
+    private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot) {
         BlockEntity _blockEntity = world.getBlockEntity(pos);
         if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
             setChanged( world,pos,state);
-            if (ovenBlockEntity.hasRecipe()) {
+            Optional<OvenRecipe> recipe = ovenBlockEntity.getCurrentRecipe();
+
+            if (ovenBlockEntity.hasRecipe(0)) {
+                recipe.ifPresent(ovenRecipe -> ovenBlockEntity.getOven().putInt("max_progress", ovenRecipe.getTime()));
                 if (!world.isClientSide()) {
                     ovenBlockEntity.getOven().putDouble("progress",
                             ( ovenBlockEntity.getOven().getDouble(  "progress") + 1));
@@ -126,7 +129,7 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
 
                         world.sendBlockUpdated(pos, state, state, 3);
                     }
-                    ovenBlockEntity.craftItem();
+                    ovenBlockEntity.craftItem(0);
                 }
             } else {
                 if (!world.isClientSide()) {
@@ -137,33 +140,27 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     }
-    private void craftItem() {
+    private void craftItem(int slot) {
         Optional<OvenRecipe> recipe = getCurrentRecipe();
         if(recipe.isPresent()) {
             ItemStack result = recipe.get().getResultItem(null);
-            int INPUT_SLOT = 0;
-            this.itemHandler.extractItem(INPUT_SLOT, 1, false);
-
-            this.itemHandler.setStackInSlot(2, new ItemStack(result.getItem(),
-                    this.itemHandler.getStackInSlot(2).getCount() + result.getCount()));
+            this.itemHandler.setStackInSlot(slot, new ItemStack(result.getItem(), result.getCount()));
         }
     }
 
 
-    private boolean hasRecipe() {
+    private boolean hasRecipe(int slot) {
         Optional<OvenRecipe> recipe = getCurrentRecipe();
 
 
         if(recipe.isPresent()) {
-            ItemStack result = recipe.get().getResultItem(Objects.requireNonNull(getLevel()).registryAccess());
-            return canInsertAmountIntoOutputSlot(result.getCount())
-                    && canInserItemIntoOutputSlot(result.getItem());
+            return recipe.get().getIngredients().get(0).test(itemHandler.getStackInSlot(slot));
         }else {
             return false;
         }
     }
 
-    private Optional<OvenRecipe> getCurrentRecipe() {
+    public Optional<OvenRecipe> getCurrentRecipe() {
         SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i,this.itemHandler.getStackInSlot(i));
@@ -175,13 +172,4 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
         }
 
     }
-
-    private boolean canInserItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(2).isEmpty() || this.itemHandler.getStackInSlot(2).is(item);
-    }
-
-    private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemHandler.getStackInSlot(2).getCount() + count <= this.itemHandler.getStackInSlot(2).getMaxStackSize();
-    }
-
 }

@@ -2,6 +2,8 @@ package com.renyigesai.bakery.data.tag;
 
 
 import com.renyigesai.bakery.BakeryMod;
+import com.renyigesai.bakery.init.BakeryItemTag;
+import com.renyigesai.bakery.init.BakeryItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +20,17 @@ public class BItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider 
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-//        this.tag(ItemTags.SLABS).add(MSModItems.DIRT_STEPS.get());
+        this.tag(BakeryItemTag.RAE_FOOD)
+                .add(
+                        BakeryItems.BAGEL_DOUGH.get(),
+                        BakeryItems.BAGUETTE_DOUGH.get(),
+                        BakeryItems.CINNAMON_ROLL_DOUGH.get(),
+                        BakeryItems.COUNTRY_BREAD_DOUGH.get(),
+                        BakeryItems.CROISSANT_DOUGH.get(),
+                        BakeryItems.PINEAPPLE_BUN_DOUGH.get(),
+                        BakeryItems.ROUND_BREAD_DOUGH.get(),
+                        BakeryItems.SALT_CROISSANT_DOUGH.get()
+                        );
     }
 
 }

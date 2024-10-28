@@ -4,4 +4,6 @@
 /build/classes/java/main/
 /.idea/
 /run/
+/run-data/
 /.vscode/
+/lombok.config/
