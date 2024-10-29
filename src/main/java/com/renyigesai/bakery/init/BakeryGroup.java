@@ -22,11 +22,11 @@ public class BakeryGroup {
                         output.accept(BakeryItems.SALT.get());
                         output.accept(BakeryItems.BROWN_SUGAR_CUBE.get());
                         output.accept(BakeryItems.BUTTER_CUBE.get());
-                        output.accept(BakeryItems.BAGEL_BLOCK.get());
-                        output.accept(BakeryItems.BAGUETTE_BLOCK.get());
-                        output.accept(BakeryItems.CINNAMON_ROLL_BLOCK.get());
-                        output.accept(BakeryItems.COUNTRY_BREAD_BLOCK.get());
-                        output.accept(BakeryItems.CROISSANT_BLOCK.get());
+                        output.accept(BakeryItems.BAGEL.get());
+                        output.accept(BakeryItems.BAGUETTE.get());
+                        output.accept(BakeryItems.CINNAMON_ROLL.get());
+                        output.accept(BakeryItems.COUNTRY_BREAD.get());
+                        output.accept(BakeryItems.CROISSANT.get());
                         output.accept(BakeryItems.PINEAPPLE_BUN.get());
                         output.accept(BakeryItems.ROUND_BREAD.get());
                         output.accept(BakeryItems.SALT_CROISSANT.get());
