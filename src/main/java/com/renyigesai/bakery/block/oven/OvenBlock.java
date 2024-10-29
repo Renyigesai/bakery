@@ -54,21 +54,6 @@ public class OvenBlock extends BaseEntityBlock implements EntityBlock {
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
-    @Override
-    public void onPlace(BlockState blockstate, Level world, BlockPos pos, BlockState oldState, boolean moving) {
-        super.onPlace(blockstate, world, pos, oldState, moving);
-        this.runOnPlace(blockstate,world,pos);
-
-//        world.scheduleTick(pos, this, 1);
-    }
-
-    private void runOnPlace(BlockState state, Level world, BlockPos pos) {
-        BlockEntity _blockEntity = world.getBlockEntity(pos);
-        if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
-            ovenBlockEntity.getOven().putInt("progress", 0);
-            ovenBlockEntity.getOven().putInt("max_progress", 0);
-        }
-    }
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {

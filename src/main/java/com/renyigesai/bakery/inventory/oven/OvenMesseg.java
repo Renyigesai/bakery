@@ -17,16 +17,14 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class OvenMesseg {
 
-    private final int slotID, x, y, z, changeType, meta;
+    private final int slotID, x, y, z;
     private HashMap<String, String> textstate;
 
-    public OvenMesseg(int slotID, int x, int y, int z, int changeType, int meta, HashMap<String, String> textstate) {
+    public OvenMesseg(int slotID, int x, int y, int z, HashMap<String, String> textstate) {
         this.slotID = slotID;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.changeType = changeType;
-        this.meta = meta;
         this.textstate = textstate;
     }
 
@@ -35,8 +33,6 @@ public class OvenMesseg {
         this.x = buffer.readInt();
         this.y = buffer.readInt();
         this.z = buffer.readInt();
-        this.changeType = buffer.readInt();
-        this.meta = buffer.readInt();
         this.textstate = readTextState(buffer);
     }
 
@@ -45,8 +41,6 @@ public class OvenMesseg {
         buffer.writeInt(message.x);
         buffer.writeInt(message.y);
         buffer.writeInt(message.z);
-        buffer.writeInt(message.changeType);
-        buffer.writeInt(message.meta);
         writeTextState(message.textstate, buffer);
 
     }
@@ -56,19 +50,17 @@ public class OvenMesseg {
         context.enqueueWork(() -> {
             Player entity = context.getSender();
             int slotID = message.slotID;
-            int changeType = message.changeType;
-            int meta = message.meta;
             int x = message.x;
             int y = message.y;
             int z = message.z;
             HashMap<String, String> textstate = message.textstate;
 
-            handleSlotAction(entity, slotID, changeType, meta, x, y, z, textstate);
+            handleSlotAction(entity, slotID, x, y, z, textstate);
         });
         context.setPacketHandled(true);
     }
 
-    public static void handleSlotAction(Player entity, int slot, int changeType, int meta, int x, int y, int z, HashMap<String, String> textstate) {
+    public static void handleSlotAction(Player entity, int ID, int x, int y, int z, HashMap<String, String> textstate) {
         Level world = entity.level();
         HashMap guistate = OvenMenu.guistate;
         for (Map.Entry<String, String> entry : textstate.entrySet()) {

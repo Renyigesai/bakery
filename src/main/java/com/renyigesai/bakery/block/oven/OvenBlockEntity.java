@@ -106,7 +106,15 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public static void serverTick(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
-        recipeItem(world, pos, state, 0);
+        BlockEntity _blockEntity = world.getBlockEntity(pos);
+        if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
+            for (int i = 0; i < ovenBlockEntity.itemHandler.getSlots(); i++) {
+                recipeItem(world, pos, state, i);
+            }
+        }
+    }
+    public static void setTemperature(OvenBlockEntity ovenBlockEntity, int temperature){
+        ovenBlockEntity.getOven().putInt("temperature", Math.min(Math.max(temperature, 0),500));
     }
     private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot) {
         BlockEntity _blockEntity = world.getBlockEntity(pos);
@@ -114,29 +122,30 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             setChanged( world,pos,state);
             Optional<OvenRecipe> recipe = ovenBlockEntity.getCurrentRecipe();
 
-            if (ovenBlockEntity.hasRecipe(0)) {
+            if (ovenBlockEntity.hasRecipe(slot)) {
                 recipe.ifPresent(ovenRecipe -> {
-                    ovenBlockEntity.getOven().putInt("max_progress", ovenRecipe.getTime());
-                    ovenBlockEntity.getOven().putInt("temperature", ovenRecipe.getTemperature());
+                    ovenBlockEntity.getOven().putInt("max_progress"+"_"+slot, ovenRecipe.getTime());
+                    ovenBlockEntity.getOven().putInt("min_temperature"+"_"+slot, Math.max(ovenRecipe.getMax_temperature(), 0));
+                    ovenBlockEntity.getOven().putInt("max_temperature"+"_"+slot, Math.min(ovenRecipe.getMax_temperature(), 500));
                 });
                 if (!world.isClientSide()) {
-                    ovenBlockEntity.getOven().putDouble("progress",
-                            ( ovenBlockEntity.getOven().getDouble(  "progress") + 1));
+                    ovenBlockEntity.getOven().putDouble("progress" + "_" + slot,
+                            (ovenBlockEntity.getOven().getDouble("progress" + "_" + slot) + 1));
                     world.sendBlockUpdated(pos, state, state, 3);
                 }
-                if ( ovenBlockEntity.getOven().getDouble(  "progress")
-                        >= ovenBlockEntity.getOven().getDouble( "max_progress")) {
+                if ( ovenBlockEntity.getOven().getDouble(  "progress"+"_"+slot)
+                        >= ovenBlockEntity.getOven().getDouble( "max_progress"+"_"+slot)) {
                     if (!world.isClientSide()) {
 
-                        ovenBlockEntity.getOven().putDouble("progress", 0);
+                        ovenBlockEntity.getOven().putDouble("progress"+"_"+slot, 0);
 
                         world.sendBlockUpdated(pos, state, state, 3);
                     }
-                    ovenBlockEntity.craftItem(0);
+                    ovenBlockEntity.craftItem(slot);
                 }
             } else {
                 if (!world.isClientSide()) {
-                    ovenBlockEntity.getOven().putDouble("progress", 0);
+                    ovenBlockEntity.getOven().putDouble("progress"+"_"+slot, 0);
 
                     world.sendBlockUpdated(pos, state, state, 3);
                 }

@@ -78,14 +78,14 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
 
         if (boundBlockEntity instanceof OvenBlockEntity oven) {
 
-            this.customSlots.put(0, this.addSlot(new OvenSlot(internal, 0, 62, 17, true) {
+            this.customSlots.put(0, this.addSlot(new OvenSlot(internal, 0, 62, 17) {
 
             }));
-            this.customSlots.put(1, this.addSlot(new OvenSlot(internal, 1, 80, 17, true) {
+            this.customSlots.put(1, this.addSlot(new OvenSlot(internal, 1, 80, 17) {
             }));
-            this.customSlots.put(2, this.addSlot(new OvenSlot(internal, 2, 62, 53, true) {
+            this.customSlots.put(2, this.addSlot(new OvenSlot(internal, 2, 62, 53) {
             }));
-            this.customSlots.put(3, this.addSlot(new OvenSlot(internal, 3, 80, 53, true) {
+            this.customSlots.put(3, this.addSlot(new OvenSlot(internal, 3, 80, 53) {
             }));
         }
 

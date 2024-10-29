@@ -10,6 +10,7 @@
     "count": 1
   },
   "time": 200,
-  "temperature": 100
+  "min_temperature": 100,
+  "max_temperature": 150
 }
    

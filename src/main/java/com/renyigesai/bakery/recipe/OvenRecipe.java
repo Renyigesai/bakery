@@ -22,14 +22,17 @@ public class OvenRecipe implements Recipe<SimpleContainer> {
 	@Getter
 	private final int time;
 	@Getter
-	private final int temperature;
+	private final int min_temperature;
+	@Getter
+	private final int max_temperature;
 	private final NonNullList<Ingredient> recipeItems;
 
-	public OvenRecipe(ResourceLocation id, ItemStack output, int time, int temperature, NonNullList<Ingredient> recipeItems) {
+	public OvenRecipe(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, NonNullList<Ingredient> recipeItems) {
 		this.id = id;
 		this.output = output;
         this.time = time;
-        this.temperature = temperature;
+        this.min_temperature = min_temperature;
+		this.max_temperature = max_temperature;
         this.recipeItems = recipeItems;
 	}
 
@@ -89,31 +92,34 @@ public class OvenRecipe implements Recipe<SimpleContainer> {
 		public OvenRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 			int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
-			int temperature = GsonHelper.getAsInt(pSerializedRecipe, "temperature");
+			int min_temperature = GsonHelper.getAsInt(pSerializedRecipe, "min_temperature");
+			int max_temperature = GsonHelper.getAsInt(pSerializedRecipe, "max_temperature");
 			JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient");
 			NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
 			for (int i = 0; i < inputs.size(); i++) {
 				inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
 			}
-			return new OvenRecipe(pRecipeId, output, time, temperature, inputs);
+			return new OvenRecipe(pRecipeId, output, time, min_temperature, max_temperature, inputs);
 		}
 
 		@Override
 		public @Nullable OvenRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
 			int time = buf.readInt();
-			int temperature = buf.readInt();
+			int min_temperature = buf.readInt();
+			int max_temperature = buf.readInt();
 			NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 			for (int i = 0; i < inputs.size(); i++) {
 				inputs.set(i, Ingredient.fromNetwork(buf));
 			}
 			ItemStack output = buf.readItem();
-			return new OvenRecipe(id, output, time, temperature, inputs);
+			return new OvenRecipe(id, output, time, min_temperature, max_temperature, inputs);
 		}
 
 		@Override
 		public void toNetwork(FriendlyByteBuf buf, OvenRecipe recipe) {
 			buf.writeInt(recipe.time);
-			buf.writeInt(recipe.temperature);
+			buf.writeInt(recipe.min_temperature);
+			buf.writeInt(recipe.max_temperature);
 			buf.writeInt(recipe.getIngredients().size());
 			for (Ingredient ing : recipe.getIngredients()) {
 				ing.toNetwork(buf);
