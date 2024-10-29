@@ -30,11 +30,11 @@ public class BakeryItems {
     public static final RegistryObject<Item> ROUND_BREAD_DOUGH;
     public static final RegistryObject<Item> SALT_CROISSANT_DOUGH;
     public static final RegistryObject<Item> TART_SHELL;
-    public static final RegistryObject<Item> BAGEL_BLOCK;
-    public static final RegistryObject<Item> BAGUETTE_BLOCK;
-    public static final RegistryObject<Item> CINNAMON_ROLL_BLOCK;
-    public static final RegistryObject<Item> COUNTRY_BREAD_BLOCK;
-    public static final RegistryObject<Item> CROISSANT_BLOCK;
+    public static final RegistryObject<Item> BAGEL;
+    public static final RegistryObject<Item> BAGUETTE;
+    public static final RegistryObject<Item> CINNAMON_ROLL;
+    public static final RegistryObject<Item> COUNTRY_BREAD;
+    public static final RegistryObject<Item> CROISSANT;
     public static final RegistryObject<Item> PINEAPPLE_BUN;
     public static final RegistryObject<Item> ROUND_BREAD;
     public static final RegistryObject<Item> SALT_CROISSANT;
@@ -43,6 +43,8 @@ public class BakeryItems {
     public static final RegistryObject<Item> YEAST_TANK;
     public static final RegistryObject<Item> BOTTLE_YEAST;
     public static final RegistryObject<Item> GLASS_CABINET_DOOR;
+    public static final RegistryObject<Item> COARSE_SALT;
+    public static final RegistryObject<Item> SALT_ORE;
 
 
     static {
@@ -68,13 +70,16 @@ public class BakeryItems {
         YEAST_TANK = block(BakeryBlocks.YEAST_TANK);
         BOTTLE_YEAST = item("bottle_yeast");
         GLASS_CABINET_DOOR = block(BakeryBlocks.GLASS_CABINET_DOOR);
+        SALT_ORE = block(BakeryBlocks.SALT_ORE);
+        COARSE_SALT = item("coarse_salt");
+        //coarse_salt
 
         //Bread Items
-        BAGEL_BLOCK = foodBlockItem(BakeryBlocks.BAGEL_BLOCK, BakeryFoodProperties.BAGEL);
-        BAGUETTE_BLOCK = REGISTER.register(BakeryBlocks.BAGUETTE_BLOCK.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE_BLOCK.get(),new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
-        CINNAMON_ROLL_BLOCK = foodBlockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK, BakeryFoodProperties.CINNAMON_ROLL);
-        COUNTRY_BREAD_BLOCK = foodBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, BakeryFoodProperties.COUNTRY_BREAD);
-        CROISSANT_BLOCK = foodBlockItem(BakeryBlocks.CROISSANT_BLOCK, BakeryFoodProperties.CROISSANT);
+        BAGEL = foodBlockItem(BakeryBlocks.BAGEL_BLOCK, BakeryFoodProperties.BAGEL);
+        BAGUETTE = REGISTER.register(BakeryBlocks.BAGUETTE_BLOCK.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE_BLOCK.get(),new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
+        CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK, BakeryFoodProperties.CINNAMON_ROLL);
+        COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, BakeryFoodProperties.COUNTRY_BREAD);
+        CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT_BLOCK, BakeryFoodProperties.CROISSANT);
         PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT);

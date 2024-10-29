@@ -1,0 +1,6 @@
+{
+  "parent": "bakery:custom/salt_ore",
+  "textures": {
+    "all": "bakery:block/salt_ore"
+  }
+}
