@@ -43,6 +43,8 @@ public class BakeryItems {
     public static final RegistryObject<Item> YEAST_TANK;
     public static final RegistryObject<Item> BOTTLE_YEAST;
     public static final RegistryObject<Item> GLASS_CABINET_DOOR;
+    public static final RegistryObject<Item> COARSE_SALT;
+    public static final RegistryObject<Item> SALT_ORE;
 
 
     static {
@@ -68,6 +70,9 @@ public class BakeryItems {
         YEAST_TANK = block(BakeryBlocks.YEAST_TANK);
         BOTTLE_YEAST = item("bottle_yeast");
         GLASS_CABINET_DOOR = block(BakeryBlocks.GLASS_CABINET_DOOR);
+        SALT_ORE = block(BakeryBlocks.SALT_ORE);
+        COARSE_SALT = item("coarse_salt");
+        //coarse_salt
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL_BLOCK, BakeryFoodProperties.BAGEL);

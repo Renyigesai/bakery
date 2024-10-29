@@ -34,6 +34,7 @@ public class BakeryGroup {
                         output.accept(BakeryBlocks.YEAST_TANK.get());
                         output.accept(BakeryItems.BOTTLE_YEAST.get());
                         output.accept(BakeryBlocks.GLASS_CABINET_DOOR.get());
+                        output.accept(BakeryItems.COARSE_SALT.get());
                     }))
                     .build());
 

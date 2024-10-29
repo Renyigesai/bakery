@@ -29,5 +29,7 @@
   "item.bakery.tart_shell": "Tart Shell",
   "block.bakery.fermentation_tank": "Fermentation Tank",
   "block.bakery.yeast_tank": "Yeast Tank",
-  "item.bakery.bottle_yeast": "Bottle Yeast"
+  "item.bakery.bottle_yeast": "Bottle Yeast",
+  "item.bakery.coarse_salt": "Coarse Salt",
+  "block.bakery.glass_cabinet_door": "Glass Cabinet Door"
 }
