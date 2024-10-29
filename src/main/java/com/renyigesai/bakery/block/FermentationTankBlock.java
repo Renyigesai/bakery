@@ -1,6 +1,5 @@
 package com.renyigesai.bakery.block;
 
-import com.renyigesai.bakery.init.BakeryBlocks;
 import com.renyigesai.bakery.init.BakeryItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,46 +27,62 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class FermentationTankBlock extends Block {
-    public static final IntegerProperty FLOUR = IntegerProperty.create("flour", 0, 3);
+    public static final IntegerProperty FLOUR = IntegerProperty.create("flour", 0, 4);
     public static final BooleanProperty WATER = BooleanProperty.create("water");
+    public static final BooleanProperty IS_FERTILIZED = BooleanProperty.create("fertilized");
     protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
 
     public FermentationTankBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FLOUR, 0)
-                .setValue(WATER, false));
+                .setValue(WATER, false).setValue(IS_FERTILIZED, false));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
-
-    public static ItemStack isFlour(){
-        return new ItemStack(BakeryItems.FLOUR_RYE.get());
-    }
-
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer,
                                  InteractionHand pHand, BlockHitResult pHit) {
         ItemStack handStack = pPlayer.getItemInHand(pHand);
         int flour = pState.getValue(FLOUR);
-        if ( flour < 3){
-            if (handStack.is(BakeryItems.FLOUR_RYE.get())){
-                return fillFlour(pLevel, pPos, pState, pPlayer, pHand);
+        if (pState.getValue(IS_FERTILIZED)){
+            if (handStack.is(Items.GLASS_BOTTLE)){
+                return ladleOut(pLevel,pPos,pState,pPlayer,pHand);
             }
         }else {
-            if(PotionUtils.getPotion(handStack) == Potions.WATER && !pState.getValue(WATER)){
-                return fillWater(pLevel, pPos, pState, pPlayer, pHand);
+            if (flour < 3) {
+                if (handStack.is(BakeryItems.FLOUR_RYE.get())) {
+                    return fillFlour(pLevel, pPos, pState, pPlayer, pHand);
+                }
+            } else {
+                if (PotionUtils.getPotion(handStack) == Potions.WATER && !pState.getValue(WATER)) {
+                    return fillWater(pLevel, pPos, pState, pPlayer, pHand);
+                }
             }
-
         }
+
         return InteractionResult.FAIL;
+    }
+    public static InteractionResult ladleOut(Level level, BlockPos pos, BlockState state, Player playerIn, InteractionHand pHand){
+        ItemStack hand = playerIn.getItemInHand(pHand);
+        int yeast = state.getValue(FLOUR);
+        if (yeast > 1){
+            level.setBlock(pos, state.setValue(FLOUR, yeast - 1), 3);
+        }else {
+            level.setBlock(pos, state.setValue(FLOUR, 0).setValue(WATER, false).setValue(IS_FERTILIZED, false),0);
+        }
+        hand.shrink(1);
+        ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(BakeryItems.BOTTLE_YEAST.get()));
+        level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
+        return InteractionResult.SUCCESS;
     }
 
     public static InteractionResult fillFlour(Level level, BlockPos pos, BlockState state, Player playerIn, InteractionHand pHand){
@@ -94,7 +109,7 @@ public class FermentationTankBlock extends Block {
         boolean water = pState.getValue(WATER);
         if (flour == 3 && water) {
             if (pRandom.nextInt(3) == 0) {
-                pLevel.setBlock(pPos, BakeryBlocks.YEAST_TANK.get().defaultBlockState(), 3);
+                pLevel.setBlock(pPos, pState.setValue(FLOUR, 4).setValue(IS_FERTILIZED, true), 3);
             }
         }
     }
@@ -103,7 +118,7 @@ public class FermentationTankBlock extends Block {
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         int flour = pState.getValue(FLOUR);
         boolean water = pState.getValue(WATER);
-        if (flour == 3 && water){
+        if (flour == 3 && water && !pState.getValue(IS_FERTILIZED)){
                 Direction direction = Direction.getRandom(pRandom);
                 double d0 = direction.getStepX() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepX() * 0.6D;
                 double d1 = direction.getStepY() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepY() * 0.6D;
@@ -120,7 +135,7 @@ public class FermentationTankBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FLOUR,WATER);
+        builder.add(FLOUR,WATER,IS_FERTILIZED);
     }
 
     @Override
@@ -132,16 +147,26 @@ public class FermentationTankBlock extends Block {
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+        if(state.getValue(FLOUR)<4){
+            return new ItemStack(BakeryItems.FERMENTATION_TANK.get());
+        }else {
+            return new ItemStack(BakeryItems.YEAST_TANK.get());
+        }
+    }
 
     @Override
     public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
         int flour = pState.getValue(FLOUR);
         for (int i = 0; i < flour; i++) {
-            double x = pPos.getX() + 0.5;
-            double y = pPos.getY() + 0.15;
-            double z = pPos.getZ() + 0.5;
-            ItemEntity entity = new ItemEntity((Level) pLevel, x, y, z, new ItemStack(BakeryItems.FLOUR_RYE.get()));
-            pLevel.addFreshEntity(entity);
+            if(flour<4){
+                double x = pPos.getX() + 0.5;
+                double y = pPos.getY() + 0.15;
+                double z = pPos.getZ() + 0.5;
+                ItemEntity entity = new ItemEntity((Level) pLevel, x, y, z, new ItemStack(BakeryItems.FLOUR_RYE.get()));
+                pLevel.addFreshEntity(entity);
+            }
         }
     }
 }

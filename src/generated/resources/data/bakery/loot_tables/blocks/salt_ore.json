@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakery:yeast_tank"
+          "name": "bakery:salt_ore"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "bakery:blocks/yeast_tank"
+  "random_sequence": "bakery:blocks/salt_ore"
 }

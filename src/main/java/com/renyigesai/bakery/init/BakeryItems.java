@@ -2,14 +2,20 @@ package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
+import com.renyigesai.bakery.block.FermentationTankBlock;
 import com.renyigesai.bakery.item.BaguetteItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
 public class BakeryItems {
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, BakeryMod.MODID);
@@ -66,8 +72,8 @@ public class BakeryItems {
         SALT_CROISSANT_DOUGH = item("salt_croissant_dough");
         TART_SHELL = item("tart_shell");
         OVEN = block(BakeryBlocks.OVEN);
-        FERMENTATION_TANK = block(BakeryBlocks.FERMENTATION_TANK);
-        YEAST_TANK = block(BakeryBlocks.YEAST_TANK);
+        FERMENTATION_TANK = blockState("fermentation_tank", BakeryBlocks.FERMENTATION_TANK, FermentationTankBlock.FLOUR, 0);
+        YEAST_TANK = blockState("yeast_tank", BakeryBlocks.FERMENTATION_TANK, FermentationTankBlock.FLOUR, 4, FermentationTankBlock.IS_FERTILIZED, true);
         BOTTLE_YEAST = item("bottle_yeast");
         GLASS_CABINET_DOOR = block(BakeryBlocks.GLASS_CABINET_DOOR);
         SALT_ORE = block(BakeryBlocks.SALT_ORE);
@@ -75,11 +81,11 @@ public class BakeryItems {
         //coarse_salt
 
         //Bread Items
-        BAGEL = foodBlockItem(BakeryBlocks.BAGEL_BLOCK, BakeryFoodProperties.BAGEL);
-        BAGUETTE = REGISTER.register(BakeryBlocks.BAGUETTE_BLOCK.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE_BLOCK.get(),new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
-        CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK, BakeryFoodProperties.CINNAMON_ROLL);
-        COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK, BakeryFoodProperties.COUNTRY_BREAD);
-        CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT_BLOCK, BakeryFoodProperties.CROISSANT);
+        BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);
+        BAGUETTE = REGISTER.register(BakeryBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE.get(),new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
+        CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL, BakeryFoodProperties.CINNAMON_ROLL);
+        COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD, BakeryFoodProperties.COUNTRY_BREAD);
+        CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT, BakeryFoodProperties.CROISSANT);
         PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT);
@@ -91,6 +97,7 @@ public class BakeryItems {
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
+
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
     }
@@ -103,5 +110,61 @@ public class BakeryItems {
 
 
 
-
+    private static<T extends Comparable<T>, V extends T> RegistryObject<Item>  blockState(String name, RegistryObject<Block> block
+            , Property<T> integerProperty, V vaul) {
+        return REGISTER.register(name, () -> new ItemNameBlockItem(block.get(), new Item.Properties())
+                {
+                    @Nullable
+                    @Override
+                    protected BlockState getPlacementState(BlockPlaceContext placeContext) {
+                        return this.canPlace(placeContext, this.getBlock().defaultBlockState().setValue(integerProperty,vaul)) ?
+                                this.getBlock().defaultBlockState().setValue(integerProperty,vaul) : null;
+                    }
+                    @Override
+                    protected boolean placeBlock(BlockPlaceContext placeContext, BlockState state) {
+                        return placeContext.getLevel().setBlock(placeContext.getClickedPos(),
+                                this.getBlock().defaultBlockState().setValue(integerProperty,vaul), 11);
+                    }
+                }
+        );
+    }
+    private static <T extends Comparable<T>, U extends Comparable<U>> RegistryObject<Item>  blockState(String name, RegistryObject<Block> block
+            , Property<T> integerProperty, T vaul
+            , Property<U> integerProperty1, U vaul1) {
+        return REGISTER.register(name, () -> new ItemNameBlockItem(block.get(), new Item.Properties())
+                {
+                    @Nullable
+                    @Override
+                    protected BlockState getPlacementState(BlockPlaceContext placeContext) {
+                        return this.canPlace(placeContext, this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1)) ?
+                                this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1) : null;
+                    }
+                    @Override
+                    protected boolean placeBlock(BlockPlaceContext placeContext, BlockState state) {
+                        return placeContext.getLevel().setBlock(placeContext.getClickedPos(),
+                                this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1), 11);
+                    }
+                }
+        );
+    }
+    private static<T extends Comparable<T>, U extends Comparable<U>,A extends Comparable<A>> RegistryObject<Item>  blockState(String name, RegistryObject<Block> block
+            , Property<T> integerProperty, T vaul
+            , Property<U> integerProperty1, U vaul1
+            , Property<A> integerProperty2, A vaul2) {
+        return REGISTER.register(name, () -> new ItemNameBlockItem(block.get(), new Item.Properties())
+                {
+                    @Nullable
+                    @Override
+                    protected BlockState getPlacementState(BlockPlaceContext placeContext) {
+                        return this.canPlace(placeContext, this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1).setValue(integerProperty2,vaul2)) ?
+                                this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1).setValue(integerProperty2,vaul2) : null;
+                    }
+                    @Override
+                    protected boolean placeBlock(BlockPlaceContext placeContext, BlockState state) {
+                        return placeContext.getLevel().setBlock(placeContext.getClickedPos(),
+                                this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1).setValue(integerProperty2,vaul2), 11);
+                    }
+                }
+        );
+    }
 }

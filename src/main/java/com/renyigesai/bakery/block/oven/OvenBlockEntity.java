@@ -115,7 +115,10 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             Optional<OvenRecipe> recipe = ovenBlockEntity.getCurrentRecipe();
 
             if (ovenBlockEntity.hasRecipe(0)) {
-                recipe.ifPresent(ovenRecipe -> ovenBlockEntity.getOven().putInt("max_progress", ovenRecipe.getTime()));
+                recipe.ifPresent(ovenRecipe -> {
+                    ovenBlockEntity.getOven().putInt("max_progress", ovenRecipe.getTime());
+                    ovenBlockEntity.getOven().putInt("temperature", ovenRecipe.getTemperature());
+                });
                 if (!world.isClientSide()) {
                     ovenBlockEntity.getOven().putDouble("progress",
                             ( ovenBlockEntity.getOven().getDouble(  "progress") + 1));

@@ -1,9 +1,8 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.block.FermentationTankBlock;
 import com.renyigesai.bakery.api.block.PileBlock;
-import com.renyigesai.bakery.block.YeastTankBlock;
+import com.renyigesai.bakery.block.FermentationTankBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
 import net.minecraft.world.level.block.Block;
@@ -25,11 +24,11 @@ public class BakeryBlocks {
 
     //Brean Pile Block
 
-    public static final RegistryObject<Block> BAGEL_BLOCK;
-    public static final RegistryObject<Block> BAGUETTE_BLOCK;
-    public static final RegistryObject<Block> CINNAMON_ROLL_BLOCK;
-    public static final RegistryObject<Block> COUNTRY_BREAD_BLOCK;
-    public static final RegistryObject<Block> CROISSANT_BLOCK;
+    public static final RegistryObject<Block> BAGEL;
+    public static final RegistryObject<Block> BAGUETTE;
+    public static final RegistryObject<Block> CINNAMON_ROLL;
+    public static final RegistryObject<Block> COUNTRY_BREAD;
+    public static final RegistryObject<Block> CROISSANT;
     public static final RegistryObject<Block> PINEAPPLE_BUN;
     public static final RegistryObject<Block> ROUND_BREAD;
     public static final RegistryObject<Block> SALT_CROISSANT;
@@ -39,7 +38,6 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
     public static final RegistryObject<Block> FERMENTATION_TANK;
-    public static final RegistryObject<Block> YEAST_TANK;
     public static final RegistryObject<Block> GLASS_CABINET_DOOR;
     public static final RegistryObject<Block> SALT_ORE;
     //Salt ore
@@ -48,20 +46,19 @@ public class BakeryBlocks {
 
         //Brean Pile Block
 
-        BAGEL_BLOCK = BLOCK_REGISTRY.register("bagel", PileBlock::new);
-        BAGUETTE_BLOCK = BLOCK_REGISTRY.register("baguette", PileBlock::new);
-        CINNAMON_ROLL_BLOCK = BLOCK_REGISTRY.register("cinnamon_roll", PileBlock::new);
-        COUNTRY_BREAD_BLOCK = BLOCK_REGISTRY.register("country_bread", PileBlock::new);
-        CROISSANT_BLOCK = BLOCK_REGISTRY.register("croissant", PileBlock::new);
+        BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
+        BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
+        CINNAMON_ROLL = BLOCK_REGISTRY.register("cinnamon_roll", PileBlock::new);
+        COUNTRY_BREAD = BLOCK_REGISTRY.register("country_bread", PileBlock::new);
+        CROISSANT = BLOCK_REGISTRY.register("croissant", PileBlock::new);
         PINEAPPLE_BUN = BLOCK_REGISTRY.register("pineapple_bun", PileBlock::new);
         ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
 
         //common
 
-        OVEN = BLOCK_REGISTRY.register("oven", () -> new OvenBlock());
+        OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
-        YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.METAL), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
 

@@ -1,9 +1,4 @@
 {
-	"credit": "Made with Blockbench",
-	"textures": {
-		"0": "bakery:block/round_bread",
-		"particle": "bakery:block/round_bread"
-	},
 	"elements": [
 		{
 			"from": [9, 0, 6],

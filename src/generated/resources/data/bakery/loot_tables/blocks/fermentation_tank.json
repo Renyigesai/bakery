@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakery:fermentation_tank"
+          "name": "bakery:yeast_tank"
         }
       ],
       "rolls": 1.0

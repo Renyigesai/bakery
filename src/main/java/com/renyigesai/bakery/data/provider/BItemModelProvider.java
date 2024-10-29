@@ -24,32 +24,37 @@ public class BItemModelProvider extends net.minecraftforge.client.model.generato
 
     @Override
     protected void registerModels() {
-        blockItem(BakeryBlocks.BAGEL_BLOCK,"_1");
-        blockItem(BakeryBlocks.BAGUETTE_BLOCK,"_1");
-        blockItem(BakeryBlocks.CINNAMON_ROLL_BLOCK,"_1");
-        blockItem(BakeryBlocks.CROISSANT_BLOCK,"_1");
-        basicBlockItem(BakeryBlocks.COUNTRY_BREAD_BLOCK,"block/country_bread");
+        blockItem(BakeryBlocks.BAGEL,"_1");
         basicItem(BakeryItems.BAGEL_DOUGH, "custom/bagel_1", "item/raw_dough");
+        blockItem(BakeryBlocks.BAGUETTE,"_1");
         basicItem(BakeryItems.BAGUETTE_DOUGH, "custom/baguette_1", "item/raw_dough_2");
+        blockItem(BakeryBlocks.CINNAMON_ROLL,"_1");
         basicItem(BakeryItems.CINNAMON_ROLL_DOUGH, "custom/cinnamon_roll_dough", "item/cinnamon_roll_dough");
-        basicItem(BakeryItems.COUNTRY_BREAD_DOUGH, "custom/country_bread_1", "item/raw_dough");
+        blockItem(BakeryBlocks.CROISSANT,"_1");
         basicItem(BakeryItems.CROISSANT_DOUGH, "custom/croissant_1", "item/raw_dough");
+        blockItem(BakeryBlocks.COUNTRY_BREAD,"_1");
+        basicItem(BakeryItems.COUNTRY_BREAD_DOUGH, "custom/country_bread_1", "item/raw_dough");
+        blockItem(BakeryBlocks.PINEAPPLE_BUN, "_1");
+        basicItem(BakeryItems.PINEAPPLE_BUN_DOUGH, "custom/pineapple_bun_1", "item/raw_dough");
+        blockItem(BakeryBlocks.ROUND_BREAD, "_1");
+        basicItem(BakeryItems.ROUND_BREAD_DOUGH, "custom/round_bread_1","item/raw_dough");
+        blockItem(BakeryBlocks.SALT_CROISSANT, "_1");
+        basicItem(BakeryItems.SALT_CROISSANT_DOUGH, "custom/salt_croissant_1","item/raw_dough");
         basicItem(BakeryItems.BROWN_SUGAR_CUBE.get());
         basicItem(BakeryItems.BUTTER_CUBE.get());
         basicItem(BakeryItems.FLOUR.get());
         basicItem(BakeryItems.FLOUR_RYE.get());
         basicItem(BakeryItems.SALT.get());
-        basicItem(BakeryItems.PINEAPPLE_BUN, "custom/pineapple_bun", "block/pineapple_bun");
-        basicItem(BakeryItems.PINEAPPLE_BUN_DOUGH, "custom/pineapple_bun", "item/raw_dough");
         basicItem(BakeryItems.RAW_EGG_TART, "custom/raw_egg_tart", "item/tart_shell");
         basicItem(BakeryItems.RAW_PUMPKIN_PIE, "custom/raw_pumpkin_pie", "item/pumpkin_stuffing", "item/raw_tare_crust");
         basicItem(BakeryItems.RAW_TARE_CRUST, "custom/raw_tare_crust", "item/raw_tare_crust");
-        basicItem(BakeryItems.ROUND_BREAD, "custom/round_bread","block/round_bread");
-        basicItem(BakeryItems.ROUND_BREAD_DOUGH, "custom/round_bread","item/raw_dough");
-        basicItem(BakeryItems.SALT_CROISSANT, "custom/salt_croissant", "block/salt_croissant");
-        basicItem(BakeryItems.SALT_CROISSANT_DOUGH, "custom/salt_croissant","item/raw_dough");
         basicItem(BakeryItems.TART_SHELL, "custom/tart_shell", "item/tart_shell");
         basicBlockItem(BakeryBlocks.OVEN, "custom/oven", "block/oven");
+        blockItem(BakeryBlocks.FERMENTATION_TANK);
+        basicItem(BakeryItems.YEAST_TANK, "custom/fermentation_tank_flour_4", "block/fermentation_tank", "block/yeast");
+        basicItem(BakeryItems.GLASS_CABINET_DOOR, "custom/glass_cabinet_door_bottom", "block/glass_cabinet_door","block/glass_cabinet_door_side");
+        basicItem(BakeryItems.BOTTLE_YEAST.get());
+        basicItem(BakeryItems.COARSE_SALT.get());
     }
     public void basicItem(Supplier<Item> item, String pModelFile, String pTexture, String pTexture1) {
         this.withExistingParent(this.name(item.get()), this.modLoc(pModelFile))

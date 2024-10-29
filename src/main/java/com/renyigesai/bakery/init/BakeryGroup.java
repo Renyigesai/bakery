@@ -30,8 +30,8 @@ public class BakeryGroup {
                         output.accept(BakeryItems.PINEAPPLE_BUN.get());
                         output.accept(BakeryItems.ROUND_BREAD.get());
                         output.accept(BakeryItems.SALT_CROISSANT.get());
-                        output.accept(BakeryBlocks.FERMENTATION_TANK.get());
-                        output.accept(BakeryBlocks.YEAST_TANK.get());
+                        output.accept(BakeryItems.FERMENTATION_TANK.get());
+                        output.accept(BakeryItems.YEAST_TANK.get());
                         output.accept(BakeryItems.BOTTLE_YEAST.get());
                         output.accept(BakeryBlocks.GLASS_CABINET_DOOR.get());
                         output.accept(BakeryItems.COARSE_SALT.get());

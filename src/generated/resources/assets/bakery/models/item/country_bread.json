@@ -1,4 +1,3 @@
 {
-  "parent": "bakery:block/country_bread",
-  "render_type": "minecraft:cutout"
+  "parent": "bakery:block/country_bread_1"
 }
