@@ -47,6 +47,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> OVEN;
     public static final RegistryObject<Item> FERMENTATION_TANK;
     public static final RegistryObject<Item> YEAST_TANK;
+    public static final RegistryObject<Item> CHEESE_TANK;
     public static final RegistryObject<Item> BOTTLE_YEAST;
     public static final RegistryObject<Item> GLASS_CABINET_DOOR;
     public static final RegistryObject<Item> COARSE_SALT;
@@ -72,13 +73,13 @@ public class BakeryItems {
         SALT_CROISSANT_DOUGH = item("salt_croissant_dough");
         TART_SHELL = item("tart_shell");
         OVEN = block(BakeryBlocks.OVEN);
-        FERMENTATION_TANK = blockState("fermentation_tank", BakeryBlocks.FERMENTATION_TANK, FermentationTankBlock.FLOUR, 0);
-        YEAST_TANK = blockState("yeast_tank", BakeryBlocks.FERMENTATION_TANK, FermentationTankBlock.FLOUR, 4, FermentationTankBlock.IS_FERTILIZED, true);
+        FERMENTATION_TANK = block(BakeryBlocks.FERMENTATION_TANK);
+        YEAST_TANK = block(BakeryBlocks.YEAST_TANK);
+        CHEESE_TANK = block(BakeryBlocks.CHEESE_TANK);
         BOTTLE_YEAST = item("bottle_yeast");
         GLASS_CABINET_DOOR = block(BakeryBlocks.GLASS_CABINET_DOOR);
         SALT_ORE = block(BakeryBlocks.SALT_ORE);
         COARSE_SALT = item("coarse_salt");
-        //coarse_salt
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);
@@ -109,7 +110,7 @@ public class BakeryItems {
     }
 
 
-
+//先留着
     private static<T extends Comparable<T>, V extends T> RegistryObject<Item>  blockState(String name, RegistryObject<Block> block
             , Property<T> integerProperty, V vaul) {
         return REGISTER.register(name, () -> new ItemNameBlockItem(block.get(), new Item.Properties())

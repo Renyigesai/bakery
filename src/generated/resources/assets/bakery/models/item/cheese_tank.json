@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "liquid_storage_pot_pot_flour_3",
+	"texture_size": [32, 32],
 	"textures": {
 		"0": "bakery:block/fermentation_tank",
-		"1": "bakery:block/whole_wheat_flour",
+		"1": "bakery:block/cheese",
 		"particle": "minecraft:block/glass"
 	},
 	"elements": [
@@ -98,41 +98,14 @@
 		},
 		{
 			"from": [4, 1, 4],
-			"to": [12, 3, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 4]},
+			"to": [12, 11, 12],
 			"faces": {
-				"north": {"uv": [8, 0, 16, 2], "texture": "#1"},
-				"east": {"uv": [8, 2, 16, 4], "texture": "#1"},
-				"south": {"uv": [8, 4, 16, 6], "texture": "#1"},
-				"west": {"uv": [8, 6, 16, 8], "texture": "#1"},
-				"up": {"uv": [8, 8, 0, 0], "texture": "#1"},
-				"down": {"uv": [8, 8, 0, 16], "texture": "#1"}
-			}
-		},
-		{
-			"from": [4, 3, 4],
-			"to": [12, 5, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [12, 2, 4]},
-			"faces": {
-				"north": {"uv": [8, 6, 16, 8], "texture": "#1"},
-				"east": {"uv": [8, 0, 16, 2], "texture": "#1"},
-				"south": {"uv": [8, 2, 16, 4], "texture": "#1"},
-				"west": {"uv": [8, 4, 16, 6], "texture": "#1"},
-				"up": {"uv": [8, 8, 0, 0], "rotation": 90, "texture": "#1"},
-				"down": {"uv": [8, 8, 0, 16], "rotation": 270, "texture": "#1"}
-			}
-		},
-		{
-			"from": [4, 5, 4],
-			"to": [12, 7, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [4, 4, 4]},
-			"faces": {
-				"north": {"uv": [8, 0, 16, 2], "texture": "#1"},
-				"east": {"uv": [8, 2, 16, 4], "texture": "#1"},
-				"south": {"uv": [8, 4, 16, 6], "texture": "#1"},
-				"west": {"uv": [8, 6, 16, 8], "texture": "#1"},
-				"up": {"uv": [8, 8, 0, 0], "texture": "#1"},
-				"down": {"uv": [8, 8, 0, 16], "texture": "#1"}
+				"north": {"uv": [0, 0, 4, 5], "texture": "#1"},
+				"east": {"uv": [4, 0, 8, 5], "texture": "#1"},
+				"south": {"uv": [0, 5, 4, 10], "texture": "#1"},
+				"west": {"uv": [4, 5, 8, 10], "texture": "#1"},
+				"up": {"uv": [12, 4, 8, 0], "texture": "#1"},
+				"down": {"uv": [12, 4, 8, 8], "texture": "#1"}
 			}
 		}
 	],
@@ -185,21 +158,9 @@
 		},
 		{
 			"name": "group",
-			"origin": [8, 8, 8],
+			"origin": [0, 0, 0],
 			"color": 0,
 			"children": [8]
-		},
-		{
-			"name": "group",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [9]
-		},
-		{
-			"name": "group",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [10]
 		}
 	]
 }

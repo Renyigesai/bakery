@@ -29,6 +29,8 @@ public class BBlockLoot extends VanillaBlockLoot {
         this.add(BakeryBlocks.CROISSANT.get(), this::createPileDrops);
         this.dropSelf(BakeryBlocks.OVEN.get());
         this.dropSelf(BakeryBlocks.FERMENTATION_TANK.get());
+        this.dropSelf(BakeryBlocks.YEAST_TANK.get());
+        this.dropSelf(BakeryBlocks.CHEESE_TANK.get());
         this.dropSelf(BakeryBlocks.GLASS_CABINET_DOOR.get());
         this.dropSelf(BakeryBlocks.PINEAPPLE_BUN.get());
         this.dropSelf(BakeryBlocks.ROUND_BREAD.get());

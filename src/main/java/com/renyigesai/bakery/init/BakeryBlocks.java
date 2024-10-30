@@ -3,6 +3,7 @@ package com.renyigesai.bakery.init;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.block.FermentationTankBlock;
+import com.renyigesai.bakery.block.YeastTankBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
 import net.minecraft.world.level.block.Block;
@@ -22,7 +23,7 @@ public class BakeryBlocks {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BakeryMod.MODID);
 
-    //Brean Pile Block
+    //Bread Pile Block
 
     public static final RegistryObject<Block> BAGEL;
     public static final RegistryObject<Block> BAGUETTE;
@@ -38,13 +39,15 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
     public static final RegistryObject<Block> FERMENTATION_TANK;
+    public static final RegistryObject<Block> YEAST_TANK;
+    public static final RegistryObject<Block> CHEESE_TANK;
     public static final RegistryObject<Block> GLASS_CABINET_DOOR;
     public static final RegistryObject<Block> SALT_ORE;
     //Salt ore
 
     static {
 
-        //Brean Pile Block
+        //Bread Pile Block
 
         BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
@@ -59,6 +62,8 @@ public class BakeryBlocks {
 
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
+        YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        CHEESE_TANK = BLOCK_REGISTRY.register("cheese_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.METAL), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
@@ -67,4 +72,6 @@ public class BakeryBlocks {
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
 
     }
+
 }
+

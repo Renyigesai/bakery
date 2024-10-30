@@ -21,7 +21,9 @@
   "item.bakery.country_bread_dough": "乡村面包面胚",
   "item.bakery.croissant": "可颂",
   "item.bakery.croissant_dough": "可颂面胚",
-  "item.bakery.fermentation_tank": "发酵罐",
+  "block.bakery.fermentation_tank": "发酵罐",
+  "block.bakery.yeast_tank": "满装酵母罐",
+  "block.bakery.cheese_tank": "满装奶酪罐",
   "item.bakery.flour": "面粉",
   "item.bakery.flour_rye": "全麦面粉",
   "item.bakery.pineapple_bun": "菠萝包",
@@ -34,6 +36,5 @@
   "item.bakery.salt": "盐",
   "item.bakery.salt_croissant": "盐可颂",
   "item.bakery.salt_croissant_dough": "盐可颂面胚",
-  "item.bakery.tart_shell": "蛋挞壳",
-  "item.bakery.yeast_tank": "酵母罐"
+  "item.bakery.tart_shell": "蛋挞壳"
 }

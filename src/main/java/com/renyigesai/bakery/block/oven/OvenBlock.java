@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,6 +26,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,11 +36,41 @@ import javax.annotation.Nullable;
 
 public class OvenBlock extends BaseEntityBlock implements EntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    protected static final VoxelShape S_BASE = Block.box(0, 0, 0, 16, 12, 12);
+    protected static final VoxelShape S_BOX_B = Block.box(13.5, 2, 12, 15.5, 4, 12.5);
+    protected static final VoxelShape S_BOX_A_1 = Block.box(3.5, 6, 12, 15.5, 8, 12.5);
+    protected static final VoxelShape S_BOX_A_2 = Block.box(1, 10, 12, 13, 11, 13);
+    protected static final VoxelShape N_BASE = Block.box(0, 0, 4, 16, 12, 16);
+    protected static final VoxelShape N_BOX_B = Block.box(0.5, 2, 3.5, 2.5, 4, 4);
+    protected static final VoxelShape N_BOX_A_1 = Block.box(0.5, 6, 3.5, 2.5, 8, 4);
+    protected static final VoxelShape N_BOX_A_2 = Block.box(3, 10, 3, 15, 11, 4);
+    protected static final VoxelShape E_BASE = Block.box(0, 0, 0, 12, 12, 16);
+    protected static final VoxelShape E_BOX_B = Block.box(12, 2, 0.5, 12.5, 4, 2.5);
+    protected static final VoxelShape E_BOX_A_1 = Block.box(12, 6, 0.5, 12.5, 8, 2.5);
+    protected static final VoxelShape E_BOX_A_2 = Block.box(2, 10, 3, 13, 11, 15);
+    protected static final VoxelShape W_BASE = Block.box(4, 0, 0, 16, 12, 16);
+    protected static final VoxelShape W_BOX_B = Block.box(3.5, 2, 13.5, 4, 4, 15.5);
+    protected static final VoxelShape W_BOX_A_1 = Block.box(3.5, 6, 13.5, 4, 8, 15.5);
+    protected static final VoxelShape W_BOX_A_2 = Block.box(3, 10, 1, 4, 11, 13);
+    private static final VoxelShape S_AXIS_BAA = Shapes.or(S_BASE, S_BOX_B, S_BOX_A_1, S_BOX_A_2);
+    private static final VoxelShape N_AXIS_BAA = Shapes.or(N_BASE, N_BOX_B, N_BOX_A_1, N_BOX_A_2);
+    public static final VoxelShape E_AXIS_BAA = Shapes.or(E_BASE, E_BOX_B, E_BOX_A_1, E_BOX_A_2);
+    public static final VoxelShape W_AXIS_BAA = Shapes.or(W_BASE, W_BOX_B, W_BOX_A_1, W_BOX_A_2);
     public static BooleanProperty LIT = BooleanProperty.create("lit");
     public OvenBlock() {
-        super(BlockBehaviour.Properties.of().noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
+        super(Properties.of().noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, false));
     }
+
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return switch (pState.getValue(FACING)){
+            default -> N_AXIS_BAA;
+            case NORTH -> S_AXIS_BAA;
+            case EAST -> W_AXIS_BAA;
+            case WEST -> E_AXIS_BAA;
+        };
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(LIT, FACING);

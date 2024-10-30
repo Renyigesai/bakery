@@ -21,7 +21,9 @@
   "item.bakery.country_bread_dough": "Country Bread Dough",
   "item.bakery.croissant": "Croissant",
   "item.bakery.croissant_dough": "Croissant Dough",
-  "item.bakery.fermentation_tank": "Fermentation Tank",
+  "block.bakery.fermentation_tank": "Fermentation Tank",
+  "block.bakery.yeast_tank": "Yeast Tank",
+  "block.bakery.cheese_tank": "Cheese Tank",
   "item.bakery.flour": "Flour",
   "item.bakery.flour_rye": "Rye Flour",
   "item.bakery.pineapple_bun": "Pineapple Bun",
@@ -34,6 +36,5 @@
   "item.bakery.salt": "Salt",
   "item.bakery.salt_croissant": "Salt Croissant",
   "item.bakery.salt_croissant_dough": "Salt Croissant Dough",
-  "item.bakery.tart_shell": "Tart Shell",
-  "item.bakery.yeast_tank": "Yeast Tank"
+  "item.bakery.tart_shell": "Tart Shell"
 }

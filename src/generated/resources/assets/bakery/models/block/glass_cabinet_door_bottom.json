@@ -1,0 +1,9 @@
+{
+	"parent": "bakery:custom/glass_cabinet_door_bottom",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "bakery:block/glass_cabinet_door",
+		"1": "bakery:block/glass_cabinet_door_side",
+		"particle": "bakery:block/glass_cabinet_door_side"
+	}
+}

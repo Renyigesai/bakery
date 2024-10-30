@@ -1,64 +1,25 @@
 {
   "variants": {
-    "fertilized=false,flour=0,water=false": {
+    "flour=0,water=false,milk=false,sweet_berries=false": {
       "model": "bakery:block/fermentation_tank"
     },
-    "fertilized=false,flour=0,water=true": {
-      "model": "bakery:block/fermentation_tank"
-    },
-    "fertilized=false,flour=1,water=false": {
+    "flour=1,water=false,milk=false,sweet_berries=false": {
       "model": "bakery:block/fermentation_tank_flour_1"
     },
-    "fertilized=false,flour=1,water=true": {
-      "model": "bakery:block/fermentation_tank_flour_1"
-    },
-    "fertilized=false,flour=2,water=false": {
+    "flour=2,water=false,milk=false,sweet_berries=false": {
       "model": "bakery:block/fermentation_tank_flour_2"
     },
-    "fertilized=false,flour=2,water=true": {
-      "model": "bakery:block/fermentation_tank_flour_2"
-    },
-    "fertilized=false,flour=3,water=false": {
+    "flour=3,water=false,milk=false,sweet_berries=false": {
       "model": "bakery:block/fermentation_tank_flour_3"
     },
-    "fertilized=false,flour=3,water=true": {
+    "flour=3,water=true,milk=false,sweet_berries=false": {
       "model": "bakery:block/fermentation_tank_flour_3"
     },
-    "fertilized=false,flour=4,water=false": {
-      "model": "bakery:block/fermentation_tank_flour_4"
+    "flour=0,water=false,milk=true,sweet_berries=false": {
+      "model": "bakery:block/fermentation_tank_milk"
     },
-    "fertilized=false,flour=4,water=true": {
-      "model": "bakery:block/fermentation_tank_flour_4"
-    },
-    "fertilized=true,flour=0,water=false": {
-      "model": "bakery:block/fermentation_tank"
-    },
-    "fertilized=true,flour=0,water=true": {
-      "model": "bakery:block/fermentation_tank"
-    },
-    "fertilized=true,flour=1,water=false": {
-      "model": "bakery:block/fermentation_tank_flour_1"
-    },
-    "fertilized=true,flour=1,water=true": {
-      "model": "bakery:block/fermentation_tank_flour_1"
-    },
-    "fertilized=true,flour=2,water=false": {
-      "model": "bakery:block/fermentation_tank_flour_2"
-    },
-    "fertilized=true,flour=2,water=true": {
-      "model": "bakery:block/fermentation_tank_flour_2"
-    },
-    "fertilized=true,flour=3,water=false": {
-      "model": "bakery:block/fermentation_tank_flour_3"
-    },
-    "fertilized=true,flour=3,water=true": {
-      "model": "bakery:block/fermentation_tank_flour_3"
-    },
-    "fertilized=true,flour=4,water=false": {
-      "model": "bakery:block/fermentation_tank_flour_4"
-    },
-    "fertilized=true,flour=4,water=true": {
-      "model": "bakery:block/fermentation_tank_flour_4"
+    "flour=0,water=false,milk=true,sweet_berries=true": {
+      "model": "bakery:block/fermentation_tank_milk"
     }
   }
 }
