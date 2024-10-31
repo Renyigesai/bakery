@@ -3,6 +3,7 @@ package com.renyigesai.bakery.init;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.block.FermentationTankBlock;
+import com.renyigesai.bakery.block.ToastBlock;
 import com.renyigesai.bakery.block.YeastTankBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
@@ -33,6 +34,7 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> PINEAPPLE_BUN;
     public static final RegistryObject<Block> ROUND_BREAD;
     public static final RegistryObject<Block> SALT_CROISSANT;
+    public static final RegistryObject<Block> TOAST;
 
     //common
 
@@ -57,15 +59,27 @@ public class BakeryBlocks {
         PINEAPPLE_BUN = BLOCK_REGISTRY.register("pineapple_bun", PileBlock::new);
         ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
+        TOAST = BLOCK_REGISTRY.register("toast", () ->
+                new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL),BakeryItems.SLICED_TOAST));
 
         //common
 
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
-        FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () -> new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
-        YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
-        CHEESE_TANK = BLOCK_REGISTRY.register("cheese_tank", () -> new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
-        GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.METAL), BlockSetType.OAK));
-        SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
+        FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
+                new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
+
+        YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () ->
+                new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+        CHEESE_TANK = BLOCK_REGISTRY.register("cheese_tank", () ->
+                new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+        GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
+                new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS), BlockSetType.OAK));
+
+        SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
+                new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
 
         //BlockEntity

@@ -11,6 +11,8 @@ public class BakeryFoodProperties {
     public static final FoodProperties PINEAPPLE_BUN;
     public static final FoodProperties ROUND_BREAD;
     public static final FoodProperties SALT_CROISSANT;
+    public static final FoodProperties SLICED_TOAST;
+
     static {
         BAGEL = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
         BAGUETTE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
@@ -20,5 +22,6 @@ public class BakeryFoodProperties {
         PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
         ROUND_BREAD = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
         SALT_CROISSANT = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+        SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
     }
 }

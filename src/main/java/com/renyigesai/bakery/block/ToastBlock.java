@@ -54,11 +54,13 @@ public class ToastBlock extends HorizontalDirectionalBlock {
         if ( hand.is(Tags.Items.TOOLS) && pile == 1){
             return cut(pLevel,pPos,pState,pPlayer);
         }
+
         if (hand.is(asItem()) && pile < 2){
             hand.shrink(1);
             return pileUp(pLevel,pPos,pState,pPlayer);
         }
-        return use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+//        return use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return InteractionResult.FAIL;
     }
 
     public ItemStack getSliceItem() {

@@ -52,6 +52,8 @@ public class BakeryItems {
     public static final RegistryObject<Item> GLASS_CABINET_DOOR;
     public static final RegistryObject<Item> COARSE_SALT;
     public static final RegistryObject<Item> SALT_ORE;
+    public static final RegistryObject<Item> SLICED_TOAST;
+    public static final RegistryObject<Item> TOAST;
 
 
     static {
@@ -90,6 +92,8 @@ public class BakeryItems {
         PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT);
+        TOAST = block(BakeryBlocks.TOAST);
+        SLICED_TOAST = foodItem("sliced_toast",BakeryFoodProperties.SLICED_TOAST);
     }
 
     private static RegistryObject<Item> item(String pName) {
