@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -113,39 +114,83 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     }
-    public static void setTemperature(OvenBlockEntity ovenBlockEntity, int temperature){
-        ovenBlockEntity.getOven().putInt("temperature", Math.min(Math.max(temperature, 0),500));
+    public double getTemperature(OvenBlockEntity ovenBlockEntity){
+        return ovenBlockEntity.getOven().getDouble("temperature");
+    }
+    public static void setTemperature(OvenBlockEntity ovenBlockEntity, double temperature){
+        Level world = ovenBlockEntity.getLevel();
+        BlockPos pos = ovenBlockEntity.getBlockPos();
+        BlockState state = world.getBlockState(pos);
+        setChanged(world, pos, state);
+        ovenBlockEntity.getOven().putDouble("temperature", Math.min(Math.max(temperature, 0),500));
+        world.sendBlockUpdated(pos, state, state, 3);
+    }
+    public void addTemperature(OvenBlockEntity ovenBlockEntity, double temperature){
+        Level world = ovenBlockEntity.getLevel();
+        BlockPos pos = ovenBlockEntity.getBlockPos();
+        BlockState state = world.getBlockState(pos);
+        setChanged(world, pos, state);
+        ovenBlockEntity.getOven().putDouble("temperature", Math.min(Math.max(this.getTemperature(ovenBlockEntity) + temperature, 0),500));
+        world.sendBlockUpdated(pos, state, state, 3);
+    }
+    public void subTemperature(OvenBlockEntity ovenBlockEntity, double temperature){
+        Level world = ovenBlockEntity.getLevel();
+        BlockPos pos = ovenBlockEntity.getBlockPos();
+        BlockState state = world.getBlockState(pos);
+        setChanged(world, pos, state);
+        ovenBlockEntity.getOven().putDouble("temperature", Math.min(Math.max(this.getTemperature(ovenBlockEntity) - temperature, 0),500));
+        world.sendBlockUpdated(pos, state, state, 3);
+    }
+    public static void setZhen(OvenBlockEntity ovenBlockEntity, int zhen){
+        Level world = ovenBlockEntity.getLevel();
+        BlockPos pos = ovenBlockEntity.getBlockPos();
+        BlockState state = world.getBlockState(pos);
+        setChanged(world, pos, state);
+        ovenBlockEntity.getOven().putInt("zhen", zhen);
+        world.sendBlockUpdated(pos, state, state, 3);
+    }
+    public static int getZhen(OvenBlockEntity ovenBlockEntity){
+        return ovenBlockEntity.getOven().getInt("zhen");
     }
     private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot) {
         BlockEntity _blockEntity = world.getBlockEntity(pos);
-        if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
-            setChanged( world,pos,state);
+        if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity){
+            setChanged(world, pos, state);
             Optional<OvenRecipe> recipe = ovenBlockEntity.getCurrentRecipe();
+            double temperature = ovenBlockEntity.getTemperature(ovenBlockEntity);
+            double min_temperature =ovenBlockEntity.getOven().getDouble("min_temperature" + "_" + slot);
+            double max_temperature =ovenBlockEntity.getOven().getDouble("max_temperature" + "_" + slot);
 
-            if (ovenBlockEntity.hasRecipe(slot)) {
+            if (ovenBlockEntity.hasRecipe(slot) && min_temperature <= temperature) {
                 recipe.ifPresent(ovenRecipe -> {
-                    ovenBlockEntity.getOven().putInt("max_progress"+"_"+slot, ovenRecipe.getTime());
-                    ovenBlockEntity.getOven().putInt("min_temperature"+"_"+slot, Math.max(ovenRecipe.getMax_temperature(), 0));
-                    ovenBlockEntity.getOven().putInt("max_temperature"+"_"+slot, Math.min(ovenRecipe.getMax_temperature(), 500));
+                    ovenBlockEntity.getOven().putDouble("max_progress" + "_" + slot, ovenRecipe.getTime());
+                    ovenBlockEntity.getOven().putDouble("min_temperature" + "_" + slot, Math.max(ovenRecipe.getMin_temperature(), 0));
+                    ovenBlockEntity.getOven().putDouble("max_temperature" + "_" + slot, Math.min(ovenRecipe.getMax_temperature(), 500));
                 });
                 if (!world.isClientSide()) {
                     ovenBlockEntity.getOven().putDouble("progress" + "_" + slot,
                             (ovenBlockEntity.getOven().getDouble("progress" + "_" + slot) + 1));
                     world.sendBlockUpdated(pos, state, state, 3);
                 }
-                if ( ovenBlockEntity.getOven().getDouble(  "progress"+"_"+slot)
-                        >= ovenBlockEntity.getOven().getDouble( "max_progress"+"_"+slot)) {
+                if (ovenBlockEntity.getOven().getDouble("progress" + "_" + slot)
+                        >=ovenBlockEntity.getOven().getDouble("max_progress" + "_" + slot)) {
+
+                    if (temperature <= max_temperature) {
+                        ovenBlockEntity.craftItem(slot);
+                    } else if (temperature > max_temperature) {
+                        ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
+                    }
+
                     if (!world.isClientSide()) {
 
-                        ovenBlockEntity.getOven().putDouble("progress"+"_"+slot, 0);
+                       ovenBlockEntity.getOven().putDouble("progress" + "_" + slot, 0);
 
                         world.sendBlockUpdated(pos, state, state, 3);
                     }
-                    ovenBlockEntity.craftItem(slot);
                 }
             } else {
                 if (!world.isClientSide()) {
-                    ovenBlockEntity.getOven().putDouble("progress"+"_"+slot, 0);
+                    ovenBlockEntity.getOven().putDouble("progress" + "_" + slot, 0);
 
                     world.sendBlockUpdated(pos, state, state, 3);
                 }

@@ -34,13 +34,14 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
     private boolean bound = false;
     private Supplier<Boolean> boundItemMatcher = null;
     private Entity boundEntity = null;
-    private BlockEntity boundBlockEntity = null;
-
+    public BlockEntity boundBlockEntity = null;
+    public int zhen_y; // 初始位置
     public OvenMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         super(BakeryMenuType.OVEN_MENU.get(), id);
         this.entity = inv.player;
         this.world = inv.player.level();
         this.internal = new ItemStackHandler(2);
+
         BlockPos pos = null;
         if (extraData != null) {
             pos = extraData.readBlockPos();
@@ -77,7 +78,7 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
         }
 
         if (boundBlockEntity instanceof OvenBlockEntity oven) {
-
+            zhen_y = OvenBlockEntity.getZhen(oven);
             this.customSlots.put(0, this.addSlot(new OvenSlot(internal, 0, 62, 17) {
 
             }));

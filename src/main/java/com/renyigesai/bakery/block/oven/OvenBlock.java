@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -116,7 +115,23 @@ public class OvenBlock extends BaseEntityBlock implements EntityBlock {
         }
         return InteractionResult.SUCCESS;
     }
+    @Override
+    public void onPlace(BlockState blockstate, Level world, BlockPos pos, BlockState oldState, boolean moving) {
+        super.onPlace(blockstate, world, pos, oldState, moving);
+        this.runOnPlace(blockstate,world,pos);
 
+//        world.scheduleTick(pos, this, 1);
+    }
+
+    private void runOnPlace(BlockState state, Level world, BlockPos pos) {
+        BlockEntity _blockEntity = world.getBlockEntity(pos);
+        if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
+            if (!world.isClientSide()) {
+                ovenBlockEntity.getOven().putDouble("zhen", 69);
+                world.sendBlockUpdated(pos, state, state, 3);
+            }
+        }
+    }
     @Override
     public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);

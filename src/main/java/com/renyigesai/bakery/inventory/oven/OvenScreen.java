@@ -3,6 +3,7 @@ package com.renyigesai.bakery.inventory.oven;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
+import lombok.Getter;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -14,39 +15,61 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+@OnlyIn(Dist.CLIENT)
 public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     private final static HashMap<String, Object> guistate = OvenMenu.guistate;
     private final static HashMap<String, String> textstate = new HashMap<>();
     private final Level world;
     private final Player entity;
-
+    private final BlockEntity boundBlockEntity;
     private final int x, y, z;
+    private AtomicBoolean dragging = new AtomicBoolean(false);
+    private int mousey;
+    @Getter
+    public static int zhen_y; // 初始位置
 
     public OvenScreen(OvenMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
         this.world = container.world;
         this.entity = container.entity;
+        this.boundBlockEntity = container.boundBlockEntity;
         this.x = container.x;
         this.y = container.y;
         this.z = container.z;
+        if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
+            if(OvenBlockEntity.getZhen(ovenBlockEntity) == 0){
+                zhen_y = 69;
+            }else {
+                Level world = ovenBlockEntity.getLevel();
+                BlockPos pos = ovenBlockEntity.getBlockPos();
+                BlockState state = world.getBlockState(pos);
+                ovenBlockEntity.setChanged();
+                zhen_y = OvenBlockEntity.getZhen(ovenBlockEntity);
+                world.sendBlockUpdated(pos, state, state, 3);
+            }
+        }
     }
     private static final ResourceLocation texture = new ResourceLocation(BakeryMod.MODID,"textures/gui/oven_gui.png");
 
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        this.mousey = pMouseY;
         this.renderBackground(pGuiGraphics);
-
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
-        String A =gettag("progress",world,x,y,z);
-        String C =gettag("max_progress",world,x,y,z);
-        String D = A+"/"+C;
-        pGuiGraphics.drawString(font, D, 140, 50, 4210752, false);
-
+    }
+    @Override
+    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        String A =gettag("temperature",world,x,y,z);
+        pGuiGraphics.drawString(font, A, 140, 50, 4210752, false);
+        super.renderLabels(pGuiGraphics, pMouseX, pMouseY);
     }
 
     @Override
@@ -55,6 +78,8 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         pGuiGraphics.blit(texture, this.leftPos, this.topPos,this.imageWidth,this.imageHeight, 0,0,this.imageWidth, this.imageHeight, 256, 256);
+        pGuiGraphics.blit(texture, this.leftPos + 104, this.topPos + zhen_y, 0, 178, 20, 3, 256, 256);
+
         RenderSystem.disableBlend();
     }
     public static String gettag(String tagName,LevelAccessor world, double x, double y, double z) {
@@ -67,38 +92,90 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
             }
         }.getValue(world, BlockPos.containing(x, y, z), tagName));
     }
-    public static double getVaul(String tagName, LevelAccessor world, double x, double y, double z){
-        return new Object() {
-            public double getValue(LevelAccessor world, BlockPos pos, String tag) {
-                BlockEntity _blockEntity = world.getBlockEntity(pos);
-                if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity)
-                    return ovenBlockEntity.getOven().getDouble(tag);
-                return -1;
-            }
-        }.getValue(world, BlockPos.containing(x, y, z), tagName);
+     @Override
+    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+        if (insideScrollbar(pMouseX, pMouseY)) {
+            dragging.set(true);
+        }
+        return super.mouseClicked(pMouseX, pMouseY, pButton);
+    }
+
+    @Override
+    public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
+        if (dragging.get()) {
+            int mouseY = (int) pMouseY - this.topPos;
+            zhen_y = Math.min(Math.max(mouseY, 17), 69);
+            // 更新相关数据
+            updateProgress(zhen_y);
+        }
+        return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
+    }
+
+    @Override
+    public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
+        if(dragging.get()){
+            updateProgress(zhen_y);
+            dragging.set(false);
+        }
+        return super.mouseReleased(pMouseX, pMouseY, pButton);
     }
     @Override
     public void containerTick() {
         super.containerTick();
+        int mouseY = this.mousey - this.topPos;
+        if(zhen_y> 69){
+            zhen_y = 69;
+        }else if(zhen_y < 17){
+            zhen_y = 17;
+        }
+        if (dragging.get()) {
+            zhen_y = Math.min(Math.max(mouseY, 17), 69);
+        }
+    }
+    private void updateProgress(int zhen_y) {
+        // 根据滑动指针的位置更新进度
+
+        if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
+            BakeryMod.PACKET_HANDLER.sendToServer(new OvenButtonMessage(2, x, y, z, textstate));
+            OvenButtonMessage.handleButtonAction(entity, 2, x, y, z, textstate);
+//            OvenBlockEntity.setTemperature(ovenBlockEntity,temperature);
+//            OvenBlockEntity.setZhen(ovenBlockEntity,zhen_y);
+        }
+    }
+    protected boolean insideScrollbar(double pMouseX, double pMouseY) {
+        int k =this.leftPos + 105;
+        int l = this.topPos + 17;
+        int i1 = this.leftPos + 124;
+        int j1 = this.topPos + 72;
+        return pMouseX >= (double) k && pMouseY >= (double) l && pMouseX < (double) i1 && pMouseY < (double) j1;
     }
     private ImageButton imagebutton_add;
     private ImageButton imagebutton_sub;
+//    private ImageButton imagebutton_zhen;
     @Override
     public void init() {
         super.init();
 
         imagebutton_add = new ImageButton(this.leftPos + 122, this.topPos + 17, 5, 6, 0, 166, 6, texture, 256, 256, e -> {
-            BakeryMod.PACKET_HANDLER.sendToServer(new OvenMesseg(0, x, y, z, textstate));
-            OvenMesseg.handleSlotAction(entity, 0, x, y, z, textstate);
+            if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
+                zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500/52.0) + 17);
+                BakeryMod.PACKET_HANDLER.sendToServer(new OvenButtonMessage(0, x, y, z, textstate));
+                OvenButtonMessage.handleButtonAction(entity, 0, x, y, z, textstate);
+
+            }
         });
         guistate.put("button:imagebutton_add", imagebutton_add);
         this.addRenderableWidget(imagebutton_add);
 
         imagebutton_sub = new ImageButton(this.leftPos + 122, this.topPos + 64, 5, 6, 5, 166, 6, texture, 256, 256, e -> {
+            if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
+                zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500/52.0) + 17);
+                BakeryMod.PACKET_HANDLER.sendToServer(new OvenButtonMessage(1, x, y, z, textstate));
+                OvenButtonMessage.handleButtonAction(entity, 1, x, y, z, textstate);
+            }
         });
         guistate.put("button:imagebutton_sub", imagebutton_sub);
         this.addRenderableWidget(imagebutton_sub);
-
 
     }
 }

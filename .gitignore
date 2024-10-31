@@ -7,3 +7,4 @@
 /run-data/
 /.vscode/
 /lombok.config/
+/src/generated/resources/.cache/
