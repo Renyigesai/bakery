@@ -10,15 +10,17 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -31,11 +33,39 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class OvenBlockEntity extends BlockEntity implements MenuProvider {
+public class OvenBlockEntity extends BaseContainerBlockEntity {
     private final ItemStackHandler itemHandler = new ItemStackHandler(4);
     public Component name = Component.translatable("container.oven");
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
     public CompoundTag oven;
+    public int temperature;
+    public int zhen_y;
+    public final ContainerData dataAccess = new ContainerData() {
+
+
+        @Override
+        public int get(int pIndex) {
+            switch (pIndex) {
+                case 0:
+                    return OvenBlockEntity.this.temperature;
+                default:
+                    return 0;
+            }
+        }
+
+        @Override
+        public void set(int pIndex, int pValue) {
+            switch (pIndex) {
+                case 0:
+                    OvenBlockEntity.this.temperature = pValue;
+                    break;
+            }
+        }
+
+        public int getCount() {
+            return 1;
+        }
+    };
 
     public OvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeryBlocks.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
@@ -50,22 +80,20 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             Containers.dropContents(this.level, this.worldPosition, inventory);
         }
     }
-
     @Override
-    public @NotNull Component getDisplayName() {
+    protected Component getDefaultName() {
         return name;
     }
-
-    @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new OvenMenu(pContainerId, pPlayerInventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition));
+    protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
+        return new OvenMenu(pContainerId, pInventory,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition),this, this.dataAccess);
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
         if (this.oven != null) pTag.put("oven", this.oven.copy());
+        pTag.putInt("temperature", this.temperature);
         super.saveAdditional(pTag);
     }
 
@@ -74,6 +102,7 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
         if (pTag.contains("oven")) this.oven = pTag.getCompound("oven");
+        this.temperature = pTag.getInt("temperature");
     }
 
     public CompoundTag getOven() {
@@ -114,31 +143,31 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     }
-    public double getTemperature(OvenBlockEntity ovenBlockEntity){
-        return ovenBlockEntity.getOven().getDouble("temperature");
+    public int getTemperature(OvenBlockEntity ovenBlockEntity){
+        return ovenBlockEntity.temperature;
     }
-    public static void setTemperature(OvenBlockEntity ovenBlockEntity, double temperature){
+    public static void setTemperature(OvenBlockEntity ovenBlockEntity, int temperature){
         Level world = ovenBlockEntity.getLevel();
         BlockPos pos = ovenBlockEntity.getBlockPos();
         BlockState state = world.getBlockState(pos);
         setChanged(world, pos, state);
-        ovenBlockEntity.getOven().putDouble("temperature", Math.min(Math.max(temperature, 0),500));
+        ovenBlockEntity.temperature = Math.min(Math.max(temperature, 0),500);
         world.sendBlockUpdated(pos, state, state, 3);
     }
-    public void addTemperature(OvenBlockEntity ovenBlockEntity, double temperature){
+    public void addTemperature(OvenBlockEntity ovenBlockEntity, int temperature){
         Level world = ovenBlockEntity.getLevel();
         BlockPos pos = ovenBlockEntity.getBlockPos();
         BlockState state = world.getBlockState(pos);
         setChanged(world, pos, state);
-        ovenBlockEntity.getOven().putDouble("temperature", Math.min(Math.max(this.getTemperature(ovenBlockEntity) + temperature, 0),500));
+        ovenBlockEntity.temperature = Math.min(Math.max(this.getTemperature(ovenBlockEntity) + temperature, 0),500);
         world.sendBlockUpdated(pos, state, state, 3);
     }
-    public void subTemperature(OvenBlockEntity ovenBlockEntity, double temperature){
+    public void subTemperature(OvenBlockEntity ovenBlockEntity, int temperature){
         Level world = ovenBlockEntity.getLevel();
         BlockPos pos = ovenBlockEntity.getBlockPos();
         BlockState state = world.getBlockState(pos);
         setChanged(world, pos, state);
-        ovenBlockEntity.getOven().putDouble("temperature", Math.min(Math.max(this.getTemperature(ovenBlockEntity) - temperature, 0),500));
+        ovenBlockEntity.temperature = Math.min(Math.max(this.getTemperature(ovenBlockEntity) - temperature, 0),500);
         world.sendBlockUpdated(pos, state, state, 3);
     }
     public static void setZhen(OvenBlockEntity ovenBlockEntity, int zhen){
@@ -146,11 +175,11 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
         BlockPos pos = ovenBlockEntity.getBlockPos();
         BlockState state = world.getBlockState(pos);
         setChanged(world, pos, state);
-        ovenBlockEntity.getOven().putInt("zhen", zhen);
+        ovenBlockEntity.zhen_y = zhen;
         world.sendBlockUpdated(pos, state, state, 3);
     }
     public static int getZhen(OvenBlockEntity ovenBlockEntity){
-        return ovenBlockEntity.getOven().getInt("zhen");
+        return ovenBlockEntity.zhen_y;
     }
     private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot) {
         BlockEntity _blockEntity = world.getBlockEntity(pos);
@@ -228,5 +257,64 @@ public class OvenBlockEntity extends BlockEntity implements MenuProvider {
             return Optional.empty();
         }
 
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 4;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for(int i = 0; i < this.itemHandler.getSlots(); i++) {
+            if (!this.itemHandler.getStackInSlot(i).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public ItemStack getItem(int pSlot) {
+        return this.itemHandler.getStackInSlot(pSlot);
+    }
+
+    @Override
+    public ItemStack removeItem(int pSlot, int pAmount) {
+        return removeItem(this.itemHandler, pSlot, pAmount);
+    }
+    public static ItemStack removeItem(ItemStackHandler itemHandler, int pIndex, int pAmount) {
+        return pIndex >= 0 && pIndex < itemHandler.getSlots() && !itemHandler.getStackInSlot(pIndex).isEmpty() && pAmount > 0 ? itemHandler.getStackInSlot(pIndex).split(pAmount) : ItemStack.EMPTY;
+    }
+    @Override
+    public ItemStack removeItemNoUpdate(int pSlot) {
+        return takeItem(this.itemHandler, pSlot);
+    }
+    public static ItemStack takeItem(ItemStackHandler itemHandler, int pSlot) {
+        return pSlot >= 0 && pSlot < itemHandler.getSlots() ? itemHandler.insertItem(pSlot, ItemStack.EMPTY, false) : ItemStack.EMPTY;
+    }
+    @Override
+    public void setItem(int pSlot, ItemStack pStack) {
+        ItemStack itemstack = this.itemHandler.getStackInSlot(pSlot);
+        boolean flag = !pStack.isEmpty() && ItemStack.isSameItemSameTags(itemstack, pStack);
+        this.itemHandler.insertItem(pSlot,pStack, false);
+        if (pStack.getCount() > this.getMaxStackSize()) {
+            pStack.setCount(this.getMaxStackSize());
+        }
+        if (pSlot == 0 && !flag) {
+            this.setChanged();
+        }
+    }
+
+    @Override
+    public boolean stillValid(Player pPlayer) {
+        return Container.stillValidBlockEntity(this, pPlayer);
+    }
+
+    @Override
+    public void clearContent() {
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
+            this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 }

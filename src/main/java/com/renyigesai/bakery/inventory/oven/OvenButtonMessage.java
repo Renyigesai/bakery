@@ -92,9 +92,8 @@ public class OvenButtonMessage {
         }
         if (buttonID == 2) {
             if(_blockEntity instanceof OvenBlockEntity ovenBlockEntity){
-                double temperature = 500 - ((OvenScreen.getZhen_y() - 17) / 52.0 * 500);
+                int temperature = (int) (500 - ((OvenScreen.getZhen_y() - 17) / 52.0 * 500));
                 OvenBlockEntity.setTemperature(ovenBlockEntity,temperature);
-                OvenBlockEntity.setZhen(ovenBlockEntity, OvenScreen.getZhen_y());
             }
         }
     }
