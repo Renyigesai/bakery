@@ -2,6 +2,7 @@ package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.block.PileBlock;
+import com.renyigesai.bakery.block.CheeseTank;
 import com.renyigesai.bakery.block.FermentationTankBlock;
 import com.renyigesai.bakery.block.ToastBlock;
 import com.renyigesai.bakery.block.YeastTankBlock;
@@ -70,12 +71,16 @@ public class BakeryBlocks {
                 new Block(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
                 new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
+
         YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () ->
                 new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
         CHEESE_TANK = BLOCK_REGISTRY.register("cheese_tank", () ->
-                new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+                new CheeseTank(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS), BlockSetType.OAK));
+
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
