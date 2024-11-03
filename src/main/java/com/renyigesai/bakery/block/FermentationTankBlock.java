@@ -128,12 +128,14 @@ public class FermentationTankBlock extends Block {
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         int flour = pState.getValue(FLOUR);
         boolean water = pState.getValue(WATER);
+        boolean milk = pState.getValue(MILK);
+        boolean sweet_berries = pState.getValue(SWEET_BERRIES);
         Direction direction = Direction.getRandom(pRandom);
         double d0 = direction.getStepX() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepX() * 0.6D;
         double d1 = direction.getStepY() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepY() * 0.6D;
         double d2 = direction.getStepZ() == 0 ? pRandom.nextDouble() : 0.5D + (double) direction.getStepZ() * 0.6D;
-        if (flour == 3 && water){
-            pLevel.addParticle(ParticleTypes.EFFECT, (double) pPos.getX() + d0, (double) pPos.getY() + d1, (double) pPos.getZ() + d2, 0.0D, 0.0D, 0.0D);
+        if (flour == 3 && water || milk && sweet_berries){
+            pLevel.addParticle(ParticleTypes.ENTITY_EFFECT, (double) pPos.getX() + d0, (double) pPos.getY() + d1, (double) pPos.getZ() + d2, 0.0D, 0.0D, 0.0D);
         }
     }
 
