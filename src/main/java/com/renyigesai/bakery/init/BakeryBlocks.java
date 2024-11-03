@@ -45,6 +45,7 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> CHEESE_TANK;
     public static final RegistryObject<Block> GLASS_CABINET_DOOR;
     public static final RegistryObject<Block> SALT_ORE;
+    public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     //Salt ore
 
     static {
@@ -65,19 +66,16 @@ public class BakeryBlocks {
         //common
 
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
-
+        DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", () ->
+                new Block(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
                 new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
-
         YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () ->
                 new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
-
         CHEESE_TANK = BLOCK_REGISTRY.register("cheese_tank", () ->
                 new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
-
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS), BlockSetType.OAK));
-
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
 

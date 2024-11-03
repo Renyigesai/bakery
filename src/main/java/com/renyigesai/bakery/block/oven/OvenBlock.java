@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -33,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class OvenBlock extends BaseEntityBlock implements EntityBlock {
+public class OvenBlock extends BaseEntityBlock{
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     protected static final VoxelShape S_BASE = Block.box(0, 0, 0, 16, 12, 12);
     protected static final VoxelShape S_BOX_B = Block.box(13.5, 2, 12, 15.5, 4, 12.5);
@@ -57,7 +58,7 @@ public class OvenBlock extends BaseEntityBlock implements EntityBlock {
     public static final VoxelShape W_AXIS_BAA = Shapes.or(W_BASE, W_BOX_B, W_BOX_A_1, W_BOX_A_2);
     public static BooleanProperty LIT = BooleanProperty.create("lit");
     public OvenBlock() {
-        super(Properties.of().noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
+        super(Properties.of().mapColor(MapColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, false));
     }
 
@@ -68,6 +69,15 @@ public class OvenBlock extends BaseEntityBlock implements EntityBlock {
             case EAST -> W_AXIS_BAA;
             case WEST -> E_AXIS_BAA;
         };
+    }
+
+    @Override
+    public int getLightBlock(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        if(pState.getValue(LIT)){
+            return 5;
+        }else {
+            return 0;
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
-import com.renyigesai.bakery.block.FermentationTankBlock;
 import com.renyigesai.bakery.item.BaguetteItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -54,6 +53,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> SALT_ORE;
     public static final RegistryObject<Item> SLICED_TOAST;
     public static final RegistryObject<Item> TOAST;
+    public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
 
 
     static {
@@ -82,6 +82,7 @@ public class BakeryItems {
         GLASS_CABINET_DOOR = block(BakeryBlocks.GLASS_CABINET_DOOR);
         SALT_ORE = block(BakeryBlocks.SALT_ORE);
         COARSE_SALT = item("coarse_salt");
+        DOUGH_CRAFTING_TABLE = block(BakeryBlocks.DOUGH_CRAFTING_TABLE);
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);
