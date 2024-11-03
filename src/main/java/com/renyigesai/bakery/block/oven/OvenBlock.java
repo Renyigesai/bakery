@@ -72,7 +72,7 @@ public class OvenBlock extends BaseEntityBlock{
     }
 
     @Override
-    public int getLightBlock(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public int getLightEmission(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         if(pState.getValue(LIT)){
             return 5;
         }else {
@@ -124,23 +124,6 @@ public class OvenBlock extends BaseEntityBlock{
             }
         }
         return InteractionResult.SUCCESS;
-    }
-    @Override
-    public void onPlace(BlockState blockstate, Level world, BlockPos pos, BlockState oldState, boolean moving) {
-        super.onPlace(blockstate, world, pos, oldState, moving);
-        this.runOnPlace(blockstate,world,pos);
-
-//        world.scheduleTick(pos, this, 1);
-    }
-
-    private void runOnPlace(BlockState state, Level world, BlockPos pos) {
-        BlockEntity _blockEntity = world.getBlockEntity(pos);
-        if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
-            if (!world.isClientSide()) {
-                ovenBlockEntity.getOven().putDouble("zhen", 69);
-                world.sendBlockUpdated(pos, state, state, 3);
-            }
-        }
     }
     @Override
     public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {

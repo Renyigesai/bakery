@@ -17,6 +17,8 @@ public class BakeryGroup {
             CreativeModeTab.builder().icon(()-> new ItemStack(BakeryItems.BUTTER_CUBE.get()))
                     .title(Component.translatable("creativetab_bakery_tab"))
                     .displayItems(((itemDisplayParameters, output) -> {
+                        output.accept(BakeryItems.OVEN.get());
+                        output.accept(BakeryItems.DOUGH_CRAFTING_TABLE.get());
                         output.accept(BakeryItems.FLOUR.get());
                         output.accept(BakeryItems.FLOUR_RYE.get());
                         output.accept(BakeryItems.SALT.get());

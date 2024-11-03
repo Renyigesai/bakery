@@ -139,6 +139,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
         BlockEntity _blockEntity = world.getBlockEntity(pos);
         if (_blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
             for (int i = 0; i < ovenBlockEntity.itemHandler.getSlots(); i++) {
+                System.out.print(i);
                 recipeItem(world, pos, state, i);
             }
         }
@@ -187,10 +188,10 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
             setChanged(world, pos, state);
             Optional<OvenRecipe> recipe = ovenBlockEntity.getCurrentRecipe();
             double temperature = ovenBlockEntity.getTemperature(ovenBlockEntity);
-            boolean progress_1 = ovenBlockEntity.getOven().getDouble("progress_1") > 0;
-            boolean progress_2 = ovenBlockEntity.getOven().getDouble("progress_2") > 0;
-            boolean progress_3 = ovenBlockEntity.getOven().getDouble("progress_3") > 0;
-            boolean progress_4 = ovenBlockEntity.getOven().getDouble("progress_4") > 0;
+            boolean progress_1 = ovenBlockEntity.getOven().getDouble("progress_0") > 0;
+            boolean progress_2 = ovenBlockEntity.getOven().getDouble("progress_1") > 0;
+            boolean progress_3 = ovenBlockEntity.getOven().getDouble("progress_2") > 0;
+            boolean progress_4 = ovenBlockEntity.getOven().getDouble("progress_3") > 0;
             double min_temperature =ovenBlockEntity.getOven().getDouble("min_temperature" + "_" + slot);
             double max_temperature =ovenBlockEntity.getOven().getDouble("max_temperature" + "_" + slot);
             world.setBlock(pos, state.setValue(OvenBlock.LIT, progress_1 || progress_2 || progress_3 || progress_4), 3);

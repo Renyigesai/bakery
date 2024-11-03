@@ -55,7 +55,6 @@ public class BakeryItems {
     public static final RegistryObject<Item> TOAST;
     public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
 
-
     static {
         FLOUR = item("flour");
         FLOUR_RYE = item("flour_rye");

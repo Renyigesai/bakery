@@ -29,9 +29,10 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
     private final BlockEntity boundBlockEntity;
     private final int x, y, z;
     private AtomicBoolean dragging = new AtomicBoolean(false);
+    private AtomicBoolean enable_slider = new AtomicBoolean(false);
     private int mousey;
     @Getter
-    public static int zhen_y = 69; // 初始位置
+    public static int zhen_y = 17; // 初始位置
     public DoughCraftingTableScreen(DoughCraftingTableMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
         this.world = container.world;
@@ -40,7 +41,8 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
         this.x = container.x;
         this.y = container.y;
         this.z = container.z;
-
+        this.imageWidth = 180;
+        this.imageHeight = 170;
     }
     private static final ResourceLocation texture = new ResourceLocation(BakeryMod.MODID,"textures/gui/dough_crafting_table_gui.png");
 
@@ -66,7 +68,12 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         pGuiGraphics.blit(texture, this.leftPos, this.topPos,this.imageWidth,this.imageHeight, 0,0,this.imageWidth, this.imageHeight, 256, 256);
-        pGuiGraphics.blit(texture, this.leftPos + 104, this.topPos + zhen_y, 0, 178, 20, 3, 256, 256);
+        if(enable_slider.get()){
+            pGuiGraphics.blit(texture, this.leftPos + 127, this.topPos + zhen_y, 180, 0, 12, 15, 256, 256);
+        }else {
+            pGuiGraphics.blit(texture, this.leftPos + 127, this.topPos + zhen_y, 192, 0, 12, 15, 256, 256);
+
+        }
 
         RenderSystem.disableBlend();
     }
@@ -82,7 +89,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
         if (dragging.get()) {
             int mouseY = (int) pMouseY - this.topPos;
-            zhen_y = Math.min(Math.max(mouseY, 17), 69);
+            zhen_y = Math.min(Math.max(mouseY, 17), 56);
             // 更新相关数据
             updateProgress(zhen_y);
         }
@@ -107,7 +114,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
             zhen_y = 17;
         }
         if (dragging.get()) {
-            zhen_y = Math.min(Math.max(mouseY, 17), 69);
+            zhen_y = Math.min(Math.max(mouseY, 17), 56);
         } else {
             zhen_y = (int) (52 - ((this.menu.data.get(0)/500.0)*52.0)) + 17;
         }

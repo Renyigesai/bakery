@@ -80,10 +80,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     @Override
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
         if (dragging.get()) {
-            int mouseY = (int) pMouseY - this.topPos;
-            zhen_y = Math.min(Math.max(mouseY, 17), 69);
-            // 更新相关数据
-            updateProgress(zhen_y);
+            updateProgress();
         }
         return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
     }
@@ -91,7 +88,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     @Override
     public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
         if(dragging.get()){
-            updateProgress(zhen_y);
+            updateProgress();
             dragging.set(false);
         }
         return super.mouseReleased(pMouseX, pMouseY, pButton);
@@ -111,20 +108,18 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
             zhen_y = (int) (52 - ((this.menu.data.get(0)/500.0)*52.0)) + 17;
         }
     }
-    private void updateProgress(int zhen_y) {
+    private void updateProgress() {
         // 根据滑动指针的位置更新进度
-
         if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
             BakeryMod.PACKET_HANDLER.sendToServer(new OvenButtonMessage(2, x, y, z, textstate));
             OvenButtonMessage.handleButtonAction(entity, 2, x, y, z, textstate);
-
         }
     }
     protected boolean insideScrollbar(double pMouseX, double pMouseY) {
-        int k =this.leftPos + 105;
-        int l = this.topPos + 17;
+        int k = this.leftPos + 105;
+        int l = this.topPos + zhen_y;
         int i1 = this.leftPos + 124;
-        int j1 = this.topPos + 72;
+        int j1 = l + 3;
         return pMouseX >= (double) k && pMouseY >= (double) l && pMouseX < (double) i1 && pMouseY < (double) j1;
     }
     private ImageButton imagebutton_add;

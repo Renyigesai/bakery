@@ -39,18 +39,18 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
     public final ContainerData data;
 
     public DoughCraftingTableMenu(int id, Inventory inv, FriendlyByteBuf byteBuf) {
-        this(id, inv, byteBuf, new SimpleContainer(4), new SimpleContainerData(1));
+        this(id, inv, byteBuf, new SimpleContainer(6), new SimpleContainerData(1));
 
     }
     public DoughCraftingTableMenu(int id, Inventory inv, FriendlyByteBuf byteBuf, Container pContainer, ContainerData pData) {
         super(BakeryMenuType.DOUGH_CRAFTING_TABLE_MENU.get(), id);
-        checkContainerSize(pContainer, 4);
+        checkContainerSize(pContainer, 6);
         checkContainerDataCount(pData, 1);
         this.entity = inv.player;
         this.world = inv.player.level();
         this.container = pContainer;
         this.data = pData;
-        this.internal = new ItemStackHandler(4);
+        this.internal = new ItemStackHandler(6);
         this.addDataSlots(pData);
 
         BlockPos pos = null;
@@ -72,7 +72,6 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
 
         if (boundBlockEntity instanceof OvenBlockEntity oven) {
             this.customSlots.put(0, this.addSlot(new OvenSlot(internal, 0, 62, 17) {
-
             }));
             this.customSlots.put(1, this.addSlot(new OvenSlot(internal, 1, 80, 17) {
             }));
