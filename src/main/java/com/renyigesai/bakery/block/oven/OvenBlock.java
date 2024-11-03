@@ -173,7 +173,7 @@ public class OvenBlock extends BaseEntityBlock{
                 pLevel.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
             }
 
-            Direction direction = pState.getValue(FACING);
+            Direction direction = pState.getValue(FACING).getClockWise().getClockWise();
             Direction.Axis direction$axis = direction.getAxis();
             double d3 = 0.52D;
             double d4 = pRandom.nextDouble() * 0.6D - 0.3D;
