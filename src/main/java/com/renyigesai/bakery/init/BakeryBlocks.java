@@ -46,7 +46,7 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_BLOCK_ENTITY;
-    public static final RegistryObject<Block> SWEET_DOUGH;
+    public static final RegistryObject<Block> SWEET_DOUGH_KNEAD;
     //Salt ore
 
     static {
@@ -77,7 +77,7 @@ public class BakeryBlocks {
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
-        SWEET_DOUGH = BLOCK_REGISTRY.register("sweet_dough", () ->
+        SWEET_DOUGH_KNEAD = BLOCK_REGISTRY.register("sweet_dough_knead", () ->
                 new DoughBlock(BlockBehaviour.Properties.of()));
 
         //BlockEntity

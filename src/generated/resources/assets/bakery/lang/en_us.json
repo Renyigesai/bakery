@@ -37,5 +37,7 @@
   "item.bakery.salt_croissant": "Salt Croissant",
   "item.bakery.salt_croissant_dough": "Salt Croissant Dough",
   "item.bakery.tart_shell": "Tart Shell",
-  "item.bakery.sliced_toast": "吐司片"
+  "item.bakery.sliced_toast": "Sliced Toast",
+  "block.bakery.sweet_dough_knead": "Sweet Dough Knead",
+  "item.bakery.sweet_dough": "Sweet Dough"
 }
