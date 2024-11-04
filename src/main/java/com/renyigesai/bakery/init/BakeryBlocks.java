@@ -2,10 +2,7 @@ package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.block.PileBlock;
-import com.renyigesai.bakery.block.CheeseTank;
-import com.renyigesai.bakery.block.FermentationTankBlock;
-import com.renyigesai.bakery.block.ToastBlock;
-import com.renyigesai.bakery.block.YeastTankBlock;
+import com.renyigesai.bakery.block.*;
 import com.renyigesai.bakery.block.dough_crafting_table.DoughCraftingTableBlockEntity;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
@@ -49,6 +46,7 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_BLOCK_ENTITY;
+    public static final RegistryObject<Block> SWEET_DOUGH;
     //Salt ore
 
     static {
@@ -79,6 +77,8 @@ public class BakeryBlocks {
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+        SWEET_DOUGH = BLOCK_REGISTRY.register("sweet_dough", () ->
+                new DoughBlock(BlockBehaviour.Properties.of()));
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));

@@ -38,6 +38,8 @@ public class BakeryGroup {
                         output.accept(BakeryItems.BOTTLE_YEAST.get());
                         output.accept(BakeryBlocks.GLASS_CABINET_DOOR.get());
                         output.accept(BakeryItems.COARSE_SALT.get());
+                        output.accept(BakeryItems.SLICED_TOAST.get());
+                        output.accept(BakeryBlocks.TOAST.get());
                     }))
                     .build());
 

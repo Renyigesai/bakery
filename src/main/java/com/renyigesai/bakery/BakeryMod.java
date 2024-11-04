@@ -2,10 +2,7 @@ package com.renyigesai.bakery;
 
 import com.mojang.logging.LogUtils;
 import com.renyigesai.bakery.config.BakeryConfig;
-import com.renyigesai.bakery.init.BakeryBlocks;
-import com.renyigesai.bakery.init.BakeryGroup;
-import com.renyigesai.bakery.init.BakeryItems;
-import com.renyigesai.bakery.init.BakeryMenuType;
+import com.renyigesai.bakery.init.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -45,6 +42,7 @@ public class BakeryMod {
         BakeryBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         BakeryGroup.REGISTER.register(bus);
         BakeryMenuType.REGISTRY.register(bus);
+        BakerySound.register(bus);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::modConfig);
 

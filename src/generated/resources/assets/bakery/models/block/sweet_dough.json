@@ -1,0 +1,8 @@
+{
+	"parent": "bakery:custom/sweet_dough",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "bakery:block/sweet_dough",
+		"particle": "bakery:block/sweet_dough"
+	}
+}

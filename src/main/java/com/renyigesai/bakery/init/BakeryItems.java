@@ -54,6 +54,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> SLICED_TOAST;
     public static final RegistryObject<Item> TOAST;
     public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
+    public static final RegistryObject<Item> SWEET_DOUGH;
 
     static {
         FLOUR = item("flour");
@@ -82,6 +83,7 @@ public class BakeryItems {
         SALT_ORE = block(BakeryBlocks.SALT_ORE);
         COARSE_SALT = item("coarse_salt");
         DOUGH_CRAFTING_TABLE = block(BakeryBlocks.DOUGH_CRAFTING_TABLE);
+        SWEET_DOUGH = block(BakeryBlocks.SWEET_DOUGH);
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);

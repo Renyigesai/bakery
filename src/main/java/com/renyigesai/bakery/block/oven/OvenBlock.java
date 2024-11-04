@@ -38,7 +38,7 @@ public class OvenBlock extends BaseEntityBlock{
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     protected static final VoxelShape S_BASE = Block.box(0, 0, 0, 16, 12, 12);
     protected static final VoxelShape S_BOX_B = Block.box(13.5, 2, 12, 15.5, 4, 12.5);
-    protected static final VoxelShape S_BOX_A_1 = Block.box(3.5, 6, 12, 15.5, 8, 12.5);
+    protected static final VoxelShape S_BOX_A_1 = Block.box(13.5, 6, 12, 15.5, 8, 12.5);
     protected static final VoxelShape S_BOX_A_2 = Block.box(1, 10, 12, 13, 11, 13);
     protected static final VoxelShape N_BASE = Block.box(0, 0, 4, 16, 12, 16);
     protected static final VoxelShape N_BOX_B = Block.box(0.5, 2, 3.5, 2.5, 4, 4);
