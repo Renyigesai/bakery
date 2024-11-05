@@ -24,7 +24,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty PILE = IntegerProperty.create("pile", 1, 4);
     protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
     public PileBlock() {
-        super(BlockBehaviour.Properties.of().strength(0.1f,0.1f).sound(SoundType.WOOL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
+        super(BlockBehaviour.Properties.of().strength(0.5F,0.5F).sound(SoundType.WOOL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PILE, 1));
     }
     @Override
