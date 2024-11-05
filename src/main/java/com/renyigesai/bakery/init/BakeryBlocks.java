@@ -22,9 +22,7 @@ public class BakeryBlocks {
     public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, BakeryMod.MODID);
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BakeryMod.MODID);
-
     //Bread Pile Block
-
     public static final RegistryObject<Block> BAGEL;
     public static final RegistryObject<Block> BAGUETTE;
     public static final RegistryObject<Block> CINNAMON_ROLL;
@@ -34,9 +32,7 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> ROUND_BREAD;
     public static final RegistryObject<Block> SALT_CROISSANT;
     public static final RegistryObject<Block> TOAST;
-
     //common
-
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
     public static final RegistryObject<Block> FERMENTATION_TANK;
@@ -48,9 +44,7 @@ public class BakeryBlocks {
     public static final RegistryObject<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_BLOCK_ENTITY;
     public static final RegistryObject<Block> SWEET_DOUGH_KNEAD;
     //Salt ore
-
     static {
-
         //Bread Pile Block
         BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
@@ -61,8 +55,7 @@ public class BakeryBlocks {
         ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
         TOAST = BLOCK_REGISTRY.register("toast", () ->
-                new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL),BakeryItems.SLICED_TOAST));
-
+                new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F),BakeryItems.SLICED_TOAST));
         //common
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
         DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", () ->
@@ -78,8 +71,7 @@ public class BakeryBlocks {
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         SWEET_DOUGH_KNEAD = BLOCK_REGISTRY.register("sweet_dough_knead", () ->
-                new DoughBlock(BlockBehaviour.Properties.of()));
-
+                new DoughBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F),BakeryItems.SWEET_DOUGH));
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         DOUGH_CRAFTING_TABLE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, DOUGH_CRAFTING_TABLE.get()).build(null));

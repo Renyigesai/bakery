@@ -5,8 +5,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -22,16 +25,26 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.function.Supplier;
+
 public class DoughBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final IntegerProperty KNEAD = IntegerProperty.create("knead",0,6);
     public static final BooleanProperty BUTTER = BooleanProperty.create("butter");
-    protected static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D);
+    protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 6.0D, 15.0D);
 
-    public DoughBlock(Properties pProperties) {
+    public final Supplier<Item> doughItem;
+
+
+    public DoughBlock(Properties pProperties, Supplier<Item> doughItem) {
         super(pProperties);
+        this.doughItem = doughItem;
         this.registerDefaultState(this.stateDefinition.any().setValue(KNEAD, 0)
                 .setValue(BUTTER, false).setValue(FACING, Direction.NORTH));
+    }
+
+    public ItemStack getDoughItem() {
+        return new ItemStack(this.doughItem.get());
     }
 
     @Override
@@ -46,10 +59,17 @@ public class DoughBlock extends Block {
         boolean butter = pState.getValue(BUTTER);
         if (knead < 3){
             return setKnead(pLevel,pPos,pState,pPlayer,pHand);
-        }else if (knead == 3 && !butter && hand.is(BakeryItems.BUTTER_CUBE.get())){
+        }
+        if (knead == 3 && !butter && hand.is(BakeryItems.BUTTER_CUBE.get())){
             return setButter(pLevel,pPos,pState,pPlayer,pHand);
-        }else if (butter && knead < 6){
+        }
+        if (butter && knead < 6){
             return setKnead(pLevel,pPos,pState,pPlayer,pHand);
+        }
+        if(butter && knead == 6) {
+            pLevel.removeBlock(pPos,false);
+            ItemEntity entity = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, this.getDoughItem());
+            pLevel.addFreshEntity(entity);
         }
         return InteractionResult.FAIL;
     }
@@ -84,5 +104,9 @@ public class DoughBlock extends Block {
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
+    }
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
     }
 }
