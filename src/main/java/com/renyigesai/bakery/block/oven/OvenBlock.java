@@ -58,7 +58,7 @@ public class OvenBlock extends BaseEntityBlock{
     public static final VoxelShape W_AXIS_BAA = Shapes.or(W_BASE, W_BOX_B, W_BOX_A_1, W_BOX_A_2);
     public static BooleanProperty LIT = BooleanProperty.create("lit");
     public OvenBlock() {
-        super(Properties.of().mapColor(MapColor.METAL).strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
+        super(Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, false));
     }
 
