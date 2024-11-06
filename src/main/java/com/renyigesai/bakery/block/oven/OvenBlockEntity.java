@@ -133,109 +133,109 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-   public static void serverTick(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
-       for (int i = 0; i < pOvenBlockEntity.itemHandler.getSlots(); i++) {
-           recipeItem(world, pos, state, i, pOvenBlockEntity);
-       }
-}
+    public static void serverTick(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
+        for (int i = 0; i < pOvenBlockEntity.itemHandler.getSlots(); i++) {
+            recipeItem(world, pos, state, i, pOvenBlockEntity);
+        }
+    }
 
-public int getTemperature(OvenBlockEntity ovenBlockEntity) {
-    return ovenBlockEntity.temperature;
-}
+    public int getTemperature(OvenBlockEntity ovenBlockEntity) {
+        return ovenBlockEntity.temperature;
+    }
 
-public static void setTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
-    updateBlock(ovenBlockEntity);
-    ovenBlockEntity.temperature = Math.min(Math.max(temperature, 0), 500);
-}
+    public static void setTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
+        updateBlock(ovenBlockEntity);
+        ovenBlockEntity.temperature = Math.min(Math.max(temperature, 0), 500);
+    }
 
-public void addTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
-    updateBlock(ovenBlockEntity);
-    ovenBlockEntity.temperature = Math.min(Math.max(this.getTemperature(ovenBlockEntity) + temperature, 0), 500);
-}
+    public void addTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
+        updateBlock(ovenBlockEntity);
+        ovenBlockEntity.temperature = Math.min(Math.max(this.getTemperature(ovenBlockEntity) + temperature, 0), 500);
+    }
 
-public void subTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
-    updateBlock(ovenBlockEntity);
-    ovenBlockEntity.temperature = Math.min(Math.max(this.getTemperature(ovenBlockEntity) - temperature, 0), 500);
-}
+    public void subTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
+        updateBlock(ovenBlockEntity);
+        ovenBlockEntity.temperature = Math.min(Math.max(this.getTemperature(ovenBlockEntity) - temperature, 0), 500);
+    }
 
-private static void updateBlock(OvenBlockEntity ovenBlockEntity) {
-    Level world = ovenBlockEntity.getLevel();
-    BlockPos pos = ovenBlockEntity.getBlockPos();
-    BlockState state = world.getBlockState(pos);
-    setChanged(world, pos, state);
-    world.sendBlockUpdated(pos, state, state, 3);
-}
+    private static void updateBlock(OvenBlockEntity ovenBlockEntity) {
+        Level world = ovenBlockEntity.getLevel();
+        BlockPos pos = ovenBlockEntity.getBlockPos();
+        BlockState state = world.getBlockState(pos);
+        setChanged(world, pos, state);
+        world.sendBlockUpdated(pos, state, state, 3);
+    }
 
-private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot, OvenBlockEntity ovenBlockEntity) {
-    setChanged(world, pos, state);
-    Optional<OvenRecipe> recipe = ovenBlockEntity.getCurrentRecipe(slot);
-    double temperature = ovenBlockEntity.temperature;
-    boolean isLit = ovenBlockEntity.getOven().getDouble("progress_0") > 0 ||
-                    ovenBlockEntity.getOven().getDouble("progress_1") > 0 ||
-                    ovenBlockEntity.getOven().getDouble("progress_2") > 0 ||
-                    ovenBlockEntity.getOven().getDouble("progress_3") > 0;
+    private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot, OvenBlockEntity ovenBlockEntity) {
+        setChanged(world, pos, state);
+        Optional<OvenRecipe> recipe = ovenBlockEntity.getCurrentRecipe(slot);
+        double temperature = ovenBlockEntity.temperature;
+        boolean isLit = ovenBlockEntity.getOven().getDouble("progress_0") > 0 ||
+                ovenBlockEntity.getOven().getDouble("progress_1") > 0 ||
+                ovenBlockEntity.getOven().getDouble("progress_2") > 0 ||
+                ovenBlockEntity.getOven().getDouble("progress_3") > 0;
 
-    world.setBlock(pos, ovenBlockEntity.getBlockState().setValue(OvenBlock.LIT, isLit), 3);
+        world.setBlock(pos, ovenBlockEntity.getBlockState().setValue(OvenBlock.LIT, isLit), 3);
 
-    if (ovenBlockEntity.hasRecipe(slot) && ovenBlockEntity.getMinTemperature(slot) <= temperature) {
-        recipe.ifPresent(ovenRecipe -> {
-            ovenBlockEntity.getOven().putDouble("max_progress_" + slot, ovenRecipe.getTime());
-            ovenBlockEntity.getOven().putDouble("min_temperature_" + slot, Math.max(ovenRecipe.getMin_temperature(), 0));
-            ovenBlockEntity.getOven().putDouble("max_temperature_" + slot, Math.min(ovenRecipe.getMax_temperature(), 500));
-        });
+        if (ovenBlockEntity.hasRecipe(slot) && ovenBlockEntity.getMinTemperature(slot) <= temperature) {
+            recipe.ifPresent(ovenRecipe -> {
+                ovenBlockEntity.getOven().putDouble("max_progress_" + slot, ovenRecipe.getTime());
+                ovenBlockEntity.getOven().putDouble("min_temperature_" + slot, Math.max(ovenRecipe.getMin_temperature(), 0));
+                ovenBlockEntity.getOven().putDouble("max_temperature_" + slot, Math.min(ovenRecipe.getMax_temperature(), 500));
+            });
 
-        if (!world.isClientSide()) {
-            double currentProgress = ovenBlockEntity.getOven().getDouble("progress_" + slot);
-            ovenBlockEntity.getOven().putDouble("progress_" + slot, currentProgress + 1);
-            world.sendBlockUpdated(pos, state, state, 3);
+            if (!world.isClientSide()) {
+                double currentProgress = ovenBlockEntity.getOven().getDouble("progress_" + slot);
+                ovenBlockEntity.getOven().putDouble("progress_" + slot, currentProgress + 1);
+                world.sendBlockUpdated(pos, state, state, 3);
 
-            if (currentProgress >= ovenBlockEntity.getOven().getDouble("max_progress_" + slot)) {
-                if (temperature <= ovenBlockEntity.getMaxTemperature(slot)) {
-                    ovenBlockEntity.craftItem(slot);
-                } else if (temperature > ovenBlockEntity.getMaxTemperature(slot)) {
-                    ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
+                if (currentProgress >= ovenBlockEntity.getOven().getDouble("max_progress_" + slot)) {
+                    if (temperature <= ovenBlockEntity.getMaxTemperature(slot)) {
+                        ovenBlockEntity.craftItem(slot);
+                    } else if (temperature > ovenBlockEntity.getMaxTemperature(slot)) {
+                        ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
+                    }
+
+                    resetProgress(ovenBlockEntity, slot);
                 }
-
+            }
+        } else {
+            if (!world.isClientSide()) {
                 resetProgress(ovenBlockEntity, slot);
             }
         }
-    } else {
-        if (!world.isClientSide()) {
-            resetProgress(ovenBlockEntity, slot);
+    }
+
+    private static void resetProgress(OvenBlockEntity ovenBlockEntity, int slot) {
+        ovenBlockEntity.getOven().putDouble("progress_" + slot, 0);
+    }
+
+    private void craftItem(int slot) {
+        Optional<OvenRecipe> recipe = getCurrentRecipe(slot);
+        if (recipe.isPresent()) {
+            ItemStack result = recipe.get().getResultItem(null);
+            this.itemHandler.setStackInSlot(slot, new ItemStack(result.getItem(), result.getCount()));
         }
     }
-}
 
-private static void resetProgress(OvenBlockEntity ovenBlockEntity, int slot) {
-    ovenBlockEntity.getOven().putDouble("progress_" + slot, 0);
-}
-
-private void craftItem(int slot) {
-    Optional<OvenRecipe> recipe = getCurrentRecipe(slot);
-    if (recipe.isPresent()) {
-        ItemStack result = recipe.get().getResultItem(null);
-        this.itemHandler.setStackInSlot(slot, new ItemStack(result.getItem(), result.getCount()));
+    private boolean hasRecipe(int slot) {
+        Optional<OvenRecipe> recipe = getCurrentRecipe(slot);
+        return recipe.isPresent() && recipe.get().getIngredients().get(0).test(itemHandler.getStackInSlot(slot));
     }
-}
 
-private boolean hasRecipe(int slot) {
-    Optional<OvenRecipe> recipe = getCurrentRecipe(slot);
-    return recipe.isPresent() && recipe.get().getIngredients().get(0).test(itemHandler.getStackInSlot(slot));
-}
+    public Optional<OvenRecipe> getCurrentRecipe(int slot) {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        inventory.setItem(slot, this.itemHandler.getStackInSlot(slot));
+        return this.level.getRecipeManager().getRecipeFor(OvenRecipe.Type.INSTANCE, inventory, level);
+    }
 
-public Optional<OvenRecipe> getCurrentRecipe(int slot) {
-    SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
-    inventory.setItem(slot, this.itemHandler.getStackInSlot(slot));
-    return this.level.getRecipeManager().getRecipeFor(OvenRecipe.Type.INSTANCE, inventory, level);
-}
+    public double getMinTemperature(int slot) {
+        return this.getOven().getDouble("min_temperature_" + slot);
+    }
 
-public double getMinTemperature(int slot) {
-    return this.getOven().getDouble("min_temperature_" + slot);
-}
-
-public double getMaxTemperature(int slot) {
-    return this.getOven().getDouble("max_temperature_" + slot);
-}
+    public double getMaxTemperature(int slot) {
+        return this.getOven().getDouble("max_temperature_" + slot);
+    }
 
 
     @Override
