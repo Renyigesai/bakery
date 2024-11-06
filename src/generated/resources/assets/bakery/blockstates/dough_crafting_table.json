@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "bakery:block/dough_crafting_table",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "bakery:block/dough_crafting_table",
+      "y": 180
+    },
+    "facing=south": {
       "model": "bakery:block/dough_crafting_table"
+    },
+    "facing=west": {
+      "model": "bakery:block/dough_crafting_table",
+      "y": 90
     }
   }
 }
