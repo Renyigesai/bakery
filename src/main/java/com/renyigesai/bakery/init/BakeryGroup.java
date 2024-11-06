@@ -48,7 +48,7 @@ public class BakeryGroup {
                     .build());
 
     public static final RegistryObject<CreativeModeTab> BAKERY_SEMI_MANUFACTURED_PRODUCT_TAB = REGISTER.register("bakery_semi_manufactured_product_tab",() ->
-            CreativeModeTab.builder().icon(()-> new ItemStack(BakeryItems.BUTTER_CUBE.get()))
+            CreativeModeTab.builder().icon(()-> new ItemStack(BakeryItems.BAGEL_DOUGH.get()))
                     .title(Component.translatable("creativetab_bakery_semi_manufactured_product_tab"))
                     .displayItems(((itemDisplayParameters, output) -> {
                         output.accept(BakeryItems.BAGEL_DOUGH.get());

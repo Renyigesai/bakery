@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "bakery:block/dough_crafting_table"
+    }
+  }
+}
