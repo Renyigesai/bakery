@@ -1,79 +1,22 @@
 package com.renyigesai.bakery.recipe;
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.renyigesai.bakery.BakeryMod;
-import lombok.Getter;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import javax.annotation.Nullable;
 
-public class OvenRecipe implements Recipe<SimpleContainer> {
-	private final ResourceLocation id;
-	private final ItemStack output;
-	@Getter
-	private final int time;
-	@Getter
-	private final int min_temperature;
-	@Getter
-	private final int max_temperature;
-	private final NonNullList<Ingredient> recipeItems;
-
-	public OvenRecipe(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, NonNullList<Ingredient> recipeItems) {
-		this.id = id;
-		this.output = output;
-        this.time = time;
-        this.min_temperature = min_temperature;
-		this.max_temperature = max_temperature;
-        this.recipeItems = recipeItems;
-	}
-
-	@Override
-	public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        return !pLevel.isClientSide();
-    }
-
-	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return recipeItems;
-	}
-
-	@Override
-	public ItemStack assemble(SimpleContainer pContainer, RegistryAccess access) {
-		return output.copy();
-	}
-
-	@Override
-	public boolean canCraftInDimensions(int pWidth, int pHeight) {
-		return true;
-	}
-
-	@Override
-	public ItemStack getResultItem(RegistryAccess access) {
-		return output.copy();
-	}
-
-	@Override
-	public ResourceLocation getId() {
-		return id;
-	}
-
-	@Override
-	public RecipeType<?> getType() {
-		return Type.INSTANCE;
-	}
-
-	@Override
-	public RecipeSerializer<?> getSerializer() {
-		return Serializer.INSTANCE;
+public class OvenRecipe extends AbstractOvenRecipe{
+	public OvenRecipe(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, Ingredient recipeItems) {
+		super(Type.INSTANCE, Serializer.INSTANCE, id, output, time, min_temperature, max_temperature, recipeItems);
 	}
 
 	public static class Type implements RecipeType<OvenRecipe> {
@@ -84,39 +27,38 @@ public class OvenRecipe implements Recipe<SimpleContainer> {
 		public static final String ID = "oven";
 	}
 
-	public static class Serializer implements RecipeSerializer<OvenRecipe> {
-		public static final Serializer INSTANCE = new Serializer();
+	public static class Serializer <T extends AbstractOvenRecipe> implements RecipeSerializer<T> {
+		public static final Serializer INSTANCE = new Serializer<>(OvenRecipe::new);
 		public static final ResourceLocation ID = new ResourceLocation(BakeryMod.MODID, "oven");
+		private final Serializer.CookieBaker<T> factory;
 
+		public Serializer(Serializer.CookieBaker<T> pFactory) {
+
+			this.factory = pFactory;
+		}
 		@Override
-		public OvenRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+		public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 			int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
 			int min_temperature = GsonHelper.getAsInt(pSerializedRecipe, "min_temperature");
 			int max_temperature = GsonHelper.getAsInt(pSerializedRecipe, "max_temperature");
-			JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient");
-			NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
-			for (int i = 0; i < inputs.size(); i++) {
-				inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-			}
-			return new OvenRecipe(pRecipeId, output, time, min_temperature, max_temperature, inputs);
+			JsonElement jsonelement = (JsonElement)(GsonHelper.isArrayNode(pSerializedRecipe, "ingredient") ? GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient") : GsonHelper.getAsJsonObject(pSerializedRecipe, "ingredient"));
+			Ingredient ingredient = Ingredient.fromJson(jsonelement, false);
+			return this.factory.create(pRecipeId, output, time, min_temperature, max_temperature, ingredient);
 		}
 
 		@Override
-		public @Nullable OvenRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+		public @Nullable T fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
 			int time = buf.readInt();
 			int min_temperature = buf.readInt();
 			int max_temperature = buf.readInt();
-			NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
-			for (int i = 0; i < inputs.size(); i++) {
-				inputs.set(i, Ingredient.fromNetwork(buf));
-			}
+			Ingredient ingredient = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
-			return new OvenRecipe(id, output, time, min_temperature, max_temperature, inputs);
+			return this.factory.create(id, output, time, min_temperature, max_temperature, ingredient);
 		}
 
 		@Override
-		public void toNetwork(FriendlyByteBuf buf, OvenRecipe recipe) {
+		public void toNetwork(FriendlyByteBuf buf, T recipe) {
 			buf.writeInt(recipe.time);
 			buf.writeInt(recipe.min_temperature);
 			buf.writeInt(recipe.max_temperature);
@@ -125,6 +67,9 @@ public class OvenRecipe implements Recipe<SimpleContainer> {
 				ing.toNetwork(buf);
 			}
 			buf.writeItemStack(recipe.getResultItem(null), false);
+		}
+		interface CookieBaker<T extends AbstractOvenRecipe> {
+			T create(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, Ingredient recipeItems);
 		}
 	}
 }

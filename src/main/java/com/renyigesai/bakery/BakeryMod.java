@@ -42,7 +42,7 @@ public class BakeryMod {
         BakeryBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         BakeryGroup.REGISTER.register(bus);
         BakeryMenuType.REGISTRY.register(bus);
-        BakerySound.register(bus);
+        BakerySounds.REGISTRY.register(bus);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::modConfig);
 

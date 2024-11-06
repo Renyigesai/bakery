@@ -1,51 +1,55 @@
 
 package com.renyigesai.bakery.jei_recipes;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.init.BakeryBlocks;
 import com.renyigesai.bakery.recipe.OvenRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 
 public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
-	public final static ResourceLocation UID = new ResourceLocation("underworld_magic_craftsmanship", "sound_collector_recipe");
-	public final static ResourceLocation TEXTURE = new ResourceLocation("underworld_magic_craftsmanship", "textures/screens/jei_gui/sound_collector_jei_menu.png");
-	public final static ResourceLocation SOUND_2 = new ResourceLocation("underworld_magic_craftsmanship", "textures/screens/jei_gui/sound_2.png");
-	public final static ResourceLocation PROGRESS_1 = new ResourceLocation("underworld_magic_craftsmanship", "textures/screens/jei_gui/progress_1.png");
+	public final static ResourceLocation UID = new ResourceLocation(BakeryMod.MODID, "oven_recipe");
+	public final static ResourceLocation TEXTURE = new ResourceLocation(BakeryMod.MODID, "textures/gui/jei_oven_gui.png");
 	protected final IDrawable background;
-//	protected final IDrawableStatic staticFlame;
-//	protected final IDrawableAnimated animatedFlame;
-	private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
-//	protected final IDrawableStatic staticFlame1;
-//	protected final IDrawableAnimated animatedFlame1;
 	protected final IDrawable icon;
-
+	private final IDrawable cachedArrows;
 	public OvenRecipeCategory(IGuiHelper helper) {//96, 87
-		this.background = helper.createDrawable(TEXTURE, 0, 0, 96, 87);
-//		this.staticFlame = helper.createDrawable(SOUND_2,0,0,16,60);
-//		this.animatedFlame = helper.createAnimatedDrawable(this.staticFlame, 10, IDrawableAnimated.StartDirection.BOTTOM, true);
-		this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<Integer, IDrawableAnimated>() {
-			public IDrawableAnimated load(Integer cookTime) {
-				return helper.drawableBuilder(SOUND_2, 0, 0, 16, 60).buildAnimated(20, IDrawableAnimated.StartDirection.LEFT, false);
-			}
-		});
-//		this.staticFlame1 = helper.createDrawable(PROGRESS_1,0,0,28,22);
-//		this.animatedFlame1 = helper.createAnimatedDrawable(this.staticFlame1, 10, IDrawableAnimated.StartDirection.TOP, true);
+		this.background = helper.createDrawable(TEXTURE, 0, 0, 66, 70);
 		this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BakeryBlocks.OVEN.get()));
+		this.cachedArrows =  helper.createDrawable(TEXTURE, 0, 70, 20, 3);
 	}
+	@Override
+	public void draw(OvenRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		int min_temperature = recipe.getMin_temperature();
+		int max_temperature = recipe.getMax_temperature();
+		int zhen_min =  (500 - min_temperature)/(500/52) + 9;
+		int zhen_max =  (500 - max_temperature)/(500/52) + 9;
+		this.cachedArrows.draw(guiGraphics, 38,zhen_min);
+		this.cachedArrows.draw(guiGraphics, 38,zhen_max);
+		int cookTime = recipe.getTime();
+		if (cookTime > 0) {
+			int cookTimeSeconds = cookTime / 20;
+			Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", new Object[]{cookTimeSeconds});
+			Minecraft minecraft = Minecraft.getInstance();
+			Font fontRenderer = minecraft.font;
+			int stringWidth = fontRenderer.width(timeString);
+			guiGraphics.drawString(fontRenderer, timeString, 39 - stringWidth, 31, -8355712, false);
+		}
 
+	}
 	@Override
 	public mezz.jei.api.recipe.RecipeType<OvenRecipe> getRecipeType() {
 		return BakeryJeiPlugin.Oven_Type;
@@ -53,8 +57,10 @@ public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 
 	@Override
 	public Component getTitle() {
-		return Component.translatable("block.underworld_magic_craftsmanship.sound_collector");
+		return Component.translatable("container.oven");
 	}
+
+
 
 	@Override
 	public IDrawable getBackground() {
@@ -68,7 +74,7 @@ public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, OvenRecipe recipe, IFocusGroup focuses) {
-		builder.addSlot(RecipeIngredientRole.INPUT, 55, 17).addIngredients(recipe.getIngredients().get(0));
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 55, 61).addItemStack(recipe.getResultItem(null));
+		builder.addSlot(RecipeIngredientRole.INPUT, 16, 9).addIngredients(recipe.getIngredients().get(0));
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 16, 45).addItemStack(recipe.getResultItem(null));
 	}
 }

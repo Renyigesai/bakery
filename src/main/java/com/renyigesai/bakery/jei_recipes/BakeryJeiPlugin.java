@@ -1,22 +1,20 @@
 
 package com.renyigesai.bakery.jei_recipes;
 
+import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.init.BakeryBlocks;
 import com.renyigesai.bakery.inventory.oven.OvenScreen;
 import com.renyigesai.bakery.recipe.OvenRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-
 
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +25,7 @@ public class BakeryJeiPlugin implements IModPlugin {
 
 	@Override
 	public ResourceLocation getPluginUid() {
-		return new ResourceLocation("underworld_magic_craftsmanship:jei_plugin");
+		return new ResourceLocation(BakeryMod.MODID,"jei_plugin");
 	}
 
 	@Override
@@ -41,12 +39,12 @@ public class BakeryJeiPlugin implements IModPlugin {
 		List<OvenRecipe> SoundCollectorRecipes = recipeManager.getAllRecipesFor(OvenRecipe.Type.INSTANCE);
 		registration.addRecipes(Oven_Type, SoundCollectorRecipes);
 
-		registration.addIngredientInfo(List.of(new ItemStack(BakeryBlocks.OVEN.get())), VanillaTypes.ITEM_STACK, Component.translatable("jei.defender.netheritr_blockxx_1"));
+//		registration.addIngredientInfo(List.of(new ItemStack(BakeryBlocks.OVEN.get())), VanillaTypes.ITEM_STACK, Component.translatable("jei.defender.netheritr_blockxx_1"));
 	}
 
 	@Override
 	public void registerGuiHandlers(IGuiHandlerRegistration registration){
-		registration.addRecipeClickArea(OvenScreen.class,78,37,18,21,
+		registration.addRecipeClickArea(OvenScreen.class,110,16,8,54,
 				Oven_Type);
 	}
 

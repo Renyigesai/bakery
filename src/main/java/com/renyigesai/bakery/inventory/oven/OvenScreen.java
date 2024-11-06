@@ -3,10 +3,14 @@ package com.renyigesai.bakery.inventory.oven;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
+import com.renyigesai.bakery.init.BakerySounds;
 import lombok.Getter;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -73,6 +77,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
         if (insideScrollbar(pMouseX, pMouseY)) {
             dragging.set(true);
+            this.playDownSound(Minecraft.getInstance().getSoundManager());
         }
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
@@ -84,7 +89,9 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         }
         return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
     }
-
+    public void playDownSound(SoundManager pHandler) {
+        pHandler.play(SimpleSoundInstance.forUI(BakerySounds.OVEN_DRAW_SLIP.get(), 1.0F));
+    }
     @Override
     public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
         if(dragging.get()){
