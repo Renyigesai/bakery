@@ -14,7 +14,7 @@ public class BakeryGroup {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BakeryMod.MODID);
 
     public static final RegistryObject<CreativeModeTab> BAKERY_TAB = REGISTER.register("bakery_tab",() ->
-            CreativeModeTab.builder().icon(()-> new ItemStack(BakeryItems.BUTTER_CUBE.get()))
+            CreativeModeTab.builder().icon(()-> new ItemStack(BakeryBlocks.OVEN.get()))
                     .title(Component.translatable("creativetab_bakery_tab"))
                     .displayItems(((itemDisplayParameters, output) -> {
                         output.accept(BakeryItems.OVEN.get());
@@ -41,6 +41,9 @@ public class BakeryGroup {
                         output.accept(BakeryItems.COARSE_SALT.get());
                         output.accept(BakeryItems.SLICED_TOAST.get());
                         output.accept(BakeryBlocks.TOAST.get());
+                        output.accept(BakeryBlocks.SWEET_DOUGH_KNEAD.get());
+                        output.accept(BakeryItems.SWEET_DOUGH.get());
+
                     }))
                     .build());
 

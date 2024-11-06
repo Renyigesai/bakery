@@ -3,6 +3,7 @@ package com.renyigesai.bakery.init;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
 import com.renyigesai.bakery.item.BaguetteItem;
+import com.renyigesai.bakery.item.RawItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -64,17 +65,17 @@ public class BakeryItems {
         SALT = item("salt");
         BUTTER_CUBE = item("butter_cube");
         BROWN_SUGAR_CUBE = item("brown_sugar_cube");
-        BAGEL_DOUGH = item("bagel_dough");
-        BAGUETTE_DOUGH = item("baguette_dough");
-        CINNAMON_ROLL_DOUGH = item("cinnamon_roll_dough");
-        COUNTRY_BREAD_DOUGH = item("country_bread_dough");
-        CROISSANT_DOUGH = item("croissant_dough");
-        PINEAPPLE_BUN_DOUGH = item("pineapple_bun_dough");
+        BAGEL_DOUGH = rawItem("bagel_dough","200");
+        BAGUETTE_DOUGH = rawItem("baguette_dough","240");
+        CINNAMON_ROLL_DOUGH = rawItem("cinnamon_roll_dough","170");
+        COUNTRY_BREAD_DOUGH = rawItem("country_bread_dough","250");
+        CROISSANT_DOUGH = rawItem("croissant_dough","180");
+        PINEAPPLE_BUN_DOUGH = rawItem("pineapple_bun_dough","180");
         RAW_EGG_TART = item("raw_egg_tart");
         RAW_PUMPKIN_PIE = item("raw_pumpkin_pie");
         RAW_TARE_CRUST = item("raw_tare_crust");
-        ROUND_BREAD_DOUGH = item("round_bread_dough");
-        SALT_CROISSANT_DOUGH = item("salt_croissant_dough");
+        ROUND_BREAD_DOUGH = rawItem("round_bread_dough","180");
+        SALT_CROISSANT_DOUGH = rawItem("salt_croissant_dough","190");
         TART_SHELL = item("tart_shell");
         OVEN = block(BakeryBlocks.OVEN);
         FERMENTATION_TANK = block(BakeryBlocks.FERMENTATION_TANK);
@@ -104,6 +105,10 @@ public class BakeryItems {
 
     private static RegistryObject<Item> item(String pName) {
         return REGISTER.register(pName, () -> new Item(new Item.Properties()));
+    }
+
+    private static RegistryObject<Item> rawItem(String pName,String tips) {
+        return REGISTER.register(pName, () -> new RawItem(new Item.Properties(),tips));
     }
 
     private static RegistryObject<Item> block(RegistryObject<Block> block) {

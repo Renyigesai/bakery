@@ -1,6 +1,6 @@
 package com.renyigesai.bakery.item;
 
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,23 +12,15 @@ import java.util.List;
 
 public class RawItem extends Item {
 
-    public static String TIPS_1;
-    public static String TIPS_2;
+    public final String TIPS;
 
-    public RawItem(Properties pProperties,String tips_1,String tips_2) {
+    public RawItem(Properties pProperties,String tips) {
         super(pProperties);
-        this.TIPS_1 = tips_1;
-        this.TIPS_2 = tips_2;
+        TIPS = tips;
     }
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        if (Screen.hasShiftDown()){
-            pTooltipComponents.add(Component.nullToEmpty(Component.translatable(TIPS_1).getString()));
-            pTooltipComponents.add(Component.nullToEmpty(Component.translatable(TIPS_2).getString()));
-        }else {
-            pTooltipComponents.add(Component.nullToEmpty(Component.translatable("raw_item.tips.bakery.shift").getString()));
-        }
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+            pTooltipComponents.add(Component.translatable(TIPS + "°C").withStyle(ChatFormatting.BLUE));
     }
 }
