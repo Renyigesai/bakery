@@ -3,8 +3,17 @@ package com.renyigesai.bakery.api.block;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +27,11 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 @Getter
 public class PileBlock extends HorizontalDirectionalBlock {
@@ -61,5 +75,47 @@ public class PileBlock extends HorizontalDirectionalBlock {
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
+    }
+    public static void saveMobEffect(ItemStack pBowlStack, MobEffect pEffect, int pEffectDuration) {
+        CompoundTag compoundtag = pBowlStack.getOrCreateTag();
+        ListTag listtag = compoundtag.getList("Effects", 9);
+        CompoundTag compoundtag1 = new CompoundTag();
+        compoundtag1.putInt("EffectId", MobEffect.getId(pEffect));
+        net.minecraftforge.common.ForgeHooks.saveMobEffect(compoundtag1, "forge:effect_id", pEffect);
+        compoundtag1.putInt("EffectDuration", pEffectDuration);
+        listtag.add(compoundtag1);
+        compoundtag.put("Effects", listtag);
+    }
+
+    private static void listPotionEffects(ItemStack pStack, Consumer<MobEffectInstance> pOutput) {
+        CompoundTag compoundtag = pStack.getTag();
+        if (compoundtag != null && compoundtag.contains("Effects", 9)) {
+            ListTag listtag = compoundtag.getList("Effects", 10);
+
+            for(int i = 0; i < listtag.size(); ++i) {
+                CompoundTag compoundtag1 = listtag.getCompound(i);
+                int j;
+                if (compoundtag1.contains("EffectDuration", 99)) {
+                    j = compoundtag1.getInt("EffectDuration");
+                } else {
+                    j = 160;
+                }
+
+                MobEffect mobeffect = MobEffect.byId(compoundtag1.getInt("EffectId"));
+                mobeffect = net.minecraftforge.common.ForgeHooks.loadMobEffect(compoundtag1, "forge:effect_id", mobeffect);
+                if (mobeffect != null) {
+                    pOutput.accept(new MobEffectInstance(mobeffect, j));
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        List<MobEffectInstance> list = new ArrayList<>();
+        listPotionEffects(pStack, list::add);
+        PotionUtils.addPotionTooltip(list, pTooltip, 1.0F);
     }
 }

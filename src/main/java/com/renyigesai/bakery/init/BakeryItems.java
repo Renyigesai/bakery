@@ -36,6 +36,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> SALT_CROISSANT_DOUGH;
     public static final RegistryObject<Item> TART_SHELL;
     public static final RegistryObject<Item> BAGEL;
+    public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL;
     public static final RegistryObject<Item> BAGUETTE;
     public static final RegistryObject<Item> CINNAMON_ROLL;
     public static final RegistryObject<Item> COUNTRY_BREAD;
@@ -89,13 +90,14 @@ public class BakeryItems {
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);
+        WHOLE_WHEAT_BAGEL = foodBlockItem(BakeryBlocks.WHOLE_WHEAT_BAGEL, BakeryFoodProperties.WHOLE_WHEAT_BAGEL,true);
         BAGUETTE = REGISTER.register(BakeryBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE.get(),new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
-        CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL, BakeryFoodProperties.CINNAMON_ROLL);
+        CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL, BakeryFoodProperties.CINNAMON_ROLL,true);
         COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD, BakeryFoodProperties.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT, BakeryFoodProperties.CROISSANT);
-        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN);
+        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN,true);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
-        SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT);
+        SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT,true);
         TOAST = block(BakeryBlocks.TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeryFoodProperties.SLICED_TOAST);
     }
@@ -103,6 +105,7 @@ public class BakeryItems {
     private static RegistryObject<Item> item(String pName) {
         return REGISTER.register(pName, () -> new Item(new Item.Properties()));
     }
+
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
@@ -110,6 +113,11 @@ public class BakeryItems {
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
     }
+
+    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip) {
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties),effectTooltip));
+    }
+
 //    private static RegistryObject<Item> foodBlockItemaa(RegistryObject<Block> block, FoodProperties foodProperties) {
 //        return REGISTER.register(block.getId().getPath(), () -> new (block.get(), new Item.Properties().food(foodProperties)));
 //    }

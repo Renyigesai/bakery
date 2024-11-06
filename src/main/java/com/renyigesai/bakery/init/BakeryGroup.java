@@ -25,6 +25,7 @@ public class BakeryGroup {
                         output.accept(BakeryItems.BROWN_SUGAR_CUBE.get());
                         output.accept(BakeryItems.BUTTER_CUBE.get());
                         output.accept(BakeryItems.BAGEL.get());
+                        output.accept(BakeryItems.WHOLE_WHEAT_BAGEL.get());
                         output.accept(BakeryItems.BAGUETTE.get());
                         output.accept(BakeryItems.CINNAMON_ROLL.get());
                         output.accept(BakeryItems.COUNTRY_BREAD.get());

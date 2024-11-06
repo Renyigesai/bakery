@@ -1,0 +1,16 @@
+{
+  "type": "bakery:oven",
+  "ingredient":  [
+    {
+      "item": "bakery:round_bread_dough"
+    }
+  ],
+  "output": {
+    "item": "bakery:round_bread",
+    "count": 1
+  },
+  "time": 200,
+  "min_temperature": 180,
+  "max_temperature": 205
+}
+   

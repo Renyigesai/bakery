@@ -7,6 +7,7 @@ import net.minecraft.world.food.FoodProperties;
 
 public class BakeryFoodProperties {
     public static final FoodProperties BAGEL;
+    public static final FoodProperties WHOLE_WHEAT_BAGEL;
     public static final FoodProperties BAGUETTE;
     public static final FoodProperties CINNAMON_ROLL;
     public static final FoodProperties COUNTRY_BREAD;
@@ -18,6 +19,9 @@ public class BakeryFoodProperties {
 
     static {
         BAGEL = new FoodProperties.Builder().nutrition(4).saturationMod(1.25f).build();
+
+        WHOLE_WHEAT_BAGEL = new FoodProperties.Builder().nutrition(5).saturationMod(0.6f)
+                .effect(new MobEffectInstance(MobEffects.SATURATION,20,0),1.0F).build();
 
         BAGUETTE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 

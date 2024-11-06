@@ -24,6 +24,7 @@ public class BakeryBlocks {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BakeryMod.MODID);
     //Bread Pile Block
     public static final RegistryObject<Block> BAGEL;
+    public static final RegistryObject<Block> WHOLE_WHEAT_BAGEL;
     public static final RegistryObject<Block> BAGUETTE;
     public static final RegistryObject<Block> CINNAMON_ROLL;
     public static final RegistryObject<Block> COUNTRY_BREAD;
@@ -47,6 +48,7 @@ public class BakeryBlocks {
     static {
         //Bread Pile Block
         BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
+        WHOLE_WHEAT_BAGEL = BLOCK_REGISTRY.register("whole_wheat_bagel", PileBlock::new);
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
         CINNAMON_ROLL = BLOCK_REGISTRY.register("cinnamon_roll", PileBlock::new);
         COUNTRY_BREAD = BLOCK_REGISTRY.register("country_bread", PileBlock::new);
