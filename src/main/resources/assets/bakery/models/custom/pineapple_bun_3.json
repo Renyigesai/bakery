@@ -1,10 +1,4 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "pineapple_bun",
-	"textures": {
-		"2": "bakery:block/pineapple_bun",
-		"particle": "bakery:block/pineapple_bun"
-	},
 	"elements": [
 		{
 			"from": [8.5, 0, 3],
