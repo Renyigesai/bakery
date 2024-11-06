@@ -15,6 +15,10 @@ repositories {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
     }
+    maven {
+        name = "Apple_skin Maven"
+        url "https://maven.ryanliptak.com/"
+    }
 }
 
 // 定义依赖  
@@ -30,6 +34,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.2.0.27")
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
+    //Apple_skin 依赖
+    compileOnly fg.deobf("squeek.appleskin:appleskin-forge:mc1.20.1-2.5.1:api")
+    runtimeOnly fg.deobf("squeek.appleskin:appleskin-forge:mc1.20.1-2.5.1")
 
 }
 
