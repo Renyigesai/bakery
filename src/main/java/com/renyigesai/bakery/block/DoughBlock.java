@@ -3,6 +3,8 @@ package com.renyigesai.bakery.block;
 import com.renyigesai.bakery.init.BakeryItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -69,6 +71,7 @@ public class DoughBlock extends Block {
         if(butter && knead == 6) {
             pLevel.removeBlock(pPos,false);
             ItemEntity entity = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, this.getDoughItem());
+            pLevel.playSound(null, pPos, SoundEvents.COMPOSTER_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
             pLevel.addFreshEntity(entity);
         }
         return InteractionResult.FAIL;
@@ -83,6 +86,7 @@ public class DoughBlock extends Block {
         ItemStack hand = playerIn.getItemInHand(pHand);
         level.setBlock(pos, state.setValue(BUTTER,true),0);
         hand.shrink(1);
+        level.playSound(null, pos, SoundEvents.HONEY_BLOCK_PLACE, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 

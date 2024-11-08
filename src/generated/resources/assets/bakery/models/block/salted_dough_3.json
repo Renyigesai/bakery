@@ -2,7 +2,7 @@
 	"parent": "bakery:custom/dough_3",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"0": "bakery:block/sweet_dough",
-		"particle": "bakery:block/sweet_dough"
+		"0": "bakery:block/salted_dough",
+		"particle": "bakery:block/salted_dough"
 	}
 }

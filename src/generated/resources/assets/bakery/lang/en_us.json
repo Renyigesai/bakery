@@ -40,5 +40,9 @@
   "item.bakery.tart_shell": "Tart Shell",
   "item.bakery.sliced_toast": "Sliced Toast",
   "block.bakery.sweet_dough_knead": "Sweet Dough Knead",
-  "item.bakery.sweet_dough": "Sweet Dough"
+  "item.bakery.sweet_dough": "Sweet Dough",
+  "block.bakery.whole_wheat_dough_knead": "Whole Wheat Dough Knead",
+  "item.bakery.whole_wheat_dough": "Whole Wheat Dough",
+  "block.bakery.salted_dough_knead": "Salted Dough Knead",
+  "item.bakery.salted_dough": "Salted Dough"
 }

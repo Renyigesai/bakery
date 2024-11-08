@@ -40,5 +40,9 @@
   "item.bakery.tart_shell": "蛋挞壳",
   "item.bakery.sliced_toast": "吐司片",
   "block.bakery.sweet_dough_knead": "未揉制的甜面团",
-  "item.bakery.sweet_dough": "甜面团"
+  "item.bakery.sweet_dough": "甜面团",
+  "block.bakery.whole_wheat_dough_knead": "未揉制的全麦面团",
+  "item.bakery.whole_wheat_dough": "全麦面团",
+  "block.bakery.salted_dough_knead": "未揉制的咸面团",
+  "item.bakery.salted_dough": "咸面团"
 }

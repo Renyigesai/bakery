@@ -58,6 +58,10 @@ public class BakeryItems {
     public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<Item> SWEET_DOUGH_KNEAD;
     public static final RegistryObject<Item> SWEET_DOUGH;
+    public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH_KNEAD;
+    public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH;
+    public static final RegistryObject<Item> SALTED_DOUGH_KNEAD;
+    public static final RegistryObject<Item> SALTED_DOUGH;
 
     static {
         FLOUR = item("flour");
@@ -88,6 +92,10 @@ public class BakeryItems {
         DOUGH_CRAFTING_TABLE = block(BakeryBlocks.DOUGH_CRAFTING_TABLE);
         SWEET_DOUGH_KNEAD = block(BakeryBlocks.SWEET_DOUGH_KNEAD);
         SWEET_DOUGH = item("sweet_dough");
+        WHOLE_WHEAT_DOUGH_KNEAD = block(BakeryBlocks.WHOLE_WHEAT_DOUGH_KNEAD);
+        WHOLE_WHEAT_DOUGH = item("whole_wheat_dough");
+        SALTED_DOUGH_KNEAD = block(BakeryBlocks.SALTED_DOUGH_KNEAD);
+        SALTED_DOUGH = item("salted_dough");
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);

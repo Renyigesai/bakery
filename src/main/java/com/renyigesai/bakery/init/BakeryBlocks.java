@@ -44,9 +44,11 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_BLOCK_ENTITY;
     public static final RegistryObject<Block> SWEET_DOUGH_KNEAD;
-    //Salt ore
+    public static final RegistryObject<Block> WHOLE_WHEAT_DOUGH_KNEAD;
+    public static final RegistryObject<Block> SALTED_DOUGH_KNEAD;
+
     static {
-        //Bread Pile Block
+        //Bread Block
         BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
         WHOLE_WHEAT_BAGEL = BLOCK_REGISTRY.register("whole_wheat_bagel", PileBlock::new);
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
@@ -74,6 +76,11 @@ public class BakeryBlocks {
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         SWEET_DOUGH_KNEAD = BLOCK_REGISTRY.register("sweet_dough_knead", () ->
                 new DoughBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F),BakeryItems.SWEET_DOUGH));
+        WHOLE_WHEAT_DOUGH_KNEAD = BLOCK_REGISTRY.register("whole_wheat_dough_knead", () ->
+                new DoughBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F),BakeryItems.WHOLE_WHEAT_DOUGH));
+        SALTED_DOUGH_KNEAD = BLOCK_REGISTRY.register("salted_dough_knead", () ->
+                new SaltedDough(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
+
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         DOUGH_CRAFTING_TABLE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, DOUGH_CRAFTING_TABLE.get()).build(null));

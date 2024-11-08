@@ -54,9 +54,9 @@
 			"translation": [0, 4.5, 0]
 		},
 		"gui": {
-			"rotation": [30, 225, 0],
-			"translation": [-0.75, 5.25, 0],
-			"scale": [1.25, 1.25, 1.25]
+			"rotation": [45, 225, 0],
+			"translation": [-1.5, 9.25, 0],
+			"scale": [2, 2, 2]
 		},
 		"fixed": {
 			"rotation": [-90, 0, 0],

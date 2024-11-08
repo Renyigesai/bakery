@@ -43,6 +43,10 @@ public class BakeryGroup {
                         output.accept(BakeryBlocks.TOAST.get());
                         output.accept(BakeryBlocks.SWEET_DOUGH_KNEAD.get());
                         output.accept(BakeryItems.SWEET_DOUGH.get());
+                        output.accept(BakeryBlocks.SALTED_DOUGH_KNEAD.get());
+                        output.accept(BakeryItems.SALTED_DOUGH.get());
+                        output.accept(BakeryBlocks.WHOLE_WHEAT_DOUGH_KNEAD.get());
+                        output.accept(BakeryItems.WHOLE_WHEAT_DOUGH.get());
 
                     }))
                     .build());

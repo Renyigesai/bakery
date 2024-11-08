@@ -1,10 +1,4 @@
 {
-	"credit": "Made with Blockbench",
-	"textures": {
-		"0": "bakery:block/sweet_dough",
-		"1": "bakery:block/butter_cube",
-		"particle": "bakery:block/sweet_dough"
-	},
 	"elements": [
 		{
 			"from": [4, 0, 4],
