@@ -1,9 +1,11 @@
 package com.renyigesai.bakery.init;
 
 import com.mojang.blaze3d.shaders.Effect;
+import com.renyigesai.bakery.api.RandomEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+
 
 public class BakeryFoodProperties {
     public static final FoodProperties BAGEL;
@@ -42,5 +44,8 @@ public class BakeryFoodProperties {
                 .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0), 1.0F).build();
 
         SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
+//        PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(3).saturationMod(1.3f)
+//                .effect(new RandomEffect().getRandomEffect(),1.0F).build();
     }
 }

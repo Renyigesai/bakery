@@ -2,11 +2,9 @@ package com.renyigesai.bakery.api.item;
 
 import com.renyigesai.bakery.api.TextUtils;
 import com.renyigesai.bakery.api.block.PileBlock;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +31,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
         this.effectTooltip = effectTooltip;
     }
 
-    public  FoodBlockItem(Block block, Properties pProperties) {
+    public FoodBlockItem(Block block, Properties pProperties) {
         super(block, pProperties);
         this.effectTooltip=false;
     }
@@ -80,13 +78,10 @@ public class FoodBlockItem extends ItemNameBlockItem {
             return InteractionResult.FAIL;
         }
         return InteractionResult.SUCCESS;
-
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-//            MutableComponent textEmpty = TextUtils.getTranslation("tooltip." + this);
-//            tooltip.add(textEmpty.withStyle(ChatFormatting.BLUE));
         if (effectTooltip) {
             TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
         }
