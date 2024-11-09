@@ -23,6 +23,10 @@ public class EffectProperties {
             this.effects.add(Pair.of(effectIn, probability));
             return this;
         }
+
+        /**
+         * Forge: Use supplier method instead
+         */
         @Deprecated
         public EffectProperties.Builder effect(MobEffectInstance pEffect, float pProbability) {
             this.effects.add(Pair.of(() -> pEffect, pProbability));
