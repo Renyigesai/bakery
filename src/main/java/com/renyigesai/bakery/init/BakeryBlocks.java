@@ -3,7 +3,7 @@ package com.renyigesai.bakery.init;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.block.PileBlock;
 import com.renyigesai.bakery.block.*;
-import com.renyigesai.bakery.block.dough_crafting_table.DoughCraftingTableBlockEntity;
+import com.renyigesai.bakery.block.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
 import net.minecraft.world.level.block.Block;
@@ -42,7 +42,6 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> GLASS_CABINET_DOOR;
     public static final RegistryObject<Block> SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
-    public static final RegistryObject<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_BLOCK_ENTITY;
     public static final RegistryObject<Block> SWEET_DOUGH_KNEAD;
     public static final RegistryObject<Block> WHOLE_WHEAT_DOUGH_KNEAD;
     public static final RegistryObject<Block> SALTED_DOUGH_KNEAD;
@@ -63,7 +62,7 @@ public class BakeryBlocks {
         //common
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
         DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", () ->
-                new Block(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
+                new DoughCraftingTableBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
                 new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () ->
@@ -83,7 +82,6 @@ public class BakeryBlocks {
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
-        DOUGH_CRAFTING_TABLE_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, DOUGH_CRAFTING_TABLE.get()).build(null));
     }
 
 }

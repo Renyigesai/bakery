@@ -2,7 +2,7 @@ package com.renyigesai.bakery.block.oven;
 
 import com.renyigesai.bakery.init.BakeryBlocks;
 import com.renyigesai.bakery.inventory.oven.OvenMenu;
-import com.renyigesai.bakery.recipe.OvenRecipe;
+import com.renyigesai.bakery.recipe.oven.OvenRecipe;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -1,4 +1,4 @@
-package com.renyigesai.bakery.recipe;
+package com.renyigesai.bakery.recipe.oven;
 
 import lombok.Getter;
 import net.minecraft.core.NonNullList;

@@ -3,7 +3,7 @@ package com.renyigesai.bakery.jei_recipes;
 
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.init.BakeryBlocks;
-import com.renyigesai.bakery.recipe.OvenRecipe;
+import com.renyigesai.bakery.recipe.oven.OvenRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 
-public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
+public class   OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 	public final static ResourceLocation UID = new ResourceLocation(BakeryMod.MODID, "oven_recipe");
 	public final static ResourceLocation TEXTURE = new ResourceLocation(BakeryMod.MODID, "textures/gui/jei_oven_gui.png");
 	protected final IDrawable background;

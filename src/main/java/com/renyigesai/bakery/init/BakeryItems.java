@@ -1,6 +1,7 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
+import com.renyigesai.bakery.api.EffectProperties;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
 import com.renyigesai.bakery.item.BaguetteItem;
 import com.renyigesai.bakery.item.RawItem;
@@ -104,7 +105,7 @@ public class BakeryItems {
         CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL, BakeryFoodProperties.CINNAMON_ROLL,true);
         COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD, BakeryFoodProperties.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT, BakeryFoodProperties.CROISSANT);
-        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN,true);
+        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN,true, BakeryFoodProperties.EffectPropertie.PINEAPPLE_BUN);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT,true);
         TOAST = block(BakeryBlocks.TOAST);
@@ -122,7 +123,9 @@ public class BakeryItems {
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
-
+    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties, boolean effectTooltip, EffectProperties effects) {
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties),effects,effectTooltip));
+    }
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
     }

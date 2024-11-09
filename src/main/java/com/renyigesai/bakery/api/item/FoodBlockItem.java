@@ -1,5 +1,6 @@
 package com.renyigesai.bakery.api.item;
 
+import com.renyigesai.bakery.api.EffectProperties;
 import com.renyigesai.bakery.api.TextUtils;
 import com.renyigesai.bakery.api.block.PileBlock;
 import net.minecraft.client.gui.screens.Screen;
@@ -9,7 +10,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -25,17 +28,28 @@ import java.util.List;
 public class FoodBlockItem extends ItemNameBlockItem {
 
     public final boolean effectTooltip;
-
-    public FoodBlockItem(Block block, Properties pProperties,boolean effectTooltip) {
+    public EffectProperties effects;
+    public FoodBlockItem(Block block, Item.Properties pProperties, boolean effectTooltip) {
         super(block, pProperties);
         this.effectTooltip = effectTooltip;
+    }
+
+    public FoodBlockItem(Block block, Item.Properties pProperties, EffectProperties effects, boolean effectTooltip) {
+        super(block, pProperties);
+        this.effectTooltip = effectTooltip;
+        this.effects = effects;
     }
 
     public FoodBlockItem(Block block, Properties pProperties) {
         super(block, pProperties);
         this.effectTooltip=false;
     }
-
+    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
+        for (int i = 0; i < this.effects.getEffects().size(); i++) {
+            pLivingEntity.addEffect(this.effects.getEffects().get(i).getFirst());
+        }
+        return this.isEdible() ? pLivingEntity.eat(pLevel, pStack) : pStack;
+    }
     @Override
     protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
         if(Screen.hasShiftDown()) {
@@ -86,5 +100,4 @@ public class FoodBlockItem extends ItemNameBlockItem {
             TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
         }
     }
-
 }

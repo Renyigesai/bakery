@@ -1,7 +1,8 @@
 package com.renyigesai.bakery.jei_recipes;
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.recipe.OvenRecipe;
+import com.renyigesai.bakery.recipe.dough_crafting_table.DoughCraftingRecipe;
+import com.renyigesai.bakery.recipe.oven.OvenRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,7 +25,8 @@ public class BakeryRecipeTypes {
 			RECIPE_TYPE.register(bus);
 			SERIALIZERS.register("oven", () -> OvenRecipe.Serializer.INSTANCE);
 			RECIPE_TYPE.register("oven", () -> OvenRecipe.Type.INSTANCE);
-
+			SERIALIZERS.register("dough_crafting_table", () -> DoughCraftingRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register("dough_crafting_table", () -> DoughCraftingRecipe.Type.INSTANCE);
 
 		});
 	}

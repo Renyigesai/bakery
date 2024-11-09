@@ -1,6 +1,6 @@
 package com.renyigesai.bakery.init;
 
-import com.mojang.blaze3d.shaders.Effect;
+import com.renyigesai.bakery.api.EffectProperties;
 import com.renyigesai.bakery.api.RandomEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -35,7 +35,7 @@ public class BakeryFoodProperties {
         CROISSANT = new FoodProperties.Builder().nutrition(3).saturationMod(3.0f).build();
 
         PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(3).saturationMod(1.3f)
-                .effect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1.0F).build();
+             .build();
 
         ROUND_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.6f).build();
 
@@ -47,5 +47,13 @@ public class BakeryFoodProperties {
 
 //        PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(3).saturationMod(1.3f)
 //                .effect(new RandomEffect().getRandomEffect(),1.0F).build();
+    }
+
+    public static class EffectPropertie{
+        public static final EffectProperties PINEAPPLE_BUN;
+
+        static {
+            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(),1.0F).build();
+        }
     }
 }

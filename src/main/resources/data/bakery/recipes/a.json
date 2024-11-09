@@ -1,0 +1,16 @@
+{
+  "type": "bakery:dough_crafting_table",
+  "main_item": {
+    "item": "minecraft:wheat",
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "output": {
+    "item": "bakery:dough",
+    "count": 1
+  }
+}

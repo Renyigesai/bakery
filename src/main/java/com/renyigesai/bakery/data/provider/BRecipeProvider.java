@@ -1,12 +1,19 @@
 package com.renyigesai.bakery.data.provider;
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.renyigesai.bakery.BakeryMod;
+import com.renyigesai.bakery.recipe.oven.OvenRecipe;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -105,4 +112,43 @@ public class BRecipeProvider extends RecipeProvider {
                 .save(pFinishedRecipeConsumer,new ResourceLocation(BakeryMod.MODID,getItemName(pResultItem) + "_simple_cooking"));
     }
 
+    private void addOvenRecipe(Consumer<FinishedRecipe> consumer, String name, ItemLike ingredient, int count, int time, int minTemperature, int maxTemperature, ItemLike result) {
+        FinishedRecipe finishedRecipe = new FinishedRecipe() {
+            @Override
+            public void serializeRecipeData(JsonObject json) {
+                json.add("ingredient", Ingredient.of(ingredient).toJson());
+                json.addProperty("count", count);
+                json.addProperty("time", time);
+                json.addProperty("min_temperature", minTemperature);
+                json.addProperty("max_temperature", maxTemperature);
+                // 将 CompoundTag 转换为 JsonElement
+                CompoundTag resultTag = new ItemStack(result, count).serializeNBT();
+                json.add("result", JsonParser.parseString(resultTag.toString()));
+            }
+
+            @Override
+            public RecipeSerializer<?> getType() {
+                return OvenRecipe.Serializer.INSTANCE;
+            }
+
+            @Nullable
+            @Override
+            public JsonObject serializeAdvancement() {
+                return null;
+            }
+
+            @Nullable
+            @Override
+            public ResourceLocation getAdvancementId() {
+                return null;
+            }
+
+            @Override
+            public ResourceLocation getId() {
+                return BakeryMod.prefix(name);
+            }
+        };
+
+        consumer.accept(finishedRecipe);
+    }
 }

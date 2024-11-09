@@ -10,12 +10,16 @@ import com.renyigesai.bakery.inventory.dough_crafting_table.DoughCraftingTableSc
 import com.renyigesai.bakery.inventory.oven.OvenMenu;
 import com.renyigesai.bakery.inventory.oven.OvenScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -25,12 +29,19 @@ public class BakeryMenuType {
 	public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.MENU_TYPES, BakeryMod.MODID);
 
 	public static final RegistryObject<MenuType<OvenMenu>> OVEN_MENU =
-			REGISTRY.register("oven_menu",
-					() -> IForgeMenuType.create(OvenMenu::new));
+			create("oven_menu", OvenMenu::new);
 	public static final RegistryObject<MenuType<DoughCraftingTableMenu>> DOUGH_CRAFTING_TABLE_MENU =
-			REGISTRY.register("dough_crafting_table_menu",
-					() -> IForgeMenuType.create(DoughCraftingTableMenu::new));
+			register("dough_crafting_table_menu", DoughCraftingTableMenu::new);
+	private static<T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String pKey, MenuType.MenuSupplier<T> pFactory) {
+		return REGISTRY.register(pKey, () -> new MenuType<>(pFactory, FeatureFlags.VANILLA_SET));
+	}
 
+	private static<T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String pKey, MenuType.MenuSupplier<T> pFactory, FeatureFlag... pRequiredFeatures) {
+		return REGISTRY.register(pKey, () -> new MenuType<>(pFactory, FeatureFlags.REGISTRY.subset(pRequiredFeatures)));
+	}
+	private static<T extends AbstractContainerMenu> RegistryObject<MenuType<T>> create(String pKey, IContainerFactory<T> pFactory) {
+		return REGISTRY.register(pKey, () -> IForgeMenuType.create(pFactory));
+	}
 	@SubscribeEvent
 	public static void clientLoad(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {

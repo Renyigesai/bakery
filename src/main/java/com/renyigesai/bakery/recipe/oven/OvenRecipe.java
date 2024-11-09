@@ -1,4 +1,4 @@
-package com.renyigesai.bakery.recipe;
+package com.renyigesai.bakery.recipe.oven;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
