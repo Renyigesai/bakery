@@ -2,18 +2,41 @@ package com.renyigesai.bakery.api;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class RandomEffect {
+    public MobEffectInstance getRandomEffect(ItemStack itemStack) {
 
-    public MobEffectInstance getRandomEffect(){
-        if (raise(0.5)){
-            return new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0);
+        List<MobEffectInstance> effectList = new ArrayList<>();
+        Random random = new Random();
+        int random_level = random.nextInt(4);
+
+        MobEffectInstance mobEffectInstance0 = new MobEffectInstance(MobEffects.NIGHT_VISION, 600, random_level);
+        MobEffectInstance mobEffectInstance1 = new MobEffectInstance(MobEffects.JUMP, 600, 0);
+        MobEffectInstance mobEffectInstance2 = new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, random_level);
+        MobEffectInstance mobEffectInstance3 = new MobEffectInstance(MobEffects.REGENERATION, 600, random_level);
+        MobEffectInstance mobEffectInstance4 = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, random_level);
+        MobEffectInstance mobEffectInstance5 = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, random_level);
+        MobEffectInstance mobEffectInstance6 = new MobEffectInstance(MobEffects.HEALTH_BOOST, 600, random_level);
+        MobEffectInstance mobEffectInstance7 = new MobEffectInstance(MobEffects.DIG_SPEED, 600, random_level);
+
+        effectList.addAll(Arrays.asList(mobEffectInstance0,mobEffectInstance1,mobEffectInstance2,mobEffectInstance3,
+                mobEffectInstance4,mobEffectInstance5,mobEffectInstance6,mobEffectInstance7));
+
+        int random_id = random.nextInt(effectList.size()+1);
+
+        if (itemStack.getOrCreateTag().getBoolean("perfect")) {
+            return effectList.get(random_id);
         }else {
-            return new MobEffectInstance(MobEffects.SATURATION, 600, 0);
+            return new MobEffectInstance(MobEffects.REGENERATION, 600, 0);
         }
     }
+
     /**
      * 生成一个在指定范围内的随机整数。
      *
@@ -21,6 +44,7 @@ public class RandomEffect {
      * @param min 范围的最小值（包含）。
      * @return 在 [min, max] 范围内的一个随机整数。
      */
+
     public static Integer random(int max, int min) {
         Random rand = new Random();
         int value = 0;
@@ -29,12 +53,14 @@ public class RandomEffect {
         }
         return value;
     }
+
     /**
      * 根据给定的概率生成一个布尔值。
      *
      * @param p1 生成 true 的概率，范围在 [0, 1] 之间。
      * @return 如果生成的随机数小于或等于 p1，则返回 true；否则返回 false。
      */
+
     public static boolean raise(double p1) {
         Random rand = new Random();
         double p = rand.nextDouble();

@@ -5,6 +5,7 @@ import com.renyigesai.bakery.api.RandomEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ItemStack;
 
 
 public class BakeryFoodProperties {
@@ -45,15 +46,13 @@ public class BakeryFoodProperties {
 
         SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
-//        PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(3).saturationMod(1.3f)
-//                .effect(new RandomEffect().getRandomEffect(),1.0F).build();
     }
 
     public static class EffectPropertie{
         public static final EffectProperties PINEAPPLE_BUN;
 
         static {
-            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(),1.0F).build();
+            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(new ItemStack(BakeryItems.PINEAPPLE_BUN.get())),1.0F).build();
         }
     }
 }

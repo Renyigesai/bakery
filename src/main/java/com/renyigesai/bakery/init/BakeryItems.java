@@ -134,9 +134,6 @@ public class BakeryItems {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties),effectTooltip));
     }
 
-//    private static RegistryObject<Item> foodBlockItemaa(RegistryObject<Block> block, FoodProperties foodProperties) {
-//        return REGISTER.register(block.getId().getPath(), () -> new (block.get(), new Item.Properties().food(foodProperties)));
-//    }
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {
         return REGISTER.register(pName, () -> new Item(new Item.Properties().food(foodProperties)));
     }
