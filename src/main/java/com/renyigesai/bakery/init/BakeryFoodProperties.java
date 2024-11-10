@@ -52,7 +52,7 @@ public class BakeryFoodProperties {
         public static final EffectProperties PINEAPPLE_BUN;
 
         static {
-            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(new ItemStack(BakeryItems.PINEAPPLE_BUN.get())),1.0F).build();
+            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(),1.0F).build();
         }
     }
 }

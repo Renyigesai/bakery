@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomEffect {
-    public MobEffectInstance getRandomEffect(ItemStack itemStack) {
+    public MobEffectInstance getRandomEffect() {
 
         List<MobEffectInstance> effectList = new ArrayList<>();
         Random random = new Random();
@@ -28,15 +28,14 @@ public class RandomEffect {
         effectList.addAll(Arrays.asList(mobEffectInstance0,mobEffectInstance1,mobEffectInstance2,mobEffectInstance3,
                 mobEffectInstance4,mobEffectInstance5,mobEffectInstance6,mobEffectInstance7));
 
-        int random_id = random.nextInt(effectList.size()+1);
-
-        if (itemStack.getOrCreateTag().getBoolean("perfect")) {
+        int random_id = random.nextInt(effectList.size());
             return effectList.get(random_id);
-        }else {
-            return new MobEffectInstance(MobEffects.REGENERATION, 600, 0);
-        }
+//        if (raise(0.5)){
+//            return new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0);
+//        }else {
+//            return new MobEffectInstance(MobEffects.SATURATION, 600, 0);
+//        }
     }
-
     /**
      * 生成一个在指定范围内的随机整数。
      *
