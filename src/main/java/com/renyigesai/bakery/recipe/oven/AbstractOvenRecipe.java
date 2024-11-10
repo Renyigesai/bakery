@@ -23,9 +23,10 @@ public abstract class AbstractOvenRecipe implements Recipe<Container> {
     protected final int min_temperature;
     @Getter
     protected final int max_temperature;
+    @Getter
+    protected final int perfect_temperature;
     protected final Ingredient recipeItems;
-
-    public AbstractOvenRecipe(RecipeType<?> recipeType, RecipeSerializer<?> serializer, ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, Ingredient recipeItems) {
+    public AbstractOvenRecipe(RecipeType<?> recipeType, RecipeSerializer<?> serializer, ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, int perfectTemperature, Ingredient recipeItems) {
         this.type = recipeType;
         this.serializer = serializer;
         this.id = id;
@@ -33,6 +34,7 @@ public abstract class AbstractOvenRecipe implements Recipe<Container> {
         this.time = time;
         this.min_temperature = min_temperature;
         this.max_temperature = max_temperature;
+        this.perfect_temperature = perfectTemperature;
         this.recipeItems = recipeItems;
     }
     @Override

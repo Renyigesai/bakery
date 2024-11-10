@@ -15,8 +15,8 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import javax.annotation.Nullable;
 
 public class OvenRecipe extends AbstractOvenRecipe{
-	public OvenRecipe(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, Ingredient recipeItems) {
-		super(Type.INSTANCE, Serializer.INSTANCE, id, output, time, min_temperature, max_temperature, recipeItems);
+	public OvenRecipe(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, int perfect_temperature, Ingredient recipeItems) {
+		super(Type.INSTANCE, Serializer.INSTANCE, id, output, time, min_temperature, max_temperature, perfect_temperature, recipeItems);
 	}
 
 	public static class Type implements RecipeType<OvenRecipe> {
@@ -29,32 +29,44 @@ public class OvenRecipe extends AbstractOvenRecipe{
 
 	public static class Serializer <T extends AbstractOvenRecipe> implements RecipeSerializer<T> {
 		public static final Serializer INSTANCE = new Serializer<>(OvenRecipe::new);
+
 		public static final ResourceLocation ID = new ResourceLocation(BakeryMod.MODID, "oven");
 		private final Serializer.CookieBaker<T> factory;
 
-		public Serializer(Serializer.CookieBaker<T> pFactory) {
-
+		private Serializer(Serializer.CookieBaker<T> pFactory) {
 			this.factory = pFactory;
 		}
-		@Override
+		
+        @Override
 		public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 			int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
 			int min_temperature = GsonHelper.getAsInt(pSerializedRecipe, "min_temperature");
 			int max_temperature = GsonHelper.getAsInt(pSerializedRecipe, "max_temperature");
+			int perfect_temperature = -1; // 默认值
+			if (pSerializedRecipe.has("perfect_temperature")) {
+				perfect_temperature = GsonHelper.getAsInt(pSerializedRecipe, "perfect_temperature");
+			}
 			JsonElement jsonelement = (JsonElement)(GsonHelper.isArrayNode(pSerializedRecipe, "ingredient") ? GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient") : GsonHelper.getAsJsonObject(pSerializedRecipe, "ingredient"));
 			Ingredient ingredient = Ingredient.fromJson(jsonelement, false);
-			return this.factory.create(pRecipeId, output, time, min_temperature, max_temperature, ingredient);
+			return this.factory.create(pRecipeId, output, time, min_temperature, max_temperature, perfect_temperature, ingredient);
+
 		}
 
 		@Override
-		public @Nullable T fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+		public @Nullable T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buf) {
 			int time = buf.readInt();
 			int min_temperature = buf.readInt();
 			int max_temperature = buf.readInt();
+			int perfect_temperature = buf.readInt();
 			Ingredient ingredient = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
-			return this.factory.create(id, output, time, min_temperature, max_temperature, ingredient);
+			if (perfect_temperature != -1) {
+				return this.factory.create(pRecipeId, output, time, min_temperature, max_temperature, perfect_temperature, ingredient);
+			}else {
+				return this.factory.create(pRecipeId, output, time, min_temperature, max_temperature, -1, ingredient);
+
+			}
 		}
 
 		@Override
@@ -69,7 +81,7 @@ public class OvenRecipe extends AbstractOvenRecipe{
 			buf.writeItemStack(recipe.getResultItem(null), false);
 		}
 		interface CookieBaker<T extends AbstractOvenRecipe> {
-			T create(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, Ingredient recipeItems);
+			T create(ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, int perfect_temperature, Ingredient recipeItems);
 		}
 	}
 }
