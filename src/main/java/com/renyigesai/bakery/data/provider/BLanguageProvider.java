@@ -66,7 +66,7 @@ public class BLanguageProvider extends net.minecraftforge.common.data.LanguagePr
         addItem(BakeryItems.COUNTRY_BREAD_DOUGH, "Country Bread Dough", "乡村面包面胚");
         addItem(BakeryItems.CROISSANT_DOUGH, "Croissant Dough", "可颂面胚");
         addItem(BakeryItems.FLOUR, "Flour", "面粉");
-        addItem(BakeryItems.FLOUR_RYE, "Rye Flour", "全麦面粉");
+        addItem(BakeryItems.WHOLE_WHEAT_FLOUR, "Whole Wheat Flour", "全麦面粉");
         addItem(BakeryItems.PINEAPPLE_BUN, "Pineapple Bun", "菠萝包");
         addItem(BakeryItems.PINEAPPLE_BUN_DOUGH, "Pineapple Bun", "菠萝包面胚");
         addItem(BakeryItems.RAW_EGG_TART, "Raw Egg Tart", "生蛋挞");

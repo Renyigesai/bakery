@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 public class BakeryItems {
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, BakeryMod.MODID);
     public static final RegistryObject<Item> FLOUR;
-    public static final RegistryObject<Item> FLOUR_RYE;
+    public static final RegistryObject<Item> WHOLE_WHEAT_FLOUR;
     public static final RegistryObject<Item> SALT;
     public static final RegistryObject<Item> BUTTER_CUBE;
     public static final RegistryObject<Item> BROWN_SUGAR_CUBE;
@@ -63,10 +63,11 @@ public class BakeryItems {
     public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH;
     public static final RegistryObject<Item> SALTED_DOUGH_KNEAD;
     public static final RegistryObject<Item> SALTED_DOUGH;
+    public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL_DOUGH;
 
     static {
         FLOUR = item("flour");
-        FLOUR_RYE = item("flour_rye");
+        WHOLE_WHEAT_FLOUR = item("whole_wheat_flour");
         SALT = item("salt");
         BUTTER_CUBE = item("butter_cube");
         BROWN_SUGAR_CUBE = item("brown_sugar_cube");
@@ -81,6 +82,7 @@ public class BakeryItems {
         RAW_TARE_CRUST = item("raw_tare_crust");
         ROUND_BREAD_DOUGH = rawItem("round_bread_dough","180");
         SALT_CROISSANT_DOUGH = rawItem("salt_croissant_dough","190");
+        WHOLE_WHEAT_BAGEL_DOUGH = rawItem("whole_wheat_bagel_dough","190");
         TART_SHELL = item("tart_shell");
         OVEN = block(BakeryBlocks.OVEN);
         FERMENTATION_TANK = block(BakeryBlocks.FERMENTATION_TANK);

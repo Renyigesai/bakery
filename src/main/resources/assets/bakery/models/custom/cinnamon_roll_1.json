@@ -1,9 +1,10 @@
 {
+	"credit": "Made with Blockbench",
 	"elements": [
 		{
-			"from": [5, 0, 5],
-			"to": [10, 3, 10],
-			"rotation": {"angle": 0, "axis": "y", "origin": [5, 0, 5]},
+			"from": [5.5, 0, 5.5],
+			"to": [10.5, 3, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5.5, 0, 5.5]},
 			"faces": {
 				"north": {"uv": [5, 8, 10, 11], "texture": "#0"},
 				"east": {"uv": [9, 0, 14, 3], "texture": "#0"},
@@ -14,9 +15,9 @@
 			}
 		},
 		{
-			"from": [5.5, 3, 5.5],
-			"to": [9.5, 3.5, 9.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [6.5, 3, 6.5]},
+			"from": [6, 3, 6],
+			"to": [10, 3.5, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 3, 7]},
 			"faces": {
 				"north": {"uv": [9, 6, 13, 6.5], "texture": "#0"},
 				"east": {"uv": [9, 7, 13, 7.5], "texture": "#0"},
@@ -48,9 +49,9 @@
 			"translation": [0, 4.5, 0]
 		},
 		"gui": {
-			"rotation": [30, 225, 0],
-			"translation": [-0.75, 5.25, 0],
-			"scale": [1.25, 1.25, 1.25]
+			"rotation": [45, 225, 0],
+			"translation": [0, 8.75, 0],
+			"scale": [2, 2, 2]
 		},
 		"fixed": {
 			"rotation": [-90, 0, 0],

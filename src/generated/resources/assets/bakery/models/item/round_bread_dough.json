@@ -1,7 +1,7 @@
 {
   "parent": "bakery:custom/round_bread_1",
-  "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakery:item/raw_dough"
+    "0": "bakery:block/round_bread_dough",
+    "particle": "bakery:block/round_bread_dough"
   }
 }

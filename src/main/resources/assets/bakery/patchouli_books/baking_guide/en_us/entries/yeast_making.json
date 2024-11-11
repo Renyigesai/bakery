@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "guide.bakery.entries.yeast_making.descr"
+
+    },
+    {
+      "type": "patchouli:image",
+      "images": "bakery:textures/gui/entries/yeast_making.png"
     }
   ]
 }

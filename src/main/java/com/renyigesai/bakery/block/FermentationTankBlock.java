@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -58,7 +57,7 @@ public class FermentationTankBlock extends Block {
         int flour = pState.getValue(FLOUR);
         boolean milk = pState.getValue(MILK);
         if (flour < 3 && !milk){
-            if (handStack.is(BakeryItems.FLOUR_RYE.get())){
+            if (handStack.is(BakeryItems.WHOLE_WHEAT_FLOUR.get())){
                 return fillFlour(pLevel, pPos, pState, pPlayer, pHand);
             }
         }else if ((PotionUtils.getPotion(handStack) == Potions.WATER && !pState.getValue(WATER))){
@@ -167,7 +166,7 @@ public class FermentationTankBlock extends Block {
             double x = pPos.getX() + 0.5;
             double y = pPos.getY() + 0.15;
             double z = pPos.getZ() + 0.5;
-            ItemEntity entity = new ItemEntity((Level) pLevel, x, y, z, new ItemStack(BakeryItems.FLOUR_RYE.get()));
+            ItemEntity entity = new ItemEntity((Level) pLevel, x, y, z, new ItemStack(BakeryItems.WHOLE_WHEAT_FLOUR.get()));
             pLevel.addFreshEntity(entity);
         }
     }

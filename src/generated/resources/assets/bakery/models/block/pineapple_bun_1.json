@@ -2,7 +2,7 @@
   "parent": "bakery:custom/pineapple_bun_1",
   "render_type": "minecraft:cutout",
   "textures": {
-    "2": "bakery:block/pineapple_bun",
+    "0": "bakery:block/pineapple_bun",
     "particle": "bakery:block/pineapple_bun"
   }
 }
