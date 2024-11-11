@@ -38,7 +38,6 @@ public class ToastBlock extends HorizontalDirectionalBlock {
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
     protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
-    //碰撞箱待施工。
     public final Supplier<Item> sliceItem;
 
     public ToastBlock(Properties pProperties,Supplier<Item> sliceItem) {
