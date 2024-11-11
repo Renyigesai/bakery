@@ -114,6 +114,16 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven { // Patchouli
+        url "https://maven.blamejared.com"
+    }
+    maven { url = "https://mvn.devos.one/snapshots/" }
+    maven {
+        url "https://maven2.bai.lol"
+        content {
+            includeGroup "lol.bai"
+            includeGroup "mcp.mobius.waila"
+        }
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
@@ -122,9 +132,12 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    }
 }
 
 dependencies {
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]")
     // Specify the version of Minecraft to use.
     // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
     // The "userdev" classifier will be requested and setup by ForgeGradle.
