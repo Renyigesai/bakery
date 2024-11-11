@@ -35,9 +35,9 @@ import java.util.function.Supplier;
 public class ToastBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
     public static final IntegerProperty SLICE = IntegerProperty.create("slice",1,6);
-    protected static final VoxelShape X_BOX = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
-    protected static final VoxelShape Z_BOX = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
-    protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
+    protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
+    protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
+    protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
     //碰撞箱待施工。
     public final Supplier<Item> sliceItem;
 
@@ -75,6 +75,7 @@ public class ToastBlock extends HorizontalDirectionalBlock {
         }
         ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.15, pos.getZ() + 0.5, this.getSliceItem());
         level.addFreshEntity(entity);
+        level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 
@@ -87,7 +88,12 @@ public class ToastBlock extends HorizontalDirectionalBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        Direction direction = state.getValue(FACING);
+        int pile = state.getValue(PILE);
+        if (pile > 1){
+            return SHAPE;
+        }
+        return direction.getAxis() == Direction.Axis.X ? X_BOX : Z_BOX;
     }
 
     @Override
