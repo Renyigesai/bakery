@@ -38,6 +38,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
     public CompoundTag oven;
     public int temperature;
+
     public final ContainerData dataAccess = new ContainerData() {
 
 
@@ -298,4 +299,5 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
+
 }

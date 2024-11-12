@@ -12,6 +12,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -19,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -32,6 +35,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     private final int x, y, z;
     private AtomicBoolean dragging = new AtomicBoolean(false);
     private int mousey;
+
     @Getter
     public static int zhen_y = 69; // 初始位置
     public OvenScreen(OvenMenu container, Inventory inventory, Component text) {
@@ -56,7 +60,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity) {
-            String A = new java.text.DecimalFormat("##.##").format(this.getMenu().data.get(0));
+            String A = new DecimalFormat("##.##").format(this.getMenu().data.get(0));
             pGuiGraphics.drawString(font, A, 140, 50, 4210752, false);
         }
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY);
@@ -76,7 +80,6 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
         if (insideScrollbar(pMouseX, pMouseY)) {
             dragging.set(true);
-            Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(BakerySounds.OVEN_DRAW_SLIP.get(), 1.0F));
         }
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
@@ -85,7 +88,11 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
         if (dragging.get()) {
             updateProgress();
+            if (Math.random() < 0.2) {
+                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_HAT, 1.0F));
+            }
         }
+
         return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
     }
     @Override

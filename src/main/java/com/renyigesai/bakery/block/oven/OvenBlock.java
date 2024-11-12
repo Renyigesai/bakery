@@ -1,9 +1,11 @@
 package com.renyigesai.bakery.block.oven;
 
 import com.renyigesai.bakery.init.BakeryBlocks;
+import com.renyigesai.bakery.init.BakerySounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -147,6 +149,11 @@ public class OvenBlock extends BaseEntityBlock{
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
+
+//    @Override
+//    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+//    }
+
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         if (pState.getValue(LIT)) {
             double d0 = (double)pPos.getX() + 0.5D;
@@ -154,6 +161,7 @@ public class OvenBlock extends BaseEntityBlock{
             double d2 = (double)pPos.getZ() + 0.5D;
             if (pRandom.nextDouble() < 0.3D) {
                 pLevel.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                pLevel.playLocalSound(d0, d1, d2, BakerySounds.OVEN_DRAW_SLIP.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
             }
 
             Direction direction = pState.getValue(FACING).getClockWise();

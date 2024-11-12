@@ -1,6 +1,7 @@
 package com.renyigesai.bakery.block;
 
 import com.renyigesai.bakery.init.BakeryItems;
+import com.renyigesai.bakery.init.BakerySounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -71,7 +72,6 @@ public class DoughBlock extends Block {
         if(butter && knead == 6) {
             pLevel.removeBlock(pPos,false);
             ItemEntity entity = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, this.getDoughItem());
-            pLevel.playSound(null, pPos, SoundEvents.COMPOSTER_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
             pLevel.addFreshEntity(entity);
         }
         return InteractionResult.FAIL;
