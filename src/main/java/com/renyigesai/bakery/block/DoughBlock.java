@@ -79,6 +79,7 @@ public class DoughBlock extends Block {
     public InteractionResult setKnead(Level level, BlockPos pos, BlockState state, Player playerIn, InteractionHand pHand){
         int knead = state.getValue(KNEAD);
         level.setBlock(pos, state.setValue(KNEAD, Math.min(knead + 1, 6)), 3);
+        level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 

@@ -45,6 +45,7 @@ public class SaltedDough extends Block {
         int knead = pState.getValue(KNEAD);
         if (knead < 6){
             pLevel.setBlock(pPos, pState.setValue(KNEAD, Math.min(knead + 1, 6)), 3);
+            pLevel.playSound(null, pPos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }else {
             pLevel.removeBlock(pPos,false);
             ItemEntity entity = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5,

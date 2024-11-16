@@ -1,0 +1,9 @@
+{
+  "values": [
+    "bakery:oven",
+    "bakery:fermentation_tank",
+    "bakery:yeast_tank",
+    "bakery:cheese_tank",
+    "bakery:glass_cabinet_door"
+  ]
+}

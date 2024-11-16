@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakery:fermentation_tank"
+          "name": "bakery:cheese_tank"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "bakery:blocks/fermentation_tank"
+  "random_sequence": "bakery:blocks/cheese_tank"
 }
