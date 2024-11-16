@@ -3,16 +3,17 @@ package com.renyigesai.bakery.init;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.EffectProperties;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
+import com.renyigesai.bakery.fluid.BakeryFluids;
 import com.renyigesai.bakery.item.BaguetteItem;
 import com.renyigesai.bakery.item.RawItem;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -64,6 +65,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> SALTED_DOUGH_KNEAD;
     public static final RegistryObject<Item> SALTED_DOUGH;
     public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL_DOUGH;
+    public static final RegistryObject<Item> SALT_WATER_BUCKET;
 
     static {
         FLOUR = item("flour");
@@ -99,6 +101,8 @@ public class BakeryItems {
         WHOLE_WHEAT_DOUGH = item("whole_wheat_dough");
         SALTED_DOUGH_KNEAD = block(BakeryBlocks.SALTED_DOUGH_KNEAD);
         SALTED_DOUGH = item("salted_dough");
+        SALT_WATER_BUCKET = REGISTER.register("salt_water_bucket",()->new BucketItem(BakeryFluids.SOURCE_SALT_WATER,new Item.Properties()));
+
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);
@@ -114,13 +118,21 @@ public class BakeryItems {
         SLICED_TOAST = foodItem("sliced_toast",BakeryFoodProperties.SLICED_TOAST);
     }
 
-    private static RegistryObject<Item> item(String pName) {
-        return REGISTER.register(pName, () -> new Item(new Item.Properties()));
-    }
+//    private static RegistryObject<Item> bucketItem(String pName, RegistryObject<FlowingFluid> flowing) {
+//        return REGISTER.register(pName, () -> new BucketItem(flowing, new Item.Properties()));
+//    }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
         return REGISTER.register(pName, () -> new RawItem(new Item.Properties(),tips));
     }
+
+    private static RegistryObject<Item> item(String pName) {
+        return REGISTER.register(pName, () -> new Item(new Item.Properties()));
+    }
+
+//    private static RegistryObject<Item> bucketItem(String pName, RegistryObject<Fluids> fluids) {
+//        return REGISTER.register(pName, () -> new BucketItem(fluids.get(),new Item.Properties()));
+//    }
 
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));

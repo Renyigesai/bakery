@@ -2,6 +2,8 @@ package com.renyigesai.bakery;
 
 import com.mojang.logging.LogUtils;
 import com.renyigesai.bakery.config.BakeryConfig;
+import com.renyigesai.bakery.fluid.BakeryFluidTypes;
+import com.renyigesai.bakery.fluid.BakeryFluids;
 import com.renyigesai.bakery.init.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +45,8 @@ public class BakeryMod {
         BakeryGroup.REGISTER.register(bus);
         BakeryMenuType.REGISTRY.register(bus);
         BakerySounds.REGISTRY.register(bus);
+        BakeryFluids.register(bus);
+        BakeryFluidTypes.register(bus);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::modConfig);
 

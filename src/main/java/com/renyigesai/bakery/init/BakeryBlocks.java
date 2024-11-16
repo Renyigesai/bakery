@@ -6,10 +6,8 @@ import com.renyigesai.bakery.block.*;
 import com.renyigesai.bakery.block.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakery.block.oven.OvenBlock;
 import com.renyigesai.bakery.block.oven.OvenBlockEntity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.TrapDoorBlock;
+import com.renyigesai.bakery.fluid.BakeryFluids;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -20,6 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class BakeryBlocks {
 
     public static final DeferredRegister<Block> BLOCK_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, BakeryMod.MODID);
+//    public static final DeferredRegister<LiquidBlock> FLUID_BLOCK_REGISTRY = DeferredRegister.create(ForgeRegistries.FLUIDS,BakeryMod.MODID)
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BakeryMod.MODID);
     //Bread Pile Block
@@ -45,6 +44,7 @@ public class BakeryBlocks {
     public static final RegistryObject<Block> SWEET_DOUGH_KNEAD;
     public static final RegistryObject<Block> WHOLE_WHEAT_DOUGH_KNEAD;
     public static final RegistryObject<Block> SALTED_DOUGH_KNEAD;
+    public static final RegistryObject<LiquidBlock> SALT_WATER_BLOCK;
 
     static {
         //Bread Block
@@ -79,6 +79,8 @@ public class BakeryBlocks {
                 new DoughBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F),BakeryItems.WHOLE_WHEAT_DOUGH));
         SALTED_DOUGH_KNEAD = BLOCK_REGISTRY.register("salted_dough_knead", () ->
                 new SaltedDough(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
+        SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", () ->
+                new LiquidBlock(BakeryFluids.SOURCE_SALT_WATER,BlockBehaviour.Properties.copy(Blocks.WATER)));
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
