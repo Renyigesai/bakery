@@ -6,8 +6,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -25,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
@@ -76,16 +80,6 @@ public class PileBlock extends HorizontalDirectionalBlock {
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
-    public static void saveMobEffect(ItemStack pBowlStack, MobEffect pEffect, int pEffectDuration) {
-        CompoundTag compoundtag = pBowlStack.getOrCreateTag();
-        ListTag listtag = compoundtag.getList("Effects", 9);
-        CompoundTag compoundtag1 = new CompoundTag();
-        compoundtag1.putInt("EffectId", MobEffect.getId(pEffect));
-        net.minecraftforge.common.ForgeHooks.saveMobEffect(compoundtag1, "forge:effect_id", pEffect);
-        compoundtag1.putInt("EffectDuration", pEffectDuration);
-        listtag.add(compoundtag1);
-        compoundtag.put("Effects", listtag);
-    }
 
     private static void listPotionEffects(ItemStack pStack, Consumer<MobEffectInstance> pOutput) {
         CompoundTag compoundtag = pStack.getTag();
@@ -108,7 +102,6 @@ public class PileBlock extends HorizontalDirectionalBlock {
                 }
             }
         }
-
     }
 
     @Override

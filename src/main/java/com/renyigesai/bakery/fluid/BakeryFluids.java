@@ -1,34 +1,30 @@
 package com.renyigesai.bakery.fluid;
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.init.BakeryBlocks;
-import com.renyigesai.bakery.init.BakeryItems;
-import net.minecraft.world.item.Items;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class BakeryFluids {
+    public static final DeferredRegister<Fluid> REGISTRY = DeferredRegister.create(ForgeRegistries.FLUIDS, BakeryMod.MODID);
+    public static final RegistryObject<FlowingFluid> SALT_WATER = REGISTRY.register("salt_water", () -> new SaltWaterFluid.Source());
+    public static final RegistryObject<FlowingFluid> FLOWING_SALT_WATER = REGISTRY.register("flowing_salt_water", () -> new SaltWaterFluid.Flowing());
 
-    public static final DeferredRegister<Fluid> FLUIDS =
-            DeferredRegister.create(ForgeRegistries.FLUIDS, BakeryMod.MODID);
-
-    public static final RegistryObject<FlowingFluid> SOURCE_SALT_WATER = FLUIDS.register("flesh_mud_fluid",
-            () -> new ForgeFlowingFluid.Source(BakeryFluids.FLESH_MUD_PROPERTIES));
-
-    public static final RegistryObject<FlowingFluid> FLOWING_SALT_WATER = FLUIDS.register("flowing_flesh_mud",
-            () -> new ForgeFlowingFluid.Flowing(BakeryFluids.FLESH_MUD_PROPERTIES));
-
-    public static final ForgeFlowingFluid.Properties FLESH_MUD_PROPERTIES = new ForgeFlowingFluid.Properties(
-            BakeryFluidTypes.SALT_WATER_FLUID_TYPE,SOURCE_SALT_WATER,FLOWING_SALT_WATER)
-            .levelDecreasePerBlock(1).slopeFindDistance(1).block(BakeryBlocks.SALT_WATER_BLOCK).bucket(BakeryItems.SALT_WATER_BUCKET);
-
-    public static void register(IEventBus eventBus) {
-        FLUIDS.register(eventBus);
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientSideHandler {
+        @SubscribeEvent
+        public static void clientSetup(FMLClientSetupEvent event) {
+            ItemBlockRenderTypes.setRenderLayer(SALT_WATER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(FLOWING_SALT_WATER.get(), RenderType.translucent());
+        }
     }
 }
 

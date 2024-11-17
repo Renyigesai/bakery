@@ -101,7 +101,7 @@ public class BakeryItems {
         WHOLE_WHEAT_DOUGH = item("whole_wheat_dough");
         SALTED_DOUGH_KNEAD = block(BakeryBlocks.SALTED_DOUGH_KNEAD);
         SALTED_DOUGH = item("salted_dough");
-        SALT_WATER_BUCKET = REGISTER.register("salt_water_bucket",()->new BucketItem(BakeryFluids.SOURCE_SALT_WATER,new Item.Properties()));
+        SALT_WATER_BUCKET = REGISTER.register("salt_water_bucket",()->new BucketItem(BakeryFluids.SALT_WATER,new Item.Properties()));
 
 
         //Bread Items
@@ -111,7 +111,7 @@ public class BakeryItems {
         CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL, BakeryFoodProperties.CINNAMON_ROLL,true);
         COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD, BakeryFoodProperties.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT, BakeryFoodProperties.CROISSANT);
-        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN,true, BakeryFoodProperties.EffectPropertie.PINEAPPLE_BUN);
+        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN,true);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT,true);
         TOAST = block(BakeryBlocks.TOAST);
@@ -137,9 +137,9 @@ public class BakeryItems {
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
-    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties, boolean effectTooltip, EffectProperties effects) {
-        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties),effects,effectTooltip));
-    }
+//    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties, boolean effectTooltip, EffectProperties effects) {
+//        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties),effects,effectTooltip));
+//    }
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
     }

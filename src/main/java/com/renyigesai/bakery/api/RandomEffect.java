@@ -12,9 +12,8 @@ import java.util.Random;
 public class RandomEffect {
     public MobEffectInstance getRandomEffect() {
 
-        List<MobEffectInstance> effectList = new ArrayList<>();
         Random random = new Random();
-        int random_level = random.nextInt(4);
+        int random_level = random.nextInt(3);
 
         MobEffectInstance mobEffectInstance0 = new MobEffectInstance(MobEffects.NIGHT_VISION, 600, random_level);
         MobEffectInstance mobEffectInstance1 = new MobEffectInstance(MobEffects.JUMP, 600, 0);
@@ -24,10 +23,8 @@ public class RandomEffect {
         MobEffectInstance mobEffectInstance5 = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, random_level);
         MobEffectInstance mobEffectInstance6 = new MobEffectInstance(MobEffects.HEALTH_BOOST, 600, random_level);
         MobEffectInstance mobEffectInstance7 = new MobEffectInstance(MobEffects.DIG_SPEED, 600, random_level);
-
-        effectList.addAll(Arrays.asList(mobEffectInstance0,mobEffectInstance1,mobEffectInstance2,mobEffectInstance3,
-                mobEffectInstance4,mobEffectInstance5,mobEffectInstance6,mobEffectInstance7));
-
+        List<MobEffectInstance> effectList = new ArrayList<>(Arrays.asList(mobEffectInstance0, mobEffectInstance1, mobEffectInstance2, mobEffectInstance3,
+                mobEffectInstance4, mobEffectInstance5, mobEffectInstance6, mobEffectInstance7));
         int random_id = random.nextInt(effectList.size());
             return effectList.get(random_id);
 //        if (raise(0.5)){

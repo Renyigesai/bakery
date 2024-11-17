@@ -80,7 +80,7 @@ public class BakeryBlocks {
         SALTED_DOUGH_KNEAD = BLOCK_REGISTRY.register("salted_dough_knead", () ->
                 new SaltedDough(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
         SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", () ->
-                new LiquidBlock(BakeryFluids.SOURCE_SALT_WATER,BlockBehaviour.Properties.copy(Blocks.WATER)));
+                new LiquidBlock(BakeryFluids.SALT_WATER,BlockBehaviour.Properties.copy(Blocks.WATER)));
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));

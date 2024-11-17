@@ -1,6 +1,7 @@
 package com.renyigesai.bakery.api.item;
 
 import com.renyigesai.bakery.api.EffectProperties;
+import com.renyigesai.bakery.api.RandomEffect;
 import com.renyigesai.bakery.api.TextUtils;
 import com.renyigesai.bakery.api.block.PileBlock;
 import net.minecraft.client.gui.screens.Screen;
@@ -28,28 +29,33 @@ import java.util.List;
 public class FoodBlockItem extends ItemNameBlockItem {
 
     public final boolean effectTooltip;
-    public EffectProperties effects;
+//    public RandomEffect effects;
     public FoodBlockItem(Block block, Item.Properties pProperties, boolean effectTooltip) {
         super(block, pProperties);
         this.effectTooltip = effectTooltip;
     }
 
-    public FoodBlockItem(Block block, Item.Properties pProperties, EffectProperties effects, boolean effectTooltip) {
-        super(block, pProperties);
-        this.effectTooltip = effectTooltip;
-        this.effects = effects;
-    }
+//    public FoodBlockItem(Block block, Item.Properties pProperties, RandomEffect effects, boolean effectTooltip) {
+//        super(block, pProperties);
+//        this.effectTooltip = effectTooltip;
+//        this.effects = effects;
+//    }
 
     public FoodBlockItem(Block block, Properties pProperties) {
         super(block, pProperties);
         this.effectTooltip=false;
     }
+
+    @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        for (int i = 0; i < this.effects.getEffects().size(); i++) {
-            pLivingEntity.addEffect(this.effects.getEffects().get(i).getFirst());
-        }
+//        for (int i = 0; i < this.effects.getEffects().size(); i++) {
+//            pLivingEntity.addEffect(this.effects.getEffects().get(i).getFirst());
+//        }
+        RandomEffect randomEffect = new RandomEffect();
+        pLivingEntity.addEffect(randomEffect.getRandomEffect());
         return this.isEdible() ? pLivingEntity.eat(pLevel, pStack) : pStack;
     }
+
     @Override
     protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
         if(Screen.hasShiftDown()) {
@@ -58,6 +64,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
             return false;
         }
     }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
 

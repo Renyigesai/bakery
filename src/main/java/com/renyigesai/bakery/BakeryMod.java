@@ -45,8 +45,8 @@ public class BakeryMod {
         BakeryGroup.REGISTER.register(bus);
         BakeryMenuType.REGISTRY.register(bus);
         BakerySounds.REGISTRY.register(bus);
-        BakeryFluids.register(bus);
-        BakeryFluidTypes.register(bus);
+        BakeryFluids.REGISTRY.register(bus);
+        BakeryFluidTypes.REGISTRY.register(bus);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::modConfig);
 

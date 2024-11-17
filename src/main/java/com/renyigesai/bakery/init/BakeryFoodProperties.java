@@ -1,11 +1,8 @@
 package com.renyigesai.bakery.init;
 
-import com.renyigesai.bakery.api.EffectProperties;
-import com.renyigesai.bakery.api.RandomEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ItemStack;
 
 
 public class BakeryFoodProperties {
@@ -48,11 +45,11 @@ public class BakeryFoodProperties {
 
     }
 
-    public static class EffectPropertie{
-        public static final EffectProperties PINEAPPLE_BUN;
-
-        static {
-            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(),1.0F).build();
-        }
-    }
+//    public static class EffectPropertie{
+//        public static final EffectProperties PINEAPPLE_BUN;
+//
+//        static {
+//            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(),1.0F).build();
+//        }
+//    }
 }
