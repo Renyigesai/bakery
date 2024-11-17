@@ -107,7 +107,7 @@ public class BakeryItems {
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);
         WHOLE_WHEAT_BAGEL = foodBlockItem(BakeryBlocks.WHOLE_WHEAT_BAGEL, BakeryFoodProperties.WHOLE_WHEAT_BAGEL,true);
-        BAGUETTE = REGISTER.register(BakeryBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE.get(),new Item.Properties().food(BakeryFoodProperties.BAGUETTE)));
+        BAGUETTE = REGISTER.register(BakeryBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeryBlocks.BAGUETTE.get(),new Item.Properties().durability(4)));
         CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL, BakeryFoodProperties.CINNAMON_ROLL,true);
         COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD, BakeryFoodProperties.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT, BakeryFoodProperties.CROISSANT);
