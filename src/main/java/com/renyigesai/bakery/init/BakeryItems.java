@@ -74,16 +74,16 @@ public class BakeryItems {
         BUTTER_CUBE = item("butter_cube");
         BROWN_SUGAR_CUBE = item("brown_sugar_cube");
         BAGEL_DOUGH = rawItem("bagel_dough","200");
-        BAGUETTE_DOUGH = rawItem("baguette_dough","240");
+        BAGUETTE_DOUGH = rawItem("baguette_dough","215");
         CINNAMON_ROLL_DOUGH = rawItem("cinnamon_roll_dough","170");
-        COUNTRY_BREAD_DOUGH = rawItem("country_bread_dough","250");
-        CROISSANT_DOUGH = rawItem("croissant_dough","180");
-        PINEAPPLE_BUN_DOUGH = rawItem("pineapple_bun_dough","180");
+        COUNTRY_BREAD_DOUGH = rawItem("country_bread_dough","225");
+        CROISSANT_DOUGH = rawItem("croissant_dough","155");
+        PINEAPPLE_BUN_DOUGH = rawItem("pineapple_bun_dough","155");
         RAW_EGG_TART = item("raw_egg_tart");
         RAW_PUMPKIN_PIE = item("raw_pumpkin_pie");
         RAW_TARE_CRUST = item("raw_tare_crust");
-        ROUND_BREAD_DOUGH = rawItem("round_bread_dough","180");
-        SALT_CROISSANT_DOUGH = rawItem("salt_croissant_dough","190");
+        ROUND_BREAD_DOUGH = rawItem("round_bread_dough","155");
+        SALT_CROISSANT_DOUGH = rawItem("salt_croissant_dough","165");
         WHOLE_WHEAT_BAGEL_DOUGH = rawItem("whole_wheat_bagel_dough","190");
         TART_SHELL = item("tart_shell");
         OVEN = block(BakeryBlocks.OVEN);
@@ -111,16 +111,12 @@ public class BakeryItems {
         CINNAMON_ROLL = foodBlockItem(BakeryBlocks.CINNAMON_ROLL, BakeryFoodProperties.CINNAMON_ROLL,true);
         COUNTRY_BREAD = foodBlockItem(BakeryBlocks.COUNTRY_BREAD, BakeryFoodProperties.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeryBlocks.CROISSANT, BakeryFoodProperties.CROISSANT);
-        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN,true);
+        PINEAPPLE_BUN = foodBlockItem(BakeryBlocks.PINEAPPLE_BUN,BakeryFoodProperties.PINEAPPLE_BUN);
         ROUND_BREAD = foodBlockItem(BakeryBlocks.ROUND_BREAD,BakeryFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeryBlocks.SALT_CROISSANT,BakeryFoodProperties.SALT_CROISSANT,true);
         TOAST = block(BakeryBlocks.TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeryFoodProperties.SLICED_TOAST);
     }
-
-//    private static RegistryObject<Item> bucketItem(String pName, RegistryObject<FlowingFluid> flowing) {
-//        return REGISTER.register(pName, () -> new BucketItem(flowing, new Item.Properties()));
-//    }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
         return REGISTER.register(pName, () -> new RawItem(new Item.Properties(),tips));
@@ -130,16 +126,10 @@ public class BakeryItems {
         return REGISTER.register(pName, () -> new Item(new Item.Properties()));
     }
 
-//    private static RegistryObject<Item> bucketItem(String pName, RegistryObject<Fluids> fluids) {
-//        return REGISTER.register(pName, () -> new BucketItem(fluids.get(),new Item.Properties()));
-//    }
-
     private static RegistryObject<Item> block(RegistryObject<Block> block) {
         return REGISTER.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
-//    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties, boolean effectTooltip, EffectProperties effects) {
-//        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties),effects,effectTooltip));
-//    }
+
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
     }

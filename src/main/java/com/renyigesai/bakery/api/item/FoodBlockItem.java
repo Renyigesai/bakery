@@ -1,9 +1,9 @@
 package com.renyigesai.bakery.api.item;
 
-import com.renyigesai.bakery.api.EffectProperties;
 import com.renyigesai.bakery.api.RandomEffect;
 import com.renyigesai.bakery.api.TextUtils;
 import com.renyigesai.bakery.api.block.PileBlock;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -29,7 +29,6 @@ import java.util.List;
 public class FoodBlockItem extends ItemNameBlockItem {
 
     public final boolean effectTooltip;
-//    public RandomEffect effects;
     public FoodBlockItem(Block block, Item.Properties pProperties, boolean effectTooltip) {
         super(block, pProperties);
         this.effectTooltip = effectTooltip;
@@ -48,11 +47,10 @@ public class FoodBlockItem extends ItemNameBlockItem {
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-//        for (int i = 0; i < this.effects.getEffects().size(); i++) {
-//            pLivingEntity.addEffect(this.effects.getEffects().get(i).getFirst());
-//        }
-        RandomEffect randomEffect = new RandomEffect();
-        pLivingEntity.addEffect(randomEffect.getRandomEffect());
+        if (pStack.getOrCreateTag().getBoolean("perfect")) {
+            RandomEffect randomEffect = new RandomEffect();
+            pLivingEntity.addEffect(randomEffect.getRandomEffect());
+        }
         return this.isEdible() ? pLivingEntity.eat(pLevel, pStack) : pStack;
     }
 
@@ -103,6 +101,9 @@ public class FoodBlockItem extends ItemNameBlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+        if (stack.getOrCreateTag().getBoolean("perfect")){
+            tooltip.add(Component.translatable("item.bakery.tips.perfect_temperature").withStyle(ChatFormatting.GOLD));
+        }
         if (effectTooltip) {
             TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
         }

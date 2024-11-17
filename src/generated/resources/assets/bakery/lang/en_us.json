@@ -50,5 +50,6 @@
   "item.bakery.salt_water_bucket": "Salt Water Bucket",
   "guide.bakery.categories.bread_making_process": "§6Bread Making Process",
   "guide.bakery.entries.yeast_making": "Yeast Making",
-  "guide.bakery.entries.yeast_making.descr": "To make bread, you first need to make dough, and to make dough you of course need yeast, you first need a fermenter,Put in 3 parts whole wheat flour, 1 part water, and let it rise, then you can remove the fresh yeast in a mason jar."
+  "guide.bakery.entries.yeast_making.descr": "To make bread, you first need to make dough, and to make dough you of course need yeast, you first need a fermenter,Put in 3 parts whole wheat flour, 1 part water, and let it rise, then you can remove the fresh yeast in a mason jar.",
+  "item.bakery.tips.perfect_temperature": "§lPerfect Temperature"
 }

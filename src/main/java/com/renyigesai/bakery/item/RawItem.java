@@ -21,6 +21,6 @@ public class RawItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-            pTooltipComponents.add(Component.translatable(TIPS + "°C").withStyle(ChatFormatting.BLUE));
+            pTooltipComponents.add(Component.translatable("Min" + TIPS + "°C").withStyle(ChatFormatting.BLUE));
     }
 }

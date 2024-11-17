@@ -161,7 +161,6 @@ public class OvenBlock extends BaseEntityBlock{
             double d2 = (double)pPos.getZ() + 0.5D;
             if (pRandom.nextDouble() < 0.3D) {
                 pLevel.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
-                pLevel.playLocalSound(d0, d1, d2, BakerySounds.OVEN_DRAW_SLIP.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
             }
 
             Direction direction = pState.getValue(FACING).getClockWise();

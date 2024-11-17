@@ -50,6 +50,7 @@
   "item.bakery.salt_water_bucket": "盐水桶",
   "guide.bakery.categories.bread_making_process": "§6面包制作流程",
   "guide.bakery.entries.yeast_making": "酵母制造",
-  "guide.bakery.entries.yeast_making.descr": "要制作面包，首先需要制作面团，要制作面团你当然需要酵母，你首先需要准备一个发酵罐，往里投入3份全麦面粉，一份水，然后静待发酵完成后，你就可以用玻璃瓶取出鲜酵母啦。"
+  "guide.bakery.entries.yeast_making.descr": "要制作面包，首先需要制作面团，要制作面团你当然需要酵母，你首先需要准备一个发酵罐，往里投入3份全麦面粉，一份水，然后静待发酵完成后，你就可以用玻璃瓶取出鲜酵母啦。",
+  "item.bakery.tips.perfect_temperature": "§l完美火候"
 
 }

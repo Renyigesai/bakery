@@ -1,0 +1,17 @@
+{
+  "type": "bakery:oven",
+  "ingredient":  [
+    {
+      "item": "bakery:whole_wheat_bagel_dough"
+    }
+  ],
+  "output": {
+    "item": "bakery:whole_wheat_bagel",
+    "count": 1
+  },
+  "time": 200,
+  "min_temperature": 190,
+  "max_temperature": 240,
+  "perfect_temperature": 215
+}
+   
