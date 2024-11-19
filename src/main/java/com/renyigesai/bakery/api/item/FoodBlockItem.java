@@ -7,8 +7,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -49,7 +51,13 @@ public class FoodBlockItem extends ItemNameBlockItem {
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         if (pStack.getOrCreateTag().getBoolean("perfect")) {
             RandomEffect randomEffect = new RandomEffect();
-            pLivingEntity.addEffect(randomEffect.getRandomEffect());
+            if(pStack.is(ItemTags.create(new ResourceLocation("bakery:sweet_bread")))) {
+                pLivingEntity.addEffect(randomEffect.getSweetEffect());
+            }else if (pStack.is(ItemTags.create(new ResourceLocation("bakery:salty_bread")))){
+                pLivingEntity.addEffect(randomEffect.getSaltyEffect());
+            }else {
+                pLivingEntity.addEffect(randomEffect.getWholeWheatEffect());
+            }
         }
         return this.isEdible() ? pLivingEntity.eat(pLevel, pStack) : pStack;
     }
@@ -87,6 +95,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
         }
         return super.useOn(context);
     }
+
     public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
         int pile = state.getValue(PileBlock.PILE);
         if (pile < 4) {

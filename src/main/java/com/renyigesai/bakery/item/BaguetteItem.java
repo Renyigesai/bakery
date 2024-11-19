@@ -7,6 +7,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -56,6 +58,7 @@ public class BaguetteItem extends FoodBlockItem {
         }else {
             pStack.hurt(1, RandomSource.create(), null);
         }
+        pLivingEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 100, 0));
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 

@@ -50,6 +50,12 @@
   "item.bakery.salt_water_bucket": "Salt Water Bucket",
   "guide.bakery.categories.bread_making_process": "§6Bread Making Process",
   "guide.bakery.entries.yeast_making": "Yeast Making",
-  "guide.bakery.entries.yeast_making.descr": "To make bread, you first need to make dough, and to make dough you of course need yeast, you first need a fermenter,Put in 3 parts whole wheat flour, 1 part water, and let it rise, then you can remove the fresh yeast in a mason jar.",
-  "item.bakery.tips.perfect_temperature": "§lPerfect Temperature"
+  "guide.bakery.entries.yeast_making.descr": "To make bread, you first need to make dough, and to make dough you of course need yeast, you first need a fermenter,Put in 3 parts whole wheat flour§r and §01 part water, and let it rise, then you can remove the fresh yeast in a mason jar.",
+  "item.bakery.tips.perfect_temperature": "§lPerfect Temperature",
+  "guide.bakery.entries.baked_bread": "Baked Bread",
+  "guide.bakery.descr.baked_bread": "Do you have an oven?  With the oven you can bake the bread, the bottom of the bread object shows the oven temperature required for the bread, adjust the oven temperature to the right temperature, put the bread in the bread, wait for the delicious bread.",
+  "guide.bakery.entries.prepare_the_dough":"Prepare The Dough",
+  "guide.bakery.descr.prepare_the_dough": "With the yeast, you are ready to make the dough. You can choose from three kinds of dough, sweet dough, salty dough, and whole wheat dough. Make the unkneaded dough in the dough forming table, then put down the dough and right-click the dough.",
+  "guide.bakery.entries.create_bread_dough": "Create Bread Dough",
+  "guide.bakery.descr.create_bread_dough": "Put the kneaded dough into the dough synthesis table again, in its second interface, you can view the dough can be made bread embryo, left click to select to synthesize."
 }
