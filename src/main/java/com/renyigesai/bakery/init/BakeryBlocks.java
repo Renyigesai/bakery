@@ -52,7 +52,8 @@ public class BakeryBlocks {
         WHOLE_WHEAT_BAGEL = BLOCK_REGISTRY.register("whole_wheat_bagel", PileBlock::new);
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
         CINNAMON_ROLL = BLOCK_REGISTRY.register("cinnamon_roll", PileBlock::new);
-        COUNTRY_BREAD = BLOCK_REGISTRY.register("country_bread", PileBlock::new);
+        COUNTRY_BREAD = BLOCK_REGISTRY.register("country_bread", () ->
+                new CountryBread(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
         CROISSANT = BLOCK_REGISTRY.register("croissant", PileBlock::new);
         PINEAPPLE_BUN = BLOCK_REGISTRY.register("pineapple_bun", PileBlock::new);
         ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);

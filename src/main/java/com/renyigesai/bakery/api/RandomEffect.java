@@ -2,7 +2,6 @@ package com.renyigesai.bakery.api;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,24 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomEffect {
-//    public MobEffectInstance getRandomEffect() {
-//
-//        Random random = new Random();
-//        int random_level = random.nextInt(3);
-//
-//        MobEffectInstance mobEffectInstance0 = new MobEffectInstance(MobEffects.NIGHT_VISION, 600, random_level);
-//        MobEffectInstance mobEffectInstance1 = new MobEffectInstance(MobEffects.JUMP, 600, 0);
-//        MobEffectInstance mobEffectInstance2 = new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, random_level);
-//        MobEffectInstance mobEffectInstance3 = new MobEffectInstance(MobEffects.REGENERATION, 600, random_level);
-//        MobEffectInstance mobEffectInstance4 = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, random_level);
-//        MobEffectInstance mobEffectInstance5 = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, random_level);
-//        MobEffectInstance mobEffectInstance6 = new MobEffectInstance(MobEffects.HEALTH_BOOST, 600, random_level);
-//        MobEffectInstance mobEffectInstance7 = new MobEffectInstance(MobEffects.DIG_SPEED, 600, random_level);
-//        List<MobEffectInstance> effectList = new ArrayList<>(Arrays.asList(mobEffectInstance0, mobEffectInstance1, mobEffectInstance2, mobEffectInstance3,
-//                mobEffectInstance4, mobEffectInstance5, mobEffectInstance6, mobEffectInstance7));
-//        int random_id = random.nextInt(effectList.size());
-//            return effectList.get(random_id);
-//    }
+
     public MobEffectInstance getSweetEffect(){
         MobEffectInstance mobEffectInstance0 = new MobEffectInstance(MobEffects.REGENERATION, 600, 2);
         MobEffectInstance mobEffectInstance1 = new MobEffectInstance(MobEffects.HEALTH_BOOST, 600, 0);
@@ -35,6 +17,7 @@ public class RandomEffect {
         List<MobEffectInstance> effectList = new ArrayList<>(Arrays.asList(mobEffectInstance0,mobEffectInstance1,mobEffectInstance2));
         return effectList.get(random(2,0));
     }
+
     public MobEffectInstance getSaltyEffect(){
         MobEffectInstance mobEffectInstance0 = new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 2);
         MobEffectInstance mobEffectInstance1 = new MobEffectInstance(MobEffects.DIG_SPEED, 600, 0);
@@ -42,6 +25,7 @@ public class RandomEffect {
         List<MobEffectInstance> effectList = new ArrayList<>(Arrays.asList(mobEffectInstance0,mobEffectInstance1,mobEffectInstance2));
         return effectList.get(random(2,0));
     }
+
     public MobEffectInstance getWholeWheatEffect(){
         MobEffectInstance mobEffectInstance0 = new MobEffectInstance(MobEffects.SATURATION, 100, 0);
         MobEffectInstance mobEffectInstance1 = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, 2);
