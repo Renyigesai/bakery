@@ -1,8 +1,14 @@
 {
-  "oven_draw_slip": {
-    "subtitle":"sounds.",
+  "block.generic.oven_draw_slip": {
+    "subtitle":"block.generic.oven_draw_slip",
     "sounds": [
       "bakery:oven_draw_slip"
+    ]
+  },
+  "entity.generic.shake": {
+    "subtitle":"entity.generic.shake",
+    "sounds": [
+      "bakery:shake"
     ]
   }
 }

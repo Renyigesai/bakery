@@ -14,6 +14,8 @@ public class BakerySounds {
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return REGISTRY.register(name,()->SoundEvent.createFixedRangeEvent(BakeryMod.prefix(name),1F));
     }
-    public static final RegistryObject<SoundEvent> OVEN_DRAW_SLIP = registerSoundEvents("oven_draw_slip");
+    public static final RegistryObject<SoundEvent> OVEN_DRAW_SLIP = registerSoundEvents("block.generic.oven_draw_slip");
+    public static final RegistryObject<SoundEvent> SHAKE = registerSoundEvents("entity.generic.shake");
+    //"entity.generic.shake"
 
 }
