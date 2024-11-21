@@ -51,16 +51,19 @@ public class ShakeItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
-        if (hand == InteractionHand.MAIN_HAND) {
+//        if (hand == InteractionHand.MAIN_HAND) {
             entity.startUsingItem(hand);
             return new InteractionResultHolder(InteractionResult.SUCCESS, entity.getItemInHand(hand));
-        }
-        return new InteractionResultHolder(InteractionResult.FAIL, entity.getItemInHand(hand));
+//        }
+//        return new InteractionResultHolder(InteractionResult.FAIL, entity.getItemInHand(hand));
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        pLivingEntity.setItemInHand(InteractionHand.MAIN_HAND,this.getFinishItem());
+        Player player = (Player)pLivingEntity;
+        pStack.shrink(1);
+//        pLivingEntity.setItemInHand(InteractionHand.MAIN_HAND,this.getFinishItem());
+        player.getInventory().placeItemBackInInventory(this.getFinishItem());
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 

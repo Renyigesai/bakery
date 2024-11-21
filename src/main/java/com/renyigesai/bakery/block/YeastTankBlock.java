@@ -58,7 +58,8 @@ public class YeastTankBlock extends Block {
             level.setBlock(pos, BakeryBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
         hand.shrink(1);
-        ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(BakeryItems.BOTTLE_YEAST.get()));
+//        ItemHandlerHelper.giveItemToPlayer(playerIn,new ItemStack(BakeryItems.BOTTLE_YEAST.get()));
+        playerIn.getInventory().placeItemBackInInventory(new ItemStack(BakeryItems.BOTTLE_YEAST.get()));
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
