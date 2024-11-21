@@ -1,19 +1,17 @@
 package com.renyigesai.bakery.init;
 
 import com.renyigesai.bakery.BakeryMod;
-import com.renyigesai.bakery.api.EffectProperties;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
 import com.renyigesai.bakery.fluid.BakeryFluids;
 import com.renyigesai.bakery.item.BaguetteItem;
 import com.renyigesai.bakery.item.RawItem;
+import com.renyigesai.bakery.item.ShakeItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -66,6 +64,9 @@ public class BakeryItems {
     public static final RegistryObject<Item> SALTED_DOUGH;
     public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL_DOUGH;
     public static final RegistryObject<Item> SALT_WATER_BUCKET;
+    public static final RegistryObject<Item> BOTTLE_MILK;
+    public static final RegistryObject<Item> BOTTLE_CREAM;
+    public static final RegistryObject<Item> BOTTLE_BUTTER;
 
     static {
         FLOUR = item("flour");
@@ -102,7 +103,9 @@ public class BakeryItems {
         SALTED_DOUGH_KNEAD = block(BakeryBlocks.SALTED_DOUGH_KNEAD);
         SALTED_DOUGH = item("salted_dough");
         SALT_WATER_BUCKET = REGISTER.register("salt_water_bucket",()->new BucketItem(BakeryFluids.SALT_WATER,new Item.Properties()));
-
+        BOTTLE_MILK = REGISTER.register("bottle_milk",()->new ShakeItem(new Item.Properties().stacksTo(1),BakeryItems.BOTTLE_CREAM));
+        BOTTLE_CREAM = REGISTER.register("bottle_cream",()->new ShakeItem(new Item.Properties().stacksTo(1),BakeryItems.BOTTLE_BUTTER));
+        BOTTLE_BUTTER = REGISTER.register("bottle_butter",()->new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(1)));
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);

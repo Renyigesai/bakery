@@ -27,10 +27,13 @@ public class BakeryGroup {
                         //原材料/食材
                         output.accept(BakeryItems.FLOUR.get());
                         output.accept(BakeryItems.WHOLE_WHEAT_FLOUR.get());
-                        output.accept(BakeryItems.BOTTLE_YEAST.get());
                         output.accept(BakeryItems.SALT.get());
-                        output.accept(BakeryItems.BROWN_SUGAR_CUBE.get());
+                        output.accept(BakeryItems.BOTTLE_YEAST.get());
+                        output.accept(BakeryItems.BOTTLE_MILK.get());
+                        output.accept(BakeryItems.BOTTLE_CREAM.get());
+                        output.accept(BakeryItems.BOTTLE_BUTTER.get());
                         output.accept(BakeryItems.BUTTER_CUBE.get());
+                        output.accept(BakeryItems.BROWN_SUGAR_CUBE.get());
                         output.accept(BakeryItems.SWEET_DOUGH.get());
                         output.accept(BakeryItems.SALTED_DOUGH.get());
                         output.accept(BakeryItems.WHOLE_WHEAT_DOUGH.get());

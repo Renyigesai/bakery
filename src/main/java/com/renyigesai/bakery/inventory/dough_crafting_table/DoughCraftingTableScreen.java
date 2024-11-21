@@ -129,7 +129,6 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
                 double d0 = pMouseX - (double) (i + i1 % 4 * 16);
                 double d1 = pMouseY - (double) (j + i1 / 4 * 18);
                 if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.menu.clickMenuButton(this.minecraft.player, l)) {
-                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(BakerySounds.OVEN_DRAW_SLIP.get(), 1.0F));
                     this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, l);
                     return true;
                 }
