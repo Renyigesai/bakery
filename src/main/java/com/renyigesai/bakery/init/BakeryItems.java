@@ -4,6 +4,7 @@ import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.api.item.FoodBlockItem;
 import com.renyigesai.bakery.fluid.BakeryFluids;
 import com.renyigesai.bakery.item.BaguetteItem;
+import com.renyigesai.bakery.item.FlourSieveItem;
 import com.renyigesai.bakery.item.RawItem;
 import com.renyigesai.bakery.item.ShakeItem;
 import net.minecraft.world.food.FoodProperties;
@@ -67,6 +68,7 @@ public class BakeryItems {
     public static final RegistryObject<Item> BOTTLE_MILK;
     public static final RegistryObject<Item> BOTTLE_CREAM;
     public static final RegistryObject<Item> BOTTLE_BUTTER;
+    public static final RegistryObject<Item> FLOUR_SIEVE;
 
     static {
         FLOUR = item("flour");
@@ -106,6 +108,7 @@ public class BakeryItems {
         BOTTLE_MILK = REGISTER.register("bottle_milk",()->new ShakeItem(new Item.Properties().stacksTo(1),BakeryItems.BOTTLE_CREAM));
         BOTTLE_CREAM = REGISTER.register("bottle_cream",()->new ShakeItem(new Item.Properties().stacksTo(1),BakeryItems.BOTTLE_BUTTER));
         BOTTLE_BUTTER = REGISTER.register("bottle_butter",()->new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(1)));
+        FLOUR_SIEVE = REGISTER.register("flour_sieve",()->new FlourSieveItem(new Item.Properties().stacksTo(1).defaultDurability(250)));
 
         //Bread Items
         BAGEL = foodBlockItem(BakeryBlocks.BAGEL, BakeryFoodProperties.BAGEL);

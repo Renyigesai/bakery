@@ -24,6 +24,7 @@ public class BakeryGroup {
                         output.accept(BakeryItems.YEAST_TANK.get());
                         output.accept(BakeryBlocks.CHEESE_TANK.get());
                         output.accept(BakeryBlocks.GLASS_CABINET_DOOR.get());
+                        output.accept(BakeryItems.FLOUR_SIEVE.get());
                         //原材料/食材
                         output.accept(BakeryItems.FLOUR.get());
                         output.accept(BakeryItems.WHOLE_WHEAT_FLOUR.get());
