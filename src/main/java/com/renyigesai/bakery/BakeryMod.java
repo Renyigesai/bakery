@@ -5,6 +5,7 @@ import com.renyigesai.bakery.config.BakeryConfig;
 import com.renyigesai.bakery.fluid.BakeryFluidTypes;
 import com.renyigesai.bakery.fluid.BakeryFluids;
 import com.renyigesai.bakery.init.*;
+import com.renyigesai.bakery.villager.BakeryVillagers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -38,7 +39,6 @@ public class BakeryMod {
     public BakeryMod() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-
         BakeryItems.REGISTER.register(bus);
         BakeryBlocks.BLOCK_REGISTRY.register(bus);
         BakeryBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
@@ -47,6 +47,8 @@ public class BakeryMod {
         BakerySounds.REGISTRY.register(bus);
         BakeryFluids.REGISTRY.register(bus);
         BakeryFluidTypes.REGISTRY.register(bus);
+        BakeryVillagers.register(bus);
+        bus.addListener(this::commonSetup);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::modConfig);
 
@@ -63,6 +65,12 @@ public class BakeryMod {
         PACKET_HANDLER.registerMessage(messageID, messageType, encoder, decoder, messageConsumer);
         messageID++;
     }
+
+    private void commonSetup(final FMLClientSetupEvent event){
+        event.enqueueWork(()->{
+        });
+    }
+
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
