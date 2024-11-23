@@ -35,7 +35,7 @@ public class FlourSieveItem extends Item {
         ItemStack hand = pPlayer.getMainHandItem();
         if (hand.is(BakeryItems.WHOLE_WHEAT_FLOUR.get())){
             pPlayer.startUsingItem(pUsedHand);
-            return new InteractionResultHolder(InteractionResult.SUCCESS, pPlayer.getItemInHand(pUsedHand));
+            return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
         }
         return super.use(pLevel, pPlayer, pUsedHand);
     }

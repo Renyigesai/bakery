@@ -48,7 +48,7 @@ public class BaguetteItem extends FoodBlockItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
         entity.startUsingItem(hand);
-        return new InteractionResultHolder(InteractionResult.SUCCESS, entity.getItemInHand(hand));
+        return new InteractionResultHolder(InteractionResult.PASS, entity.getItemInHand(hand));
     }
 
     @Override
