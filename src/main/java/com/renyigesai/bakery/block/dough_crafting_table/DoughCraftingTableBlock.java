@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 public class DoughCraftingTableBlock extends Block {
     private static final Component DOUCH_CRAFTING_TABLE_TITLE = Component.translatable("container.dough_crafting_table");
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D);
+    protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     public DoughCraftingTableBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
