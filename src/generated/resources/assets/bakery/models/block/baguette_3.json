@@ -1,8 +1,0 @@
-{
-  "parent": "bakery:custom/baguette_3",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakery:block/baguette",
-    "particle": "bakery:block/baguette"
-  }
-}

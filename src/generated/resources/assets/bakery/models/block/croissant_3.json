@@ -1,8 +1,0 @@
-{
-  "parent": "bakery:custom/croissant_3",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakery:block/croissant",
-    "particle": "bakery:block/croissant"
-  }
-}

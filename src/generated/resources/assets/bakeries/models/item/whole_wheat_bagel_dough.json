@@ -1,0 +1,7 @@
+{
+	"parent": "bakeries:custom/bagel_1",
+	"textures": {
+		"0": "bakeries:block/whole_wheat_bagel_dough",
+		"particle": "bakeries:block/whole_wheat_bagel_dough"
+	}
+}

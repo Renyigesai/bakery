@@ -1,7 +1,0 @@
-{
-  "parent": "bakery:custom/round_bread_1",
-  "textures": {
-    "0": "bakery:block/round_bread_dough",
-    "particle": "bakery:block/round_bread_dough"
-  }
-}

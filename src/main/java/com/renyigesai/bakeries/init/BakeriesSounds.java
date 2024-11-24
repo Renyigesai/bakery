@@ -1,0 +1,21 @@
+package com.renyigesai.bakeries.init;
+
+import com.renyigesai.bakeries.BakeriesMod;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class BakeriesSounds {
+
+    public static final DeferredRegister<SoundEvent> REGISTRY =
+            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BakeriesMod.MODID);
+
+    private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
+        return REGISTRY.register(name,()->SoundEvent.createFixedRangeEvent(BakeriesMod.prefix(name),1F));
+    }
+    public static final RegistryObject<SoundEvent> OVEN_DRAW_SLIP = registerSoundEvents("block.generic.oven_draw_slip");
+    public static final RegistryObject<SoundEvent> SHAKE = registerSoundEvents("entity.generic.shake");
+    //"entity.generic.shake"
+
+}

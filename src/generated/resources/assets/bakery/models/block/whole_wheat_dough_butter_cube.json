@@ -1,9 +1,0 @@
-{
-	"parent": "bakery:custom/dough_butter_cube",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"0": "bakery:block/whole_wheat_dough_butter_cube",
-		"1": "bakery:block/butter_cube",
-		"particle": "bakery:block/whole_wheat_dough_butter_cube"
-	}
-}

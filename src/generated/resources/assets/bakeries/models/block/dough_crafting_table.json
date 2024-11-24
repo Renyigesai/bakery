@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "bakeries:block/dough_crafting_table",
+    "side": "bakeries:block/dough_crafting_table_side"
+  }
+}

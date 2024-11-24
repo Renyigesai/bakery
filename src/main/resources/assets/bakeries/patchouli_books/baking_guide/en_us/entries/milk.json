@@ -1,0 +1,25 @@
+{
+  "name": "guide.bakeries.entries.milk",
+  "icon": "minecraft:milk_bucket",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:bottle_milk",
+      "text": "guide.bakeries.descr.milk",
+      "title": "item.bakeries.bottle_milk"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:bottle_cream",
+      "text": "guide.bakeries.descr.milk_2",
+      "title": "item.bakeries.bottle_cream"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:bottle_butter",
+      "text": "guide.bakeries.descr.milk_3",
+      "title": "item.bakeries.bottle_butter"
+    }
+  ]
+}

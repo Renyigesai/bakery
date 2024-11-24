@@ -1,8 +1,0 @@
-{
-  "parent": "bakery:custom/salt_croissant_3",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakery:block/salt_croissant",
-    "particle": "bakery:block/salt_croissant"
-  }
-}

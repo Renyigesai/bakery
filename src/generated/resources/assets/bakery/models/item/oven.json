@@ -1,7 +1,0 @@
-{
-  "parent": "bakery:custom/oven",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakery:block/oven"
-  }
-}
