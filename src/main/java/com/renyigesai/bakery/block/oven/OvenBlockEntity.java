@@ -69,7 +69,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     public OvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeryBlocks.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
-
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {

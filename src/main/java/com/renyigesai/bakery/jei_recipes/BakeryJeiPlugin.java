@@ -32,6 +32,7 @@ public class BakeryJeiPlugin implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registration) {
 		registration.addRecipeCategories(new OvenRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+		registration.addRecipeCategories(new DoughCraftingTableRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
 	}
 
 	@Override

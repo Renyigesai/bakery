@@ -1,0 +1,17 @@
+{
+  "type": "bakery:oven",
+  "ingredient":  [
+    {
+      "item": "bakery:cinnamon_roll_dough"
+    }
+  ],
+  "output": {
+    "item": "bakery:cinnamon_roll",
+    "count": 1
+  },
+  "time": 300,
+  "min_temperature": 145,
+  "max_temperature": 195,
+  "perfect_temperature": 170
+}
+   

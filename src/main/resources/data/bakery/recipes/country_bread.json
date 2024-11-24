@@ -1,0 +1,17 @@
+{
+  "type": "bakery:oven",
+  "ingredient":  [
+    {
+      "item": "bakery:country_bread_dough"
+    }
+  ],
+  "output": {
+    "item": "bakery:country_bread",
+    "count": 1
+  },
+  "time": 300,
+  "min_temperature": 225,
+  "max_temperature": 275,
+  "perfect_temperature": 250
+}
+   

@@ -7,6 +7,7 @@ package com.renyigesai.bakery.init;
 import com.renyigesai.bakery.BakeryMod;
 import com.renyigesai.bakery.inventory.dough_crafting_table.DoughCraftingTableMenu;
 import com.renyigesai.bakery.inventory.dough_crafting_table.DoughCraftingTableScreen;
+
 import com.renyigesai.bakery.inventory.oven.OvenMenu;
 import com.renyigesai.bakery.inventory.oven.OvenScreen;
 import net.minecraft.client.gui.screens.MenuScreens;

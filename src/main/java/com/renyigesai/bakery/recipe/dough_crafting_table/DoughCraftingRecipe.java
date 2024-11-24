@@ -1,8 +1,10 @@
 package com.renyigesai.bakery.recipe.dough_crafting_table;
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.mojang.serialization.JsonOps;
+import com.renyigesai.bakery.BakeryMod;
+import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,56 +15,41 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class DoughCraftingRecipe implements Recipe<Container> {
+public class DoughCraftingRecipe implements  Recipe<Container> {
+    @Getter
     private final ResourceLocation id;
-    final ItemStack mainItem;
-    final ItemStack result;
-    final NonNullList<Ingredient> ingredients;
-    private final boolean isSimple;
-
-    public DoughCraftingRecipe(ResourceLocation pId, ItemStack pMainItem, ItemStack pResult, NonNullList<Ingredient> pIngredients) {
+    /**主料*/
+    final Ingredient mainIngredient;//主料
+    /**调味料*/
+    final ItemStack flavoring;//调味料
+    /**添加剂*/
+    final ItemStack additive;//添加剂
+    /**副料*/
+    final ItemStack additive_food;//副料
+    /**输出*/
+    final ItemStack result;//输出
+    public DoughCraftingRecipe(ResourceLocation pId, Ingredient pMainIngredient, ItemStack pFlavoring, ItemStack pAdditive, ItemStack pAdditiveFood, ItemStack pResult) {
         this.id = pId;
-        this.mainItem = pMainItem;
+        this.mainIngredient = pMainIngredient;
+        this.flavoring = pFlavoring;
+        this.additive = pAdditive;
+        this.additive_food = pAdditiveFood;
         this.result = pResult;
-        this.ingredients = pIngredients;
-        this.isSimple = pIngredients.stream().allMatch(Ingredient::isSimple);
     }
-    public boolean hasMainIngredient(ItemStack mainItem) {
-        return this.mainItem.is(mainItem.getItem());
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> nonnulllist = NonNullList.create();
+        nonnulllist.add(this.mainIngredient);
+        return nonnulllist;
     }
-
-
-    public ItemStack getRequiredMainIngredient() {
-        return this.mainItem.copy();
-    }
-
-    public boolean matches(ItemStack mainItem, NonNullList<ItemStack> secondaryItems) {
-        if (this.mainItem == null || mainItem.isEmpty() || !this.mainItem.is(mainItem.getItem())) {
-            return false;
-        }
-        if (this.ingredients.size() != secondaryItems.size()) {
-            return false;
-        }
-        for (Ingredient ingredient : this.ingredients) {
-            boolean found = false;
-            for (ItemStack item : secondaryItems) {
-                if (ingredient.test(item)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     public boolean matches(Container pContainer, Level pLevel) {
-        return false;
-    }
+        return pContainer.getItem(0).getItem().equals(mainIngredient.getItems()[0].getItem()) &&
+                pContainer.getItem(1).getItem().equals(flavoring.getItem()) &&
+                pContainer.getItem(2).getItem().equals(additive.getItem()) &&
+                pContainer.getItem(3).getItem().equals(additive_food.getItem());
 
+    }
     @Override
     public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
         return this.result.copy();
@@ -70,20 +57,25 @@ public class DoughCraftingRecipe implements Recipe<Container> {
 
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+        return false;
+    }
+
+    public ItemStack getFlavoringItem(RegistryAccess pRegistryAccess) {
+        return flavoring.copy();
+    }
+
+    public ItemStack getAdditiveItem(RegistryAccess pRegistryAccess) {
+        return additive.copy();
+    }
+
+    public ItemStack getAdditiveFoodItem(RegistryAccess pRegistryAccess) {
+        return additive_food.copy();
     }
 
     @Override
     public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-        return this.result;
+        return result.copy();
     }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
-    @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
@@ -96,56 +88,65 @@ public class DoughCraftingRecipe implements Recipe<Container> {
     public static class Type implements RecipeType<DoughCraftingRecipe> {
         private Type() {
         }
-
-        public static final Type INSTANCE = new Type();
+        public static final DoughCraftingRecipe.Type INSTANCE = new DoughCraftingRecipe.Type();
     }
+
 
     public static class Serializer implements RecipeSerializer<DoughCraftingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
+        public Serializer(){}
+        private static final ResourceLocation NAME = new ResourceLocation(BakeryMod.MODID, "dough_crafting_table");
 
-        public Serializer() {
-        }
-
+        @Override
         public DoughCraftingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            NonNullList<Ingredient> nonnulllist = itemsFromJson(GsonHelper.getAsJsonArray(pJson, "ingredients"));
-            if (nonnulllist.isEmpty()) {
-                throw new JsonParseException("No ingredients for shapeless recipe");
-            } else if (nonnulllist.size() > 4) {
-                throw new JsonParseException("Too many ingredients for shapeless recipe. The maximum is 4.");
-            } else {
-                ItemStack main = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "main_item"));
-                ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "output"));
-                return new DoughCraftingRecipe(pRecipeId, main, output, nonnulllist);
+            JsonElement jsonelement = (JsonElement)(GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient"));
+            Ingredient mainIngredient = Ingredient.fromJson(jsonelement, false);
+            ItemStack flavoring = ItemStack.EMPTY;
+            if(pJson.has("flavoring")){
+                flavoring = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "flavoring"));
             }
-        }
+            ItemStack additive = ItemStack.EMPTY;
+            if(pJson.has("additive")){
+                additive = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "additive"));
+            }
+            ItemStack additiveFood = ItemStack.EMPTY;
+            if(pJson.has("additive_food")){
+                additiveFood = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "additive_food"));
+            }
+            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "result"));
 
-        private static NonNullList<Ingredient> itemsFromJson(JsonArray pIngredientArray) {
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-            for (int i = 0; i < pIngredientArray.size(); ++i) {
-                Ingredient ingredient = Ingredient.fromJson(pIngredientArray.get(i), false);
-                nonnulllist.add(ingredient);
-            }
-            return nonnulllist;
+            return new DoughCraftingRecipe(pRecipeId, mainIngredient, flavoring, additive, additiveFood, result);
         }
-
-        public DoughCraftingRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int i = pBuffer.readVarInt();
-            NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
-            for (int j = 0; j < nonnulllist.size(); ++j) {
-                nonnulllist.set(j, Ingredient.fromNetwork(pBuffer));
+        @Override
+        public DoughCraftingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            Ingredient mainIngredient = Ingredient.fromNetwork(buffer);
+            ItemStack flavoring = buffer.readItem();
+            if (flavoring.isEmpty()) {
+                flavoring = ItemStack.EMPTY;
             }
-            ItemStack main = pBuffer.readItem();
-            ItemStack output = pBuffer.readItem();
-            return new DoughCraftingRecipe(pRecipeId, main, output, nonnulllist);
+            ItemStack additive = buffer.readItem();
+            if (additive.isEmpty()) {
+                additive = ItemStack.EMPTY;
+            }
+            ItemStack additiveFood = buffer.readItem();
+            if (additiveFood.isEmpty()) {
+                additiveFood = ItemStack.EMPTY;
+            }
+
+            ItemStack result = buffer.readItem();
+
+            return new DoughCraftingRecipe(recipeId, mainIngredient, flavoring, additive, additiveFood, result);
         }
-
-        public void toNetwork(FriendlyByteBuf pBuffer, DoughCraftingRecipe pRecipe) {
-            pBuffer.writeVarInt(pRecipe.ingredients.size());
-            for (Ingredient ingredient : pRecipe.ingredients) {
-                ingredient.toNetwork(pBuffer);
+        @Override
+        public void toNetwork(FriendlyByteBuf buffer, DoughCraftingRecipe recipe) {
+            buffer.writeInt(recipe.getIngredients().size());
+            for (Ingredient ing : recipe.getIngredients()) {
+                ing.toNetwork(buffer);
             }
-            pBuffer.writeItem(pRecipe.mainItem);
-            pBuffer.writeItem(pRecipe.result);
+            buffer.writeItem(recipe.flavoring);
+            buffer.writeItem(recipe.additive);
+            buffer.writeItem(recipe.additive_food);
+            buffer.writeItem(recipe.result);
         }
     }
 }

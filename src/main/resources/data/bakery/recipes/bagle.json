@@ -1,0 +1,17 @@
+{
+  "type": "bakery:oven",
+  "ingredient":  [
+    {
+      "item": "bakery:bagel_dough"
+    }
+  ],
+  "output": {
+    "item": "bakery:bagel",
+    "count": 1
+  },
+  "time": 200,
+  "min_temperature": 200,
+  "max_temperature": 250,
+  "perfect_temperature": 225
+}
+   
