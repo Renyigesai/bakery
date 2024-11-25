@@ -35,6 +35,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> RAW_PUMPKIN_PIE;
     public static final RegistryObject<Item> RAW_TARE_CRUST;
     public static final RegistryObject<Item> ROUND_BREAD_DOUGH;
+    public static final RegistryObject<Item> BERRY_BREAD_DOUGH;
     public static final RegistryObject<Item> SALT_CROISSANT_DOUGH;
     public static final RegistryObject<Item> TART_SHELL;
     public static final RegistryObject<Item> BAGEL;
@@ -46,6 +47,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> PINEAPPLE_BUN;
     public static final RegistryObject<Item> ROUND_BREAD;
     public static final RegistryObject<Item> SALT_CROISSANT;
+    public static final RegistryObject<Item> BERRY_BREAD;
     public static final RegistryObject<Item> OVEN;
     public static final RegistryObject<Item> FERMENTATION_TANK;
     public static final RegistryObject<Item> YEAST_TANK;
@@ -86,6 +88,7 @@ public class BakeriesItems {
         RAW_PUMPKIN_PIE = item("raw_pumpkin_pie");
         RAW_TARE_CRUST = item("raw_tare_crust");
         ROUND_BREAD_DOUGH = rawItem("round_bread_dough","155");
+        BERRY_BREAD_DOUGH = rawItem("berry_bread_dough","155");
         SALT_CROISSANT_DOUGH = rawItem("salt_croissant_dough","165");
         WHOLE_WHEAT_BAGEL_DOUGH = rawItem("whole_wheat_bagel_dough","190");
         TART_SHELL = item("tart_shell");
@@ -122,6 +125,7 @@ public class BakeriesItems {
         SALT_CROISSANT = foodBlockItem(BakeriesBlocks.SALT_CROISSANT,BakeriesFoodProperties.SALT_CROISSANT,true);
         TOAST = block(BakeriesBlocks.TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
+        BERRY_BREAD = foodBlockItem(BakeriesBlocks.BERRY_BREAD,BakeriesFoodProperties.BERRY_BREAD);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

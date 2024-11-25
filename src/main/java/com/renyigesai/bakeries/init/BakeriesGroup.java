@@ -42,6 +42,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BAGEL.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());
                         output.accept(BakeriesItems.ROUND_BREAD.get());
+                        output.accept(BakeriesItems.BERRY_BREAD.get());
                         output.accept(BakeriesItems.CINNAMON_ROLL.get());
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());
                         output.accept(BakeriesItems.CROISSANT.get());
@@ -63,6 +64,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BAGEL_DOUGH.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH.get());
                         output.accept(BakeriesItems.ROUND_BREAD_DOUGH.get());
+                        output.accept(BakeriesItems.BERRY_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.CINNAMON_ROLL_DOUGH.get());
                         output.accept(BakeriesItems.PINEAPPLE_BUN_DOUGH.get());
                         output.accept(BakeriesItems.CROISSANT_DOUGH.get());

@@ -2,8 +2,7 @@ package com.renyigesai.bakeries.recipe.dough_crafting_table;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.JsonOps;
-import com.renyigesai.bakery.BakeryMod;
+import com.renyigesai.bakeries.BakeriesMod;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -42,6 +41,12 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
         nonnulllist.add(this.mainIngredient);
         return nonnulllist;
     }
+
+    @Override
+    public ResourceLocation getId() {
+        return null;
+    }
+
     @Override
     public boolean matches(Container pContainer, Level pLevel) {
         return pContainer.getItem(0).getItem().equals(mainIngredient.getItems()[0].getItem()) &&
@@ -95,7 +100,7 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
     public static class Serializer implements RecipeSerializer<DoughCraftingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public Serializer(){}
-        private static final ResourceLocation NAME = new ResourceLocation(BakeryMod.MODID, "dough_crafting_table");
+        private static final ResourceLocation NAME = new ResourceLocation(BakeriesMod.MODID, "dough_crafting_table");
 
         @Override
         public DoughCraftingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {

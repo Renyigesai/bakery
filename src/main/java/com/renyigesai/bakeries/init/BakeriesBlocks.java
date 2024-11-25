@@ -32,6 +32,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> ROUND_BREAD;
     public static final RegistryObject<Block> SALT_CROISSANT;
     public static final RegistryObject<Block> TOAST;
+    public static final RegistryObject<Block> BERRY_BREAD;
     //common
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
@@ -60,6 +61,8 @@ public class BakeriesBlocks {
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
         TOAST = BLOCK_REGISTRY.register("toast", () ->
                 new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_TOAST));
+//        BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
+        BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
         //common
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
         DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", DoughCraftingTableBlock::new);

@@ -1,28 +1,20 @@
-package com.renyigesai.bakery.inventory.dough_crafting_table;
+package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.renyigesai.bakery.init.BakeryBlocks;
-import com.renyigesai.bakery.init.BakeryItemTag;
-import com.renyigesai.bakery.init.BakeryMenuType;
-import com.renyigesai.bakery.recipe.dough_crafting_table.DoughCraftingRecipe;
+import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesItemTag;
+import com.renyigesai.bakeries.init.BakeriesMenuType;
+import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import lombok.Getter;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BannerPatternTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BannerPattern;
 
 import java.util.List;
 
@@ -66,7 +58,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
    }
 
    public DoughCraftingTableMenu(int pContainerId, Inventory pPlayerInventory, final ContainerLevelAccess pAccess) {
-      super(BakeryMenuType.DOUGH_CRAFTING_TABLE_MENU.get(), pContainerId);
+      super(BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get(), pContainerId);
       this.access = pAccess;
       this.level = pPlayerInventory.player.level();
       this.mainSlot = this.addSlot(new Slot(this.inputContainer, 0, 20, 51));
@@ -111,7 +103,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
     * Determines whether supplied player can use this container
     */
    public boolean stillValid(Player pPlayer) {
-      return stillValid(this.access, pPlayer, BakeryBlocks.DOUGH_CRAFTING_TABLE.get());
+      return stillValid(this.access, pPlayer, BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
    }
 
    /**
@@ -215,7 +207,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       return recipe.matches(inputContainer, this.level);
    }
    public MenuType<?> getType() {
-      return BakeryMenuType.DOUGH_CRAFTING_TABLE_MENU.get();
+      return BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get();
    }
 
    public void registerUpdateListener(Runnable pListener) {
@@ -246,19 +238,19 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
             }
             slot.onQuickCraft(itemstack1, itemstack);
          } else if (pIndex != this.mainSlot.index && pIndex != this.flavoring.index && pIndex != this.additive.index && pIndex != this.additive_food.index) {
-            if (itemstack1.is(BakeryItemTag.MAIN_FOOD)) {
+            if (itemstack1.is(BakeriesItemTag.MAIN_FOOD)) {
                if (!this.moveItemStackTo(itemstack1, this.mainSlot.index, this.mainSlot.index + 1, false)) {
                   return ItemStack.EMPTY;
                }
-            } else if (itemstack1.is(BakeryItemTag.FLAVORING)) {
+            } else if (itemstack1.is(BakeriesItemTag.FLAVORING)) {
                if (!this.moveItemStackTo(itemstack1, this.flavoring.index, this.flavoring.index + 1, false)) {
                   return ItemStack.EMPTY;
                }
-            } else if (itemstack1.is(BakeryItemTag.ADDITIVE)) {
+            } else if (itemstack1.is(BakeriesItemTag.ADDITIVE)) {
                if (!this.moveItemStackTo(itemstack1, this.additive.index, this.additive.index + 1, false)) {
                   return ItemStack.EMPTY;
                }
-            } else if (itemstack1.is(BakeryItemTag.ADDITIVE_FOOD)) {
+            } else if (itemstack1.is(BakeriesItemTag.ADDITIVE_FOOD)) {
                if (!this.moveItemStackTo(itemstack1, this.additive_food.index, this.additive_food.index + 1, false)) {
                   return ItemStack.EMPTY;
                }

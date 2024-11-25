@@ -16,6 +16,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties ROUND_BREAD;
     public static final FoodProperties SALT_CROISSANT;
     public static final FoodProperties SLICED_TOAST;
+    public static final FoodProperties BERRY_BREAD;
 
     static {
         BAGEL = new FoodProperties.Builder().nutrition(4).saturationMod(1.25f).build();
@@ -42,6 +43,8 @@ public class BakeriesFoodProperties {
                 .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0), 1.0F).build();
 
         SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
+        BERRY_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.7f).build();
 
     }
 
