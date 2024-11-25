@@ -54,6 +54,8 @@
   "item.bakeries.bottle_cream": "瓶装奶油",
   "item.bakeries.bottle_butter": "瓶装黄油",
   "item.bakeries.flour_sieve": "面粉筛",
+  "item.bakeries.mould": "模具",
+  "item.bakeries.mould_toast_dough": "吐司面胚",
   "entity.generic.shake": "摇晃",
   "entity.minecraft.villager.bakeries.pistrinamaster": "面包师",
   "item.bakeries.tips.perfect_temperature": "§l完美火候",

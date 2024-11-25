@@ -46,6 +46,8 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> WHOLE_WHEAT_DOUGH_KNEAD;
     public static final RegistryObject<Block> SALTED_DOUGH_KNEAD;
     public static final RegistryObject<LiquidBlock> SALT_WATER_BLOCK;
+    public static final RegistryObject<Block> MOULD_TOAST;
+//    public static final RegistryObject<Block> FLOUR;
 
     static {
         //Bread Block
@@ -61,7 +63,6 @@ public class BakeriesBlocks {
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
         TOAST = BLOCK_REGISTRY.register("toast", () ->
                 new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_TOAST));
-//        BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
         BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
         //common
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
@@ -84,6 +85,12 @@ public class BakeriesBlocks {
                 new SaltedDough(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
         SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", () ->
                 new LiquidBlock(BakeriesFluids.SALT_WATER,BlockBehaviour.Properties.copy(Blocks.WATER)));
+        MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->
+                new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F),BakeriesItems.TOAST));
+//        FLOUR = BLOCK_REGISTRY.register("flour", () ->
+//                new FlourBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.1F,0.1F)));
+
+        //Flour
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));

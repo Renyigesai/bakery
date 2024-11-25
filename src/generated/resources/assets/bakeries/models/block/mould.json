@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/mould",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/mould",
+    "particle": "bakeries:block/mould"
+  }
+}

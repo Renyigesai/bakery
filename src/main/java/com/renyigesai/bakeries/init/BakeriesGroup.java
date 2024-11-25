@@ -25,6 +25,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesBlocks.CHEESE_TANK.get());
                         output.accept(BakeriesBlocks.GLASS_CABINET_DOOR.get());
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());
+                        output.accept(BakeriesItems.MOULD.get());
                         //原材料/食材
                         output.accept(BakeriesItems.FLOUR.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR.get());
@@ -69,6 +70,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.PINEAPPLE_BUN_DOUGH.get());
                         output.accept(BakeriesItems.CROISSANT_DOUGH.get());
                         output.accept(BakeriesItems.SALT_CROISSANT_DOUGH.get());
+                        output.accept(BakeriesItems.MOULD_TOAST_DOUGH.get());
                         output.accept(BakeriesItems.BAGUETTE_DOUGH.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_DOUGH.get());
                     }))

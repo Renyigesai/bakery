@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
+import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.item.BaguetteItem;
 import com.renyigesai.bakeries.item.FlourSieveItem;
 import com.renyigesai.bakeries.item.RawItem;
@@ -71,6 +72,9 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BOTTLE_CREAM;
     public static final RegistryObject<Item> BOTTLE_BUTTER;
     public static final RegistryObject<Item> FLOUR_SIEVE;
+    public static final RegistryObject<Item> MOULD;
+    public static final RegistryObject<Item> MOULD_TOAST_DOUGH;
+    public static final RegistryObject<Item> MOULD_TOAST;
 
     static {
         FLOUR = item("flour");
@@ -112,6 +116,8 @@ public class BakeriesItems {
         BOTTLE_CREAM = REGISTER.register("bottle_cream",()->new ShakeItem(new Item.Properties().stacksTo(1), BakeriesItems.BOTTLE_BUTTER));
         BOTTLE_BUTTER = REGISTER.register("bottle_butter",()->new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(1)));
         FLOUR_SIEVE = REGISTER.register("flour_sieve",()->new FlourSieveItem(new Item.Properties().stacksTo(1).defaultDurability(250)));
+        MOULD = item("mould");
+        MOULD_TOAST_DOUGH = rawItem("mould_toast_dough","135");
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
@@ -126,6 +132,7 @@ public class BakeriesItems {
         TOAST = block(BakeriesBlocks.TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
         BERRY_BREAD = foodBlockItem(BakeriesBlocks.BERRY_BREAD,BakeriesFoodProperties.BERRY_BREAD);
+        MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
