@@ -36,9 +36,6 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BOTTLE_BUTTER.get());
                         output.accept(BakeriesItems.BUTTER_CUBE.get());
                         output.accept(BakeriesItems.BROWN_SUGAR_CUBE.get());
-                        output.accept(BakeriesItems.SWEET_DOUGH.get());
-                        output.accept(BakeriesItems.SALTED_DOUGH.get());
-                        output.accept(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
                         //面包/食物
                         output.accept(BakeriesItems.BAGEL.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());
@@ -59,9 +56,9 @@ public class BakeriesGroup {
             CreativeModeTab.builder().icon(()-> new ItemStack(BakeriesItems.BAGEL_DOUGH.get()))
                     .title(Component.translatable("creativetab_bakeries_semi_manufactured_product_tab"))
                     .displayItems(((itemDisplayParameters, output) -> {
-                        output.accept(BakeriesBlocks.SWEET_DOUGH_KNEAD.get());
-                        output.accept(BakeriesBlocks.SALTED_DOUGH_KNEAD.get());
-                        output.accept(BakeriesBlocks.WHOLE_WHEAT_DOUGH_KNEAD.get());
+                        output.accept(BakeriesItems.SWEET_DOUGH.get());
+                        output.accept(BakeriesItems.SALTED_DOUGH.get());
+                        output.accept(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
                         output.accept(BakeriesItems.BAGEL_DOUGH.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH.get());
                         output.accept(BakeriesItems.ROUND_BREAD_DOUGH.get());

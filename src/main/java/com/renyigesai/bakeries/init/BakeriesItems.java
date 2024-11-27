@@ -60,11 +60,8 @@ public class BakeriesItems {
     public static final RegistryObject<Item> SLICED_TOAST;
     public static final RegistryObject<Item> TOAST;
     public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
-    public static final RegistryObject<Item> SWEET_DOUGH_KNEAD;
     public static final RegistryObject<Item> SWEET_DOUGH;
-    public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH_KNEAD;
     public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH;
-    public static final RegistryObject<Item> SALTED_DOUGH_KNEAD;
     public static final RegistryObject<Item> SALTED_DOUGH;
     public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL_DOUGH;
     public static final RegistryObject<Item> SALT_WATER_BUCKET;
@@ -105,11 +102,8 @@ public class BakeriesItems {
         SALT_ORE = block(BakeriesBlocks.SALT_ORE);
         COARSE_SALT = item("coarse_salt");
         DOUGH_CRAFTING_TABLE = block(BakeriesBlocks.DOUGH_CRAFTING_TABLE);
-        SWEET_DOUGH_KNEAD = block(BakeriesBlocks.SWEET_DOUGH_KNEAD);
         SWEET_DOUGH = item("sweet_dough");
-        WHOLE_WHEAT_DOUGH_KNEAD = block(BakeriesBlocks.WHOLE_WHEAT_DOUGH_KNEAD);
         WHOLE_WHEAT_DOUGH = item("whole_wheat_dough");
-        SALTED_DOUGH_KNEAD = block(BakeriesBlocks.SALTED_DOUGH_KNEAD);
         SALTED_DOUGH = item("salted_dough");
         SALT_WATER_BUCKET = REGISTER.register("salt_water_bucket",()->new BucketItem(BakeriesFluids.SALT_WATER,new Item.Properties()));
         BOTTLE_MILK = REGISTER.register("bottle_milk",()->new ShakeItem(new Item.Properties().stacksTo(1), BakeriesItems.BOTTLE_CREAM));
@@ -122,7 +116,7 @@ public class BakeriesItems {
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
         WHOLE_WHEAT_BAGEL = foodBlockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL,true);
-        BAGUETTE = REGISTER.register(BakeriesBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().durability(4)));
+        BAGUETTE = REGISTER.register(BakeriesBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().durability(4).food(BakeriesFoodProperties.BAGUETTE)));
         CINNAMON_ROLL = foodBlockItem(BakeriesBlocks.CINNAMON_ROLL, BakeriesFoodProperties.CINNAMON_ROLL,true);
         COUNTRY_BREAD = foodBlockItem(BakeriesBlocks.COUNTRY_BREAD, BakeriesFoodProperties.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT);

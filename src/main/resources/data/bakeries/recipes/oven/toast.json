@@ -6,7 +6,7 @@
     }
   ],
   "output": {
-    "item": "bakeries:toast",
+    "item": "bakeries:mould_toast",
     "count": 1
   },
   "time": 400,

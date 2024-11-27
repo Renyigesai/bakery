@@ -4,11 +4,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -16,7 +11,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,30 +30,17 @@ public class BaguetteItem extends FoodBlockItem {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack pStack) {
-        return UseAnim.EAT;
-    }
-
-    @Override
-    public int getUseDuration(ItemStack itemstack) {
-        return 32;
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
-        entity.startUsingItem(hand);
-        return new InteractionResultHolder(InteractionResult.PASS, entity.getItemInHand(hand));
-    }
-
-    @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        if (pStack.getDamageValue() == 3) {
-            pStack.shrink(1);
+        if (pStack.getDamageValue() == pStack.getMaxDamage()-1) {
+            return super.finishUsingItem(pStack, pLevel, pLivingEntity);
         }else {
+            if (pLivingEntity instanceof Player player){
+                player.getFoodData().eat(pStack.getItem().getFoodProperties().getNutrition()
+                        ,pStack.getItem().getFoodProperties().getSaturationModifier());
+            }
             pStack.hurt(1, RandomSource.create(), null);
+            return pStack;
         }
-        pLivingEntity.addEffect(new MobEffectInstance(MobEffects.SATURATION, 100, 0));
-        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 
     @Override

@@ -7,11 +7,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -49,18 +47,28 @@ public class MouldBlock extends HorizontalDirectionalBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
-        if (!hand.is(asItem())){
-            return take(pLevel,pPos,pState,pPlayer);
-        }else {
-            return pileUp(pLevel,pPos,pState);
+        if (!pLevel.isClientSide) {
+            if (!hand.is(asItem())) {
+                return take(pLevel, pPos, pState, pPlayer);
+            } else {
+                hand.shrink(1);
+                return pileUp(pLevel, pPos, pState);
+            }
+        }
+        if (!hand.is(asItem())) {
+            return take(pLevel, pPos, pState, pPlayer);
+        } else {
+            hand.shrink(1);
+            return pileUp(pLevel, pPos, pState);
         }
     }
 
     protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state){
         int pile = state.getValue(PILE);
-        if (pile < 2) {
+        int use = state.getValue(USE);
+        if (pile < 2 && use == 2) {
             level.setBlock(pos, state.setValue(PILE, pile + 1), 2);
-            level.playSound(null, pos, SoundEvents.IRON_GOLEM_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
+            level.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }return InteractionResult.FAIL;
     }
@@ -71,9 +79,11 @@ public class MouldBlock extends HorizontalDirectionalBlock {
         if (use == 2 && pile == 1){
             level.setBlock(pos, state.setValue(USE, use - 1), 2);
             player.getInventory().placeItemBackInInventory(new ItemStack(this.demouldItem.get()));
-        }else {
+            level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
+        }else if (use == 1 && pile == 1){
             level.removeBlock(pos,false);
             player.getInventory().placeItemBackInInventory(new ItemStack(BakeriesItems.MOULD.get()));
+            level.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }return InteractionResult.SUCCESS;
     }
 

@@ -19,7 +19,7 @@ public class SaltWaterFluidType extends FluidType {
     @Override
     public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
         consumer.accept(new IClientFluidTypeExtensions() {
-            private static final ResourceLocation STILL_TEXTURE = new ResourceLocation("bakery:block/salt_water_still"), FLOWING_TEXTURE = new ResourceLocation("bakery:block/salt_water_flow");
+            private static final ResourceLocation STILL_TEXTURE = new ResourceLocation("bakeries:block/salt_water_still"), FLOWING_TEXTURE = new ResourceLocation("bakeries:block/salt_water_flow");
 
             @Override
             public ResourceLocation getStillTexture() {
