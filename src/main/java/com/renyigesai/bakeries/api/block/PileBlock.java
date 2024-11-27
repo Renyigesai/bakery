@@ -1,16 +1,20 @@
 package com.renyigesai.bakeries.api.block;
 
+import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -53,6 +57,37 @@ public class PileBlock extends HorizontalDirectionalBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        ItemStack handItem = pPlayer.getItemInHand(pHand);
+        Block block = pState.getBlock();
+        if (pLevel.isClientSide) {
+            if (handItem.getItem() == block.asItem()) {
+                return pileUp(pLevel, pPos, pState, pPlayer, pHand);
+            }
+        }
+        if (handItem.getItem() == block.asItem()) {
+            return pileUp(pLevel, pPos, pState, pPlayer, pHand);
+        }
+        System.out.println(block.asItem() + "yes");
+        System.out.println(handItem + "yes");
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+//        return InteractionResult.SUCCESS;
+    }
+
+    public InteractionResult pileUp(Level level, BlockPos pos, BlockState state,Player player,InteractionHand hand){
+        int pile = state.getValue(PileBlock.PILE);
+        ItemStack handItem = player.getItemInHand(hand);
+        if (pile < 4) {
+            level.setBlock(pos,state.setValue(PileBlock.PILE, pile + 1),4);
+            handItem.shrink(1);
+            level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
+        }else {
+            return InteractionResult.FAIL;
+        }
+        return InteractionResult.SUCCESS;
     }
 
     @Override
