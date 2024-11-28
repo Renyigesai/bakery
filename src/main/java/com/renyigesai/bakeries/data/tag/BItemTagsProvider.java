@@ -31,6 +31,10 @@ public class BItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider 
                         BakeriesItems.ROUND_BREAD_DOUGH.get(),
                         BakeriesItems.SALT_CROISSANT_DOUGH.get()
                         );
+        this.tag(BakeriesItemTag.FLOUR)
+                .add(
+                        BakeriesItems.WHOLE_WHEAT_FLOUR.get()
+                );
     }
 
 }

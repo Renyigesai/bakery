@@ -7,8 +7,6 @@
     "bakeries:croissant_dough",
     "bakeries:pineapple_bun_dough",
     "bakeries:round_bread_dough",
-    "bakeries:salt_croissant_dough",
-    "bakeries:berry_bread_dough",
-    "bakeries:mould_toast_dough"
+    "bakeries:salt_croissant_dough"
   ]
 }

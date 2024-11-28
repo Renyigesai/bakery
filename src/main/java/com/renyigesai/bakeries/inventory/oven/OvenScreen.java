@@ -85,10 +85,10 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     @Override
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
         if (dragging.get()) {
-            updateProgress();
             if (Math.random() < 0.2) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_HAT, 1.0F));
             }
+            updateProgress();
         }
 
         return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);

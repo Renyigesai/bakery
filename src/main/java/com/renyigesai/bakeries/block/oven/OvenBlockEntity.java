@@ -143,7 +143,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
         return ovenBlockEntity.temperature;
     }
 
-    public static void setTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
+    public void setTemperature(OvenBlockEntity ovenBlockEntity, int temperature) {
         updateBlock(ovenBlockEntity);
         ovenBlockEntity.temperature = Math.min(Math.max(temperature, 0), 500);
     }

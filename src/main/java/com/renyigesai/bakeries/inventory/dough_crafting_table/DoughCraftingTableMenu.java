@@ -1,20 +1,29 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import lombok.Getter;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BannerPatternTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 import java.util.List;
 

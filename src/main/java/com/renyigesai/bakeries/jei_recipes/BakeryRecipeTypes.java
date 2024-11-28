@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.jei_recipes;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
+import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -27,7 +28,8 @@ public class BakeryRecipeTypes {
 			RECIPE_TYPE.register("oven", () -> OvenRecipe.Type.INSTANCE);
 			SERIALIZERS.register("dough_crafting_table", () -> DoughCraftingRecipe.Serializer.INSTANCE);
 			RECIPE_TYPE.register("dough_crafting_table", () -> DoughCraftingRecipe.Type.INSTANCE);
-
+			SERIALIZERS.register("flour_sieve", () -> FlourSieveRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register("flour_sieve", () -> FlourSieveRecipe.Type.INSTANCE);
 		});
 	}
 }

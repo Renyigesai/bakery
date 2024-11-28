@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.recipe.dough_crafting_table;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import com.renyigesai.bakeries.BakeriesMod;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
@@ -41,12 +42,6 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
         nonnulllist.add(this.mainIngredient);
         return nonnulllist;
     }
-
-    @Override
-    public ResourceLocation getId() {
-        return null;
-    }
-
     @Override
     public boolean matches(Container pContainer, Level pLevel) {
         return pContainer.getItem(0).getItem().equals(mainIngredient.getItems()[0].getItem()) &&

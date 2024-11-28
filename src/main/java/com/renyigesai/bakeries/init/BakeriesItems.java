@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
@@ -142,11 +143,11 @@ public class BakeriesItems {
     }
 
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
-        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties)));
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.PILE, new Item.Properties().food(foodProperties)));
     }
 
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip) {
-        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), new Item.Properties().food(foodProperties),effectTooltip));
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.PILE, new Item.Properties().food(foodProperties),effectTooltip));
     }
 
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {

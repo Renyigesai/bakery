@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BaguetteItem extends FoodBlockItem {
     public BaguetteItem(Block pBlock, Properties properties) {
-        super(pBlock, properties);
+        super(pBlock, PileBlock.PILE, properties);
     }
     @Override
     public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
