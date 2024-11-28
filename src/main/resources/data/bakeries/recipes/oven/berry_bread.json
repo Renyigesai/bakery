@@ -1,0 +1,16 @@
+{
+  "type": "bakeries:oven",
+  "ingredient":  [
+    {
+      "item": "bakeries:berry_bread_dough"
+    }
+  ],
+  "output": {
+    "item": "bakeries:berry_bread",
+    "count": 1
+  },
+  "time": 200,
+  "min_temperature": 185,
+  "max_temperature": 215,
+  "perfect_temperature": 200
+}

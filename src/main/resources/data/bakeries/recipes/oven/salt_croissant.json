@@ -10,8 +10,8 @@
     "count": 1
   },
   "time": 200,
-  "min_temperature": 165,
-  "max_temperature": 215,
+  "min_temperature": 180,
+  "max_temperature": 200,
   "perfect_temperature": 190
 }
    

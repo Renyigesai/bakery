@@ -26,7 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
-
+//未完成
 public class CountryBread extends HorizontalDirectionalBlock {
     /*
      * 由于乡村面包只是一个单纯的方块，他的物品不需要可食用。

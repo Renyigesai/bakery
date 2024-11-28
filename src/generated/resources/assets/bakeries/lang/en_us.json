@@ -57,7 +57,7 @@
   "entity.generic.shake": "Shake",
   "entity.minecraft.villager.bakeries.pistrinamaster": "Pistrina Master",
   "item.bakeries.tips.shake": "Right Shake",
-  "item.bakeries.tips.flour_sieve": "Sift the flour in the main hand while holding it off hand",
+  "item.bakeries.tips.flour_sieve": "Sift the item in the main hand while holding it off hand",
   "item.bakeries.tips.perfect_temperature": "§lPerfect Temperature",
   "guide.bakeries.categories.bread_making_process": "§6Bread Making Process",
   "guide.bakeries.categories.food_ingredient": "§6Food Ingredientg",
@@ -72,5 +72,9 @@
   "guide.bakeries.entries.milk": "Milk",
   "guide.bakeries.descr.milk": "Hold the bottle milk in your hand, right-click and shake it, and its texture will change after a while.",
   "guide.bakeries.descr.milk_2": "Shake once",
-  "guide.bakeries.descr.milk_3": "Shake twice"
+  "guide.bakeries.descr.milk_3": "Shake twice",
+  "guide.bakeries.entries.flour": "Flour",
+  "guide.bakeries.descr.flour": "Use a flour sieve to sift the whole wheat flour into flour.",
+  "guide.bakeries.categories.perfect_temperature":"§6Perfect Temperature",
+  "guide.bakeries.descr.perfect_temperature": "Food with a Perfect Temperature entry can be eaten even when you are not hungry"
 }

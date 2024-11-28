@@ -58,7 +58,7 @@
   "entity.minecraft.villager.bakeries.pistrinamaster": "面包师",
   "item.bakeries.tips.perfect_temperature": "§l完美火候",
   "item.bakeries.tips.shake": "右键以摇晃",
-  "item.bakeries.tips.flour_sieve": "拿在副手时过筛主手的面粉",
+  "item.bakeries.tips.flour_sieve": "拿在副手时过筛主手的物品",
   "guide.bakeries.categories.bread_making_process": "§6面包制作流程",
   "guide.bakeries.categories.food_ingredient": "§6食材",
   "guide.bakeries.entries.yeast_making": "酵母制造",
@@ -72,5 +72,9 @@
   "guide.bakeries.entries.milk": "牛奶",
   "guide.bakeries.descr.milk": "将瓶装牛奶拿在手中，右键摇晃，一段时间后它的质地会发生改变。",
   "guide.bakeries.descr.milk_2": "摇晃一次",
-  "guide.bakeries.descr.milk_3": "摇晃两次"
+  "guide.bakeries.descr.milk_3": "摇晃两次",
+  "guide.bakeries.entries.flour": "面粉",
+  "guide.bakeries.descr.flour": "使用面粉筛将全麦面粉过筛为面粉。",
+  "guide.bakeries.categories.perfect_temperature":"§6完美火候",
+  "guide.bakeries.descr.perfect_temperature": "拥有完美火候词条的烘焙食物，在玩家饥饿值满时也能食用"
 }

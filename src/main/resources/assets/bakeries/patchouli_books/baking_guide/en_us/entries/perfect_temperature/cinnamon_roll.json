@@ -1,0 +1,13 @@
+{
+  "name": "item.bakeries.cinnamon_roll",
+  "icon": "bakeries:cinnamon_roll",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/cinnamon_roll",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:cinnamon_roll",
+      "title": "170°c"
+    }
+  ]
+}
