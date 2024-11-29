@@ -1,22 +1,23 @@
 package com.renyigesai.bakeries.item;
 
+import com.google.common.collect.Lists;
 import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.inventory.dough_crafting_table.DoughCraftingTableMenu;
+import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,18 +39,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class FlourSieveItem extends Item {
-
     public FlourSieveItem(Properties pProperties) {
         super(pProperties);
     }
-
     @Override
     public SoundEvent getEatingSound() {return SoundEvents.SAND_BREAK;}
-
     public SoundEvent getDrinkingSound() {
         return SoundEvents.SAND_BREAK;
     }
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack mainHandItem = pPlayer.getMainHandItem();
@@ -65,10 +62,10 @@ public class FlourSieveItem extends Item {
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         Player player = (Player)pLivingEntity;
         ItemStack mainHandItem = player.getMainHandItem();
-        Optional<FlourSieveRecipe> recipe =getCurrentRecipe(player,pLevel);
+        FlourSieveRecipe recipe =getCurrentRecipe(player,pLevel);
         if (hasRecipe(player, pLevel)) {
             mainHandItem.shrink(1);
-            player.getInventory().placeItemBackInInventory(recipe.get().getResultItem(null));
+            player.getInventory().placeItemBackInInventory(recipe.getResultItem(null));
             pStack.hurt(1, RandomSource.create(), null);
         }
 
@@ -76,21 +73,22 @@ public class FlourSieveItem extends Item {
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
     public boolean hasRecipe(Player player, Level pLevel) {
-        Optional<FlourSieveRecipe> recipe = getCurrentRecipe(player, pLevel);
-        return recipe.isPresent() && recipe.get().getIngredients().get(0).test(player.getMainHandItem());
+        FlourSieveRecipe recipe = getCurrentRecipe(player, pLevel);
+        return recipe != null&& recipe.getIngredients().get(0).test(player.getMainHandItem());
     }
-    public Optional<FlourSieveRecipe> getCurrentRecipe(Player player, Level pLevel) {
+    public FlourSieveRecipe getCurrentRecipe(Player player, Level pLevel) {
         SimpleContainer inventory = new SimpleContainer(1);
         inventory.setItem(0, player.getMainHandItem()); // 使用玩家的主手物品
         Optional<FlourSieveRecipe> recipe = pLevel.getRecipeManager().getRecipeFor(FlourSieveRecipe.Type.INSTANCE, inventory, pLevel);
-
+        FlourSieveRecipe flourSieveRecipe = null;
         if (recipe.isPresent()) {
-            player.displayClientMessage(Component.literal("Found recipe: " + recipe.get().getResultItem(null).getItem().toString()), false);
+            flourSieveRecipe = recipe.get();
+            player.displayClientMessage(Component.literal("Found recipe: " + flourSieveRecipe.getResultItem(null).getItem().toString()), false);
         } else {
             player.displayClientMessage(Component.literal("No recipe found"), false);
         }
 
-        return recipe;
+        return flourSieveRecipe;
     }
 
     @Override
@@ -107,5 +105,4 @@ public class FlourSieveItem extends Item {
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("item.bakeries.tips.flour_sieve").withStyle(ChatFormatting.BLUE));
     }
-
 }

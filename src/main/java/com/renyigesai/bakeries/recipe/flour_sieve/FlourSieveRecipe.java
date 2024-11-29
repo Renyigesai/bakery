@@ -65,6 +65,7 @@ public class FlourSieveRecipe implements Recipe<Container> {
     public static class Type implements RecipeType<FlourSieveRecipe> {
         private Type() {
         }
+        public static final String ID = "flour_sieve";
         public static final FlourSieveRecipe.Type INSTANCE = new FlourSieveRecipe.Type();
     }
     public static class Serializer implements RecipeSerializer<FlourSieveRecipe> {

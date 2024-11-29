@@ -24,12 +24,12 @@ public class BakeryRecipeTypes {
 		event.enqueueWork(() -> {
 			SERIALIZERS.register(bus);
 			RECIPE_TYPE.register(bus);
-			SERIALIZERS.register("oven", () -> OvenRecipe.Serializer.INSTANCE);
-			RECIPE_TYPE.register("oven", () -> OvenRecipe.Type.INSTANCE);
-			SERIALIZERS.register("dough_crafting_table", () -> DoughCraftingRecipe.Serializer.INSTANCE);
-			RECIPE_TYPE.register("dough_crafting_table", () -> DoughCraftingRecipe.Type.INSTANCE);
-			SERIALIZERS.register("flour_sieve", () -> FlourSieveRecipe.Serializer.INSTANCE);
-			RECIPE_TYPE.register("flour_sieve", () -> FlourSieveRecipe.Type.INSTANCE);
+			SERIALIZERS.register(OvenRecipe.Type.ID, () -> OvenRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register(OvenRecipe.Type.ID, () -> OvenRecipe.Type.INSTANCE);
+			SERIALIZERS.register(DoughCraftingRecipe.Type.ID, () -> DoughCraftingRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register(DoughCraftingRecipe.Type.ID, () -> DoughCraftingRecipe.Type.INSTANCE);
+			SERIALIZERS.register(FlourSieveRecipe.Type.ID, () -> FlourSieveRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register(FlourSieveRecipe.Type.ID, () -> FlourSieveRecipe.Type.INSTANCE);
 		});
 	}
 }

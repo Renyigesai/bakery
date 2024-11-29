@@ -1,74 +1,37 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.BakeriesMod;
-
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.blockentity.BannerRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.StonecutterMenu;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.StonecutterRecipe;
-import net.minecraft.world.level.block.entity.BannerBlockEntity;
-import net.minecraft.world.level.block.entity.BannerPattern;
-import net.minecraft.world.level.block.entity.BannerPatterns;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraftingTableMenu> {
-   private static final ResourceLocation BG_LOCATION = new ResourceLocation(BakeriesMod.MODID, "textures/gui/dough_crafting_table_gui.png");
+   private static final ResourceLocation BG_LOCATION = new ResourceLocation(BakeriesMod.MODID,"textures/gui/container/dough_crafting_table_gui.png");
    private float scrollOffs;
-   /** Is {@code true} if the player clicked on the scroll wheel in the GUI. */
    private boolean scrolling;
-   /**
-    * The index of the first recipe to display.
-    * The number of recipes displayed at any time is 12 (4 recipes per row, and 3 rows). If the player scrolled down one
-    * row, this value would be 4 (representing the index of the first slot on the second row).
-    */
    private int startIndex;
    private boolean displayRecipes;
-
    public DoughCraftingTableScreen(DoughCraftingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);
       pMenu.registerUpdateListener(this::containerChanged);
       --this.titleLabelY;
    }
-
-   /**
-    * Renders the graphical user interface (GUI) element.
-    * @param pGuiGraphics the GuiGraphics object used for rendering.
-    * @param pMouseX the x-coordinate of the mouse cursor.
-    * @param pMouseY the y-coordinate of the mouse cursor.
-    * @param pPartialTick the partial tick time.
-    */
    public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
       super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
       this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
    }
-
    protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
       this.renderBackground(pGuiGraphics);
       int i = this.leftPos;
@@ -82,7 +45,6 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
       this.renderButtons(pGuiGraphics, pMouseX, pMouseY, l, i1, j1);
       this.renderRecipes(pGuiGraphics, l, i1, j1);
    }
-
    protected void renderTooltip(GuiGraphics pGuiGraphics, int pX, int pY) {
       super.renderTooltip(pGuiGraphics, pX, pY);
       if (this.displayRecipes) {
@@ -90,7 +52,6 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          int j = this.topPos + 14;
          int k = this.startIndex + 12;
          List<DoughCraftingRecipe> list = this.menu.getRecipes();
-
          for(int l = this.startIndex; l < k && l < this.menu.getNumRecipes(); ++l) {
             int i1 = l - this.startIndex;
             int j1 = i + i1 % 4 * 16;
@@ -100,9 +61,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
             }
          }
       }
-
    }
-
    private void renderButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex) {
       for(int i = this.startIndex; i < pLastVisibleElementIndex && i < this.menu.getNumRecipes(); ++i) {
          int j = i - this.startIndex;
@@ -115,15 +74,11 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          } else if (pMouseX >= k && pMouseY >= i1 && pMouseX < k + 16 && pMouseY < i1 + 18) {
             j1 += 36;
          }
-
          pGuiGraphics.blit(BG_LOCATION, k, i1 - 1, 0, j1, 16, 18);
       }
-
    }
-
    private void renderRecipes(GuiGraphics pGuiGraphics, int pX, int pY, int pStartIndex) {
       List<DoughCraftingRecipe> list = this.menu.getRecipes();
-
       for(int i = this.startIndex; i < pStartIndex && i < this.menu.getNumRecipes(); ++i) {
          int j = i - this.startIndex;
          int k = pX + j % 4 * 16;
@@ -131,24 +86,13 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          int i1 = pY + l * 18 + 2;
          pGuiGraphics.renderItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, i1);
       }
-
    }
-
-   /**
-    * Called when a mouse button is clicked within the GUI element.
-    * <p>
-    * @return {@code true} if the event is consumed, {@code false} otherwise.
-    * @param pMouseX the X coordinate of the mouse.
-    * @param pMouseY the Y coordinate of the mouse.
-    * @param pButton the button that was clicked.
-    */
    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
       this.scrolling = false;
       if (this.displayRecipes) {
          int i = this.leftPos + 52;
          int j = this.topPos + 14;
          int k = this.startIndex + 12;
-
          for(int l = this.startIndex; l < k; ++l) {
             int i1 = l - this.startIndex;
             double d0 = pMouseX - (double)(i + i1 % 4 * 16);
@@ -159,27 +103,14 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
                return true;
             }
          }
-
          i = this.leftPos + 119;
          j = this.topPos + 9;
          if (pMouseX >= (double)i && pMouseX < (double)(i + 12) && pMouseY >= (double)j && pMouseY < (double)(j + 54)) {
             this.scrolling = true;
          }
       }
-
       return super.mouseClicked(pMouseX, pMouseY, pButton);
    }
-
-   /**
-    * Called when the mouse is dragged within the GUI element.
-    * <p>
-    * @return {@code true} if the event is consumed, {@code false} otherwise.
-    * @param pMouseX the X coordinate of the mouse.
-    * @param pMouseY the Y coordinate of the mouse.
-    * @param pButton the button that is being dragged.
-    * @param pDragX the X distance of the drag.
-    * @param pDragY the Y distance of the drag.
-    */
    public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
       if (this.scrolling && this.isScrollBarActive()) {
          int i = this.topPos + 14;
@@ -192,15 +123,6 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
       }
    }
-
-   /**
-    * Called when the mouse wheel is scrolled within the GUI element.
-    * <p>
-    * @return {@code true} if the event is consumed, {@code false} otherwise.
-    * @param pMouseX the X coordinate of the mouse.
-    * @param pMouseY the Y coordinate of the mouse.
-    * @param pDelta the scrolling delta.
-    */
    public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
       if (this.isScrollBarActive()) {
          int i = this.getOffscreenRows();
@@ -208,21 +130,14 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          this.scrollOffs = Mth.clamp(this.scrollOffs - f, 0.0F, 1.0F);
          this.startIndex = (int)((double)(this.scrollOffs * (float)i) + 0.5D) * 4;
       }
-
       return true;
    }
-
    private boolean isScrollBarActive() {
       return this.displayRecipes && this.menu.getNumRecipes() > 12;
    }
-
    protected int getOffscreenRows() {
       return (this.menu.getNumRecipes() + 4 - 1) / 4 - 3;
    }
-
-   /**
-    * Called every time this screen's container is changed (is marked as dirty).
-    */
    private void containerChanged() {
       this.displayRecipes = this.menu.hasInputItem();
       if (!this.displayRecipes) {
@@ -231,5 +146,4 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
       }
 
    }
-
 }
