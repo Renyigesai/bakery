@@ -1,25 +1,19 @@
 {
   "variants": {
-    "flour=0,water=false,milk=false,sweet_berries=false": {
+    "flour=0,water=false": {
       "model": "bakeries:block/fermentation_tank"
     },
-    "flour=1,water=false,milk=false,sweet_berries=false": {
+    "flour=1,water=false": {
       "model": "bakeries:block/fermentation_tank_flour_1"
     },
-    "flour=2,water=false,milk=false,sweet_berries=false": {
+    "flour=2,water=false": {
       "model": "bakeries:block/fermentation_tank_flour_2"
     },
-    "flour=3,water=false,milk=false,sweet_berries=false": {
+    "flour=3,water=false": {
       "model": "bakeries:block/fermentation_tank_flour_3"
     },
-    "flour=3,water=true,milk=false,sweet_berries=false": {
+    "flour=3,water=true": {
       "model": "bakeries:block/fermentation_tank_flour_3"
-    },
-    "flour=0,water=false,milk=true,sweet_berries=false": {
-      "model": "bakeries:block/fermentation_tank_milk"
-    },
-    "flour=0,water=false,milk=true,sweet_berries=true": {
-      "model": "bakeries:block/fermentation_tank_milk"
     }
   }
 }

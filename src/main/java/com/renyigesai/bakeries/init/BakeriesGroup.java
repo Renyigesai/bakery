@@ -29,6 +29,7 @@ public class BakeriesGroup {
                         //原材料/食材
                         output.accept(BakeriesItems.FLOUR.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR.get());
+                        output.accept(BakeriesItems.RAW_SALT_BLOCK.get());
                         output.accept(BakeriesItems.SALT.get());
                         output.accept(BakeriesItems.BOTTLE_YEAST.get());
                         output.accept(BakeriesItems.BOTTLE_MILK.get());

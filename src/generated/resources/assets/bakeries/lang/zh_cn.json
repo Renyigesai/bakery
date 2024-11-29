@@ -54,6 +54,7 @@
   "item.bakeries.mould": "模具",
   "item.bakeries.mould_toast_dough": "吐司面胚",
   "block.bakeries.mould_toast": "吐司",
+  "block.bakeries.raw_salt_block": "粗盐块",
   "entity.generic.shake": "摇晃",
   "entity.minecraft.villager.bakeries.pistrinamaster": "面包师",
   "item.bakeries.tips.perfect_temperature": "§l完美火候",

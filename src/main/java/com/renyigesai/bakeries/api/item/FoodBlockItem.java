@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
+
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -79,6 +80,15 @@ public class FoodBlockItem extends ItemNameBlockItem {
         }
         return super.useOn(context);
     }
+//暂时弃用
+//    @Override
+//    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
+//        if(Screen.hasShiftDown()) {
+//            return super.placeBlock(pContext, pState);
+//        }else {
+//            return false;
+//        }
+//    }
 
     public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
         int pile = state.getValue(this.integerProperty);
