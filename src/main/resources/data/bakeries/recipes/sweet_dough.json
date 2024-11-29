@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abb",
+    "cde",
+    "eee"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:bottle_milk"
+    },
+    "b": {
+      "item": "minecraft:sugar"
+    },
+    "c": {
+      "tag": "forge:salt"
+    },
+    "d": {
+      "item": "bakeries:butter_cube"
+    },
+    "e": {
+      "item": "bakeries:flour"
+    }
+  },
+  "result": {
+    "item": "bakeries:sweet_dough",
+    "count": 1
+  }
+}

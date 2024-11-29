@@ -4,6 +4,7 @@
     "bakeries:fermentation_tank",
     "bakeries:yeast_tank",
     "bakeries:cheese_tank",
-    "bakeries:glass_cabinet_door"
+    "bakeries:glass_cabinet_door",
+    "bakeries:raw_salt_block"
   ]
 }

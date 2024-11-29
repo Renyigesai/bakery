@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    "bbc",
+    "ccc"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:water_bucket"
+    },
+    "b": {
+      "tag": "forge:salt"
+    },
+    "c": {
+      "item": "bakeries:flour"
+    }
+  },
+  "result": {
+    "item": "bakeries:salted_dough",
+    "count": 1
+  }
+}

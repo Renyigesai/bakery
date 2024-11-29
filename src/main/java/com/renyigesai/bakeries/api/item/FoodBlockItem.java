@@ -2,17 +2,15 @@ package com.renyigesai.bakeries.api.item;
 
 import com.renyigesai.bakeries.api.TextUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -37,17 +35,15 @@ public class FoodBlockItem extends ItemNameBlockItem {
             return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
         }return super.use(pLevel, pPlayer, pUsedHand);
     }
-
-    @Override
-    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
-        if(Screen.hasShiftDown()) {
-            return super.placeBlock(pContext, pState);
-        }else {
-            return false;
-        }
-    }
-
 //暂时弃用
+//    @Override
+//    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
+//        if(Screen.hasShiftDown()) {
+//            return super.placeBlock(pContext, pState);
+//        }else {
+//            return false;
+//        }
+//    }
 
 //    @Override
 //    public InteractionResult useOn(UseOnContext context) {

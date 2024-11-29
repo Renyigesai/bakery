@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:bottle_butter"
+    }
+  },
+  "result": {
+    "item": "bakeries:bottle_cube",
+    "count": 1
+  }
+}
