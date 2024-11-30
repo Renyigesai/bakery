@@ -1,40 +1,19 @@
 package com.renyigesai.bakeries.item;
 
-import com.google.common.collect.Lists;
 import com.renyigesai.bakeries.init.BakeriesItemTag;
-import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.inventory.dough_crafting_table.DoughCraftingTableMenu;
-import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
-import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 

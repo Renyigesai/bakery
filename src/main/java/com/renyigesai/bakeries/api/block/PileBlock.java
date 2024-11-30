@@ -71,10 +71,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
         if (handItem.getItem() == block.asItem()) {
             return pileUp(pLevel, pPos, pState, pPlayer, pHand);
         }
-        System.out.println(block.asItem() + "yes");
-        System.out.println(handItem + "yes");
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-//        return InteractionResult.SUCCESS;
     }
 
     public InteractionResult pileUp(Level level, BlockPos pos, BlockState state,Player player,InteractionHand hand){

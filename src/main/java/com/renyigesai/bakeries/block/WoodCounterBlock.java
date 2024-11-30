@@ -1,6 +1,8 @@
 package com.renyigesai.bakeries.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +20,7 @@ public class WoodCounterBlock extends HorizontalDirectionalBlock {
     protected static final VoxelShape SHAPE_2 = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
     public WoodCounterBlock(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(PLATE,false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(PLATE,false).setValue(FACING,Direction.NORTH));
     }
 
     @Override
@@ -39,6 +41,11 @@ public class WoodCounterBlock extends HorizontalDirectionalBlock {
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
     }
 
     @Override

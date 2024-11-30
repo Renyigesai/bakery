@@ -48,39 +48,40 @@ public class FoodBlockItem extends ItemNameBlockItem {
             return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
         }return super.use(pLevel, pPlayer, pUsedHand);
     }
-
-    @Override
-    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
-        if(Screen.hasShiftDown()) {
-            return super.placeBlock(pContext, pState);
-        }else {
-            return false;
-        }
-    }
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
-        Player player = context.getPlayer();
-        InteractionHand hand = context.getHand();
-        Level level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        BlockState state = level.getBlockState(pos);
-        Block block = state.getBlock();
-        ItemStack handStack = player.getItemInHand(hand);
-        boolean isPile = handStack.is(asItem());
-        if(block instanceof PileBlock){
-            if (!level.isClientSide) {
-                if (isPile && Screen.hasShiftDown()) {
-                    return pileUp(level, pos, state, handStack);
-
-                }
-            }
-            if (isPile && Screen.hasShiftDown()) {
-                return pileUp(level, pos, state, handStack);
-            }
-        }
-        return super.useOn(context);
-    }
-//暂时弃用
+//怎么又回来了（（
+// 暂时弃用
+//    @Override
+//    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
+//        if(Screen.hasShiftDown()) {
+//            return super.placeBlock(pContext, pState);
+//        }else {
+//            return false;
+//        }
+//    }
+//
+//    @Override
+//    public InteractionResult useOn(UseOnContext context) {
+//        Player player = context.getPlayer();
+//        InteractionHand hand = context.getHand();
+//        Level level = context.getLevel();
+//        BlockPos pos = context.getClickedPos();
+//        BlockState state = level.getBlockState(pos);
+//        Block block = state.getBlock();
+//        ItemStack handStack = player.getItemInHand(hand);
+//        boolean isPile = handStack.is(asItem());
+//        if(block instanceof PileBlock){
+//            if (!level.isClientSide) {
+//                if (isPile && Screen.hasShiftDown()) {
+//                    return pileUp(level, pos, state, handStack);
+//
+//                }
+//            }
+//            if (isPile && Screen.hasShiftDown()) {
+//                return pileUp(level, pos, state, handStack);
+//            }
+//        }
+//        return super.useOn(context);
+//    }
 //    @Override
 //    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
 //        if(Screen.hasShiftDown()) {
@@ -90,17 +91,17 @@ public class FoodBlockItem extends ItemNameBlockItem {
 //        }
 //    }
 
-    public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
-        int pile = state.getValue(this.integerProperty);
-        if (pile < this.integerProperty.getPossibleValues().size()) {
-            level.setBlock(pos,state.setValue(this.integerProperty, pile + 1),4);
-            handStack.shrink(1);
-            level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
-        }else {
-            return InteractionResult.FAIL;
-        }
-        return InteractionResult.SUCCESS;
-    }
+//    public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
+//        int pile = state.getValue(this.integerProperty);
+//        if (pile < this.integerProperty.getPossibleValues().size()) {
+//            level.setBlock(pos,state.setValue(this.integerProperty, pile + 1),4);
+//            handStack.shrink(1);
+//            level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
+//        }else {
+//            return InteractionResult.FAIL;
+//        }
+//        return InteractionResult.SUCCESS;
+//    }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
