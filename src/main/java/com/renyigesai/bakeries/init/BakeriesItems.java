@@ -71,6 +71,8 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MOULD_TOAST_DOUGH;
     public static final RegistryObject<Item> MOULD_TOAST;
     public static final RegistryObject<Item> RAW_SALT_BLOCK;
+    public static final RegistryObject<Item> MILK_TANK;
+    public static final RegistryObject<Item> WOOD_COUNTER;
 
     static {
         FLOUR = item("flour");
@@ -96,6 +98,7 @@ public class BakeriesItems {
         FERMENTATION_TANK = block(BakeriesBlocks.FERMENTATION_TANK);
         YEAST_TANK = block(BakeriesBlocks.YEAST_TANK);
         CHEESE_TANK = block(BakeriesBlocks.CHEESE_TANK);
+        MILK_TANK = block(BakeriesBlocks.Milk_TANK);
         BOTTLE_YEAST = item("bottle_yeast");
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         SALT_ORE = block(BakeriesBlocks.SALT_ORE);
@@ -112,6 +115,7 @@ public class BakeriesItems {
         MOULD = item("mould");
         MOULD_TOAST_DOUGH = rawItem("mould_toast_dough","135");
         RAW_SALT_BLOCK = block(BakeriesBlocks.RAW_SALT_BLOCK);
+        WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);

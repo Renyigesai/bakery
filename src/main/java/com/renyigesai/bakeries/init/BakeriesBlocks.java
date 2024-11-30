@@ -39,12 +39,14 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> FERMENTATION_TANK;
     public static final RegistryObject<Block> YEAST_TANK;
     public static final RegistryObject<Block> CHEESE_TANK;
+    public static final RegistryObject<Block> Milk_TANK;
     public static final RegistryObject<Block> GLASS_CABINET_DOOR;
     public static final RegistryObject<Block> SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<LiquidBlock> SALT_WATER_BLOCK;
     public static final RegistryObject<Block> MOULD_TOAST;
     public static final RegistryObject<Block> RAW_SALT_BLOCK;
+    public static final RegistryObject<Block> WOOD_COUNTER;
 
 
     static {
@@ -71,6 +73,8 @@ public class BakeriesBlocks {
                 new YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         CHEESE_TANK = BLOCK_REGISTRY.register("cheese_tank", () ->
                 new CheeseTankBkock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        Milk_TANK = BLOCK_REGISTRY.register("milk_tank", () ->
+                new MilkTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops(), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
@@ -81,6 +85,8 @@ public class BakeriesBlocks {
                 new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
         RAW_SALT_BLOCK = BLOCK_REGISTRY.register("raw_salt_block", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+        WOOD_COUNTER = BLOCK_REGISTRY.register("wood_counter", () ->
+                new WoodCounterBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));

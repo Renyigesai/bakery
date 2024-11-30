@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakeries:toast",
+          "name": "bakeries:mould_toast",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -14,7 +14,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "bakeries:toast",
+                  "block": "bakeries:mould_toast",
                   "properties": {
                     "pile": "1"
                   }
@@ -27,7 +27,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "bakeries:toast",
+                  "block": "bakeries:mould_toast",
                   "properties": {
                     "pile": "2"
                   }

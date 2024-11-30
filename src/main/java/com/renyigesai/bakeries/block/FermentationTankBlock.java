@@ -74,7 +74,7 @@ public class FermentationTankBlock extends TankBlock {
         ItemStack handStack = playerIn.getItemInHand(pHand);
         handStack.shrink(1);
         playerIn.getInventory().placeItemBackInInventory(new ItemStack(Items.BUCKET));
-        level.setBlock(pos, BakeriesBlocks.CHEESE_TANK.get().defaultBlockState(), 3);
+        level.setBlock(pos, BakeriesBlocks.Milk_TANK.get().defaultBlockState(), 3);
         level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }

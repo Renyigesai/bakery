@@ -22,13 +22,15 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());
                         output.accept(BakeriesItems.YEAST_TANK.get());
-                        output.accept(BakeriesBlocks.CHEESE_TANK.get());
-                        output.accept(BakeriesBlocks.GLASS_CABINET_DOOR.get());
+                        output.accept(BakeriesItems.CHEESE_TANK.get());
+                        output.accept(BakeriesItems.WOOD_COUNTER.get());
+                        output.accept(BakeriesItems.GLASS_CABINET_DOOR.get());
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());
                         output.accept(BakeriesItems.MOULD.get());
                         //原材料/食材
                         output.accept(BakeriesItems.FLOUR.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR.get());
+                        output.accept(BakeriesItems.SALT_WATER_BUCKET.get());
                         output.accept(BakeriesItems.RAW_SALT_BLOCK.get());
                         output.accept(BakeriesItems.SALT.get());
                         output.accept(BakeriesItems.BOTTLE_YEAST.get());
@@ -46,7 +48,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());
                         output.accept(BakeriesItems.CROISSANT.get());
                         output.accept(BakeriesItems.SALT_CROISSANT.get());
-                        output.accept(BakeriesBlocks.TOAST.get());
+                        output.accept(BakeriesItems.TOAST.get());
                         output.accept(BakeriesItems.SLICED_TOAST.get());
                         output.accept(BakeriesItems.BAGUETTE.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());

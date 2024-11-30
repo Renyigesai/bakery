@@ -85,7 +85,7 @@ public class FlourSieveItem extends Item {
             flourSieveRecipe = recipe.get();
             player.displayClientMessage(Component.literal("Found recipe: " + flourSieveRecipe.getResultItem(null).getItem().toString()), false);
         } else {
-            player.displayClientMessage(Component.literal("No recipe found"), false);
+            player.displayClientMessage(Component.literal("No recipe found"), true);
         }
 
         return flourSieveRecipe;

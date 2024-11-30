@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "facing=east,plate=false": {"model": "bakeries:block/wood_counter", "y": 270},
+    "facing=east,plate=true": {"model": "bakeries:block/wood_counter_plate", "y": 270},
+
+    "facing=north,plate=false": {"model": "bakeries:block/wood_counter", "y": 180},
+    "facing=north,plate=true": {"model": "bakeries:block/wood_counter_plate", "y": 180},
+
+    "facing=south,plate=false": {"model": "bakeries:block/wood_counter"},
+    "facing=south,plate=true": {"model": "bakeries:block/wood_counter_plate"},
+
+    "facing=west,plate=false": {"model": "bakeries:block/wood_counter", "y": 90},
+    "facing=west,plate=true": {"model": "bakeries:block/wood_counter_plate", "y": 90}
+  }
+}

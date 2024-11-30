@@ -26,6 +26,8 @@
   "block.bakeries.fermentation_tank": "Fermentation Tank",
   "block.bakeries.yeast_tank": "Yeast Tank",
   "block.bakeries.cheese_tank": "Cheese Tank",
+  "block.bakeries.milk_tank": "Milk Tank",
+  "block.bakeries.wood_counter": "Wood Counter",
   "item.bakeries.flour": "Flour",
   "item.bakeries.whole_wheat_flour": "Whole Wheat Flour",
   "item.bakeries.pineapple_bun": "Pineapple Bun",

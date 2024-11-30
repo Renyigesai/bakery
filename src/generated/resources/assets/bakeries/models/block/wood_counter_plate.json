@@ -1,0 +1,11 @@
+{
+  "parent": "bakeries:custom/wood_counter_plate",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/wood_counter_bottom",
+    "1": "bakeries:block/wood_counter_side",
+    "2": "bakeries:block/wood_counter_top",
+    "3": "bakeries:block/plate",
+    "particle": "bakeries:block/wood_counter_bottom"
+  }
+}

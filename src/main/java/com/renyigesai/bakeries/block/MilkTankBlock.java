@@ -30,7 +30,7 @@ public class MilkTankBlock extends TankBlock {
     public MilkTankBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(MILK, 3));
+                .setValue(MILK, 3).setValue(SWEET_BERRIES,false));
     }
 
     @Override

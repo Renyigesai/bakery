@@ -1,6 +1,8 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
 import com.google.common.collect.Lists;
+import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlock;
+import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import lombok.Getter;
@@ -91,7 +93,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       return this.inputSlot.hasItem() && !this.recipes.isEmpty();
    }
    public boolean stillValid(Player pPlayer) {
-      return stillValid(this.access, pPlayer, Blocks.STONECUTTER);
+      return stillValid(this.access, pPlayer, BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
    }
    public boolean clickMenuButton(Player pPlayer, int pId) {
       if (this.isValidRecipeIndex(pId)) {

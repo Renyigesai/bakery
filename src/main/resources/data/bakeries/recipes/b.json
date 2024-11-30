@@ -1,5 +1,5 @@
 {
-  "type": "bakeries:flour_sieve",
+  "type": "bakeries:dough_crafting_table",
   "ingredient":  {
     "item": "bakeries:whole_wheat_flour"
   },

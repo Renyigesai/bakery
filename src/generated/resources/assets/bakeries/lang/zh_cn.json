@@ -26,6 +26,8 @@
   "block.bakeries.fermentation_tank": "发酵罐",
   "block.bakeries.yeast_tank": "满装酵母罐",
   "block.bakeries.cheese_tank": "满装奶酪罐",
+  "block.bakeries.milk_tank": "满装牛奶罐",
+  "block.bakeries.wood_counter": "木质柜台",
   "item.bakeries.flour": "面粉",
   "item.bakeries.whole_wheat_flour": "全麦面粉",
   "item.bakeries.pineapple_bun": "菠萝包",
