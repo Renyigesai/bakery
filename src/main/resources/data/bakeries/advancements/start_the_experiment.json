@@ -4,7 +4,7 @@
       "item": "bakeries:fermentation_tank"
     },
     "title": {
-      "translate": "advancements.precise_temperature_control.title"
+      "translate": "advancements.start_the_experiment.title"
     },
     "description": {
       "translate": "advancements.start_the_experiment.descr"
