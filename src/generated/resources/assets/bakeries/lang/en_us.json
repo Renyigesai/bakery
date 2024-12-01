@@ -79,5 +79,17 @@
   "guide.bakeries.entries.flour": "Flour",
   "guide.bakeries.descr.flour": "Use a flour sieve to sift the whole wheat flour into flour.",
   "guide.bakeries.categories.perfect_temperature":"§6Perfect Temperature",
-  "guide.bakeries.descr.perfect_temperature": "Food with a Perfect Temperature entry can be eaten even when you are not hungry"
+  "guide.bakeries.descr.perfect_temperature": "Food with a Perfect Temperature entry can be eaten even when you are not hungry",
+  "advancements.bakeries_root.title": "Bakery",
+  "advancements.bakeries_root.descr": "Fine baking.",
+  "advancements.sieving.title": "Sieving",
+  "advancements.sieving.descr": "Get a flour sieve.",
+  "advancements.start_the_experiment.title": "Start The Experiment",
+  "advancements.start_the_experiment.descr": "Get a Fermentation Tank.",
+  "advancements.natural_activity.title": "Natural Activity",
+  "advancements.natural_activity.descr": "Use the bottle to scoop out the natural yeast from the fermenter.",
+  "advancements.precise_temperature_control.title": "Precise Temperature Control",
+  "advancements.precise_temperature_control.descr": "In the oven",
+  "advancements.perfect_temperature.title": "Perfect Temperature",
+  "advancements.perfect_temperature.descr": "With a more precise temperature, the food will be more delicious."
 }

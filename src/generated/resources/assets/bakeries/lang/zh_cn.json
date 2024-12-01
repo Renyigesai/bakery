@@ -79,5 +79,17 @@
   "guide.bakeries.entries.flour": "面粉",
   "guide.bakeries.descr.flour": "使用面粉筛将全麦面粉过筛为面粉。",
   "guide.bakeries.categories.perfect_temperature":"§6完美火候",
-  "guide.bakeries.descr.perfect_temperature": "拥有完美火候词条的烘焙食物，在玩家饥饿值满时也能食用"
+  "guide.bakeries.descr.perfect_temperature": "拥有完美火候词条的烘焙食物，在玩家饥饿值满时也能食用",
+  "advancements.bakeries_root.title": "烘焙坊",
+  "advancements.bakeries_root.descr": "精致烘焙。",
+  "advancements.sieving.title": "过筛",
+  "advancements.sieving.descr": "获得一个面粉筛。",
+  "advancements.start_the_experiment.title": "开始实验吧",
+  "advancements.start_the_experiment.descr": "获得一个发酵罐",
+  "advancements.natural_activity.title": "天然活性",
+  "advancements.natural_activity.descr": "用瓶子舀出发酵罐里的天然酵母。",
+  "advancements.precise_temperature_control.title": "精确控温",
+  "advancements.precise_temperature_control.descr": "使用烤箱。",
+  "advancements.perfect_temperature.title": "完美温度",
+  "advancements.perfect_temperature.descr": "用更加精准的温度烤制，食物会更加可口。"
 }

@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.fluid;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

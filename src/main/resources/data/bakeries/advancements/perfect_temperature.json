@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "bakeries:croissant"
+    },
+    "title": {
+      "translate": "advancements.perfect_temperature.title"
+    },
+    "description": {
+      "translate": "advancements.perfect_temperature.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "perfect_temperature": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "tag":
+            "bakeries:bake_food"
+        }
+      }
+    }
+  },
+  "parent": "bakeries:precise_temperature_control"
+}
