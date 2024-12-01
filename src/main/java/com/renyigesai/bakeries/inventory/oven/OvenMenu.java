@@ -36,6 +36,7 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
     private Entity boundEntity = null;
     public BlockEntity boundBlockEntity = null;
     private final Container container;
+
     public final ContainerData data;
 
     public OvenMenu(int id, Inventory inv,FriendlyByteBuf byteBuf) {
@@ -108,7 +109,13 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
         }
         return true;
     }
-
+    public void slotsChanged(Container pInventory) {
+        this.access.execute((level, blockPos) -> {
+            if (boundBlockEntity instanceof OvenBlockEntity oven) {
+                OvenBlockEntity.updateBlock(oven);
+            }
+        });
+    }
 
 
 

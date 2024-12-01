@@ -1,8 +1,9 @@
 {
   "type": "bakeries:dough_crafting_table",
-  "ingredient":  {
-    "item": "bakeries:whole_wheat_flour"
-  },
+  "ingredient":  [
+    {
+      "item": "bakeries:whole_wheat_flour"
+    }],
   "result": {
     "item": "bakeries:flour",
     "count": 1

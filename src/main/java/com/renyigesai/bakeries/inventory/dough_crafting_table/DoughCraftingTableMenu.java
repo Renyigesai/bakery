@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
 import com.google.common.collect.Lists;
-import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
@@ -16,7 +15,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 
@@ -90,7 +88,10 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       return this.recipes.size();
    }
    public boolean hasInputItem() {
-      return this.inputSlot.hasItem() && !this.recipes.isEmpty();
+      boolean hasItem = this.inputSlot.hasItem();
+      boolean hasRecipes = !this.recipes.isEmpty();
+      System.out.println("Has input item: " + hasItem + ", Has recipes: " + hasRecipes);
+      return hasItem && hasRecipes;
    }
    public boolean stillValid(Player pPlayer) {
       return stillValid(this.access, pPlayer, BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
@@ -119,6 +120,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       this.resultSlot.set(ItemStack.EMPTY);
       if (!pStack.isEmpty()) {
          this.recipes = this.level.getRecipeManager().getRecipesFor(DoughCraftingRecipe.Type.INSTANCE, pContainer, this.level);
+         System.out.println("Found recipes: " + this.recipes.size());
       }
    }
    void setupResultSlot() {
