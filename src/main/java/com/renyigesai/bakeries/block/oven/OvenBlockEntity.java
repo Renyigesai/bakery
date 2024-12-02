@@ -212,14 +212,15 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     private static void resetProgress(OvenBlockEntity ovenBlockEntity, int slot) {
         ovenBlockEntity.getOven().putDouble("progress_" + slot, 0);
     }
-    private void craftItem(OvenBlockEntity ovenBlockEntity, int slot, boolean perfect, int perfect_temperature) {
+    private void craftItem(OvenBlockEntity ovenBlockEntity, int slot, boolean perfect) {
         updateBlock(ovenBlockEntity);
         Optional<OvenRecipe> recipe = getCurrentRecipe(slot);
         if (recipe.isPresent()) {
             ItemStack result = recipe.get().getResultItem(null);
             ItemStack takeItem = new ItemStack(result.getItem(), result.getCount());
             takeItem.getOrCreateTag().putBoolean("perfect", perfect);
-            takeItem.getOrCreateTag().putInt("perfect_temperature", temperature);
+            //去除int温度nbt
+//            takeItem.getOrCreateTag().putInt("perfect_temperature", temperature);
             this.itemHandler.setStackInSlot(slot, takeItem);
             updateBlock(ovenBlockEntity);
         }
