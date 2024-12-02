@@ -1,10 +1,16 @@
 {
-  "type": "minecraft:smelting",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "experience": 1,
-  "cookingtime": 400,
-  "ingredient": {
-    "item": "bakeries:salt_water_bucket"
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:raw_salt_block"
+    }
   },
-  "result": "bakeries:raw_salt_block"
+  "result": {
+    "item": "bakeries:salt",
+    "count": 9
+  }
 }

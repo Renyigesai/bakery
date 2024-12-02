@@ -7,6 +7,7 @@ import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBloc
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
+import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -79,8 +80,9 @@ public class BakeriesBlocks {
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops(), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
-        SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", () ->
-                new LiquidBlock(BakeriesFluids.SALT_WATER,BlockBehaviour.Properties.copy(Blocks.WATER)));
+//        SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", () ->
+//                new LiquidBlock(BakeriesFluids.SALT_WATER,BlockBehaviour.Properties.copy(Blocks.WATER)));
+        SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", SaltWaterFluidsBlock::new);
         MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->
                 new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
         RAW_SALT_BLOCK = BLOCK_REGISTRY.register("raw_salt_block", () ->

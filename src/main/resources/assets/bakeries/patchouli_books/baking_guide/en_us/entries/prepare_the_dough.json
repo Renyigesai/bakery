@@ -9,7 +9,15 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "bakeries:oven"
+      "recipe": "bakeries:sweet_dough"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:salted_dough"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:whole_wheat_dough"
     }
   ]
 }
