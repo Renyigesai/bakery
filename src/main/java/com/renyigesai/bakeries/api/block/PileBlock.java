@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.api.block;
 
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import lombok.Getter;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -39,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.function.Consumer;
 
 @Getter
@@ -59,31 +61,50 @@ public class PileBlock extends HorizontalDirectionalBlock {
         return SHAPE;
     }
 
+    public int getMaxPile(){
+        return 4;
+    }
+
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack handItem = pPlayer.getItemInHand(pHand);
         Block block = pState.getBlock();
         if (pLevel.isClientSide) {
-            if (handItem.getItem() == block.asItem()) {
-                return pileUp(pLevel, pPos, pState, pPlayer, pHand);
-            }
+            if (!Screen.hasShiftDown()) {
+                if (handItem.getItem() == block.asItem()) {return pileUp(pLevel, pPos, pState, pPlayer, pHand);}
+            }else {return take(pLevel, pPos, pState, pPlayer);}
         }
-        if (handItem.getItem() == block.asItem()) {
-            return pileUp(pLevel, pPos, pState, pPlayer, pHand);
-        }
+
+        if (!Screen.hasShiftDown()) {
+            if (handItem.getItem() == block.asItem()) {return pileUp(pLevel, pPos, pState, pPlayer, pHand);}
+        }else {return take(pLevel, pPos, pState, pPlayer);}
+
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
     public InteractionResult pileUp(Level level, BlockPos pos, BlockState state,Player player,InteractionHand hand){
         int pile = state.getValue(PileBlock.PILE);
         ItemStack handItem = player.getItemInHand(hand);
-        if (pile < 4) {
-            level.setBlock(pos,state.setValue(PileBlock.PILE, pile + 1),4);
+        if (pile < getMaxPile()) {
+            level.setBlock(pos,state.setValue(PileBlock.PILE, pile + 1),3);
             handItem.shrink(1);
             level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         }else {
             return InteractionResult.FAIL;
         }
+        return InteractionResult.SUCCESS;
+    }
+
+    public InteractionResult take(Level level, BlockPos pos, BlockState state,Player player){
+        int pile = state.getValue(PileBlock.PILE);
+        Block block = state.getBlock();
+        player.getInventory().placeItemBackInInventory(new ItemStack(block.asItem()));
+        if (pile > 1) {
+            level.setBlock(pos, state.setValue(PileBlock.PILE, pile - 1), 3);
+        }else {
+            level.removeBlock(pos, false);
+        }
+        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 

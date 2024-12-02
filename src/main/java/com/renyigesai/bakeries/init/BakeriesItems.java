@@ -92,7 +92,7 @@ public class BakeriesItems {
         ROUND_BREAD_DOUGH = rawItem("round_bread_dough","155");
         BERRY_BREAD_DOUGH = rawItem("berry_bread_dough","185");
         SALT_CROISSANT_DOUGH = rawItem("salt_croissant_dough","180");
-        WHOLE_WHEAT_BAGEL_DOUGH = rawItem("whole_wheat_bagel_dough","190");
+        WHOLE_WHEAT_BAGEL_DOUGH = rawItem("whole_wheat_bagel_dough","200");
         TART_SHELL = item("tart_shell");
         OVEN = block(BakeriesBlocks.OVEN);
         FERMENTATION_TANK = block(BakeriesBlocks.FERMENTATION_TANK);
