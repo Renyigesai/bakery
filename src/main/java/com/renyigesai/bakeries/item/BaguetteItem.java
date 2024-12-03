@@ -45,11 +45,6 @@ public class BaguetteItem extends FoodBlockItem {
     }
 
     @Override
-    public int getEnchantmentValue() {
-        return 2;
-    }
-
-    @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
             ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();

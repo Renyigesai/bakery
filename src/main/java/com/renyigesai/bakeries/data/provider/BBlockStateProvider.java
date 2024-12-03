@@ -27,7 +27,7 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
     protected void registerStatesAndModels() {
         pileBlock(BakeriesBlocks.BAGEL);
         pileBlock(BakeriesBlocks.BAGUETTE);
-        pileBlock(BakeriesBlocks.CINNAMON_ROLL);
+        pileBlock(BakeriesBlocks.BROWN_SUGAR_ROLL);
         pileBlock(BakeriesBlocks.CROISSANT);
         pileBlock(BakeriesBlocks.SALT_CROISSANT);
         pileBlock(BakeriesBlocks.PINEAPPLE_BUN);

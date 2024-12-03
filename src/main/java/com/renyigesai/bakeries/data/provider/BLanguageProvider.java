@@ -54,7 +54,7 @@ public class BLanguageProvider extends net.minecraftforge.common.data.LanguagePr
 
         addItem(BakeriesItems.BAGEL, "Bagel", "贝果");
         addItem(BakeriesItems.BAGUETTE, "Baguette", "法棍");
-        addItem(BakeriesItems.CINNAMON_ROLL, "Cinnamon Roll", "肉桂卷");
+        addItem(BakeriesItems.BROWN_SUGAR_ROLL, "Cinnamon Roll", "肉桂卷");
         addItem(BakeriesItems.COUNTRY_BREAD, "Country Bread", "乡村面包");
         addItem(BakeriesItems.CROISSANT, "Croissant", "可颂");
 
@@ -62,7 +62,7 @@ public class BLanguageProvider extends net.minecraftforge.common.data.LanguagePr
         addItem(BakeriesItems.BAGUETTE_DOUGH, "Baguette Dough", "法棍面胚");
         addItem(BakeriesItems.BROWN_SUGAR_CUBE, "Brown Sugar Cube", "红糖块");
         addItem(BakeriesItems.BUTTER_CUBE, "Butter Cube", "黄油块");
-        addItem(BakeriesItems.CINNAMON_ROLL_DOUGH, "Cinnamon Roll Dough", "肉桂卷面胚");
+        addItem(BakeriesItems.BROWN_SUGAR_ROLL, "Cinnamon Roll Dough", "肉桂卷面胚");
         addItem(BakeriesItems.COUNTRY_BREAD_DOUGH, "Country Bread Dough", "乡村面包面胚");
         addItem(BakeriesItems.CROISSANT_DOUGH, "Croissant Dough", "可颂面胚");
         addItem(BakeriesItems.FLOUR, "Flour", "面粉");

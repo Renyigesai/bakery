@@ -26,7 +26,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BROWN_SUGAR_CUBE;
     public static final RegistryObject<Item> BAGEL_DOUGH;
     public static final RegistryObject<Item> BAGUETTE_DOUGH;
-    public static final RegistryObject<Item> CINNAMON_ROLL_DOUGH;
+    public static final RegistryObject<Item> BROWN_SUGAR_ROLL_DOUGH;
     public static final RegistryObject<Item> COUNTRY_BREAD_DOUGH;
     public static final RegistryObject<Item> CROISSANT_DOUGH;
     public static final RegistryObject<Item> PINEAPPLE_BUN_DOUGH;
@@ -40,7 +40,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BAGEL;
     public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL;
     public static final RegistryObject<Item> BAGUETTE;
-    public static final RegistryObject<Item> CINNAMON_ROLL;
+    public static final RegistryObject<Item> BROWN_SUGAR_ROLL;
     public static final RegistryObject<Item> COUNTRY_BREAD;
     public static final RegistryObject<Item> CROISSANT;
     public static final RegistryObject<Item> PINEAPPLE_BUN;
@@ -73,6 +73,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> RAW_SALT_BLOCK;
     public static final RegistryObject<Item> MILK_TANK;
     public static final RegistryObject<Item> WOOD_COUNTER;
+    public static final RegistryObject<Item> PASTRY;
 
     static {
         FLOUR = item("flour");
@@ -82,7 +83,7 @@ public class BakeriesItems {
         BROWN_SUGAR_CUBE = item("brown_sugar_cube");
         BAGEL_DOUGH = rawItem("bagel_dough","200");
         BAGUETTE_DOUGH = rawItem("baguette_dough","230");
-        CINNAMON_ROLL_DOUGH = rawItem("cinnamon_roll_dough","155");
+        BROWN_SUGAR_ROLL_DOUGH = rawItem("brown_sugar_roll_dough","155");
         COUNTRY_BREAD_DOUGH = rawItem("country_bread_dough","225");
         CROISSANT_DOUGH = rawItem("croissant_dough","175");
         PINEAPPLE_BUN_DOUGH = rawItem("pineapple_bun_dough","170");
@@ -116,15 +117,16 @@ public class BakeriesItems {
         MOULD_TOAST_DOUGH = rawItem("mould_toast_dough","135");
         RAW_SALT_BLOCK = block(BakeriesBlocks.RAW_SALT_BLOCK);
         WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
+        PASTRY= item("pastry");
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
         WHOLE_WHEAT_BAGEL = foodBlockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL,true);
         BAGUETTE = REGISTER.register(BakeriesBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().durability(4).food(BakeriesFoodProperties.BAGUETTE)));
-        CINNAMON_ROLL = foodBlockItem(BakeriesBlocks.CINNAMON_ROLL, BakeriesFoodProperties.CINNAMON_ROLL,true);
+        BROWN_SUGAR_ROLL = foodBlockItem(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true);
         COUNTRY_BREAD = foodBlockItem(BakeriesBlocks.COUNTRY_BREAD, BakeriesFoodProperties.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT);
-        PINEAPPLE_BUN = foodBlockItem(BakeriesBlocks.PINEAPPLE_BUN,BakeriesFoodProperties.PINEAPPLE_BUN);
+        PINEAPPLE_BUN = foodBlockItem(BakeriesBlocks.PINEAPPLE_BUN,BakeriesFoodProperties.PINEAPPLE_BUN,true);
         ROUND_BREAD = foodBlockItem(BakeriesBlocks.ROUND_BREAD,BakeriesFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeriesBlocks.SALT_CROISSANT,BakeriesFoodProperties.SALT_CROISSANT,true);
         TOAST = block(BakeriesBlocks.TOAST);

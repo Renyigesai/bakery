@@ -24,7 +24,7 @@ public class BBlockLoot extends VanillaBlockLoot {
     protected void generate() {
         this.add(BakeriesBlocks.BAGEL.get(), this::createPileDrops);
         this.add(BakeriesBlocks.BAGUETTE.get(), this::createPileDrops);
-        this.add(BakeriesBlocks.CINNAMON_ROLL.get(), this::createPileDrops);
+        this.add(BakeriesBlocks.BROWN_SUGAR_ROLL.get(), this::createPileDrops);
         this.add(BakeriesBlocks.COUNTRY_BREAD.get(), this::createPileDrops);
         this.add(BakeriesBlocks.CROISSANT.get(), this::createPileDrops);
         this.dropSelf(BakeriesBlocks.OVEN.get());

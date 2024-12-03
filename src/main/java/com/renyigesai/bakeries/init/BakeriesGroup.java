@@ -17,7 +17,7 @@ public class BakeriesGroup {
             CreativeModeTab.builder().icon(()-> new ItemStack(BakeriesBlocks.OVEN.get()))
                     .title(Component.translatable("creativetab_bakeries_tab"))
                     .displayItems(((itemDisplayParameters, output) -> {
-                        //功能方块/方块
+                        //功能方块/方块/物品
                         output.accept(BakeriesItems.OVEN.get());
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());
@@ -44,7 +44,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());
                         output.accept(BakeriesItems.ROUND_BREAD.get());
                         output.accept(BakeriesItems.BERRY_BREAD.get());
-                        output.accept(BakeriesItems.CINNAMON_ROLL.get());
+                        output.accept(BakeriesItems.BROWN_SUGAR_ROLL.get());
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());
                         output.accept(BakeriesItems.CROISSANT.get());
                         output.accept(BakeriesItems.SALT_CROISSANT.get());
@@ -62,11 +62,12 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SWEET_DOUGH.get());
                         output.accept(BakeriesItems.SALTED_DOUGH.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
+                        output.accept(BakeriesItems.PASTRY.get());
                         output.accept(BakeriesItems.BAGEL_DOUGH.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH.get());
                         output.accept(BakeriesItems.ROUND_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.BERRY_BREAD_DOUGH.get());
-                        output.accept(BakeriesItems.CINNAMON_ROLL_DOUGH.get());
+                        output.accept(BakeriesItems.BROWN_SUGAR_ROLL_DOUGH.get());
                         output.accept(BakeriesItems.PINEAPPLE_BUN_DOUGH.get());
                         output.accept(BakeriesItems.CROISSANT_DOUGH.get());
                         output.accept(BakeriesItems.SALT_CROISSANT_DOUGH.get());

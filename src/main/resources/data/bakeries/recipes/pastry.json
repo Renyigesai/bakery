@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a",
+    "b"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:sweet_dough"
+    },
+    "b": {
+      "item": "bakeries:butter_cube"
+    }
+  },
+  "result": {
+    "item": "bakeries:pastry",
+    "count": 4
+  }
+}

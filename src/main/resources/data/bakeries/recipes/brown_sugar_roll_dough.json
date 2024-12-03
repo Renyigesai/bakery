@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abc",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:round_bread_dough"
+    },
+    "b": {
+      "item": "bakeries:butter_cube"
+    },
+    "c": {
+      "item": "bakeries:brown_sugar_cube"
+    }
+  },
+  "result": {
+    "item": "bakeries:brown_sugar_roll_dough",
+    "count": 4
+  }
+}

@@ -26,7 +26,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> BAGEL;
     public static final RegistryObject<Block> WHOLE_WHEAT_BAGEL;
     public static final RegistryObject<Block> BAGUETTE;
-    public static final RegistryObject<Block> CINNAMON_ROLL;
+    public static final RegistryObject<Block> BROWN_SUGAR_ROLL;
     public static final RegistryObject<Block> COUNTRY_BREAD;
     public static final RegistryObject<Block> CROISSANT;
     public static final RegistryObject<Block> PINEAPPLE_BUN;
@@ -55,7 +55,7 @@ public class BakeriesBlocks {
         BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
         WHOLE_WHEAT_BAGEL = BLOCK_REGISTRY.register("whole_wheat_bagel", PileBlock::new);
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
-        CINNAMON_ROLL = BLOCK_REGISTRY.register("cinnamon_roll", PileBlock::new);
+        BROWN_SUGAR_ROLL = BLOCK_REGISTRY.register("brown_sugar_roll", PileBlock::new);
         COUNTRY_BREAD = BLOCK_REGISTRY.register("country_bread", () ->
                 new CountryBread(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
         CROISSANT = BLOCK_REGISTRY.register("croissant", PileBlock::new);

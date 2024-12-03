@@ -24,7 +24,7 @@ public class BItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider 
                 .add(
                         BakeriesItems.BAGEL_DOUGH.get(),
                         BakeriesItems.BAGUETTE_DOUGH.get(),
-                        BakeriesItems.CINNAMON_ROLL_DOUGH.get(),
+                        BakeriesItems.BROWN_SUGAR_ROLL.get(),
                         BakeriesItems.COUNTRY_BREAD_DOUGH.get(),
                         BakeriesItems.CROISSANT_DOUGH.get(),
                         BakeriesItems.PINEAPPLE_BUN_DOUGH.get(),

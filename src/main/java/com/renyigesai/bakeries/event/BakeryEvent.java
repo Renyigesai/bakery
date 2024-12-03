@@ -57,7 +57,7 @@ public class BakeryEvent {
             trades.get(villagerLevel_5).add((traner,rand) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD,16),new ItemStack(BakeriesItems.CROISSANT.get(),3),2,30,0.0f));
             trades.get(villagerLevel_5).add((traner,rand) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD,10),new ItemStack(BakeriesItems.CINNAMON_ROLL.get(),2),2,30,0.0f));
+                    new ItemStack(Items.EMERALD,10),new ItemStack(BakeriesItems.BROWN_SUGAR_ROLL.get(),2),2,30,0.0f));
             trades.get(villagerLevel_5).add((traner,rand) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD,12),new ItemStack(BakeriesItems.TOAST.get(),1),2,30,0.0f));
         }

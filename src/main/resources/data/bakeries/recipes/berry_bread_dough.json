@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aa",
+    "bb"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:sweet_berries"
+    },
+    "b": {
+      "item": "bakeries:round_bread_dough"
+    }
+  },
+  "result": {
+    "item": "bakeries:berry_bread_dough",
+    "count": 2
+  }
+}
