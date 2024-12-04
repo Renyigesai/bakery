@@ -1,8 +1,0 @@
-{
-	"parent": "bakeries:custom/toast_5",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"0": "bakeries:block/toast_peak",
-		"particle": "bakeries:block/toast_peak"
-	}
-}

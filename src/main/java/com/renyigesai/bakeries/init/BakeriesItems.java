@@ -74,6 +74,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MILK_TANK;
     public static final RegistryObject<Item> WOOD_COUNTER;
     public static final RegistryObject<Item> PASTRY;
+    public static final RegistryObject<Item> COUNTRY_BREAD_SLICE;
 
     static {
         FLOUR = item("flour");
@@ -124,7 +125,7 @@ public class BakeriesItems {
         WHOLE_WHEAT_BAGEL = foodBlockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL,true);
         BAGUETTE = REGISTER.register(BakeriesBlocks.BAGUETTE.getId().getPath(),() -> new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().durability(4).food(BakeriesFoodProperties.BAGUETTE)));
         BROWN_SUGAR_ROLL = foodBlockItem(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true);
-        COUNTRY_BREAD = foodBlockItem(BakeriesBlocks.COUNTRY_BREAD, BakeriesFoodProperties.COUNTRY_BREAD);
+        COUNTRY_BREAD = block(BakeriesBlocks.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT);
         PINEAPPLE_BUN = foodBlockItem(BakeriesBlocks.PINEAPPLE_BUN,BakeriesFoodProperties.PINEAPPLE_BUN,true);
         ROUND_BREAD = foodBlockItem(BakeriesBlocks.ROUND_BREAD,BakeriesFoodProperties.ROUND_BREAD);
@@ -133,6 +134,7 @@ public class BakeriesItems {
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
         BERRY_BREAD = foodBlockItem(BakeriesBlocks.BERRY_BREAD,BakeriesFoodProperties.BERRY_BREAD);
         MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
+        COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

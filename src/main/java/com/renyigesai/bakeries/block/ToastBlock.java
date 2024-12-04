@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.api.Shortcuts;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -34,7 +35,7 @@ import java.util.function.Supplier;
 * */
 public class ToastBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
-    public static final IntegerProperty SLICE = IntegerProperty.create("slice",1,6);
+    public static final IntegerProperty SLICE = IntegerProperty.create("slice",1,4);
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
     protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
@@ -43,7 +44,7 @@ public class ToastBlock extends HorizontalDirectionalBlock {
     public ToastBlock(Properties pProperties,Supplier<Item> sliceItem) {
         super(pProperties);
         this.sliceItem = sliceItem;
-        this.registerDefaultState(this.stateDefinition.any().setValue(PILE,1).setValue(SLICE,6).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(PILE,1).setValue(SLICE,4).setValue(FACING, Direction.NORTH));
     }
 
     @Override
@@ -72,15 +73,22 @@ public class ToastBlock extends HorizontalDirectionalBlock {
         }else {
             level.removeBlock(pos,false);
         }
-        ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.15, pos.getZ() + 0.5, this.getSliceItem());
-        level.addFreshEntity(entity);
+//        Direction direction = playerIn.getDirection().getOpposite();
+//        ItemEntity entity = new ItemEntity(level, pos.getX()+0.5, pos.getY() + 0.15, pos.getZ()+0.5, this.getSliceItem(),
+//                direction.getStepX()*0.15,direction.getStepY()*0.05,direction.getStepZ()*0.15);
+//        level.addFreshEntity(entity);
+
+        Direction direction = playerIn.getDirection().getOpposite();
+        Shortcuts.spawnItemEntity(level, this.getSliceItem(), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
+                direction.getStepX() * 0.15, 0.05, direction.getStepZ() * 0.15);
+
         level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 
     protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state, Player playerIn){
         int pile = state.getValue(PILE);
-            level.setBlock(pos, state.setValue(PILE, pile + 1), 2);
+        Shortcuts.setBlock(level,pos,state,PILE,pile,1);
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
@@ -121,7 +129,7 @@ public class ToastBlock extends HorizontalDirectionalBlock {
     }
 
     public static int getOutputSignal(int pEaten) {
-        return (-6 - pEaten) * 2;
+        return (-4 - pEaten) * 2;
     }
 
     @Override

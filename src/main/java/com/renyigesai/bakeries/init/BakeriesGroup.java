@@ -52,6 +52,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SLICED_TOAST.get());
                         output.accept(BakeriesItems.BAGUETTE.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());
+                        output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());
                     }))
                     .build());
 

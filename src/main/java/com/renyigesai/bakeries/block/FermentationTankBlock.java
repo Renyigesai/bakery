@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.api.Shortcuts;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -55,7 +56,7 @@ public class FermentationTankBlock extends TankBlock {
     public static InteractionResult fillFlour(Level level, BlockPos pos, BlockState state, Player playerIn, InteractionHand pHand){
         ItemStack handStack = playerIn.getItemInHand(pHand);
         int flour = state.getValue(FLOUR);
-        level.setBlock(pos, state.setValue(FLOUR, Math.min(flour + 1, 3)), 3);
+        Shortcuts.setBlock(level,pos,state,FLOUR,flour,1);
         handStack.shrink(1);
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;

@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.api.block;
 
+import com.renyigesai.bakeries.api.Shortcuts;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import lombok.Getter;
 import net.minecraft.client.gui.screens.Screen;
@@ -86,7 +87,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
         int pile = state.getValue(PileBlock.PILE);
         ItemStack handItem = player.getItemInHand(hand);
         if (pile < getMaxPile()) {
-            level.setBlock(pos,state.setValue(PileBlock.PILE, pile + 1),3);
+            Shortcuts.setBlock(level,pos,state,PILE,pile,1);
             handItem.shrink(1);
             level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         }else {
@@ -100,7 +101,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
         Block block = state.getBlock();
         player.getInventory().placeItemBackInInventory(new ItemStack(block.asItem()));
         if (pile > 1) {
-            level.setBlock(pos, state.setValue(PileBlock.PILE, pile - 1), 3);
+            Shortcuts.setBlock(level,pos,state,PILE,pile,1,true);
         }else {
             level.removeBlock(pos, false);
         }

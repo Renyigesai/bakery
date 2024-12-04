@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.api.Shortcuts;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -41,12 +42,12 @@ public class YeastTankBlock extends TankBlock {
         ItemStack hand = playerIn.getItemInHand(pHand);
         int yeast = state.getValue(YEAST);
         if (yeast > 1){
-            level.setBlock(pos, state.setValue(YEAST, yeast - 1), 3);
+            Shortcuts.setBlock(level,pos,state,YEAST,yeast,1,true);
         }else {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
         hand.shrink(1);
-        playerIn.getInventory().placeItemBackInInventory(new ItemStack(BakeriesItems.BOTTLE_YEAST.get()));
+        Shortcuts.giveItem(playerIn,BakeriesItems.BOTTLE_YEAST.get());
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }

@@ -6,7 +6,6 @@ import com.renyigesai.bakeries.block.*;
 import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
-import com.renyigesai.bakeries.fluid.BakeriesFluids;
 import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -57,7 +56,7 @@ public class BakeriesBlocks {
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
         BROWN_SUGAR_ROLL = BLOCK_REGISTRY.register("brown_sugar_roll", PileBlock::new);
         COUNTRY_BREAD = BLOCK_REGISTRY.register("country_bread", () ->
-                new CountryBread(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
+                new CountryBreadBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
         CROISSANT = BLOCK_REGISTRY.register("croissant", PileBlock::new);
         PINEAPPLE_BUN = BLOCK_REGISTRY.register("pineapple_bun", PileBlock::new);
         ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);

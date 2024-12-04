@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.api.Shortcuts;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -67,7 +68,7 @@ public class MouldBlock extends HorizontalDirectionalBlock {
         int pile = state.getValue(PILE);
         int use = state.getValue(USE);
         if (pile < 2 && use == 2) {
-            level.setBlock(pos, state.setValue(PILE, pile + 1), 2);
+            Shortcuts.setBlock(level,pos,state,PILE,pile,1);
             level.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }return InteractionResult.FAIL;
@@ -77,12 +78,12 @@ public class MouldBlock extends HorizontalDirectionalBlock {
         int use = state.getValue(USE);
         int pile = state.getValue(PILE);
         if (use == 2 && pile == 1){
-            level.setBlock(pos, state.setValue(USE, use - 1), 2);
-            player.getInventory().placeItemBackInInventory(new ItemStack(this.demouldItem.get()));
+            Shortcuts.setBlock(level,pos,state,USE,use,1,true);
+            Shortcuts.giveItem(player,this.demouldItem.get());
             level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }else if (use == 1 && pile == 1){
             level.removeBlock(pos,false);
-            player.getInventory().placeItemBackInInventory(new ItemStack(BakeriesItems.MOULD.get()));
+            Shortcuts.giveItem(player,BakeriesItems.MOULD.get());
             level.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }return InteractionResult.SUCCESS;
     }
