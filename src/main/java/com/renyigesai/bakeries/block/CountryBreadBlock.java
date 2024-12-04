@@ -34,9 +34,9 @@ public class CountryBreadBlock extends HorizontalDirectionalBlock {
      * Since the Country Bread is just a simple Block, his Item does not need to be edible.
      * */
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
-    protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);//待更改
-    protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);//待更改
-    protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
+    protected static final VoxelShape X_BOX = Block.box(5.0D, 0.0D, 4.0D, 11.0D, 4.0D, 12.0D);//待更改
+    protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 5.0D, 12.0D, 4.0D, 11.0D);//待更改
+    protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
 
     public CountryBreadBlock(Properties pProperties) {
         super(pProperties);
