@@ -6,21 +6,22 @@ import net.minecraft.world.item.ItemStack;
 
 public class FlourSieveHardRecipe implements HardRecipe {
 
-    public final Item input;
-    public final Item output;
 
-    public FlourSieveHardRecipe(Item input, Item output) {
+    public final ItemStack input;
+    public final ItemStack output;
+
+    public FlourSieveHardRecipe(ItemStack input, ItemStack output) {
         this.input = input;
         this.output = output;
     }
 
     @Override
     public ItemStack getinput() {
-        return new ItemStack(this.input);
+        return new ItemStack(this.input.getItem());
     }
 
     @Override
     public ItemStack getoutput() {
-        return new ItemStack(this.output);
+        return new ItemStack(this.output.getItem());
     }
 }

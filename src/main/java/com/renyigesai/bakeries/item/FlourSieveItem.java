@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.item;
 
-import com.renyigesai.bakeries.init.BakeriesItemTag;
-import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
+import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveHardRecipeList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -15,24 +14,30 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
-
+//测试代码，原来的代码在 _FlourSieveItem.java里
 public class FlourSieveItem extends Item {
+
+    private ItemStack outputItem;
+
     public FlourSieveItem(Properties pProperties) {
         super(pProperties);
     }
+
     @Override
     public SoundEvent getEatingSound() {return SoundEvents.SAND_BREAK;}
-    public SoundEvent getDrinkingSound() {
-        return SoundEvents.SAND_BREAK;
-    }
+    @Override
+    public SoundEvent getDrinkingSound() {return SoundEvents.SAND_BREAK;}
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack mainHandItem = pPlayer.getMainHandItem();
-
-        if (mainHandItem.is(BakeriesItemTag.FLOUR)){
-            pPlayer.startUsingItem(pUsedHand);
-            return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
+        FlourSieveHardRecipeList FlourSieveRecipe = new FlourSieveHardRecipeList();
+        for (int i = 0; i < FlourSieveRecipe.getFlourSieveRecipe().size() ; i++) {
+            if (mainHandItem.is(FlourSieveRecipe.getFlourSieveRecipe().get(i).getinput().getItem())){
+                outputItem = FlourSieveRecipe.getFlourSieveRecipe().get(i).getoutput();
+                pPlayer.startUsingItem(pUsedHand);
+                return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
+            }
         }
         return super.use(pLevel, pPlayer, pUsedHand);
     }
@@ -41,33 +46,10 @@ public class FlourSieveItem extends Item {
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         Player player = (Player)pLivingEntity;
         ItemStack mainHandItem = player.getMainHandItem();
-        FlourSieveRecipe recipe =getCurrentRecipe(player,pLevel);
-        if (hasRecipe(player, pLevel)) {
             mainHandItem.shrink(1);
-            player.getInventory().placeItemBackInInventory(recipe.getResultItem(null));
+            player.getInventory().placeItemBackInInventory(outputItem);
             pStack.hurt(1, RandomSource.create(), null);
-        }
-
-
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
-    }
-    public boolean hasRecipe(Player player, Level pLevel) {
-        FlourSieveRecipe recipe = getCurrentRecipe(player, pLevel);
-        return recipe != null&& recipe.getIngredients().get(0).test(player.getMainHandItem());
-    }
-    public FlourSieveRecipe getCurrentRecipe(Player player, Level pLevel) {
-        SimpleContainer inventory = new SimpleContainer(1);
-        inventory.setItem(0, player.getMainHandItem()); // 使用玩家的主手物品
-        Optional<FlourSieveRecipe> recipe = pLevel.getRecipeManager().getRecipeFor(FlourSieveRecipe.Type.INSTANCE, inventory, pLevel);
-        FlourSieveRecipe flourSieveRecipe = null;
-        if (recipe.isPresent()) {
-            flourSieveRecipe = recipe.get();
-            player.displayClientMessage(Component.literal("Found recipe: " + flourSieveRecipe.getResultItem(null).getItem().toString()), false);
-        } else {
-            player.displayClientMessage(Component.literal("No recipe found"), true);
-        }
-
-        return flourSieveRecipe;
     }
 
     @Override

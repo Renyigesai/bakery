@@ -22,7 +22,7 @@ public class Shortcuts {
         plevel.setBlock(pos, state.setValue(pProperty, pValue - level), 3);
     }
 
-    public static void giveItem(Player player, ItemLike item){
+    public static void givePlayerItem(Player player, ItemLike item){
         player.getInventory().placeItemBackInInventory(new ItemStack(item));
     }
 

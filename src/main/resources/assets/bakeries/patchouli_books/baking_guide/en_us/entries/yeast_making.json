@@ -4,7 +4,17 @@
   "category": "bakeries:bread_making_process",
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "patchouli:multiblock",
+      "name": "block.bakeries.yeast_tank",
+      "multiblock": {
+        "mapping": {
+          "G": "bakeries:yeast_tank"
+        },
+        "pattern":  [
+          ["G"],
+          ["0"]
+        ]
+      },
       "text": "guide.bakeries.entries.yeast_making.descr"
     },
     {

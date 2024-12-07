@@ -57,7 +57,7 @@ public class MilkTankBlock extends TankBlock {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
         hand.shrink(1);
-        Shortcuts.giveItem(playerIn,BakeriesItems.BOTTLE_MILK.get());
+        Shortcuts.givePlayerItem(playerIn,BakeriesItems.BOTTLE_MILK.get());
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
@@ -68,7 +68,7 @@ public class MilkTankBlock extends TankBlock {
         if (milk < 3){
             Shortcuts.setBlock(level,pos,state,MILK,milk,1);
             hand.shrink(1);
-            Shortcuts.giveItem(playerIn,BakeriesItems.BOTTLE_MILK.get());
+            Shortcuts.givePlayerItem(playerIn,BakeriesItems.BOTTLE_MILK.get());
         }return InteractionResult.SUCCESS;
     }
 
