@@ -4,6 +4,11 @@
   "category": "bakeries:bread_making_process",
   "pages": [
     {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:fermentation_tank",
+      "text": "guide.bakeries.entries.yeast_making.descr"
+    },
+    {
       "type": "patchouli:multiblock",
       "name": "block.bakeries.yeast_tank",
       "multiblock": {
@@ -14,12 +19,8 @@
           ["G"],
           ["0"]
         ]
-      },
-      "text": "guide.bakeries.entries.yeast_making.descr"
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bakeries:fermentation_tank"
+      }
+
     }
   ]
 }

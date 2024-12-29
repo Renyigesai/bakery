@@ -1,0 +1,15 @@
+{
+  "name": "item.bakeries.flour_sieve",
+  "icon": "bakeries:flour_sieve",
+  "category": "bakeries:baking_utensil",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.flour_sieve"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:flour_sieve"
+    }
+  ]
+}

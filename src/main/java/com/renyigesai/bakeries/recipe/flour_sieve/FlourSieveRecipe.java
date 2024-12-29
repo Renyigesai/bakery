@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.recipe.flour_sieve;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
@@ -11,14 +10,13 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class FlourSieveRecipe implements Recipe<Container> {
-    @Getter
+public class FlourSieveRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     /**主料*/
     final NonNullList<Ingredient> ingredient;//主料
@@ -28,24 +26,43 @@ public class FlourSieveRecipe implements Recipe<Container> {
         this.ingredient = pIngredient;
         this.result = pResult;
     }
-    @Override
-    public boolean matches(Container pContainer, Level pLevel) {
-        for (int i = 0; i < pContainer.getContainerSize(); i++) {
-            ItemStack slotItem = pContainer.getItem(i);
-            if (!slotItem.isEmpty() && slotItem.equals(this.ingredient)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
-        return this.result.copy();
-    }
+//    @Override
+//    public boolean matches(Container pContainer, Level pLevel) {
+//        for (int i = 0; i < pContainer.getContainerSize(); i++) {
+//            ItemStack slotItem = pContainer.getItem(i);
+//            if (!slotItem.isEmpty() && slotItem.equals(this.ingredient)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//    @Override
+//    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+//        return this.result.copy();
+//    }
     @Override
     public NonNullList<Ingredient> getIngredients() {
         return ingredient;
     }
+
+    @Override
+    public ResourceLocation getId() {
+        return id;
+    }
+
+    @Override
+    public boolean matches(SimpleContainer pContainer, Level pLevel) {
+        if (pLevel.isClientSide){
+            return false;
+        }
+        return ingredient.get(0).test(pContainer.getItem(0));
+    }
+
+    @Override
+    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
+        return result.copy();
+    }
+
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;
@@ -74,12 +91,12 @@ public class FlourSieveRecipe implements Recipe<Container> {
         private static final ResourceLocation NAME = new ResourceLocation(BakeriesMod.MODID, "flour_sieve");
         @Override
         public FlourSieveRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient");
             NonNullList<Ingredient> ingredient = NonNullList.withSize(1, Ingredient.EMPTY);
             for (int i = 0; i < ingredients.size(); i++) {
                 ingredient.add(i, Ingredient.fromJson(ingredients.get(i)));
             }
-            ItemStack result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
             return new FlourSieveRecipe(pRecipeId, ingredient, result);
         }
         @Override

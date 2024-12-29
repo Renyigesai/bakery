@@ -1,8 +1,11 @@
 {
-  "name": "My First Book!",
+  "name": "item.bakeries.baking_guide",
   "landing_text": "Welcome to Patchouli",
   "version": 1,
   "creative_tab": "minecraft:tools_and_utilities",
   "use_resource_pack": true,
-  "i18n": true
+  "i18n": true,
+  "macros": {
+    "$(gold)": "$(#FFAA00)"
+  }
 }
