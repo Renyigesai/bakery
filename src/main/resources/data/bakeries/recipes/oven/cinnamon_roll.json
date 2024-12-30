@@ -2,11 +2,11 @@
   "type": "bakeries:oven",
   "ingredient":  [
     {
-      "item": "bakeries:cinnamon_roll_dough"
+      "item": "bakeries:brown_sugar_roll_dough"
     }
   ],
   "output": {
-    "item": "bakeries:cinnamon_roll",
+    "item": "bakeries:brown_sugar_roll",
     "count": 1
   },
   "time": 300,

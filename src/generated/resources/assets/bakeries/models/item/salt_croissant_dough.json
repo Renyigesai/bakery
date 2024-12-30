@@ -2,6 +2,6 @@
   "parent": "bakeries:custom/salt_croissant_1",
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakeries:item/raw_dough"
+    "0": "bakeries:item/salt_croissant_dough"
   }
 }

@@ -1,7 +1,7 @@
 {
 	"parent": "bakeries:custom/bagel_1",
 	"textures": {
-		"0": "bakeries:block/bagel_dough",
-		"particle": "bakeries:block/bagel_dough"
+		"0": "bakeries:item/bagel_dough",
+		"particle": "bakeries:item/bagel_dough"
 	}
 }
