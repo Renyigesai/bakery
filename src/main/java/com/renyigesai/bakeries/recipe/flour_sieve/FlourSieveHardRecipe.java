@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.recipe.flour_sieve;
 
 import com.renyigesai.bakeries.api.HardRecipe;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class FlourSieveHardRecipe implements HardRecipe {

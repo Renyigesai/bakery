@@ -10,6 +10,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -17,10 +18,14 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class DoughCraftingTableBlock extends Block {
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final Component DOUCH_CRAFTING_TABLE_TITLE = Component.translatable("container.dough_crafting_table");
     public DoughCraftingTableBlock() {
         super(BlockBehaviour.Properties.of().strength(2.5f, 10f).sound(SoundType.WOOD).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
@@ -33,6 +38,14 @@ public class DoughCraftingTableBlock extends Block {
          pPlayer.awardStat(Stats.INTERACT_WITH_LOOM);
          return InteractionResult.CONSUME;
       }
+   }
+   @Override
+   public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+      return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
+   }
+   @Override
+   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+      builder.add(FACING);
    }
    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
       return new SimpleMenuProvider((p_54783_, p_54784_, p_54785_) -> {
