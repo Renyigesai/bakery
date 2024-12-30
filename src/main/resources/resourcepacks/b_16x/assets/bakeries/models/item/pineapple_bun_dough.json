@@ -1,0 +1,7 @@
+{
+	"parent": "bakeries:custom/pineapple_bun_1",
+	"textures": {
+		"1": "bakeries:item/pineapple_bun_dough",
+		"particle": "bakeries:item/pineapple_bun_dough"
+	}
+}

@@ -71,6 +71,10 @@ public class BakeriesMod {
         });
     }
 
+    public static ResourceLocation asResource(String path) {
+        return new ResourceLocation(MODID, path);
+    }
+
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
