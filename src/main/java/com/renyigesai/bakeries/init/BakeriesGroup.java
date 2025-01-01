@@ -51,6 +51,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.TOAST.get());
                         output.accept(BakeriesItems.SLICED_TOAST.get());
                         output.accept(BakeriesItems.BAGUETTE.get());
+                        output.accept(BakeriesItems.CIABATTA.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());
                     }))
@@ -74,6 +75,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SALT_CROISSANT_DOUGH.get());
                         output.accept(BakeriesItems.MOULD_TOAST_DOUGH.get());
                         output.accept(BakeriesItems.BAGUETTE_DOUGH.get());
+                        output.accept(BakeriesItems.CIABATTA_DOUGH.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_DOUGH.get());
                     }))
                     .build());

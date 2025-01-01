@@ -10,6 +10,7 @@
     "bakeries:round_bread_dough",
     "bakeries:berry_bread_dough",
     "bakeries:salt_croissant_dough",
-    "bakeries:mould_toast_dough"
+    "bakeries:mould_toast_dough",
+    "bakeries:ciabatta_dough"
   ]
 }

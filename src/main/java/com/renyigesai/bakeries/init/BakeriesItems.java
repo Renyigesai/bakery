@@ -43,6 +43,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BROWN_SUGAR_ROLL;
     public static final RegistryObject<Item> COUNTRY_BREAD;
     public static final RegistryObject<Item> CROISSANT;
+    public static final RegistryObject<Item> CIABATTA;
     public static final RegistryObject<Item> PINEAPPLE_BUN;
     public static final RegistryObject<Item> ROUND_BREAD;
     public static final RegistryObject<Item> SALT_CROISSANT;
@@ -75,6 +76,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> WOOD_COUNTER;
     public static final RegistryObject<Item> PASTRY;
     public static final RegistryObject<Item> COUNTRY_BREAD_SLICE;
+    public static final RegistryObject<Item> CIABATTA_DOUGH;
 
     static {
         FLOUR = item("flour");
@@ -119,6 +121,7 @@ public class BakeriesItems {
         RAW_SALT_BLOCK = block(BakeriesBlocks.RAW_SALT_BLOCK);
         WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
         PASTRY= item("pastry");
+        CIABATTA_DOUGH = rawItem("ciabatta_dough","210");
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
@@ -127,6 +130,7 @@ public class BakeriesItems {
         BROWN_SUGAR_ROLL = foodBlockItem(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true);
         COUNTRY_BREAD = block(BakeriesBlocks.COUNTRY_BREAD);
         CROISSANT = foodBlockItem(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT);
+        CIABATTA = foodBlockItem(BakeriesBlocks.CIABATTA, BakeriesFoodProperties.CIABATTA);
         PINEAPPLE_BUN = foodBlockItem(BakeriesBlocks.PINEAPPLE_BUN,BakeriesFoodProperties.PINEAPPLE_BUN,true);
         ROUND_BREAD = foodBlockItem(BakeriesBlocks.ROUND_BREAD,BakeriesFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeriesBlocks.SALT_CROISSANT,BakeriesFoodProperties.SALT_CROISSANT,true);
