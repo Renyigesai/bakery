@@ -60,6 +60,7 @@ public class BakeriesBlocks {
         COUNTRY_BREAD = BLOCK_REGISTRY.register("country_bread", () ->
                 new CountryBreadBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
         CROISSANT = BLOCK_REGISTRY.register("croissant", PileBlock::new);
+        CIABATTA = BLOCK_REGISTRY.register("ciabatta",PileBlock::new);
         PINEAPPLE_BUN = BLOCK_REGISTRY.register("pineapple_bun", PileBlock::new);
         ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);

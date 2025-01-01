@@ -12,6 +12,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties BROWN_SUGAR_ROLL;
     public static final FoodProperties COUNTRY_BREAD;
     public static final FoodProperties CROISSANT;
+    public static final FoodProperties CIABATTA;
     public static final FoodProperties PINEAPPLE_BUN;
     public static final FoodProperties ROUND_BREAD;
     public static final FoodProperties SALT_CROISSANT;
@@ -50,6 +51,8 @@ public class BakeriesFoodProperties {
         BERRY_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.7f).build();
 
         COUNTRY_BREAD_SLICE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).fast().build();
+        CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
         CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
 

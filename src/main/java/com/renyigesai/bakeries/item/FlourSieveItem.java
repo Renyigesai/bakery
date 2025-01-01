@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+//测试代码，原来的代码在 _FlourSieveItem.java里
 public class FlourSieveItem extends Item {
 
     private ItemStack outputItem;
@@ -45,9 +46,9 @@ public class FlourSieveItem extends Item {
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         Player player = (Player)pLivingEntity;
         ItemStack mainHandItem = player.getMainHandItem();
-        mainHandItem.shrink(1);
-        player.getInventory().placeItemBackInInventory(outputItem);
-        pStack.hurt(1, RandomSource.create(), null);
+            mainHandItem.shrink(1);
+            player.getInventory().placeItemBackInInventory(outputItem);
+            pStack.hurt(1, RandomSource.create(), null);
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 
