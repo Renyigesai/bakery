@@ -195,7 +195,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
                 if (currentProgress >= recipe.get().getTime()) {
                     if (temperature <= Math.min(recipe.get().getMax_temperature(), 500)) {
                         boolean perfect = temperature == recipe.get().getPerfect_temperature ();
-                        ovenBlockEntity.craftItem(ovenBlockEntity, slot, perfect, recipe.get().getPerfect_temperature ());
+                        ovenBlockEntity.craftItem(ovenBlockEntity, slot, perfect);
                     } else if (temperature > Math.min(recipe.get().getMax_temperature(), 500)) {
                         ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
                     }

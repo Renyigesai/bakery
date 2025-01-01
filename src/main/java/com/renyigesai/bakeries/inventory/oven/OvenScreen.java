@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -57,10 +56,10 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     }
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity) {
-            String A = new DecimalFormat("##.##").format(this.getMenu().data.get(0));
-            pGuiGraphics.drawString(font, A, 140, 50, 4210752, false);
-        }
+//        if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity) {
+//            String A = new DecimalFormat("##.##").format(this.getMenu().data.get(0));
+//            pGuiGraphics.drawString(font, A, 140, 50, 4210752, false);
+//        }
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY);
     }
 
