@@ -7,5 +7,6 @@
   "i18n": true,
   "macros": {
     "$(gold)": "$(#FFAA00)"
-  }
+  },
+  "model": "bakeries:baking_guide"
 }

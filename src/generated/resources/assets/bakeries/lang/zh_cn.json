@@ -60,6 +60,7 @@
   "item.bakeries.baking_guide": "烘焙教程书",
   "block.bakeries.mould_toast": "吐司",
   "block.bakeries.raw_salt_block": "粗盐块",
+  "block.bakeries.tips.wood_counter": "使用碗右键方块以改变状态",
   "entity.generic.shake": "摇晃",
   "entity.minecraft.villager.bakeries.pistrinamaster": "面包师",
   "item.bakeries.tips.perfect_temperature": "§l完美火候",
@@ -95,7 +96,7 @@
   "guide.bakeries.descr.mould": "制作一些拥有特殊形状的食物，你可能会需要用到他们",
   "advancements.bakeries_root.title": "烘焙坊",
   "advancements.bakeries_root.descr": "精致烘焙。",
-  "advancements.sieving.title": "过筛",
+  "advancements.sieving.title": "唰唰唰!!",
   "advancements.sieving.descr": "获得一个面粉筛。",
   "advancements.start_the_experiment.title": "开始实验吧",
   "advancements.start_the_experiment.descr": "获得一个发酵罐",
@@ -104,5 +105,7 @@
   "advancements.precise_temperature_control.title": "精确控温",
   "advancements.precise_temperature_control.descr": "使用烤箱。",
   "advancements.perfect_temperature.title": "完美温度",
-  "advancements.perfect_temperature.descr": "用更加精准的温度烤制，食物会更加可口。"
+  "advancements.perfect_temperature.descr": "用更加精准的温度烤制，食物会更加可口。",
+  "advancements.rough_flavor.title": "粗犷风味",
+  "advancements.rough_flavor.descr": "用小麦制作全麦面粉。"
 }

@@ -48,6 +48,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> MOULD_TOAST;
     public static final RegistryObject<Block> RAW_SALT_BLOCK;
     public static final RegistryObject<Block> WOOD_COUNTER;
+    public static final RegistryObject<Block> TOMATO;
 
 
 
@@ -67,7 +68,6 @@ public class BakeriesBlocks {
         TOAST = BLOCK_REGISTRY.register("toast", () ->
                 new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_TOAST));
         BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
-        CIABATTA = BLOCK_REGISTRY.register("ciabatta", PileBlock::new);
         //common
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
         DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", DoughCraftingTableBlock::new);
@@ -83,8 +83,6 @@ public class BakeriesBlocks {
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops(), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
-//        SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", () ->
-//                new LiquidBlock(BakeriesFluids.SALT_WATER,BlockBehaviour.Properties.copy(Blocks.WATER)));
         SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", SaltWaterFluidsBlock::new);
         MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->
                 new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
@@ -92,6 +90,9 @@ public class BakeriesBlocks {
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         WOOD_COUNTER = BLOCK_REGISTRY.register("wood_counter", () ->
                 new WoodCounterBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+        TOMATO = BLOCK_REGISTRY.register("tomato",() ->
+                new TomatoBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
+
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));

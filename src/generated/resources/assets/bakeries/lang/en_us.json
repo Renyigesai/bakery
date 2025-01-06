@@ -62,6 +62,7 @@
   "item.bakeries.country_bread_slice": "Country Bread Slice",
   "block.bakeries.mould_toast": "Toast",
   "block.bakeries.raw_salt_block": "Salt Block",
+  "block.bakeries.tips.wood_counter": "Use Bowl to Change State",
   "entity.generic.shake": "Shake",
   "entity.minecraft.villager.bakeries.pistrinamaster": "Pistrina Master",
   "item.bakeries.tips.shake": "Right Shake",
@@ -104,5 +105,7 @@
   "advancements.precise_temperature_control.title": "Precise Temperature Control",
   "advancements.precise_temperature_control.descr": "In the oven",
   "advancements.perfect_temperature.title": "Perfect Temperature",
-  "advancements.perfect_temperature.descr": "With a more precise temperature, the food will be more delicious."
+  "advancements.perfect_temperature.descr": "With a more precise temperature, the food will be more delicious.",
+  "advancements.rough_flavor.title": "Rough Flavor",
+  "advancements.rough_flavor.descr": "Wheat is used to make whole wheat flour."
 }

@@ -2,6 +2,7 @@
   "name": "guide.bakeries.entries.baked_bread",
   "icon": "bakeries:oven",
   "category": "bakeries:bread_making_process",
+  "sortnum": 3,
   "pages": [
     {
       "type": "patchouli:text",
