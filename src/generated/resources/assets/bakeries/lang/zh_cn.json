@@ -61,6 +61,8 @@
   "block.bakeries.mould_toast": "吐司",
   "block.bakeries.raw_salt_block": "粗盐块",
   "block.bakeries.tips.wood_counter": "使用碗右键方块以改变状态",
+  "block.bakeries.black_white_concrete": "黑白混凝土",
+  "block.bakeries.bread_basket": "面包筐",
   "entity.generic.shake": "摇晃",
   "entity.minecraft.villager.bakeries.pistrinamaster": "面包师",
   "item.bakeries.tips.perfect_temperature": "§l完美火候",

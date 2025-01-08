@@ -77,7 +77,10 @@ public class BakeriesItems {
     public static final RegistryObject<Item> PASTRY;
     public static final RegistryObject<Item> COUNTRY_BREAD_SLICE;
     public static final RegistryObject<Item> CIABATTA_DOUGH;
+    public static final RegistryObject<Item> BLACK_WHITE_CONCRETE;
+    public static final RegistryObject<Item> BREAD_BASKET;
     public static final RegistryObject<Item> TOMATO;
+
 
     static {
         FLOUR = item("flour");
@@ -123,6 +126,8 @@ public class BakeriesItems {
         WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
         PASTRY= item("pastry");
         CIABATTA_DOUGH = rawItem("ciabatta_dough","210");
+        BLACK_WHITE_CONCRETE = block(BakeriesBlocks.BLACK_WHITE_CONCRETE);
+        BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         TOMATO = REGISTER.register("tomato",()->new ItemNameBlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties()));
 
         //Bread Items

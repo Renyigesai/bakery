@@ -3,6 +3,8 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.block.*;
+import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlock;
+import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlockEntity;
 import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
@@ -48,6 +50,9 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> MOULD_TOAST;
     public static final RegistryObject<Block> RAW_SALT_BLOCK;
     public static final RegistryObject<Block> WOOD_COUNTER;
+    public static final RegistryObject<Block> BLACK_WHITE_CONCRETE;
+    public static final RegistryObject<Block> BREAD_BASKET;
+    public static final RegistryObject<BlockEntityType<BreadBasketBlockEntity>> BREAD_BASKET_ENTITY;
     public static final RegistryObject<Block> TOMATO;
 
 
@@ -90,12 +95,18 @@ public class BakeriesBlocks {
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         WOOD_COUNTER = BLOCK_REGISTRY.register("wood_counter", () ->
                 new WoodCounterBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+        BLACK_WHITE_CONCRETE = BLOCK_REGISTRY.register("black_white_concrete",() ->
+                new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_CONCRETE)));
+        BREAD_BASKET = BLOCK_REGISTRY.register("bread_basket",() ->
+                new BreadBasketBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.0F,0.0F)));
         TOMATO = BLOCK_REGISTRY.register("tomato",() ->
                 new TomatoBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
 
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
+        BREAD_BASKET_ENTITY = BLOCK_ENTITY_REGISTRY.register("bread_basket",() -> BlockEntityType.Builder.of(BreadBasketBlockEntity::new, BREAD_BASKET.get()).build(null));
+
     }
 
 }
