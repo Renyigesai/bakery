@@ -6,7 +6,6 @@ import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.key.BakeriesKeyMapping;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -75,24 +74,19 @@ public class FoodBlockItem extends ItemNameBlockItem {
         boolean isPile = handStack.is(asItem());
         if(block instanceof PileBlock){
             if (!level.isClientSide) {
-                if (isPile && Screen.hasShiftDown()) {
+                if (isPile && BakeriesKeyMapping.place.consumeClick()) {
                     return pileUp(level, pos, state, handStack);
-
                 }
             }
-            if (isPile && Screen.hasShiftDown()) {
-                return pileUp(level, pos, state, handStack);
-            }
+//            if (isPile && Screen.hasShiftDown()) {
+//                return pileUp(level, pos, state, handStack);
+//            }
         }
         return super.useOn(context);
     }
     @Override
     protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
-        if(BakeriesKeyMapping.place.consumeClick()) {
-            return super.placeBlock(pContext, pState);
-        }else {
-            return false;
-        }
+        return BakeriesKeyMapping.place.consumeClick();
     }
 
     public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
