@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east,fill=false,shape=one_shape": {"model": "bakeries:block/bread_baske1", "y": 270},
+    "facing=east,fill=false,shape=two_shape": {"model": "bakeries:block/bread_baske1", "y": 270},
+    "facing=east,fill=true,shape=one_shape": {"model": "bakeries:block/bread_baske_full1", "y": 270},
+    "facing=east,fill=true,shape=two_shape": {"model": "bakeries:block/bread_baske_full1", "y": 270},
+
+    "facing=north,fill=false,shape=one_shape": {"model": "bakeries:block/bread_baske1", "y": 180},
+    "facing=north,fill=false,shape=two_shape": {"model": "bakeries:block/bread_baske1", "y": 180},
+    "facing=north,fill=true,shape=one_shape": {"model": "bakeries:block/bread_baske_full1", "y": 180},
+    "facing=north,fill=true,shape=two_shape": {"model": "bakeries:block/bread_baske_full1", "y": 180},
+
+    "facing=south,fill=false,shape=one_shape": {"model": "bakeries:block/bread_baske1"},
+    "facing=south,fill=false,shape=two_shape": {"model": "bakeries:block/bread_baske1"},
+    "facing=south,fill=true,shape=one_shape": {"model": "bakeries:block/bread_baske_full1"},
+    "facing=south,fill=true,shape=two_shape": {"model": "bakeries:block/bread_baske_full1"},
+
+    "facing=west,fill=false,shape=one_shape": {"model": "bakeries:block/bread_baske1", "y": 90},
+    "facing=west,fill=false,shape=two_shape": {"model": "bakeries:block/bread_baske1", "y": 90},
+    "facing=west,fill=true,shape=one_shape": {"model": "bakeries:block/bread_baske_full1", "y": 90},
+    "facing=west,fill=true,shape=two_shape": {"model": "bakeries:block/bread_baske_full1", "y": 90}
+  }
+}
