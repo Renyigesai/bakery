@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
@@ -76,7 +76,7 @@ public class CountryBreadBlock extends HorizontalDirectionalBlock {
 //        }
 //        Direction direction = playerIn.getDirection().getOpposite();
         Shortcuts.spawnItemEntity(level, new ItemStack(BakeriesItems.COUNTRY_BREAD_SLICE.get(),6), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
-                0.0, 0.0, 0.0);
+                new Vec3(0.0, 0.0, 0.0));
         level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }

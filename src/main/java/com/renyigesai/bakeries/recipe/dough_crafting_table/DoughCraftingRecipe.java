@@ -65,10 +65,6 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
         return new ItemStack(BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
     }
 
-    @Override
-    public ResourceLocation getId() {
-        return id;
-    }
 
     public static class Type implements RecipeType<DoughCraftingRecipe> {
         private Type() {

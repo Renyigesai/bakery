@@ -19,6 +19,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties SLICED_TOAST;
     public static final FoodProperties BERRY_BREAD;
     public static final FoodProperties COUNTRY_BREAD_SLICE;
+//    public static final FoodProperties CIABATTA;
 
     static {
         BAGEL = new FoodProperties.Builder().nutrition(4).saturationMod(1.25f).build();
@@ -51,6 +52,10 @@ public class BakeriesFoodProperties {
 
         COUNTRY_BREAD_SLICE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).fast().build();
         CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
+//        CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
+
     }
 
 //    public static class EffectPropertie{

@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.api.Shortcuts;
+import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -20,12 +21,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class MilkTankBlock extends TankBlock {
 
-    public static final IntegerProperty MILK = IntegerProperty.create("milk", 0, 3);
+    public static final ModIntegerProperty MILK = ModIntegerProperty.create("milk", 0, 3);
     public static final BooleanProperty SWEET_BERRIES = BooleanProperty.create("sweet_berries");
 
     public MilkTankBlock(Properties pProperties) {
@@ -52,7 +52,7 @@ public class MilkTankBlock extends TankBlock {
         ItemStack hand = playerIn.getItemInHand(pHand);
         int milk = state.getValue(MILK);
         if (milk > 1){
-            Shortcuts.setBlock(level,pos,state,MILK,milk,1,true);
+            Shortcuts.setBlock(level,pos,state,MILK,1,false);
         }else {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
@@ -66,7 +66,7 @@ public class MilkTankBlock extends TankBlock {
         ItemStack hand = playerIn.getItemInHand(pHand);
         int milk = state.getValue(MILK);
         if (milk < 3){
-            Shortcuts.setBlock(level,pos,state,MILK,milk,1);
+            Shortcuts.setBlock(level,pos,state,MILK,1,true);
             hand.shrink(1);
             Shortcuts.givePlayerItem(playerIn,BakeriesItems.BOTTLE_MILK.get());
         }return InteractionResult.SUCCESS;

@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.api.Shortcuts;
+import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -24,11 +25,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class FermentationTankBlock extends TankBlock {
-    public static final IntegerProperty FLOUR = IntegerProperty.create("flour", 0, 3);
+    public static final ModIntegerProperty FLOUR = ModIntegerProperty.create("flour", 0, 3);
     public static final BooleanProperty WATER = BooleanProperty.create("water");
 
     public FermentationTankBlock(Properties pProperties) {
@@ -56,7 +56,7 @@ public class FermentationTankBlock extends TankBlock {
     public static InteractionResult fillFlour(Level level, BlockPos pos, BlockState state, Player playerIn, InteractionHand pHand){
         ItemStack handStack = playerIn.getItemInHand(pHand);
         int flour = state.getValue(FLOUR);
-        Shortcuts.setBlock(level,pos,state,FLOUR,flour,1);
+        Shortcuts.setBlock(level,pos,state,FLOUR,1,true);
         handStack.shrink(1);
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;

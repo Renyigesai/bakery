@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.api.Shortcuts;
+import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -15,12 +16,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class YeastTankBlock extends TankBlock {
 
-    public static final IntegerProperty YEAST = IntegerProperty.create("yeast", 0, 3);
+    public static final ModIntegerProperty YEAST = ModIntegerProperty.create("yeast", 0, 3);
 
     public YeastTankBlock(Properties pProperties) {
         super(pProperties);
@@ -42,7 +42,7 @@ public class YeastTankBlock extends TankBlock {
         ItemStack hand = playerIn.getItemInHand(pHand);
         int yeast = state.getValue(YEAST);
         if (yeast > 1){
-            Shortcuts.setBlock(level,pos,state,YEAST,yeast,1,true);
+            Shortcuts.setBlock(level,pos,state,YEAST,1,false);
         }else {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }

@@ -17,6 +17,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -27,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
-public class BLanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
+public class BLanguageProvider extends LanguageProvider {
     private final Map<String,String> enData = new TreeMap<>();
     private final Map<String,String> cnData = new TreeMap<>();
     private final PackOutput output;

@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.api.Shortcuts;
+import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
@@ -33,7 +35,7 @@ import java.util.function.Supplier;
 * Since the toast is just a simple Block, his Item does not need to be edible.
 * */
 public class ToastBlock extends HorizontalDirectionalBlock {
-    public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
+    public static final ModIntegerProperty PILE = ModIntegerProperty.create("pile",1,2);
     public static final IntegerProperty SLICE = IntegerProperty.create("slice",1,4);
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
     protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
@@ -79,7 +81,7 @@ public class ToastBlock extends HorizontalDirectionalBlock {
 
         Direction direction = playerIn.getDirection().getOpposite();
         Shortcuts.spawnItemEntity(level, this.getSliceItem(), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
-                direction.getStepX() * 0.15, 0.05, direction.getStepZ() * 0.15);
+               new Vec3(direction.getStepX() * 0.15, 0.05, direction.getStepZ() * 0.15));
 
         level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
@@ -87,7 +89,7 @@ public class ToastBlock extends HorizontalDirectionalBlock {
 
     protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state, Player playerIn){
         int pile = state.getValue(PILE);
-        Shortcuts.setBlock(level,pos,state,PILE,pile,1);
+        Shortcuts.setBlock(level,pos,state,PILE,1,true);
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }

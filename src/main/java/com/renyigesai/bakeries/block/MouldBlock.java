@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.api.Shortcuts;
+import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +22,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -31,8 +31,8 @@ import java.util.function.Supplier;
 public class MouldBlock extends HorizontalDirectionalBlock {
 
     public final Supplier<Item> demouldItem;
-    public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
-    public static final IntegerProperty USE = IntegerProperty.create("use",1,2);
+    public static final ModIntegerProperty PILE = ModIntegerProperty.create("pile",1,2);
+    public static final ModIntegerProperty USE = ModIntegerProperty.create("use",1,2);
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
     protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
@@ -68,7 +68,7 @@ public class MouldBlock extends HorizontalDirectionalBlock {
         int pile = state.getValue(PILE);
         int use = state.getValue(USE);
         if (pile < 2 && use == 2) {
-            Shortcuts.setBlock(level,pos,state,PILE,pile,1);
+            Shortcuts.setBlock(level,pos,state,PILE,1, true);
             level.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }return InteractionResult.FAIL;
@@ -78,7 +78,7 @@ public class MouldBlock extends HorizontalDirectionalBlock {
         int use = state.getValue(USE);
         int pile = state.getValue(PILE);
         if (use == 2 && pile == 1){
-            Shortcuts.setBlock(level,pos,state,USE,use,1,true);
+            Shortcuts.setBlock(level,pos,state,USE,1,false);
             Shortcuts.givePlayerItem(player,this.demouldItem.get());
             level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }else if (use == 1 && pile == 1){
