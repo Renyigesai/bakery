@@ -46,7 +46,7 @@ public class BreadBasketBlockEntity extends RandomizableContainerBlockEntity {
     };
 
     public BreadBasketBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.BREAD_BASKET_ENTITY.get(),pPos,pBlockState);
+        super(BakeriesBlocks.BREAD_BASKET_BLOCK_ENTITY.get(),pPos,pBlockState);
     }
 
     @Override

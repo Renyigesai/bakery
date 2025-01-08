@@ -60,7 +60,7 @@ public class BreadBasketBlock extends BaseEntityBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.BREAD_BASKET_ENTITY.get(),
+        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.BREAD_BASKET_BLOCK_ENTITY.get(),
                 BreadBasketBlockEntity::serverTick);
     }
 

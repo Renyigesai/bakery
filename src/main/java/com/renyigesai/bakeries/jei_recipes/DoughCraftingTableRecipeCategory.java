@@ -37,6 +37,7 @@ public class DoughCraftingTableRecipeCategory implements IRecipeCategory<DoughCr
 
 
 
+	@SuppressWarnings("removal")
 	@Override
 	public IDrawable getBackground() {
 		return this.background;
