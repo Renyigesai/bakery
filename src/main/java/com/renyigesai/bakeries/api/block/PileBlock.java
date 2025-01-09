@@ -7,13 +7,17 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -42,6 +46,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
 //        SHAPE = Objects.requireNonNullElseGet(box, () -> Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PILE, 1));
     }
+
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
         return adjacentBlockState.getBlock() == this ? true : super.skipRendering(state, adjacentBlockState, side);
@@ -52,49 +57,6 @@ public class PileBlock extends HorizontalDirectionalBlock {
         return SHAPE;
     }
 
-
-//    @Override
-//    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-//        ItemStack handItem = pPlayer.getItemInHand(pHand);
-//        Block block = pState.getBlock();
-//        if (pLevel.isClientSide) {
-//            if (!Screen.hasShiftDown()) {
-//                if (handItem.getItem() == block.asItem()) {return pileUp(pLevel, pPos, pState, pPlayer, pHand);}
-//            }else {return take(pLevel, pPos, pState, pPlayer);}
-//        }
-//
-//        if (!Screen.hasShiftDown()) {
-//            if (handItem.getItem() == block.asItem()) {return pileUp(pLevel, pPos, pState, pPlayer, pHand);}
-//        }else {return take(pLevel, pPos, pState, pPlayer);}
-//
-//        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-//    }
-//
-//    public InteractionResult pileUp(Level level, BlockPos pos, BlockState state,Player player,InteractionHand hand){
-//        int pile = state.getValue(PileBlock.PILE);
-//        ItemStack handItem = player.getItemInHand(hand);
-//        if (pile < PILE.getMax()) {
-//            Shortcuts.setBlock(level,pos,state,PILE,1,true);
-//            handItem.shrink(1);
-//            level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
-//        }else {
-//            return InteractionResult.FAIL;
-//        }
-//        return InteractionResult.SUCCESS;
-//    }
-//
-//    public InteractionResult take(Level level, BlockPos pos, BlockState state,Player player){
-//        int pile = state.getValue(PileBlock.PILE);
-//        Block block = state.getBlock();
-//        player.getInventory().placeItemBackInInventory(new ItemStack(block.asItem()));
-//        if (pile > 1) {
-//            Shortcuts.setBlock(level,pos,state,PILE,1,false);
-//        }else {
-//            level.removeBlock(pos, false);
-//        }
-//        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
-//        return InteractionResult.SUCCESS;
-//    }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -121,7 +83,34 @@ public class PileBlock extends HorizontalDirectionalBlock {
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
+        if (!level.isClientSide) {
+            int currentPile = state.getValue(PILE);
+            if (currentPile > 1) {
+                // 减少方块的状态
+                level.setBlock(pos, state.setValue(PILE, currentPile - 1), 3);
 
+                // 增加一个物品到玩家的物品栏
+                ItemStack itemStack = new ItemStack(this);
+                if (!player.addItem(itemStack)) {
+                    player.drop(itemStack, false);
+                }
+
+                return InteractionResult.SUCCESS;
+            } else {
+                // 如果状态为1，则直接破坏方块并增加一个物品
+                level.removeBlock(pos, false);
+                ItemStack itemStack = new ItemStack(this);
+                if (!player.addItem(itemStack)) {
+                    player.drop(itemStack, false);
+                }
+
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
     private static void listPotionEffects(ItemStack pStack, Consumer<MobEffectInstance> pOutput) {
         CompoundTag compoundtag = pStack.getTag();
         if (compoundtag != null && compoundtag.contains("Effects", 9)) {

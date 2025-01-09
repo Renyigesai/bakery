@@ -2,16 +2,13 @@ package com.renyigesai.bakeries.api.item;
 
 import com.renyigesai.bakeries.api.Shortcuts;
 import com.renyigesai.bakeries.api.TextUtils;
-import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
-import com.renyigesai.bakeries.key.BakeriesKeyMapping;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -21,7 +18,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,7 +25,8 @@ import java.util.List;
 public class FoodBlockItem extends ItemNameBlockItem {
 
     public final boolean effectTooltip;
-    public final ModIntegerProperty integerProperty;
+    public ModIntegerProperty integerProperty;
+
     public FoodBlockItem(Block block, ModIntegerProperty integerProperty, Item.Properties pProperties, boolean effectTooltip) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
@@ -39,71 +36,43 @@ public class FoodBlockItem extends ItemNameBlockItem {
     public FoodBlockItem(Block block, ModIntegerProperty integerProperty, Properties pProperties) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
-        this.effectTooltip=false;
+        this.effectTooltip = false;
     }
-// 暂时弃用
-//    @Override
-//    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-//        ItemStack itemStack = pPlayer.getItemInHand(pUsedHand);
-//        if (itemStack.getOrCreateTag().getBoolean("perfect")) {
-//            pPlayer.startUsingItem(pUsedHand);
-//            return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
-//        }return super.use(pLevel, pPlayer, pUsedHand);
-//    }
-
-
-// 暂时弃用
-//    @Override
-//    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
-//        if(Screen.hasShiftDown()) {
-//            return super.placeBlock(pContext, pState);
-//        }else {
-//            return false;
-//        }
-//    }
-
     @Override
-    public InteractionResult useOn(UseOnContext context) {
-        Player player = context.getPlayer();
-        InteractionHand hand = context.getHand();
-        Level level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        BlockState state = level.getBlockState(pos);
-        Block block = state.getBlock();
-        ItemStack handStack = player.getItemInHand(hand);
-        boolean isPile = handStack.is(asItem());
-        if(block instanceof PileBlock){
-            if (!level.isClientSide) {
-                if (isPile && BakeriesKeyMapping.place.consumeClick()) {
-                    return pileUp(level, pos, state, handStack);
+    public InteractionResult useOn(UseOnContext pContext) {
+        ServerPlayer player = (ServerPlayer)pContext.getPlayer();
+        InteractionResult result = this.use(pContext.getLevel(), player, pContext.getHand()).getResult();
+        if(player != null){
+            if (player.isShiftKeyDown()) {
+                if (!pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock())) {
+                    result = this.place(new BlockPlaceContext(pContext));
+                } else {
+                    if (pContext.getLevel().getBlockState(pContext.getClickedPos()).getValue(this.integerProperty) < this.integerProperty.getMax()) {
+                        Shortcuts.setBlock(pContext.getLevel(), pContext.getClickedPos(), pContext.getLevel().getBlockState(pContext.getClickedPos()), this.integerProperty, 1, true);
+                        if (!player.getAbilities().instabuild) {
+                            pContext.getItemInHand().shrink(1);
+                        }
+                        result = InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
+                    }
                 }
             }
-//            if (isPile && Screen.hasShiftDown()) {
-//                return pileUp(level, pos, state, handStack);
-//            }
         }
-        return super.useOn(context);
-    }
-    @Override
-    protected boolean placeBlock(BlockPlaceContext pContext, BlockState pState) {
-        return BakeriesKeyMapping.place.consumeClick();
+        return result;
     }
 
-    public InteractionResult pileUp(Level level, BlockPos pos, BlockState state, ItemStack handStack){
-        int pile = state.getValue(this.integerProperty);
-        if (pile < this.integerProperty.getPossibleValues().size()) {
-            Shortcuts.setBlock(level, pos, state, this.integerProperty, 1, true);
-            handStack.shrink(1);
-            level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
-        }else {
-            return InteractionResult.FAIL;
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
+        if (pPlayer.canEat(itemstack.getFoodProperties(pPlayer).canAlwaysEat())) {
+            pPlayer.startUsingItem(pUsedHand);
+            return InteractionResultHolder.consume(itemstack);
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.consume(itemstack);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
-        if (stack.getOrCreateTag().getBoolean("perfect")){
+        if (stack.getOrCreateTag().getBoolean("perfect")) {
             tooltip.add(Component.translatable("item.bakeries.tips.perfect_temperature").withStyle(ChatFormatting.GOLD));
         }
         if (effectTooltip) {

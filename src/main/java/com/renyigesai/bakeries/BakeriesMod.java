@@ -6,6 +6,7 @@ import com.renyigesai.bakeries.fluid.BakeriesFluidTypes;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
 import com.renyigesai.bakeries.init.*;
 import com.renyigesai.bakeries.key.BakeriesKeyMapping;
+import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.villager.BakeriesVillagers;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
@@ -59,7 +61,9 @@ public class BakeriesMod {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, BakeriesConfig.SPEC, "bakeries-server.toml");
     }
-
+    private void commonSetup(FMLCommonSetupEvent event) {
+        Messages.register();
+    }
     private void clientSetup(FMLClientSetupEvent event) {
         BakeriesKeyMapping.register(event);
     }
@@ -74,10 +78,7 @@ public class BakeriesMod {
         messageID++;
     }
 
-    private void commonSetup(final FMLClientSetupEvent event){
-        event.enqueueWork(()->{
-        });
-    }
+
 
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MODID, path);
