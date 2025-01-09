@@ -6,6 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -41,9 +42,15 @@ public class Messages {
 //
 //        net.registerMessage(id(),
 //                ImmortalButtonMessage.class,
-//                ImmortalButtonMessage::buffer,
+//                ImmortalButtonMessage::toBytes,
 //                ImmortalButtonMessage::new,
-//                ImmortalButtonMessage::handler);
+//                ImmortalButtonMessage::handle);
+
+        net.messageBuilder(FoodBlockItemMessages.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(FoodBlockItemMessages::new)
+                .encoder(FoodBlockItemMessages::toBytes)
+                .consumerMainThread(FoodBlockItemMessages::handle)
+                .add();
 
 
     }
