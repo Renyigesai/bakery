@@ -17,9 +17,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class BreadBasketBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(5,ItemStack.EMPTY);
+//    private ItemStackHandler items = new ItemStackHandler(1){
+//        @Override
+//        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+//            return 1;
+//        }
+//    };
     private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
         protected void onOpen(Level pLevel, BlockPos pPos, BlockState pState) {

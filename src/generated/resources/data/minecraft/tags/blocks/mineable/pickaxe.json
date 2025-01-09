@@ -5,6 +5,7 @@
     "bakeries:yeast_tank",
     "bakeries:cheese_tank",
     "bakeries:glass_cabinet_door",
-    "bakeries:raw_salt_block"
+    "bakeries:raw_salt_block",
+    "bakeries:black_white_concrete"
   ]
 }

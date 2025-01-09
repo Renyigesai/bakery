@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/toaster", "y": 270},
+
+    "facing=north": {"model": "bakeries:block/toaster", "y": 180},
+
+    "facing=south": {"model": "bakeries:block/toaster"},
+
+    "facing=west": {"model": "bakeries:block/toaster", "y": 90}
+  }
+}

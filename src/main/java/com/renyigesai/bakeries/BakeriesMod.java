@@ -1,14 +1,17 @@
 package com.renyigesai.bakeries;
 
+import com.renyigesai.bakeries.block.toaster.ToasterBlockEntityRender;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.fluid.BakeriesFluidTypes;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
 import com.renyigesai.bakeries.init.*;
 import com.renyigesai.bakeries.key.BakeriesKeyMapping;
 import com.renyigesai.bakeries.villager.BakeriesVillagers;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -84,6 +87,10 @@ public class BakeriesMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+        }
+        @SubscribeEvent
+        public static void onRegisterRender(EntityRenderersEvent.RegisterRenderers event){
+//            event.registerBlockEntityRenderer(BakeriesBlocks.TOASTER_ENTITY.get(), ToasterBlockEntityRender::new);
         }
     }
 }

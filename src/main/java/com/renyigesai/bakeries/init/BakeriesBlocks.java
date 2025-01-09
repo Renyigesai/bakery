@@ -3,10 +3,13 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.block.*;
+import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlock;
 import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlockEntity;
 import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
+import com.renyigesai.bakeries.block.toaster.ToasterBlock;
+import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
 import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -53,7 +56,9 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> BLACK_WHITE_CONCRETE ;
 
     public static final RegistryObject<Block> BREAD_BASKET ;
+    public static final RegistryObject<Block> TOASTER;
     public static final RegistryObject<BlockEntityType<BreadBasketBlockEntity>> BREAD_BASKET_BLOCK_ENTITY ;
+    public static final RegistryObject<BlockEntityType<ToasterBlockEntity>> TOASTER_ENTITY;
 
     static {
         //Bread Block
@@ -98,11 +103,14 @@ public class BakeriesBlocks {
         BLACK_WHITE_CONCRETE = BLOCK_REGISTRY.register("black_white_concrete", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_CONCRETE)));
         BREAD_BASKET = BLOCK_REGISTRY.register("bread_basket", () ->
-                new Block(BlockBehaviour.Properties.copy(Blocks.BARREL)));
+                new BreadBasketBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.0F,0.0F)));
+        TOASTER = BLOCK_REGISTRY.register("toaster", () ->
+                new ToasterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         BREAD_BASKET_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("bread_basket", () -> BlockEntityType.Builder.of(BreadBasketBlockEntity::new, BREAD_BASKET.get()).build(null));
+        TOASTER_ENTITY = BLOCK_ENTITY_REGISTRY.register("toaster", () -> BlockEntityType.Builder.of(ToasterBlockEntity::new, TOASTER.get()).build(null));
     }
 
 }
