@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.toaster;
 
-import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,7 +9,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -20,7 +21,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 public class ToasterBlock extends BaseEntityBlock {
 
@@ -58,11 +59,12 @@ public class ToasterBlock extends BaseEntityBlock {
         return InteractionResult.CONSUME;
     }
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
+
         return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.TOASTER_ENTITY.get(),
-                ToasterBlockEntity::cookingTick);
+                ToasterBlockEntity::serverTick);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ToasterBlockEntityRender implements BlockEntityRenderer<ToasterBloc
     @Override
     public void render(ToasterBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         Direction opposite = pBlockEntity.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
-        ItemStackHandler inventory = pBlockEntity.getInventory();
+        ItemStackHandler inventory = pBlockEntity.getItemHandler();
         int posLong = (int) pBlockEntity.getBlockPos().asLong();
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stack1 = inventory.getStackInSlot(i);

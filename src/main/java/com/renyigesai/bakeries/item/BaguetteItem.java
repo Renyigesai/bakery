@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BaguetteItem extends FoodBlockItem {
     public BaguetteItem(Block pBlock, Properties properties) {
-        super(pBlock, PileBlock.PILE, properties);
+        super(pBlock, PileBlock.integerProperty, properties);
     }
     @Override
     public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {

@@ -1,13 +1,11 @@
-
 {
-  "type": "bakeries:flour_sieve",
-  "ingredient": [
-    {
-      "item": "minecraft:wheat"
-    }
-  ],
-  "result": {
-    "item": "bakeries:flour",
+  "type": "bakeries:toaster",
+  "output": {
+    "item": "minecraft:bread",
     "count": 1
-  }
+  },
+  "time": 200,
+  "ingredient": [{
+    "item": "minecraft:wheat"
+  }]
 }

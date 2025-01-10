@@ -109,7 +109,7 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
         }
     }
     public void pileBlock(Supplier<? extends Block> block) {
-        for(int pile : PileBlock.PILE.getPossibleValues()) {
+        for(int pile : PileBlock.integerProperty.getPossibleValues()) {
             ModelFile modelFile = this.models().withExistingParent(
                             this.name(block.get())+ "_" + pile,
                             this.modLoc("custom/"+ this.name(block.get())+ "_" + pile))
@@ -120,7 +120,7 @@ public class BBlockStateProvider extends net.minecraftforge.client.model.generat
                 this.getVariantBuilder(block.get())
                         .partialState()
                         .with(PileBlock.FACING, facing)
-                        .with(PileBlock.PILE, pile)
+                        .with(PileBlock.integerProperty, pile)
                         .modelForState()
                         .modelFile(modelFile)
                         .rotationY((int) facing.toYRot())

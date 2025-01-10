@@ -38,14 +38,13 @@ import java.util.function.Consumer;
 
 @Getter
 public class PileBlock extends HorizontalDirectionalBlock {
-    public static ModIntegerProperty PILE = ModIntegerProperty.create("pile", 1, 4);
-    private static VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
+    public static final ModIntegerProperty integerProperty = ModIntegerProperty.create("pile", 1, 64);
+
     public PileBlock() {
         super(BlockBehaviour.Properties.of().strength(0.5F,0.5F).sound(SoundType.WOOL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
-//        PILE = Objects.requireNonNullElseGet(property, () -> ModIntegerProperty.create("pile", 1, 4));
-//        SHAPE = Objects.requireNonNullElseGet(box, () -> Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D));
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PILE, 1));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(integerProperty, 1));
     }
+
 
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
@@ -54,10 +53,8 @@ public class PileBlock extends HorizontalDirectionalBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return Block.box(1.0D, 0.0D, 1.0D, 15.0D, 4.0D, 15.0D);
     }
-
-
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
@@ -73,7 +70,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PILE);
+        builder.add(FACING, integerProperty);
     }
     @Override
     public boolean hasAnalogOutputSignal(BlockState state) {
@@ -86,26 +83,20 @@ public class PileBlock extends HorizontalDirectionalBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
         if (!level.isClientSide) {
-            int currentPile = state.getValue(PILE);
+            int currentPile = state.getValue(integerProperty);
             if (currentPile > 1) {
-                // 减少方块的状态
-                level.setBlock(pos, state.setValue(PILE, currentPile - 1), 3);
-
-                // 增加一个物品到玩家的物品栏
+                level.setBlock(pos, state.setValue(integerProperty, currentPile - 1), 3);
                 ItemStack itemStack = new ItemStack(this);
                 if (!player.addItem(itemStack)) {
                     player.drop(itemStack, false);
                 }
-
                 return InteractionResult.SUCCESS;
             } else {
-                // 如果状态为1，则直接破坏方块并增加一个物品
                 level.removeBlock(pos, false);
                 ItemStack itemStack = new ItemStack(this);
                 if (!player.addItem(itemStack)) {
                     player.drop(itemStack, false);
                 }
-
                 return InteractionResult.SUCCESS;
             }
         }

@@ -165,11 +165,11 @@ public class BakeriesItems {
     }
 
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties) {
-        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.PILE,new Item.Properties().food(foodProperties)));
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty,new Item.Properties().food(foodProperties)));
     }
 
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip) {
-        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.PILE, new Item.Properties().food(foodProperties),effectTooltip));
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty, new Item.Properties().food(foodProperties),effectTooltip));
     }
 
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {

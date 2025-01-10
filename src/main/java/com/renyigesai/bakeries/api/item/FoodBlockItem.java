@@ -5,7 +5,6 @@ import com.renyigesai.bakeries.api.TextUtils;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -40,14 +39,14 @@ public class FoodBlockItem extends ItemNameBlockItem {
     }
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
-        ServerPlayer player = (ServerPlayer)pContext.getPlayer();
+        Player player = pContext.getPlayer();
         InteractionResult result = this.use(pContext.getLevel(), player, pContext.getHand()).getResult();
         if(player != null){
             if (player.isShiftKeyDown()) {
                 if (!pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock())) {
                     result = this.place(new BlockPlaceContext(pContext));
-                } else {
-                    if (pContext.getLevel().getBlockState(pContext.getClickedPos()).getValue(this.integerProperty) < this.integerProperty.getMax()) {
+                } else if(pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock()) && pContext.getLevel().getBlockState(pContext.getClickedPos()).hasProperty(this.integerProperty)){
+                    if (pContext.getLevel().getBlockState(pContext.getClickedPos()).getValue(this.integerProperty) < 4) {
                         Shortcuts.setBlock(pContext.getLevel(), pContext.getClickedPos(), pContext.getLevel().getBlockState(pContext.getClickedPos()), this.integerProperty, 1, true);
                         if (!player.getAbilities().instabuild) {
                             pContext.getItemInHand().shrink(1);

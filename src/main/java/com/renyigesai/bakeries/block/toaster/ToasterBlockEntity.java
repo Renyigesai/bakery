@@ -2,22 +2,24 @@ package com.renyigesai.bakeries.block.toaster;
 
 import com.renyigesai.bakeries.api.Shortcuts;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.recipe.toaster.ToasterRecipe;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,25 +27,97 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class ToasterBlockEntity extends BlockEntity {
-    private ItemStackHandler inventory = new ItemStackHandler(2){
+    @Getter
+    private final ItemStackHandler itemHandler = new ItemStackHandler(2){
         @Override
-        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+        public int getSlotLimit(int slot)
+        {
             return 1;
         }
     };
-    private ResourceLocation[] lastRecipeIDs;
-    private static final int INVENTORY_SLOT_COUNT = 2;
+    private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
+    //    public CompoundTag oven;
+    private final int[] cooking_times = new int[2];
+    private final int[] max_cooking_times = new int[2];
+
 
     public ToasterBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.TOASTER_ENTITY.get(), pPos, pBlockState);
-        lastRecipeIDs = new ResourceLocation[INVENTORY_SLOT_COUNT];
+        super(BakeriesBlocks.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
+    }
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+        if (this.level != null) {
+            Containers.dropContents(this.level, this.worldPosition, inventory);
+        }
+    }
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.putIntArray("cooking_times", this.cooking_times);
+        pTag.putIntArray("max_cooking_times", this.max_cooking_times);
+        super.saveAdditional(pTag);
     }
 
+    @Override
+    public void load(@NotNull CompoundTag pTag) {
+        super.load(pTag);
+        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+
+        if (pTag.contains("CookingTimes", 11)) {
+            int[] aint = pTag.getIntArray("CookingTimes");
+            System.arraycopy(aint, 0, this.cooking_times, 0, Math.min(this.max_cooking_times.length, aint.length));
+        }
+//
+//        if (pTag.contains("CookingTimes", 11)) {
+//            int[] aint = pTag.getIntArray("CookingTimes");
+//            System.arraycopy(aint, 0, this.cooking_times, 0, Math.min(this.max_cooking_times.length, aint.length));
+//        }
+    }
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER)
+            return lazyItemHandlers.cast();
+        return super.getCapability(capability, facing);
+    }
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        lazyItemHandlers = LazyOptional.of(() -> itemHandler);
+    }
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyItemHandlers.invalidate();
+    }
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+    public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, ToasterBlockEntity pToasterBlockEntity) {
+        boolean flag = false;
+//        setFire(pLevel, pPos, pState, pToasterBlockEntity);
+        for (int i = 0; i < pToasterBlockEntity.itemHandler.getSlots(); i++) {
+            flag = true;
+            recipeItem(pLevel, pPos, pState, i, pToasterBlockEntity);
+        }
+        if (flag) {
+            setChanged(pLevel, pPos, pState);
+        }
+    }
+    //    public static void setFire(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
+//        boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0;
+//        world.setBlock(pos, pOvenBlockEntity.getBlockState().setValue(OvenBlock.LIT, isLit), 3);
+//        world.sendBlockUpdated(pos, state, state, 3);
+//        setChanged(world, pos, state);
+//    }
     public void addItem(ItemStack item){
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            ItemStack stack = this.inventory.getStackInSlot(i);
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
+            ItemStack stack = this.itemHandler.getStackInSlot(i);
             if (stack.isEmpty()){
-                this.inventory.setStackInSlot(i,item.split(1));
+                this.itemHandler.setStackInSlot(i,item.split(1));
                 setChanged();
                 return;
             }
@@ -51,21 +125,16 @@ public class ToasterBlockEntity extends BlockEntity {
     }
 
     public void getItem(Player player){
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            ItemStack stack = this.inventory.getStackInSlot(i);
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
+            ItemStack stack = this.itemHandler.getStackInSlot(i);
             if (!stack.isEmpty()){
-                this.inventory.setStackInSlot(i,ItemStack.EMPTY.split(1));
+                this.itemHandler.setStackInSlot(i,ItemStack.EMPTY.split(1));
                 Shortcuts.givePlayerItem(player,stack.getItem());
                 setChanged();
                 return;
             }
         }
     }
-
-    public ItemStackHandler getInventory(){
-        return this.inventory;
-    }
-
     public Vec2 getItemOffset(int i){
         float x = 0.2F;
         float y = 0.2F;
@@ -75,105 +144,58 @@ public class ToasterBlockEntity extends BlockEntity {
         };
         return offset[i];
     }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.load(pkt.getTag());
-    }
-
-    @Override
-    public void setChanged() {
-        super.setChanged();
-        if (this.level != null){
-            this.level.sendBlockUpdated(this.getBlockPos(),this.getBlockState(),this.getBlockState(),2);
-        }
-    }
-
-    private CompoundTag writeItems(CompoundTag compound) {
-        super.saveAdditional(compound);
-        compound.put("Inventory",this.inventory.serializeNBT());
-//        compound.putIntArray("CookingTimes", cookingTimes);
-        return compound;
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        return this.writeItems(new CompoundTag());
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        this.writeItems(pTag);
-    }
-
-    public static void updateBlock(ToasterBlockEntity toasterBlockEntity) {
-        Level world = toasterBlockEntity.getLevel();
-        BlockPos pos = toasterBlockEntity.getBlockPos();
+    public static void updateBlock(ToasterBlockEntity pToasterBlockEntity) {
+        Level world = pToasterBlockEntity.getLevel();
+        BlockPos pos = pToasterBlockEntity.getBlockPos();
         BlockState state = world.getBlockState(pos);
         setChanged(world, pos, state);
         world.sendBlockUpdated(pos, state, state, 3);
     }
 
-    public static void cookingTick(Level level, BlockPos pos, BlockState state, ToasterBlockEntity toaster) {
-        toaster.cookAndOutputItems(toaster);
-    }
+    private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot, ToasterBlockEntity pToasterBlockEntity) {
+        Optional<ToasterRecipe> recipe = pToasterBlockEntity.getCurrentRecipe(slot);
+        recipe.ifPresent(ovenRecipe -> {
+            pToasterBlockEntity.max_cooking_times[slot] = ovenRecipe.getTime();
+        });
+        if (pToasterBlockEntity.hasRecipe(slot) && recipe.isPresent()) {
+            if (!world.isClientSide()) {
+                int cookingTime = pToasterBlockEntity.cooking_times[slot]++;
+                int max_cooking_time = pToasterBlockEntity.max_cooking_times[slot];
 
-    private void cookAndOutputItems(ToasterBlockEntity toaster){
-        boolean temp = false;
-        for (int i = 0; i < this.inventory.getSlots(); i++) {
-            ItemStack toasterStack = inventory.getStackInSlot(i);
-            if (!toasterStack.isEmpty()){
-                Optional<CampfireCookingRecipe> recipe = getCurrentRecipe(i);
-                if (recipe.isPresent()){
-                    ItemStack resultItemTemp = recipe.get().getResultItem(null);
-                    ItemStack resultItem = new ItemStack(resultItemTemp.getItem(),resultItemTemp.getCount());
-                    if (!resultItem.isEmpty()){
-                        System.out.println(resultItem);
-                        inventory.setStackInSlot(i,resultItem);
-                        temp = true;
-                    }
+                if (cookingTime >= max_cooking_time) {
+                    pToasterBlockEntity.craftItem(pToasterBlockEntity, slot);
+                    world.sendBlockUpdated(pos, state, state, 3);
+                    resetProgress(pToasterBlockEntity, slot);
                 }
             }
-        }
-        if (temp){
-            updateBlock(toaster);
+        } else {
+            if (!world.isClientSide()) {
+                world.sendBlockUpdated(pos, state, state, 3);
+                resetProgress(pToasterBlockEntity, slot);
+            }
         }
     }
 
-    public Optional<CampfireCookingRecipe> getCurrentRecipe(int slot) {
-        SimpleContainer inventory = new SimpleContainer(this.inventory.getSlots());
-        inventory.setItem(slot, this.inventory.getStackInSlot(slot));
-        return this.level.getRecipeManager().getRecipeFor(RecipeType.CAMPFIRE_COOKING, inventory, level);
+    private static void resetProgress(ToasterBlockEntity pToasterBlockEntity, int slot) {
+        pToasterBlockEntity.max_cooking_times[slot] = 0;
+        pToasterBlockEntity.cooking_times[slot] = 0;
     }
-
-//    public Optional<CampfireCookingRecipe> getMatchingRecipe(Container recipeWrapper, int slot) {
-//        if (level == null) return Optional.empty();
-//
-//        if (lastRecipeIDs[slot] != null) {
-//            Recipe<Container> recipe = ((RecipeManagerAccessor) level.getRecipeManager())
-//                    .getRecipeMap(RecipeType.CAMPFIRE_COOKING)
-//                    .get(lastRecipeIDs[slot]);
-//            if (recipe instanceof CampfireCookingRecipe && recipe.matches(recipeWrapper, level)) {
-//                return Optional.of((CampfireCookingRecipe) recipe);
-//            }
-//        }
-//
-//        return level.getRecipeManager().getRecipeFor(RecipeType.CAMPFIRE_COOKING, recipeWrapper, level);
-//    }
-
-    @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        if (pTag.contains("Inventory")){
-            this.inventory.deserializeNBT(pTag.getCompound("Inventory"));
-        }else {
-            this.inventory.deserializeNBT(pTag);
+    private void craftItem(ToasterBlockEntity pToasterBlockEntity, int slot) {
+        Optional<ToasterRecipe> recipe = getCurrentRecipe(slot);
+        if (recipe.isPresent()) {
+            ItemStack result = recipe.get().getResultItem(null);
+            ItemStack takeItem = new ItemStack(result.getItem(), result.getCount());
+            this.itemHandler.setStackInSlot(slot, takeItem);
+            updateBlock(pToasterBlockEntity);
         }
+    }
+    private boolean hasRecipe(int slot) {
+        Optional<ToasterRecipe> recipe = getCurrentRecipe(slot);
+        return recipe.isPresent() && recipe.get().getIngredients().get(0).test(itemHandler.getStackInSlot(slot));
+    }
+    public Optional<ToasterRecipe> getCurrentRecipe(int slot) {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        inventory.setItem(slot, this.itemHandler.getStackInSlot(slot));
+        return this.level.getRecipeManager().getRecipeFor(ToasterRecipe.Type.INSTANCE, inventory, level);
     }
 }
