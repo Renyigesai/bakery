@@ -3,6 +3,8 @@ package com.renyigesai.bakeries.inventory.oven;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
+import com.renyigesai.bakeries.network.Messages;
+import com.renyigesai.bakeries.network.OvenButtonMessage;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -119,8 +121,15 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     private void updateProgress() {
         // 根据滑动指针的位置更新进度
         if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
-            BakeriesMod.PACKET_HANDLER.sendToServer(new OvenButtonMessage(2, x, y, z, textstate));
-            OvenButtonMessage.handleButtonAction(entity, 2, x, y, z, textstate);
+            Messages.sendToServer(new OvenButtonMessage(2, x, y, z, zhen_y, textstate));
+//            int temperature = (int) (500 - ((OvenScreen.getZhen_y() - 17) / 52.0 * 500));
+//            OvenBlockEntity.updateBlock(ovenBlockEntity);
+//            ovenBlockEntity.setTemperature(ovenBlockEntity,Math.min(Math.max(temperature, 0), 500));
+//            if(Log.INFO){
+//                BakeriesMod.LOGGER.info("temperature:"+ovenBlockEntity.getTemperature(ovenBlockEntity));
+//            }
+
+            //            Messages.sendToAllPlayers(new OvenButtonMessage(2, x, y, z, textstate));
         }
     }
     protected boolean insideScrollbar(double pMouseX, double pMouseY) {
@@ -140,9 +149,8 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         imagebutton_add = new ImageButton(this.leftPos + 125, this.topPos + 17, 5, 6, 0, 166, 6, texture, 256, 256, e -> {
             if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
                 zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500/52.0) + 17);
-                BakeriesMod.PACKET_HANDLER.sendToServer(new OvenButtonMessage(0, x, y, z, textstate));
-                OvenButtonMessage.handleButtonAction(entity, 0, x, y, z, textstate);
-
+                Messages.sendToServer(new OvenButtonMessage(0, x, y, z, zhen_y, textstate));
+//                ovenBlockEntity.addTemperature(ovenBlockEntity,1);
             }
         });
         guistate.put("button:imagebutton_add", imagebutton_add);
@@ -151,8 +159,8 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         imagebutton_sub = new ImageButton(this.leftPos + 125, this.topPos + 64, 5, 6, 5, 166, 6, texture, 256, 256, e -> {
             if(boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity){
                 zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500/52.0) + 17);
-                BakeriesMod.PACKET_HANDLER.sendToServer(new OvenButtonMessage(1, x, y, z, textstate));
-                OvenButtonMessage.handleButtonAction(entity, 1, x, y, z, textstate);
+                Messages.sendToServer(new OvenButtonMessage(1, x, y, z, zhen_y, textstate));
+//                ovenBlockEntity.subTemperature(ovenBlockEntity,1);
             }
         });
         guistate.put("button:imagebutton_sub", imagebutton_sub);

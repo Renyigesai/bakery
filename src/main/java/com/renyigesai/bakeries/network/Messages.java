@@ -2,19 +2,13 @@ package com.renyigesai.bakeries.network;
 
 
 import com.renyigesai.bakeries.BakeriesMod;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
-
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class Messages {
 
@@ -46,18 +40,15 @@ public class Messages {
 //                ImmortalButtonMessage::new,
 //                ImmortalButtonMessage::handle);
 
-        net.messageBuilder(FoodBlockItemMessages.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(FoodBlockItemMessages::new)
-                .encoder(FoodBlockItemMessages::toBytes)
-                .consumerMainThread(FoodBlockItemMessages::handle)
+                net.messageBuilder(OvenButtonMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OvenButtonMessage::new)
+                .encoder(OvenButtonMessage::toBytes)
+                .consumerMainThread(OvenButtonMessage::handle)
                 .add();
 
 
     }
-    public static <T> void addNetworkMessage(Class<T> messageType, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> messageConsumer) {
-        INSTANCE.registerMessage(packetId, messageType, encoder, decoder, messageConsumer);
 
-    }
     public static <MSG> void sendToServer(MSG message) {
         INSTANCE.sendToServer(message);
     }

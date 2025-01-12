@@ -10,6 +10,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
@@ -157,6 +159,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
 
     public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, OvenBlockEntity pOvenBlockEntity) {
         boolean flag = false;
+        updateBlock(pOvenBlockEntity);
         setFire(pLevel, pPos, pState, pOvenBlockEntity);
         for (int i = 0; i < pOvenBlockEntity.itemHandler.getSlots(); i++) {
             flag = true;
@@ -164,10 +167,13 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
         }
         if (flag) {
             setChanged(pLevel, pPos, pState);
+            updateBlock(pOvenBlockEntity);
         }
     }
     public static void setFire(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
+        updateBlock(pOvenBlockEntity);
         boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0;
+
         world.setBlock(pos, pOvenBlockEntity.getBlockState().setValue(OvenBlock.LIT, isLit), 3);
         world.sendBlockUpdated(pos, state, state, 3);
         setChanged(world, pos, state);
@@ -216,9 +222,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
 
                 int craft_temperature = Math.min(ovenBlockEntity.max_temperatures[slot], 500);
 
-
-
-
                 if (cookingTime >= max_cooking_time) {
                     if (temperature <= craft_temperature) {
                         boolean perfect = temperature == recipe.get().getPerfect_temperature ();
@@ -227,6 +230,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
                         ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
                     }
                     world.sendBlockUpdated(pos, state, state, 3);
+                    world.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 1.0F, 1.0F);
                     resetProgress(ovenBlockEntity, slot);
                 }
             }
@@ -264,9 +268,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     }
 
     public Optional<OvenRecipe> getCurrentRecipe(int slot) {
-        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
-        inventory.setItem(slot, this.itemHandler.getStackInSlot(slot));
-        return this.level.getRecipeManager().getRecipeFor(OvenRecipe.Type.INSTANCE, inventory, level);
+        return this.level.getRecipeManager().getRecipeFor(OvenRecipe.Type.INSTANCE, new SimpleContainer(this.itemHandler.getStackInSlot(slot)), level);
     }
 
 //    public double getMinTemperature(int slot) {

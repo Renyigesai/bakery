@@ -3,8 +3,6 @@ package com.renyigesai.bakeries.block.toaster;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,22 +17,23 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 public class ToasterBlock extends BaseEntityBlock {
 
-
+    public static BooleanProperty LIT = BooleanProperty.create("lit");
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public ToasterBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, LIT);
     }
 
     @Override
@@ -52,13 +51,18 @@ public class ToasterBlock extends BaseEntityBlock {
                 }else {
                     toasterBlockEntity.getItem(pPlayer);
                 }
-                return InteractionResult.SUCCESS;
+                return InteractionResult.FAIL;
             }
 
         }
         return InteractionResult.CONSUME;
     }
-
+    @Override
+    public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int eventID, int eventParam) {
+        super.triggerEvent(state, world, pos, eventID, eventParam);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity == null ? false : blockEntity.triggerEvent(eventID, eventParam);
+    }
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
@@ -68,15 +72,15 @@ public class ToasterBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        if (!pState.is(pNewState.getBlock())) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof Container container){
-                Containers.dropContents(pLevel,pPos,container);
-                pLevel.updateNeighbourForOutputSignal(pPos,this);
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof ToasterBlockEntity to) {
+                to.drops();
+                world.updateNeighbourForOutputSignal(pos, this);
             }
+            super.onRemove(state, world, pos, newState, isMoving);
         }
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {

@@ -62,10 +62,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-        if (pPlayer.canEat(itemstack.getFoodProperties(pPlayer).canAlwaysEat())) {
-            pPlayer.startUsingItem(pUsedHand);
-            return InteractionResultHolder.consume(itemstack);
-        }
+        pPlayer.startUsingItem(pUsedHand);
         return InteractionResultHolder.consume(itemstack);
     }
 

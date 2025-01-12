@@ -24,7 +24,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.YEAST_TANK.get());
                         output.accept(BakeriesItems.CHEESE_TANK.get());
                         output.accept(BakeriesItems.WOOD_COUNTER.get());
-                        output.accept(BakeriesItems.BREAD_BASKET.get());
+//                        output.accept(BakeriesItems.BREAD_BASKET.get());
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR.get());
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());

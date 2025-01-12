@@ -79,11 +79,11 @@ public class MouldBlock extends HorizontalDirectionalBlock {
         int pile = state.getValue(PILE);
         if (use == 2 && pile == 1){
             Shortcuts.setBlock(level,pos,state,USE,1,false);
-            Shortcuts.givePlayerItem(player,this.demouldItem.get());
+            Shortcuts.givePlayerItem(player,new ItemStack(this.demouldItem.get()));
             level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }else if (use == 1 && pile == 1){
             level.removeBlock(pos,false);
-            Shortcuts.givePlayerItem(player,BakeriesItems.MOULD.get());
+            Shortcuts.givePlayerItem(player,new ItemStack(BakeriesItems.MOULD.get()));
             level.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         }return InteractionResult.SUCCESS;
     }
