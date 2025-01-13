@@ -5,6 +5,8 @@ import com.renyigesai.bakeries.api.TextUtils;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -48,6 +50,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
                 } else if(pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock()) && pContext.getLevel().getBlockState(pContext.getClickedPos()).hasProperty(this.integerProperty)){
                     if (pContext.getLevel().getBlockState(pContext.getClickedPos()).getValue(this.integerProperty) < 4) {
                         Shortcuts.setBlock(pContext.getLevel(), pContext.getClickedPos(), pContext.getLevel().getBlockState(pContext.getClickedPos()), this.integerProperty, 1, true);
+                        pContext.getLevel().playSound(null, pContext.getClickedPos(), SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
                         if (!player.getAbilities().instabuild) {
                             pContext.getItemInHand().shrink(1);
                         }

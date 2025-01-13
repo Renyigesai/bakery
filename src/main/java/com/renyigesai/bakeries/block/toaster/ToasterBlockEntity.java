@@ -133,9 +133,9 @@ public class ToasterBlockEntity extends BlockEntity {
     private static void recipeItem(Level world, BlockPos pos, BlockState state, int slot, ToasterBlockEntity pToasterBlockEntity) {
         Optional<ToasterRecipe> recipe = pToasterBlockEntity.getCurrentRecipe(slot);
 
-        recipe.ifPresent(ovenRecipe -> {
-            pToasterBlockEntity.max_cooking_times[slot] = ovenRecipe.getTime();
-        });
+//        recipe.ifPresent(ovenRecipe -> {
+//            pToasterBlockEntity.max_cooking_times[slot] = ovenRecipe.getTime();
+//        });
         if (pToasterBlockEntity.hasRecipe(slot) && recipe.isPresent()) {
 
             if (!world.isClientSide()) {

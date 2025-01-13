@@ -74,11 +74,6 @@ public class ToastBlock extends HorizontalDirectionalBlock {
         }else {
             level.removeBlock(pos,false);
         }
-//        Direction direction = playerIn.getDirection().getOpposite();
-//        ItemEntity entity = new ItemEntity(level, pos.getX()+0.5, pos.getY() + 0.15, pos.getZ()+0.5, this.getSliceItem(),
-//                direction.getStepX()*0.15,direction.getStepY()*0.05,direction.getStepZ()*0.15);
-//        level.addFreshEntity(entity);
-
         Direction direction = playerIn.getDirection().getOpposite();
         Shortcuts.spawnItemEntity(level, this.getSliceItem(), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
                new Vec3(direction.getStepX() * 0.15, 0.05, direction.getStepZ() * 0.15));
@@ -88,7 +83,6 @@ public class ToastBlock extends HorizontalDirectionalBlock {
     }
 
     protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state, Player playerIn){
-        int pile = state.getValue(PILE);
         Shortcuts.setBlock(level,pos,state,PILE,1,true);
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
