@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.api.item;
 
-import com.renyigesai.bakeries.api.Shortcuts;
-import com.renyigesai.bakeries.api.TextUtils;
+import com.renyigesai.bakeries.util.Shortcuts;
+import com.renyigesai.bakeries.util.TextUtils;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

@@ -33,7 +33,6 @@ public class BakeriesMod {
     public BakeriesMod() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-
         BakeriesItems.REGISTER.register(bus);
         BakeriesBlocks.BLOCK_REGISTRY.register(bus);
         BakeriesBlocks.BLOCK_ENTITY_REGISTRY.register(bus);

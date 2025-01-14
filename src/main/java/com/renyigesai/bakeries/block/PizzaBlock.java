@@ -1,7 +1,5 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.api.Shortcuts;
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;

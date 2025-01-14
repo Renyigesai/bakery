@@ -1,6 +1,6 @@
 package com.renyigesai.bakeries.block.toaster;
 
-import com.renyigesai.bakeries.api.Shortcuts;
+import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.recipe.toaster.ToasterRecipe;
@@ -175,8 +175,6 @@ public class ToasterBlockEntity extends BlockEntity {
         return recipe.isPresent() && recipe.get().getIngredients().get(0).test(itemHandler.getStackInSlot(slot));
     }
     public Optional<ToasterRecipe> getCurrentRecipe(int slot) {
-//        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
-//        inventory.setItem(slot, this.itemHandler.getStackInSlot(slot));
         return this.level.getRecipeManager().getRecipeFor(ToasterRecipe.Type.INSTANCE, new SimpleContainer(this.itemHandler.getStackInSlot(slot)), level);
     }
 }

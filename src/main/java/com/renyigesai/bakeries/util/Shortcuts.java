@@ -1,4 +1,4 @@
-package com.renyigesai.bakeries.api;
+package com.renyigesai.bakeries.util;
 
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.core.BlockPos;

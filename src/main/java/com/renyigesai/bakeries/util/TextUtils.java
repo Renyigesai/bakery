@@ -1,4 +1,4 @@
-package com.renyigesai.bakeries.api;
+package com.renyigesai.bakeries.util;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;

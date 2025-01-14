@@ -20,6 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BakeryRecipeTypes {
 	public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, BakeriesMod.MODID);
 	public static final DeferredRegister<RecipeType<?>> RECIPE_TYPE = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, BakeriesMod.MODID);
+
 	@SuppressWarnings("removal")
 	@SubscribeEvent
 	public static void register(FMLConstructModEvent event) {

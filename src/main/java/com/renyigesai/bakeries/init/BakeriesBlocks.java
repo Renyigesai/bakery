@@ -3,6 +3,8 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.block.*;
+import com.renyigesai.bakeries.block.baysalt_frame.BaysaltFrameBlock;
+import com.renyigesai.bakeries.block.baysalt_frame.BaysaltFrameBlockEntity;
 import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlock;
 import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlockEntity;
 import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlock;
@@ -66,6 +68,8 @@ public class BakeriesBlocks {
     public static final RegistryObject<BlockEntityType<BreadBasketBlockEntity>> BREAD_BASKET_BLOCK_ENTITY ;
     public static final RegistryObject<BlockEntityType<ToasterBlockEntity>> TOASTER_ENTITY;
     public static final RegistryObject<BlockEntityType<PizzaDoughBlockEntity>> PIZZA_DOUGH_ENTITY;
+    public static final RegistryObject<Block> BAYSALT_FRAME;
+    public static final RegistryObject<BlockEntityType<BaysaltFrameBlockEntity>> BAYSALT_FRAME_ENTITY;
 
     static {
         //Bread Block
@@ -121,12 +125,15 @@ public class BakeriesBlocks {
                 new ToasterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
         PIZZA_DOUGH = BLOCK_REGISTRY.register("pizza_dough", () ->
                 new PizzaDoughBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+        BAYSALT_FRAME = BLOCK_REGISTRY.register("baysalt_frame", BaysaltFrameBlock::new);
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         BREAD_BASKET_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("bread_basket", () -> BlockEntityType.Builder.of(BreadBasketBlockEntity::new, BREAD_BASKET.get()).build(null));
         TOASTER_ENTITY = BLOCK_ENTITY_REGISTRY.register("toaster", () -> BlockEntityType.Builder.of(ToasterBlockEntity::new, TOASTER.get()).build(null));
         PIZZA_DOUGH_ENTITY = BLOCK_ENTITY_REGISTRY.register("pizza_dough", () -> BlockEntityType.Builder.of(PizzaDoughBlockEntity::new, PIZZA_DOUGH.get()).build(null));
+        BAYSALT_FRAME_ENTITY = BLOCK_ENTITY_REGISTRY.register("baysalt_frame", () -> BlockEntityType.Builder.of(BaysaltFrameBlockEntity::new, BAYSALT_FRAME.get()).build(null));
+
     }
 
 }

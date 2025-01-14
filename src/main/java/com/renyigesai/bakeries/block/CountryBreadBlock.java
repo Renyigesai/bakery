@@ -1,6 +1,6 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.api.Shortcuts;
+import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
