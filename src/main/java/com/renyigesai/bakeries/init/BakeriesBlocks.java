@@ -42,6 +42,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> BERRY_BREAD;
     public static final RegistryObject<Block> PIZZA;
     public static final RegistryObject<Block> SAUSAGE_PIZZA;
+    public static final RegistryObject<Block> MEAT_PASTE_PIZZA;
     //common
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
@@ -85,6 +86,8 @@ public class BakeriesBlocks {
         PIZZA = BLOCK_REGISTRY.register("pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
         SAUSAGE_PIZZA = BLOCK_REGISTRY.register("sausage_pizza",()->
+                new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
+        MEAT_PASTE_PIZZA = BLOCK_REGISTRY.register("meat_paste_pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
         //common
         OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);

@@ -87,7 +87,9 @@ public class BakeriesItems {
     public static final RegistryObject<Item> PIZZA;
     public static final RegistryObject<Item> SAUSAGE_PIZZA;
     public static final RegistryObject<Item> PIZZA_DOUGH;
+    public static final RegistryObject<Item> MEAT_PASTE_PIZZA;
     public static final RegistryObject<Item> OLIVE;
+
 
 
     static {
@@ -160,6 +162,7 @@ public class BakeriesItems {
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
         PIZZA = block(BakeriesBlocks.PIZZA);
         SAUSAGE_PIZZA = block(BakeriesBlocks.SAUSAGE_PIZZA);
+        MEAT_PASTE_PIZZA = block(BakeriesBlocks.MEAT_PASTE_PIZZA);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
