@@ -230,7 +230,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
                         ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
                     }
                     world.sendBlockUpdated(pos, state, state, 3);
-                    world.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    world.playSound(null, pos, SoundEvents.NOTE_BLOCK_BELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                     resetProgress(ovenBlockEntity, slot);
                 }
             }

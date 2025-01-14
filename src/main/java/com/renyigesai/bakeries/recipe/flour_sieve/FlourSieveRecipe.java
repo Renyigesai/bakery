@@ -46,6 +46,12 @@ public class FlourSieveRecipe implements Recipe<Container> {
     public NonNullList<Ingredient> getIngredients() {
         return ingredient;
     }
+
+    @Override
+    public ResourceLocation getId() {
+        return id;
+    }
+
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;

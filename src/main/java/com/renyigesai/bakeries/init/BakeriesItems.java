@@ -85,6 +85,9 @@ public class BakeriesItems {
     public static final RegistryObject<Item> TOASTER;
     public static final RegistryObject<Item> TOMATO;
     public static final RegistryObject<Item> PIZZA;
+    public static final RegistryObject<Item> SAUSAGE_PIZZA;
+    public static final RegistryObject<Item> PIZZA_DOUGH;
+    public static final RegistryObject<Item> OLIVE;
 
 
     static {
@@ -134,7 +137,10 @@ public class BakeriesItems {
         BLACK_WHITE_CONCRETE = block(BakeriesBlocks.BLACK_WHITE_CONCRETE);
         BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         TOASTER = block(BakeriesBlocks.TOASTER);
-        TOMATO = REGISTER.register("tomato",()->new ItemNameBlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties()));
+        TOMATO = REGISTER.register("tomato",()->new ItemNameBlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties().food(BakeriesFoodProperties.TOMATO)));
+        PIZZA_DOUGH = block(BakeriesBlocks.PIZZA_DOUGH);
+        OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
+
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
@@ -153,6 +159,7 @@ public class BakeriesItems {
         MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
         PIZZA = block(BakeriesBlocks.PIZZA);
+        SAUSAGE_PIZZA = block(BakeriesBlocks.SAUSAGE_PIZZA);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

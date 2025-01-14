@@ -41,6 +41,8 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BOTTLE_BUTTER.get());
                         output.accept(BakeriesItems.BUTTER_CUBE.get());
                         output.accept(BakeriesItems.BROWN_SUGAR_CUBE.get());
+                        output.accept(BakeriesItems.TOMATO.get());
+                        output.accept(BakeriesItems.OLIVE.get());
                         //面包/食物
                         output.accept(BakeriesItems.BAGEL.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());
@@ -57,6 +59,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());
                         output.accept(BakeriesItems.PIZZA.get());
+                        output.accept(BakeriesItems.SAUSAGE_PIZZA.get());
                     }))
                     .build());
 

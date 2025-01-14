@@ -31,7 +31,13 @@ public class PizzaRecipe implements Recipe<SimpleContainer> {
         if (pLevel.isClientSide){
             return false;
         }
-        return inputItems.get(0).test(pContainer.getItem(0));
+        int size = inputItems.size();
+        for (int i = 0; i < size; i++) {
+            if (i == size - 1){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -80,7 +86,7 @@ public class PizzaRecipe implements Recipe<SimpleContainer> {
         public PizzaRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe,"output"));
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe,"ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1,Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(4,Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
                 inputs.set(i,Ingredient.fromJson(ingredients.get(i)));
