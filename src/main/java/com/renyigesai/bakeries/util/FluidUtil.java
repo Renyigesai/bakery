@@ -23,15 +23,13 @@ public class FluidUtil {
      * @param fluid 流体堆，指定要从流体箱中抽取的流体类型和数量
      */
     public static void getFluid(Player player, BlockPos pos, FluidTank tank, SoundEvent sound, ItemStack useItem, ItemStack outItem, FluidStack fluid){
-        if(player.getUseItem().is(useItem.getItem())){
-            if(tank.drain(fluid, IFluidHandler.FluidAction.SIMULATE).getAmount() >= 1000){
-                if (!player.getAbilities().instabuild) {
-                    useItem.shrink(1);
-                    player.getInventory().placeItemBackInInventory(outItem);
-                }
-                player.level().playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
-                tank.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
+        if(tank.drain(fluid, IFluidHandler.FluidAction.SIMULATE).getAmount() >= 1000){
+            if (!player.getAbilities().instabuild) {
+                useItem.shrink(1);
+                player.getInventory().placeItemBackInInventory(outItem);
             }
+            player.level().playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+            tank.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
         }
     }
     /**
@@ -48,16 +46,13 @@ public class FluidUtil {
      * @param fluid 要添加到流体箱的流体
      */
     public static void addFluid(Player player, BlockPos pos, FluidTank tank, SoundEvent sound, ItemStack useItem, ItemStack outItem, FluidStack fluid){
-        if(player.getUseItem().is(useItem.getItem())){
-            if(tank.fill(fluid, IFluidHandler.FluidAction.SIMULATE) > 0){
-                if (!player.getAbilities().instabuild) {
-                    useItem.shrink(1);
-                    player.getInventory().placeItemBackInInventory(outItem);
-                }
-                player.level().playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
-                tank.fill(fluid, IFluidHandler.FluidAction.EXECUTE);
+        if(tank.fill(fluid, IFluidHandler.FluidAction.SIMULATE) > 0){
+            if (!player.getAbilities().instabuild) {
+                useItem.shrink(1);
+                player.getInventory().placeItemBackInInventory(outItem);
             }
-
+            player.level().playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+            tank.fill(fluid, IFluidHandler.FluidAction.EXECUTE);
         }
     }
 }
