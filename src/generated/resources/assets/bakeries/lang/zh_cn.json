@@ -116,5 +116,8 @@
   "advancements.perfect_temperature.title": "完美温度",
   "advancements.perfect_temperature.descr": "用更加精准的温度烤制，食物会更加可口。",
   "advancements.rough_flavor.title": "粗犷风味",
-  "advancements.rough_flavor.descr": "用小麦制作全麦面粉。"
+  "advancements.rough_flavor.descr": "用小麦制作全麦面粉。",
+  "player.bakeries.tips.flour_sieve.1": "你在干什么?",
+  "player.bakeries.tips.flour_sieve.2": "筛不了的啦!",
+  "player.bakeries.tips.flour_sieve.3": "我没这个能力知道吧？"
 }

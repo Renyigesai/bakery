@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.item;
 
+import com.renyigesai.bakeries.api.RandomText;
 import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import net.minecraft.ChatFormatting;
@@ -35,7 +36,7 @@ public class FlourSieveItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack mainHandItem = pPlayer.getMainHandItem();
-        if (mainHandItem.is(BakeriesItemTag.FLOUR)){
+        if (!mainHandItem.isEmpty()){
             pPlayer.startUsingItem(pUsedHand);
             return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
         }
@@ -56,9 +57,9 @@ public class FlourSieveItem extends Item {
                 player.getInventory().placeItemBackInInventory(recipe.get().getResultItem(null));
 
             }
+        }else {
+            player.displayClientMessage(Component.translatable(RandomText.getFlourSieveRandomText()),true);
         }
-
-
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
     public boolean hasRecipe(Player player, Level pLevel) {

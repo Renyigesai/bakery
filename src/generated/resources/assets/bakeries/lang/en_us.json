@@ -116,5 +116,8 @@
   "advancements.perfect_temperature.title": "Perfect Temperature",
   "advancements.perfect_temperature.descr": "With a more precise temperature, the food will be more delicious.",
   "advancements.rough_flavor.title": "Rough Flavor",
-  "advancements.rough_flavor.descr": "Wheat is used to make whole wheat flour."
+  "advancements.rough_flavor.descr": "Wheat is used to make whole wheat flour.",
+  "player.bakeries.tips.flour_sieve.1": "What are you doing?",
+  "player.bakeries.tips.flour_sieve.2": "You can't sift it!",
+  "player.bakeries.tips.flour_sieve.3": "I don't have the power, you know?"
 }

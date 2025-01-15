@@ -4,11 +4,13 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.villager.BakeriesVillagers;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -18,10 +20,10 @@ import java.util.List;
 
 public class BakeryEvent {
     @SubscribeEvent
-    public static void addCustomTrades(VillagerTradesEvent event){
-//
+    public static void addCustomVillagersTrades(VillagerTradesEvent event){
+        Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
         if (event.getType() == BakeriesVillagers.PISTRINA_MASTER.get()){
-            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
+
             int villagerLevel_1 = 1;
             int villagerLevel_2 = 2;
             int villagerLevel_3 = 3;
@@ -61,6 +63,16 @@ public class BakeryEvent {
             trades.get(villagerLevel_5).add((traner,rand) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD,12),new ItemStack(BakeriesItems.TOAST.get(),1),2,30,0.0f));
         }
+
+        if (event.getType() == VillagerProfession.FARMER){
+            trades.get(1).add((traner,rand) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD,2),new ItemStack(BakeriesItems.TOMATO.get(),4),16,1,0.05f));
+        }
     }
 
+    @SubscribeEvent
+    public static void addCustomWanderingTraderTrades(WandererTradesEvent event) {
+        event.getGenericTrades().add((traner,rand) -> new MerchantOffer(new ItemStack(Items.EMERALD,2),
+                new ItemStack(BakeriesItems.OLIVE.get(),4),5,1,0.05f));
+    }
 }

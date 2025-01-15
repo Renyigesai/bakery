@@ -59,9 +59,9 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CIABATTA.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());
-                        output.accept(BakeriesItems.PIZZA.get());
-                        output.accept(BakeriesItems.SAUSAGE_PIZZA.get());
-                        output.accept(BakeriesItems.MEAT_PASTE_PIZZA.get());
+//                        output.accept(BakeriesItems.PIZZA.get());
+//                        output.accept(BakeriesItems.SAUSAGE_PIZZA.get());
+//                        output.accept(BakeriesItems.MEAT_PASTE_PIZZA.get());
                     }))
                     .build());
 
