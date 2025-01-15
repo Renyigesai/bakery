@@ -111,9 +111,9 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
         }
     }
 
-    public static void updateBlock(BaysaltFrameBlockEntity pToasterBlockEntity) {
-        Level world = pToasterBlockEntity.getLevel();
-        BlockPos pos = pToasterBlockEntity.getBlockPos();
+    public static void updateBlock(BaysaltFrameBlockEntity pBaysaltFrameBlockEntity) {
+        Level world = pBaysaltFrameBlockEntity.getLevel();
+        BlockPos pos = pBaysaltFrameBlockEntity.getBlockPos();
         BlockState state = world.getBlockState(pos);
         setChanged(world, pos, state);
         world.sendBlockUpdated(pos, state, state, 3);

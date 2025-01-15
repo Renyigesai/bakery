@@ -44,12 +44,12 @@ public class BaysaltFrameBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof BaysaltFrameBlockEntity toasterBlockEntity){
+        if (blockEntity instanceof BaysaltFrameBlockEntity baysaltFrameBlockEntity){
             if (!pLevel.isClientSide){
                 if (pPlayer.getItemInHand(pHand).is(BakeriesItems.SALT_WATER_BUCKET.get())) {
-                    if(toasterBlockEntity.getFluidTank().fill(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE) > 0){
-                        toasterBlockEntity.addFluid(pPlayer, pPos,
-                                toasterBlockEntity.getFluidTank(),
+                    if(baysaltFrameBlockEntity.getFluidTank().fill(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE) > 0){
+                        baysaltFrameBlockEntity.addFluid(pPlayer, pPos,
+                                baysaltFrameBlockEntity.getFluidTank(),
                                 SoundEvents.BUCKET_EMPTY,
                                 pPlayer.getItemInHand(pHand),
                                 new ItemStack(Items.BUCKET),
@@ -58,9 +58,9 @@ public class BaysaltFrameBlock extends BaseEntityBlock {
                     }
                 }
                 if(pPlayer.getItemInHand(pHand).is(Items.BUCKET) && pPlayer.isShiftKeyDown()){
-                    if(toasterBlockEntity.getFluidTank().drain(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE).getAmount() >= 1000){
-                        toasterBlockEntity.getFluid(pPlayer, pPos,
-                                toasterBlockEntity.getFluidTank(),
+                    if(baysaltFrameBlockEntity.getFluidTank().drain(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE).getAmount() >= 1000){
+                        baysaltFrameBlockEntity.getFluid(pPlayer, pPos,
+                                baysaltFrameBlockEntity.getFluidTank(),
                                 SoundEvents.BUCKET_FILL,
                                 pPlayer.getItemInHand(pHand),
                                 new ItemStack(BakeriesItems.SALT_WATER_BUCKET.get()),

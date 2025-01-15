@@ -31,6 +31,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.openjdk.nashorn.internal.objects.annotations.Getter;
 
 import java.util.Optional;
 
