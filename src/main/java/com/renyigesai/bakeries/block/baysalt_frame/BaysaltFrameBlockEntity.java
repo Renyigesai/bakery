@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,8 @@ import org.jetbrains.annotations.NotNull;
 public class BaysaltFrameBlockEntity extends BlockEntity {
     @Getter
     private final ItemStackHandler itemHandler = new ItemStackHandler(1);
-    private final FluidTank fluidTankInput = new FluidTank(2000, fs -> {
+    @Getter
+    private final FluidTank fluidTank = new FluidTank(2000, fs -> {
         if (fs.getFluid() == BakeriesFluids.FLOWING_SALT_WATER.get())
             return true;
 
@@ -38,19 +40,22 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
             }
         }
     };
-
+    private int salts = 0;
+    private final int max_salts = 100;
     private int progress = 0;
     private final int maxProgress = 200;
 
     public BaysaltFrameBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.TOASTER_ENTITY.get(), pPos, pBlockState);
+        super(BakeriesBlocks.BAYSALT_FRAME_ENTITY.get(), pPos, pBlockState);
     }
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
         pTag.putInt("progress", this.progress);
         pTag.putInt("maxProgress", this.maxProgress);
-        pTag.put("fluidTankInput", fluidTankInput.writeToNBT(new CompoundTag()));
+        pTag.putInt("salts", this.salts);
+        pTag.putInt("max_salts", this.max_salts);
+        pTag.put("fluidTank", fluidTank.writeToNBT(new CompoundTag()));
         super.saveAdditional(pTag);
     }
 
@@ -58,15 +63,14 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
     public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
-        if (pTag.get("fluidTankInput") instanceof CompoundTag compoundTag)
-            fluidTankInput.readFromNBT(compoundTag);
+        if (pTag.get("fluidTank") instanceof CompoundTag compoundTag)
+            fluidTank.readFromNBT(compoundTag);
         this.progress = pTag.getInt("progress");
+        this.salts = pTag.getInt("salts");
     }
-    public FluidTank getFluidTank() {
-        return this.fluidTankInput;
-    }
+
     public void setFluid(FluidStack stack) {
-        this.fluidTankInput.setFluid(stack);
+        this.fluidTank.setFluid(stack);
     }
     public void addFluid(Player player, BlockPos pos, FluidTank tank, SoundEvent sound, ItemStack useItem, ItemStack outItem, FluidStack fluid){
         FluidUtil.addFluid(player, pos, tank, sound, useItem, outItem, fluid);
@@ -78,19 +82,34 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
-    public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, BaysaltFrameBlockEntity pToasterBlockEntity) {
+    public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, BaysaltFrameBlockEntity pBaysaltFrameBlockEntity) {
         boolean flag = false;
-        updateBlock(pToasterBlockEntity);
+        updateBlock(pBaysaltFrameBlockEntity);
+        if(pBaysaltFrameBlockEntity.getFluidTank().isFluidValid(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000))){
+            if (!pLevel.isClientSide()) {
+                if( pBaysaltFrameBlockEntity.salts < pBaysaltFrameBlockEntity.max_salts &&
+                        pBaysaltFrameBlockEntity.getFluidTank().drain(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 10), IFluidHandler.FluidAction.SIMULATE).getAmount() >= 10) {
+                    pBaysaltFrameBlockEntity.progress++;
+                }
+                if (pBaysaltFrameBlockEntity.progress >= pBaysaltFrameBlockEntity.maxProgress ){
+                                           pBaysaltFrameBlockEntity.salts ++;
+                    pBaysaltFrameBlockEntity.getFluidTank().drain(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 10), IFluidHandler.FluidAction.EXECUTE);
 
-
-
+                    pLevel.sendBlockUpdated(pPos, pState, pState, 3);
+                    pBaysaltFrameBlockEntity.progress = 0;
+                }
+            }
+            flag = true;
+        }else {
+            if (!pLevel.isClientSide()) {
+                pLevel.sendBlockUpdated(pPos, pState, pState, 3);
+                pBaysaltFrameBlockEntity.progress = 0;
+            }
+        }
         if (flag) {
             setChanged(pLevel, pPos, pState);
         }
     }
-
-
-
 
     public static void updateBlock(BaysaltFrameBlockEntity pToasterBlockEntity) {
         Level world = pToasterBlockEntity.getLevel();
@@ -99,51 +118,4 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
         setChanged(world, pos, state);
         world.sendBlockUpdated(pos, state, state, 3);
     }
-
-    private static void recipeItem(Level world, BlockPos pos, BlockState state, BaysaltFrameBlockEntity pToasterBlockEntity) {
-//        Optional<ToasterRecipe> recipe = pToasterBlockEntity.getCurrentRecipe();
-
-//        recipe.ifPresent(ovenRecipe -> {
-//            pToasterBlockEntity.max_cooking_times[slot] = ovenRecipe.getTime();
-//        });
-//        if (pToasterBlockEntity.hasRecipe(slot) && recipe.isPresent()) {
-//
-//            if (!world.isClientSide()) {
-//                int cookingTime = pToasterBlockEntity.progress++;
-//
-//                if (cookingTime >= max_cooking_time) {
-//                    pToasterBlockEntity.craftItem(pToasterBlockEntity, slot);
-//                    world.sendBlockUpdated(pos, state, state, 3);
-//                    resetProgress(pToasterBlockEntity, slot);
-//                }
-//            }
-//        } else {
-//            if (!world.isClientSide()) {
-//                world.sendBlockUpdated(pos, state, state, 3);
-//                resetProgress(pToasterBlockEntity, slot);
-//            }
-//        }
-    }
-
-//
-//    private static void resetProgress(BaysaltFrameBlockEntity pToasterBlockEntity) {
-//        pToasterBlockEntity.progress = 0;
-//    }
-//    private void craftItem(BaysaltFrameBlockEntity pToasterBlockEntity, int slot) {
-//        updateBlock(pToasterBlockEntity);
-//        Optional<ToasterRecipe> recipe = getCurrentRecipe();
-//        if (recipe.isPresent()) {
-//            ItemStack result = recipe.get().getResultItem(null);
-//            ItemStack takeItem = new ItemStack(result.getItem(), result.getCount());
-//            this.itemHandler.setStackInSlot(slot, takeItem);
-//            updateBlock(pToasterBlockEntity);
-//        }
-//    }
-//    private boolean hasRecipe(int slot) {
-//        Optional<ToasterRecipe> recipe = getCurrentRecipe();
-//        return recipe.isPresent() && recipe.get().getIngredients().get(0).test(itemHandler.getStackInSlot(slot));
-//    }
-//    public Optional<ToasterRecipe> getCurrentRecipe() {
-//        return this.level.getRecipeManager().getRecipeFor(ToasterRecipe.Type.INSTANCE, new SimpleContainer(this.itemHandler.getStackInSlot()), level);
-//    }
 }

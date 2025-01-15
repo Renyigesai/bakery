@@ -46,7 +46,7 @@ public class FluidUtil {
      * @param fluid 要添加到流体箱的流体
      */
     public static void addFluid(Player player, BlockPos pos, FluidTank tank, SoundEvent sound, ItemStack useItem, ItemStack outItem, FluidStack fluid){
-        if(tank.fill(fluid, IFluidHandler.FluidAction.SIMULATE) > 0){
+        if(tank.fill(fluid, IFluidHandler.FluidAction.SIMULATE) >= 1000){
             if (!player.getAbilities().instabuild) {
                 useItem.shrink(1);
                 player.getInventory().placeItemBackInInventory(outItem);

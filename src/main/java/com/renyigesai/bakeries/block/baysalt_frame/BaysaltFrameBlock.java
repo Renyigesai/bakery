@@ -57,7 +57,7 @@ public class BaysaltFrameBlock extends BaseEntityBlock {
                         );
                     }
                 }
-                if(pPlayer.getItemInHand(pHand).is(Items.BUCKET)){
+                if(pPlayer.getItemInHand(pHand).is(Items.BUCKET) && pPlayer.isShiftKeyDown()){
                     if(toasterBlockEntity.getFluidTank().drain(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE).getAmount() >= 1000){
                         toasterBlockEntity.getFluid(pPlayer, pPos,
                                 toasterBlockEntity.getFluidTank(),
