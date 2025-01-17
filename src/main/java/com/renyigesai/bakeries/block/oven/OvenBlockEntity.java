@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block.oven;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import io.netty.buffer.Unpooled;
@@ -21,8 +22,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -31,6 +36,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.openjdk.nashorn.internal.objects.annotations.Getter;
 
 import java.util.Optional;
 
@@ -44,9 +50,8 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     };
     public Component name = Component.translatable("container.oven");
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
-//    public CompoundTag oven;
-    public final int[] cooking_times = new int[4];
-    public final int[] max_cooking_times = new int[4];
+    private final int[] cooking_times = new int[4];
+    private final int[] max_cooking_times = new int[4];
     private final int[] min_temperatures = new int[4];
     private final int[] max_temperatures = new int[4];
     public int temperature;
@@ -338,5 +343,4 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
-
 }

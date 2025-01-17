@@ -16,6 +16,7 @@ public class BakeriesSounds {
     }
     public static final RegistryObject<SoundEvent> OVEN_DRAW_SLIP = registerSoundEvents("block.generic.oven_draw_slip");
     public static final RegistryObject<SoundEvent> SHAKE = registerSoundEvents("entity.generic.shake");
+    public static final RegistryObject<SoundEvent> OVEN_OPEN = registerSoundEvents("block.generic.open_oven");
     //"entity.generic.shake"
 
 }

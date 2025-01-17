@@ -5,6 +5,12 @@
       "bakeries:oven_draw_slip"
     ]
   },
+  "block.generic.open_oven": {
+    "subtitle":"block.generic.open_oven",
+    "sounds": [
+      "bakeries:open_oven"
+    ]
+  },
   "entity.generic.shake": {
     "subtitle":"entity.generic.shake",
     "sounds": [
