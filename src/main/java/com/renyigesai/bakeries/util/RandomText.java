@@ -1,4 +1,4 @@
-package com.renyigesai.bakeries.api;
+package com.renyigesai.bakeries.util;
 
 import java.util.Random;
 

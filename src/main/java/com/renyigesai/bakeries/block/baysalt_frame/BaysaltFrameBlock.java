@@ -44,35 +44,35 @@ public class BaysaltFrameBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof BaysaltFrameBlockEntity baysaltFrameBlockEntity){
-            if (!pLevel.isClientSide){
+        if (blockEntity instanceof BaysaltFrameBlockEntity baysaltFrameBlockEntity) {
+            if (!pLevel.isClientSide) {
                 if (pPlayer.getItemInHand(pHand).is(BakeriesItems.SALT_WATER_BUCKET.get())) {
-                    if(baysaltFrameBlockEntity.getFluidTank().fill(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE) > 0){
+                    if (baysaltFrameBlockEntity.getFluidTank().fill(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE) >= 1000) {
                         baysaltFrameBlockEntity.addFluid(pPlayer, pPos,
                                 baysaltFrameBlockEntity.getFluidTank(),
                                 SoundEvents.BUCKET_EMPTY,
                                 pPlayer.getItemInHand(pHand),
                                 new ItemStack(Items.BUCKET),
-                                new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000)
-                        );
+                                new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000));
+                        return InteractionResult.SUCCESS;
                     }
-                }
-                if(pPlayer.getItemInHand(pHand).is(Items.BUCKET) && pPlayer.isShiftKeyDown()){
-                    if(baysaltFrameBlockEntity.getFluidTank().drain(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE).getAmount() >= 1000){
+                }else if (pPlayer.getItemInHand(pHand).is(Items.BUCKET)) {
+                    if (baysaltFrameBlockEntity.getFluidTank().drain(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000), IFluidHandler.FluidAction.SIMULATE).getAmount() >= 1000) {
                         baysaltFrameBlockEntity.getFluid(pPlayer, pPos,
                                 baysaltFrameBlockEntity.getFluidTank(),
                                 SoundEvents.BUCKET_FILL,
                                 pPlayer.getItemInHand(pHand),
                                 new ItemStack(BakeriesItems.SALT_WATER_BUCKET.get()),
                                 new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000));
+                        return InteractionResult.SUCCESS;
                     }
                 }
-                return InteractionResult.FAIL;
+                return InteractionResult.PASS;
             }
-
         }
         return InteractionResult.CONSUME;
     }
+
     @Override
     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int eventID, int eventParam) {
         super.triggerEvent(state, world, pos, eventID, eventParam);

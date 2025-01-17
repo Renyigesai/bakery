@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.item;
 
-import com.renyigesai.bakeries.api.RandomText;
-import com.renyigesai.bakeries.init.BakeriesItemTag;
+import com.renyigesai.bakeries.util.RandomText;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

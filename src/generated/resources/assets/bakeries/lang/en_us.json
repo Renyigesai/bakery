@@ -119,5 +119,13 @@
   "advancements.rough_flavor.descr": "Wheat is used to make whole wheat flour.",
   "player.bakeries.tips.flour_sieve.1": "What are you doing?",
   "player.bakeries.tips.flour_sieve.2": "You can't sift it!",
-  "player.bakeries.tips.flour_sieve.3": "I don't have the power, you know?"
+  "player.bakeries.tips.flour_sieve.3": "I don't have the power, you know?",
+  "config.jade.plugin_bakeries.baysalt_frame": "Bay Salt Frame",
+  "block.bakeries.salt_water_block": "Salt Water",
+  "fluid_type.bakeries.salt_water": "Salt Water",
+  "bakeries.progress": "Progress: ",
+  "bakeries.fluid": "Fluid: ",
+  "bakeries.salts": "Salts: ",
+  "config.jade.plugin_bakeries.oven": "Oven",
+  "bakeries.cooking_time": "Cooking Time "
 }

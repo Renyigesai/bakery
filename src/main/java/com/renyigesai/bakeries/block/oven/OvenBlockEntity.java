@@ -31,7 +31,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.openjdk.nashorn.internal.objects.annotations.Getter;
 
 import java.util.Optional;
 
@@ -46,8 +45,8 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     public Component name = Component.translatable("container.oven");
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
 //    public CompoundTag oven;
-    private final int[] cooking_times = new int[4];
-    private final int[] max_cooking_times = new int[4];
+    public final int[] cooking_times = new int[4];
+    public final int[] max_cooking_times = new int[4];
     private final int[] min_temperatures = new int[4];
     private final int[] max_temperatures = new int[4];
     public int temperature;

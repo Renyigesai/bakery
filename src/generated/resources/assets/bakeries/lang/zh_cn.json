@@ -119,5 +119,13 @@
   "advancements.rough_flavor.descr": "用小麦制作全麦面粉。",
   "player.bakeries.tips.flour_sieve.1": "你在干什么?",
   "player.bakeries.tips.flour_sieve.2": "筛不了的啦!",
-  "player.bakeries.tips.flour_sieve.3": "我没这个能力知道吧？"
+  "player.bakeries.tips.flour_sieve.3": "我没这个能力知道吧？",
+  "config.jade.plugin_bakeries.baysalt_frame": "晒盐框",
+  "block.bakeries.salt_water_block": "盐水",
+  "fluid_type.bakeries.salt_water": "盐水",
+  "bakeries.progress": "进度: ",
+  "bakeries.fluid": "液体: ",
+  "bakeries.salts": "粗盐: ",
+  "config.jade.plugin_bakeries.oven": "烤炉",
+  "bakeries.cooking_time": "烹饪时间"
 }
