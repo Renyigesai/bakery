@@ -1,5 +1,6 @@
-package com.renyigesai.bakeries.block.bread_basket;
+package com.renyigesai.bakeries.block.dough_crafting_table;
 
+import com.renyigesai.bakeries.block.cupboard.CupboardBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -11,21 +12,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
-import net.minecraft.world.inventory.HopperMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BreadBasketBlockEntity extends RandomizableContainerBlockEntity {
-    private NonNullList<ItemStack> items = NonNullList.withSize(5,ItemStack.EMPTY);
-//    private ItemStackHandler items = new ItemStackHandler(1){
-//        @Override
-//        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
-//            return 1;
-//        }
-//    };
+public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEntity {
+    private NonNullList<ItemStack> items = NonNullList.withSize(27,ItemStack.EMPTY);
     private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
         protected void onOpen(Level pLevel, BlockPos pPos, BlockState pState) {
@@ -44,49 +38,34 @@ public class BreadBasketBlockEntity extends RandomizableContainerBlockEntity {
         protected boolean isOwnContainer(Player player) {
             if (player.containerMenu instanceof ChestMenu){
                 Container container = ((ChestMenu) player.containerMenu).getContainer();
-                return container == BreadBasketBlockEntity.this;
+                return container == DoughCraftingTableBlockEntity.this;
             }else {
                 return false;
             }
         }
     };
-    public BreadBasketBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.CUPBOARD_ENTITY.get(),pPos,pBlockState);
-    }
 
-
-    @Override
-    protected NonNullList<ItemStack> getItems() {
-        return this.items;
+    public DoughCraftingTableBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(BakeriesBlocks.DOUGH_CRAFTING_TABLE_ENTITY.get(), pPos, pBlockState);
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> pItemStacks) {
-            this.items = pItemStacks;
-    }
-
-    public static void serverTick(Level world, BlockPos pos, BlockState state, BreadBasketBlockEntity breadBasketBlockEntity){
-        setChanged(world, pos, state);
-        boolean temp = breadBasketBlockEntity.getItem(0) != ItemStack.EMPTY ||
-                       breadBasketBlockEntity.getItem(1) != ItemStack.EMPTY ||
-                       breadBasketBlockEntity.getItem(2) != ItemStack.EMPTY ||
-                       breadBasketBlockEntity.getItem(3) != ItemStack.EMPTY;
-        world.setBlock(pos,breadBasketBlockEntity.getBlockState().setValue(BreadBasketBlock.FILL,temp),3);
-    }
+    protected NonNullList<ItemStack> getItems() {return this.items;}
 
     @Override
-    protected Component getDefaultName() {
-        return Component.translatable("block.bakeries.bread_basket");
-    }
+    protected void setItems(NonNullList<ItemStack> pItemStacks) {this.items = pItemStacks;}
+
+    @Override
+    protected Component getDefaultName() {return Component.translatable("block.bakeries.cupboard");}
 
     @Override
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
-        return new HopperMenu(pContainerId,pInventory,this);
+        return ChestMenu.threeRows(pContainerId, pInventory,this);
     }
 
     @Override
     public int getContainerSize() {
-        return 5;
+        return 27;
     }
 
     @Override

@@ -119,7 +119,7 @@ public class OvenBlock extends BaseEntityBlock{
             super.use(blockstate, world, pos, entity, hand, hit);
             if (blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer) entity), ovenBlockEntity, pos);
-                world.playSound(null, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.BLOCKS, 4.0F, 1.0F);
+                world.playSound(null, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.PLAYERS);
                 return InteractionResult.CONSUME;
             }else {
                 throw new IllegalStateException("Our Container provider is missing!");

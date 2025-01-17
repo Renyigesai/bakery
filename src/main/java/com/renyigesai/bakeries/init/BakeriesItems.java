@@ -90,6 +90,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> PIZZA_DOUGH;
     public static final RegistryObject<Item> MEAT_PASTE_PIZZA;
     public static final RegistryObject<Item> OLIVE;
+    public static final RegistryObject<Item> CUPBOARD;
 
 
 
@@ -143,6 +144,7 @@ public class BakeriesItems {
         TOMATO = REGISTER.register("tomato",()->new ItemNameBlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties().food(BakeriesFoodProperties.TOMATO)));
         PIZZA_DOUGH = block(BakeriesBlocks.PIZZA_DOUGH);
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
+        CUPBOARD = block(BakeriesBlocks.CUPBOARD);
 
 
         //Bread Items

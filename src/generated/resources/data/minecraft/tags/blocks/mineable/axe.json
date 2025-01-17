@@ -2,6 +2,7 @@
   "values": [
     "bakeries:wood_counter",
     "bakeries:dough_crafting_table",
-    "bakeries:bread_basket"
+    "bakeries:bread_basket",
+    "bakeries:cupboard"
   ]
 }
