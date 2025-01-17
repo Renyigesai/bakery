@@ -50,8 +50,8 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     };
     public Component name = Component.translatable("container.oven");
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
-    private final int[] cooking_times = new int[4];
-    private final int[] max_cooking_times = new int[4];
+    public final int[] cooking_times = new int[4];
+    public final int[] max_cooking_times = new int[4];
     private final int[] min_temperatures = new int[4];
     private final int[] max_temperatures = new int[4];
     public int temperature;
