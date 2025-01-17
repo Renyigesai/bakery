@@ -1,8 +1,6 @@
 package com.renyigesai.bakeries.block.dough_crafting_table;
 
-import com.renyigesai.bakeries.block.cupboard.CupboardBlockEntity;
 import com.renyigesai.bakeries.inventory.dough_crafting_table.DoughCraftingTableMenu;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -37,10 +35,10 @@ public class DoughCraftingTableBlock extends BaseEntityBlock {
       if (pLevel.isClientSide) {
          return InteractionResult.SUCCESS;
       } else {
-         if (pPlayer.isShiftKeyDown()){
-            openChestMenu(pState, pLevel, pPos, pPlayer, pHand, pHit);
-         }else {
+         if (pHit.getDirection().equals(Direction.UP)){
             openDoughCraftingTableMenu(pState, pLevel, pPos, pPlayer, pHand, pHit);
+         }else {
+            openChestMenu(pState, pLevel, pPos, pPlayer, pHand, pHit);
          }
 //         pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
 //         pPlayer.awardStat(Stats.INTERACT_WITH_LOOM);
