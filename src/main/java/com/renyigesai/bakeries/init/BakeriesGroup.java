@@ -20,6 +20,7 @@ public class BakeriesGroup {
                         //功能方块/方块/物品
                         output.accept(BakeriesItems.OVEN.get());
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());
+                        output.accept(BakeriesItems.CUPBOARD.get());
                         output.accept(BakeriesItems.BAYSALT_FRAME.get());
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());
                         output.accept(BakeriesItems.YEAST_TANK.get());

@@ -2,6 +2,8 @@ package com.renyigesai.bakeries.block.oven;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -119,7 +121,8 @@ public class OvenBlock extends BaseEntityBlock{
             super.use(blockstate, world, pos, entity, hand, hit);
             if (blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer) entity), ovenBlockEntity, pos);
-                world.playSound(null, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.PLAYERS);
+//                world.playSound(null, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.PLAYERS);
+                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(BakeriesSounds.OVEN_OPEN.get(), 1.0F,1.5F));
                 return InteractionResult.CONSUME;
             }else {
                 throw new IllegalStateException("Our Container provider is missing!");

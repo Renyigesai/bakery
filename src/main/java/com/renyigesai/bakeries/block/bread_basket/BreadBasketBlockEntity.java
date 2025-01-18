@@ -17,6 +17,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class BreadBasketBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(5,ItemStack.EMPTY);
@@ -50,10 +52,10 @@ public class BreadBasketBlockEntity extends RandomizableContainerBlockEntity {
             }
         }
     };
-    public BreadBasketBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.CUPBOARD_ENTITY.get(),pPos,pBlockState);
-    }
 
+    public BreadBasketBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(BakeriesBlocks.BREAD_BASKET_BLOCK_ENTITY.get(),pPos,pBlockState);
+    }
 
     @Override
     protected NonNullList<ItemStack> getItems() {

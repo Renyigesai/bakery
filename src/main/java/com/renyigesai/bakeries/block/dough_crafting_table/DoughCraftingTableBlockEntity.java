@@ -56,7 +56,7 @@ public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEnt
     protected void setItems(NonNullList<ItemStack> pItemStacks) {this.items = pItemStacks;}
 
     @Override
-    protected Component getDefaultName() {return Component.translatable("block.bakeries.cupboard");}
+    protected Component getDefaultName() {return Component.translatable("block.bakeries.dough_crafting_table");}
 
     @Override
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {

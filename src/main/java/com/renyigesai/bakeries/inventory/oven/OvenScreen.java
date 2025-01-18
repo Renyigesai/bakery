@@ -14,6 +14,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -88,7 +89,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
         if (dragging.get()) {
             if (Math.random() < 0.2) {
-                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(BakeriesSounds.OVEN_DRAW_SLIP.get(), 1.0F));
+                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_HAT, 1.0F));
             }
             updateProgress();
         }

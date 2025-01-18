@@ -1,0 +1,81 @@
+{
+  "parent": "bakeries:root",
+  "criteria": {
+    "bagel": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:bagel"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "whole_wheat_bagel": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:whole_wheat_bagel"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "baguette": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:baguette"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "croissant": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:croissant"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "brown_sugar_roll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:brown_sugar_roll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.husbandry.balanced_diet.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:apple"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.husbandry.balanced_diet.title"
+    }
+  },
+  "requirements": [
+    ["bagel"],
+    ["whole_wheat_bagel"],
+    ["baguette"],
+    ["croissant"],
+    ["brown_sugar_roll"]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

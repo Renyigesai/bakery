@@ -2,18 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "ab",
-    "cc"
+    "bc ",
+    "ad "
   ],
   "key": {
     "a": {
-      "item": "minecraft:book"
+      "item": "bakeries:cupboard"
     },
     "b": {
       "item": "minecraft:stick"
     },
     "c": {
-      "tag": "minecraft:planks"
+      "tag": "minecraft:wooden_pressure_plates"
+    },
+    "d": {
+      "item": "minecraft:book"
     }
   },
   "result": {
