@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "bakeries:round_bread"
+    },
+    "title": {
+      "translate": "advancements.my_stomach_is_hungry_too.title"
+    },
+    "description": {
+      "translate": "advancements.my_stomach_is_hungry_too.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "natural_activity": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tags": [
+              "bakeries:bake_food"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:precise_temperature_control"
+}

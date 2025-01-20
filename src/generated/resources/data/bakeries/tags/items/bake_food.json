@@ -10,6 +10,10 @@
     "bakeries:berry_bread",
     "bakeries:baguette",
     "bakeries:country_bread",
-    "bakeries:whole_wheat_bagel"
+    "bakeries:whole_wheat_bagel",
+    "bakeries:toast",
+    "bakeries:sliced_toast",
+    "bakeries:ciabatta",
+    "bakeries:country_bread_slice"
   ]
 }
