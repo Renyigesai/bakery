@@ -44,7 +44,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
         Player player = pContext.getPlayer();
         InteractionResult result = this.use(pContext.getLevel(), player, pContext.getHand()).getResult();
         if(player != null){
-            if (player.isShiftKeyDown()) {
+            if (player.isShiftKeyDown() && this.isExtra(pContext)) {
                 if (!pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock())) {
                     result = this.place(new BlockPlaceContext(pContext));
                 } else if(pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock()) && pContext.getLevel().getBlockState(pContext.getClickedPos()).hasProperty(this.integerProperty)){
@@ -61,7 +61,9 @@ public class FoodBlockItem extends ItemNameBlockItem {
         }
         return result;
     }
-
+    public boolean isExtra(UseOnContext pContext) {
+        return true;
+    }
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
