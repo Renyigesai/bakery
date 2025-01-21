@@ -61,5 +61,4 @@ public class BaguetteItem extends FoodBlockItem {
         }
         return super.getDefaultAttributeModifiers(equipmentSlot);
     }
-
 }
