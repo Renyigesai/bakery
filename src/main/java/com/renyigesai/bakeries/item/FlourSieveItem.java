@@ -1,9 +1,6 @@
 package com.renyigesai.bakeries.item;
 
 
-import com.renyigesai.bakeries.init.BakeriesItemTag;
-import com.renyigesai.bakeries.init.BakeriesSounds;
-import com.renyigesai.bakeries.util.RandomText;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -60,7 +57,7 @@ public class FlourSieveItem extends Item {
 
             }
         }else {
-            player.displayClientMessage(Component.translatable(RandomText.getFlourSieveRandomText()),true);
+//            player.displayClientMessage(Component.translatable(RandomText.getFlourSieveRandomText()),true);
         }
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }

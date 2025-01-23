@@ -27,7 +27,7 @@ public class FlourSieveRecipe extends AbstractFlourSieveRecipe {
 		public static final String ID = "flour_sieve";
 	}
 
-	public static class Serializer <T extends AbstractFlourSieveRecipe> implements RecipeSerializer<T> {
+	public static class Serializer<T extends AbstractFlourSieveRecipe> implements RecipeSerializer<T> {
 		public static final Serializer INSTANCE = new Serializer<>(FlourSieveRecipe::new);
 
 		public static final ResourceLocation ID = new ResourceLocation(BakeriesMod.MODID, "flour_sieve");
@@ -36,18 +36,18 @@ public class FlourSieveRecipe extends AbstractFlourSieveRecipe {
 		private Serializer(CookieBaker<T> pFactory) {
 			this.factory = pFactory;
 		}
-		
-        @Override
+
+		@Override
 		public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 			JsonElement jsonelement = (JsonElement)(GsonHelper.isArrayNode(pSerializedRecipe, "ingredient") ? GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient") : GsonHelper.getAsJsonObject(pSerializedRecipe, "ingredient"));
 			Ingredient ingredient = Ingredient.fromJson(jsonelement, false);
 			return this.factory.create(pRecipeId, output, ingredient);
-
 		}
 
 		@Override
 		public @Nullable T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buf) {
+			int ingredientCount = buf.readInt();//疑似修复代码
 			Ingredient ingredient = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();
 			return this.factory.create(pRecipeId, output, ingredient);
@@ -61,6 +61,7 @@ public class FlourSieveRecipe extends AbstractFlourSieveRecipe {
 			}
 			buf.writeItemStack(recipe.getResultItem(null), false);
 		}
+
 		interface CookieBaker<T extends AbstractFlourSieveRecipe> {
 			T create(ResourceLocation id, ItemStack output, Ingredient recipeItems);
 		}

@@ -1,5 +1,5 @@
 {
-  "parent": "bakeries:my_stomach_is_hungry_too",
+  "parent": "bakeries:root",
   "criteria": {
     "bagel": {
       "conditions": {

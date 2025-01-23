@@ -87,7 +87,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> PIZZA;
     public static final RegistryObject<Item> BAYSALT_FRAME;
     public static final RegistryObject<Item> SAUSAGE_PIZZA;
-    public static final RegistryObject<Item> PIZZA_DOUGH;
+//    public static final RegistryObject<Item> PIZZA_DOUGH;
     public static final RegistryObject<Item> MEAT_PASTE_PIZZA;
     public static final RegistryObject<Item> OLIVE;
     public static final RegistryObject<Item> CUPBOARD;
@@ -142,7 +142,7 @@ public class BakeriesItems {
         BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         TOASTER = block(BakeriesBlocks.TOASTER);
         TOMATO = REGISTER.register("tomato",()->new ItemNameBlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties().food(BakeriesFoodProperties.TOMATO)));
-        PIZZA_DOUGH = block(BakeriesBlocks.PIZZA_DOUGH);
+//        PIZZA_DOUGH = block(BakeriesBlocks.PIZZA_DOUGH);
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
         CUPBOARD = block(BakeriesBlocks.CUPBOARD);
 

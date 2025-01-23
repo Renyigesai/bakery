@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.toaster;
 
-import com.renyigesai.bakeries.block.bread_basket.BreadBasketBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
