@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.item;
 
 import com.renyigesai.bakeries.init.BakeriesSounds;
+import com.renyigesai.bakeries.util.Shortcuts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -59,7 +60,7 @@ public class ShakeItem extends Item {
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         Player player = (Player)pLivingEntity;
         pStack.shrink(1);
-        player.getInventory().placeItemBackInInventory(this.getFinishItem());
+        Shortcuts.givePlayerItem(player,this.getFinishItem());
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 

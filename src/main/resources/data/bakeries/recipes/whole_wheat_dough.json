@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "abb",
+    "abf",
     "cde",
     "eee"
   ],
@@ -18,6 +18,9 @@
     },
     "d": {
       "item": "bakeries:butter_cube"
+    },
+    "f": {
+      "item": "bakeries:bottle_yeast"
     },
     "e": {
       "item": "bakeries:whole_wheat_flour"

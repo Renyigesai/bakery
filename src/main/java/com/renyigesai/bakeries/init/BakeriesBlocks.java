@@ -56,6 +56,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> Milk_TANK;
     public static final RegistryObject<Block> GLASS_CABINET_DOOR;
     public static final RegistryObject<Block> SALT_ORE;
+    public static final RegistryObject<Block> DEEPSLATE_SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<LiquidBlock> SALT_WATER_BLOCK;
     public static final RegistryObject<Block> MOULD_TOAST;
@@ -112,6 +113,8 @@ public class BakeriesBlocks {
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops(), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
+                new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+        DEEPSLATE_SALT_ORE = BLOCK_REGISTRY.register("deepslate_salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", SaltWaterFluidsBlock::new);
         MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->

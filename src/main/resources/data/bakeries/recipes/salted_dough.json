@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    " a ",
+    "da ",
     "bbc",
     "ccc"
   ],
@@ -15,6 +15,9 @@
     },
     "c": {
       "item": "bakeries:flour"
+    },
+    "d": {
+      "item": "bakeries:bottle_yeast"
     }
   },
   "result": {
