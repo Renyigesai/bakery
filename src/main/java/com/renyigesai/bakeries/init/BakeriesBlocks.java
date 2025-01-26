@@ -115,7 +115,7 @@ public class BakeriesBlocks {
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         DEEPSLATE_SALT_ORE = BLOCK_REGISTRY.register("deepslate_salt_ore", () ->
-                new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+                new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)));
         SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", SaltWaterFluidsBlock::new);
         MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->
                 new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));

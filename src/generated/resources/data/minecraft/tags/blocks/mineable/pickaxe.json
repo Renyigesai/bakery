@@ -1,6 +1,8 @@
 {
   "values": [
     "bakeries:oven",
+    "bakeries:salt_ore",
+    "bakeries:deepslate_salt_ore",
     "bakeries:fermentation_tank",
     "bakeries:yeast_tank",
     "bakeries:cheese_tank",

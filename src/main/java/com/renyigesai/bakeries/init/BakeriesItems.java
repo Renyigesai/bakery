@@ -59,6 +59,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> GLASS_CABINET_DOOR;
     public static final RegistryObject<Item> COARSE_SALT;
     public static final RegistryObject<Item> SALT_ORE;
+    public static final RegistryObject<Item> DEEPSLATE_SALT_ORE;
     public static final RegistryObject<Item> SLICED_TOAST;
     public static final RegistryObject<Item> TOAST;
     public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
@@ -122,6 +123,7 @@ public class BakeriesItems {
         BOTTLE_YEAST = item("bottle_yeast");
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         SALT_ORE = block(BakeriesBlocks.SALT_ORE);
+        DEEPSLATE_SALT_ORE = block(BakeriesBlocks.DEEPSLATE_SALT_ORE);
         COARSE_SALT = item("coarse_salt");
         DOUGH_CRAFTING_TABLE = block(BakeriesBlocks.DOUGH_CRAFTING_TABLE);
         SWEET_DOUGH = item("sweet_dough");
