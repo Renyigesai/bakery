@@ -23,7 +23,7 @@ public class BaguetteItem extends FoodBlockItem {
     }
     @Override
     public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
-        return 1;
+        return 1.5F;
     }
     @Override
     public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
@@ -34,6 +34,11 @@ public class BaguetteItem extends FoodBlockItem {
     @Override
     public boolean isExtra(UseOnContext pContext) {
         return pContext.getItemInHand().getDamageValue() == 0;
+    }
+
+    @Deprecated
+    public int getEnchantmentValue() {
+        return 0;
     }
 
     @Override
@@ -61,4 +66,9 @@ public class BaguetteItem extends FoodBlockItem {
         }
         return super.getDefaultAttributeModifiers(equipmentSlot);
     }
+
+//    @Override
+//    public int getEnchantmentValue() {
+//        return 0;
+//    }
 }
