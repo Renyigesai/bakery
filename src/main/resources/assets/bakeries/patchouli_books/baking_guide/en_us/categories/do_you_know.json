@@ -1,5 +1,6 @@
 {
   "name": "guide.bakeries.categories.do_you_know",
   "description": "",
-  "icon": "bakeries:mould"
+  "sortnum": 5,
+  "icon": "minecraft:book"
 }

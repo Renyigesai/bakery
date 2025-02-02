@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "is_raw_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "bakeries:raw_food"
+          }
+        ]
+      }
+    }
+  }
+}

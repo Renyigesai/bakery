@@ -30,6 +30,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR.get());
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());
+                        output.accept(BakeriesItems.BREAD_KNIFE.get());
                         output.accept(BakeriesItems.MOULD.get());
                         //原材料/食材
                         output.accept(BakeriesItems.FLOUR.get());

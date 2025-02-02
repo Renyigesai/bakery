@@ -4,10 +4,7 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
-import com.renyigesai.bakeries.item.BaguetteItem;
-import com.renyigesai.bakeries.item.FlourSieveItem;
-import com.renyigesai.bakeries.item.RawItem;
-import com.renyigesai.bakeries.item.ShakeItem;
+import com.renyigesai.bakeries.item.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -92,6 +89,8 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MEAT_PASTE_PIZZA;
     public static final RegistryObject<Item> OLIVE;
     public static final RegistryObject<Item> CUPBOARD;
+    public static final RegistryObject<Item> BREAD_KNIFE;
+
 
 
 
@@ -147,7 +146,8 @@ public class BakeriesItems {
 //        PIZZA_DOUGH = block(BakeriesBlocks.PIZZA_DOUGH);
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
         CUPBOARD = block(BakeriesBlocks.CUPBOARD);
-
+        BREAD_KNIFE = REGISTER.register("bread_knife",()->
+                new BreadKnifeItem(0.5F,-0.2F,Tiers.IRON,new Item.Properties()));
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);

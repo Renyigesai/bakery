@@ -1,11 +1,15 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.init.BakeriesItemTag;
+import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +38,7 @@ import java.util.function.Supplier;
 * 由于吐司只是一个单纯的方块，他的物品不需要可食用。
 * Since the toast is just a simple Block, his Item does not need to be edible.
 * */
-public class ToastBlock extends HorizontalDirectionalBlock {
+public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
     public static final ModIntegerProperty PILE = ModIntegerProperty.create("pile",1,2);
     public static final IntegerProperty SLICE = IntegerProperty.create("slice",1,4);
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
@@ -52,7 +56,7 @@ public class ToastBlock extends HorizontalDirectionalBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         int pile = pState.getValue(PILE);
-        if ( hand.is(Tags.Items.TOOLS) && pile == 1){
+        if (isKnifeItem(hand) && pile == 1){
             return cut(pLevel,pPos,pState,pPlayer);
         }
 
@@ -136,5 +140,10 @@ public class ToastBlock extends HorizontalDirectionalBlock {
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
+    }
+
+    @Override
+    public boolean isKnifeItem(ItemStack itemStack) {
+        return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge:tools/knives")));
     }
 }

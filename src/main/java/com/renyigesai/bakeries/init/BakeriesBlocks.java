@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -113,9 +114,9 @@ public class BakeriesBlocks {
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops(), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
-                new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+                new DropExperienceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
         DEEPSLATE_SALT_ORE = BLOCK_REGISTRY.register("deepslate_salt_ore", () ->
-                new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)));
+                new DropExperienceBlock(BlockBehaviour.Properties.copy(SALT_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
         SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", SaltWaterFluidsBlock::new);
         MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->
                 new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
@@ -145,7 +146,6 @@ public class BakeriesBlocks {
 //        PIZZA_DOUGH_ENTITY = BLOCK_ENTITY_REGISTRY.register("pizza_dough", () -> BlockEntityType.Builder.of(PizzaDoughBlockEntity::new, PIZZA_DOUGH.get()).build(null));
         BAYSALT_FRAME_ENTITY = BLOCK_ENTITY_REGISTRY.register("baysalt_frame", () -> BlockEntityType.Builder.of(BaysaltFrameBlockEntity::new, BAYSALT_FRAME.get()).build(null));
         DOUGH_CRAFTING_TABLE_ENTITY = BLOCK_ENTITY_REGISTRY.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, BAYSALT_FRAME.get()).build(null));
-
     }
 
 }

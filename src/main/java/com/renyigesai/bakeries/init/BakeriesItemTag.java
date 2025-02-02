@@ -16,6 +16,7 @@ public class BakeriesItemTag {
     public static final TagKey<Item> ADDITIVE = create("additive");
     public static final TagKey<Item> ADDITIVE_FOOD = create("additive_food");
     public static final TagKey<Item> WHOLE_WHEAT_FLOUR = create("whole_wheat_flour");
+    public static final TagKey<Item> BREAD_KNIFE = create("bread_knife");
     private static TagKey<Item> create(String name) {
         return ItemTags.create(BakeriesMod.prefix(name));
     }

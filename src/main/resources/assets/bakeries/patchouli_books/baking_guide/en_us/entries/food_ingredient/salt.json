@@ -37,6 +37,20 @@
       "enable_visualize": "false"
     },
     {
+      "type": "patchouli:multiblock",
+      "name": "guide.bakeries.entries.salt_3",
+      "multiblock": {
+        "mapping": {
+          "G": "bakeries:salt_ore"
+        },
+        "pattern":  [
+          ["G"],
+          ["0"]
+        ]
+      },
+      "enable_visualize": "false"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "bakeries:salt"
     }

@@ -1,11 +1,14 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
 //未完成
-public class CountryBreadBlock extends HorizontalDirectionalBlock {
+public class CountryBreadBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
     /*
      * 由于乡村面包只是一个单纯的方块，他的物品不需要可食用。
      * Since the Country Bread is just a simple Block, his Item does not need to be edible.
@@ -57,7 +60,7 @@ public class CountryBreadBlock extends HorizontalDirectionalBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         int pile = pState.getValue(PILE);
-        if ( hand.is(Tags.Items.TOOLS) && pile == 1){
+        if (isKnifeItem(hand) && pile == 1){
             return cut(pLevel,pPos,pState,pPlayer);
         }
 
@@ -70,11 +73,6 @@ public class CountryBreadBlock extends HorizontalDirectionalBlock {
 
     protected InteractionResult cut (Level level, BlockPos pos, BlockState state, Player playerIn){
         level.removeBlock(pos,false);
-//        for (int i = 0; i <6 ; i++) {
-//            ItemEntity entity = new ItemEntity(level, pos.getX(), pos.getY() + 0.15, pos.getZ(), new ItemStack(BakeriesItems.COUNTRY_BREAD_SLICE.get()));
-//            level.addFreshEntity(entity);
-//        }
-//        Direction direction = playerIn.getDirection().getOpposite();
         Shortcuts.spawnItemEntity(level, new ItemStack(BakeriesItems.COUNTRY_BREAD_SLICE.get(),6), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
                 new Vec3(0.0, 0.0, 0.0));
         level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
@@ -124,5 +122,10 @@ public class CountryBreadBlock extends HorizontalDirectionalBlock {
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
+    }
+
+    @Override
+    public boolean isKnifeItem(ItemStack itemStack) {
+        return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge:tools/knives")));
     }
 }

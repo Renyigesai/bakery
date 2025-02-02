@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,8 +24,9 @@ public class BaguetteItem extends FoodBlockItem {
     }
     @Override
     public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
-        return 1.5F;
+        return 1;
     }
+
     @Override
     public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
         itemstack.hurtAndBreak(2, entity, i -> i.broadcastBreakEvent(EquipmentSlot.MAINHAND));
@@ -32,13 +34,13 @@ public class BaguetteItem extends FoodBlockItem {
     }
 
     @Override
-    public boolean isExtra(UseOnContext pContext) {
-        return pContext.getItemInHand().getDamageValue() == 0;
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return false;
     }
 
-    @Deprecated
-    public int getEnchantmentValue() {
-        return 0;
+    @Override
+    public boolean isExtra(UseOnContext pContext) {
+        return pContext.getItemInHand().getDamageValue() == 0;
     }
 
     @Override
@@ -66,9 +68,4 @@ public class BaguetteItem extends FoodBlockItem {
         }
         return super.getDefaultAttributeModifiers(equipmentSlot);
     }
-
-//    @Override
-//    public int getEnchantmentValue() {
-//        return 0;
-//    }
 }

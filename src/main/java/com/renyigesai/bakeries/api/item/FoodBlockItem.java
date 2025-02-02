@@ -64,11 +64,21 @@ public class FoodBlockItem extends ItemNameBlockItem {
     public boolean isExtra(UseOnContext pContext) {
         return true;
     }
+
+    @Override
+    public int getEnchantmentValue() {
+        return 0;
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
-        pPlayer.startUsingItem(pUsedHand);
-        return InteractionResultHolder.consume(itemstack);
+        if (itemstack.getOrCreateTag().getBoolean("perfect")){
+            pPlayer.startUsingItem(pUsedHand);
+            return InteractionResultHolder.consume(itemstack);
+        }
+        return super.use(pLevel, pPlayer, pUsedHand);
+
     }
 
     @Override

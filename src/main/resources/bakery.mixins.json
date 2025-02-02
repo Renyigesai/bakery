@@ -4,7 +4,8 @@
   "package": "com.renyigesai.bakeries",
   "compatibilityLevel": "JAVA_8",
   "refmap": "bakery.refmap.json",
-  "mixins": [
+  "mixins":[
+
   ],
   "client": [
   ],
