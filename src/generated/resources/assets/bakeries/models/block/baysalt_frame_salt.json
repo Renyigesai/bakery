@@ -1,6 +1,6 @@
 {
 	"parent": "bakeries:custom/baysalt_frame_salt",
-	"render_type": "minecraft:cutout",
+	"render_type": "minecraft:cutout_mipped",
 	"textures": {
 		"1": "bakeries:block/baysalt_frame",
 		"2": "bakeries:block/raw_salt",

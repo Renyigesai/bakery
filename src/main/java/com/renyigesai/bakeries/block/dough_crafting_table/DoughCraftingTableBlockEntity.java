@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.dough_crafting_table;
 
-import com.renyigesai.bakeries.block.cupboard.CupboardBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -17,20 +16,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(27,ItemStack.EMPTY);
-    private ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
+    private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
-        protected void onOpen(Level pLevel, BlockPos pPos, BlockState pState) {
+        protected void onOpen(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState) {
         }
 
         @Override
-        protected void onClose(Level pLevel, BlockPos pPos, BlockState pState) {
+        protected void onClose(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState) {
         }
 
         @Override
-        protected void openerCountChanged(Level pLevel, BlockPos pPos, BlockState pState, int pCount, int pOpenCount) {
+        protected void openerCountChanged(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, int pCount, int pOpenCount) {
 
         }
 
@@ -50,16 +50,16 @@ public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEnt
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {return this.items;}
+    protected @NotNull NonNullList<ItemStack> getItems() {return this.items;}
 
     @Override
-    protected void setItems(NonNullList<ItemStack> pItemStacks) {this.items = pItemStacks;}
+    protected void setItems(@NotNull NonNullList<ItemStack> pItemStacks) {this.items = pItemStacks;}
 
     @Override
-    protected Component getDefaultName() {return Component.translatable("block.bakeries.dough_crafting_table");}
+    protected @NotNull Component getDefaultName() {return Component.translatable("block.bakeries.dough_crafting_table");}
 
     @Override
-    protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory) {
         return ChestMenu.threeRows(pContainerId, pInventory,this);
     }
 
@@ -69,21 +69,21 @@ public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEnt
     }
 
     @Override
-    public void startOpen(Player player){
+    public void startOpen(@NotNull Player player){
         if (this.remove && !player.isSpectator()){
             this.openersCounter.incrementOpeners(player,this.getLevel(),this.getBlockPos(),this.getBlockState());
         }
     }
 
     @Override
-    public void stopOpen(Player player){
+    public void stopOpen(@NotNull Player player){
         if (this.remove && !player.isSpectator()){
             this.openersCounter.decrementOpeners(player,this.getLevel(),this.getBlockPos(),this.getBlockState());
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(@NotNull CompoundTag pTag) {
         super.saveAdditional(pTag);
         if (!this.trySaveLootTable(pTag)) {
             ContainerHelper.saveAllItems(pTag,this.items);
@@ -91,7 +91,7 @@ public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEnt
     }
 
     @Override
-    public void load(CompoundTag pTag) {
+    public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
         this.items = NonNullList.withSize(this.getContainerSize(),ItemStack.EMPTY);
         if (!this.trySaveLootTable(pTag)) {

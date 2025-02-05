@@ -4,9 +4,7 @@
     "item": "bakeries:salt",
     "count": 9
   },
-  "ingredient": [
-    {
+  "ingredient":  {
     "item": "bakeries:raw_salt_block"
-    }
-  ]
+  }
 }

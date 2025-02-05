@@ -18,6 +18,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 
 public class   OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
@@ -32,7 +33,7 @@ public class   OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 		this.cachedArrows =  helper.createDrawable(TEXTURE, 0, 70, 20, 3);
 	}
 	@Override
-	public void draw(OvenRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+	public void draw(OvenRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
 		int min_temperature = recipe.getMin_temperature();
 		int max_temperature = recipe.getMax_temperature();
 		int zhen_min =  (500 - min_temperature)/(500/52) + 9;
@@ -51,12 +52,12 @@ public class   OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 
 	}
 	@Override
-	public mezz.jei.api.recipe.RecipeType<OvenRecipe> getRecipeType() {
+	public mezz.jei.api.recipe.@NotNull RecipeType<OvenRecipe> getRecipeType() {
 		return BakeryJeiPlugin.Oven_Type;
 	}
 
 	@Override
-	public Component getTitle() {
+	public @NotNull Component getTitle() {
 		return Component.translatable("container.oven");
 	}
 
@@ -73,7 +74,7 @@ public class   OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, OvenRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, OvenRecipe recipe, @NotNull IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 16, 9).addIngredients(recipe.getIngredients().get(0));
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 16, 45).addItemStack(recipe.getResultItem(null));
 	}

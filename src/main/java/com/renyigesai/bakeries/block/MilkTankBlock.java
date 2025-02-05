@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class MilkTankBlock extends TankBlock {
 
@@ -35,7 +36,7 @@ public class MilkTankBlock extends TankBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public @NotNull InteractionResult use(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
 
         if (hand.is(Items.GLASS_BOTTLE)){
@@ -89,7 +90,7 @@ public class MilkTankBlock extends TankBlock {
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void randomTick(BlockState pState, @NotNull ServerLevel pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         int milk = pState.getValue(MILK);
         boolean sweet_berries = pState.getValue(SWEET_BERRIES);
         if (milk == 3 && sweet_berries) {
@@ -100,7 +101,7 @@ public class MilkTankBlock extends TankBlock {
     }
 
     @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void animateTick(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         int milk = pState.getValue(MILK);
         boolean sweet_berries = pState.getValue(SWEET_BERRIES);
         Direction direction = Direction.getRandom(pRandom);

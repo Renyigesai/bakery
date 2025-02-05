@@ -14,6 +14,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class DoughCraftingTableRecipeCategory implements IRecipeCategory<DoughCraftingRecipe> {
 	public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "dough_crafting_table_recipe");
@@ -25,12 +26,12 @@ public class DoughCraftingTableRecipeCategory implements IRecipeCategory<DoughCr
 		this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BakeriesBlocks.DOUGH_CRAFTING_TABLE.get()));
 	}
 	@Override
-	public mezz.jei.api.recipe.RecipeType<DoughCraftingRecipe> getRecipeType() {
+	public mezz.jei.api.recipe.@NotNull RecipeType<DoughCraftingRecipe> getRecipeType() {
 		return BakeryJeiPlugin.Dough_Crafting_Table_Type;
 	}
 
 	@Override
-	public Component getTitle() {
+	public @NotNull Component getTitle() {
 		return Component.translatable("container.dough_crafting_table");
 	}
 
@@ -48,7 +49,7 @@ public class DoughCraftingTableRecipeCategory implements IRecipeCategory<DoughCr
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, DoughCraftingRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, DoughCraftingRecipe recipe, @NotNull IFocusGroup focuses) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 12,15).addIngredients(recipe.getIngredients().get(0));
 		builder.addSlot(RecipeIngredientRole.OUTPUT, 66, 15).addItemStack(recipe.getResultItem(null));
 	}

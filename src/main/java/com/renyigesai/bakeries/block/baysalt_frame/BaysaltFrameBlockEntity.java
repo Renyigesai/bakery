@@ -23,10 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public class BaysaltFrameBlockEntity extends BlockEntity {
     @Getter
     private final FluidTank fluidTank = new FluidTank(2000, fs -> {
-        if (fs.getFluid() == BakeriesFluids.FLOWING_SALT_WATER.get())
-            return true;
-
-        return false;
+        return fs.getFluid() == BakeriesFluids.FLOWING_SALT_WATER.get();
     }) {
         @Override
         protected void onContentsChanged() {
@@ -80,6 +77,13 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
     public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, BaysaltFrameBlockEntity pBaysaltFrameBlockEntity) {
         boolean flag = false;
         updateBlock(pBaysaltFrameBlockEntity);
+        if(pBaysaltFrameBlockEntity.getFluidTank().getFluidAmount() >0){
+            pLevel.setBlock(pPos, pState.setValue(BaysaltFrameBlock.LIT, 1), 3);
+        } else if (pBaysaltFrameBlockEntity.salts>=10){
+            pLevel.setBlock(pPos, pState.setValue(BaysaltFrameBlock.LIT, 2), 3);
+        }else {
+            pLevel.setBlock(pPos, pState.setValue(BaysaltFrameBlock.LIT, 0), 3);
+        }
         if(pBaysaltFrameBlockEntity.getFluidTank().isFluidValid(new FluidStack(BakeriesFluids.FLOWING_SALT_WATER.get(), 1000)) &&
                 !pLevel.getLevelData().isRaining() && !pLevel.getLevelData().isThundering() && pLevel.canSeeSkyFromBelowWater(pPos) && pLevel.isDay()){
             if (!pLevel.isClientSide()) {

@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -34,30 +35,30 @@ public class ShakeItem extends Item {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack pStack) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack pStack) {
         return UseAnim.DRINK;
     }
 
     @Override
-    public SoundEvent getEatingSound() {return BakeriesSounds.SHAKE.get();}
+    public @NotNull SoundEvent getEatingSound() {return BakeriesSounds.SHAKE.get();}
 
-    public SoundEvent getDrinkingSound() {
+    public @NotNull SoundEvent getDrinkingSound() {
         return BakeriesSounds.SHAKE.get();
     }
 
     @Override
-    public int getUseDuration(ItemStack itemstack) {
+    public int getUseDuration(@NotNull ItemStack itemstack) {
         return 48;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
+    public @NotNull InteractionResultHolder use(@NotNull Level world, Player entity, @NotNull InteractionHand hand) {
             entity.startUsingItem(hand);
             return new InteractionResultHolder(InteractionResult.PASS, entity.getItemInHand(hand));
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
+    public @NotNull ItemStack finishUsingItem(ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
         Player player = (Player)pLivingEntity;
         pStack.shrink(1);
         Shortcuts.givePlayerItem(player,this.getFinishItem());
@@ -65,7 +66,7 @@ public class ShakeItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("item.bakeries.tips.shake").withStyle(ChatFormatting.BLUE));
     }
 }

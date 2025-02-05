@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
+    "lit=0": {
       "model": "bakeries:block/baysalt_frame"
+    },
+    "lit=1": {
+      "model": "bakeries:block/baysalt_frame_fill"
+    },
+    "lit=2": {
+      "model": "bakeries:block/baysalt_frame_salt"
     }
   }
 }
