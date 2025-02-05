@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractFlourSieveRecipe implements Recipe<Container> {
     private  final RecipeType<?> type;
@@ -25,18 +26,18 @@ public abstract class AbstractFlourSieveRecipe implements Recipe<Container> {
         this.recipeItems = recipeItems;
     }
     @Override
-    public boolean matches(Container pInv, Level pLevel) {
+    public boolean matches(@NotNull Container pInv, Level pLevel) {
         if(pLevel.isClientSide()){
             return false;
         }
         return this.recipeItems.test(pInv.getItem(0));
     }
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+    public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
         return this.output.copy();
     }
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.recipeItems);
         return nonnulllist;
@@ -47,22 +48,22 @@ public abstract class AbstractFlourSieveRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess access) {
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess access) {
         return output.copy();
     }
 
     @Override
-    public ResourceLocation getId() {
+    public @NotNull ResourceLocation getId() {
         return id;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return type;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return serializer;
     }
 }

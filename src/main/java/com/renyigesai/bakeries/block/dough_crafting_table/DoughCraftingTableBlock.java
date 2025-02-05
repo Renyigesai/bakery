@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DoughCraftingTableBlock extends BaseEntityBlock {
@@ -31,7 +32,7 @@ public class DoughCraftingTableBlock extends BaseEntityBlock {
     public DoughCraftingTableBlock() {
         super(BlockBehaviour.Properties.of().strength(2.5f, 10f).sound(SoundType.WOOD).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
     }
-   public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
       if (pLevel.isClientSide) {
          return InteractionResult.SUCCESS;
       } else {
@@ -46,19 +47,17 @@ public class DoughCraftingTableBlock extends BaseEntityBlock {
       }
    }
 
-   public InteractionResult openDoughCraftingTableMenu(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+   public void openDoughCraftingTableMenu(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
       pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
       pPlayer.awardStat(Stats.INTERACT_WITH_LOOM);
-      return InteractionResult.CONSUME;
    }
 
-   public InteractionResult openChestMenu(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+   public void openChestMenu(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
       BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
       if (blockEntity instanceof DoughCraftingTableBlockEntity){
          pPlayer.openMenu((DoughCraftingTableBlockEntity)blockEntity);
          pPlayer.awardStat(Stats.OPEN_BARREL);
       }
-      return InteractionResult.CONSUME;
    }
 
    @Override
@@ -69,23 +68,23 @@ public class DoughCraftingTableBlock extends BaseEntityBlock {
    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
       builder.add(FACING);
    }
-   public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
+   public MenuProvider getMenuProvider(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
       return new SimpleMenuProvider((p_54783_, p_54784_, p_54785_) -> {
          return new DoughCraftingTableMenu(p_54783_, p_54784_, ContainerLevelAccess.create(pLevel, pPos));
       }, DOUCH_CRAFTING_TABLE_TITLE);
    }
-   public boolean useShapeForLightOcclusion(BlockState pState) {
+   public boolean useShapeForLightOcclusion(@NotNull BlockState pState) {
       return true;
    }
-   public RenderShape getRenderShape(BlockState pState) {
+   public @NotNull RenderShape getRenderShape(@NotNull BlockState pState) {
       return RenderShape.MODEL;
    }
-   public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+   public boolean isPathfindable(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull PathComputationType pType) {
       return false;
    }
 
    @Override
-   public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+   public void onRemove(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
       if (!pState.is(pNewState.getBlock())) {
          BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
          if (blockEntity instanceof Container container){
@@ -98,7 +97,7 @@ public class DoughCraftingTableBlock extends BaseEntityBlock {
 
    @Nullable
    @Override
-   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+   public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
       return new DoughCraftingTableBlockEntity(pPos,pState);
    }
 }

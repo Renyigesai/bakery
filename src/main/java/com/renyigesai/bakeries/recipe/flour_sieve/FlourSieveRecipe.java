@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -38,7 +39,7 @@ public class FlourSieveRecipe extends AbstractFlourSieveRecipe {
 		}
 
 		@Override
-		public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+		public @NotNull T fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 			JsonElement jsonelement = (JsonElement)(GsonHelper.isArrayNode(pSerializedRecipe, "ingredient") ? GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredient") : GsonHelper.getAsJsonObject(pSerializedRecipe, "ingredient"));
 			Ingredient ingredient = Ingredient.fromJson(jsonelement, false);
@@ -46,7 +47,7 @@ public class FlourSieveRecipe extends AbstractFlourSieveRecipe {
 		}
 
 		@Override
-		public @Nullable T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buf) {
+		public @Nullable T fromNetwork(@NotNull ResourceLocation pRecipeId, @NotNull FriendlyByteBuf buf) {
 			int ingredientCount = buf.readInt();//疑似修复代码
 			Ingredient ingredient = Ingredient.fromNetwork(buf);
 			ItemStack output = buf.readItem();

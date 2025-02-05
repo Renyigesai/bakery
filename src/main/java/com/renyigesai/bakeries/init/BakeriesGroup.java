@@ -31,6 +31,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());
                         output.accept(BakeriesItems.MOULD.get());
+                        output.accept(BakeriesItems.SALT_SCRAPER_RAKE.get());
                         //原材料/食材
                         output.accept(BakeriesItems.FLOUR.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR.get());

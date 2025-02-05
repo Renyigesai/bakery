@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 public class DoughCraftingRecipe implements  Recipe<Container> {
     @Getter
@@ -29,18 +30,18 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
         this.result = pResult;
     }
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient);
         return nonnulllist;
     }
     @Override
-    public boolean matches(Container pContainer, Level pLevel) {
+    public boolean matches(Container pContainer, @NotNull Level pLevel) {
         return this.ingredient.test(pContainer.getItem(0));
 
     }
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+    public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
         return this.result.copy();
     }
 
@@ -50,18 +51,18 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess pRegistryAccess) {
         return result.copy();
     }
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return Type.INSTANCE;
     }
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
     }
     public static class Type implements RecipeType<DoughCraftingRecipe> {
@@ -78,7 +79,7 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
         public static final ResourceLocation ID = new ResourceLocation(BakeriesMod.MODID, "dough_crafting_table");
 
         @Override
-        public DoughCraftingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
+        public @NotNull DoughCraftingRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pJson) {
             Ingredient ingredient;
             if (GsonHelper.isArrayNode(pJson, "ingredient")) {
                 ingredient = Ingredient.fromJson(GsonHelper.getAsJsonArray(pJson, "ingredient"), false);
@@ -93,14 +94,14 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
             return new DoughCraftingRecipe(pRecipeId, ingredient, result);
         }
         @Override
-        public DoughCraftingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf pBuffer) {
+        public DoughCraftingRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf pBuffer) {
             Ingredient ingredient = Ingredient.fromNetwork(pBuffer);
             ItemStack result = pBuffer.readItem();
 
             return new DoughCraftingRecipe(recipeId, ingredient, result);
         }
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, DoughCraftingRecipe pRecipe) {
+        public void toNetwork(@NotNull FriendlyByteBuf pBuffer, DoughCraftingRecipe pRecipe) {
             pRecipe.ingredient.toNetwork(pBuffer);
             pBuffer.writeItem(pRecipe.result);
         }

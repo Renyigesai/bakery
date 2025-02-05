@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public class OvenButtonMessage {
 
     private final int buttonID, x, y, z,zhen_y;
-    private HashMap<String, String> textstate;
+    private final HashMap<String, String> textstate;
 
     public OvenButtonMessage(FriendlyByteBuf buffer) {
         this.buttonID = buffer.readInt();
@@ -66,7 +66,7 @@ public class OvenButtonMessage {
 
     public static void handleButtonAction(Player entity, int buttonID, int x, int y, int z, int zhen_y, HashMap<String, String> textstate) {
         Level world = entity.level();
-        HashMap guistate = OvenMenu.guistate;
+        HashMap<String, Object> guistate = OvenMenu.guistate;
         for (Map.Entry<String, String> entry : textstate.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();

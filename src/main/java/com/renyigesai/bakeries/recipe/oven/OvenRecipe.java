@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -38,7 +39,7 @@ public class OvenRecipe extends AbstractOvenRecipe{
 		}
 		
         @Override
-		public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+		public @NotNull T fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 			int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
 			int min_temperature = GsonHelper.getAsInt(pSerializedRecipe, "min_temperature");
@@ -54,7 +55,7 @@ public class OvenRecipe extends AbstractOvenRecipe{
 		}
 
 		@Override
-		public @Nullable T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buf) {
+		public @Nullable T fromNetwork(@NotNull ResourceLocation pRecipeId, FriendlyByteBuf buf) {
 			int time = buf.readInt();
 			int min_temperature = buf.readInt();
 			int max_temperature = buf.readInt();

@@ -24,7 +24,7 @@ public class AddPackEvent {
             }
             IModFile modFile = modFileInfo.getFile();
             event.addRepositorySource(consumer -> {
-                Pack pack = Pack.readMetaAndCreate(BakeriesMod.asResource("b_16x").toString(),
+                Pack pack = Pack.readMetaAndCreate(BakeriesMod.prefix("b_16x").toString(),
                         Component.literal("Bakeries 16x Texture"), false, id ->
                                 new BakeriesFilePackResource(id, modFile, "resourcepacks/b_16x"),
                         PackType.CLIENT_RESOURCES, Pack.Position.TOP, PackSource.BUILT_IN);

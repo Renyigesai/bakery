@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class FermentationTankBlock extends TankBlock {
     public static final ModIntegerProperty FLOUR = ModIntegerProperty.create("flour", 0, 3);
@@ -38,8 +39,8 @@ public class FermentationTankBlock extends TankBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer,
-                                 InteractionHand pHand, BlockHitResult pHit) {
+    public @NotNull InteractionResult use(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer,
+                                          @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         ItemStack handStack = pPlayer.getItemInHand(pHand);
         int flour = pState.getValue(FLOUR);
         if (flour < 3 && handStack.is(BakeriesItems.WHOLE_WHEAT_FLOUR.get())){
@@ -81,7 +82,7 @@ public class FermentationTankBlock extends TankBlock {
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void randomTick(BlockState pState, @NotNull ServerLevel pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         int flour = pState.getValue(FLOUR);
         boolean water = pState.getValue(WATER);
         if (flour == 3 && water) {
@@ -90,7 +91,7 @@ public class FermentationTankBlock extends TankBlock {
     }
 
     @Override
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void animateTick(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         int flour = pState.getValue(FLOUR);
         boolean water = pState.getValue(WATER);
         Direction direction = Direction.getRandom(pRandom);
@@ -108,7 +109,7 @@ public class FermentationTankBlock extends TankBlock {
     }
 
     @Override
-    public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
+    public void destroy(@NotNull LevelAccessor pLevel, @NotNull BlockPos pPos, BlockState pState) {
         int flour = pState.getValue(FLOUR);
         for (int i = 0; i < flour; i++) {
             double x = pPos.getX() + 0.5;

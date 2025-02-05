@@ -11,22 +11,24 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import org.jetbrains.annotations.NotNull;
+
 //待优化
 public class SaltWaterFluidsBlock extends LiquidBlock {
 
     public SaltWaterFluidsBlock() {
-        super(() -> BakeriesFluids.SALT_WATER.get(),
+        super(BakeriesFluids.SALT_WATER,
                 Properties.of().mapColor(MapColor.WATER).strength(100f)
                         .noCollission().noLootTable().liquid().pushReaction(PushReaction.DESTROY).sound(SoundType.EMPTY).replaceable());
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState pState) {
+    public boolean isRandomlyTicking(@NotNull BlockState pState) {
         return true;
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void randomTick(@NotNull BlockState pState, ServerLevel pLevel, BlockPos pPos, @NotNull RandomSource pRandom) {
         double x = pPos.getX();
         double y = pPos.getY();
         double z = pPos.getZ();

@@ -2,8 +2,6 @@ package com.renyigesai.bakeries.block.oven;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -59,13 +57,13 @@ public class OvenBlock extends BaseEntityBlock{
     private static final VoxelShape N_AXIS_BAA = Shapes.or(N_BASE, N_BOX_B, N_BOX_A_1, N_BOX_A_2);
     public static final VoxelShape E_AXIS_BAA = Shapes.or(E_BASE, E_BOX_B, E_BOX_A_1, E_BOX_A_2);
     public static final VoxelShape W_AXIS_BAA = Shapes.or(W_BASE, W_BOX_B, W_BOX_A_1, W_BOX_A_2);
-    public static BooleanProperty LIT = BooleanProperty.create("lit");
+    public static final BooleanProperty LIT = BooleanProperty.create("lit");
     public OvenBlock() {
         super(Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, false));
     }
 
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         return switch (pState.getValue(FACING)){
             default -> N_AXIS_BAA;
             case NORTH -> S_AXIS_BAA;
@@ -93,11 +91,11 @@ public class OvenBlock extends BaseEntityBlock{
         BlockPos blockpos = pContext.getClickedPos();
         return this.defaultBlockState().setValue(FACING, direction);
     }
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
         return new OvenBlockEntity(pPos, pState);
     }
     @Override
-    public RenderShape getRenderShape(BlockState pState) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState pState) {
         return RenderShape.MODEL;
     }
     @org.jetbrains.annotations.Nullable
@@ -108,20 +106,20 @@ public class OvenBlock extends BaseEntityBlock{
                 OvenBlockEntity::serverTick);
     }
     @Override
-    public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int eventID, int eventParam) {
+    public boolean triggerEvent(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, int eventID, int eventParam) {
         super.triggerEvent(state, world, pos, eventID, eventParam);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        return blockEntity == null ? false : blockEntity.triggerEvent(eventID, eventParam);
+        return blockEntity != null && blockEntity.triggerEvent(eventID, eventParam);
     }
     @Override
-    public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
+    public @NotNull InteractionResult use(@NotNull BlockState blockstate, @NotNull Level world, @NotNull BlockPos pos, @NotNull Player entity, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         super.use(blockstate, world, pos, entity, hand, hit);
         if(!world.isClientSide()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             super.use(blockstate, world, pos, entity, hand, hit);
             if (blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer) entity), ovenBlockEntity, pos);
-//                world.playSound(null, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.PLAYERS);
+                world.playSound(entity, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.PLAYERS);
 //                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(BakeriesSounds.OVEN_OPEN.get(), 1.0F,1.5F));
                 return InteractionResult.CONSUME;
             }else {
@@ -131,12 +129,12 @@ public class OvenBlock extends BaseEntityBlock{
         return InteractionResult.SUCCESS;
     }
     @Override
-    public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
+    public MenuProvider getMenuProvider(@NotNull BlockState state, Level worldIn, @NotNull BlockPos pos) {
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);
         return tileEntity instanceof MenuProvider menuProvider ? menuProvider : null;
     }
     @Override
-    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, @NotNull Level world, @NotNull BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof OvenBlockEntity ov) {
@@ -146,10 +144,10 @@ public class OvenBlock extends BaseEntityBlock{
             super.onRemove(state, world, pos, newState, isMoving);
         }
     }
-    public BlockState rotate(BlockState pState, Rotation pRot) {
+    public @NotNull BlockState rotate(BlockState pState, Rotation pRot) {
         return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
     }
-    public BlockState mirror(BlockState pState, Mirror pMirror) {
+    public @NotNull BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
 
@@ -157,7 +155,7 @@ public class OvenBlock extends BaseEntityBlock{
 //    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
 //    }
 
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void animateTick(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         if (pState.getValue(LIT)) {
             double d0 = (double)pPos.getX() + 0.5D;
             double d1 = (double)pPos.getY();

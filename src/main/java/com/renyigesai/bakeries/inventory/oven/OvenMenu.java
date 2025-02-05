@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +33,9 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
     private IItemHandler internal;
     private final Map<Integer, Slot> customSlots = new HashMap<>();
     private boolean bound = false;
-    private Supplier<Boolean> boundItemMatcher = null;
-    private Entity boundEntity = null;
+    private final Supplier<Boolean> boundItemMatcher = null;
+    private final Entity boundEntity = null;
     public BlockEntity boundBlockEntity = null;
-    private final Container container;
 
     public final ContainerData data;
 
@@ -49,7 +49,6 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
         checkContainerDataCount(pData, 1);
         this.entity = inv.player;
         this.world = inv.player.level();
-        this.container = pContainer;
         this.data = pData;
         this.internal = new ItemStackHandler(4);
         this.addDataSlots(pData);
@@ -93,12 +92,12 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
 
 
     @Override
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@NotNull Player player) {
         if (this.bound) {
             if (this.boundItemMatcher != null)
                 return this.boundItemMatcher.get();
@@ -109,7 +108,7 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
         }
         return true;
     }
-    public void slotsChanged(Container pInventory) {
+    public void slotsChanged(@NotNull Container pInventory) {
         this.access.execute((level, blockPos) -> {
             if (boundBlockEntity instanceof OvenBlockEntity oven) {
                 OvenBlockEntity.updateBlock(oven);

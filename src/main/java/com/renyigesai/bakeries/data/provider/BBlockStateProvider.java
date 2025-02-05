@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class BBlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
-    public static String CUTOUT = "cutout";
+    public static final String CUTOUT = "cutout";
 
     public BBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, BakeriesMod.MODID, exFileHelper);

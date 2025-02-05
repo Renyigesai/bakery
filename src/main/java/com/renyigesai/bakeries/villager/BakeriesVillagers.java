@@ -26,7 +26,7 @@ public class BakeriesVillagers {
     public static final RegistryObject<VillagerProfession> PISTRINA_MASTER =
             VILLAGER_PROFESSION.register("pistrinamaster",()-> new VillagerProfession("pistrinamaster",
                     holder -> holder.get() == DOUGH_CRAFTING_TABLE_POI.get(),holder -> holder.get() == DOUGH_CRAFTING_TABLE_POI.get(),
-                    ImmutableSet.of(),ImmutableSet.of(),SoundEvents.VILLAGER_WORK_ARMORER));
+                    ImmutableSet.of(),ImmutableSet.of(BakeriesBlocks.DOUGH_CRAFTING_TABLE.get()),SoundEvents.VILLAGER_WORK_ARMORER));
 
     public static void register(IEventBus eventBus){
         POI_TYPE.register(eventBus);

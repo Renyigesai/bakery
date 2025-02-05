@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -92,6 +93,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MEAT_PASTE_PIZZA;
     public static final RegistryObject<Item> OLIVE;
     public static final RegistryObject<Item> CUPBOARD;
+    public static final RegistryObject<Item> SALT_SCRAPER_RAKE;
 
 
 
@@ -147,7 +149,7 @@ public class BakeriesItems {
 //        PIZZA_DOUGH = block(BakeriesBlocks.PIZZA_DOUGH);
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
         CUPBOARD = block(BakeriesBlocks.CUPBOARD);
-
+        SALT_SCRAPER_RAKE = REGISTER.register("salt_scraper_rake", ()-> new Item(new Item.Properties().stacksTo(1).durability(341)));
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
@@ -203,12 +205,12 @@ public class BakeriesItems {
                 {
                     @Nullable
                     @Override
-                    protected BlockState getPlacementState(BlockPlaceContext placeContext) {
+                    protected BlockState getPlacementState(@NotNull BlockPlaceContext placeContext) {
                         return this.canPlace(placeContext, this.getBlock().defaultBlockState().setValue(integerProperty,vaul)) ?
                                 this.getBlock().defaultBlockState().setValue(integerProperty,vaul) : null;
                     }
                     @Override
-                    protected boolean placeBlock(BlockPlaceContext placeContext, BlockState state) {
+                    protected boolean placeBlock(@NotNull BlockPlaceContext placeContext, @NotNull BlockState state) {
                         return placeContext.getLevel().setBlock(placeContext.getClickedPos(),
                                 this.getBlock().defaultBlockState().setValue(integerProperty,vaul), 11);
                     }
@@ -222,12 +224,12 @@ public class BakeriesItems {
                 {
                     @Nullable
                     @Override
-                    protected BlockState getPlacementState(BlockPlaceContext placeContext) {
+                    protected BlockState getPlacementState(@NotNull BlockPlaceContext placeContext) {
                         return this.canPlace(placeContext, this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1)) ?
                                 this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1) : null;
                     }
                     @Override
-                    protected boolean placeBlock(BlockPlaceContext placeContext, BlockState state) {
+                    protected boolean placeBlock(@NotNull BlockPlaceContext placeContext, @NotNull BlockState state) {
                         return placeContext.getLevel().setBlock(placeContext.getClickedPos(),
                                 this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1), 11);
                     }
@@ -242,12 +244,12 @@ public class BakeriesItems {
                 {
                     @Nullable
                     @Override
-                    protected BlockState getPlacementState(BlockPlaceContext placeContext) {
+                    protected BlockState getPlacementState(@NotNull BlockPlaceContext placeContext) {
                         return this.canPlace(placeContext, this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1).setValue(integerProperty2,vaul2)) ?
                                 this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1).setValue(integerProperty2,vaul2) : null;
                     }
                     @Override
-                    protected boolean placeBlock(BlockPlaceContext placeContext, BlockState state) {
+                    protected boolean placeBlock(@NotNull BlockPlaceContext placeContext, @NotNull BlockState state) {
                         return placeContext.getLevel().setBlock(placeContext.getClickedPos(),
                                 this.getBlock().defaultBlockState().setValue(integerProperty,vaul).setValue(integerProperty1,vaul1).setValue(integerProperty2,vaul2), 11);
                     }

@@ -16,17 +16,18 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class BaguetteItem extends FoodBlockItem {
     public BaguetteItem(Block pBlock, Properties properties) {
         super(pBlock, PileBlock.integerProperty, properties);
     }
     @Override
-    public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {
+    public float getDestroySpeed(@NotNull ItemStack itemstack, @NotNull BlockState blockstate) {
         return 1.5F;
     }
     @Override
-    public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
+    public boolean hurtEnemy(ItemStack itemstack, @NotNull LivingEntity entity, @NotNull LivingEntity sourceentity) {
         itemstack.hurtAndBreak(2, entity, i -> i.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         return true;
     }
@@ -42,7 +43,7 @@ public class BaguetteItem extends FoodBlockItem {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
+    public @NotNull ItemStack finishUsingItem(ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
         if (pStack.getDamageValue() == pStack.getMaxDamage()-1) {
             return super.finishUsingItem(pStack, pLevel, pLivingEntity);
         }else {
@@ -56,7 +57,7 @@ public class BaguetteItem extends FoodBlockItem {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
             ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
             builder.putAll(super.getDefaultAttributeModifiers(equipmentSlot));

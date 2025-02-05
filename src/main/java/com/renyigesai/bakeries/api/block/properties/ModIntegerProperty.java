@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import net.minecraft.world.level.block.state.properties.Property;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class ModIntegerProperty extends Property<Integer> {
         }
     }
 
-    public Collection<Integer> getPossibleValues() {
+    public @NotNull Collection<Integer> getPossibleValues() {
         return this.values;
     }
 
@@ -58,9 +59,9 @@ public class ModIntegerProperty extends Property<Integer> {
         return new ModIntegerProperty(pName, pMin, pMax);
     }
 
-    public Optional<Integer> getValue(String pValue) {
+    public @NotNull Optional<Integer> getValue(@NotNull String pValue) {
         try {
-            Integer integer = Integer.valueOf(pValue);
+            int integer = Integer.parseInt(pValue);
             return integer >= this.min && integer <= this.max ? Optional.of(integer) : Optional.empty();
         } catch (NumberFormatException numberformatexception) {
             return Optional.empty();
@@ -70,7 +71,7 @@ public class ModIntegerProperty extends Property<Integer> {
     /**
      * @return the name for the given value.
      */
-    public String getName(Integer pValue) {
+    public @NotNull String getName(Integer pValue) {
         return pValue.toString();
     }
 }

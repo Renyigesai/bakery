@@ -42,7 +42,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
             return 1;
         }
     };
-    public Component name = Component.translatable("container.oven");
+    public final Component name = Component.translatable("container.oven");
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
     public final int[] cooking_times = new int[4];
     public final int[] max_cooking_times = new int[4];
@@ -53,19 +53,15 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     public final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int pIndex) {
-            switch (pIndex) {
-                case 0:
-                    return OvenBlockEntity.this.temperature;
-                default:
-                    return 0;
+            if (pIndex == 0) {
+                return OvenBlockEntity.this.temperature;
             }
+            return 0;
         }
         @Override
         public void set(int pIndex, int pValue) {
-            switch (pIndex) {
-                case 0:
-                    OvenBlockEntity.this.temperature = pValue;
-                    break;
+            if (pIndex == 0) {
+                OvenBlockEntity.this.temperature = pValue;
             }
         }
         public int getCount() {
@@ -86,11 +82,11 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
         }
     }
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return name;
     }
     @Override
-    protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory) {
         return new OvenMenu(pContainerId, pInventory,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition),this, this.dataAccess);
     }
 
@@ -295,19 +291,19 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public ItemStack getItem(int pSlot) {
+    public @NotNull ItemStack getItem(int pSlot) {
         return this.itemHandler.getStackInSlot(pSlot);
     }
 
     @Override
-    public ItemStack removeItem(int pSlot, int pAmount) {
+    public @NotNull ItemStack removeItem(int pSlot, int pAmount) {
         return removeItem(this.itemHandler, pSlot, pAmount);
     }
     public static ItemStack removeItem(ItemStackHandler itemHandler, int pIndex, int pAmount) {
         return pIndex >= 0 && pIndex < itemHandler.getSlots() && !itemHandler.getStackInSlot(pIndex).isEmpty() && pAmount > 0 ? itemHandler.getStackInSlot(pIndex).split(pAmount) : ItemStack.EMPTY;
     }
     @Override
-    public ItemStack removeItemNoUpdate(int pSlot) {
+    public @NotNull ItemStack removeItemNoUpdate(int pSlot) {
         return takeItem(this.itemHandler, pSlot);
     }
     public static ItemStack takeItem(ItemStackHandler itemHandler, int pSlot) {
@@ -327,7 +323,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public boolean stillValid(Player pPlayer) {
+    public boolean stillValid(@NotNull Player pPlayer) {
         return Container.stillValidBlockEntity(this, pPlayer);
     }
 

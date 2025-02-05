@@ -13,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -28,11 +29,11 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
       pMenu.registerUpdateListener(this::containerChanged);
       --this.titleLabelY;
    }
-   public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+   public void render(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
       super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
       this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
    }
-   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+   protected void renderBg(@NotNull GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
       this.renderBackground(pGuiGraphics);
       int i = this.leftPos;
       int j = this.topPos;
@@ -45,7 +46,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
       this.renderButtons(pGuiGraphics, pMouseX, pMouseY, l, i1, j1);
       this.renderRecipes(pGuiGraphics, l, i1, j1);
    }
-   protected void renderTooltip(GuiGraphics pGuiGraphics, int pX, int pY) {
+   protected void renderTooltip(@NotNull GuiGraphics pGuiGraphics, int pX, int pY) {
       super.renderTooltip(pGuiGraphics, pX, pY);
       if (this.displayRecipes) {
          int i = this.leftPos + 52;

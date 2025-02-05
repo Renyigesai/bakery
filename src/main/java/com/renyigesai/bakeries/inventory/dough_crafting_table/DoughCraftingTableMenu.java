@@ -15,6 +15,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -47,10 +48,10 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       this.level = pPlayerInventory.player.level();
       this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
       this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
-         public boolean mayPlace(ItemStack p_40362_) {
+         public boolean mayPlace(@NotNull ItemStack p_40362_) {
             return false;
          }
-         public void onTake(Player p_150672_, ItemStack p_150673_) {
+         public void onTake(@NotNull Player p_150672_, @NotNull ItemStack p_150673_) {
             p_150673_.onCraftedBy(p_150672_.level(), p_150672_, p_150673_.getCount());
             DoughCraftingTableMenu.this.resultContainer.awardUsedRecipes(p_150672_, this.getRelevantItems());
             ItemStack itemstack = DoughCraftingTableMenu.this.inputSlot.remove(1);
@@ -93,10 +94,10 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       System.out.println("Has input item: " + hasItem + ", Has recipes: " + hasRecipes);
       return hasItem && hasRecipes;
    }
-   public boolean stillValid(Player pPlayer) {
+   public boolean stillValid(@NotNull Player pPlayer) {
       return stillValid(this.access, pPlayer, BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
    }
-   public boolean clickMenuButton(Player pPlayer, int pId) {
+   public boolean clickMenuButton(@NotNull Player pPlayer, int pId) {
       if (this.isValidRecipeIndex(pId)) {
          this.selectedRecipeIndex.set(pId);
          this.setupResultSlot();
@@ -106,7 +107,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
    private boolean isValidRecipeIndex(int pRecipeIndex) {
       return pRecipeIndex >= 0 && pRecipeIndex < this.recipes.size();
    }
-   public void slotsChanged(Container pInventory) {
+   public void slotsChanged(@NotNull Container pInventory) {
       ItemStack itemstack = this.inputSlot.getItem();
       if (!itemstack.is(this.input.getItem())) {
          this.input = itemstack.copy();
@@ -138,16 +139,16 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       }
       this.broadcastChanges();
    }
-   public MenuType<?> getType() {
+   public @NotNull MenuType<?> getType() {
       return BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get();
    }
    public void registerUpdateListener(Runnable pListener) {
       this.slotUpdateListener = pListener;
    }
-   public boolean canTakeItemForPickAll(ItemStack pStack, Slot pSlot) {
+   public boolean canTakeItemForPickAll(@NotNull ItemStack pStack, Slot pSlot) {
       return pSlot.container != this.resultContainer && super.canTakeItemForPickAll(pStack, pSlot);
    }
-   public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+   public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
       ItemStack itemstack = ItemStack.EMPTY;
       Slot slot = this.slots.get(pIndex);
       if (slot != null && slot.hasItem()) {
@@ -187,7 +188,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       }
       return itemstack;
    }
-   public void removed(Player pPlayer) {
+   public void removed(@NotNull Player pPlayer) {
       super.removed(pPlayer);
       this.resultContainer.removeItemNoUpdate(1);
       this.access.execute((p_40313_, p_40314_) -> {

@@ -16,16 +16,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
 
 @JeiPlugin
 public class BakeryJeiPlugin implements IModPlugin {
-	public static mezz.jei.api.recipe.RecipeType<OvenRecipe> Oven_Type = new mezz.jei.api.recipe.RecipeType<>(OvenRecipeCategory.UID, OvenRecipe.class);
-	public static mezz.jei.api.recipe.RecipeType<DoughCraftingRecipe> Dough_Crafting_Table_Type = new mezz.jei.api.recipe.RecipeType<>(DoughCraftingTableRecipeCategory.UID, DoughCraftingRecipe.class);
+	public static final mezz.jei.api.recipe.RecipeType<OvenRecipe> Oven_Type = new mezz.jei.api.recipe.RecipeType<>(OvenRecipeCategory.UID, OvenRecipe.class);
+	public static final mezz.jei.api.recipe.RecipeType<DoughCraftingRecipe> Dough_Crafting_Table_Type = new mezz.jei.api.recipe.RecipeType<>(DoughCraftingTableRecipeCategory.UID, DoughCraftingRecipe.class);
 	@Override
-	public ResourceLocation getPluginUid() {
+	public @NotNull ResourceLocation getPluginUid() {
 		return new ResourceLocation(BakeriesMod.MODID,"jei_plugin");
 	}
 

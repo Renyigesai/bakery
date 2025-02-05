@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block.bread_basket;
 
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum BreadBasketShape implements StringRepresentable {
 
@@ -17,7 +18,7 @@ public enum BreadBasketShape implements StringRepresentable {
         return this.name;
     }
 
-    public String getSerializedName() {
+    public @NotNull String getSerializedName() {
         return this.name;
     }
 }

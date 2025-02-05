@@ -7,10 +7,9 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public class TomatoBlock extends CropBlock {
     public TomatoBlock(Properties pProperties) {
@@ -28,11 +27,11 @@ public class TomatoBlock extends CropBlock {
     };
 
     @Override
-    protected ItemLike getBaseSeedId() {
+    protected @NotNull ItemLike getBaseSeedId() {
         return BakeriesItems.TOMATO.get();
     }
 
-    public VoxelShape getShape(BlockState p_51330_, BlockGetter p_51331_, BlockPos p_51332_, CollisionContext p_51333_) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState p_51330_, @NotNull BlockGetter p_51331_, @NotNull BlockPos p_51332_, @NotNull CollisionContext p_51333_) {
         return SHAPE_BY_AGE[this.getAge(p_51330_)];
     }
 

@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class BItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
-    public static String CUTOUT = "cutout";
+    public static final String CUTOUT = "cutout";
     public BItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, BakeriesMod.MODID, existingFileHelper);
     }
@@ -105,9 +105,9 @@ public class BItemModelProvider extends net.minecraftforge.client.model.generato
                 .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(item.get()))));
     }
 
-    private ItemModelBuilder blockItem(Supplier<Block> block, String index) {
-        return this.getBuilder(this.name(block.get()))
-                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index)));
+    private void blockItem(Supplier<Block> block, String index) {
+        this.getBuilder(this.name(block.get()))
+                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get()) + index)));
     }
     private void blockItem(Supplier<Block> block) {
         this.withExistingParent(this.name(block.get()), this.modLoc("block/" + this.name(block.get())));

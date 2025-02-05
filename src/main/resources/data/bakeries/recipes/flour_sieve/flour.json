@@ -4,9 +4,7 @@
     "item": "bakeries:flour",
     "count": 1
   },
-  "ingredient": [
-    {
+  "ingredient":  {
     "item": "bakeries:whole_wheat_flour"
-    }
-  ]
+  }
 }

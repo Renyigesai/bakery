@@ -8,11 +8,8 @@ import com.renyigesai.bakeries.key.BakeriesKeyMapping;
 import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.villager.BakeriesVillagers;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -51,6 +48,8 @@ public class BakeriesMod {
     private void commonSetup(FMLCommonSetupEvent event) {
         Messages.register();
     }
+
+
     private void clientSetup(FMLClientSetupEvent event) {
         BakeriesKeyMapping.register(event);
     }
@@ -61,20 +60,4 @@ public class BakeriesMod {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
 
-
-
-    public static ResourceLocation asResource(String path) {
-        return new ResourceLocation(MODID, path);
-    }
-
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-        }
-        @SubscribeEvent
-        public static void onRegisterRender(EntityRenderersEvent.RegisterRenderers event){
-//            event.registerBlockEntityRenderer(BakeriesBlocks.TOASTER_ENTITY.get(), ToasterBlockEntityRender::new);
-        }
-    }
 }
