@@ -36,6 +36,7 @@ public class BakeriesGroup {
                         //原材料/食材
                         output.accept(BakeriesItems.FLOUR.get());
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR.get());
+                        output.accept(BakeriesItems.COCOA_POWDER.get());
                         output.accept(BakeriesItems.SALT_ORE.get());
                         output.accept(BakeriesItems.DEEPSLATE_SALT_ORE.get());
                         output.accept(BakeriesItems.SALT_WATER_BUCKET.get());

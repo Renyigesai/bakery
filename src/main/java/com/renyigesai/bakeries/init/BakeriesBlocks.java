@@ -60,6 +60,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> DEEPSLATE_SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<LiquidBlock> SALT_WATER_BLOCK;
+    public static final RegistryObject<Block> MOULD;
     public static final RegistryObject<Block> MOULD_TOAST;
     public static final RegistryObject<Block> RAW_SALT_BLOCK;
     public static final RegistryObject<Block> WOOD_COUNTER;
@@ -118,8 +119,10 @@ public class BakeriesBlocks {
         DEEPSLATE_SALT_ORE = BLOCK_REGISTRY.register("deepslate_salt_ore", () ->
                 new DropExperienceBlock(BlockBehaviour.Properties.copy(SALT_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
         SALT_WATER_BLOCK = BLOCK_REGISTRY.register("salt_water_block", SaltWaterFluidsBlock::new);
+        MOULD = BLOCK_REGISTRY.register("mould", () ->
+                new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F)));
         MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->
-                new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
+                new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
         RAW_SALT_BLOCK = BLOCK_REGISTRY.register("raw_salt_block", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         WOOD_COUNTER = BLOCK_REGISTRY.register("wood_counter", () ->

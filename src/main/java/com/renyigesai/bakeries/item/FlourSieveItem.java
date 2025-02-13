@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.item;
 
 
+import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import com.renyigesai.bakeries.util.RandomText;
 import net.minecraft.ChatFormatting;
@@ -36,32 +37,33 @@ public class FlourSieveItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack mainHandItem = pPlayer.getMainHandItem();
-        if (!mainHandItem.isEmpty() && !(mainHandItem.getItem() instanceof FlourSieveItem)){
-            pPlayer.startUsingItem(pUsedHand);
-            return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
+        if (!mainHandItem.is(BakeriesItemTag.FLOUR)){
+            pPlayer.getCooldowns().addCooldown(this,20);
+            pPlayer.displayClientMessage(Component.translatable(RandomText.getFlourSieveRandomText()), true);
+            return super.use(pLevel, pPlayer, pUsedHand);
         }
-        return super.use(pLevel, pPlayer, pUsedHand);
+        pPlayer.startUsingItem(pUsedHand);
+        return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         Player player = (Player)pLivingEntity;
         ItemStack mainHandItem = player.getMainHandItem();
-        Optional<FlourSieveRecipe> recipe =getCurrentRecipe(player,pLevel);
-        if (hasRecipe(player, player.level())) {
-            if(recipe.isPresent()){
+        Optional<FlourSieveRecipe> recipe = getCurrentRecipe(player,pLevel);
+        if (this.hasRecipe(player, player.level())) {
+            if (recipe.isPresent()) {
                 if (!player.getAbilities().instabuild) {
                     mainHandItem.shrink(1);
                     pStack.hurt(1, RandomSource.create(), null);
                 }
                 player.getInventory().placeItemBackInInventory(recipe.get().getResultItem(null));
-
             }
-        }else {
-            player.displayClientMessage(Component.translatable(RandomText.getFlourSieveRandomText()),true);
         }
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
+
+
     public boolean hasRecipe(Player player, Level pLevel) {
         Optional<FlourSieveRecipe> recipe = getCurrentRecipe(player, pLevel);
         return recipe.isPresent() && recipe.get().getIngredients().get(0).test(player.getMainHandItem());

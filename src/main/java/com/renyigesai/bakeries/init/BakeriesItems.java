@@ -90,6 +90,10 @@ public class BakeriesItems {
     public static final RegistryObject<Item> OLIVE;
     public static final RegistryObject<Item> CUPBOARD;
     public static final RegistryObject<Item> BREAD_KNIFE;
+    public static final RegistryObject<Item> SALT_SCRAPER_RAKE;
+    public static final RegistryObject<Item> COCOA_POWDER;
+    public static final RegistryObject<Item> COCOA_DOUGH;
+
 
 
 
@@ -128,12 +132,13 @@ public class BakeriesItems {
         SWEET_DOUGH = item("sweet_dough");
         WHOLE_WHEAT_DOUGH = item("whole_wheat_dough");
         SALTED_DOUGH = item("salted_dough");
+        COCOA_DOUGH = item("cocoa_dough");
         SALT_WATER_BUCKET = REGISTER.register("salt_water_bucket",()->new BucketItem(BakeriesFluids.SALT_WATER,new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         BOTTLE_MILK = REGISTER.register("bottle_milk",()->new ShakeItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16), BakeriesItems.BOTTLE_CREAM));
         BOTTLE_CREAM = REGISTER.register("bottle_cream",()->new ShakeItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16), BakeriesItems.BOTTLE_BUTTER));
         BOTTLE_BUTTER = REGISTER.register("bottle_butter",()->new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
         FLOUR_SIEVE = REGISTER.register("flour_sieve",()->new FlourSieveItem(new Item.Properties().stacksTo(1).defaultDurability(250)));
-        MOULD = item("mould");
+        MOULD = block(BakeriesBlocks.MOULD);
         MOULD_TOAST_DOUGH = rawItem("mould_toast_dough","135");
         RAW_SALT_BLOCK = block(BakeriesBlocks.RAW_SALT_BLOCK);
         WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
@@ -148,6 +153,8 @@ public class BakeriesItems {
         CUPBOARD = block(BakeriesBlocks.CUPBOARD);
         BREAD_KNIFE = REGISTER.register("bread_knife",()->
                 new BreadKnifeItem(0.5F,-0.2F,Tiers.IRON,new Item.Properties()));
+        SALT_SCRAPER_RAKE = item("salt_scraper_rake");
+        COCOA_POWDER = item("cocoa_powder");
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
