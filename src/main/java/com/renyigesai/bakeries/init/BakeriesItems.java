@@ -59,6 +59,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> DEEPSLATE_SALT_ORE;
     public static final RegistryObject<Item> SLICED_TOAST;
     public static final RegistryObject<Item> TOAST;
+    public static final RegistryObject<Item> CHEESE_COCOA_TOAST;
     public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<Item> SWEET_DOUGH;
     public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH;
@@ -72,6 +73,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MOULD;
     public static final RegistryObject<Item> MOULD_TOAST_DOUGH;
     public static final RegistryObject<Item> MOULD_TOAST;
+    public static final RegistryObject<Item> MOULD_CHEESE_COCOA_TOAST;
     public static final RegistryObject<Item> RAW_SALT_BLOCK;
     public static final RegistryObject<Item> MILK_TANK;
     public static final RegistryObject<Item> WOOD_COUNTER;
@@ -93,10 +95,9 @@ public class BakeriesItems {
     public static final RegistryObject<Item> SALT_SCRAPER_RAKE;
     public static final RegistryObject<Item> COCOA_POWDER;
     public static final RegistryObject<Item> COCOA_DOUGH;
-
-
-
-
+    public static final RegistryObject<Item> CHEESE_CUBE;
+    public static final RegistryObject<Item> SLICED_CHEESE_COCOA_TOAST;
+    public static final RegistryObject<Item> MOULD_CHEESE_COCOA_TOAST_DOUGH;
 
     static {
         FLOUR = item("flour");
@@ -155,6 +156,7 @@ public class BakeriesItems {
                 new BreadKnifeItem(0.5F,-0.2F,Tiers.IRON,new Item.Properties()));
         SALT_SCRAPER_RAKE = item("salt_scraper_rake");
         COCOA_POWDER = item("cocoa_powder");
+        CHEESE_CUBE = foodItem("cheese_cube",BakeriesFoodProperties.CHEESE_CUBE);
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
@@ -168,14 +170,18 @@ public class BakeriesItems {
         ROUND_BREAD = foodBlockItem(BakeriesBlocks.ROUND_BREAD,BakeriesFoodProperties.ROUND_BREAD);
         SALT_CROISSANT = foodBlockItem(BakeriesBlocks.SALT_CROISSANT,BakeriesFoodProperties.SALT_CROISSANT,true);
         TOAST = block(BakeriesBlocks.TOAST);
+        CHEESE_COCOA_TOAST = block(BakeriesBlocks.CHEESE_COCOA_TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
+        SLICED_CHEESE_COCOA_TOAST = foodItem("sliced_cheese_cocoa_toast",BakeriesFoodProperties.SLICED_CHEESE_COCOA_TOAST);
         BERRY_BREAD = foodBlockItem(BakeriesBlocks.BERRY_BREAD,BakeriesFoodProperties.BERRY_BREAD);
         MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
+        MOULD_CHEESE_COCOA_TOAST = block(BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST);
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
         PIZZA = block(BakeriesBlocks.PIZZA);
         SAUSAGE_PIZZA = block(BakeriesBlocks.SAUSAGE_PIZZA);
         MEAT_PASTE_PIZZA = block(BakeriesBlocks.MEAT_PASTE_PIZZA);
         BAYSALT_FRAME = block(BakeriesBlocks.BAYSALT_FRAME);
+        MOULD_CHEESE_COCOA_TOAST_DOUGH = item("mould_cheese_cocoa_toast_dough");
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

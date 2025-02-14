@@ -44,6 +44,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> ROUND_BREAD;
     public static final RegistryObject<Block> SALT_CROISSANT;
     public static final RegistryObject<Block> TOAST;
+    public static final RegistryObject<Block> CHEESE_COCOA_TOAST;
     public static final RegistryObject<Block> BERRY_BREAD;
     public static final RegistryObject<Block> PIZZA;
     public static final RegistryObject<Block> SAUSAGE_PIZZA;
@@ -62,6 +63,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<LiquidBlock> SALT_WATER_BLOCK;
     public static final RegistryObject<Block> MOULD;
     public static final RegistryObject<Block> MOULD_TOAST;
+    public static final RegistryObject<Block> MOULD_CHEESE_COCOA_TOAST;
     public static final RegistryObject<Block> RAW_SALT_BLOCK;
     public static final RegistryObject<Block> WOOD_COUNTER;
     public static final RegistryObject<Block> TOMATO;
@@ -94,6 +96,8 @@ public class BakeriesBlocks {
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
         TOAST = BLOCK_REGISTRY.register("toast", () ->
                 new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_TOAST));
+        CHEESE_COCOA_TOAST = BLOCK_REGISTRY.register("cheese_cocoa_toast", () ->
+                new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_CHEESE_COCOA_TOAST));
         BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
         PIZZA = BLOCK_REGISTRY.register("pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
@@ -123,6 +127,8 @@ public class BakeriesBlocks {
                 new MouldBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F)));
         MOULD_TOAST = BLOCK_REGISTRY.register("mould_toast", () ->
                 new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
+        MOULD_CHEESE_COCOA_TOAST = BLOCK_REGISTRY.register("mould_cheese_cocoa_toast", () ->
+                new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.CHEESE_COCOA_TOAST));
         RAW_SALT_BLOCK = BLOCK_REGISTRY.register("raw_salt_block", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
         WOOD_COUNTER = BLOCK_REGISTRY.register("wood_counter", () ->

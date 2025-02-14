@@ -12,6 +12,15 @@
     "flour=3,water=false": {
       "model": "bakeries:block/fermentation_tank_flour_3"
     },
+    "flour=0,water=true": {
+      "model": "bakeries:block/fermentation_tank_water"
+    },
+    "flour=1,water=true": {
+      "model": "bakeries:block/fermentation_tank_flour_1"
+    },
+    "flour=2,water=true": {
+      "model": "bakeries:block/fermentation_tank_flour_2"
+    },
     "flour=3,water=true": {
       "model": "bakeries:block/fermentation_tank_flour_3"
     }

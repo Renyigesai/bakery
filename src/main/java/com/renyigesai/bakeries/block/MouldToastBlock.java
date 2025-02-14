@@ -54,21 +54,21 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
             if (!hand.is(asItem())) {
                 return take(pLevel, pPos, pState, pPlayer);
             } else {
-                hand.shrink(1);
-                return pileUp(pLevel, pPos, pState);
+                return pileUp(pLevel, pPos, pState,pPlayer,pHand);
             }
         }
         if (!hand.is(asItem())) {
             return take(pLevel, pPos, pState, pPlayer);
         } else {
-            hand.shrink(1);
-            return pileUp(pLevel, pPos, pState);
+            return pileUp(pLevel, pPos, pState,pPlayer,pHand);
         }
     }
 
-    protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state){
+    protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state,Player player,InteractionHand hand){
+        ItemStack handStack = player.getItemInHand(hand);
         int pile = state.getValue(PILE);
         if (pile < 2) {
+            handStack.shrink(1);
             Shortcuts.setBlock(level,pos,state,PILE,1, true);
             level.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;

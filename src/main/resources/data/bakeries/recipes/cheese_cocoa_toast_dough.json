@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "dde"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:cheese_cube"
+    },
+    "b": {
+      "item": "bakeries:cocoa_dough"
+    },
+    "d": {
+      "item": "bakeries:mould"
+    },
+    "e": {
+      "item": "minecraft:cocoa_beans"
+    }
+  },
+  "result": {
+    "item": "bakeries:mould_cheese_cocoa_toast_dough",
+    "count": 2
+  }
+}

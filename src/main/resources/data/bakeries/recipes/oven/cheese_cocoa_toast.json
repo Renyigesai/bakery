@@ -1,0 +1,17 @@
+{
+  "type": "bakeries:oven",
+  "ingredient":  [
+    {
+      "item": "bakeries:mould_cheese_cocoa_toast_dough"
+    }
+  ],
+  "output": {
+    "item": "bakeries:mould_cheese_cocoa_toast",
+    "count": 1
+  },
+  "time": 400,
+  "min_temperature": 135,
+  "max_temperature": 185,
+  "perfect_temperature": 160
+}
+   

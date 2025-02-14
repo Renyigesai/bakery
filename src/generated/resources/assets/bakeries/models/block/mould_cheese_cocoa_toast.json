@@ -3,7 +3,7 @@
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "bakeries:block/mould",
-		"1": "bakeries:block/toast",
+		"1": "bakeries:block/cheese_cocoa_toast",
 		"particle": "bakeries:block/mould"
 	}
 }

@@ -21,13 +21,15 @@ public class BakeriesFoodProperties {
     public static final FoodProperties COUNTRY_BREAD_SLICE;
     public static final FoodProperties OLIVE;
     public static final FoodProperties TOMATO;
-//    public static final FoodProperties CIABATTA;
+    public static final FoodProperties CHEESE_CUBE;
+    public static final FoodProperties SLICED_CHEESE_COCOA_TOAST;
+
 
     static {
         BAGEL = new FoodProperties.Builder().nutrition(4).saturationMod(1.25f).build();
 
         WHOLE_WHEAT_BAGEL = new FoodProperties.Builder().nutrition(5).saturationMod(0.6f)
-                .effect(new MobEffectInstance(MobEffects.SATURATION,20,0),1.0F).build();
+                .effect(new MobEffectInstance(MobEffects.SATURATION, 20, 0), 1.0F).build();
 
         BAGUETTE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
@@ -39,8 +41,8 @@ public class BakeriesFoodProperties {
         CROISSANT = new FoodProperties.Builder().nutrition(3).saturationMod(3.0f).build();
 
         PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(3).saturationMod(1.3f).effect(
-                new MobEffectInstance(MobEffects.REGENERATION,200,0)
-                ,1.0F).build();
+                new MobEffectInstance(MobEffects.REGENERATION, 200, 0)
+                , 1.0F).build();
 
         ROUND_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.6f).build();
 
@@ -49,6 +51,8 @@ public class BakeriesFoodProperties {
                 .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0), 1.0F).build();
 
         SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
+        SLICED_CHEESE_COCOA_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).build();
 
         BERRY_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.7f).build();
 
@@ -60,16 +64,7 @@ public class BakeriesFoodProperties {
 
         TOMATO = new FoodProperties.Builder().nutrition(2).saturationMod(0.5f).build();
 
-//        CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
-
+        CHEESE_CUBE = new FoodProperties.Builder().nutrition(1).saturationMod(1f).build();
 
     }
-
-//    public static class EffectPropertie{
-//        public static final EffectProperties PINEAPPLE_BUN;
-//
-//        static {
-//            PINEAPPLE_BUN = new EffectProperties.Builder().effect(() -> new RandomEffect().getRandomEffect(),1.0F).build();
-//        }
-//    }
 }

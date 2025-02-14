@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abf",
+    "cdg",
+    "eee"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:bottle_milk"
+    },
+    "b": {
+      "item": "minecraft:sugar"
+    },
+    "c": {
+      "tag": "forge:salt"
+    },
+    "d": {
+      "item": "bakeries:butter_cube"
+    },
+    "f": {
+      "item": "bakeries:bottle_yeast"
+    },
+    "e": {
+      "item": "bakeries:flour"
+    },
+    "g": {
+      "item": "bakeries:cocoa_powder"
+    }
+  },
+  "result": {
+    "item": "bakeries:cocoa_dough",
+    "count": 1
+  }
+}

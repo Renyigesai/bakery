@@ -79,9 +79,7 @@ public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutB
         }else {
             level.removeBlock(pos,false);
         }
-        Direction direction = playerIn.getDirection().getOpposite();
-        Shortcuts.spawnItemEntity(level, this.getSliceItem(), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
-               new Vec3(direction.getStepX() * 0.15, 0.05, direction.getStepZ() * 0.15));
+        Shortcuts.spawnItemEntity(level, this.getSliceItem(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new Vec3(0.0,0.0,0.0));
 
         level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
