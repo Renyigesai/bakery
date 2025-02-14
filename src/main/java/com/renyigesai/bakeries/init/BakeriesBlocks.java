@@ -115,7 +115,7 @@ public class BakeriesBlocks {
         CHEESE_TANK = BLOCK_REGISTRY.register("cheese_tank", () ->
                 new CheeseTankBkock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         Milk_TANK = BLOCK_REGISTRY.register("milk_tank", () ->
-                new MilkTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+                new MilkTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops(), BlockSetType.OAK));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->

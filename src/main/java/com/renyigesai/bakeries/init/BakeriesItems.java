@@ -157,6 +157,7 @@ public class BakeriesItems {
         SALT_SCRAPER_RAKE = item("salt_scraper_rake");
         COCOA_POWDER = item("cocoa_powder");
         CHEESE_CUBE = foodItem("cheese_cube",BakeriesFoodProperties.CHEESE_CUBE);
+        MOULD_CHEESE_COCOA_TOAST_DOUGH = rawItem("mould_cheese_cocoa_toast_dough","135");
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
@@ -181,7 +182,6 @@ public class BakeriesItems {
         SAUSAGE_PIZZA = block(BakeriesBlocks.SAUSAGE_PIZZA);
         MEAT_PASTE_PIZZA = block(BakeriesBlocks.MEAT_PASTE_PIZZA);
         BAYSALT_FRAME = block(BakeriesBlocks.BAYSALT_FRAME);
-        MOULD_CHEESE_COCOA_TOAST_DOUGH = item("mould_cheese_cocoa_toast_dough");
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

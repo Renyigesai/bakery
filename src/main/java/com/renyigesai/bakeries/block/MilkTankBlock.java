@@ -94,9 +94,7 @@ public class MilkTankBlock extends TankBlock {
         int milk = pState.getValue(MILK);
         boolean sweet_berries = pState.getValue(SWEET_BERRIES);
         if (milk == 3 && sweet_berries) {
-            if (pRandom.nextInt(3) == 0) {
                 pLevel.setBlock(pPos, BakeriesBlocks.CHEESE_TANK.get().defaultBlockState(), 3);
-            }
         }
     }
 

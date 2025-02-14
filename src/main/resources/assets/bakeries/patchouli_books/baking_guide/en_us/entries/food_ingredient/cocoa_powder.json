@@ -1,0 +1,13 @@
+{
+  "name": "item.bakeries.cocoa_powder",
+  "icon": "bakeries:cocoa_powder",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:cocoa_powder",
+      "title": "item.bakeries.cocoa_powder",
+      "text": "guide.bakeries.descr.cocoa_powder"
+    }
+  ]
+}

@@ -46,7 +46,6 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(PILE,1).setValue(FILL,true).setValue(FACING, Direction.NORTH));
     }
 
-
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);

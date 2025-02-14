@@ -122,6 +122,7 @@
   "guide.bakeries.descr.be_unable_to_eat_any_more": "In the development version, the baguette can be Enchanting Mending.",
   "guide.bakeries.descr.bread_knife": "You can use it to cut bread, like country bread",
   "guide.bakeries.entries.cheese.descr": "You first need to prepare a fermenter, put a bucket of milk and a serving of sweet berries in it, and let the fermentation finish, you can pick out the cheese cubes with your hands.",
+  "guide.bakeries.descr.cocoa_powder": "Use$(l:baking_utensil/flour_sieve)Flour Sieve/$The cocoa beans are sifted into cocoa powder.",
   "advancements.bakeries_root.title": "Bakery",
   "advancements.bakeries_root.descr": "Fine baking.",
   "advancements.sieving.title": "Sieving",
