@@ -1,11 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.renyigesai.bakeries",
-  "compatibilityLevel": "JAVA_8",
+  "package": "com.renyigesai.bakeries.mixin",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "bakery.refmap.json",
-  "mixins":[
-
+  "mixins": [
+    "ResourceLocationAccessor"
   ],
   "client": [
   ],

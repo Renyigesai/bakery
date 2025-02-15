@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class OvenBlockEntity extends BaseContainerBlockEntity {
+public class OvenBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(4){
         @Override
         public int getSlotLimit(int slot)
@@ -53,21 +54,36 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     public final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int pIndex) {
-            if (pIndex == 0) {
-                return OvenBlockEntity.this.temperature;
-            }
-            return 0;
+            return switch (pIndex) {
+                case 0 -> OvenBlockEntity.this.temperature;
+                case 1 -> calculateProgress(0);
+                case 2 -> calculateProgress(1);
+                case 3 -> calculateProgress(2);
+                case 4 -> calculateProgress(3);
+                default -> 0;
+            };
         }
+
+        private int calculateProgress(int index) {
+            if (OvenBlockEntity.this.max_cooking_times[index] == 0) {
+                return 0;
+            }
+            return Math.min((int) ((OvenBlockEntity.this.cooking_times[index] / (double) OvenBlockEntity.this.max_cooking_times[index]) * 14), 14);
+        }
+
         @Override
         public void set(int pIndex, int pValue) {
             if (pIndex == 0) {
                 OvenBlockEntity.this.temperature = pValue;
             }
         }
+
+        @Override
         public int getCount() {
-            return 1;
+            return 5;
         }
     };
+
 
     public OvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
@@ -106,7 +122,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
     public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
-//        if (pTag.contains("oven")) this.oven = pTag.getCompound("oven");
         if (pTag.contains("CookingTimes", 11)) {
             int[] aint = pTag.getIntArray("CookingTimes");
             System.arraycopy(aint, 0, this.cooking_times, 0, Math.min(this.max_cooking_times.length, aint.length));
@@ -121,12 +136,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
         }
         this.temperature = pTag.getInt("temperature");
     }
-
-//    public CompoundTag getOven() {
-//        if (this.oven == null)
-//            this.oven = new CompoundTag();
-//        return this.oven;
-//    }
 
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
@@ -333,4 +342,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
+
+
 }

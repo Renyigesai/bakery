@@ -120,7 +120,6 @@ public class OvenBlock extends BaseEntityBlock{
             if (blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer) entity), ovenBlockEntity, pos);
                 world.playSound(entity, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.PLAYERS);
-//                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(BakeriesSounds.OVEN_OPEN.get(), 1.0F,1.5F));
                 return InteractionResult.CONSUME;
             }else {
                 throw new IllegalStateException("Our Container provider is missing!");
@@ -150,10 +149,6 @@ public class OvenBlock extends BaseEntityBlock{
     public @NotNull BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
-
-//    @Override
-//    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-//    }
 
     public void animateTick(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull RandomSource pRandom) {
         if (pState.getValue(LIT)) {

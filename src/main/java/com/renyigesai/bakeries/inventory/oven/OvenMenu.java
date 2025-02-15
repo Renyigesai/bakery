@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 
 public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Integer, Slot>> {
 
-public final static HashMap<String, Object> guistate = new HashMap<>();
+    public final static HashMap<String, Object> guistate = new HashMap<>();
     public final Level world;
     public final Player entity;
     public int x, y, z;
@@ -40,18 +40,19 @@ public final static HashMap<String, Object> guistate = new HashMap<>();
     public final ContainerData data;
 
     public OvenMenu(int id, Inventory inv,FriendlyByteBuf byteBuf) {
-        this(id, inv, byteBuf, new SimpleContainer(4), new SimpleContainerData(1));
+        this(id, inv, byteBuf, new SimpleContainer(4), new SimpleContainerData(5));
 
     }
     public OvenMenu(int id, Inventory inv, FriendlyByteBuf byteBuf, Container pContainer, ContainerData pData) {
         super(BakeriesMenuType.OVEN_MENU.get(), id);
         checkContainerSize(pContainer, 4);
-        checkContainerDataCount(pData, 1);
+        checkContainerDataCount(pData, 5);
         this.entity = inv.player;
         this.world = inv.player.level();
         this.data = pData;
         this.internal = new ItemStackHandler(4);
         this.addDataSlots(pData);
+
 
         BlockPos pos = null;
         if (byteBuf != null) {
