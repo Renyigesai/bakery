@@ -98,6 +98,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> CHEESE_CUBE;
     public static final RegistryObject<Item> SLICED_CHEESE_COCOA_TOAST;
     public static final RegistryObject<Item> MOULD_CHEESE_COCOA_TOAST_DOUGH;
+    public static final RegistryObject<Item> BREAD_HOLDERS;
 
     static {
         FLOUR = item("flour");
@@ -182,6 +183,7 @@ public class BakeriesItems {
         SAUSAGE_PIZZA = block(BakeriesBlocks.SAUSAGE_PIZZA);
         MEAT_PASTE_PIZZA = block(BakeriesBlocks.MEAT_PASTE_PIZZA);
         BAYSALT_FRAME = block(BakeriesBlocks.BAYSALT_FRAME);
+        BREAD_HOLDERS = block(BakeriesBlocks.BREAD_HOLDERS);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

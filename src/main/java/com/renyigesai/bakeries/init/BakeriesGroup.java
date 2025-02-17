@@ -26,6 +26,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.YEAST_TANK.get());//满装酵母罐
                         output.accept(BakeriesItems.CHEESE_TANK.get());//满装奶酪罐
                         output.accept(BakeriesItems.WOOD_COUNTER.get());//木质柜台
+                        output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR.get());//玻璃柜门
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());//黑白混凝土

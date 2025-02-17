@@ -61,6 +61,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> DEEPSLATE_SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<LiquidBlock> SALT_WATER_BLOCK;
+    public static final RegistryObject<Block> BREAD_HOLDERS;
     public static final RegistryObject<Block> MOULD;
     public static final RegistryObject<Block> MOULD_TOAST;
     public static final RegistryObject<Block> MOULD_CHEESE_COCOA_TOAST;
@@ -146,6 +147,7 @@ public class BakeriesBlocks {
 //        PIZZA_DOUGH = BLOCK_REGISTRY.register("pizza_dough", () ->
 //                new PizzaDoughBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
         BAYSALT_FRAME = BLOCK_REGISTRY.register("baysalt_frame", BaysaltFrameBlock::new);
+        BREAD_HOLDERS = BLOCK_REGISTRY.register("bread_holders",()->new BreadHoldersBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
         //BlockEntity
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
