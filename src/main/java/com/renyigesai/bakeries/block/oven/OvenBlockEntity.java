@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block.oven;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import io.netty.buffer.Unpooled;
@@ -14,8 +15,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -35,11 +36,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class OvenBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
+public class OvenBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
     private final ItemStackHandler itemHandler = new ItemStackHandler(4){
         @Override
-        public int getSlotLimit(int slot)
-        {
+        public int getSlotLimit(int slot) {
             return 1;
         }
     };
@@ -109,7 +109,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements MenuPro
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
-//        if (this.oven != null) pTag.put("oven", this.oven.copy());
         pTag.putIntArray("cooking_times", this.cooking_times);
         pTag.putIntArray("max_cooking_times", this.max_cooking_times);
         pTag.putIntArray("min_temperatures", this.min_temperatures);
@@ -275,13 +274,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements MenuPro
         return this.level.getRecipeManager().getRecipeFor(OvenRecipe.Type.INSTANCE, new SimpleContainer(this.itemHandler.getStackInSlot(slot)), level);
     }
 
-//    public double getMinTemperature(int slot) {
-//        return this.getOven().getDouble("min_temperature_" + slot);
-//    }
-//
-//    public double getMaxTemperature(int slot) {
-//        return this.getOven().getDouble("max_temperature_" + slot);
-//    }
 
 
     @Override
@@ -330,7 +322,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements MenuPro
             this.setChanged();
         }
     }
-
     @Override
     public boolean stillValid(@NotNull Player pPlayer) {
         return Container.stillValidBlockEntity(this, pPlayer);
@@ -341,6 +332,26 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements MenuPro
         for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
+    }
+
+
+    @Override
+    public int @NotNull [] getSlotsForFace(@NotNull Direction pSide) {
+      return new int[]{0, 1, 2, 3};
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int pIndex, @NotNull ItemStack pItemStack, @Nullable Direction pDirection) {
+        return this.canPlaceItem(pIndex, pItemStack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
+        return false;
+    }
+
+    public boolean canPlaceItem(int pIndex, @NotNull ItemStack pStack) {
+      return pStack.is(BakeriesItemTag.RAE_FOOD) && itemHandler.getStackInSlot(pIndex).isEmpty();
     }
 
 

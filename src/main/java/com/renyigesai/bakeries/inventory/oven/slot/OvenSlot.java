@@ -2,16 +2,16 @@ package com.renyigesai.bakeries.inventory.oven.slot;
 
 import com.renyigesai.bakeries.init.BakeriesItemTag;
 import lombok.Getter;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class OvenSlot extends SlotItemHandler {
+public class OvenSlot extends Slot {
     @Getter
     private final int slot;
-    public OvenSlot(IItemHandler iItemHandler, int pSlot, int pX, int pY) {
-        super(iItemHandler, pSlot, pX, pY);
+    public OvenSlot(Container container, int pSlot, int pX, int pY) {
+        super(container, pSlot, pX, pY);
         this.slot = pSlot;
     }
     public boolean mayPlace(@NotNull ItemStack pStack) {
@@ -19,6 +19,11 @@ public class OvenSlot extends SlotItemHandler {
     }
     @Override
     public int getMaxStackSize(@NotNull ItemStack pStack) {
+        return 1;
+    }
+    @Override
+    public int getMaxStackSize()
+    {
         return 1;
     }
 

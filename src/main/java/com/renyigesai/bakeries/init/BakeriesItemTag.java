@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 public class BakeriesItemTag {
 
     public static final TagKey<Item> RAE_FOOD = create("raw_food");
+    public static final TagKey<Item> BAKE_FOOD = create("bake_food");
     public static final TagKey<Item> FLOUR = create("flour");
     public static final TagKey<Item> MAIN_FOOD = create("main_food");
     public static final TagKey<Item> FLAVORING = create("flavoring");

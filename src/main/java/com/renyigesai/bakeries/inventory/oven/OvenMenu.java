@@ -14,9 +14,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -30,7 +27,6 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
     public final Player entity;
     public int x, y, z;
     private ContainerLevelAccess access = ContainerLevelAccess.NULL;
-    private IItemHandler internal;
     private final Map<Integer, Slot> customSlots = new HashMap<>();
     private boolean bound = false;
     private final Supplier<Boolean> boundItemMatcher = null;
@@ -50,7 +46,6 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
         this.entity = inv.player;
         this.world = inv.player.level();
         this.data = pData;
-        this.internal = new ItemStackHandler(4);
         this.addDataSlots(pData);
 
 
@@ -64,22 +59,17 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
         }
         if(pos!=null){
             boundBlockEntity = this.world.getBlockEntity(pos);
-            if (boundBlockEntity != null)
-                boundBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
-                    this.internal = capability;
-                    this.bound = true;
-                });
         }
 
         if (boundBlockEntity instanceof OvenBlockEntity oven) {
-            this.customSlots.put(0, this.addSlot(new OvenSlot(internal, 0, 62, 17) {
+            this.customSlots.put(0, this.addSlot(new OvenSlot(pContainer, 0, 62, 17) {
 
             }));
-            this.customSlots.put(1, this.addSlot(new OvenSlot(internal, 1, 80, 17) {
+            this.customSlots.put(1, this.addSlot(new OvenSlot(pContainer, 1, 80, 17) {
             }));
-            this.customSlots.put(2, this.addSlot(new OvenSlot(internal, 2, 62, 53) {
+            this.customSlots.put(2, this.addSlot(new OvenSlot(pContainer, 2, 62, 53) {
             }));
-            this.customSlots.put(3, this.addSlot(new OvenSlot(internal, 3, 80, 53) {
+            this.customSlots.put(3, this.addSlot(new OvenSlot(pContainer, 3, 80, 53) {
             }));
         }
 

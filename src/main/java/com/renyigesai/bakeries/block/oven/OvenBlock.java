@@ -105,6 +105,12 @@ public class OvenBlock extends BaseEntityBlock{
         return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.OVEN_BLOCK_ENTITY.get(),
                 OvenBlockEntity::serverTick);
     }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
     @Override
     public boolean triggerEvent(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, int eventID, int eventParam) {
         super.triggerEvent(state, world, pos, eventID, eventParam);
