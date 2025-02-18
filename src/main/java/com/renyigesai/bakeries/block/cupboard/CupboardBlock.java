@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.cupboard;
 
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.stats.Stats;
@@ -36,7 +35,7 @@ public class CupboardBlock extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         }else {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof CupboardBlockEntity && !Screen.hasShiftDown()){
+            if (blockEntity instanceof CupboardBlockEntity && !pPlayer.isShiftKeyDown()){
                 pPlayer.openMenu((CupboardBlockEntity)blockEntity);
                 pPlayer.awardStat(Stats.OPEN_BARREL);
 
