@@ -1,5 +1,5 @@
 {
-  "name": "item.bakeries.mould",
+  "name": "block.bakeries.mould",
   "icon": "bakeries:mould",
   "category": "bakeries:baking_utensil",
   "pages": [

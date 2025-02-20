@@ -174,7 +174,7 @@ public class BakeriesItems {
         TOAST = block(BakeriesBlocks.TOAST);
         CHEESE_COCOA_TOAST = block(BakeriesBlocks.CHEESE_COCOA_TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
-        SLICED_CHEESE_COCOA_TOAST = foodItem("sliced_cheese_cocoa_toast",BakeriesFoodProperties.SLICED_CHEESE_COCOA_TOAST);
+        SLICED_CHEESE_COCOA_TOAST = foodItem("sliced_cheese_cocoa_toast",BakeriesFoodProperties.SLICED_CHEESE_COCOA_TOAST,true);
         BERRY_BREAD = foodBlockItem(BakeriesBlocks.BERRY_BREAD,BakeriesFoodProperties.BERRY_BREAD);
         MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
         MOULD_CHEESE_COCOA_TOAST = block(BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST);
@@ -208,6 +208,10 @@ public class BakeriesItems {
 
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {
         return REGISTER.register(pName, () -> new Item(new Item.Properties().food(foodProperties)));
+    }
+
+    private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties,boolean effectTooltip) {
+        return REGISTER.register(pName, () -> new EffectTooltipItem(new Item.Properties().food(foodProperties),effectTooltip));
     }
 
 

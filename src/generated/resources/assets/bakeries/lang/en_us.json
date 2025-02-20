@@ -142,6 +142,8 @@
   "advancements.my_stomach_is_hungry_too.descr": "Make a baked good.",
   "advancements.it.s.bread.descr": "I've eaten ten different kinds of bread!",
   "advancements.it.s.bread.title": "It s Bread",
+  "advancements.cheese_power.title": "Cheese Power!",
+  "advancements.cheese_power.descr": "Only power. Cheese is power!",
   "player.bakeries.tips.flour_sieve.1": "What are you doing?",
   "player.bakeries.tips.flour_sieve.2": "You can't sift it!",
   "player.bakeries.tips.flour_sieve.3": "I don't have the power, you know?",
@@ -152,5 +154,7 @@
   "bakeries.fluid": "Fluid: ",
   "bakeries.salts": "Salts: ",
   "config.jade.plugin_bakeries.oven": "Oven",
-  "bakeries.cooking_time": "Cooking Time "
+  "bakeries.cooking_time": "Cooking Time ",
+  "effect.bakeries.cocoa_mania": "Cocoa Mania",
+  "effect.bakeries.cheese_power": "Cheese Power"
 }

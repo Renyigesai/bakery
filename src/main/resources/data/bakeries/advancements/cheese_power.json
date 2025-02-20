@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "bakeries:cheese_cube"
+    },
+    "title": {
+      "translate": "advancements.cheese_power.title"
+    },
+    "description": {
+      "translate": "advancements.cheese_power.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cheese_power": {
+      "trigger": "minecraft:tick",
+      "conditions": {
+        "player": {
+          "effects": {
+            "bakeries:cheese_power": {}
+          }
+        }
+      }
+    }
+  },
+  "parent": "bakeries:start_the_experiment"
+}

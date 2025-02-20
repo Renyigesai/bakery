@@ -34,6 +34,7 @@ public class BakeriesMod {
         BakeriesBlocks.BLOCK_REGISTRY.register(bus);
         BakeriesBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         BakeriesGroup.REGISTER.register(bus);
+        BakeriesMobEffects.REGISTRY.register(bus);
         BakeriesMenuType.REGISTRY.register(bus);
         BakeriesSounds.REGISTRY.register(bus);
         BakeriesFluids.REGISTRY.register(bus);

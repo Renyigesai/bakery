@@ -58,8 +58,8 @@ public class OvenBlock extends BaseEntityBlock{
     public static final VoxelShape E_AXIS_BAA = Shapes.or(E_BASE, E_BOX_B, E_BOX_A_1, E_BOX_A_2);
     public static final VoxelShape W_AXIS_BAA = Shapes.or(W_BASE, W_BOX_B, W_BOX_A_1, W_BOX_A_2);
     public static final BooleanProperty LIT = BooleanProperty.create("lit");
-    public OvenBlock() {
-        super(Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
+    public OvenBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, false));
     }
 
@@ -174,6 +174,19 @@ public class OvenBlock extends BaseEntityBlock{
             double d6 = pRandom.nextDouble() * 6.0D / 16.0D;
             double d7 = direction$axis == Direction.Axis.Z ? (double)direction.getStepZ() * 0.6D : d4;
                 pLevel.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+            }
+        }
+    }
+
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        if (!pLevel.isClientSide) {
+            boolean flag = pState.getValue(LIT);
+            if (flag != pLevel.hasNeighborSignal(pPos)) {
+                if (flag) {
+                    pLevel.scheduleTick(pPos, this, 4);
+                } else {
+                    pLevel.setBlock(pPos, pState.cycle(LIT), 2);
+                }
             }
         }
     }

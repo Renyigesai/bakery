@@ -142,6 +142,8 @@
   "advancements.my_stomach_is_hungry_too.descr": "制作一个烘焙食品。",
   "advancements.it.s.bread.descr": "食用过十种不同的面包！",
   "advancements.it.s.bread.title": "是个面包",
+  "advancements.cheese_power.title": "芝士力!",
+  "advancements.cheese_power.descr": "只是力，芝士就是力量!",
   "player.bakeries.tips.flour_sieve.1": "你在干什么?",
   "player.bakeries.tips.flour_sieve.2": "筛不了的啦!",
   "player.bakeries.tips.flour_sieve.3": "我没这个能力知道吧？",
@@ -152,5 +154,7 @@
   "bakeries.fluid": "液体: ",
   "bakeries.salts": "粗盐: ",
   "config.jade.plugin_bakeries.oven": "烤炉",
-  "bakeries.cooking_time": "烹饪时间"
+  "bakeries.cooking_time": "烹饪时间",
+  "effect.bakeries.cocoa_mania": "可可狂热",
+  "effect.bakeries.cheese_power": "芝士力"
 }

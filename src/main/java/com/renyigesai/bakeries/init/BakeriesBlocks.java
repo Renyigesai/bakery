@@ -19,12 +19,16 @@ import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.ToIntFunction;
 
 public class BakeriesBlocks {
 
@@ -107,7 +111,8 @@ public class BakeriesBlocks {
         MEAT_PASTE_PIZZA = BLOCK_REGISTRY.register("meat_paste_pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
         //common
-        OVEN = BLOCK_REGISTRY.register("oven", OvenBlock::new);
+        OVEN = BLOCK_REGISTRY.register("oven", ()->new OvenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
+                .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", DoughCraftingTableBlock::new);
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
                 new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));

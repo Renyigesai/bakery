@@ -52,7 +52,9 @@ public class BakeriesFoodProperties {
 
         SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
-        SLICED_CHEESE_COCOA_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.8f).build();
+        SLICED_CHEESE_COCOA_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.8f)
+                .effect(() -> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),600,0),1f)
+                .effect(() -> new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),600,0),1f).build();
 
         BERRY_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.7f).build();
 
