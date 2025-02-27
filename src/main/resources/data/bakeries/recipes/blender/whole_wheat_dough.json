@@ -1,0 +1,36 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "bakeries:bottle_yeast"
+    },
+    {
+      "tag": "forge:salt"
+    },
+    {
+      "item": "bakeries:butter_cube"
+    }
+  ],
+  "output": {
+    "item": "bakeries:whole_wheat_dough",
+    "count": 1
+  }
+}

@@ -19,12 +19,15 @@ public class BakeriesGroup {
                     .displayItems(((itemDisplayParameters, output) -> {
                         //功能方块/方块/物品
                         output.accept(BakeriesItems.OVEN.get());//烤箱
+                        output.accept(BakeriesItems.BLENDER.get());//搅拌机
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());//面胚制作台
                         output.accept(BakeriesItems.CUPBOARD.get());//厨台
                         output.accept(BakeriesItems.BAYSALT_FRAME.get());//晒盐框
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());//发酵罐
                         output.accept(BakeriesItems.YEAST_TANK.get());//满装酵母罐
                         output.accept(BakeriesItems.CHEESE_TANK.get());//满装奶酪罐
+                        output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR_BAG.get());//全麦面粉袋
+                        output.accept(BakeriesItems.FLOUR_BAG.get());//面粉袋
                         output.accept(BakeriesItems.WOOD_COUNTER.get());//木质柜台
                         output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐

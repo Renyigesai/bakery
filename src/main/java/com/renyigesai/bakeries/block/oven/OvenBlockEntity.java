@@ -336,9 +336,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
 
     @Override
-    public int @NotNull [] getSlotsForFace(@NotNull Direction pSide) {
-      return new int[]{0, 1, 2, 3};
-    }
+    public int @NotNull [] getSlotsForFace(@NotNull Direction pSide) {return new int[]{0, 1, 2, 3};}
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, @NotNull ItemStack pItemStack, @Nullable Direction pDirection) {

@@ -55,6 +55,7 @@ public class Shortcuts {
     }
     public static void givePlayerItem(Player player, ItemStack item){
         player.getInventory().placeItemBackInInventory(item);
+
     }
 
     //By Farmer's Delight

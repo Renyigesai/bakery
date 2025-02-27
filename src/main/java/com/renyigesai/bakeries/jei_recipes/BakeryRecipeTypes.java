@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.jei_recipes;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.recipe.blender.BlenderRecipe;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
@@ -35,6 +36,8 @@ public class BakeryRecipeTypes {
 			RECIPE_TYPE.register(FlourSieveRecipe.Type.ID, () -> FlourSieveRecipe.Type.INSTANCE);
 			SERIALIZERS.register(ToasterRecipe.Type.ID, () -> ToasterRecipe.Serializer.INSTANCE);
 			RECIPE_TYPE.register(ToasterRecipe.Type.ID, () -> ToasterRecipe.Type.INSTANCE);
+			SERIALIZERS.register(BlenderRecipe.Type.ID, () -> BlenderRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register(BlenderRecipe.Type.ID, () -> BlenderRecipe.Type.INSTANCE);
 //			SERIALIZERS.register(PizzaRecipe.Type.ID,() ->PizzaRecipe.Serializer.INSTANCE);
 //			RECIPE_TYPE.register(PizzaRecipe.Type.ID,() ->PizzaRecipe.Type.INSTANCE);
 		});

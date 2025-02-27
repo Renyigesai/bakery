@@ -41,8 +41,6 @@ public class DoughCraftingTableBlock extends BaseEntityBlock {
          }else {
             openChestMenu(pState, pLevel, pPos, pPlayer, pHand, pHit);
          }
-//         pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
-//         pPlayer.awardStat(Stats.INTERACT_WITH_LOOM);
          return InteractionResult.CONSUME;
       }
    }

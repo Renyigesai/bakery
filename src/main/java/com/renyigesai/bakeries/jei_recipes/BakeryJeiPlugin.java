@@ -3,7 +3,9 @@ package com.renyigesai.bakeries.jei_recipes;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.inventory.oven.OvenScreen;
+import com.renyigesai.bakeries.recipe.blender.BlenderRecipe;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import mezz.jei.api.IModPlugin;
@@ -25,6 +27,7 @@ import java.util.Objects;
 public class BakeryJeiPlugin implements IModPlugin {
 	public static final mezz.jei.api.recipe.RecipeType<OvenRecipe> Oven_Type = new mezz.jei.api.recipe.RecipeType<>(OvenRecipeCategory.UID, OvenRecipe.class);
 	public static final mezz.jei.api.recipe.RecipeType<DoughCraftingRecipe> Dough_Crafting_Table_Type = new mezz.jei.api.recipe.RecipeType<>(DoughCraftingTableRecipeCategory.UID, DoughCraftingRecipe.class);
+	public static final mezz.jei.api.recipe.RecipeType<BlenderRecipe> BLENDER_TYPE = new mezz.jei.api.recipe.RecipeType<>(BlenderCategory.UID, BlenderRecipe.class);
 	@Override
 	public @NotNull ResourceLocation getPluginUid() {
 		return new ResourceLocation(BakeriesMod.MODID,"jei_plugin");
@@ -34,6 +37,7 @@ public class BakeryJeiPlugin implements IModPlugin {
 	public void registerCategories(IRecipeCategoryRegistration registration) {
 		registration.addRecipeCategories(new OvenRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
 		registration.addRecipeCategories(new DoughCraftingTableRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+		registration.addRecipeCategories(new BlenderCategory(registration.getJeiHelpers().getGuiHelper()));
 	}
 
 	@Override
@@ -43,6 +47,8 @@ public class BakeryJeiPlugin implements IModPlugin {
 		registration.addRecipes(Oven_Type, SoundCollectorRecipes);
 		List<DoughCraftingRecipe> doughCraftingRecipes = recipeManager.getAllRecipesFor(DoughCraftingRecipe.Type.INSTANCE);
 		registration.addRecipes(Dough_Crafting_Table_Type, doughCraftingRecipes);
+		List<BlenderRecipe> blenderRecipes = recipeManager.getAllRecipesFor(BlenderRecipe.Type.INSTANCE);
+		registration.addRecipes(BLENDER_TYPE, blenderRecipes);
 
 //		registration.addIngredientInfo(List.of(new ItemStack(BakeryBlocks.OVEN.get())), VanillaTypes.ITEM_STACK, Component.translatable("jei.defender.netheritr_blockxx_1"));
 	}
@@ -51,6 +57,8 @@ public class BakeryJeiPlugin implements IModPlugin {
 	public void registerGuiHandlers(IGuiHandlerRegistration registration){
 		registration.addRecipeClickArea(OvenScreen.class,110,16,8,54,
 				Oven_Type);
+		registration.addRecipeClickArea(BlenderScreen.class,110,16,8,54,
+				BLENDER_TYPE);
 
 	}
 
@@ -58,5 +66,6 @@ public class BakeryJeiPlugin implements IModPlugin {
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
 		registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.OVEN.get()), Oven_Type);
 		registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.DOUGH_CRAFTING_TABLE.get()), Dough_Crafting_Table_Type);
+		registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.BLENDER.get()), BLENDER_TYPE);
 	}
 }

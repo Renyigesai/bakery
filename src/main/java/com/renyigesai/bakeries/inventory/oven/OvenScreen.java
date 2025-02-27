@@ -105,7 +105,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         pGuiGraphics.pose().popPose();
     }
 
-     @Override
+    @Override
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
          zhi_zheng.mouseClicked(dragging, pMouseX, pMouseY, pButton);
         return super.mouseClicked(pMouseX, pMouseY, pButton);

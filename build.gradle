@@ -140,7 +140,11 @@ repositories {
     maven {
         url = "https://maven.jaackson.me"
     }
-
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
 }
 
 dependencies {
@@ -165,7 +169,8 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-//    runtimeOnly fg.deobf("curse.maven:appskin-248787:4770828")
+    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:6154802")
+    runtimeOnly fg.deobf("curse.maven:farmersdelight-328085:5838779")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

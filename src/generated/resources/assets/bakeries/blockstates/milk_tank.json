@@ -1,15 +1,15 @@
 {
   "variants": {
-    "milk=3,sweet_berries=false": {
+    "milk=3,salt=false": {
       "model": "bakeries:block/milk_tank_1"
     },
-    "milk=2,sweet_berries=false": {
+    "milk=2,salt=false": {
       "model": "bakeries:block/milk_tank_2"
     },
-    "milk=1,sweet_berries=false": {
+    "milk=1,salt=false": {
       "model": "bakeries:block/milk_tank_3"
     },
-    "milk=3,sweet_berries=true": {
+    "milk=3,salt=true": {
       "model": "bakeries:block/milk_tank_1"
     }
   }

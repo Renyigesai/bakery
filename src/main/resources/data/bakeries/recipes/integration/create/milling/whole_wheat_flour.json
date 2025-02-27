@@ -1,0 +1,14 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "create:wheat_flour"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "bakeries:flour"
+    }
+  ]
+}

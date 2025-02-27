@@ -1,0 +1,38 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:cocoa_powder"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "forge:salt"
+    },
+    {
+      "item": "bakeries:butter_cube"
+    },
+    {
+      "item": "bakeries:bottle_yeast"
+    },
+    {
+      "amount": 250,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:cocoa_dough"
+    }
+  ]
+}

@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 
-public class   OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
+public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 	public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "oven_recipe");
 	public final static ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_oven_gui.png");
 	protected final IDrawable background;

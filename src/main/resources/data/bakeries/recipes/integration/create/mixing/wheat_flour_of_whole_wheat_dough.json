@@ -1,0 +1,38 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "create:wheat_flour"
+    },
+    {
+      "item": "create:wheat_flour"
+    },
+    {
+      "item": "create:wheat_flour"
+    },
+    {
+      "item": "create:wheat_flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "forge:salt"
+    },
+    {
+      "item": "bakeries:butter_cube"
+    },
+    {
+      "item": "bakeries:bottle_yeast"
+    },
+    {
+      "amount": 250,
+      "fluidTag": "forge:milk"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:whole_wheat_dough"
+    }
+  ]
+}

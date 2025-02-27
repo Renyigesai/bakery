@@ -1,0 +1,14 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:cocoa_beans"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "bakeries:cocoa_powder"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "bakeries:bottle_yeast"
+    },
+    {
+      "tag": "forge:salt"
+    },
+    {
+      "item": "bakeries:butter_cube"
+    }
+  ],
+  "output": {
+    "item": "bakeries:sweet_dough",
+    "count": 1
+  }
+}

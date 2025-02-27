@@ -99,6 +99,9 @@ public class BakeriesItems {
     public static final RegistryObject<Item> SLICED_CHEESE_COCOA_TOAST;
     public static final RegistryObject<Item> MOULD_CHEESE_COCOA_TOAST_DOUGH;
     public static final RegistryObject<Item> BREAD_HOLDERS;
+    public static final RegistryObject<Item> FLOUR_BAG;
+    public static final RegistryObject<Item> WHOLE_WHEAT_FLOUR_BAG;
+    public static final RegistryObject<Item> BLENDER;
 
     static {
         FLOUR = item("flour");
@@ -125,7 +128,8 @@ public class BakeriesItems {
         YEAST_TANK = block(BakeriesBlocks.YEAST_TANK);
         CHEESE_TANK = block(BakeriesBlocks.CHEESE_TANK);
         MILK_TANK = block(BakeriesBlocks.Milk_TANK);
-        BOTTLE_YEAST = item("bottle_yeast");
+        BOTTLE_YEAST = REGISTER.register("bottle_yeast",()->
+                new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         SALT_ORE = block(BakeriesBlocks.SALT_ORE);
         DEEPSLATE_SALT_ORE = block(BakeriesBlocks.DEEPSLATE_SALT_ORE);
@@ -184,6 +188,9 @@ public class BakeriesItems {
         MEAT_PASTE_PIZZA = block(BakeriesBlocks.MEAT_PASTE_PIZZA);
         BAYSALT_FRAME = block(BakeriesBlocks.BAYSALT_FRAME);
         BREAD_HOLDERS = block(BakeriesBlocks.BREAD_HOLDERS);
+        FLOUR_BAG = block(BakeriesBlocks.FLOUR_BAG);
+        WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);
+        BLENDER = block(BakeriesBlocks.BLENDER);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

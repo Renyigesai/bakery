@@ -16,5 +16,11 @@
     "sounds": [
       "bakeries:shake"
     ]
+  },
+  "block.generic.blender": {
+    "subtitle":"block.generic.blender",
+    "sounds": [
+      "bakeries:blender"
+    ]
   }
 }

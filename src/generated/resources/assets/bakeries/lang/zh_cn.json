@@ -81,6 +81,9 @@
   "block.bakeries.baysalt_frame": "晒盐框",
   "block.bakeries.cupboard": "厨台",
   "block.bakeries.bread_holders": "面包夹架",
+  "block.bakeries.flour_bag": "面粉袋",
+  "block.bakeries.whole_wheat_flour_bag": "全麦面粉袋",
+  "block.bakeries.blender": "搅拌机",
   "entity.generic.shake": "摇晃",
   "entity.minecraft.villager.bakeries.pistrinamaster": "面包师",
   "entity.minecraft.villager.pistrinamaster": "面包师",
@@ -122,7 +125,7 @@
   "guide.bakeries.entries.be_unable_to_eat_any_more": "吃不完 根本吃不完",
   "guide.bakeries.descr.be_unable_to_eat_any_more": "在开发版本中，法棍可以被附上经验修补魔咒。",
   "guide.bakeries.descr.bread_knife": "你可以用它来切面包，比如乡村面包。",
-  "guide.bakeries.entries.cheese.descr": "你首先需要准备一个发酵罐，往里面投入一桶牛奶和一份甜浆果，然后静待发酵完成，你就可以用手取出奶酪块啦。",
+  "guide.bakeries.entries.cheese.descr": "你首先需要准备一个发酵罐，往里面投入一桶牛奶和一份$(l:food_ingredient/salt)盐/$，然后静待发酵完成，你就可以用手取出奶酪块啦。",
   "guide.bakeries.descr.cocoa_powder": "使用$(l:baking_utensil/flour_sieve)面粉筛/$将可可豆过筛处理为可可粉。",
   "advancements.bakeries_root.title": "烘焙坊",
   "advancements.bakeries_root.descr": "精致烘焙。",
@@ -156,5 +159,6 @@
   "config.jade.plugin_bakeries.oven": "烤炉",
   "bakeries.cooking_time": "烹饪时间",
   "effect.bakeries.cocoa_mania": "可可狂热",
-  "effect.bakeries.cheese_power": "芝士力"
+  "effect.bakeries.cheese_power": "芝士力",
+  "container.blender": "搅拌机"
 }
