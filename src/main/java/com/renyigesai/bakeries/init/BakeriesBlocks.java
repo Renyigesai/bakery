@@ -74,6 +74,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> CUPBOARD;
     public static final RegistryObject<Block> FLOUR_BAG;
     public static final RegistryObject<Block> WHOLE_WHEAT_FLOUR_BAG;
+    public static final RegistryObject<Block> MEAT_FLOSS_BREAD;
 
     public static final RegistryObject<Block> BREAD_BASKET ;
     public static final RegistryObject<Block> TOASTER;
@@ -106,6 +107,7 @@ public class BakeriesBlocks {
         CHEESE_COCOA_TOAST = BLOCK_REGISTRY.register("cheese_cocoa_toast", () ->
                 new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_CHEESE_COCOA_TOAST));
         BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
+        MEAT_FLOSS_BREAD = BLOCK_REGISTRY.register("meat_floss_bread", PileBlock::new);
         PIZZA = BLOCK_REGISTRY.register("pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
         SAUSAGE_PIZZA = BLOCK_REGISTRY.register("sausage_pizza",()->

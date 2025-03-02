@@ -36,9 +36,18 @@ public class BlenderMenu extends AbstractContainerMenu {
         addSlot(new SlotItemHandler(blockEntity.getInventory(), 7, 62, 53));
         addSlot(new SlotItemHandler(blockEntity.getInventory(), 8, 80, 53));
         // 添加输出槽 (9)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 134, 53));
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 134, 35));
         // 添加过滤槽 (0)
-        addSlot(new SlotItemHandler(blockEntity.getFiltrationSlot(), 0, 134, 17));
+        if (blockEntity.compatibility) {
+            int fx = 8; // 起始 X 坐标
+            int fy = 18; // 起始 Y 坐标
+            for (int y = 0; y < 3; ++y) {
+                for (int x = 0; x < 3; ++x) {
+                    int slotIndex = (y * 3) + x;
+                    addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
+                }
+            }
+        }
         // 添加玩家物品栏
         layoutPlayerInventorySlots(8, 84);
     }

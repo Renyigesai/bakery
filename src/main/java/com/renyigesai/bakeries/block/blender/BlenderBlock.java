@@ -1,10 +1,14 @@
 package com.renyigesai.bakeries.block.blender;
 
+import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
+import com.renyigesai.bakeries.util.RandomText;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -72,7 +76,7 @@ public class BlenderBlock extends BaseEntityBlock {
             if (blockEntity instanceof BlenderBlockEntity blenderBlockEntity) {
                 if (!handStack.is(Items.REDSTONE_TORCH)) {
                     NetworkHooks.openScreen(((ServerPlayer) entity), blenderBlockEntity, pos);
-                }else {
+                }else if (blenderBlockEntity.isCloseCompatibility()){
                     boolean temp = blenderBlockEntity.compatibility;
                     blenderBlockEntity.compatibility = !temp;
                     if (world instanceof ServerLevel serverLevel){
@@ -85,6 +89,18 @@ public class BlenderBlock extends BaseEntityBlock {
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof BlenderBlockEntity blenderBlockEntity) {
+                blenderBlockEntity.drops(blenderBlockEntity);
+                world.updateNeighbourForOutputSignal(pos, this);
+            }
+            super.onRemove(state, world, pos, newState, isMoving);
+        }
     }
 
     @Override

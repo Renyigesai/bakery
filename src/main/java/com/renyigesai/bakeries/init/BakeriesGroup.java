@@ -56,22 +56,23 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.TOMATO.get());//番茄
                         output.accept(BakeriesItems.OLIVE.get());//橄榄
                         //面包/食物
-                        output.accept(BakeriesItems.BAGEL.get());//
-                        output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());//
-                        output.accept(BakeriesItems.ROUND_BREAD.get());//
-                        output.accept(BakeriesItems.BERRY_BREAD.get());//
-                        output.accept(BakeriesItems.BROWN_SUGAR_ROLL.get());//
-                        output.accept(BakeriesItems.PINEAPPLE_BUN.get());//
-                        output.accept(BakeriesItems.CROISSANT.get());//
-                        output.accept(BakeriesItems.SALT_CROISSANT.get());//
-                        output.accept(BakeriesItems.TOAST.get());//
-                        output.accept(BakeriesItems.SLICED_TOAST.get());//
-                        output.accept(BakeriesItems.CHEESE_COCOA_TOAST.get());//
-                        output.accept(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());//
-                        output.accept(BakeriesItems.BAGUETTE.get());//
-                        output.accept(BakeriesItems.CIABATTA.get());//
-                        output.accept(BakeriesItems.COUNTRY_BREAD.get());//
-                        output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//
+                        output.accept(BakeriesItems.BAGEL.get());//贝果
+                        output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());//全麦贝果
+                        output.accept(BakeriesItems.ROUND_BREAD.get());//圆面包
+                        output.accept(BakeriesItems.BERRY_BREAD.get());//莓果面包
+                        output.accept(BakeriesItems.BROWN_SUGAR_ROLL.get());//红糖卷
+                        output.accept(BakeriesItems.PINEAPPLE_BUN.get());//菠萝包
+                        output.accept(BakeriesItems.MEAT_FLOSS_BREAD.get());//菠萝包
+                        output.accept(BakeriesItems.CROISSANT.get());//可颂
+                        output.accept(BakeriesItems.SALT_CROISSANT.get());//盐可颂
+                        output.accept(BakeriesItems.TOAST.get());//吐司
+                        output.accept(BakeriesItems.SLICED_TOAST.get());//切片吐司
+                        output.accept(BakeriesItems.CHEESE_COCOA_TOAST.get());//奶酪可可吐司
+                        output.accept(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());//切片奶酪可可吐司
+                        output.accept(BakeriesItems.BAGUETTE.get());//法棍
+                        output.accept(BakeriesItems.CIABATTA.get());//恰巴塔
+                        output.accept(BakeriesItems.COUNTRY_BREAD.get());//乡村面包
+                        output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//乡村面包切片
 //                        output.accept(BakeriesItems.PIZZA.get());
 //                        output.accept(BakeriesItems.SAUSAGE_PIZZA.get());
 //                        output.accept(BakeriesItems.MEAT_PASTE_PIZZA.get());

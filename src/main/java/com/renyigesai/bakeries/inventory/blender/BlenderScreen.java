@@ -26,18 +26,14 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-
         // 计算 GUI 的左上角位置
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-
         // 绘制背景
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
-
-        // 绘制进度条
-        int width = menu.getBlockEntity().cookingTotalTime;
-        int progressWidth = (int) (24 * (width / 100.0f));
-        pGuiGraphics.blit(TEXTURE, x + 103, y + 26, 177, 19, progressWidth, 17); // 绘制进度条
+        if (menu.getBlockEntity().compatibility) {
+            pGuiGraphics.blit(TEXTURE, x+7, y+17, 176, 0, 34, 52);
+        }
     }
 
     @Override

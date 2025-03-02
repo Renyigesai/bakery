@@ -23,6 +23,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties TOMATO;
     public static final FoodProperties CHEESE_CUBE;
     public static final FoodProperties SLICED_CHEESE_COCOA_TOAST;
+    public static final FoodProperties MEAT_FLOSS_BREAD;
 
 
     static {
@@ -61,6 +62,8 @@ public class BakeriesFoodProperties {
         COUNTRY_BREAD_SLICE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).fast().build();
 
         CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+
+        MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
         OLIVE = new FoodProperties.Builder().nutrition(2).saturationMod(0.5f).build();
 

@@ -101,6 +101,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BREAD_HOLDERS;
     public static final RegistryObject<Item> FLOUR_BAG;
     public static final RegistryObject<Item> WHOLE_WHEAT_FLOUR_BAG;
+    public static final RegistryObject<Item> MEAT_FLOSS_BREAD;
     public static final RegistryObject<Item> BLENDER;
 
     static {
@@ -183,6 +184,7 @@ public class BakeriesItems {
         MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
         MOULD_CHEESE_COCOA_TOAST = block(BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST);
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
+        MEAT_FLOSS_BREAD = foodBlockItem(BakeriesBlocks.MEAT_FLOSS_BREAD,BakeriesFoodProperties.MEAT_FLOSS_BREAD);
         PIZZA = block(BakeriesBlocks.PIZZA);
         SAUSAGE_PIZZA = block(BakeriesBlocks.SAUSAGE_PIZZA);
         MEAT_PASTE_PIZZA = block(BakeriesBlocks.MEAT_PASTE_PIZZA);
