@@ -2,13 +2,9 @@ package com.renyigesai.bakeries.util;
 
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.phys.Vec3;
 
 public class Shortcuts {
     /**
@@ -52,16 +48,5 @@ public class Shortcuts {
                 setBlock(plevel, pos, state, pProperty, state.getValue(pProperty) - pValue);
             }
         }
-    }
-    public static void givePlayerItem(Player player, ItemStack item){
-        player.getInventory().placeItemBackInInventory(item);
-
-    }
-
-    //By Farmer's Delight
-    public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, Vec3 pDeltaMovement) {
-        ItemEntity entity = new ItemEntity(level, x, y, z, stack);
-        entity.setDeltaMovement(pDeltaMovement);
-        level.addFreshEntity(entity);
     }
 }

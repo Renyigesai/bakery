@@ -87,7 +87,6 @@ public class BakeriesItems {
     public static final RegistryObject<Item> PIZZA;
     public static final RegistryObject<Item> BAYSALT_FRAME;
     public static final RegistryObject<Item> SAUSAGE_PIZZA;
-//    public static final RegistryObject<Item> PIZZA_DOUGH;
     public static final RegistryObject<Item> MEAT_PASTE_PIZZA;
     public static final RegistryObject<Item> OLIVE;
     public static final RegistryObject<Item> CUPBOARD;
@@ -103,6 +102,9 @@ public class BakeriesItems {
     public static final RegistryObject<Item> WHOLE_WHEAT_FLOUR_BAG;
     public static final RegistryObject<Item> MEAT_FLOSS_BREAD;
     public static final RegistryObject<Item> BLENDER;
+    public static final RegistryObject<Item> MEAT_FLOSS_BREAD_DOUGH;
+    public static final RegistryObject<Item> MEAT_FLOSS;
+    public static final RegistryObject<Item> BAG;
 
     static {
         FLOUR = item("flour");
@@ -155,7 +157,6 @@ public class BakeriesItems {
         BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         TOASTER = block(BakeriesBlocks.TOASTER);
         TOMATO = REGISTER.register("tomato",()->new ItemNameBlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties().food(BakeriesFoodProperties.TOMATO)));
-//        PIZZA_DOUGH = block(BakeriesBlocks.PIZZA_DOUGH);
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
         CUPBOARD = block(BakeriesBlocks.CUPBOARD);
         BREAD_KNIFE = REGISTER.register("bread_knife",()->
@@ -164,6 +165,9 @@ public class BakeriesItems {
         COCOA_POWDER = item("cocoa_powder");
         CHEESE_CUBE = foodItem("cheese_cube",BakeriesFoodProperties.CHEESE_CUBE);
         MOULD_CHEESE_COCOA_TOAST_DOUGH = rawItem("mould_cheese_cocoa_toast_dough","135");
+        MEAT_FLOSS_BREAD_DOUGH = rawItem("meat_floss_bread_dough","155");
+        MEAT_FLOSS = foodItem("meat_floss",BakeriesFoodProperties.MEAT_FLOSS);
+        BAG = REGISTER.register("bag",() -> new BagItem(new Item.Properties()));
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);

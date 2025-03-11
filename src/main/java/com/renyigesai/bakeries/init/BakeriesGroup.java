@@ -22,7 +22,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BLENDER.get());//搅拌机
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());//面胚制作台
                         output.accept(BakeriesItems.CUPBOARD.get());//厨台
-                        output.accept(BakeriesItems.BAYSALT_FRAME.get());//晒盐框
+//                        output.accept(BakeriesItems.BAYSALT_FRAME.get());//晒盐框
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());//发酵罐
                         output.accept(BakeriesItems.YEAST_TANK.get());//满装酵母罐
                         output.accept(BakeriesItems.CHEESE_TANK.get());//满装奶酪罐
@@ -55,6 +55,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BROWN_SUGAR_CUBE.get());//红糖块
                         output.accept(BakeriesItems.TOMATO.get());//番茄
                         output.accept(BakeriesItems.OLIVE.get());//橄榄
+                        output.accept(BakeriesItems.MEAT_FLOSS.get());//肉松
                         //面包/食物
                         output.accept(BakeriesItems.BAGEL.get());//贝果
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());//全麦贝果
@@ -62,7 +63,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BERRY_BREAD.get());//莓果面包
                         output.accept(BakeriesItems.BROWN_SUGAR_ROLL.get());//红糖卷
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());//菠萝包
-                        output.accept(BakeriesItems.MEAT_FLOSS_BREAD.get());//菠萝包
+                        output.accept(BakeriesItems.MEAT_FLOSS_BREAD.get());//肉松面包
                         output.accept(BakeriesItems.CROISSANT.get());//可颂
                         output.accept(BakeriesItems.SALT_CROISSANT.get());//盐可颂
                         output.accept(BakeriesItems.TOAST.get());//吐司
@@ -94,6 +95,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BERRY_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.BROWN_SUGAR_ROLL_DOUGH.get());
                         output.accept(BakeriesItems.PINEAPPLE_BUN_DOUGH.get());
+                        output.accept(BakeriesItems.MEAT_FLOSS_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.CROISSANT_DOUGH.get());
                         output.accept(BakeriesItems.SALT_CROISSANT_DOUGH.get());
                         output.accept(BakeriesItems.MOULD_TOAST_DOUGH.get());

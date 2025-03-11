@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.util.ItemUtil;
 import com.renyigesai.bakeries.util.Shortcuts;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,7 +37,7 @@ public class MouldBlock extends HorizontalDirectionalBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        Shortcuts.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.MOULD.get()));
+        ItemUtil.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.MOULD.get()));
         pLevel.playSound(null, pPos, SoundEvents.METAL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         pLevel.removeBlock(pPos,false);
         return InteractionResult.SUCCESS;

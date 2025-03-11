@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.init.BakeriesItemTag;
+import com.renyigesai.bakeries.util.ItemUtil;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -75,7 +76,7 @@ public class CountryBreadBlock extends HorizontalDirectionalBlock implements IKn
 
     protected InteractionResult cut (Level level, BlockPos pos, BlockState state, Player playerIn){
         level.removeBlock(pos,false);
-        Shortcuts.spawnItemEntity(level, new ItemStack(BakeriesItems.COUNTRY_BREAD_SLICE.get(),6), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
+        ItemUtil.spawnItemEntity(level, new ItemStack(BakeriesItems.COUNTRY_BREAD_SLICE.get(),6), pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5,
                 new Vec3(0.0, 0.0, 0.0));
         level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;

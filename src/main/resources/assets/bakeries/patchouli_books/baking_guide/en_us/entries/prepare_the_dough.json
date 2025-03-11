@@ -7,18 +7,6 @@
     {
       "type": "patchouli:text",
       "text": "guide.bakeries.descr.prepare_the_dough"
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bakeries:sweet_dough"
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bakeries:salted_dough"
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bakeries:whole_wheat_dough"
     }
   ]
 }

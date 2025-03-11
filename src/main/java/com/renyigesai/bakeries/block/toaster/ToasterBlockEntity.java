@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.toaster;
 
+import com.renyigesai.bakeries.util.ItemUtil;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
@@ -107,7 +108,7 @@ public class ToasterBlockEntity extends BlockEntity {
         for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             ItemStack stack = this.itemHandler.getStackInSlot(i);
             if (!stack.isEmpty()){
-                Shortcuts.givePlayerItem(player,stack);
+                ItemUtil.givePlayerItem(player,stack);
                 this.itemHandler.setStackInSlot(i,ItemStack.EMPTY.split(1));
                 break;
             }

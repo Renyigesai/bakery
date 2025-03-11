@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.util.ItemUtil;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
@@ -48,7 +49,7 @@ public class YeastTankBlock extends TankBlock {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
         hand.shrink(1);
-        Shortcuts.givePlayerItem(playerIn,new ItemStack(BakeriesItems.BOTTLE_YEAST.get()));
+        ItemUtil.givePlayerItem(playerIn,new ItemStack(BakeriesItems.BOTTLE_YEAST.get()));
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }

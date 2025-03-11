@@ -24,6 +24,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties CHEESE_CUBE;
     public static final FoodProperties SLICED_CHEESE_COCOA_TOAST;
     public static final FoodProperties MEAT_FLOSS_BREAD;
+    public static final FoodProperties MEAT_FLOSS;
 
 
     static {
@@ -63,13 +64,15 @@ public class BakeriesFoodProperties {
 
         CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
-        MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+        MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(0.6f).build();
 
         OLIVE = new FoodProperties.Builder().nutrition(2).saturationMod(0.5f).build();
 
         TOMATO = new FoodProperties.Builder().nutrition(2).saturationMod(0.5f).build();
 
         CHEESE_CUBE = new FoodProperties.Builder().nutrition(1).saturationMod(1f).build();
+
+        MEAT_FLOSS = new FoodProperties.Builder().nutrition(2).saturationMod(0.8f).fast().build();
 
     }
 }

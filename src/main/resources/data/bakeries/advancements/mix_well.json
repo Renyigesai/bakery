@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "bakeries:oven"
+      "item": "bakeries:blender"
     },
     "title": {
-      "translate": "advancements.precise_temperature_control.title"
+      "translate": "advancements.mix_well.title"
     },
     "description": {
-      "translate": "advancements.precise_temperature_control.descr"
+      "translate": "advancements.mix_well.descr"
     },
     "frame": "task",
     "show_toast": true,
@@ -15,17 +15,17 @@
     "hidden": false
   },
   "criteria": {
-    "precise_temperature_control": {
+    "mix_well": {
       "trigger": "minecraft:placed_block",
       "conditions": {
         "location": [
           {
             "condition": "minecraft:block_state_property",
-            "block": "bakeries:oven"
+            "block": "bakeries:blender"
           }
         ]
       }
     }
   },
-  "parent": "bakeries:mix_well"
+  "parent": "bakeries:root"
 }

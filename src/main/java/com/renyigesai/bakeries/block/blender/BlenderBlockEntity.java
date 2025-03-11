@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.blender;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.recipe.blender.BlenderRecipe;
-import com.renyigesai.bakeries.util.Shortcuts;
+import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,11 +21,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
@@ -36,23 +34,21 @@ import java.util.Optional;
 
 public class BlenderBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
 
-    protected final ItemStackHandler inventory = new ItemStackHandler(10){
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };//10个槽位
-
-    protected final ItemStackHandler filtrationinventory = new ItemStackHandler(9){
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };//1个过滤槽位
-
+    private static final int CONTAINER_SLOT = 9;
+    private static final int OUTPUT_SLOT = 10;
     private static final int[] SLOTS_FOR_UP = new int[]{0,1,2,3,4,5,6,7,8};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{9};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{0,1,2,3,4,5,6,7,8};
+    private static final int[] SLOTS_FOR_SIDES = new int[]{9};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{10};
+
+    protected final ItemStackHandler inventory = new ItemStackHandler(11);//11个槽位
+
+    protected final ItemStackHandler filtrationinventory = new ItemStackHandler(10){
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };//9个过滤槽位
+
     public int cookingTotalTime;
     public boolean compatibility;
 
@@ -116,16 +112,16 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
 
     @Override
     public void setItem(int slot, ItemStack stack) {
-        for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
-            ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
-            if (stack.is(filtrationStack.getItem()) && inventory.getStackInSlot(i).isEmpty()){
-                ItemStack singleStack = stack.copy();
-                stack.shrink(1);
-                singleStack.setCount(1);
-                inventory.setStackInSlot(i,singleStack);
-                break;
+            for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
+                ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
+                if (stack.is(filtrationStack.getItem()) && inventory.getStackInSlot(i).isEmpty()) {
+                    ItemStack singleStack = stack.copy();
+                    stack.shrink(1);
+                    singleStack.setCount(1);
+                    inventory.setStackInSlot(i, singleStack);
+                    break;
+                }
             }
-        }
         setChanged();
     }
 
@@ -207,7 +203,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
     }
 
     private Optional<BlenderRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(10); // 假设输入容器大小为 10
+        SimpleContainer inventory = new SimpleContainer(11); // 假设输入容器大小为 10
         for (int i = 0; i < 10; i++) {
             inventory.setItem(i, this.inventory.getStackInSlot(i));
         }
@@ -235,14 +231,14 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
 
             boolean canCraft = false;
             for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                if (recipe.getIngredients().get(i).test(inventory.getStackInSlot(i))) {
+                if (recipe.getIngredients().get(i).test(inventory.getStackInSlot(i)) && isContainer()) {
                         canCraft = true;
                         break;
                 }
             }
 
             ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
-            ItemStack outputStack = inventory.getStackInSlot(9);
+            ItemStack outputStack = inventory.getStackInSlot(OUTPUT_SLOT);
             if (canCraft && canCraft(resultItem,outputStack)) {
 
                 if (cookingTotalTime < 100){
@@ -255,9 +251,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
                         }
                         inventory.extractItem(i, 1, false);
                     }
+                    if (!recipe.getContainer().isEmpty() && recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
+                        inventory.extractItem(CONTAINER_SLOT,1,false);
+                    }
                     if (!compatibility) {
                         if (outputStack.isEmpty()) {
-                            inventory.setStackInSlot(9, resultItem);
+                            inventory.setStackInSlot(OUTPUT_SLOT, resultItem);
                         } else if (outputStack.getItem() == resultItem.getItem()) {
                             outputStack.grow(resultItem.getCount());
                         }
@@ -277,7 +276,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
         Level level1 = this.level;
         BlockPos pos = this.getBlockPos();
         Direction facing = level1.getBlockState(pos).getValue(BlenderBlock.FACING).getOpposite();
-        Shortcuts.spawnItemEntity(level1,pStack,pos.getX() + 0.5,pos.getY(),pos.getZ() + 0.5,
+        ItemUtil.spawnItemEntity(level1,pStack,pos.getX() + 0.5,pos.getY(),pos.getZ() + 0.5,
                 new Vec3(facing.getStepX() * 0.5,0.05,facing.getStepZ() * 0.5));
     }
 
@@ -285,7 +284,19 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
         double x = worldPosition.getX() + 0.5;
         double y = worldPosition.getY() + 0.5;
         double z = worldPosition.getZ() + 0.5;
-        Shortcuts.spawnItemEntity(this.level,remainderStack,x,y,z,new Vec3(0.0,0.0,0.0));
+        ItemUtil.spawnItemEntity(this.level,remainderStack,x,y,z,new Vec3(0.0,0.0,0.0));
+    }
+
+    private boolean isContainer(){
+        Optional<BlenderRecipe> recipeOptional = getCurrentRecipe();
+        if (recipeOptional.isPresent()){
+            BlenderRecipe recipe = recipeOptional.get();
+            if (recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
+                return true;
+            }
+            return recipe.getContainer().isEmpty();
+        }
+        return false;
     }
 
     private boolean canCraft(ItemStack resultItem,ItemStack outputStack){
@@ -322,12 +333,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
 
     @Override
     public boolean canPlaceItem(int pIndex, ItemStack stack) {
-        for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
-            ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
-            if (stack.is(filtrationStack.getItem()) && inventory.getStackInSlot(i).isEmpty()){
-                return true;
+            for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
+                ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
+                if (stack.is(filtrationStack.getItem()) && inventory.getStackInSlot(i).isEmpty()) {
+                    return true;
+                }
             }
-        }
         return false;
     }
 
@@ -346,7 +357,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return canPlaceItem(pIndex,pItemStack);
+    public boolean canPlaceItemThroughFace(int pIndex, ItemStack stack, @Nullable Direction direction) {
+        return canPlaceItem(pIndex, stack);
     }
 }

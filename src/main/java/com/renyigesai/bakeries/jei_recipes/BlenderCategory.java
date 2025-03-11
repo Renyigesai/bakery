@@ -71,7 +71,9 @@ public class BlenderCategory implements IRecipeCategory<BlenderRecipe> {
                 }
             }
         }
+        //添加容器槽
+        builder.addSlot(RecipeIngredientRole.INPUT,90,53).addItemStack(recipe.getContainer());
         //添加输出槽
-        builder.addSlot(RecipeIngredientRole.OUTPUT,90,35).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT,90,17).addItemStack(recipe.getResultItem(null));
     }
 }

@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.util.ItemUtil;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.init.BakeriesItems;
@@ -77,7 +78,7 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
     protected InteractionResult take(Level level, BlockPos pos, BlockState state, Player player){
         int pile = state.getValue(PILE);
         if (pile == 1){
-            Shortcuts.givePlayerItem(player,new ItemStack(this.demouldItem.get()));
+            ItemUtil.givePlayerItem(player,new ItemStack(this.demouldItem.get()));
             level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
             Direction facing = state.getValue(FACING);
             BlockState bBlockState = BakeriesBlocks.MOULD.get().defaultBlockState()

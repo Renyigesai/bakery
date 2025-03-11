@@ -26,18 +26,19 @@ public class BlenderMenu extends AbstractContainerMenu {
         this.playerInventory = new InvWrapper(playerInventory);
 
         // 添加输入槽 (0-8)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 0, 44, 17));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 1, 62, 17));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 2, 80, 17));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 3, 44, 35));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 4, 62, 35));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 5, 80, 35));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 6, 44, 53));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 7, 62, 53));
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 8, 80, 53));
-        // 添加输出槽 (9)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 134, 35));
-        // 添加过滤槽 (0)
+        int ix = 61;
+        int iy = 16;
+        for (int y = 0; y < 3; ++y) {
+            for (int x = 0; x < 3; ++x) {
+                int slotIndex = y * 3 + x;
+                addSlot(new SlotItemHandler(blockEntity.getInventory(), slotIndex, ix + (x * 18) + 1, iy + (y * 18) + 1));
+            }
+        }
+        // 添加容器槽 (9)
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 152, 53));
+        // 添加输出槽 (10)
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 10, 152, 17));
+        // 添加过滤槽 (0-8)
         if (blockEntity.compatibility) {
             int fx = 8; // 起始 X 坐标
             int fy = 18; // 起始 Y 坐标
@@ -47,6 +48,7 @@ public class BlenderMenu extends AbstractContainerMenu {
                     addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
                 }
             }
+            addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 52));
         }
         // 添加玩家物品栏
         layoutPlayerInventorySlots(8, 84);

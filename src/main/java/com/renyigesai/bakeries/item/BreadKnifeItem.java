@@ -37,8 +37,19 @@ public class BreadKnifeItem extends DiggerItem {
     }
 
     @Override
-    public boolean hasCraftingRemainingItem() {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return true;
     }
+
+    @Override
+    public ItemStack getCraftingRemainingItem(ItemStack itemstack) {
+        return new ItemStack(this);
+    }
+
+    @Override
+    public boolean isRepairable(ItemStack itemstack) {
+        return false;
+    }
+
 
 }

@@ -1,0 +1,21 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a",
+    "b"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:meat_floss"
+    },
+    "b": {
+      "item": "bakeries:round_bread_dough"
+    }
+  },
+  "result": {
+    "item": "bakeries:meat_floss_bread_dough",
+    "count": 1
+  }
+}

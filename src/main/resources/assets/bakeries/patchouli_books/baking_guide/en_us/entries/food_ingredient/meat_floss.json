@@ -1,0 +1,13 @@
+{
+  "name": "item.bakeries.meat_floss",
+  "icon": "bakeries:meat_floss",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:meat_floss",
+      "title": "item.bakeries.meat_floss",
+      "text": "guide.bakeries.descr.meat_floss"
+    }
+  ]
+}

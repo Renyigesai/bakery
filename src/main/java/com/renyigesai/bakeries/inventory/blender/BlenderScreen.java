@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
     // GUI 纹理路径
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(BakeriesMod.MODID, "textures/gui/blender_gui.png");
+            new ResourceLocation(BakeriesMod.MODID, "textures/gui/blender_gui_new.png");
 
     public BlenderScreen(BlenderMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -32,7 +32,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         // 绘制背景
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
         if (menu.getBlockEntity().compatibility) {
-            pGuiGraphics.blit(TEXTURE, x+7, y+17, 176, 0, 34, 52);
+            pGuiGraphics.blit(TEXTURE, x+7, y+17, 176, 0, 42, 52);
         }
     }
 

@@ -1,0 +1,12 @@
+{
+  "name": "guide.bakeries.entries.feed_sequence",
+  "icon": "bakeries:sweet_dough",
+  "category": "bakeries:do_you_know",
+  "advancement": "bakeries:perfect_temperature/blender",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.feed_sequence"
+    }
+  ]
+}

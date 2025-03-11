@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.util.ItemUtil;
 import com.renyigesai.bakeries.util.Shortcuts;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -23,7 +24,7 @@ public class CheeseTankBkock extends TankBlock {
     }
 
     public InteractionResult ladleOut(Level pLevel, BlockPos pPos, Player pPlayer){
-        Shortcuts.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.CHEESE_CUBE.get(),4));
+        ItemUtil.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.CHEESE_CUBE.get(),4));
         pLevel.setBlockAndUpdate(pPos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState());
         return InteractionResult.SUCCESS;
     }

@@ -90,7 +90,9 @@ public class BakeriesBlocks {
     public static final RegistryObject<BlockEntityType<BlenderBlockEntity>> BLENDER_ENTITY;
 
     static {
-        //Bread Block
+        /*
+        面包方块BreadBlock
+        */
         BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
         WHOLE_WHEAT_BAGEL = BLOCK_REGISTRY.register("whole_wheat_bagel", PileBlock::new);
         BAGUETTE = BLOCK_REGISTRY.register("baguette", PileBlock::new);
@@ -114,10 +116,9 @@ public class BakeriesBlocks {
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
         MEAT_PASTE_PIZZA = BLOCK_REGISTRY.register("meat_paste_pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
-        //common
-        OVEN = BLOCK_REGISTRY.register("oven", ()->new OvenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
-                .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
-        DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", DoughCraftingTableBlock::new);
+        /*
+        普通方块Common
+        */
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
                 new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         YEAST_TANK = BLOCK_REGISTRY.register("yeast_tank", () ->
@@ -147,31 +148,38 @@ public class BakeriesBlocks {
                 new TomatoBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
         BLACK_WHITE_CONCRETE = BLOCK_REGISTRY.register("black_white_concrete", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_CONCRETE)));
-        CUPBOARD = BLOCK_REGISTRY.register("cupboard",() ->
-                new CupboardBlock(BlockBehaviour.Properties.of().strength(2.0F,3.0F).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY).sound(SoundType.CHISELED_BOOKSHELF)));
-        BREAD_BASKET = BLOCK_REGISTRY.register("bread_basket", () ->
-                new BreadBasketBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.0F,0.0F)));
-        TOASTER = BLOCK_REGISTRY.register("toaster", () ->
-                new ToasterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
-        BLENDER = BLOCK_REGISTRY.register("blender", ()->new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
-                .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
-//        PIZZA_DOUGH = BLOCK_REGISTRY.register("pizza_dough", () ->
-//                new PizzaDoughBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
-        BAYSALT_FRAME = BLOCK_REGISTRY.register("baysalt_frame", BaysaltFrameBlock::new);
         BREAD_HOLDERS = BLOCK_REGISTRY.register("bread_holders",()->new BreadHoldersBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         FLOUR_BAG = BLOCK_REGISTRY.register("flour_bag",()->
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
         WHOLE_WHEAT_FLOUR_BAG = BLOCK_REGISTRY.register("whole_wheat_flour_bag",()->
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
-
-        //BlockEntity
+        /*
+        方块实体BlockEntity
+        */
+        OVEN = BLOCK_REGISTRY.register("oven", ()->new OvenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
+                .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
+
+        CUPBOARD = BLOCK_REGISTRY.register("cupboard",() ->
+                new CupboardBlock(BlockBehaviour.Properties.of().strength(2.0F,3.0F).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY).sound(SoundType.CHISELED_BOOKSHELF)));
         CUPBOARD_ENTITY = BLOCK_ENTITY_REGISTRY.register("cupboard", () ->BlockEntityType.Builder.of(CupboardBlockEntity::new,CUPBOARD.get()).build(null));
+
+        BREAD_BASKET = BLOCK_REGISTRY.register("bread_basket", () ->
+                new BreadBasketBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.0F,0.0F)));
         BREAD_BASKET_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("bread_basket", () -> BlockEntityType.Builder.of(BreadBasketBlockEntity::new, BREAD_BASKET.get()).build(null));
+
+        TOASTER = BLOCK_REGISTRY.register("toaster", () ->
+                new ToasterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
         TOASTER_ENTITY = BLOCK_ENTITY_REGISTRY.register("toaster", () -> BlockEntityType.Builder.of(ToasterBlockEntity::new, TOASTER.get()).build(null));
-//        PIZZA_DOUGH_ENTITY = BLOCK_ENTITY_REGISTRY.register("pizza_dough", () -> BlockEntityType.Builder.of(PizzaDoughBlockEntity::new, PIZZA_DOUGH.get()).build(null));
+
+        BAYSALT_FRAME = BLOCK_REGISTRY.register("baysalt_frame", BaysaltFrameBlock::new);
         BAYSALT_FRAME_ENTITY = BLOCK_ENTITY_REGISTRY.register("baysalt_frame", () -> BlockEntityType.Builder.of(BaysaltFrameBlockEntity::new, BAYSALT_FRAME.get()).build(null));
-        DOUGH_CRAFTING_TABLE_ENTITY = BLOCK_ENTITY_REGISTRY.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, BAYSALT_FRAME.get()).build(null));
+
+        DOUGH_CRAFTING_TABLE = BLOCK_REGISTRY.register("dough_crafting_table", DoughCraftingTableBlock::new);
+        DOUGH_CRAFTING_TABLE_ENTITY = BLOCK_ENTITY_REGISTRY.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, DOUGH_CRAFTING_TABLE.get()).build(null));
+
+        BLENDER = BLOCK_REGISTRY.register("blender", ()->new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
+                .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         BLENDER_ENTITY = BLOCK_ENTITY_REGISTRY.register("blender", () -> BlockEntityType.Builder.of(BlenderBlockEntity::new, BLENDER.get()).build(null));
     }
 
