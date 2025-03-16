@@ -40,17 +40,21 @@ public class Messages {
 //                ImmortalButtonMessage::new,
 //                ImmortalButtonMessage::handle);
 
-                net.messageBuilder(OvenButtonMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+        net.messageBuilder(OvenButtonMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(OvenButtonMessage::new)
                 .encoder(OvenButtonMessage::toBytes)
                 .consumerMainThread(OvenButtonMessage::handle)
                 .add();
-                net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(FluidSyncS2CPacket::new)
                 .encoder(FluidSyncS2CPacket::toBytes)
                 .consumerMainThread(FluidSyncS2CPacket::handle)
                 .add();
-
+        net.messageBuilder(ItemStackSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ItemStackSyncS2CPacket::new)
+                .encoder(ItemStackSyncS2CPacket::toBytes)
+                .consumerMainThread(ItemStackSyncS2CPacket::handle)
+                .add();
 
     }
 
@@ -62,7 +66,7 @@ public class Messages {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
 
     }
-    public static <MSG> void sendToAllPlayers(MSG message) {
+    public static <MSG> void sendToClients(MSG message) {
         INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
 

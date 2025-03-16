@@ -1,10 +1,12 @@
 package com.renyigesai.bakeries.block.blender;
 
+import com.renyigesai.bakeries.api.block.WrappedHandler;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.recipe.blender.BlenderRecipe;
 import com.renyigesai.bakeries.util.ItemUtil;
-import net.minecraft.core.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -15,33 +17,72 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.Optional;
 
-public class BlenderBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+public class BlenderBlockEntity extends BlockEntity implements MenuProvider {
 
     private static final int CONTAINER_SLOT = 9;
     private static final int OUTPUT_SLOT = 10;
-    private static final int[] SLOTS_FOR_UP = new int[]{0,1,2,3,4,5,6,7,8};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{9};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{10};
+    private static final int[] INPUT_SLOTS = new int[]{0,1,2,3,4,5,6,7,8};
+    private static final int[] EXART_SLOTS = new int[]{9};
+    private static final int[] OUTPUT_SLOTS = new int[]{10};
 
     protected final ItemStackHandler inventory = new ItemStackHandler(11);//11个槽位
+    public void setHandler(ItemStackHandler itemStackHandler) {
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
+            inventory.setStackInSlot(i, itemStackHandler.getStackInSlot(i));
+        }
+    }
 
+
+    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    // itemhandler,extract,insert
+    // down -> out2
+    // up ->
+    // right  -> out1 in1
+    // left  -> out 0 or 1 || in0 ro 1
+    // forward -> out 2 in false
+    // back  -> in 1 out 1
+    private final Map<Direction, LazyOptional<WrappedHandler>> directionWrappedHandlerMap =
+            Map.of(
+                    Direction.DOWN, LazyOptional.of(
+                            () -> new WrappedHandler(inventory, (i) -> getIntList(i,OUTPUT_SLOTS), (i, s) -> false)
+                    ),
+                    Direction.UP, LazyOptional.of(
+                            () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,INPUT_SLOTS) && canPlaceItem(i,s))
+                    ),
+                    Direction.EAST, LazyOptional.of(
+                            () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,EXART_SLOTS) && canPlaceItem(i,s))
+                    ),
+                    Direction.WEST, LazyOptional.of(
+                            () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,EXART_SLOTS) && canPlaceItem(i,s))
+                    ),
+                    Direction.NORTH, LazyOptional.of(
+                            () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,EXART_SLOTS) && canPlaceItem(i,s))
+                    ),
+                    Direction.SOUTH, LazyOptional.of(
+                            () -> new WrappedHandler(inventory, (i) -> false, (i, s) -> getIntList(i,EXART_SLOTS) && canPlaceItem(i,s))
+                    )
+            );
     protected final ItemStackHandler filtrationinventory = new ItemStackHandler(10){
         @Override
         public int getSlotLimit(int slot) {
@@ -55,7 +96,14 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
     public BlenderBlockEntity(BlockPos pos, BlockState state) {
         super(BakeriesBlocks.BLENDER_ENTITY.get(), pos, state);
     }
-
+    public boolean getIntList(int i,int[] intList){
+        for (int j = 0; j < intList.length; j++) {
+            if (intList[j] == i){
+                return true;
+            }
+        }
+        return false;
+    }
     public ItemStackHandler getInventory() {
         return this.inventory;
     }
@@ -63,75 +111,45 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
     public ItemStackHandler getFiltrationinventory() {
         return this.filtrationinventory;
     }
-
     @Override
-    protected @NotNull Component getDefaultName() {
-        return Component.translatable("container.blender");
-    }
-
-    @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
-        return new BlenderMenu(containerId, playerInventory, this);
-    }
-
-    @Override
-    public int getContainerSize() {
-        return inventory.getSlots();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            if (!inventory.getStackInSlot(i).isEmpty()) {
-                return false;
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER){
+            if(side == null) {
+                return lazyItemHandler.cast();
             }
-        }
-        return true;
-    }
 
-    @Override
-    public ItemStack getItem(int slot) {
-        return inventory.getStackInSlot(slot);
-    }
+            if(directionWrappedHandlerMap.containsKey(side)) {
+                Direction localDir = this.getBlockState().getValue(BlenderBlock.FACING);
 
-    @Override
-    public ItemStack removeItem(int slot, int amount) {
-        ItemStack stack = inventory.getStackInSlot(slot);
-        return stack.isEmpty() ? ItemStack.EMPTY : stack.split(amount);
-    }
-
-    @Override
-    public ItemStack removeItemNoUpdate(int slot) {
-        ItemStack stack = inventory.getStackInSlot(slot);
-        if (stack.isEmpty()) {
-            return ItemStack.EMPTY;
-        }
-        inventory.setStackInSlot(slot, ItemStack.EMPTY);
-        return stack;
-    }
-
-    @Override
-    public void setItem(int slot, ItemStack stack) {
-            for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
-                ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
-                if (stack.is(filtrationStack.getItem()) && inventory.getStackInSlot(i).isEmpty()) {
-                    ItemStack singleStack = stack.copy();
-                    stack.shrink(1);
-                    singleStack.setCount(1);
-                    inventory.setStackInSlot(i, singleStack);
-                    break;
+                if(side == Direction.UP || side == Direction.DOWN) {
+                    return directionWrappedHandlerMap.get(side).cast();
                 }
+
+                return switch (localDir) {
+                    default -> directionWrappedHandlerMap.get(side.getOpposite()).cast();
+                    case EAST -> directionWrappedHandlerMap.get(side.getClockWise()).cast();
+                    case SOUTH -> directionWrappedHandlerMap.get(side).cast();
+                    case WEST -> directionWrappedHandlerMap.get(side.getCounterClockWise()).cast();
+                };
             }
-        setChanged();
+        }
+
+        return super.getCapability(cap, side);
     }
 
     @Override
-    public void clearContent() {
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            inventory.setStackInSlot(i, ItemStack.EMPTY);
-        }
+    public void onLoad() {
+        super.onLoad();
+        lazyItemHandler = LazyOptional.of(() -> inventory);
+
     }
 
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyItemHandler.invalidate();
+
+    }
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
@@ -331,7 +349,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
         }
     }
 
-    @Override
     public boolean canPlaceItem(int pIndex, ItemStack stack) {
             for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
                 ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
@@ -343,21 +360,13 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Worl
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
-        return false;
+    public Component getDisplayName() {
+        return Component.translatable("container.blender");
     }
 
+    @Nullable
     @Override
-    public int[] getSlotsForFace(Direction pSide) {
-        if (pSide == Direction.DOWN) {
-            return SLOTS_FOR_DOWN;
-        } else {
-            return pSide == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
-        }
-    }
-
-    @Override
-    public boolean canPlaceItemThroughFace(int pIndex, ItemStack stack, @Nullable Direction direction) {
-        return canPlaceItem(pIndex, stack);
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return new BlenderMenu(pContainerId, pPlayerInventory, this);
     }
 }

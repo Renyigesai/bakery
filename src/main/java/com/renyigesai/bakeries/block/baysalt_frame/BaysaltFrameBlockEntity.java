@@ -30,7 +30,7 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
             super.onContentsChanged();
             setChanged();
             if(!level.isClientSide()) {
-                Messages.sendToAllPlayers(new FluidSyncS2CPacket(this.fluid, worldPosition));
+                Messages.sendToClients(new FluidSyncS2CPacket(this.fluid, worldPosition));
             }
         }
     };
