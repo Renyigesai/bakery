@@ -59,6 +59,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> CHEESE_TANK;
     public static final RegistryObject<Block> Milk_TANK;
     public static final RegistryObject<Block> GLASS_CABINET_DOOR;
+    public static final RegistryObject<Block> GLASS_CABINET_DOOR_TWO;
     public static final RegistryObject<Block> SALT_ORE;
     public static final RegistryObject<Block> DEEPSLATE_SALT_ORE;
     public static final RegistryObject<Block> DOUGH_CRAFTING_TABLE;
@@ -129,6 +130,8 @@ public class BakeriesBlocks {
                 new MilkTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         GLASS_CABINET_DOOR = BLOCK_REGISTRY.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops(), BlockSetType.OAK));
+        GLASS_CABINET_DOOR_TWO = BLOCK_REGISTRY.register("glass_cabinet_door_two", () ->
+                new GlassCabinetDoorTwoBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops()));
         SALT_ORE = BLOCK_REGISTRY.register("salt_ore", () ->
                 new DropExperienceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
         DEEPSLATE_SALT_ORE = BLOCK_REGISTRY.register("deepslate_salt_ore", () ->

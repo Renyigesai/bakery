@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.block.oven;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
+import com.renyigesai.bakeries.item.RepeatEatItem;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
@@ -258,8 +259,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
             ItemStack result = recipe.get().getResultItem(null);
             ItemStack takeItem = new ItemStack(result.getItem(), result.getCount());
             takeItem.getOrCreateTag().putBoolean("perfect", perfect);
-            //去除int温度nbt
-//            takeItem.getOrCreateTag().putInt("perfect_temperature", temperature);
             this.itemHandler.setStackInSlot(slot, takeItem);
             updateBlock(ovenBlockEntity);
         }

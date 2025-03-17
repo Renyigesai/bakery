@@ -27,19 +27,23 @@ import java.util.List;
 public class FoodBlockItem extends ItemNameBlockItem {
 
     public final boolean effectTooltip;
+    public final boolean customField;
     public final ModIntegerProperty integerProperty;
 
-    public FoodBlockItem(Block block, ModIntegerProperty integerProperty, Item.Properties pProperties, boolean effectTooltip) {
+    public FoodBlockItem(Block block, ModIntegerProperty integerProperty, Item.Properties pProperties, boolean effectTooltip,boolean customField) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
         this.effectTooltip = effectTooltip;
+        this.customField = customField;
     }
 
     public FoodBlockItem(Block block, ModIntegerProperty integerProperty, Properties pProperties) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
         this.effectTooltip = false;
+        this.customField = false;
     }
+
     @Override
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
         Player player = pContext.getPlayer();
@@ -79,11 +83,17 @@ public class FoodBlockItem extends ItemNameBlockItem {
             return InteractionResultHolder.consume(itemstack);
         }
         return super.use(pLevel, pPlayer, pUsedHand);
+    }
+
+    public void getCustomField(ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag isAdvanced){
 
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag isAdvanced) {
+        if (customField){
+            getCustomField(stack, level, tooltip, isAdvanced);
+        }
         if (stack.getOrCreateTag().getBoolean("perfect")) {
             tooltip.add(Component.translatable("item.bakeries.tips.perfect_temperature").withStyle(ChatFormatting.GOLD));
         }

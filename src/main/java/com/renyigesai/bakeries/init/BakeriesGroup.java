@@ -1,12 +1,16 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.item.RepeatEatItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
+import java.util.Set;
 
 public class BakeriesGroup {
 
@@ -32,6 +36,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR.get());//玻璃柜门
+                        output.accept(BakeriesItems.GLASS_CABINET_DOOR_TWO.get());//玻璃柜门二号
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());//黑白混凝土
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());//面粉筛
                         output.accept(BakeriesItems.BREAD_KNIFE.get());//面包刀
@@ -74,9 +79,6 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CIABATTA.get());//恰巴塔
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());//乡村面包
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//乡村面包切片
-//                        output.accept(BakeriesItems.PIZZA.get());
-//                        output.accept(BakeriesItems.SAUSAGE_PIZZA.get());
-//                        output.accept(BakeriesItems.MEAT_PASTE_PIZZA.get());
                     }))
                     .build());
 
@@ -106,4 +108,15 @@ public class BakeriesGroup {
                     }))
                     .build());
 
+//    public static final RegistryObject<CreativeModeTab> BAKERY_COMPATIBILITY_ITEM_TAB = REGISTER.register("bakery_compatibility_item_tab",() ->
+//            CreativeModeTab.builder().icon(()-> new ItemStack(BakeriesItems.ROUND_DOUGH_DRAWING.get()))
+//                    .title(Component.translatable("creativetab_bakeries_compatibility_item_tab"))
+//                    .displayItems(((itemDisplayParameters, output) -> {
+//                        output.accept(BakeriesItems.ROUND_DOUGH_DRAWING.get());
+//                        output.accept(BakeriesItems.BAGEL_DOUGH_DRAWING.get());
+//                        output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH_DRAWING.get());
+//                        output.accept(BakeriesItems.BAGUETTE_DOUGH_DRAWING.get());
+//                        output.accept(BakeriesItems.CIABATTA_DOUGH_DRAWING.get());
+//                    }))
+//                    .build());
 }

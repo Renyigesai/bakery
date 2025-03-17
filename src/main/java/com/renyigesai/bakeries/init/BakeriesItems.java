@@ -54,6 +54,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> CHEESE_TANK;
     public static final RegistryObject<Item> BOTTLE_YEAST;
     public static final RegistryObject<Item> GLASS_CABINET_DOOR;
+    public static final RegistryObject<Item> GLASS_CABINET_DOOR_TWO;
     public static final RegistryObject<Item> COARSE_SALT;
     public static final RegistryObject<Item> SALT_ORE;
     public static final RegistryObject<Item> DEEPSLATE_SALT_ORE;
@@ -104,7 +105,12 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BLENDER;
     public static final RegistryObject<Item> MEAT_FLOSS_BREAD_DOUGH;
     public static final RegistryObject<Item> MEAT_FLOSS;
-    public static final RegistryObject<Item> BAG;
+//    public static final RegistryObject<Item> BAG;
+    public static final RegistryObject<Item> ROUND_DOUGH_DRAWING;
+    public static final RegistryObject<Item> BAGEL_DOUGH_DRAWING;
+    public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL_DOUGH_DRAWING;
+    public static final RegistryObject<Item> BAGUETTE_DOUGH_DRAWING;
+    public static final RegistryObject<Item> CIABATTA_DOUGH_DRAWING;
 
     static {
         FLOUR = item("flour");
@@ -134,6 +140,7 @@ public class BakeriesItems {
         BOTTLE_YEAST = REGISTER.register("bottle_yeast",()->
                 new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
+        GLASS_CABINET_DOOR_TWO = block(BakeriesBlocks.GLASS_CABINET_DOOR_TWO);
         SALT_ORE = block(BakeriesBlocks.SALT_ORE);
         DEEPSLATE_SALT_ORE = block(BakeriesBlocks.DEEPSLATE_SALT_ORE);
         COARSE_SALT = item("coarse_salt");
@@ -167,19 +174,24 @@ public class BakeriesItems {
         MOULD_CHEESE_COCOA_TOAST_DOUGH = rawItem("mould_cheese_cocoa_toast_dough","135");
         MEAT_FLOSS_BREAD_DOUGH = rawItem("meat_floss_bread_dough","155");
         MEAT_FLOSS = foodItem("meat_floss",BakeriesFoodProperties.MEAT_FLOSS);
-        BAG = REGISTER.register("bag",() -> new BagItem(new Item.Properties()));
+        ROUND_DOUGH_DRAWING = drawingItem("round_dough_drawing");
+        BAGEL_DOUGH_DRAWING = drawingItem("bagel_dough_drawing");
+        WHOLE_WHEAT_BAGEL_DOUGH_DRAWING = drawingItem("whole_wheat_bagel_dough_drawing");
+        BAGUETTE_DOUGH_DRAWING = drawingItem("baguette_dough_drawing");
+        CIABATTA_DOUGH_DRAWING = drawingItem("ciabatta_dough_drawing");
+//        BAG = REGISTER.register("bag",() -> new BagItem(new Item.Properties()));
 
         //Bread Items
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
-        WHOLE_WHEAT_BAGEL = foodBlockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL,true);
+        WHOLE_WHEAT_BAGEL = foodBlockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL,true,false);
         BAGUETTE = REGISTER.register("baguette",()->new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().durability(4).food(BakeriesFoodProperties.BAGUETTE)));
-        BROWN_SUGAR_ROLL = foodBlockItem(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true);
+        BROWN_SUGAR_ROLL = foodBlockItem(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true,false);
         COUNTRY_BREAD = block(BakeriesBlocks.COUNTRY_BREAD);
-        CROISSANT = foodBlockItem(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT);
+        CROISSANT = foodBlockItem(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT,true,false);
         CIABATTA = foodBlockItem(BakeriesBlocks.CIABATTA, BakeriesFoodProperties.CIABATTA);
-        PINEAPPLE_BUN = foodBlockItem(BakeriesBlocks.PINEAPPLE_BUN,BakeriesFoodProperties.PINEAPPLE_BUN,true);
+        PINEAPPLE_BUN = foodBlockItem(BakeriesBlocks.PINEAPPLE_BUN,BakeriesFoodProperties.PINEAPPLE_BUN,true,false);
         ROUND_BREAD = foodBlockItem(BakeriesBlocks.ROUND_BREAD,BakeriesFoodProperties.ROUND_BREAD);
-        SALT_CROISSANT = foodBlockItem(BakeriesBlocks.SALT_CROISSANT,BakeriesFoodProperties.SALT_CROISSANT,true);
+        SALT_CROISSANT = foodBlockItem(BakeriesBlocks.SALT_CROISSANT,BakeriesFoodProperties.SALT_CROISSANT,true,false);
         TOAST = block(BakeriesBlocks.TOAST);
         CHEESE_COCOA_TOAST = block(BakeriesBlocks.CHEESE_COCOA_TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
@@ -215,8 +227,12 @@ public class BakeriesItems {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty,new Item.Properties().food(foodProperties)));
     }
 
-    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip) {
-        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty, new Item.Properties().food(foodProperties),effectTooltip));
+//    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip) {
+//        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty, new Item.Properties().food(foodProperties),effectTooltip));
+//    }
+
+    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip,boolean customField) {
+        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty, new Item.Properties().food(foodProperties),effectTooltip,customField));
     }
 
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties) {
@@ -225,6 +241,10 @@ public class BakeriesItems {
 
     private static RegistryObject<Item> foodItem(String pName, FoodProperties foodProperties,boolean effectTooltip) {
         return REGISTER.register(pName, () -> new EffectTooltipItem(new Item.Properties().food(foodProperties),effectTooltip));
+    }
+
+    private static RegistryObject<Item> drawingItem(String pName) {
+        return REGISTER.register(pName, () -> new DrawingItem(new Item.Properties().stacksTo(16)));
     }
 
 

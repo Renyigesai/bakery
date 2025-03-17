@@ -1,0 +1,18 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "bakeries:sweet_dough"
+    },
+    {
+      "item": "bakeries:round_dough_drawing"
+    }
+  ],
+  "keepHeldItem": true,
+  "results": [
+    {
+      "item": "bakeries:round_bread_dough",
+      "count": 6
+    }
+  ]
+}

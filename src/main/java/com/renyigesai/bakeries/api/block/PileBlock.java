@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.api.block;
 
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
+import com.renyigesai.bakeries.item.RepeatEatItem;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -91,15 +92,14 @@ public class PileBlock extends HorizontalDirectionalBlock {
                 if (!player.addItem(itemStack)) {
                     player.drop(itemStack, false);
                 }
-                return InteractionResult.SUCCESS;
             } else {
                 level.removeBlock(pos, false);
                 ItemStack itemStack = new ItemStack(this);
                 if (!player.addItem(itemStack)) {
                     player.drop(itemStack, false);
                 }
-                return InteractionResult.SUCCESS;
             }
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;
     }

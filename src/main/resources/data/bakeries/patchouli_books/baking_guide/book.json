@@ -2,7 +2,7 @@
   "name": "item.bakeries.baking_guide",
   "landing_text": "Welcome to Patchouli",
   "version": 1,
-  "creative_tab": "bakeries:bakeries_tab",
+  "creative_tab": "minecraft:tools_and_utilities",
   "use_resource_pack": true,
   "i18n": true,
   "macros": {

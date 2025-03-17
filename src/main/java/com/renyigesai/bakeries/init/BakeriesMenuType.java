@@ -50,6 +50,7 @@ public class BakeriesMenuType {
 			MenuScreens.register(BakeriesMenuType.OVEN_MENU.get(), OvenScreen::new);
 			MenuScreens.register(BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get(), DoughCraftingTableScreen::new);
 			MenuScreens.register(BakeriesMenuType.BLENDER_MENU.get(), BlenderScreen::new);
+
 		});
 	}
 

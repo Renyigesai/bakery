@@ -28,31 +28,34 @@ public class BakeriesFoodProperties {
 
 
     static {
-        BAGEL = new FoodProperties.Builder().nutrition(4).saturationMod(1.25f).build();
+        BAGEL = new FoodProperties.Builder().nutrition(6).saturationMod(0.5f).build();
 
-        WHOLE_WHEAT_BAGEL = new FoodProperties.Builder().nutrition(5).saturationMod(0.6f)
+        WHOLE_WHEAT_BAGEL = new FoodProperties.Builder().nutrition(8).saturationMod(0.35f)
                 .effect(new MobEffectInstance(MobEffects.SATURATION, 20, 0), 1.0F).build();
 
-        BAGUETTE = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+        BAGUETTE = new FoodProperties.Builder().nutrition(8).saturationMod(0.25f).build();
 
-        BROWN_SUGAR_ROLL = new FoodProperties.Builder().nutrition(3).saturationMod(1.3f)
-                .effect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1.0F).build();
+        BROWN_SUGAR_ROLL = new FoodProperties.Builder().nutrition(7).saturationMod(0.5f)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(), 600, 0), 1.0F).build();
 
         COUNTRY_BREAD = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
-        CROISSANT = new FoodProperties.Builder().nutrition(3).saturationMod(3.0f).build();
+        CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1f)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1200),1F)
+                .build();
 
-        PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(3).saturationMod(1.3f).effect(
-                new MobEffectInstance(MobEffects.REGENERATION, 200, 0)
-                , 1.0F).build();
+        PINEAPPLE_BUN = new FoodProperties.Builder().nutrition(6).saturationMod(1.5f)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1200),1F)
+                .build();
 
         ROUND_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.6f).build();
 
-        SALT_CROISSANT = new FoodProperties.Builder().nutrition(3).saturationMod(2.0f)
-                .effect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1.0F)
+        SALT_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1.0f)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1F)
                 .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0), 1.0F).build();
 
-        SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
+        SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f)
+                .build();
 
         SLICED_CHEESE_COCOA_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.8f)
                 .effect(() -> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),600,0),1f)
