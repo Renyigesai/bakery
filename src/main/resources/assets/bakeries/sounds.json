@@ -22,5 +22,11 @@
     "sounds": [
       "bakeries:blender"
     ]
+  },
+  "block.generic.put_on_ice": {
+    "subtitle":"block.generic.put_on_ice",
+    "sounds": [
+      "bakeries:put_on_ice"
+    ]
   }
 }

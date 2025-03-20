@@ -13,11 +13,14 @@ import com.renyigesai.bakeries.block.cupboard.CupboardBlock;
 import com.renyigesai.bakeries.block.cupboard.CupboardBlockEntity;
 import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlockEntity;
+import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlock;
+import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.block.toaster.ToasterBlock;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
 import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -76,19 +79,22 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> FLOUR_BAG;
     public static final RegistryObject<Block> WHOLE_WHEAT_FLOUR_BAG;
     public static final RegistryObject<Block> MEAT_FLOSS_BREAD;
+    public static final RegistryObject<Block> ICED_LATTE;
 
     public static final RegistryObject<Block> BREAD_BASKET ;
     public static final RegistryObject<Block> TOASTER;
-//    public static final RegistryObject<Block> PIZZA_DOUGH;
     public static final RegistryObject<BlockEntityType<CupboardBlockEntity>> CUPBOARD_ENTITY;
     public static final RegistryObject<BlockEntityType<BreadBasketBlockEntity>> BREAD_BASKET_BLOCK_ENTITY ;
     public static final RegistryObject<BlockEntityType<ToasterBlockEntity>> TOASTER_ENTITY;
-//    public static final RegistryObject<BlockEntityType<PizzaDoughBlockEntity>> PIZZA_DOUGH_ENTITY;
     public static final RegistryObject<Block> BAYSALT_FRAME;
     public static final RegistryObject<Block> BLENDER;
     public static final RegistryObject<BlockEntityType<BaysaltFrameBlockEntity>> BAYSALT_FRAME_ENTITY;
     public static final RegistryObject<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_ENTITY;
     public static final RegistryObject<BlockEntityType<BlenderBlockEntity>> BLENDER_ENTITY;
+    public static final RegistryObject<Block> GLASS_DRINK_CUP;
+    public static final RegistryObject<BlockEntityType<GlassDrinkCupBlockEntity>> GLASS_DRINK_CUP_ENTITY;
+    public static final RegistryObject<Block> MOKA_POT;
+    public static final RegistryObject<BlockEntityType<MokaPotBlockEntity>> MOKA_POT_ENTITY;
 
     static {
         /*
@@ -156,6 +162,7 @@ public class BakeriesBlocks {
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
         WHOLE_WHEAT_FLOUR_BAG = BLOCK_REGISTRY.register("whole_wheat_flour_bag",()->
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
+        ICED_LATTE = coldDrinkBlock("iced_latte");
         /*
         方块实体BlockEntity
         */
@@ -184,6 +191,17 @@ public class BakeriesBlocks {
         BLENDER = BLOCK_REGISTRY.register("blender", ()->new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
                 .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         BLENDER_ENTITY = BLOCK_ENTITY_REGISTRY.register("blender", () -> BlockEntityType.Builder.of(BlenderBlockEntity::new, BLENDER.get()).build(null));
+
+        GLASS_DRINK_CUP = BLOCK_REGISTRY.register("glass_drink_cup",()-> new GlassDrinkCupBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        GLASS_DRINK_CUP_ENTITY = BLOCK_ENTITY_REGISTRY.register("glass_drink_cup", () -> BlockEntityType.Builder.of(GlassDrinkCupBlockEntity::new, GLASS_DRINK_CUP.get()).build(null));
+
+        MOKA_POT = BLOCK_REGISTRY.register("moka_pot",()-> new MokaPotBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+        MOKA_POT_ENTITY = BLOCK_ENTITY_REGISTRY.register("moka_pot_entity", () -> BlockEntityType.Builder.of(MokaPotBlockEntity::new, MOKA_POT.get()).build(null));
+    }
+
+    private static RegistryObject<Block> coldDrinkBlock(String name){
+        return BLOCK_REGISTRY.register(name,()->
+                new ColdDrinkBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
     }
 
 }

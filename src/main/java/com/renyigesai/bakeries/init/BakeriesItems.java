@@ -9,6 +9,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.registries.DeferredRegister;
@@ -105,12 +106,17 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BLENDER;
     public static final RegistryObject<Item> MEAT_FLOSS_BREAD_DOUGH;
     public static final RegistryObject<Item> MEAT_FLOSS;
+    public static final RegistryObject<Item> ICED_LATTE;
+    public static final RegistryObject<Item> GROUND_COFFEE;
+    public static final RegistryObject<Item> MOKA_POT;
+    public static final RegistryObject<Item> MOKA_POT_FILL;
 //    public static final RegistryObject<Item> BAG;
     public static final RegistryObject<Item> ROUND_DOUGH_DRAWING;
     public static final RegistryObject<Item> BAGEL_DOUGH_DRAWING;
     public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL_DOUGH_DRAWING;
     public static final RegistryObject<Item> BAGUETTE_DOUGH_DRAWING;
     public static final RegistryObject<Item> CIABATTA_DOUGH_DRAWING;
+    public static final RegistryObject<Item> GLASS_DRINK_CUP;
 
     static {
         FLOUR = item("flour");
@@ -179,6 +185,11 @@ public class BakeriesItems {
         WHOLE_WHEAT_BAGEL_DOUGH_DRAWING = drawingItem("whole_wheat_bagel_dough_drawing");
         BAGUETTE_DOUGH_DRAWING = drawingItem("baguette_dough_drawing");
         CIABATTA_DOUGH_DRAWING = drawingItem("ciabatta_dough_drawing");
+        ICED_LATTE = coldDrinkItem(BakeriesBlocks.ICED_LATTE);
+        GROUND_COFFEE = item("ground_coffee");
+        MOKA_POT = block(BakeriesBlocks.MOKA_POT);
+        MOKA_POT_FILL = REGISTER.register("moka_pot_fill",()->
+                new Item(new Item.Properties().craftRemainder(BakeriesItems.MOKA_POT.get())));
 //        BAG = REGISTER.register("bag",() -> new BagItem(new Item.Properties()));
 
         //Bread Items
@@ -209,6 +220,7 @@ public class BakeriesItems {
         FLOUR_BAG = block(BakeriesBlocks.FLOUR_BAG);
         WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);
         BLENDER = block(BakeriesBlocks.BLENDER);
+        GLASS_DRINK_CUP = block(BakeriesBlocks.GLASS_DRINK_CUP);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
@@ -227,10 +239,6 @@ public class BakeriesItems {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty,new Item.Properties().food(foodProperties)));
     }
 
-//    private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip) {
-//        return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty, new Item.Properties().food(foodProperties),effectTooltip));
-//    }
-
     private static RegistryObject<Item> foodBlockItem(RegistryObject<Block> block, FoodProperties foodProperties,boolean effectTooltip,boolean customField) {
         return REGISTER.register(block.getId().getPath(), () -> new FoodBlockItem(block.get(), PileBlock.integerProperty, new Item.Properties().food(foodProperties),effectTooltip,customField));
     }
@@ -245,6 +253,10 @@ public class BakeriesItems {
 
     private static RegistryObject<Item> drawingItem(String pName) {
         return REGISTER.register(pName, () -> new DrawingItem(new Item.Properties().stacksTo(16)));
+    }
+
+    private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block) {
+        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6)));
     }
 
 

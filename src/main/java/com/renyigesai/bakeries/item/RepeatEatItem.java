@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
@@ -39,9 +40,22 @@ public class RepeatEatItem extends FoodBlockItem {
     }
 
     @Override
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        if (!canDrink()){
+            return UseAnim.EAT;
+        }
+        return UseAnim.DRINK;
+    }
+
+    @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         return false;
     }
+
+    public boolean canDrink(){
+        return false;
+    }
+
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
@@ -61,6 +75,7 @@ public class RepeatEatItem extends FoodBlockItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag isAdvanced) {
         super.appendHoverText(stack, level, tooltip, isAdvanced);
-        tooltip.add(Component.nullToEmpty(Component.translatable("item.bakeries.tips.repeat_eat_item").getString() + (stack.getMaxDamage() - stack.getDamageValue()) + " / " + stack.getMaxDamage()));
+        String translatable = canDrink()?"item.bakeries.tips.repeat_eat_item.drink":"item.bakeries.tips.repeat_eat_item";
+        tooltip.add(Component.nullToEmpty(Component.translatable(translatable).getString() + (stack.getMaxDamage() - stack.getDamageValue()) + " / " + stack.getMaxDamage()));
     }
 }

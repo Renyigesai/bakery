@@ -7,19 +7,28 @@ import com.renyigesai.bakeries.init.*;
 import com.renyigesai.bakeries.key.BakeriesKeyMapping;
 import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.villager.BakeriesVillagers;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.util.thread.SidedThreadGroups;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Locale;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 @Mod(BakeriesMod.MODID)
 public class BakeriesMod {
@@ -40,25 +49,19 @@ public class BakeriesMod {
         BakeriesFluids.REGISTRY.register(bus);
         BakeriesFluidTypes.REGISTRY.register(bus);
         BakeriesVillagers.register(bus);
-
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, BakeriesConfig.SPEC, "bakeries-server.toml");
     }
     private void commonSetup(FMLCommonSetupEvent event) {
         Messages.register();
     }
 
-
     private void clientSetup(FMLClientSetupEvent event) {
         BakeriesKeyMapping.register(event);
     }
 
-
-
     public static ResourceLocation prefix(String name) {
         return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
-
 }

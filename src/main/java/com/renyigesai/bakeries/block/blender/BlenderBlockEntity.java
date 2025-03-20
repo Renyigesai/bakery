@@ -288,7 +288,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
                     cookingTotalTime = 0;
                     setChanged();
                     level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-
                 }
             }
         }
