@@ -22,9 +22,6 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
     private final BlockPos pos;
     private final AtomicBoolean dragging1 = new AtomicBoolean(false);
     private final AtomicBoolean dragging2 = new AtomicBoolean(false);
-    private final AtomicBoolean atomicBoolean1 = new AtomicBoolean(false);
-    private int blenderChildScreenX;
-    private int blenderChildScreenY;
     ImageButton imageButton1;
     ImageButton imageButton2;
 
@@ -34,8 +31,6 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         this.pos = menu.getBlockEntity().getBlockPos();
         this.imageWidth = 176; // GUI 宽度
         this.imageHeight = 166; // GUI 高度
-        this.blenderChildScreenX = (this.width - 100) / 2;
-        this.blenderChildScreenY = this.topPos + 3;
 
     }
 
@@ -70,32 +65,17 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
             if (isHovering((double) pMouseX, pMouseY, x + 6, y + 6, 7, 7) && dragging1.get()) {
                 dragging1.set(false);
             }
-            if (isHovering((double) pMouseX, pMouseY, x, y, 100, 7) && dragging1.get()) {
-                atomicBoolean1.set(true);
-                blenderChildScreenX= (int) pMouseX;
-                blenderChildScreenY= (int) pMouseY;
-            }
         }
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 
     @Override
     public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
-        if (atomicBoolean1.get()) {
-            blenderChildScreenX= (int) pMouseX;
-            blenderChildScreenY= (int) pMouseY;
-        }
-
         return super.mouseReleased(pMouseX, pMouseY, pButton);
     }
 
     @Override
     public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
-        if (atomicBoolean1.get()) {
-            blenderChildScreenX= (int) pMouseX;
-            blenderChildScreenY= (int) pMouseY;
-            atomicBoolean1.set(false);
-        }
         return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
     }
 
@@ -117,8 +97,8 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
     public void blenderChildScreen(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick){
         int imageWidth = 100;
         int imageHeight = 77;
-        int x = blenderChildScreenX;
-        int y = blenderChildScreenY;
+        int x = (this.width - imageWidth) / 2;
+        int y = this.topPos + 3;
 
         Component title = Component.translatable("screen.blender.itemset");
         int titlew = (imageWidth/2) - (font.width(title)/2);
