@@ -187,5 +187,6 @@
   "effect.bakeries.cocoa_mania": "Cocoa Mania",
   "effect.bakeries.cheese_power": "Cheese Power",
   "effect.bakeries.enjoy": "Enjoy",
-  "container.blender": "Blender"
+  "container.blender": "Blender",
+  "screen.blender.itemset": "Items config"
 }

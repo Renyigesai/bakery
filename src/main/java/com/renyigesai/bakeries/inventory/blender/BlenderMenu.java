@@ -15,13 +15,15 @@ import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class BlenderMenu extends AbstractContainerMenu {
-    private final BlenderBlockEntity blockEntity;
+    private BlenderBlockEntity blockEntity;
+    private final BlockPos pos;
     private final Player player;
     private final IItemHandler playerInventory;
 
-    public BlenderMenu(int windowId, Inventory playerInventory, BlenderBlockEntity blockEntity) {
+    public BlenderMenu(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
         super(BakeriesMenuType.BLENDER_MENU.get(), windowId);
-        this.blockEntity = blockEntity;
+        this.pos = data.readBlockPos();
+        this.blockEntity = (BlenderBlockEntity)playerInventory.player.level().getBlockEntity(pos);;
         this.player = playerInventory.player;
         this.playerInventory = new InvWrapper(playerInventory);
 
@@ -34,34 +36,28 @@ public class BlenderMenu extends AbstractContainerMenu {
                 addSlot(new SlotItemHandler(blockEntity.getInventory(), slotIndex, ix + (x * 18) + 1, iy + (y * 18) + 1));
             }
         }
-        // 添加容器槽 (9)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 152, 53));
+        // 添加输入槽 (9)
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 8, 53));
         // 添加输出槽 (10)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 10, 152, 17));
-        // 添加过滤槽 (0-8)
-        if (blockEntity.compatibility) {
-            int fx = 8; // 起始 X 坐标
-            int fy = 18; // 起始 Y 坐标
-            for (int y = 0; y < 3; ++y) {
-                for (int x = 0; x < 3; ++x) {
-                    int slotIndex = (y * 3) + x;
-                    addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
-                }
-            }
-            addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 52));
-        }
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 10, 152, 35));
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 11, 152, 53));
+//        // 添加过滤槽 (0-8)
+//        if (blockEntity.compatibility) {
+//            int fx = 8; // 起始 X 坐标
+//            int fy = 18; // 起始 Y 坐标
+//            for (int y = 0; y < 3; ++y) {
+//                for (int x = 0; x < 3; ++x) {
+//                    int slotIndex = (y * 3) + x;
+//                    addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
+//                }
+//            }
+//            addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 52));
+//        }
         // 添加玩家物品栏
         layoutPlayerInventorySlots(8, 84);
     }
 
-    public static BlenderMenu create(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
-        BlockPos pos = data.readBlockPos();
-        BlockEntity blockEntity = playerInventory.player.level().getBlockEntity(pos);
-        if (blockEntity instanceof BlenderBlockEntity) {
-            return new BlenderMenu(windowId, playerInventory, (BlenderBlockEntity) blockEntity);
-        }
-        throw new IllegalStateException("Block entity is not an EnchantalCoolerBlockEntity!");
-    }
+
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow) {
         // 玩家物品栏

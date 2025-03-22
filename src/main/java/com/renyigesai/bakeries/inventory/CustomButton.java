@@ -187,7 +187,7 @@ public abstract class CustomButton {
         int w = pWidth != 0 ? pWidth : this.pUWidth;
         int h = pHeight != 0 ? pHeight : this.pVHeight;
         int width = this.pX + w;
-        int height = this.pX + h;
+        int height = this.pY + h;
         return pMouseX >= (double) x && pMouseY >= (double) y && pMouseX < (double) width && pMouseY < (double) height;
     }
     public void mouseClicked(AtomicBoolean isClicked, double pMouseX, double pMouseY, int pButton) {

@@ -2,6 +2,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+
 import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.inventory.dough_crafting_table.DoughCraftingTableMenu;
@@ -32,12 +33,16 @@ public class BakeriesMenuType {
 			create("oven_menu", OvenMenu::new);
 	public static final RegistryObject<MenuType<DoughCraftingTableMenu>> DOUGH_CRAFTING_TABLE_MENU =
 			register("dough_crafting_table_menu", DoughCraftingTableMenu::new);
+	public static final RegistryObject<MenuType<BlenderMenu>> BLENDER_MENU =
+			create("blender_menu", BlenderMenu::new);
+
+
+
+
+
 	private static<T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String pKey, MenuType.MenuSupplier<T> pFactory) {
 		return REGISTRY.register(pKey, () -> new MenuType<>(pFactory, FeatureFlags.VANILLA_SET));
 	}
-	public static final RegistryObject<MenuType<BlenderMenu>> BLENDER_MENU = REGISTRY.register("blender_menu",
-			() -> IForgeMenuType.create(BlenderMenu::create));
-
 	private static<T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String pKey, MenuType.MenuSupplier<T> pFactory, FeatureFlag... pRequiredFeatures) {
 		return REGISTRY.register(pKey, () -> new MenuType<>(pFactory, FeatureFlags.REGISTRY.subset(pRequiredFeatures)));
 	}

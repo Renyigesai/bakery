@@ -187,5 +187,6 @@
   "effect.bakeries.cocoa_mania": "可可狂热",
   "effect.bakeries.cheese_power": "芝士力",
   "effect.bakeries.enjoy": "享受",
-  "container.blender": "搅拌机"
+  "container.blender": "搅拌机",
+  "screen.blender.itemset": "物品合成配置"
 }
