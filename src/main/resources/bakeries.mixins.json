@@ -2,12 +2,13 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.renyigesai.bakeries.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "refmap": "bakery.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "bakeries.refmap.json",
   "mixins": [
-    "ResourceLocationAccessor"
+    "SnifferMixin"
   ],
   "client": [
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

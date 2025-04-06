@@ -9,6 +9,7 @@ import com.renyigesai.bakeries.inventory.dough_crafting_table.DoughCraftingTable
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.inventory.oven.OvenScreen;
 
+import com.renyigesai.bakeries.overlay.GlassDrinkCupOverlay;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlags;
@@ -50,7 +51,6 @@ public class BakeriesMenuType {
 			MenuScreens.register(BakeriesMenuType.OVEN_MENU.get(), OvenScreen::new);
 			MenuScreens.register(BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get(), DoughCraftingTableScreen::new);
 			MenuScreens.register(BakeriesMenuType.BLENDER_MENU.get(), BlenderScreen::new);
-
 		});
 	}
 

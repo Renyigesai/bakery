@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/brown_sugar_latte", "y": 270},
+    "facing=north": {"model": "bakeries:block/brown_sugar_latte", "y": 180},
+    "facing=south": {"model": "bakeries:block/brown_sugar_latte"},
+    "facing=west": {"model": "bakeries:block/brown_sugar_latte", "y": 90}
+  }
+}

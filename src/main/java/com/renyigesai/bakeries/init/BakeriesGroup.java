@@ -24,16 +24,18 @@ public class BakeriesGroup {
                         //功能方块/方块/物品
                         output.accept(BakeriesItems.OVEN.get());//烤箱
                         output.accept(BakeriesItems.BLENDER.get());//搅拌机
-                        output.accept(BakeriesItems.MOKA_POT.get());//搅拌机
+                        output.accept(BakeriesItems.MOKA_POT.get());//摩卡壶
+                        output.accept(BakeriesItems.MOKA_POT_FILL.get());//装有咖啡的摩卡壶
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());//面胚制作台
                         output.accept(BakeriesItems.CUPBOARD.get());//厨台
 //                        output.accept(BakeriesItems.BAYSALT_FRAME.get());//晒盐框
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());//发酵罐
                         output.accept(BakeriesItems.YEAST_TANK.get());//满装酵母罐
                         output.accept(BakeriesItems.CHEESE_TANK.get());//满装奶酪罐
-                        output.accept(BakeriesItems.GLASS_DRINK_CUP.get());//玻璃饮料杯
+                        output.accept(BakeriesItems.DRINK_CUP.get());//玻璃饮料杯
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR_BAG.get());//全麦面粉袋
                         output.accept(BakeriesItems.FLOUR_BAG.get());//面粉袋
+                        output.accept(BakeriesItems.MENU.get());
                         output.accept(BakeriesItems.WOOD_COUNTER.get());//木质柜台
                         output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐
@@ -48,7 +50,6 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR.get());//全麦面粉
                         output.accept(BakeriesItems.FLOUR.get());//面粉
                         output.accept(BakeriesItems.COCOA_POWDER.get());//可可粉
-                        output.accept(BakeriesItems.GROUND_COFFEE.get());//咖啡粉
                         output.accept(BakeriesItems.SALT_ORE.get());//盐矿石
                         output.accept(BakeriesItems.DEEPSLATE_SALT_ORE.get());//深层盐矿石
                         output.accept(BakeriesItems.SALT_WATER_BUCKET.get());//盐水桶
@@ -63,6 +64,10 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BROWN_SUGAR_CUBE.get());//红糖块
                         output.accept(BakeriesItems.TOMATO.get());//番茄
                         output.accept(BakeriesItems.OLIVE.get());//橄榄
+                        output.accept(BakeriesItems.RAW_COFFEE_BEAN.get());//生咖啡豆
+                        output.accept(BakeriesItems.COFFEE_BEAN.get());//咖啡豆
+                        output.accept(BakeriesItems.GROUND_COFFEE.get());//咖啡粉
+                        output.accept(BakeriesItems.OLIVE_OIL.get());//橄榄油
                         output.accept(BakeriesItems.MEAT_FLOSS.get());//肉松
                         //面包/食物
                         output.accept(BakeriesItems.BAGEL.get());//贝果
@@ -80,12 +85,15 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());//切片奶酪可可吐司
                         output.accept(BakeriesItems.BAGUETTE.get());//法棍
                         output.accept(BakeriesItems.CIABATTA.get());//恰巴塔
+                        output.accept(BakeriesItems.FOCACCIA.get());//佛卡夏
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());//乡村面包
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//乡村面包切片
                         /*
                         饮料
                         */
+                        output.accept(BakeriesItems.ICED_AMERICAN.get());//冰美式
                         output.accept(BakeriesItems.ICED_LATTE.get());//冰拿铁
+                        output.accept(BakeriesItems.BROWN_SUGAR_LATTE.get());//黑铁拿铁
                     }))
                     .build());
 
@@ -111,6 +119,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.MOULD_CHEESE_COCOA_TOAST_DOUGH.get());
                         output.accept(BakeriesItems.BAGUETTE_DOUGH.get());
                         output.accept(BakeriesItems.CIABATTA_DOUGH.get());
+                        output.accept(BakeriesItems.FOCACCIA_DOUGH.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_DOUGH.get());
                     }))
                     .build());

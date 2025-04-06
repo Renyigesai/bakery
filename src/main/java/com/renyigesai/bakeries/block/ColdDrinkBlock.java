@@ -3,6 +3,9 @@ package com.renyigesai.bakeries.block;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ColdDrinkBlock extends HorizontalDirectionalBlock {
 
-    private static final VoxelShape SHAPE = box(6.25, 0, 6.0, 9.75, 7.5, 9.5);
+    private static final VoxelShape SHAPE = box(6.0, 0, 6.0, 10, 7.5, 10);
 
     public ColdDrinkBlock(Properties pProperties) {
         super(pProperties);
@@ -36,6 +39,7 @@ public class ColdDrinkBlock extends HorizontalDirectionalBlock {
         if (pPlayer.isShiftKeyDown()) {
             pLevel.removeBlock(pPos, false);
             ItemUtil.givePlayerItem(pPlayer, new ItemStack(asItem()));
+            pLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

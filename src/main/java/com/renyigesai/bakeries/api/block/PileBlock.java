@@ -8,6 +8,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
@@ -99,6 +101,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
                     player.drop(itemStack, false);
                 }
             }
+            level.playSound(null,pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;

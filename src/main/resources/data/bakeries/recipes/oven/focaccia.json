@@ -1,0 +1,16 @@
+{
+  "type": "bakeries:oven",
+  "ingredient":  [
+    {
+      "item": "bakeries:focaccia_dough"
+    }
+  ],
+  "output": {
+    "item": "bakeries:focaccia",
+    "count": 1
+  },
+  "time": 300,
+  "min_temperature": 230,
+  "max_temperature": 250,
+  "perfect_temperature": 240
+}

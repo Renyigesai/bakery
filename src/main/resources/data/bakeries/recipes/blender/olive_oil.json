@@ -1,0 +1,24 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:olive"
+    },
+    {
+      "item": "bakeries:olive"
+    },
+    {
+      "item": "bakeries:olive"
+    },
+    {
+      "item": "bakeries:olive"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "bakeries:olive_oil",
+    "count": 1
+  }
+}

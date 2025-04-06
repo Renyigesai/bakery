@@ -124,8 +124,6 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     @Override
     public void containerTick() {
         super.containerTick();
-
-
         int mouseY = this.mousey - this.topPos;
         if(zhen_y> 69){
             zhen_y = 69;
@@ -142,23 +140,19 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     public void init() {
         super.init();
 
-        //                ovenBlockEntity.addTemperature(ovenBlockEntity,1);
         ImageButton imagebutton_add = new ImageButton(this.leftPos + 125, this.topPos + 17, 5, 6, 0, 166, 6, texture, 256, 256, e -> {
             if (boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500 / 52.0) + 17);
                 Messages.sendToServer(new OvenButtonMessage(0, x, y, z, zhen_y, textstate));
-//                ovenBlockEntity.addTemperature(ovenBlockEntity,1);
             }
         });
         guistate.put("button:imagebutton_add", imagebutton_add);
         this.addRenderableWidget(imagebutton_add);
 
-        //                ovenBlockEntity.subTemperature(ovenBlockEntity,1);
         ImageButton imagebutton_sub = new ImageButton(this.leftPos + 125, this.topPos + 64, 5, 6, 5, 166, 6, texture, 256, 256, e -> {
             if (boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500 / 52.0) + 17);
                 Messages.sendToServer(new OvenButtonMessage(1, x, y, z, zhen_y, textstate));
-//                ovenBlockEntity.subTemperature(ovenBlockEntity,1);
             }
         });
         guistate.put("button:imagebutton_sub", imagebutton_sub);

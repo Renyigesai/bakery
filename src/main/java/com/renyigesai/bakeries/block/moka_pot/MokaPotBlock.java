@@ -1,11 +1,17 @@
-package com.renyigesai.bakeries.block;
+package com.renyigesai.bakeries.block.moka_pot;
 
-import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class MokaPotBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final VoxelShape SHAPE = box(6.25, 0, 6.0, 9.75, 6, 9.5);
+    private static final VoxelShape SHAPE = box(6.0, 0, 6.0, 10, 6, 10);
 
     public MokaPotBlock(Properties pProperties) {
         super(pProperties);
@@ -60,13 +66,20 @@ public class MokaPotBlock extends BaseEntityBlock {
         if (blockEntity instanceof MokaPotBlockEntity mokaPotBlockEntity) {
             if (!pPlayer.isShiftKeyDown()) {
                 ItemStack handStack = pPlayer.getItemInHand(pHand);
-                if (handStack.is(BakeriesItems.GROUND_COFFEE.get())) {
-                    mokaPotBlockEntity.addGroundCoffee(handStack);
+                if (mokaPotBlockEntity.isInventoryFull() && handStack.is(ItemTags.create(new ResourceLocation("forge:coffee_grounds")))) {
+                    mokaPotBlockEntity.addGroundCoffee(handStack.copy().split(1));
+                    handStack.shrink(1);
+                    if (pLevel instanceof ServerLevel serverLevel) {
+                        serverLevel.playSound(null, pPos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
+                    }
                     return InteractionResult.SUCCESS;
                 }
             } else {
                 pLevel.removeBlock(pPos, false);
                 ItemUtil.givePlayerItem(pPlayer, new ItemStack(getMokaPotItem(mokaPotBlockEntity).getItem()));
+                if (pLevel instanceof ServerLevel serverLevel) {
+                    serverLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
+                }
                 return InteractionResult.SUCCESS;
             }
         }
@@ -74,7 +87,7 @@ public class MokaPotBlock extends BaseEntityBlock {
     }
 
     private ItemStack getMokaPotItem(MokaPotBlockEntity mokaPotBlockEntity){
-        if (mokaPotBlockEntity.isFill()){
+        if (mokaPotBlockEntity.getFill()){
             return new ItemStack(BakeriesItems.MOKA_POT_FILL.get());
         }
         return new ItemStack(BakeriesItems.MOKA_POT.get());
@@ -83,6 +96,18 @@ public class MokaPotBlock extends BaseEntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
+    }
+
+    @Override
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof MokaPotBlockEntity mokaPotBlockEntity && mokaPotBlockEntity.getCookingTotalTime() > 0){
+            double x = pPos.getX() + 0.5;
+            double y = pPos.getY() + 0.5;
+            double z = pPos.getZ() + 0.5;
+                pLevel.addParticle(ParticleTypes.CLOUD,x,y,z,0.0,0.01,0.0);
+        }
+        super.animateTick(pState, pLevel, pPos, pRandom);
     }
 
     @Override

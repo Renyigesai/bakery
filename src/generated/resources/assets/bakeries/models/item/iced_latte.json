@@ -1,1 +1,18 @@
-{"parent": "bakeries:block/iced_latte"}
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "bakeries:block/iced_latte"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/iced_latte_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/iced_latte_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/iced_latte_2d"
+    }
+  }
+}

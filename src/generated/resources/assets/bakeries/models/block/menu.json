@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/menu",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/menu",
+    "particle": "bakeries:block/menu"
+  }
+}

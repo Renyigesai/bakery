@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:olive"
+    },
+    "b": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "bakeries:olive_oil",
+    "count": 1
+  }
+}

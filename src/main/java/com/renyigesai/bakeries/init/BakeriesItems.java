@@ -49,6 +49,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> ROUND_BREAD;
     public static final RegistryObject<Item> SALT_CROISSANT;
     public static final RegistryObject<Item> BERRY_BREAD;
+    public static final RegistryObject<Item> FOCACCIA;
     public static final RegistryObject<Item> OVEN;
     public static final RegistryObject<Item> FERMENTATION_TANK;
     public static final RegistryObject<Item> YEAST_TANK;
@@ -91,6 +92,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> SAUSAGE_PIZZA;
     public static final RegistryObject<Item> MEAT_PASTE_PIZZA;
     public static final RegistryObject<Item> OLIVE;
+    public static final RegistryObject<Item> OLIVE_OIL;
     public static final RegistryObject<Item> CUPBOARD;
     public static final RegistryObject<Item> BREAD_KNIFE;
     public static final RegistryObject<Item> SALT_SCRAPER_RAKE;
@@ -107,16 +109,22 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MEAT_FLOSS_BREAD_DOUGH;
     public static final RegistryObject<Item> MEAT_FLOSS;
     public static final RegistryObject<Item> ICED_LATTE;
+    public static final RegistryObject<Item> BROWN_SUGAR_LATTE;
+    public static final RegistryObject<Item> ICED_AMERICAN;
     public static final RegistryObject<Item> GROUND_COFFEE;
     public static final RegistryObject<Item> MOKA_POT;
     public static final RegistryObject<Item> MOKA_POT_FILL;
+    public static final RegistryObject<Item> FOCACCIA_DOUGH;
+    public static final RegistryObject<Item> MENU;
+    public static final RegistryObject<Item> RAW_COFFEE_BEAN;
+    public static final RegistryObject<Item> COFFEE_BEAN;
 //    public static final RegistryObject<Item> BAG;
     public static final RegistryObject<Item> ROUND_DOUGH_DRAWING;
     public static final RegistryObject<Item> BAGEL_DOUGH_DRAWING;
     public static final RegistryObject<Item> WHOLE_WHEAT_BAGEL_DOUGH_DRAWING;
     public static final RegistryObject<Item> BAGUETTE_DOUGH_DRAWING;
     public static final RegistryObject<Item> CIABATTA_DOUGH_DRAWING;
-    public static final RegistryObject<Item> GLASS_DRINK_CUP;
+    public static final RegistryObject<Item> DRINK_CUP;
 
     static {
         FLOUR = item("flour");
@@ -143,8 +151,7 @@ public class BakeriesItems {
         YEAST_TANK = block(BakeriesBlocks.YEAST_TANK);
         CHEESE_TANK = block(BakeriesBlocks.CHEESE_TANK);
         MILK_TANK = block(BakeriesBlocks.Milk_TANK);
-        BOTTLE_YEAST = REGISTER.register("bottle_yeast",()->
-                new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
+        BOTTLE_YEAST = REGISTER.register("bottle_yeast",()-> new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE)));
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         GLASS_CABINET_DOOR_TWO = block(BakeriesBlocks.GLASS_CABINET_DOOR_TWO);
         SALT_ORE = block(BakeriesBlocks.SALT_ORE);
@@ -171,25 +178,32 @@ public class BakeriesItems {
         TOASTER = block(BakeriesBlocks.TOASTER);
         TOMATO = REGISTER.register("tomato",()->new ItemNameBlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties().food(BakeriesFoodProperties.TOMATO)));
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
+        OLIVE_OIL = REGISTER.register("olive_oil",()-> new OliveOilItem(new Item.Properties().durability(6)));
         CUPBOARD = block(BakeriesBlocks.CUPBOARD);
-        BREAD_KNIFE = REGISTER.register("bread_knife",()->
-                new BreadKnifeItem(0.5F,-0.2F,Tiers.IRON,new Item.Properties()));
+        BREAD_KNIFE = REGISTER.register("bread_knife",()-> new BreadKnifeItem(0.5F,-0.2F,Tiers.IRON,new Item.Properties()));
         SALT_SCRAPER_RAKE = item("salt_scraper_rake");
         COCOA_POWDER = item("cocoa_powder");
         CHEESE_CUBE = foodItem("cheese_cube",BakeriesFoodProperties.CHEESE_CUBE);
         MOULD_CHEESE_COCOA_TOAST_DOUGH = rawItem("mould_cheese_cocoa_toast_dough","135");
         MEAT_FLOSS_BREAD_DOUGH = rawItem("meat_floss_bread_dough","155");
+        FOCACCIA_DOUGH = rawItem("focaccia_dough","230");
         MEAT_FLOSS = foodItem("meat_floss",BakeriesFoodProperties.MEAT_FLOSS);
         ROUND_DOUGH_DRAWING = drawingItem("round_dough_drawing");
         BAGEL_DOUGH_DRAWING = drawingItem("bagel_dough_drawing");
         WHOLE_WHEAT_BAGEL_DOUGH_DRAWING = drawingItem("whole_wheat_bagel_dough_drawing");
         BAGUETTE_DOUGH_DRAWING = drawingItem("baguette_dough_drawing");
         CIABATTA_DOUGH_DRAWING = drawingItem("ciabatta_dough_drawing");
-        ICED_LATTE = coldDrinkItem(BakeriesBlocks.ICED_LATTE);
+        DRINK_CUP = block(BakeriesBlocks.DRINK_CUP);
+        ICED_LATTE = coldDrinkItem(BakeriesBlocks.ICED_LATTE,BakeriesFoodProperties.ICED_LATTE,true);
+        BROWN_SUGAR_LATTE = coldDrinkItem(BakeriesBlocks.BROWN_SUGAR_LATTE,BakeriesFoodProperties.BROWN_SUGAR_LATTE,true);
+        ICED_AMERICAN = coldDrinkItem(BakeriesBlocks.ICED_AMERICAN,BakeriesFoodProperties.ICED_AMERICAN,true);
         GROUND_COFFEE = item("ground_coffee");
-        MOKA_POT = block(BakeriesBlocks.MOKA_POT);
-        MOKA_POT_FILL = REGISTER.register("moka_pot_fill",()->
-                new Item(new Item.Properties().craftRemainder(BakeriesItems.MOKA_POT.get())));
+        MOKA_POT = REGISTER.register("moka_pot",()-> new BlockItem(BakeriesBlocks.MOKA_POT.get(),new Item.Properties().stacksTo(1)));
+        MOKA_POT_FILL = REGISTER.register("moka_pot_fill",()-> new Item(new Item.Properties().craftRemainder(BakeriesItems.MOKA_POT.get()).stacksTo(1)));
+        MENU = block(BakeriesBlocks.MENU_BLOCK);
+        RAW_COFFEE_BEAN = REGISTER.register("raw_coffee_bean",()->
+                new ItemNameBlockItem(BakeriesBlocks.COFFEE_PLANT.get(),new Item.Properties()));
+        COFFEE_BEAN = item("coffee_bean");
 //        BAG = REGISTER.register("bag",() -> new BagItem(new Item.Properties()));
 
         //Bread Items
@@ -208,6 +222,7 @@ public class BakeriesItems {
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
         SLICED_CHEESE_COCOA_TOAST = foodItem("sliced_cheese_cocoa_toast",BakeriesFoodProperties.SLICED_CHEESE_COCOA_TOAST,true);
         BERRY_BREAD = foodBlockItem(BakeriesBlocks.BERRY_BREAD,BakeriesFoodProperties.BERRY_BREAD);
+        FOCACCIA = foodBlockItem(BakeriesBlocks.FOCACCIA,BakeriesFoodProperties.FOCACCIA,true,false);
         MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
         MOULD_CHEESE_COCOA_TOAST = block(BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST);
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
@@ -220,7 +235,6 @@ public class BakeriesItems {
         FLOUR_BAG = block(BakeriesBlocks.FLOUR_BAG);
         WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);
         BLENDER = block(BakeriesBlocks.BLENDER);
-        GLASS_DRINK_CUP = block(BakeriesBlocks.GLASS_DRINK_CUP);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
@@ -255,8 +269,8 @@ public class BakeriesItems {
         return REGISTER.register(pName, () -> new DrawingItem(new Item.Properties().stacksTo(16)));
     }
 
-    private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block) {
-        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6)));
+    private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block,FoodProperties foodProperties,boolean toolTips) {
+        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),toolTips,false));
     }
 
 

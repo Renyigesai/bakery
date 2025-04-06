@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abc",
+    " d "
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:olive"
+    },
+    "b": {
+      "item": "bakeries:olive_oil"
+    },
+    "c": {
+      "tag": "forge:crops/tomato"
+    },
+    "d": {
+      "item": "bakeries:salted_dough"
+    }
+  },
+  "result": {
+    "item": "bakeries:focaccia_dough",
+    "count": 4
+  }
+}

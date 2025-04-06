@@ -57,7 +57,7 @@ public class GlassCabinetDoorTwoBlock extends HorizontalDirectionalBlock {
             level.setBlock(pos,pState.setValue(OPEN,true),3);
             level.playSound(null, pos, SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
         }
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

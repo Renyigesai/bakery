@@ -3,6 +3,7 @@
     "bakeries:wood_counter",
     "bakeries:dough_crafting_table",
     "bakeries:bread_basket",
-    "bakeries:cupboard"
+    "bakeries:cupboard",
+    "bakeries:menu_block"
   ]
 }

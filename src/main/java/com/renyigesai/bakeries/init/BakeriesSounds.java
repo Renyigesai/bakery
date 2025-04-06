@@ -19,5 +19,5 @@ public class BakeriesSounds {
     public static final RegistryObject<SoundEvent> OVEN_OPEN = registerSoundEvents("block.generic.open_oven");
     public static final RegistryObject<SoundEvent> BLENDER = registerSoundEvents("block.generic.blender");
     public static final RegistryObject<SoundEvent> PUT_ON_ICE = registerSoundEvents("block.generic.put_on_ice");
-
+    public static final RegistryObject<SoundEvent> INSERT_STRAW = registerSoundEvents("block.generic.insert_straw");
 }

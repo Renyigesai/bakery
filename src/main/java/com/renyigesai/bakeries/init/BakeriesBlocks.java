@@ -15,12 +15,15 @@ import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBloc
 import com.renyigesai.bakeries.block.dough_crafting_table.DoughCraftingTableBlockEntity;
 import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlock;
 import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
+import com.renyigesai.bakeries.block.menu.MenuBlock;
+import com.renyigesai.bakeries.block.menu.MenuBlockEntity;
+import com.renyigesai.bakeries.block.moka_pot.MokaPotBlock;
+import com.renyigesai.bakeries.block.moka_pot.MokaPotBlockEntity;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.block.toaster.ToasterBlock;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
 import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -51,6 +54,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> TOAST;
     public static final RegistryObject<Block> CHEESE_COCOA_TOAST;
     public static final RegistryObject<Block> BERRY_BREAD;
+    public static final RegistryObject<Block> FOCACCIA;
     public static final RegistryObject<Block> PIZZA;
     public static final RegistryObject<Block> SAUSAGE_PIZZA;
     public static final RegistryObject<Block> MEAT_PASTE_PIZZA;
@@ -80,6 +84,9 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> WHOLE_WHEAT_FLOUR_BAG;
     public static final RegistryObject<Block> MEAT_FLOSS_BREAD;
     public static final RegistryObject<Block> ICED_LATTE;
+    public static final RegistryObject<Block> BROWN_SUGAR_LATTE;
+    public static final RegistryObject<Block> ICED_AMERICAN;
+    public static final RegistryObject<Block> COFFEE_PLANT;
 
     public static final RegistryObject<Block> BREAD_BASKET ;
     public static final RegistryObject<Block> TOASTER;
@@ -91,10 +98,12 @@ public class BakeriesBlocks {
     public static final RegistryObject<BlockEntityType<BaysaltFrameBlockEntity>> BAYSALT_FRAME_ENTITY;
     public static final RegistryObject<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_ENTITY;
     public static final RegistryObject<BlockEntityType<BlenderBlockEntity>> BLENDER_ENTITY;
-    public static final RegistryObject<Block> GLASS_DRINK_CUP;
-    public static final RegistryObject<BlockEntityType<GlassDrinkCupBlockEntity>> GLASS_DRINK_CUP_ENTITY;
+    public static final RegistryObject<Block> DRINK_CUP;
+    public static final RegistryObject<BlockEntityType<GlassDrinkCupBlockEntity>> DRINK_CUP_ENTITY;
     public static final RegistryObject<Block> MOKA_POT;
     public static final RegistryObject<BlockEntityType<MokaPotBlockEntity>> MOKA_POT_ENTITY;
+    public static final RegistryObject<Block> MENU_BLOCK;
+    public static final RegistryObject<BlockEntityType<MenuBlockEntity>> MENU_ENTITY;
 
     static {
         /*
@@ -123,6 +132,7 @@ public class BakeriesBlocks {
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
         MEAT_PASTE_PIZZA = BLOCK_REGISTRY.register("meat_paste_pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
+        FOCACCIA = BLOCK_REGISTRY.register("focaccia",PileBlock::new);
         /*
         普通方块Common
         */
@@ -163,6 +173,10 @@ public class BakeriesBlocks {
         WHOLE_WHEAT_FLOUR_BAG = BLOCK_REGISTRY.register("whole_wheat_flour_bag",()->
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
         ICED_LATTE = coldDrinkBlock("iced_latte");
+        BROWN_SUGAR_LATTE = coldDrinkBlock("brown_sugar_latte");
+        ICED_AMERICAN = coldDrinkBlock("iced_american");
+        COFFEE_PLANT = BLOCK_REGISTRY.register("coffee_plant",()->
+                new CoffeePlantBlock(BlockBehaviour.Properties.copy(Blocks.AZALEA)));
         /*
         方块实体BlockEntity
         */
@@ -192,16 +206,19 @@ public class BakeriesBlocks {
                 .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         BLENDER_ENTITY = BLOCK_ENTITY_REGISTRY.register("blender", () -> BlockEntityType.Builder.of(BlenderBlockEntity::new, BLENDER.get()).build(null));
 
-        GLASS_DRINK_CUP = BLOCK_REGISTRY.register("glass_drink_cup",()-> new GlassDrinkCupBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
-        GLASS_DRINK_CUP_ENTITY = BLOCK_ENTITY_REGISTRY.register("glass_drink_cup", () -> BlockEntityType.Builder.of(GlassDrinkCupBlockEntity::new, GLASS_DRINK_CUP.get()).build(null));
+        DRINK_CUP = BLOCK_REGISTRY.register("drink_cup",()-> new GlassDrinkCupBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).strength(0.1F,0.1F)));
+        DRINK_CUP_ENTITY = BLOCK_ENTITY_REGISTRY.register("drink_cup", () -> BlockEntityType.Builder.of(GlassDrinkCupBlockEntity::new, DRINK_CUP.get()).build(null));
 
         MOKA_POT = BLOCK_REGISTRY.register("moka_pot",()-> new MokaPotBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
-        MOKA_POT_ENTITY = BLOCK_ENTITY_REGISTRY.register("moka_pot_entity", () -> BlockEntityType.Builder.of(MokaPotBlockEntity::new, MOKA_POT.get()).build(null));
+        MOKA_POT_ENTITY = BLOCK_ENTITY_REGISTRY.register("moka_pot", () -> BlockEntityType.Builder.of(MokaPotBlockEntity::new, MOKA_POT.get()).build(null));
+
+        MENU_BLOCK = BLOCK_REGISTRY.register("menu_block",()->new MenuBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+        MENU_ENTITY = BLOCK_ENTITY_REGISTRY.register("menu", () -> BlockEntityType.Builder.of(MenuBlockEntity::new, MENU_BLOCK.get()).build(null));
     }
 
     private static RegistryObject<Block> coldDrinkBlock(String name){
         return BLOCK_REGISTRY.register(name,()->
-                new ColdDrinkBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+                new ColdDrinkBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).strength(0.1F,0.1F)));
     }
 
 }

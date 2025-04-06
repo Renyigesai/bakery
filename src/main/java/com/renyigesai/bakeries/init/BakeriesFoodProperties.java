@@ -4,7 +4,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
-
 public class BakeriesFoodProperties {
     public static final FoodProperties BAGEL;
     public static final FoodProperties WHOLE_WHEAT_BAGEL;
@@ -25,6 +24,10 @@ public class BakeriesFoodProperties {
     public static final FoodProperties SLICED_CHEESE_COCOA_TOAST;
     public static final FoodProperties MEAT_FLOSS_BREAD;
     public static final FoodProperties MEAT_FLOSS;
+    public static final FoodProperties ICED_AMERICAN;
+    public static final FoodProperties ICED_LATTE;
+    public static final FoodProperties BROWN_SUGAR_LATTE;
+    public static final FoodProperties FOCACCIA;
 
 
     static {
@@ -69,6 +72,9 @@ public class BakeriesFoodProperties {
 
         MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(0.6f).build();
 
+        FOCACCIA = new FoodProperties.Builder().nutrition(8).saturationMod(1f)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1F).build();
+
         OLIVE = new FoodProperties.Builder().nutrition(2).saturationMod(0.5f).build();
 
         TOMATO = new FoodProperties.Builder().nutrition(2).saturationMod(0.5f).build();
@@ -76,6 +82,12 @@ public class BakeriesFoodProperties {
         CHEESE_CUBE = new FoodProperties.Builder().nutrition(1).saturationMod(1f).build();
 
         MEAT_FLOSS = new FoodProperties.Builder().nutrition(2).saturationMod(0.8f).fast().build();
+
+        ICED_AMERICAN = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
+
+        ICED_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
+
+        BROWN_SUGAR_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
 
     }
 }

@@ -28,5 +28,11 @@
     "sounds": [
       "bakeries:put_on_ice"
     ]
+  },
+  "block.generic.insert_straw": {
+    "subtitle":"block.generic.insert_straw",
+    "sounds": [
+      "bakeries:insert_straw"
+    ]
   }
 }

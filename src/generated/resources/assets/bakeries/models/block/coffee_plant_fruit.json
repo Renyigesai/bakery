@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_azalea",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "plant": "bakeries:block/coffee_plant",
+    "side": "bakeries:block/coffee_plant_fruit_side",
+    "top": "bakeries:block/coffee_plant_fruit_top"
+  }
+}

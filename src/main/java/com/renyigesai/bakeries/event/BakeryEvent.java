@@ -74,5 +74,7 @@ public class BakeryEvent {
     public static void addCustomWanderingTraderTrades(WandererTradesEvent event) {
         event.getGenericTrades().add((traner,rand) -> new MerchantOffer(new ItemStack(Items.EMERALD,2),
                 new ItemStack(BakeriesItems.OLIVE.get(),4),5,1,0.05f));
+        event.getGenericTrades().add((traner,rand) -> new MerchantOffer(new ItemStack(Items.EMERALD,2),
+                new ItemStack(BakeriesItems.GROUND_COFFEE.get(),2),5,1,0.05f));
     }
 }

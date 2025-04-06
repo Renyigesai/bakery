@@ -2,10 +2,12 @@ package com.renyigesai.bakeries.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -23,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BaguetteItem extends RepeatEatItem {
     public BaguetteItem(Block pBlock, Properties properties) {
@@ -42,6 +45,9 @@ public class BaguetteItem extends RepeatEatItem {
     @Override
     public void eat(ItemStack pStack, Level level, LivingEntity pLivingEntity, Vec3 vec3) {
         if (pLivingEntity instanceof Player player) {
+            ItemStack itemStack = new ItemStack(this);
+            List<Pair<MobEffectInstance, Float>> effects = itemStack.getFoodProperties(pLivingEntity).getEffects();
+
             player.getFoodData().eat(BakeriesItems.BAGUETTE.get(), new ItemStack(BakeriesItems.BAGUETTE.get()));
             level.gameEvent(player, GameEvent.EAT, vec3);
         }

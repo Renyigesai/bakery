@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/iced_american", "y": 270},
+    "facing=north": {"model": "bakeries:block/iced_american", "y": 180},
+    "facing=south": {"model": "bakeries:block/iced_american"},
+    "facing=west": {"model": "bakeries:block/iced_american", "y": 90}
+  }
+}

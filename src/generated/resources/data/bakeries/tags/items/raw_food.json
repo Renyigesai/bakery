@@ -13,6 +13,7 @@
     "bakeries:mould_toast_dough",
     "bakeries:mould_cheese_cocoa_toast_dough",
     "bakeries:ciabatta_dough",
-    "bakeries:meat_floss_bread_dough"
+    "bakeries:meat_floss_bread_dough",
+    "bakeries:focaccia_dough"
   ]
 }
