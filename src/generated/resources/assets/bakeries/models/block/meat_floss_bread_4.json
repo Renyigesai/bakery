@@ -1,8 +1,0 @@
-{
-	"parent": "bakeries:custom/meat_floss_bread_4",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"0": "bakeries:block/meat_floss_bread",
-		"particle": "bakeries:block/meat_floss_bread"
-	}
-}

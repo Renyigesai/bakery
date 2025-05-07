@@ -85,6 +85,6 @@ public class WoodCounterBlock extends HorizontalDirectionalBlock {
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
-        pTooltip.add(Component.translatable("block.bakeries.tips.wood_counter").withStyle(ChatFormatting.BLUE));
+        pTooltip.add(Component.translatable("block.bakeries.tips.wood_counter").withStyle(ChatFormatting.GRAY));
     }
 }

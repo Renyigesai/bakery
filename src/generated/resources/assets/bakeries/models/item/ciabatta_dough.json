@@ -1,7 +1,0 @@
-{
-	"parent": "bakeries:custom/ciabatta_1",
-	"textures": {
-		"0": "bakeries:item/ciabatta_dough",
-		"particle": "bakeries:item/ciabatta_dough"
-	}
-}

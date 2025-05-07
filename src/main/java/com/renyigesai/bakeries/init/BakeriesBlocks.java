@@ -23,6 +23,8 @@ import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.block.toaster.ToasterBlock;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
+import com.renyigesai.bakeries.block.wooden_tray.WoodenTrayBlock;
+import com.renyigesai.bakeries.block.wooden_tray.WoodenTrayBlockEntity;
 import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,9 +57,13 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> CHEESE_COCOA_TOAST;
     public static final RegistryObject<Block> BERRY_BREAD;
     public static final RegistryObject<Block> FOCACCIA;
+    public static final RegistryObject<Block> DIRTY_CHOCO_CROISSANT;
     public static final RegistryObject<Block> PIZZA;
     public static final RegistryObject<Block> SAUSAGE_PIZZA;
     public static final RegistryObject<Block> MEAT_PASTE_PIZZA;
+    public static final RegistryObject<Block> BAGUETTE_WITH_FILLING;
+    public static final RegistryObject<Block> TOMATO_CHEESE_CROISSANT_SANDWICH;
+    public static final RegistryObject<Block> BERRY_BAGEL;
     //common
     public static final RegistryObject<Block> OVEN;
     public static final RegistryObject<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY;
@@ -87,6 +93,8 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> BROWN_SUGAR_LATTE;
     public static final RegistryObject<Block> ICED_AMERICAN;
     public static final RegistryObject<Block> COFFEE_PLANT;
+    public static final RegistryObject<Block> CREAM_BINGLE_COFFEE;
+    public static final RegistryObject<Block> TESTBLOCK;
 
     public static final RegistryObject<Block> BREAD_BASKET ;
     public static final RegistryObject<Block> TOASTER;
@@ -104,6 +112,8 @@ public class BakeriesBlocks {
     public static final RegistryObject<BlockEntityType<MokaPotBlockEntity>> MOKA_POT_ENTITY;
     public static final RegistryObject<Block> MENU_BLOCK;
     public static final RegistryObject<BlockEntityType<MenuBlockEntity>> MENU_ENTITY;
+    public static final RegistryObject<Block> WOOD_TRAY;
+    public static final RegistryObject<BlockEntityType<WoodenTrayBlockEntity>> WOOD_TRAY_ENTITY;
 
     static {
         /*
@@ -133,6 +143,10 @@ public class BakeriesBlocks {
         MEAT_PASTE_PIZZA = BLOCK_REGISTRY.register("meat_paste_pizza",()->
                 new PizzaBlock(BlockBehaviour.Properties.copy(Blocks.CAKE),2,0.1F));
         FOCACCIA = BLOCK_REGISTRY.register("focaccia",PileBlock::new);
+        DIRTY_CHOCO_CROISSANT = BLOCK_REGISTRY.register("dirty_choco_croissant",PileBlock::new);
+        BAGUETTE_WITH_FILLING = BLOCK_REGISTRY.register("baguette_with_filling",PileBlock::new);
+        TOMATO_CHEESE_CROISSANT_SANDWICH = BLOCK_REGISTRY.register("tomato_cheese_croissant_sandwich",PileBlock::new);
+        BERRY_BAGEL = BLOCK_REGISTRY.register("berry_bagel",PileBlock::new);
         /*
         普通方块Common
         */
@@ -175,6 +189,7 @@ public class BakeriesBlocks {
         ICED_LATTE = coldDrinkBlock("iced_latte");
         BROWN_SUGAR_LATTE = coldDrinkBlock("brown_sugar_latte");
         ICED_AMERICAN = coldDrinkBlock("iced_american");
+        CREAM_BINGLE_COFFEE = coldDrinkBlock("cream_bingle_coffee");
         COFFEE_PLANT = BLOCK_REGISTRY.register("coffee_plant",()->
                 new CoffeePlantBlock(BlockBehaviour.Properties.copy(Blocks.AZALEA)));
         /*
@@ -214,6 +229,15 @@ public class BakeriesBlocks {
 
         MENU_BLOCK = BLOCK_REGISTRY.register("menu_block",()->new MenuBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         MENU_ENTITY = BLOCK_ENTITY_REGISTRY.register("menu", () -> BlockEntityType.Builder.of(MenuBlockEntity::new, MENU_BLOCK.get()).build(null));
+
+        WOOD_TRAY = BLOCK_REGISTRY.register("wood_tray",()->new WoodenTrayBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+        WOOD_TRAY_ENTITY = BLOCK_ENTITY_REGISTRY.register("wood_tray", () -> BlockEntityType.Builder.of(WoodenTrayBlockEntity::new, WOOD_TRAY.get()).build(null));
+
+        TESTBLOCK = BLOCK_REGISTRY.register("testblock",()->
+                new ChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), () -> {
+                    return BlockEntityType.CHEST;
+                }));
+
     }
 
     private static RegistryObject<Block> coldDrinkBlock(String name){

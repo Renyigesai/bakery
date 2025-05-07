@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.jei_recipes;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.recipe.CoffeeRecipe;
 import com.renyigesai.bakeries.recipe.blender.BlenderRecipe;
 import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
@@ -41,6 +42,8 @@ public class BakeryRecipeTypes {
 			RECIPE_TYPE.register(BlenderRecipe.Type.ID, () -> BlenderRecipe.Type.INSTANCE);
 			SERIALIZERS.register(CoffeeRecipe.Type.ID,() ->CoffeeRecipe.Serializer.INSTANCE);
 			RECIPE_TYPE.register(CoffeeRecipe.Type.ID,() ->CoffeeRecipe.Type.INSTANCE);
+			SERIALIZERS.register(BreadKnifeRecipe.Type.ID,() ->BreadKnifeRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register(BreadKnifeRecipe.Type.ID,() ->BreadKnifeRecipe.Type.INSTANCE);
 		});
 	}
 }

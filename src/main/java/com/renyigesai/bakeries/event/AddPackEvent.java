@@ -16,7 +16,7 @@ import net.minecraftforge.forgespi.locating.IModFile;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AddPackEvent {
     @SubscribeEvent
-    public static void addPack(AddPackFindersEvent event) {
+    public static void onAddPack(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
             IModFileInfo modFileInfo = ModList.get().getModFileById(BakeriesMod.MODID);
             if (modFileInfo == null) {
@@ -24,12 +24,12 @@ public class AddPackEvent {
             }
             IModFile modFile = modFileInfo.getFile();
             event.addRepositorySource(consumer -> {
-                Pack pack = Pack.readMetaAndCreate(BakeriesMod.prefix("b_16x").toString(),
+                Pack pack1 = Pack.readMetaAndCreate(BakeriesMod.prefix("b_16x").toString(),
                         Component.literal("Bakeries 16x Texture"), false, id ->
                                 new BakeriesFilePackResource(id, modFile, "resourcepacks/b_16x"),
                         PackType.CLIENT_RESOURCES, Pack.Position.TOP, PackSource.BUILT_IN);
-                if (pack != null) {
-                    consumer.accept(pack);
+                if (pack1 != null) {
+                    consumer.accept(pack1);
                 }
             });
         }

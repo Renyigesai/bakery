@@ -63,9 +63,9 @@ public class MokaPotBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        ItemStack handStack = pPlayer.getItemInHand(pHand);
         if (blockEntity instanceof MokaPotBlockEntity mokaPotBlockEntity) {
-            if (!pPlayer.isShiftKeyDown()) {
-                ItemStack handStack = pPlayer.getItemInHand(pHand);
+            if (!handStack.isEmpty()) {
                 if (mokaPotBlockEntity.isInventoryFull() && handStack.is(ItemTags.create(new ResourceLocation("forge:coffee_grounds")))) {
                     mokaPotBlockEntity.addGroundCoffee(handStack.copy().split(1));
                     handStack.shrink(1);

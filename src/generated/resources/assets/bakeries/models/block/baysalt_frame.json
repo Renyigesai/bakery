@@ -1,8 +1,0 @@
-{
-	"parent": "bakeries:custom/baysalt_frame",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"0": "bakeries:block/baysalt_frame",
-		"particle": "bakeries:block/baysalt_frame"
-	}
-}

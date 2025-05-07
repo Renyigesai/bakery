@@ -3,7 +3,6 @@ package com.renyigesai.bakeries.event;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

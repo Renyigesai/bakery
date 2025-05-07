@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredients": [
+    {
+      "tag": "forge:dough"
+    }
+  ],
+  "output": {
+    "item": "farmersdelight:raw_pasta",
+    "count": 2
+  }
+}

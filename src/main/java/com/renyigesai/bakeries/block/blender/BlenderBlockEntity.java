@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -35,6 +36,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -225,13 +228,20 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     }
 
     private Optional<BlenderRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(11); // 假设输入容器大小为 10
-        for (int i = 0; i < 10; i++) {
-            inventory.setItem(i, this.inventory.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(9);
+        List<ItemStack> inputs = new ArrayList<>();
+
+        for (int i = 0; i < 9; i++) {
+            ItemStack stack = this.inventory.getStackInSlot(i);
+            if (!stack.isEmpty()) {
+                inputs.add(stack);
+            }
         }
-        if (level == null) {
-            return Optional.empty();
+
+        for (int i = 0; i < inputs.size(); i++) {
+            inventory.setItem(i, inputs.get(i));
         }
+
         return level.getRecipeManager()
                 .getRecipeFor(BlenderRecipe.Type.INSTANCE, inventory, level);
     }
@@ -248,48 +258,61 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     private void craftItem() {
         Optional<BlenderRecipe> recipeOptional = getCurrentRecipe();
-        if (recipeOptional.isPresent()) {
-            BlenderRecipe recipe = recipeOptional.get();
+        if (recipeOptional.isEmpty()) {
+            cookingTotalTime = 0; // 重置进度
+            return;
+        }
 
-            boolean canCraft = false;
-            for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                if (recipe.getIngredients().get(i).test(inventory.getStackInSlot(i)) && isContainer()) {
-                        canCraft = true;
-                        break;
+        BlenderRecipe recipe = recipeOptional.get();
+        ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
+        ItemStack outputStack = inventory.getStackInSlot(OUTPUT_SLOT);
+
+        if (!canCraft(resultItem, outputStack) || !isContainer()) {
+            cookingTotalTime = 0;
+            return;
+        }
+
+        List<Ingredient> ingredientsToConsume = new ArrayList<>(recipe.getIngredients());
+        List<Integer> slotsToConsume = new ArrayList<>();
+
+        outer:
+        for (Ingredient ingredient : ingredientsToConsume) {
+            for (int i = 0; i < 9; i++) {
+                ItemStack stack = inventory.getStackInSlot(i);
+                if (!stack.isEmpty() && ingredient.test(stack) && !slotsToConsume.contains(i)) {
+                    slotsToConsume.add(i);
+                    continue outer;
                 }
             }
+            cookingTotalTime = 0;
+            return;
+        }
 
-            ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
-            ItemStack outputStack = inventory.getStackInSlot(OUTPUT_SLOT);
-            if (canCraft && canCraft(resultItem,outputStack)) {
-
-                if (cookingTotalTime < 100){
-                    cookingTotalTime ++;
-                    spawnParticle();
-                }else {
-                    for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                        if (inventory.getStackInSlot(i).hasCraftingRemainingItem()){
-                            ejectIngredientRemainder(inventory.getStackInSlot(i).getCraftingRemainingItem());
-                        }
-                        inventory.extractItem(i, 1, false);
-                    }
-                    if (!recipe.getContainer().isEmpty() && recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
-                        inventory.extractItem(CONTAINER_SLOT,1,false);
-                    }
-                    if (!compatibility) {
-                        if (outputStack.isEmpty()) {
-                            inventory.setStackInSlot(OUTPUT_SLOT, resultItem);
-                        } else if (outputStack.getItem() == resultItem.getItem()) {
-                            outputStack.grow(resultItem.getCount());
-                        }
-                    }else {
-                        ejectionResultItem(resultItem);
-                    }
-                    cookingTotalTime = 0;
-                    setChanged();
-                    level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        if (cookingTotalTime < 100) {
+            cookingTotalTime++;
+            spawnParticle();
+        } else {
+            for (int slot : slotsToConsume) {
+                ItemStack stack = inventory.getStackInSlot(slot);
+                if (stack.hasCraftingRemainingItem()) {
+                    ejectIngredientRemainder(stack.getCraftingRemainingItem());
                 }
+                inventory.extractItem(slot, 1, false);
             }
+
+            if (!recipe.getContainer().isEmpty()) {
+                inventory.extractItem(CONTAINER_SLOT, 1, false);
+            }
+
+            if (outputStack.isEmpty()) {
+                inventory.setStackInSlot(OUTPUT_SLOT, resultItem);
+            } else {
+                outputStack.grow(resultItem.getCount());
+            }
+
+            cookingTotalTime = 0;
+            setChanged();
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }
 
@@ -302,10 +325,10 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     }
 
     protected void ejectIngredientRemainder(ItemStack remainderStack) {
-        double x = worldPosition.getX() + 0.5;
-        double y = worldPosition.getY() + 0.5;
-        double z = worldPosition.getZ() + 0.5;
-        ItemUtil.spawnItemEntity(this.level,remainderStack,x,y,z,new Vec3(0.0,0.0,0.0));
+        BlockPos pos = this.getBlockPos();
+        Level level1 = this.level;
+        Direction facing = level1.getBlockState(pos).getValue(BlenderBlock.FACING).getOpposite().getClockWise();
+        ItemUtil.spawnItemEntity(this.level,remainderStack,pos.getX(),pos.getY(),pos.getZ(),new Vec3(facing.getStepX(),facing.getStepY(),facing.getStepZ()));
     }
 
     private boolean isContainer(){
@@ -334,32 +357,28 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         BlockPos pos = this.getBlockPos();
         Level pLevel = this.level;
         if (pLevel instanceof ServerLevel serverLevel){
-            BlockEntity blockEntity = pLevel.getBlockEntity(pos);
-            if (blockEntity instanceof BlenderBlockEntity blenderBlockEntity){
-                for (int i = 0; i < blenderBlockEntity.inventory.getSlots(); i++) {
-                    ItemStack tempStack = blenderBlockEntity.inventory.getStackInSlot(i);
-                    if (!tempStack.isEmpty()) {
-                        serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, tempStack),
-                                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1, 0.0, 0.0, 0.0, 0.075);
-                        if (Math.random() < 0.25){
-                            break;
-                        }
-                    }else {
-                        break;
-                    }
+            ArrayList<ItemStack> stacks = new ArrayList<>();
+            for (int i = 0; i < inventory.getSlots(); i++) {
+                ItemStack stackInSlot = inventory.getStackInSlot(i);
+                if (!stackInSlot.isEmpty()){
+                    stacks.add(stackInSlot);
                 }
+            }
+            for (int i = 0; i < stacks.size(); i++) {
+                serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stacks.get(i)),
+                        pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1, 0.0, 0.0, 0.0, 0.075);
             }
         }
     }
 
     @Override
     public boolean canPlaceItem(int pIndex, ItemStack stack) {
-            for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
-                ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
-                if (stack.is(filtrationStack.getItem()) && inventory.getStackInSlot(i).isEmpty()) {
+        for (int i = 0; i < filtrationinventory.getSlots(); ++i) {
+            ItemStack filtrationStack = filtrationinventory.getStackInSlot(i);
+            if (stack.is(filtrationStack.getItem()) && inventory.getStackInSlot(i).isEmpty()) {
                     return true;
-                }
             }
+        }
         return false;
     }
 

@@ -10,7 +10,7 @@
       "item": "bakeries:sweet_dough"
     },
     "b": {
-      "item": "bakeries:butter_cube"
+      "tag": "forge:butter"
     }
   },
   "result": {

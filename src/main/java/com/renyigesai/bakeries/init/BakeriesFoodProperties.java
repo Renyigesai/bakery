@@ -28,6 +28,12 @@ public class BakeriesFoodProperties {
     public static final FoodProperties ICED_LATTE;
     public static final FoodProperties BROWN_SUGAR_LATTE;
     public static final FoodProperties FOCACCIA;
+    public static final FoodProperties DIRTY_CHOCO_CROISSANT;
+    public static final FoodProperties BAGUETTE_WITH_FILLING;
+    public static final FoodProperties CREAM_BINGLE_COFFEE;
+    public static final FoodProperties TOMATO_CHEESE_CROISSANT_SANDWICH;
+    public static final FoodProperties BERRY_BAGEL;
+    public static final FoodProperties HONEY_BUTTER_SPREAD_TOAST;
 
 
     static {
@@ -89,5 +95,21 @@ public class BakeriesFoodProperties {
 
         BROWN_SUGAR_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
 
+        CREAM_BINGLE_COFFEE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).nutrition(4).saturationMod(1f).alwaysEat().build();
+
+        DIRTY_CHOCO_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1f)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1200),1F)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),1200),1F)
+                .build();
+
+        BAGUETTE_WITH_FILLING = new FoodProperties.Builder().nutrition(13).saturationMod(0.4f).build();
+
+        TOMATO_CHEESE_CROISSANT_SANDWICH = new FoodProperties.Builder().nutrition(10).saturationMod(0.9f)
+                .effect(()->new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),6000),1F).build();
+
+        BERRY_BAGEL = new FoodProperties.Builder().nutrition(8).saturationMod(0.625f)
+                .effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F).build();
+
+        HONEY_BUTTER_SPREAD_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(1f).build();
     }
 }

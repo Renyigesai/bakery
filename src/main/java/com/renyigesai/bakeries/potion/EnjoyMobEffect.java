@@ -4,6 +4,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ public class EnjoyMobEffect extends MobEffect {
         Iterator<MobEffectInstance> itr = pLivingEntity.getActiveEffects().iterator();
         ArrayList<MobEffect> compatibleEffects = new ArrayList<>();
         MobEffectInstance selectedEffect;
-        Level level = pLivingEntity.level();
         while(itr.hasNext()) {
             selectedEffect = itr.next();
             if (selectedEffect.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
@@ -41,24 +41,10 @@ public class EnjoyMobEffect extends MobEffect {
         }
         if (!compatibleEffects.isEmpty()){
             for (MobEffect compatibleEffect : compatibleEffects) {
-                if (level.random.nextInt(100) == 0) {
                     pLivingEntity.removeEffect(compatibleEffect);
                     break;
-                }
             }
         }
     }
 
-    //    @Mod.EventBusSubscriber
-//    public static class EnjoyPotionEffect{
-//        @SubscribeEvent
-//        @SuppressWarnings("unused")
-//        public static void onEnjoy(LivingEvent.LivingTickEvent event){
-//            Entity attacker = event.getSource().getEntity();
-//            Entity entity = event.getEntity();
-//            if (attacker instanceof LivingEntity livingEntity && livingEntity.hasEffect(BakeriesMobEffects.COCOA_MANIA.get())){
-//                entity.invulnerableTime = 0;
-//            }
-//        }
-//    }
 }

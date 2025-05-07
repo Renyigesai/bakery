@@ -106,7 +106,8 @@ minecraft {
             workingDirectory project.file('run-data')
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', "${mod_id}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+//            args '--mod', "${mod_id}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', "${mod_id}", '--all', '--output', file('src/generated/resources/'), "--existing", file("src/main/resources/")
         }
     }
 }
@@ -176,7 +177,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:6154802")
-    runtimeOnly fg.deobf("curse.maven:farmersdelight-328085:5838779")
+    runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

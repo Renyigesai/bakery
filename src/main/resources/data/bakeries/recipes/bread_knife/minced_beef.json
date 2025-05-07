@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredients": [
+    {
+      "item": "minecraft:beef"
+    }
+  ],
+  "output": {
+    "item": "farmersdelight:minced_beef",
+    "count": 2
+  }
+}

@@ -19,6 +19,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -67,18 +68,14 @@ public class GlassDrinkCupBlock extends BaseEntityBlock {
         if (blockEntity instanceof GlassDrinkCupBlockEntity glassDrinkCupBlockEntity) {
             if (!stack.isEmpty() && glassDrinkCupBlockEntity.isInventoryFull()) {
                 glassDrinkCupBlockEntity.addItem(stack.copy().split(1), player);
-                if (level instanceof ServerLevel serverLevel) {
-                    serverLevel.playSound(null, pos, getSound(stack), SoundSource.BLOCKS);
-                }
+                level.playSound(null, pos, getSound(stack), SoundSource.BLOCKS);
                 stack.shrink(1);
                 return InteractionResult.SUCCESS;
             } else {
                 ItemStack craftItem = glassDrinkCupBlockEntity.inventory.getStackInSlot(4);
                 if (!craftItem.isEmpty()) {
                     spawnOrSetBlock(craftItem, level, pos);
-                    if (level instanceof ServerLevel serverLevel) {
-                        serverLevel.playSound(null, pos, BakeriesSounds.INSERT_STRAW.get(), SoundSource.BLOCKS);
-                    }
+                    level.playSound(null, pos, BakeriesSounds.INSERT_STRAW.get(), SoundSource.BLOCKS);
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -103,7 +100,7 @@ public class GlassDrinkCupBlock extends BaseEntityBlock {
         if (blockEntity instanceof GlassDrinkCupBlockEntity glassDrinkCupBlockEntity) {
             glassDrinkCupBlockEntity.removeItems();
         }
-        if (stack.getItem() instanceof BlockItem blockItem) {
+        if (stack.getItem() instanceof BlockItem blockItem && !level.getBlockState(pos.below()).is(Blocks.HOPPER)) {
             level.setBlock(pos, blockItem.getBlock().defaultBlockState(), 3);
             return;
         } else {

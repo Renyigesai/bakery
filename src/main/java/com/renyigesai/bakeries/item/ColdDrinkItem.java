@@ -1,8 +1,10 @@
 package com.renyigesai.bakeries.item;
 
-import com.renyigesai.bakeries.api.block.PileBlock;
+import com.renyigesai.bakeries.block.ColdDrinkBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -18,11 +20,12 @@ import java.util.List;
 public class ColdDrinkItem extends RepeatEatItem{
 
     public ColdDrinkItem(Block block, Properties pProperties, boolean effectTooltip, boolean customField) {
-        super(block, PileBlock.integerProperty, pProperties, effectTooltip, customField);
+        super(block, ColdDrinkBlock.integerProperty, pProperties, effectTooltip, customField);
     }
 
-    public ColdDrinkItem(Block block, Properties pProperties) {
-        super(block, PileBlock.integerProperty, pProperties);
+    @Override
+    public SoundEvent getPlaceSound() {
+        return SoundEvents.GLASS_PLACE;
     }
 
     @Override

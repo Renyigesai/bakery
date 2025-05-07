@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredients": [
+    {
+      "item": "minecraft:pumpkin"
+    }
+  ],
+  "output": {
+    "item": "farmersdelight:pumpkin_slice",
+    "count": 4
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/pineapple_bun_3",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "1": "bakeries:block/pineapple_bun",
-    "particle": "bakeries:block/pineapple_bun"
-  }
-}

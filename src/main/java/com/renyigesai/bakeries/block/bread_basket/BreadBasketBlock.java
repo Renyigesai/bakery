@@ -46,16 +46,15 @@ public class BreadBasketBlock extends BaseEntityBlock {
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
-        if (pLevel.isClientSide){
-            return InteractionResult.SUCCESS;
-        }else {
+        if (!pLevel.isClientSide()){
+            super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof BreadBasketBlockEntity && !Screen.hasShiftDown()){
                 pPlayer.openMenu((BreadBasketBlockEntity)blockEntity);
                 pPlayer.awardStat(Stats.OPEN_BARREL);
-
             }
-        }return InteractionResult.CONSUME;
+        }
+        return InteractionResult.SUCCESS;
     }
 
     @Override

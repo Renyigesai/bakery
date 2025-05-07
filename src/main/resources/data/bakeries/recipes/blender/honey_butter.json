@@ -1,0 +1,18 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "tag": "forge:butter"
+    },
+    {
+      "tag": "forge:butter"
+    }
+  ],
+  "output": {
+    "item": "bakeries:honey_butter",
+    "count": 8
+  }
+}

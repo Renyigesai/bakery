@@ -1,7 +1,0 @@
-{
-  "parent": "bakeries:custom/focaccia_1",
-  "textures": {
-    "0": "bakeries:item/focaccia_dough",
-    "particle": "bakeries:item/focaccia_dough"
-  }
-}

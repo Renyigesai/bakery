@@ -35,7 +35,8 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.DRINK_CUP.get());//玻璃饮料杯
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR_BAG.get());//全麦面粉袋
                         output.accept(BakeriesItems.FLOUR_BAG.get());//面粉袋
-                        output.accept(BakeriesItems.MENU.get());
+                        output.accept(BakeriesItems.MENU.get());//菜单
+                        output.accept(BakeriesItems.WOOD_TRAY.get());//木盘
                         output.accept(BakeriesItems.WOOD_COUNTER.get());//木质柜台
                         output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐
@@ -60,6 +61,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BOTTLE_CREAM.get());//瓶装奶油
                         output.accept(BakeriesItems.BOTTLE_BUTTER.get());//瓶装黄油
                         output.accept(BakeriesItems.BUTTER_CUBE.get());//黄油块
+                        output.accept(BakeriesItems.HONEY_BUTTER.get());//蜂蜜黄油
                         output.accept(BakeriesItems.CHEESE_CUBE.get());//奶酪块
                         output.accept(BakeriesItems.BROWN_SUGAR_CUBE.get());//红糖块
                         output.accept(BakeriesItems.TOMATO.get());//番茄
@@ -81,6 +83,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SALT_CROISSANT.get());//盐可颂
                         output.accept(BakeriesItems.TOAST.get());//吐司
                         output.accept(BakeriesItems.SLICED_TOAST.get());//切片吐司
+                        output.accept(BakeriesItems.HONEY_BUTTER_SPREAD_TOAST.get());//切片吐司
                         output.accept(BakeriesItems.CHEESE_COCOA_TOAST.get());//奶酪可可吐司
                         output.accept(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());//切片奶酪可可吐司
                         output.accept(BakeriesItems.BAGUETTE.get());//法棍
@@ -88,12 +91,16 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.FOCACCIA.get());//佛卡夏
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());//乡村面包
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//乡村面包切片
+                        output.accept(BakeriesItems.BERRY_BAGEL.get());//浆果贝果
+                        output.accept(BakeriesItems.BAGUETTE_WITH_FILLING.get());//填馅法棍
+                        output.accept(BakeriesItems.TOMATO_CHEESE_CROISSANT_SANDWICH.get());//番茄奶酪可颂三明治
                         /*
                         饮料
                         */
                         output.accept(BakeriesItems.ICED_AMERICAN.get());//冰美式
                         output.accept(BakeriesItems.ICED_LATTE.get());//冰拿铁
                         output.accept(BakeriesItems.BROWN_SUGAR_LATTE.get());//黑铁拿铁
+                        output.accept(BakeriesItems.CREAM_BINGLE_COFFEE.get());//奶油冰冰乐
                     }))
                     .build());
 

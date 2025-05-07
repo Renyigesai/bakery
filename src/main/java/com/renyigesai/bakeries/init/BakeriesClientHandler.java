@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.block.menu.MenuBlockEntityRender;
+import com.renyigesai.bakeries.block.wooden_tray.WoodTrayBlockEntityRender;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,5 +19,6 @@ public class BakeriesClientHandler {
     @SubscribeEvent
     public static void onRenders(EntityRenderersEvent.RegisterRenderers event){
         event.registerBlockEntityRenderer(BakeriesBlocks.MENU_ENTITY.get(), MenuBlockEntityRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.WOOD_TRAY_ENTITY.get(), WoodTrayBlockEntityRender::new);
     }
 }

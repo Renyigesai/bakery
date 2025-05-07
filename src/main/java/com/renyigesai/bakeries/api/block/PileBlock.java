@@ -1,13 +1,14 @@
 package com.renyigesai.bakeries.api.block;
 
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
-import com.renyigesai.bakeries.item.RepeatEatItem;
+import com.renyigesai.bakeries.util.ItemUtil;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -30,7 +31,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +50,10 @@ public class PileBlock extends HorizontalDirectionalBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(integerProperty, 1));
     }
 
+    public PileBlock(Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(integerProperty, 1));
+    }
 
     @Override
     public boolean skipRendering(@NotNull BlockState state, BlockState adjacentBlockState, @NotNull Direction side) {
@@ -80,32 +85,37 @@ public class PileBlock extends HorizontalDirectionalBlock {
     public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
         return true;
     }
-    @Override
-    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
-        return false;
+
+    public int getMaxPile(){
+        return 4;
     }
+
+    public SoundEvent getTakeSound(){
+        return SoundEvents.ITEM_FRAME_REMOVE_ITEM;
+    }
+
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, net.minecraft.world.phys.@NotNull BlockHitResult hit) {
-        if (!level.isClientSide) {
-            int currentPile = state.getValue(integerProperty);
-            if (currentPile > 1) {
-                level.setBlock(pos, state.setValue(integerProperty, currentPile - 1), 3);
-                ItemStack itemStack = new ItemStack(this);
-                if (!player.addItem(itemStack)) {
-                    player.drop(itemStack, false);
-                }
-            } else {
-                level.removeBlock(pos, false);
-                ItemStack itemStack = new ItemStack(this);
-                if (!player.addItem(itemStack)) {
-                    player.drop(itemStack, false);
-                }
-            }
-            level.playSound(null,pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }
+        if (!pPlayer.isShiftKeyDown()){
+            return take(pState, pLevel, pPos, pPlayer);
+        }
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    private InteractionResult take(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer){
+        int i =  pState.getValue(integerProperty);
+        if (i == 1){
+            pLevel.removeBlock(pPos,false);
+        }
+        ItemUtil.givePlayerItem(pPlayer,new ItemStack(this.asItem()));
+        pLevel.setBlock(pPos,pState.setValue(integerProperty,i-1),3);
+        pLevel.playSound(null,pPos,getTakeSound(),SoundSource.BLOCKS);
         return InteractionResult.SUCCESS;
     }
+
     private static void listPotionEffects(ItemStack pStack, Consumer<MobEffectInstance> pOutput) {
         CompoundTag compoundtag = pStack.getTag();
         if (compoundtag != null && compoundtag.contains("Effects", 9)) {

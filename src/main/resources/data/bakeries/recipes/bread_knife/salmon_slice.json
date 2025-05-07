@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredients": [
+    {
+      "item": "minecraft:salmon"
+    }
+  ],
+  "output": {
+    "item": "farmersdelight:salmon_slice",
+    "count": 2
+  }
+}

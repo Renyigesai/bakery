@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredients": [
+    {
+      "item": "bakeries:country_bread"
+    }
+  ],
+  "output": {
+    "item": "bakeries:country_bread_slice",
+    "count": 6
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredients": [
+    {
+      "item": "minecraft:cod"
+    }
+  ],
+  "output": {
+    "item": "farmersdelight:cod_slice",
+    "count": 2
+  }
+}

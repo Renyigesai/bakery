@@ -1,10 +1,14 @@
 package com.renyigesai.bakeries.api.item;
 
+import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.util.TextUtils;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +23,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -44,23 +49,32 @@ public class FoodBlockItem extends ItemNameBlockItem {
         this.customField = false;
     }
 
+    public SoundEvent getPlaceSound(){
+        return SoundEvents.WOOL_STEP;
+    }
+
     @Override
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
         Player player = pContext.getPlayer();
         InteractionResult result = this.use(pContext.getLevel(), player, pContext.getHand()).getResult();
-        if(player != null){
-            if (player.isShiftKeyDown() && this.isExtra(pContext)) {
-                if (!pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock())) {
-                    result = this.place(new BlockPlaceContext(pContext));
-                } else if(pContext.getLevel().getBlockState(pContext.getClickedPos()).is(this.getBlock()) && pContext.getLevel().getBlockState(pContext.getClickedPos()).hasProperty(this.integerProperty)){
-                    if (pContext.getLevel().getBlockState(pContext.getClickedPos()).getValue(this.integerProperty) < 4) {
-                        Shortcuts.setBlock(pContext.getLevel(), pContext.getClickedPos(), pContext.getLevel().getBlockState(pContext.getClickedPos()), this.integerProperty, 1, true);
-                        pContext.getLevel().playSound(null, pContext.getClickedPos(), SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
-                        if (!player.getAbilities().instabuild) {
-                            pContext.getItemInHand().shrink(1);
-                        }
-                        result = InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
+        if (player.isShiftKeyDown() && this.isExtra(pContext)) {
+            Level level = pContext.getLevel();
+            Block thisBlock = this.getBlock();
+            BlockPos pos = pContext.getClickedPos();
+            BlockState state = level.getBlockState(pos);
+            if (!state.is(thisBlock)) {
+                return this.place(new BlockPlaceContext(pContext));
+            }
+            if (state.is(thisBlock) && state.hasProperty(this.integerProperty)) {
+                Integer value = state.getValue(this.integerProperty);
+                PileBlock newBlock = (PileBlock) thisBlock;
+                if (value < newBlock.getMaxPile()) {
+                    level.setBlock(pos, state.setValue(this.integerProperty, value + 1), 3);
+                    level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+                    if (!player.getAbilities().instabuild) {
+                        pContext.getItemInHand().shrink(1);
                     }
+                    result = InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
                 }
             }
         }

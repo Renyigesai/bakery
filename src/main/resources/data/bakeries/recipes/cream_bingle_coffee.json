@@ -1,0 +1,21 @@
+{
+  "type": "bakeries:coffee",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "bakeries:moka_pot_fill"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "output": {
+    "item": "bakeries:cream_bingle_coffee",
+    "count": 1
+  }
+}
