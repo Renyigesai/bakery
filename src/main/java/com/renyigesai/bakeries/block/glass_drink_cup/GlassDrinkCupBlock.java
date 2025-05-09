@@ -68,14 +68,18 @@ public class GlassDrinkCupBlock extends BaseEntityBlock {
         if (blockEntity instanceof GlassDrinkCupBlockEntity glassDrinkCupBlockEntity) {
             if (!stack.isEmpty() && glassDrinkCupBlockEntity.isInventoryFull()) {
                 glassDrinkCupBlockEntity.addItem(stack.copy().split(1), player);
-                level.playSound(null, pos, getSound(stack), SoundSource.BLOCKS);
+                if (level instanceof ServerLevel serverLevel) {
+                    serverLevel.playSound(null, pos, getSound(stack), SoundSource.BLOCKS);
+                }
                 stack.shrink(1);
                 return InteractionResult.SUCCESS;
             } else {
                 ItemStack craftItem = glassDrinkCupBlockEntity.inventory.getStackInSlot(4);
                 if (!craftItem.isEmpty()) {
                     spawnOrSetBlock(craftItem, level, pos);
-                    level.playSound(null, pos, BakeriesSounds.INSERT_STRAW.get(), SoundSource.BLOCKS);
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.playSound(null, pos, BakeriesSounds.INSERT_STRAW.get(), SoundSource.BLOCKS);
+                    }
                     return InteractionResult.SUCCESS;
                 }
             }

@@ -59,12 +59,13 @@ public abstract class RepeatEatItem extends FoodBlockItem {
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         if (pStack.getDamageValue() == pStack.getMaxDamage()-1) {
+            eat(pStack, pLevel, pLivingEntity,new Vec3(pLivingEntity.getX(),pLivingEntity.getY(),pLivingEntity.getZ()));
             addEffect(pLevel,pLivingEntity);
             return pStack.hasCraftingRemainingItem() && !pStack.getCraftingRemainingItem().isEmpty()? super.finishUsingItem(residue(pStack),pLevel,pLivingEntity): super.finishUsingItem(pStack,pLevel,pLivingEntity);
         }
+        pStack.hurt(1, RandomSource.create(), null);
         eat(pStack, pLevel, pLivingEntity,new Vec3(pLivingEntity.getX(),pLivingEntity.getY(),pLivingEntity.getZ()));
         addEffect(pLevel,pLivingEntity);
-        pStack.hurt(1, RandomSource.create(), null);
         return pStack;
     }
 

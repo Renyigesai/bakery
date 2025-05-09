@@ -1,0 +1,16 @@
+{
+  "values": [
+    "bakeries:oven",
+    "bakeries:salt_ore",
+    "bakeries:deepslate_salt_ore",
+    "bakeries:fermentation_tank",
+    "bakeries:yeast_tank",
+    "bakeries:cheese_tank",
+    "bakeries:glass_cabinet_door",
+    "bakeries:glass_cabinet_door_two",
+    "bakeries:raw_salt_block",
+    "bakeries:black_white_concrete",
+    "bakeries:blender",
+    "bakeries:moka_pot"
+  ]
+}

@@ -34,6 +34,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties TOMATO_CHEESE_CROISSANT_SANDWICH;
     public static final FoodProperties BERRY_BAGEL;
     public static final FoodProperties HONEY_BUTTER_SPREAD_TOAST;
+    public static final FoodProperties HONEY_BUTTER_SPREAD_COUNTRY_BREAD;
 
 
     static {
@@ -63,12 +64,12 @@ public class BakeriesFoodProperties {
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1F)
                 .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0), 1.0F).build();
 
-        SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f)
+        SLICED_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).alwaysEat()
                 .build();
 
         SLICED_CHEESE_COCOA_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(0.8f)
                 .effect(() -> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),600,0),1f)
-                .effect(() -> new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),600,0),1f).build();
+                .effect(() -> new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),600,0),1f).alwaysEat().build();
 
         BERRY_BREAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.7f).build();
 
@@ -95,7 +96,7 @@ public class BakeriesFoodProperties {
 
         BROWN_SUGAR_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
 
-        CREAM_BINGLE_COFFEE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).nutrition(4).saturationMod(1f).alwaysEat().build();
+        CREAM_BINGLE_COFFEE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).nutrition(1).saturationMod(0.5f).alwaysEat().build();
 
         DIRTY_CHOCO_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1200),1F)
@@ -110,6 +111,8 @@ public class BakeriesFoodProperties {
         BERRY_BAGEL = new FoodProperties.Builder().nutrition(8).saturationMod(0.625f)
                 .effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F).build();
 
-        HONEY_BUTTER_SPREAD_TOAST = new FoodProperties.Builder().nutrition(4).saturationMod(1f).build();
+        HONEY_BUTTER_SPREAD_TOAST = new FoodProperties.Builder().nutrition(8).saturationMod(0.5f).alwaysEat().build();
+
+        HONEY_BUTTER_SPREAD_COUNTRY_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(0.65f).alwaysEat().build();
     }
 }

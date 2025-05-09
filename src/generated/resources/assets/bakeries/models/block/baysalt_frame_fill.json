@@ -1,0 +1,9 @@
+{
+	"parent": "bakeries:custom/baysalt_frame_fill",
+	"render_type": "minecraft:cutout_mipped",
+	"textures": {
+		"1": "bakeries:block/baysalt_frame",
+		"2": "bakeries:block/salt_water_still",
+		"particle": "bakeries:block/baysalt_frame"
+	}
+}

@@ -1,15 +1,10 @@
 package com.renyigesai.bakeries.block.blender;
 
-import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
+import com.renyigesai.bakeries.block.state.BakeriesEnumProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
-import com.renyigesai.bakeries.util.RandomText;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -18,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -32,26 +28,33 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 public class BlenderBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final EnumProperty<BakeriesEnumProperty> SHAPE =  EnumProperty.create("shape", BakeriesEnumProperty.class);
     public static final VoxelShape X_BOX = box(4.0,0.0,0.0,12.0,16.0,16.0);
     public static final VoxelShape Z_BOX = box(0.0,0.0,4.0,16.0,16.0,12.0);
+    public static final VoxelShape BOX = box(0.0,0.0,0.0,16.0,16.0,16.);
     public BlenderBlock(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED,false).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED,false).setValue(SHAPE,BakeriesEnumProperty.NONE).setValue(FACING, Direction.NORTH));
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        Direction direction = pState.getValue(FACING);
-        return direction.getAxis() == Direction.Axis.X ? Z_BOX : X_BOX;
+        if (pState.getValue(SHAPE) == BakeriesEnumProperty.NONE){
+            Direction direction = pState.getValue(FACING);
+            return direction.getAxis() == Direction.Axis.X ? Z_BOX : X_BOX;
+        }
+        return BOX;
     }
 
     @Nullable
@@ -74,21 +77,30 @@ public class BlenderBlock extends BaseEntityBlock {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             super.use(blockstate, world, pos, entity, hand, hit);
             if (blockEntity instanceof BlenderBlockEntity blenderBlockEntity) {
-                if (!handStack.is(Items.REDSTONE_TORCH)) {
-                    NetworkHooks.openScreen(((ServerPlayer) entity), blenderBlockEntity, pos);
-                }else if (blenderBlockEntity.isCloseCompatibility()){
+                if (handStack.is(Items.REDSTONE_TORCH)){
                     boolean temp = blenderBlockEntity.compatibility;
                     blenderBlockEntity.compatibility = !temp;
-                    if (world instanceof ServerLevel serverLevel){
-                        serverLevel.playSound(null,pos,SoundEvents.ITEM_FRAME_ADD_ITEM,SoundSource.BLOCKS);
-                    }
+                    world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
+                    return InteractionResult.CONSUME;
                 }
+                if (getItemRegistryName(handStack).equals("create:brass_casing")){
+                    world.setBlock(pos,blockstate.setValue(SHAPE,BakeriesEnumProperty.BRASS),3);
+                    world.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS);
+                    return InteractionResult.CONSUME;
+                }
+                NetworkHooks.openScreen(((ServerPlayer) entity), blenderBlockEntity, pos);
                 return InteractionResult.CONSUME;
             }else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
         }
         return InteractionResult.SUCCESS;
+    }
+
+    public static String getItemRegistryName(ItemStack stack) {
+        Item item = stack.getItem();
+        ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(item);
+        return resourceLocation != null ? resourceLocation.toString() : "null";
     }
 
     @Override
@@ -121,7 +133,7 @@ public class BlenderBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED,FACING);
+        builder.add(POWERED,SHAPE,FACING);
     }
 
     @Override

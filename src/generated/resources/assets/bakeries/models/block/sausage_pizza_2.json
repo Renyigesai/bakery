@@ -1,0 +1,9 @@
+{
+	"parent": "bakeries:custom/pizza_2",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"1": "bakeries:block/sausage_pizza",
+		"2": "bakeries:block/pizza_side",
+		"particle": "bakeries:block/pizza_side"
+	}
+}

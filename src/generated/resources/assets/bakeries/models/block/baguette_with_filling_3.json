@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/baguette_with_filling_3",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/baguette_with_filling_1",
+    "1": "bakeries:block/baguette_with_filling_2",
+    "particle": "bakeries:block/baguette_with_filling_1"
+  }
+}

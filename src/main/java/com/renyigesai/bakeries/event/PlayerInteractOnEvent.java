@@ -30,12 +30,6 @@ public class PlayerInteractOnEvent {
             }
             villager.restock();
             ((VillagerAccessor)villager).bakery$setNumberOfRestocksToday(0);
-//            if (hand.getDamageValue() == hand.getMaxDamage()-1) {
-//                hand.shrink(1);
-//                ItemUtil.givePlayerItem(entity,new ItemStack(BakeriesItems.DRINK_CUP.get()));
-//            }else {
-//                hand.hurt(1, RandomSource.create(), null);
-//            }
             RepeatEatItem.rHurt(entity,hand,new ItemStack(BakeriesItems.DRINK_CUP.get()));
             villager.level().playSound(null, BlockPos.containing(villager.getX(),villager.getY(),villager.getZ()), SoundEvents.GENERIC_DRINK, SoundSource.BLOCKS);
         }

@@ -1,0 +1,7 @@
+{
+	"parent": "bakeries:block/berry_bread_1",
+	"textures": {
+		"0": "bakeries:item/berry_bread_dough",
+		"particle": "bakeries:item/berry_bread_dough"
+	}
+}

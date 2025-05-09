@@ -83,7 +83,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SALT_CROISSANT.get());//盐可颂
                         output.accept(BakeriesItems.TOAST.get());//吐司
                         output.accept(BakeriesItems.SLICED_TOAST.get());//切片吐司
-                        output.accept(BakeriesItems.HONEY_BUTTER_SPREAD_TOAST.get());//切片吐司
+                        output.accept(BakeriesItems.HONEY_BUTTER_SPREAD_TOAST.get());//蜂蜜黄油抹吐司
                         output.accept(BakeriesItems.CHEESE_COCOA_TOAST.get());//奶酪可可吐司
                         output.accept(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());//切片奶酪可可吐司
                         output.accept(BakeriesItems.BAGUETTE.get());//法棍
@@ -91,6 +91,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.FOCACCIA.get());//佛卡夏
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());//乡村面包
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//乡村面包切片
+                        output.accept(BakeriesItems.HONEY_BUTTER_SPREAD_COUNTRY_BREAD.get());//乡村面包切片
                         output.accept(BakeriesItems.BERRY_BAGEL.get());//浆果贝果
                         output.accept(BakeriesItems.BAGUETTE_WITH_FILLING.get());//填馅法棍
                         output.accept(BakeriesItems.TOMATO_CHEESE_CROISSANT_SANDWICH.get());//番茄奶酪可颂三明治

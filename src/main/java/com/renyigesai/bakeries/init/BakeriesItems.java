@@ -107,6 +107,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> TOMATO_CHEESE_CROISSANT_SANDWICH;
     public static final RegistryObject<Item> BERRY_BAGEL;
     public static final RegistryObject<Item> HONEY_BUTTER_SPREAD_TOAST;
+    public static final RegistryObject<Item> HONEY_BUTTER_SPREAD_COUNTRY_BREAD;
     /*
     方块物品/一般物品
     */
@@ -215,10 +216,6 @@ public class BakeriesItems {
         BAGUETTE_DOUGH_DRAWING = drawingItem("baguette_dough_drawing");
         CIABATTA_DOUGH_DRAWING = drawingItem("ciabatta_dough_drawing");
         DRINK_CUP = block(BakeriesBlocks.DRINK_CUP);
-        ICED_LATTE = coldDrinkItem(BakeriesBlocks.ICED_LATTE,BakeriesFoodProperties.ICED_LATTE,true);
-        BROWN_SUGAR_LATTE = coldDrinkItem(BakeriesBlocks.BROWN_SUGAR_LATTE,BakeriesFoodProperties.BROWN_SUGAR_LATTE,true);
-        ICED_AMERICAN = coldDrinkItem(BakeriesBlocks.ICED_AMERICAN,BakeriesFoodProperties.ICED_AMERICAN,true);
-        CREAM_BINGLE_COFFEE = coldDrinkItem(BakeriesBlocks.CREAM_BINGLE_COFFEE,BakeriesFoodProperties.CREAM_BINGLE_COFFEE,true);
         GROUND_COFFEE = item("ground_coffee");
         MOKA_POT = REGISTER.register("moka_pot",()-> new BlockItem(BakeriesBlocks.MOKA_POT.get(),new Item.Properties().stacksTo(1)));
         MOKA_POT_FILL = REGISTER.register("moka_pot_fill",()-> new Item(new Item.Properties().craftRemainder(BakeriesItems.MOKA_POT.get()).stacksTo(1)));
@@ -278,7 +275,14 @@ public class BakeriesItems {
         BAGUETTE_WITH_FILLING = foodBlockItem(BakeriesBlocks.BAGUETTE_WITH_FILLING,BakeriesFoodProperties.BAGUETTE_WITH_FILLING);
         TOMATO_CHEESE_CROISSANT_SANDWICH = foodBlockItem(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH,BakeriesFoodProperties.TOMATO_CHEESE_CROISSANT_SANDWICH,true,false);
         BERRY_BAGEL = foodBlockItem(BakeriesBlocks.BERRY_BAGEL,BakeriesFoodProperties.BERRY_BAGEL,true,false);
-        HONEY_BUTTER_SPREAD_TOAST = foodItem("honey_butter_spread_toast",BakeriesFoodProperties.HONEY_BUTTER_SPREAD_TOAST);
+        HONEY_BUTTER_SPREAD_TOAST = REGISTER.register("honey_butter_spread_toast",()-> new HoneyFoodItem(new Item.Properties().food(BakeriesFoodProperties.HONEY_BUTTER_SPREAD_TOAST)));
+        HONEY_BUTTER_SPREAD_COUNTRY_BREAD = REGISTER.register("honey_butter_spread_country_bread",()-> new HoneyFoodItem(new Item.Properties().food(BakeriesFoodProperties.HONEY_BUTTER_SPREAD_COUNTRY_BREAD)));
+
+        /*饮料物品*/
+        ICED_LATTE = coldDrinkItem(BakeriesBlocks.ICED_LATTE,BakeriesFoodProperties.ICED_LATTE,true,2,2,true);
+        BROWN_SUGAR_LATTE = coldDrinkItem(BakeriesBlocks.BROWN_SUGAR_LATTE,BakeriesFoodProperties.BROWN_SUGAR_LATTE,true,2,2,true);
+        ICED_AMERICAN = coldDrinkItem(BakeriesBlocks.ICED_AMERICAN,BakeriesFoodProperties.ICED_AMERICAN,true,3,3,true);
+        CREAM_BINGLE_COFFEE = coldDrinkItem(BakeriesBlocks.CREAM_BINGLE_COFFEE,BakeriesFoodProperties.CREAM_BINGLE_COFFEE,true,2,2,true);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
@@ -315,6 +319,10 @@ public class BakeriesItems {
 
     private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block,FoodProperties foodProperties,boolean toolTips) {
         return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),toolTips,false));
+    }
+
+    private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block,FoodProperties foodProperties,boolean is_thirst,int thirst,int quenched,boolean toolTips) {
+        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),is_thirst,thirst,quenched,toolTips,false));
     }
 
 

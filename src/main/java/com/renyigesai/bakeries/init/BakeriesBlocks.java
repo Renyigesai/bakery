@@ -94,7 +94,6 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> ICED_AMERICAN;
     public static final RegistryObject<Block> COFFEE_PLANT;
     public static final RegistryObject<Block> CREAM_BINGLE_COFFEE;
-    public static final RegistryObject<Block> TESTBLOCK;
 
     public static final RegistryObject<Block> BREAD_BASKET ;
     public static final RegistryObject<Block> TOASTER;
@@ -232,12 +231,6 @@ public class BakeriesBlocks {
 
         WOOD_TRAY = BLOCK_REGISTRY.register("wood_tray",()->new WoodenTrayBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         WOOD_TRAY_ENTITY = BLOCK_ENTITY_REGISTRY.register("wood_tray", () -> BlockEntityType.Builder.of(WoodenTrayBlockEntity::new, WOOD_TRAY.get()).build(null));
-
-        TESTBLOCK = BLOCK_REGISTRY.register("testblock",()->
-                new ChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), () -> {
-                    return BlockEntityType.CHEST;
-                }));
-
     }
 
     private static RegistryObject<Block> coldDrinkBlock(String name){

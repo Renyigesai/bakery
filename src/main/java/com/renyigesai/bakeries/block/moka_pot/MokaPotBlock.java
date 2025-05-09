@@ -65,21 +65,17 @@ public class MokaPotBlock extends BaseEntityBlock {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         ItemStack handStack = pPlayer.getItemInHand(pHand);
         if (blockEntity instanceof MokaPotBlockEntity mokaPotBlockEntity) {
-            if (!handStack.isEmpty()) {
+            if (handStack.isEmpty()) {
                 if (mokaPotBlockEntity.isInventoryFull() && handStack.is(ItemTags.create(new ResourceLocation("forge:coffee_grounds")))) {
                     mokaPotBlockEntity.addGroundCoffee(handStack.copy().split(1));
                     handStack.shrink(1);
-                    if (pLevel instanceof ServerLevel serverLevel) {
-                        serverLevel.playSound(null, pPos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
-                    }
+                    pLevel.playSound(null, pPos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
                     return InteractionResult.SUCCESS;
                 }
             } else {
                 pLevel.removeBlock(pPos, false);
                 ItemUtil.givePlayerItem(pPlayer, new ItemStack(getMokaPotItem(mokaPotBlockEntity).getItem()));
-                if (pLevel instanceof ServerLevel serverLevel) {
-                    serverLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
-                }
+                pLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
                 return InteractionResult.SUCCESS;
             }
         }

@@ -24,6 +24,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -45,8 +46,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     private static final int CONTAINER_SLOT = 9;
     private static final int OUTPUT_SLOT = 10;
-    private static final int[] SLOTS_FOR_UP = new int[]{0,1,2,3,4,5,6,7,8};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{9};
     private static final int[] SLOTS_FOR_DOWN = new int[]{10};
 
     protected final ItemStackHandler inventory = new ItemStackHandler(11);//11个槽位
@@ -55,6 +54,11 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         @Override
         public int getSlotLimit(int slot) {
             return 1;
+        }
+
+        @Override
+        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            super.setStackInSlot(slot, stack);
         }
     };//9个过滤槽位
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -316,19 +320,17 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    protected void ejectionResultItem(ItemStack pStack){
-        Level level1 = this.level;
-        BlockPos pos = this.getBlockPos();
-        Direction facing = level1.getBlockState(pos).getValue(BlenderBlock.FACING).getOpposite();
-        ItemUtil.spawnItemEntity(level1,pStack,pos.getX() + 0.5,pos.getY(),pos.getZ() + 0.5,
-                new Vec3(facing.getStepX() * 0.5,0.05,facing.getStepZ() * 0.5));
-    }
-
     protected void ejectIngredientRemainder(ItemStack remainderStack) {
         BlockPos pos = this.getBlockPos();
-        Level level1 = this.level;
-        Direction facing = level1.getBlockState(pos).getValue(BlenderBlock.FACING).getOpposite().getClockWise();
-        ItemUtil.spawnItemEntity(this.level,remainderStack,pos.getX(),pos.getY(),pos.getZ(),new Vec3(facing.getStepX(),facing.getStepY(),facing.getStepZ()));
+        Level level = this.level;
+        Direction facing = level.getBlockState(pos).getValue(HorizontalDirectionalBlock.FACING).getClockWise();
+        double x = pos.getX() + 0.5D;
+        double z = pos.getZ() + 0.5D;
+        double newX = x + (facing.getStepX()*1.0D);
+        double newZ = z + (facing.getStepZ()*1.0D);
+        System.out.println(newX);
+        System.out.println(newZ);
+        ItemUtil.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
     }
 
     private boolean isContainer(){

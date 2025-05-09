@@ -1,0 +1,7 @@
+{
+  "parent": "bakeries:custom/black_white_concrete",
+  "textures": {
+    "0": "bakeries:block/black_white_concrete",
+    "particle": "bakeries:block/black_white_concrete"
+  }
+}

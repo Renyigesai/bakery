@@ -21,12 +21,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class BreadBasketBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(5,ItemStack.EMPTY);
-//    private ItemStackHandler items = new ItemStackHandler(1){
-//        @Override
-//        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
-//            return 1;
-//        }
-//    };
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
         protected void onOpen(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState) {

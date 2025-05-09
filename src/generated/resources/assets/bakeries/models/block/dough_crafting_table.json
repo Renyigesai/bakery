@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/dough_crafting_table",
+  "textures": {
+    "0": "bakeries:block/dough_crafting_table_top",
+    "1": "bakeries:block/cupboard",
+    "2": "bakeries:block/cupboard_side",
+    "particle": "bakeries:block/cupboard"
+  }
+}

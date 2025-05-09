@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.bread_basket;
 
+import com.renyigesai.bakeries.block.state.BakeriesEnumProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -31,12 +32,12 @@ import org.jetbrains.annotations.Nullable;
 public class BreadBasketBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty FILL = BooleanProperty.create("fill");
-    public static final EnumProperty<BreadBasketShape> SHAPE =  EnumProperty.create("shape", BreadBasketShape.class);
+    public static final EnumProperty<BakeriesEnumProperty> SHAPE =  EnumProperty.create("shape", BakeriesEnumProperty.class);
     protected static final VoxelShape BOX = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D);
 
     public BreadBasketBlock(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FILL,false).setValue(SHAPE, BreadBasketShape.ONE_SHAPE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(FILL,false).setValue(SHAPE, BakeriesEnumProperty.ONE_SHAPE));
     }
 
     @Override
@@ -49,7 +50,7 @@ public class BreadBasketBlock extends BaseEntityBlock {
         if (!pLevel.isClientSide()){
             super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof BreadBasketBlockEntity && !Screen.hasShiftDown()){
+            if (blockEntity instanceof BreadBasketBlockEntity){
                 pPlayer.openMenu((BreadBasketBlockEntity)blockEntity);
                 pPlayer.awardStat(Stats.OPEN_BARREL);
             }

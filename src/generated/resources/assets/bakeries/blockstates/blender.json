@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "facing=east,powered=false,shape=none": {"model": "bakeries:block/blender", "y": 270},
+    "facing=east,powered=true,shape=none": {"model": "bakeries:block/blender_powered", "y": 270},
+    "facing=north,powered=false,shape=none": {"model": "bakeries:block/blender", "y": 180},
+    "facing=north,powered=true,shape=none": {"model": "bakeries:block/blender_powered", "y": 180},
+    "facing=south,powered=false,shape=none": {"model": "bakeries:block/blender"}, 
+    "facing=south,powered=true,shape=none": {"model": "bakeries:block/blender_powered"},
+    "facing=west,powered=false,shape=none": {"model": "bakeries:block/blender", "y": 90},
+    "facing=west,powered=true,shape=none": {"model": "bakeries:block/blender_powered", "y": 90},
+
+    "facing=east,powered=false,shape=brass": {"model": "bakeries:block/blender_brass", "y": 270},
+    "facing=east,powered=true,shape=brass": {"model": "bakeries:block/blender_brass", "y": 270},
+    "facing=north,powered=false,shape=brass": {"model": "bakeries:block/blender_brass", "y": 180},
+    "facing=north,powered=true,shape=brass": {"model": "bakeries:block/blender_brass", "y": 180},
+    "facing=south,powered=false,shape=brass": {"model": "bakeries:block/blender_brass"},
+    "facing=south,powered=true,shape=brass": {"model": "bakeries:block/blender_brass"},
+    "facing=west,powered=false,shape=brass": {"model": "bakeries:block/blender_brass", "y": 90},
+    "facing=west,powered=true,shape=brass": {"model": "bakeries:block/blender_brass", "y": 90}
+  }
+}
