@@ -34,5 +34,13 @@
     "sounds": [
       "bakeries:insert_straw"
     ]
+  },
+  "item.generic.music_disc_baking_in_progress": {
+    "sounds": [
+      {
+        "name": "bakeries:music_disc_baking_in_progress",
+        "stream": true
+      }
+    ]
   }
 }

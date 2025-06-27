@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/fermentation_barrel", "y": 270},
+    "facing=north": {"model": "bakeries:block/fermentation_barrel", "y": 180},
+    "facing=south": {"model": "bakeries:block/fermentation_barrel"},
+    "facing=west": {"model": "bakeries:block/fermentation_barrel", "y": 90}
+    
+  }
+}

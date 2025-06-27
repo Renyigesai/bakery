@@ -68,6 +68,10 @@ public abstract class AbstractOvenRecipe implements Recipe<Container> {
         return output.copy();
     }
 
+    public boolean isPresentPerfect(){
+        return perfect_temperature != -1;
+    }
+
     @Override
     public @NotNull ResourceLocation getId() {
         return id;

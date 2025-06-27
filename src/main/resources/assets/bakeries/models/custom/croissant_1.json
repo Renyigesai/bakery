@@ -1,4 +1,5 @@
 {
+	"credit": "Made with Blockbench",
 	"elements": [
 		{
 			"from": [8.42043, 0, 4.9525],
@@ -119,7 +120,7 @@
 			"scale": [2, 2, 2]
 		},
 		"fixed": {
-			"translation": [0.5, 12.25, 0.75],
+			"translation": [0.5, 10, 0.75],
 			"scale": [1.75, 1.75, 1.75]
 		}
 	},

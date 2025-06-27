@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.inventory.dough_crafting_table;
 import com.google.common.collect.Lists;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
-import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
+import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
 import lombok.Getter;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -105,11 +106,15 @@ public class CoffeeRecipe implements Recipe<SimpleContainer> {
             int ingredientCount = pBuffer.readInt();
             NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
 
-            for (int i = 0; i < ingredientCount; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
+            if (inputs.size() > 4){
+                throw new JsonParseException("Too many ingredients for coffee recipe! The max is 4");
+            }else {
+                for (int i = 0; i < ingredientCount; i++) {
+                    inputs.set(i, Ingredient.fromNetwork(pBuffer));
+                }
+                ItemStack output = pBuffer.readItem();
+                return new CoffeeRecipe(inputs, output,pRecipeId);
             }
-            ItemStack output = pBuffer.readItem();
-            return new CoffeeRecipe(inputs, output,pRecipeId);
         }
 
         @Override

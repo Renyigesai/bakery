@@ -32,9 +32,9 @@ public class OvenRecipe extends AbstractOvenRecipe{
 		public static final Serializer INSTANCE = new Serializer<>(OvenRecipe::new);
 
 		public static final ResourceLocation ID = new ResourceLocation(BakeriesMod.MODID, "oven");
-		private final Serializer.CookieBaker<T> factory;
+		private final CookieBaker<T> factory;
 
-		private Serializer(Serializer.CookieBaker<T> pFactory) {
+		private Serializer(CookieBaker<T> pFactory) {
 			this.factory = pFactory;
 		}
 		

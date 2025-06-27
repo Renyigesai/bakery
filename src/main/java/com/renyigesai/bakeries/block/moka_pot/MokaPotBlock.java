@@ -36,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class MokaPotBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final VoxelShape SHAPE = box(6.0, 0, 6.0, 10, 6, 10);
+    private static final VoxelShape SHAPE = box(6.0, 0, 6.0, 10, 6.5, 10);
 
     public MokaPotBlock(Properties pProperties) {
         super(pProperties);
@@ -65,7 +65,7 @@ public class MokaPotBlock extends BaseEntityBlock {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         ItemStack handStack = pPlayer.getItemInHand(pHand);
         if (blockEntity instanceof MokaPotBlockEntity mokaPotBlockEntity) {
-            if (handStack.isEmpty()) {
+            if (!handStack.isEmpty()) {
                 if (mokaPotBlockEntity.isInventoryFull() && handStack.is(ItemTags.create(new ResourceLocation("forge:coffee_grounds")))) {
                     mokaPotBlockEntity.addGroundCoffee(handStack.copy().split(1));
                     handStack.shrink(1);

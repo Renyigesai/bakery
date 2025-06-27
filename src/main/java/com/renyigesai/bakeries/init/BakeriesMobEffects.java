@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.potion.BakeriesMobEffect;
 import com.renyigesai.bakeries.potion.CocoaManiaMobEffect;
 import com.renyigesai.bakeries.potion.EnjoyMobEffect;
+import com.renyigesai.bakeries.potion.SoftMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -22,4 +23,6 @@ public class BakeriesMobEffects {
             new BakeriesMobEffect(MobEffectCategory.BENEFICIAL, -13312).addAttributeModifier(Attributes.ATTACK_DAMAGE,"5e1e13cc-f2c4-49b2-b636-b217f125e7a4",5.0,  AttributeModifier.Operation.ADDITION));
 
     public static final RegistryObject<MobEffect> ENJOY = REGISTRY.register("enjoy", EnjoyMobEffect::new);
+
+    public static final RegistryObject<MobEffect> SOFT = REGISTRY.register("soft", ()-> new SoftMobEffect().addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE,"e561bed7-8068-42e6-a010-d25e2ac47f71",0.5,AttributeModifier.Operation.ADDITION).addAttributeModifier(Attributes.ARMOR,"8a296c1d-b2e2-41e9-96df-b49e4f6370cf",5,AttributeModifier.Operation.ADDITION));
 }

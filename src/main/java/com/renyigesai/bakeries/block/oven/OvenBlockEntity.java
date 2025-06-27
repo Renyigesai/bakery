@@ -228,7 +228,10 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
                 if (cookingTime >= max_cooking_time) {
                     if (temperature <= craft_temperature) {
-                        boolean perfect = temperature == recipe.get().getPerfect_temperature ();
+                        boolean perfect = true;
+                        if (!recipe.get().isPresentPerfect() || temperature != recipe.get().getPerfect_temperature()){
+                            perfect = false;
+                        }
                         ovenBlockEntity.craftItem(ovenBlockEntity, slot, perfect);
                     } else {
                         ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
@@ -258,7 +261,9 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         if (recipe.isPresent()) {
             ItemStack result = recipe.get().getResultItem(null);
             ItemStack takeItem = new ItemStack(result.getItem(), result.getCount());
-            takeItem.getOrCreateTag().putBoolean("perfect", perfect);
+            if (perfect){
+                takeItem.getOrCreateTag().putBoolean("perfect", true);
+            }
             this.itemHandler.setStackInSlot(slot, takeItem);
             updateBlock(ovenBlockEntity);
         }
@@ -348,7 +353,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
     }
 
     public boolean canPlaceItem(int pIndex, @NotNull ItemStack pStack) {
-      return pStack.is(BakeriesItemTag.RAE_FOOD) && itemHandler.getStackInSlot(pIndex).isEmpty();
+      return /*pStack.is(BakeriesItemTag.RAE_FOOD) &&*/ itemHandler.getStackInSlot(pIndex).isEmpty();
     }
 
 

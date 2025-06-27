@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:tray_scone"
+    }
+  ],
+  "result": {
+    "item": "bakeries:scone",
+    "count": 4
+  }
+}

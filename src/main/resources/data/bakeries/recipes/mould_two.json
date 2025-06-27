@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:mould"
+    }
+  ],
+  "result": {
+    "item": "bakeries:mould_two",
+    "count": 1
+  }
+}

@@ -35,6 +35,11 @@ public class BakeriesFoodProperties {
     public static final FoodProperties BERRY_BAGEL;
     public static final FoodProperties HONEY_BUTTER_SPREAD_TOAST;
     public static final FoodProperties HONEY_BUTTER_SPREAD_COUNTRY_BREAD;
+    public static final FoodProperties SCONE;
+    public static final FoodProperties CUP_CAKE;
+    public static final FoodProperties CAKE_ROLL;
+    public static final FoodProperties FOAMED_CREAM;
+    public static final FoodProperties SLICED_POUND_CAKE;
 
 
     static {
@@ -114,5 +119,15 @@ public class BakeriesFoodProperties {
         HONEY_BUTTER_SPREAD_TOAST = new FoodProperties.Builder().nutrition(8).saturationMod(0.5f).alwaysEat().build();
 
         HONEY_BUTTER_SPREAD_COUNTRY_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(0.65f).alwaysEat().build();
+
+        SCONE = new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).alwaysEat().build();
+
+        CUP_CAKE = new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).effect(()->new MobEffectInstance(BakeriesMobEffects.SOFT.get(),1200),1f).alwaysEat().build();
+
+        CAKE_ROLL = new FoodProperties.Builder().nutrition(12).saturationMod(0.3f).effect(()->new MobEffectInstance(BakeriesMobEffects.SOFT.get(),1200),1f).alwaysEat().build();
+
+        FOAMED_CREAM = new FoodProperties.Builder().nutrition(1).saturationMod(1f).alwaysEat().build();
+
+        SLICED_POUND_CAKE = new FoodProperties.Builder().nutrition(1).saturationMod(1f).alwaysEat().build();
     }
 }

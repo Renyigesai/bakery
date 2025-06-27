@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/tray_scone", "y": 270},
+
+    "facing=north": {"model": "bakeries:block/tray_scone", "y": 180},
+
+    "facing=south": {"model": "bakeries:block/tray_scone"},
+
+    "facing=west": {"model": "bakeries:block/tray_scone", "y": 90}
+  }
+}

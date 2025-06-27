@@ -86,6 +86,18 @@ public class GlassDrinkCupBlockEntity extends BlockEntity {
                 break;
             }
         }
+        forcedRefresh();
+        setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+    }
+
+    public void forcedRefresh(){
+        Optional<CoffeeRecipe> recipeOptional = getCurrentRecipe();
+        if (recipeOptional.isPresent()){
+            CoffeeRecipe coffeeRecipe = recipeOptional.get();
+            inventory.setStackInSlot(4,coffeeRecipe.getResultItem(level.registryAccess()).copy());
+
+        }
     }
 
     public void removeItems(){
@@ -150,6 +162,7 @@ public class GlassDrinkCupBlockEntity extends BlockEntity {
                 }
             }
             inventory.setStackInSlot(4,recipe.getResultItem(level.registryAccess()).copy());
+            setChanged();
         }
     }
 }

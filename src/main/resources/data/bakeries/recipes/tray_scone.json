@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:scone"
+    },
+    {
+      "item": "bakeries:scone"
+    },
+    {
+      "item": "bakeries:scone"
+    },
+    {
+      "item": "bakeries:scone"
+    },
+    {
+      "item": "bakeries:wood_tray"
+    }
+  ],
+  "result": {
+    "item": "bakeries:tray_scone",
+    "count": 1
+  }
+}

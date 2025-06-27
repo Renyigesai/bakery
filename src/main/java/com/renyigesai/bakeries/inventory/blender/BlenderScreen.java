@@ -31,9 +31,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         int y = (height - imageHeight) / 2;
         // 绘制背景
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
-        if (menu.getBlockEntity().compatibility) {
-            pGuiGraphics.blit(TEXTURE, x+7, y+17, 176, 0, 42, 52);
-        }
+        pGuiGraphics.blit(TEXTURE, x+7, y+17, 176, 0, 42, 52);
     }
 
     @Override

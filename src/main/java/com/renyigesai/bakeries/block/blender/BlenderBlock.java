@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.block.blender;
 
 import com.renyigesai.bakeries.block.state.BakeriesEnumProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import net.minecraft.core.*;
 import net.minecraft.resources.ResourceLocation;
@@ -77,12 +78,6 @@ public class BlenderBlock extends BaseEntityBlock {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             super.use(blockstate, world, pos, entity, hand, hit);
             if (blockEntity instanceof BlenderBlockEntity blenderBlockEntity) {
-                if (handStack.is(Items.REDSTONE_TORCH)){
-                    boolean temp = blenderBlockEntity.compatibility;
-                    blenderBlockEntity.compatibility = !temp;
-                    world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
-                    return InteractionResult.CONSUME;
-                }
                 if (getItemRegistryName(handStack).equals("create:brass_casing")){
                     world.setBlock(pos,blockstate.setValue(SHAPE,BakeriesEnumProperty.BRASS),3);
                     world.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS);
@@ -101,6 +96,14 @@ public class BlenderBlock extends BaseEntityBlock {
         Item item = stack.getItem();
         ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(item);
         return resourceLocation != null ? resourceLocation.toString() : "null";
+    }
+
+    private void setFiltrationIndex(BlenderBlockEntity blockEntity){
+        if (blockEntity.getFiltrationIndex() == 9){
+            blockEntity.setFiltrationIndex(0);
+        }else {
+            blockEntity.setFiltrationIndex(blockEntity.getFiltrationIndex() + 1);
+        }
     }
 
     @Override

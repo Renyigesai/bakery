@@ -1,0 +1,50 @@
+{
+  "name": "guide.bakeries.entries.sequence_assembly",
+  "icon": "bakeries:cut_cake_base",
+  "category": "bakeries:cake_making_process",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.entries.sequence_assembly"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "block.bakeries.cream_cake",
+      "multiblock": {
+        "mapping": {
+          "A": "bakeries:cut_cake_base",
+          "B": "bakeries:cream_cake_processing[stage=0]",
+          "C": "bakeries:cream_cake_processing[stage=1]",
+          "D": "bakeries:cream_cake_processing[stage=2]",
+          "E": "bakeries:cream_cake"
+        },
+        "pattern":  [
+          ["ABCDE"],
+          ["  0  "]
+        ]
+      },
+      "text": "guide.bakeries.descr.sequence_assembly_2",
+      "enable_visualize": "false"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "block.bakeries.tiramisu",
+      "multiblock": {
+        "mapping": {
+          "A": "bakeries:soak_coffee_cut_cake_base[stage=0]",
+          "B": "bakeries:soak_coffee_cut_cake_base[stage=1]",
+          "C": "bakeries:soak_coffee_cut_cake_base[stage=2]",
+          "D": "bakeries:soak_coffee_cut_cake_base[stage=3]",
+          "E": "bakeries:tiramisu"
+        },
+        "pattern":  [
+          ["ABCDE"],
+          ["  0  "]
+        ]
+      },
+      "text": "guide.bakeries.descr.sequence_assembly_3",
+      "enable_visualize": "false"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "type": "bakeries:coffee",
   "ingredients": [
     {
-      "item": "minecraft:ice"
+      "item": "minecraft:packed_ice"
     },
     {
       "tag": "forge:milk"
@@ -11,7 +11,7 @@
       "item": "bakeries:moka_pot_fill"
     },
     {
-      "item": "bakeries:bottle_cream"
+      "item": "bakeries:foamed_cream"
     }
   ],
   "output": {

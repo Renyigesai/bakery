@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "bakeries:item/soak_coffee_cut_cake_base"
+  }
+}

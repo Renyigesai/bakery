@@ -1,10 +1,15 @@
 package com.renyigesai.bakeries.util;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 public class ItemUtil {
 
@@ -17,5 +22,17 @@ public class ItemUtil {
         ItemEntity entity = new ItemEntity(level, x, y, z, stack);
         entity.setDeltaMovement(pDeltaMovement);
         level.addFreshEntity(entity);
+    }
+
+    public static boolean isTag(ItemStack stack, Item item){
+        List<TagKey<Item>> tags = BuiltInRegistries.ITEM.getHolderOrThrow(BuiltInRegistries.ITEM.getResourceKey(item).get()).tags().toList();
+        boolean flag = false;
+        for (int i = 0; i < tags.size(); i++) {
+            if (stack.is(tags.get(i))){
+                flag = true;
+                break;
+            }
+        }
+        return flag;
     }
 }

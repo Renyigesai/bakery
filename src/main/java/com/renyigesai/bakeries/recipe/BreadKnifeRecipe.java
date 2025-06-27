@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -96,12 +97,13 @@ public class BreadKnifeRecipe implements Recipe<SimpleContainer> {
         public @Nullable BreadKnifeRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             int ingredientCount = pBuffer.readInt();
             NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
-//            for (int i = 0; i < ingredientCount; i++) {
+            if (inputs.size() > 1){
+                throw new JsonParseException("Too many ingredients for bread knife recipe! The max is 1");
+            }else {
                 inputs.set(0, Ingredient.fromNetwork(pBuffer));
-//            }
-            ItemStack output = pBuffer.readItem();
-            return new BreadKnifeRecipe(inputs, output,pRecipeId);
+                ItemStack output = pBuffer.readItem();
+                return new BreadKnifeRecipe(inputs, output,pRecipeId);
+            }
         }
 
         @Override

@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
+import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

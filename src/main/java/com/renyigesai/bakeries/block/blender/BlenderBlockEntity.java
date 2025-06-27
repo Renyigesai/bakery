@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.blender;
 import com.renyigesai.bakeries.api.block.WrappedHandler;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
-import com.renyigesai.bakeries.recipe.blender.BlenderRecipe;
+import com.renyigesai.bakeries.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -17,16 +17,15 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
@@ -70,7 +69,8 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             );
 
     public int cookingTotalTime;
-    public boolean compatibility;
+//    public boolean compatibility;
+    public int filtrationIndex;
 
     public BlenderBlockEntity(BlockPos pos, BlockState state) {
         super(BakeriesBlocks.BLENDER_ENTITY.get(), pos, state);
@@ -154,6 +154,14 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         setChanged();
     }
 
+    public void setFiltrationIndex(int filtrationIndex) {
+        this.filtrationIndex = filtrationIndex;
+    }
+
+    public int getFiltrationIndex() {
+        return filtrationIndex;
+    }
+
     @Override
     public void clearContent() {
         for (int i = 0; i < inventory.getSlots(); i++) {
@@ -171,7 +179,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             filtrationinventory.deserializeNBT(tag.getCompound("FiltrationInventory"));
         }
         cookingTotalTime = tag.getInt("CookingTotalTime");
-        compatibility = tag.getBoolean("Compatibility");
+        filtrationIndex = tag.getInt("FiltrationIndex");
     }
 
     @Override
@@ -180,7 +188,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         tag.put("Inventory", inventory.serializeNBT());
         tag.put("FiltrationInventory", filtrationinventory.serializeNBT());
         tag.putInt("CookingTotalTime", cookingTotalTime);
-        tag.putBoolean("Compatibility", compatibility);
+        tag.putInt("FiltrationIndex", filtrationIndex);
     }
 
     @Override
@@ -200,26 +208,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     public void drops(BlenderBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.inventory.getSlots());
-        SimpleContainer filtrationinventory = new SimpleContainer(blockEntity.filtrationinventory.getSlots());
         for (int i = 0; i < blockEntity.inventory.getSlots(); i++) {
             inventory.setItem(i, blockEntity.inventory.getStackInSlot(i));
         }
-        for (int i = 0; i < blockEntity.filtrationinventory.getSlots(); i++) {
-            filtrationinventory.setItem(i, blockEntity.filtrationinventory.getStackInSlot(i));
-        }
         if (this.level != null) {
             Containers.dropContents(this.level, this.worldPosition, inventory);
-            Containers.dropContents(this.level, this.worldPosition, filtrationinventory);
         }
-    }
-
-    public boolean isCloseCompatibility(){
-        for (int i = 0; i < filtrationinventory.getSlots(); i++) {
-            if (!filtrationinventory.getStackInSlot(i).isEmpty()){
-                return false;
-            }
-        }
-        return true;
     }
 
     public boolean stillValid(Player player) {
@@ -232,7 +226,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     }
 
     private Optional<BlenderRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(9);
+        SimpleContainer inventory = new SimpleContainer(10);
         List<ItemStack> inputs = new ArrayList<>();
 
         for (int i = 0; i < 9; i++) {
@@ -298,10 +292,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         } else {
             for (int slot : slotsToConsume) {
                 ItemStack stack = inventory.getStackInSlot(slot);
-                if (stack.hasCraftingRemainingItem()) {
-                    ejectIngredientRemainder(stack.getCraftingRemainingItem());
+                if (!stack.is(Items.WATER_BUCKET)){
+                    if (stack.hasCraftingRemainingItem()) {
+                        ejectIngredientRemainder(stack.getCraftingRemainingItem());
+                    }
+                    inventory.extractItem(slot, 1, false);
                 }
-                inventory.extractItem(slot, 1, false);
             }
 
             if (!recipe.getContainer().isEmpty()) {
@@ -328,8 +324,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         double z = pos.getZ() + 0.5D;
         double newX = x + (facing.getStepX()*1.0D);
         double newZ = z + (facing.getStepZ()*1.0D);
-        System.out.println(newX);
-        System.out.println(newZ);
         ItemUtil.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
     }
 

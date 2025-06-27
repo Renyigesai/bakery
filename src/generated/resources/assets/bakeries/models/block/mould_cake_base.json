@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/mould_cake_base",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/cake_base",
+    "1": "bakeries:block/mould_two",
+    "particle": "bakeries:block/mould_two"
+  }
+}

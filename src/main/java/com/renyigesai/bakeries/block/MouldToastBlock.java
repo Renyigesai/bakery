@@ -68,7 +68,9 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
         ItemStack handStack = player.getItemInHand(hand);
         int pile = state.getValue(PILE);
         if (pile < 2) {
-            handStack.shrink(1);
+            if (!player.getAbilities().instabuild) {
+                handStack.shrink(1);
+            }
             Shortcuts.setBlock(level,pos,state,PILE,1, true);
             level.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
@@ -114,6 +116,6 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PILE,FILL);
+        builder.add(FACING,PILE,FILL);
     }
 }

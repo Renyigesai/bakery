@@ -1,0 +1,15 @@
+{
+  "type": "bakeries:oven",
+  "ingredient":  [
+    {
+      "item": "bakeries:cream_pumpkin_pie_dough"
+    }
+  ],
+  "output": {
+    "item": "bakeries:cream_pumpkin_pie",
+    "count": 1
+  },
+  "time": 300,
+  "min_temperature": 150,
+  "max_temperature": 170
+}

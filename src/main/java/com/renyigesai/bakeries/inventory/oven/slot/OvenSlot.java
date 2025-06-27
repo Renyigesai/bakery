@@ -14,9 +14,9 @@ public class OvenSlot extends Slot {
         super(container, pSlot, pX, pY);
         this.slot = pSlot;
     }
-    public boolean mayPlace(@NotNull ItemStack pStack) {
-        return isRaeFood(pStack);
-    }
+
+    /*public boolean mayPlace(@NotNull ItemStack pStack) {return isRaeFood(pStack);}*/
+
     @Override
     public int getMaxStackSize(@NotNull ItemStack pStack) {
         return 1;
@@ -27,8 +27,6 @@ public class OvenSlot extends Slot {
         return 1;
     }
 
-    public static boolean isRaeFood(ItemStack pStack) {
-        return pStack.is(BakeriesItemTag.RAE_FOOD);
-    }
+    /*public static boolean isRaeFood(ItemStack pStack) {return pStack.is(BakeriesItemTag.RAE_FOOD);}*/
 
 }

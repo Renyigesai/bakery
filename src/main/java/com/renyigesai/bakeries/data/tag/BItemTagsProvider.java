@@ -20,25 +20,6 @@ public class BItemTagsProvider extends net.minecraft.data.tags.ItemTagsProvider 
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(BakeriesItemTag.RAE_FOOD)
-                .add(
-                        BakeriesItems.BAGEL_DOUGH.get(),
-                        BakeriesItems.BAGUETTE_DOUGH.get(),
-                        BakeriesItems.BROWN_SUGAR_ROLL.get(),
-                        BakeriesItems.COUNTRY_BREAD_DOUGH.get(),
-                        BakeriesItems.CROISSANT_DOUGH.get(),
-                        BakeriesItems.PINEAPPLE_BUN_DOUGH.get(),
-                        BakeriesItems.ROUND_BREAD_DOUGH.get(),
-                        BakeriesItems.SALT_CROISSANT_DOUGH.get()
-                        );
-        this.tag(BakeriesItemTag.BAKE_FOOD)
-                .add(
-                        BakeriesItems.BAGEL.get(),
-                        BakeriesItems.ROUND_BREAD.get(),
-                        BakeriesItems.BROWN_SUGAR_ROLL.get(),
-                        BakeriesItems.CROISSANT.get(),
-                        BakeriesItems.PINEAPPLE_BUN.get()
-                );
         this.tag(BakeriesItemTag.FLOUR)
                 .add(
                         BakeriesItems.WHOLE_WHEAT_FLOUR.get()

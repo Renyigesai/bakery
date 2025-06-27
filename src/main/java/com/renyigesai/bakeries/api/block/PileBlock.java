@@ -105,7 +105,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
-    private InteractionResult take(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer){
+    public InteractionResult take(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer){
         int i =  pState.getValue(integerProperty);
         if (i == 1){
             pLevel.removeBlock(pPos,false);

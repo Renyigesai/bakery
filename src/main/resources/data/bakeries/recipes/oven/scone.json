@@ -1,0 +1,15 @@
+{
+  "type": "bakeries:oven",
+  "ingredient":  [
+    {
+      "item": "bakeries:scone_dough"
+    }
+  ],
+  "output": {
+    "item": "bakeries:scone",
+    "count": 1
+  },
+  "time": 200,
+  "min_temperature": 180,
+  "max_temperature": 200
+}

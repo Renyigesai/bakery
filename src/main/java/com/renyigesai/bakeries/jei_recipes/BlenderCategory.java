@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.jei_recipes;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.recipe.blender.BlenderRecipe;
+import com.renyigesai.bakeries.recipe.BlenderRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

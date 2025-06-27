@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,7 @@ public class BlenderMenu extends AbstractContainerMenu {
     private final BlenderBlockEntity blockEntity;
     private final Player player;
     private final IItemHandler playerInventory;
+    private final ItemStackHandler itemStackHandler = new ItemStackHandler(10);
 
     public BlenderMenu(int windowId, Inventory playerInventory, BlenderBlockEntity blockEntity) {
         super(BakeriesMenuType.BLENDER_MENU.get(), windowId);
@@ -41,7 +43,6 @@ public class BlenderMenu extends AbstractContainerMenu {
         // 添加输出槽 (10)
         addSlot(new SlotItemHandler(blockEntity.getInventory(), 10, 152, 17));
         // 添加过滤槽 (0-8)
-        if (blockEntity.compatibility) {
             int fx = 8; // 起始 X 坐标
             int fy = 18; // 起始 Y 坐标
             for (int y = 0; y < 3; ++y) {
@@ -51,9 +52,8 @@ public class BlenderMenu extends AbstractContainerMenu {
                 }
             }
             addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 52));
-        }
         // 添加玩家物品栏
-        layoutPlayerInventorySlots(8, 84);
+        addPlayerSlots(8,84);
     }
 
     public static BlenderMenu create(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
@@ -62,33 +62,46 @@ public class BlenderMenu extends AbstractContainerMenu {
         if (blockEntity instanceof BlenderBlockEntity) {
             return new BlenderMenu(windowId, playerInventory, (BlenderBlockEntity) blockEntity);
         }
-        throw new IllegalStateException("Block entity is not an EnchantalCoolerBlockEntity!");
+        throw new IllegalStateException("Block entity is not an BlenderCoolerBlockEntity!");
     }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
-        // 玩家物品栏
-        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
-
-        // 玩家快捷栏
-        topRow += 58;
-        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
+    protected void addPlayerSlots(int x, int y) {
+        for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot)
+            this.addSlot(new SlotItemHandler(playerInventory, hotbarSlot, x + hotbarSlot * 18, y + 58));
+        for (int row = 0; row < 3; ++row)
+            for (int col = 0; col < 9; ++col)
+                this.addSlot(new SlotItemHandler(playerInventory, col + row * 9 + 9, x + col * 18, y + row * 18));
     }
 
-    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
-        for (int i = 0; i < amount; i++) {
-            addSlot(new SlotItemHandler(handler, index, x, y));
-            x += dx;
-            index++;
+    @Override
+    public void clicked(int pSlotId, int pButton, ClickType pClickType, Player pPlayer) {
+        if (pSlotId < 11 || pSlotId >= 21){
+            super.clicked(pSlotId, pButton, pClickType, pPlayer);
+            return;
         }
-        return index;
-    }
-
-    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
-        for (int j = 0; j < verAmount; j++) {
-            index = addSlotRange(handler, index, x, y, horAmount, dx);
-            y += dy;
+        if (pClickType== ClickType.THROW)
+            return;
+        ItemStack held = getCarried();
+        if (pClickType == ClickType.CLONE) {
+            if (player.isCreative() && held.isEmpty()) {
+                ItemStack stackInSlot =this.slots.get(pSlotId).getItem()
+                        .copy();
+                stackInSlot.setCount(1);
+                setCarried(stackInSlot);
+                return;
+            }
+            return;
         }
-        return index;
+
+        ItemStack insert;
+        if (held.isEmpty()) {
+            insert = ItemStack.EMPTY;
+        } else {
+            insert = held.copy();
+            insert.setCount(1);
+        }
+        this.slots.get(pSlotId).set(insert);
+        getSlot(pSlotId).setChanged();
     }
 
     @Override

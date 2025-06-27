@@ -36,6 +36,15 @@
             }
           ]
         }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "bakeries:cheese_cocoa_toast",
+          "properties": {
+            "slice": "4"
+          }
+        }
       ]
     }
   ]

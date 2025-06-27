@@ -6,6 +6,8 @@ import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.inventory.dough_crafting_table.DoughCraftingTableMenu;
 import com.renyigesai.bakeries.inventory.dough_crafting_table.DoughCraftingTableScreen;
+import com.renyigesai.bakeries.inventory.fermentation_barrel.FermentationBarrelMenu;
+import com.renyigesai.bakeries.inventory.fermentation_barrel.FermentationBarrelScreen;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.inventory.oven.OvenScreen;
 
@@ -39,6 +41,9 @@ public class BakeriesMenuType {
 	public static final RegistryObject<MenuType<BlenderMenu>> BLENDER_MENU = REGISTRY.register("blender_menu",
 			() -> IForgeMenuType.create(BlenderMenu::create));
 
+	public static final RegistryObject<MenuType<FermentationBarrelMenu>> FERMENTATION_BARREL_MENU = REGISTRY.register("fermentation_barrel_menu",
+			() -> IForgeMenuType.create(FermentationBarrelMenu::create));
+
 	private static<T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String pKey, MenuType.MenuSupplier<T> pFactory, FeatureFlag... pRequiredFeatures) {
 		return REGISTRY.register(pKey, () -> new MenuType<>(pFactory, FeatureFlags.REGISTRY.subset(pRequiredFeatures)));
 	}
@@ -51,6 +56,7 @@ public class BakeriesMenuType {
 			MenuScreens.register(BakeriesMenuType.OVEN_MENU.get(), OvenScreen::new);
 			MenuScreens.register(BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get(), DoughCraftingTableScreen::new);
 			MenuScreens.register(BakeriesMenuType.BLENDER_MENU.get(), BlenderScreen::new);
+			MenuScreens.register(BakeriesMenuType.FERMENTATION_BARREL_MENU.get(), FermentationBarrelScreen::new);
 		});
 	}
 

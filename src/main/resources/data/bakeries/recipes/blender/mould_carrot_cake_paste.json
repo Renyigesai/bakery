@@ -1,0 +1,43 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    [
+      {
+        "tag": "forge:eggs"
+      },
+      {
+        "item": "bakeries:whole_egg"
+      }
+    ],
+    [
+      {
+        "tag": "forge:eggs"
+      },
+      {
+        "item": "bakeries:whole_egg"
+      }
+    ],
+    {
+      "tag": "forge:flour"
+    },
+    {
+      "tag": "forge:flour"
+    },
+    {
+      "tag": "forge:butter"
+    },
+    {
+      "item": "bakeries:brown_sugar_cube"
+    },
+    {
+      "item": "minecraft:carrot"
+    }
+  ],
+  "container": {
+    "item": "bakeries:mould_two"
+  },
+  "output": {
+    "item": "bakeries:mould_carrot_cake_paste",
+    "count": 1
+  }
+}

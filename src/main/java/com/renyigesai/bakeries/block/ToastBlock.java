@@ -63,10 +63,12 @@ public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutB
         }
 
         if (hand.is(asItem()) && pile < 2){
+            if (!pPlayer.getAbilities().instabuild) {
                 hand.shrink(1);
+            }
             return pileUp(pLevel,pPos,pState,pPlayer);
         }
-        return InteractionResult.FAIL;
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
     public ItemStack getSliceItem() {

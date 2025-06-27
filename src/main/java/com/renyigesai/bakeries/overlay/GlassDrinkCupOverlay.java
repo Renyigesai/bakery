@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
+import com.renyigesai.bakeries.client.LookBlockEntityMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
@@ -32,7 +33,8 @@ public class GlassDrinkCupOverlay {
         if (localPlayer == null) {
             return;
         }
-        BlockEntity blockEntity = playerViewMap.get(localPlayer.getUUID());
+        Map<UUID, BlockEntity> blocks = LookBlockEntityMap.getBlocks();
+        BlockEntity blockEntity = blocks.get(localPlayer.getUUID());
         if (blockEntity instanceof GlassDrinkCupBlockEntity glassDrinkCupBlockEntity) {
             guiGraphics.blit(new ResourceLocation("bakeries:textures/gui/glass_drink_cup_overlay.png"), w, h, 0, 0, 142, 22, 142, 22);
             int x = w + 3;
@@ -55,11 +57,11 @@ public class GlassDrinkCupOverlay {
         }
     }
 
-    @SubscribeEvent
-    public static void onPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-        LocalPlayer player = event.getPlayer();
-        if (player != null) {
-            playerViewMap.remove(player.getUUID());
-        }
-    }
+//    @SubscribeEvent
+//    public static void onPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
+//        LocalPlayer player = event.getPlayer();
+//        if (player != null) {
+//            playerViewMap.remove(player.getUUID());
+//        }
+//    }
 }

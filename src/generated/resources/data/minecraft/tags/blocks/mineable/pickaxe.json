@@ -11,6 +11,8 @@
     "bakeries:raw_salt_block",
     "bakeries:black_white_concrete",
     "bakeries:blender",
-    "bakeries:moka_pot"
+    "bakeries:moka_pot",
+    "bakeries:mould",
+    "bakeries:mould_two"
   ]
 }

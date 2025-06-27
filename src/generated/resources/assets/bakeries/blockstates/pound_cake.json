@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=east,pile=1,slice=4": {"model": "bakeries:block/pound_cake", "y": 270},
+    "facing=east,pile=1,slice=3": {"model": "bakeries:block/pound_cake_2", "y": 270},
+    "facing=east,pile=1,slice=2": {"model": "bakeries:block/pound_cake_3", "y": 270},
+    "facing=east,pile=1,slice=1": {"model": "bakeries:block/pound_cake_4", "y": 270},
+    "facing=east,pile=2,slice=4": {"model": "bakeries:block/pound_cake_pile", "y": 270},
+
+    "facing=north,pile=1,slice=4": {"model": "bakeries:block/pound_cake", "y": 180},
+    "facing=north,pile=1,slice=3": {"model": "bakeries:block/pound_cake_2", "y": 180},
+    "facing=north,pile=1,slice=2": {"model": "bakeries:block/pound_cake_3", "y": 180},
+    "facing=north,pile=1,slice=1": {"model": "bakeries:block/pound_cake_4", "y": 180},
+    "facing=north,pile=2,slice=4": {"model": "bakeries:block/pound_cake_pile", "y": 180},
+
+    "facing=south,pile=1,slice=4": {"model": "bakeries:block/pound_cake"},
+    "facing=south,pile=1,slice=3": {"model": "bakeries:block/pound_cake_2"},
+    "facing=south,pile=1,slice=2": {"model": "bakeries:block/pound_cake_3"},
+    "facing=south,pile=1,slice=1": {"model": "bakeries:block/pound_cake_4"},
+    "facing=south,pile=2,slice=4": {"model": "bakeries:block/pound_cake_pile"},
+
+    "facing=west,pile=1,slice=4": {"model": "bakeries:block/pound_cake", "y": 90},
+    "facing=west,pile=1,slice=3": {"model": "bakeries:block/pound_cake_2", "y": 90},
+    "facing=west,pile=1,slice=2": {"model": "bakeries:block/pound_cake_3", "y": 90},
+    "facing=west,pile=1,slice=1": {"model": "bakeries:block/pound_cake_4", "y": 90},
+    "facing=west,pile=2,slice=4": {"model": "bakeries:block/pound_cake_pile","y": 90}
+  }
+}

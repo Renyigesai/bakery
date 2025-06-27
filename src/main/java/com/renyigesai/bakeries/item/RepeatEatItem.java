@@ -78,6 +78,14 @@ public abstract class RepeatEatItem extends FoodBlockItem {
         }
     }
 
+    public static void rHurt(ItemStack hand){
+        if (hand.getDamageValue() == hand.getMaxDamage()-1) {
+            hand.shrink(1);
+        }else {
+            hand.hurt(1, RandomSource.create(), null);
+        }
+    }
+
     abstract void eat(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, Vec3 vec3);
 
     public void addEffect(Level level, LivingEntity pLivingEntity){

@@ -1,0 +1,27 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "tag": "forge:flour"
+    },
+    {
+      "tag": "forge:flour"
+    },
+    {
+      "tag": "forge:milk"
+    }
+  ],
+  "container": {
+    "item": "minecraft:bucket"
+  },
+  "output": {
+    "item": "bakeries:egg_yolk_paste_bucket",
+    "count": 1
+  }
+}

@@ -5,6 +5,8 @@
     "bakeries:bread_basket",
     "bakeries:cupboard",
     "bakeries:menu_block",
-    "bakeries:wood_tray"
+    "bakeries:wood_tray",
+    "bakeries:tray_scone",
+    "bakeries:fermentation_barrel"
   ]
 }

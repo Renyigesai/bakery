@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:paper_cup"
+    },
+    {
+      "item": "bakeries:paper_cup"
+    },
+    {
+      "item": "bakeries:paper_cup"
+    },
+    {
+      "item": "bakeries:paper_cup"
+    },
+    {
+      "item": "bakeries:cake_paste_bucket"
+    }
+  ],
+  "result": {
+    "item": "bakeries:paper_cup_cake_paste",
+    "count": 4
+  }
+}

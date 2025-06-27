@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.jei_recipes;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
-import com.renyigesai.bakeries.recipe.dough_crafting_table.DoughCraftingRecipe;
+import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
