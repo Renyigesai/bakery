@@ -13,7 +13,6 @@ public class VillagerMixin implements VillagerAccessor {
     @Unique
     @Override
     public void bakery$setNumberOfRestocksToday(int value) {
-        System.out.println("Set NumberOfRestocksToday Yes");
         numberOfRestocksToday = Math.max(value, 0);
     }
 }

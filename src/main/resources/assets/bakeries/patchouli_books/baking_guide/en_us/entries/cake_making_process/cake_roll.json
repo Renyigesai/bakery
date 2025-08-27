@@ -1,0 +1,12 @@
+{
+  "name": "item.bakeries.cake_roll",
+  "icon": "bakeries:cake_roll",
+  "category": "bakeries:cake_making_process",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.cake_roll"
+    }
+  ]
+}

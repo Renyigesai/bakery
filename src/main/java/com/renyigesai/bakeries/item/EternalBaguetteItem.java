@@ -34,7 +34,6 @@ public class EternalBaguetteItem extends Item {
         entity.setDeltaMovement(vec3.x / 2.0D - vec31.x, entity.onGround() ? Math.min(0.4D, vec3.y / 2.0 + s) : vec3.y, vec3.z / 2.0D - vec31.z);
         entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,50,2));
         return true;
-        //knock back
     }
 
     @Override

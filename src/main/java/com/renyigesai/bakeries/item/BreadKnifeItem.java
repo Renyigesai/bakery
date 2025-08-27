@@ -42,6 +42,9 @@ public class BreadKnifeItem extends DiggerItem {
         super(pAttackDamageModifier, pAttackSpeedModifier, pTier, BlockTags.MINEABLE_WITH_AXE, pProperties);
     }
 
+
+
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack hand = pPlayer.getItemInHand(pUsedHand);

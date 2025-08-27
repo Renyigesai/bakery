@@ -1,0 +1,13 @@
+{
+  "name": "guide.bakeries.entries.fresh_cheese_cube",
+  "icon": "bakeries:fresh_cheese_cube",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:fresh_cheese_cube",
+      "title": "item.bakeries.fresh_cheese_cube",
+      "text": "guide.bakeries.descr.fresh_cheese_cube"
+    }
+  ]
+}

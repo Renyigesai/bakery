@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.cake;
 
+import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.init.BakeriesMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TiramisuBlock extends BCakeBlock{
+public class TiramisuBlock extends BCakeBlock {
     public TiramisuBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel((l) -> 1));
     }

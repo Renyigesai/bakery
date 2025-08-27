@@ -1,6 +1,6 @@
 {
   "name": "guide.bakeries.categories.cake_making_process",
   "sortnum":4,
-  "description": "",
+  "description": "guide.bakeries.categories.descr.cake_making_process",
   "icon": "bakeries:cream_cake"
 }

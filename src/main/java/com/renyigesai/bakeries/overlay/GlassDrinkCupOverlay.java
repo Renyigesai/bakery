@@ -50,13 +50,11 @@ public class GlassDrinkCupOverlay {
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
     }
-
     public static void setVisible(Player player, BlockEntity entity) {
         if (player.level().isClientSide) { // 确保只在客户端调用
             playerViewMap.put(player.getUUID(), entity);
         }
     }
-
 //    @SubscribeEvent
 //    public static void onPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
 //        LocalPlayer player = event.getPlayer();

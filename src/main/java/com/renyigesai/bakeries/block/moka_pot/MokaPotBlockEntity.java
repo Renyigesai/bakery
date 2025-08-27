@@ -79,7 +79,7 @@ public class MokaPotBlockEntity extends BlockEntity {
     }
 
     public static void craftTick(Level level, BlockPos pos, BlockState state, MokaPotBlockEntity blockEntity) {
-        if (blockEntity.isCraft(level, pos)) {
+        if (blockEntity.isCraft(level, pos) && !blockEntity.isInventoryFull()) {
             blockEntity.tick();
             setChanged(level, pos, state);
             if (!level.isClientSide) {

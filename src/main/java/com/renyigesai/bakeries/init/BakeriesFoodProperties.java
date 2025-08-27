@@ -40,6 +40,9 @@ public class BakeriesFoodProperties {
     public static final FoodProperties CAKE_ROLL;
     public static final FoodProperties FOAMED_CREAM;
     public static final FoodProperties SLICED_POUND_CAKE;
+    public static final FoodProperties CREAM_CAKE_CUBE;
+    public static final FoodProperties CHEESE_CREAM_BREAD;
+    public static final FoodProperties MATCHA_LATTE;
 
 
     static {
@@ -82,7 +85,7 @@ public class BakeriesFoodProperties {
 
         CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
-        MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(0.6f).build();
+        MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(0.75f).build();
 
         FOCACCIA = new FoodProperties.Builder().nutrition(8).saturationMod(1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1F).build();
@@ -102,6 +105,8 @@ public class BakeriesFoodProperties {
         BROWN_SUGAR_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
 
         CREAM_BINGLE_COFFEE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).nutrition(1).saturationMod(0.5f).alwaysEat().build();
+
+        MATCHA_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(1).saturationMod(0.5f).alwaysEat().build();
 
         DIRTY_CHOCO_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1200),1F)
@@ -129,5 +134,9 @@ public class BakeriesFoodProperties {
         FOAMED_CREAM = new FoodProperties.Builder().nutrition(1).saturationMod(1f).alwaysEat().build();
 
         SLICED_POUND_CAKE = new FoodProperties.Builder().nutrition(1).saturationMod(1f).alwaysEat().build();
+
+        CREAM_CAKE_CUBE = new FoodProperties.Builder().nutrition(5).saturationMod(0.4f).effect(()->new MobEffectInstance(BakeriesMobEffects.SOFT.get(),1200),1f).effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1f).alwaysEat().build();
+
+        CHEESE_CREAM_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(1f).effect(()->new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200),1f).build();
     }
 }

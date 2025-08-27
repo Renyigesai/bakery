@@ -28,7 +28,6 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.MOKA_POT_FILL.get());//装有咖啡的摩卡壶
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());//面胚制作台
                         output.accept(BakeriesItems.CUPBOARD.get());//厨台
-//                        output.accept(BakeriesItems.BAYSALT_FRAME.get());//晒盐框
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());//发酵罐
                         output.accept(BakeriesItems.YEAST_TANK.get());//满装酵母罐
                         output.accept(BakeriesItems.CHEESE_TANK.get());//满装奶酪罐
@@ -39,8 +38,14 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.MENU.get());//菜单
                         output.accept(BakeriesItems.WOOD_TRAY.get());//木盘
                         output.accept(BakeriesItems.WOOD_COUNTER.get());//木质柜台
+                        output.accept(BakeriesItems.COFFEE_TABLE.get());//咖啡桌
+                        output.accept(BakeriesItems.SOFA.get());//沙发
+                        output.accept(BakeriesItems.SOFA_LIGHT_GRAY.get());//淡灰色沙发
+                        output.accept(BakeriesItems.SOFA_RED.get());//紅色沙发
+                        output.accept(BakeriesItems.CASH_REGISTER_COMPUTER.get());//收银电脑
                         output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐
+                        output.accept(BakeriesItems.CAKE_BOX.get());//蛋糕盒
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR.get());//玻璃柜门
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR_TWO.get());//玻璃柜门二号
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());//黑白混凝土
@@ -49,11 +54,12 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.MOULD.get());//模具
                         output.accept(BakeriesItems.MOULD_TWO.get());//模具
                         output.accept(BakeriesItems.PAPER_CUP.get());//纸杯
-//                        output.accept(BakeriesItems.SALT_SCRAPER_RAKE.get());//盐耙
+                        output.accept(BakeriesItems.SILICONE_PAPER.get());//油纸
                         //原材料/食材
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR.get());//全麦面粉
                         output.accept(BakeriesItems.FLOUR.get());//面粉
                         output.accept(BakeriesItems.COCOA_POWDER.get());//可可粉
+                        output.accept(BakeriesItems.MATCHA_POWDER.get());//抹茶粉
                         output.accept(BakeriesItems.SALT_ORE.get());//盐矿石
                         output.accept(BakeriesItems.DEEPSLATE_SALT_ORE.get());//深层盐矿石
                         output.accept(BakeriesItems.SALT_WATER_BUCKET.get());//盐水桶
@@ -88,9 +94,10 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());//全麦贝果
                         output.accept(BakeriesItems.ROUND_BREAD.get());//圆面包
                         output.accept(BakeriesItems.BERRY_BREAD.get());//莓果面包
+                        output.accept(BakeriesItems.CHEESE_CREAM_BREAD.get());//莓果面包
                         output.accept(BakeriesItems.BROWN_SUGAR_ROLL.get());//红糖卷
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());//菠萝包
-                        output.accept(BakeriesItems.MEAT_FLOSS_BREAD.get());//肉松面包
+                        output.accept(BakeriesItems.MEAT_FLOSS_BREAD_ROLL.get());//肉松面包卷
                         output.accept(BakeriesItems.CROISSANT.get());//可颂
                         output.accept(BakeriesItems.SALT_CROISSANT.get());//盐可颂
                         output.accept(BakeriesItems.TOAST.get());//吐司
@@ -116,8 +123,10 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.POUND_CAKE.get());//磅蛋糕
                         output.accept(BakeriesItems.SLICED_POUND_CAKE.get());//磅蛋糕切片
                         output.accept(BakeriesItems.CREAM_CAKE.get());//奶油蛋糕
+                        output.accept(BakeriesItems.CREAM_CAKE_CUBE.get());//奶油蛋糕切块
                         output.accept(BakeriesItems.TIRAMISU.get());//提拉米苏
                         output.accept(BakeriesItems.CARROT_CAKE.get());//胡萝卜蛋糕
+//                        output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕
                         /*
                         饮料
                         */
@@ -125,6 +134,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.ICED_LATTE.get());//冰拿铁
                         output.accept(BakeriesItems.BROWN_SUGAR_LATTE.get());//黑铁拿铁
                         output.accept(BakeriesItems.CREAM_BINGLE_COFFEE.get());//奶油冰冰乐
+                        output.accept(BakeriesItems.MATCHA_LATTE.get());//抹茶拿铁
                         /*
                         唱片
                         */
@@ -148,6 +158,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SCONE_DOUGH.get());
                         output.accept(BakeriesItems.MOULD_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_CARROT_CAKE_PASTE.get());
+                        output.accept(BakeriesItems.MOULD_BASQUE_CAKE_PASTE.get());
                         output.accept(BakeriesItems.PAPER_CUP_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_POUND_CAKE_PASTE.get());
                         output.accept(BakeriesItems.BAGEL_DOUGH.get());
@@ -156,7 +167,6 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BERRY_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.BROWN_SUGAR_ROLL_DOUGH.get());
                         output.accept(BakeriesItems.PINEAPPLE_BUN_DOUGH.get());
-                        output.accept(BakeriesItems.MEAT_FLOSS_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.CROISSANT_DOUGH.get());
                         output.accept(BakeriesItems.SALT_CROISSANT_DOUGH.get());
                         output.accept(BakeriesItems.MOULD_TOAST_DOUGH.get());

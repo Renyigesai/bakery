@@ -154,6 +154,15 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         setChanged();
     }
 
+    private boolean hasInput() {
+        for(int i = 0; i < 9; ++i) {
+            if (!this.inventory.getStackInSlot(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setFiltrationIndex(int filtrationIndex) {
         this.filtrationIndex = filtrationIndex;
     }
@@ -245,12 +254,14 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     }
 
     public static void craftTick(Level level, BlockPos pos, BlockState state, BlenderBlockEntity blockEntity) {
-        blockEntity.craftItem();
-        boolean temp = blockEntity.cookingTotalTime > 0;
-        level.setBlock(pos,state.setValue(BlenderBlock.POWERED,temp),3);
-        setChanged(level, pos, state);
-        if (!level.isClientSide) {
-            level.sendBlockUpdated(pos, state, state, 3);
+        if (blockEntity.hasInput()) {
+            blockEntity.craftItem();
+            boolean temp = blockEntity.cookingTotalTime > 0;
+            level.setBlock(pos, state.setValue(BlenderBlock.POWERED, temp), 3);
+            setChanged(level, pos, state);
+            if (!level.isClientSide) {
+                level.sendBlockUpdated(pos, state, state, 3);
+            }
         }
     }
 

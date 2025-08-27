@@ -25,9 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Sniffer.class)
 public abstract class SnifferMixin extends Animal {
 
-
-    @Shadow @Final private static EntityDataAccessor<Integer> DATA_DROP_SEED_AT_TICK;
-
     @Shadow protected abstract BlockPos getHeadBlock();
 
     protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
@@ -41,19 +38,4 @@ public abstract class SnifferMixin extends Animal {
         SnifferDropSeedEvent snifferDropSeedEvent = new SnifferDropSeedEvent(level,blockpos);
         MinecraftForge.EVENT_BUS.post(snifferDropSeedEvent);
     }
-
-//    @Inject(method = "dropSeed",at = @At("HEAD"))
-//    private void dropSeed(CallbackInfo ci){
-//        if (!this.level().isClientSide() && this.entityData.get(DATA_DROP_SEED_AT_TICK) == this.tickCount){
-//            BlockPos blockpos = this.getHeadBlock();
-//            Holder<Biome> biomeHolder = this.level().getBiome(blockpos);
-//            ServerLevel serverlevel = (ServerLevel)this.level();
-//            if (biomeHolder.is(BiomeTags.IS_JUNGLE)){
-//                ItemEntity itemEntity = new ItemEntity(serverlevel, blockpos.getX(),blockpos.getY(),blockpos.getZ(),new ItemStack(BakeriesItems.RAW_COFFEE_BEAN.get()));
-//                itemEntity.setDefaultPickUpDelay();
-//                serverlevel.addFreshEntity(itemEntity);
-//            }
-//        }
-//    }
-
 }

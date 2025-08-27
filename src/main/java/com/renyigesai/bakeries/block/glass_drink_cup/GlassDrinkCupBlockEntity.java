@@ -119,22 +119,8 @@ public class GlassDrinkCupBlockEntity extends BlockEntity {
         }
     }
 
-    public ItemStack getCraftItem(){
-        Optional<CoffeeRecipe> recipeOptional = getCurrentRecipe();
-        if (recipeOptional.isPresent()) {
-            CoffeeRecipe recipe = recipeOptional.get();
-            for (int i = 0; i < recipe.getIngredients().size(); i++) {
-                if (recipe.getIngredients().get(i).test(inventory.getStackInSlot(i))) {
-                    break;
-                }
-            }
-            return recipe.getResultItem(level.registryAccess()).copy();
-        }
-        return ItemStack.EMPTY;
-    }
-
     public Optional<CoffeeRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(4); // 假设输入容器大小为 4
+        SimpleContainer inventory = new SimpleContainer(4);
         for (int i = 0; i < 4; i++) {
             inventory.setItem(i, this.inventory.getStackInSlot(i));
         }
@@ -146,9 +132,11 @@ public class GlassDrinkCupBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, GlassDrinkCupBlockEntity blockEntity) {
-        blockEntity.craftTick();
-        if (!level.isClientSide) {
-            level.sendBlockUpdated(pos, state, state, 2);
+        if (!blockEntity.isInventoryFull()) {
+            blockEntity.craftTick();
+            if (!level.isClientSide) {
+                level.sendBlockUpdated(pos, state, state, 2);
+            }
         }
     }
 

@@ -7,11 +7,6 @@
       "type": "patchouli:crafting",
       "recipe": "bakeries:blender",
       "text": "guide.bakeries.descr.blender"
-    },
-    {
-      "type": "patchouli:spotlight",
-      "item": "minecraft:redstone_torch",
-      "text": "guide.bakeries.descr.blender_2"
     }
   ]
 }

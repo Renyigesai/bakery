@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.block.cake;
 
+import com.renyigesai.bakeries.api.block.BCakeBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CarrotCakeBlock extends BCakeBlock{
+public class CarrotCakeBlock extends BCakeBlock {
     public CarrotCakeBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel((l) -> 1));
     }

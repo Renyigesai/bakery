@@ -7,6 +7,11 @@
     "bakeries:menu_block",
     "bakeries:wood_tray",
     "bakeries:tray_scone",
-    "bakeries:fermentation_barrel"
+    "bakeries:fermentation_barrel",
+    "bakeries:bread_holders",
+    "bakeries:sofa",
+    "bakeries:sofa_red",
+    "bakeries:sofa_light_gray",
+    "bakeries:coffee_table"
   ]
 }

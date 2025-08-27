@@ -1,16 +1,12 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.init.BakeriesItemTag;
-import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
 import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,26 +19,19 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
-/*
-* 由于吐司只是一个单纯的方块，他的物品不需要可食用。
-* Since the toast is just a simple Block, his Item does not need to be edible.
-* */
-public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
+public class ToastBlock extends AKnifeCutBlock {
+    /*由于吐司只是一个单纯的方块，他的物品不需要可食用*/
     public static final ModIntegerProperty PILE = ModIntegerProperty.create("pile",1,2);
-    public static final IntegerProperty SLICE = IntegerProperty.create("slice",1,4);
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
     protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
@@ -51,7 +40,7 @@ public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutB
     public ToastBlock(Properties pProperties,Supplier<Item> sliceItem) {
         super(pProperties);
         this.sliceItem = sliceItem;
-        this.registerDefaultState(this.stateDefinition.any().setValue(PILE,1).setValue(SLICE,4).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(SLICE,4).setValue(PILE,1).setValue(FACING,Direction.NORTH));
     }
 
     @Override
@@ -59,36 +48,39 @@ public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutB
         ItemStack hand = pPlayer.getItemInHand(pHand);
         int pile = pState.getValue(PILE);
         if (isKnifeItem(hand) && pile == 1){
-            return cut(pLevel,pPos,pState,pPlayer);
+            cut(pLevel,pState,pPos,pPlayer,hand,pHand);
+            return InteractionResult.SUCCESS;
         }
-
-        if (hand.is(asItem()) && pile < 2){
+        int slice = pState.getValue(SLICE);
+        if (hand.is(asItem()) && pile < 2 && slice == 4){
             if (!pPlayer.getAbilities().instabuild) {
                 hand.shrink(1);
             }
-            return pileUp(pLevel,pPos,pState,pPlayer);
+            return pileUp(pLevel,pPos,pState);
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
-    public ItemStack getSliceItem() {
-        return new ItemStack(this.sliceItem.get());
+    @Override
+    public Property<Integer> getSliceProperty() {
+        return SLICE;
     }
 
-    protected InteractionResult cut (Level level, BlockPos pos, BlockState state, Player playerIn){
-        int slice = state.getValue(SLICE);
-        if (slice > 1){
-            level.setBlock(pos, state.setValue(SLICE, slice - 1), 6);
-        }else {
-            level.removeBlock(pos,false);
-        }
-        ItemUtil.spawnItemEntity(level, this.getSliceItem(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new Vec3(0.0,0.0,0.0));
-
-        level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
-        return InteractionResult.SUCCESS;
+    @Override
+    public int getMaxSlice() {
+        return 1;
     }
 
-    protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state, Player playerIn){
+    @Override
+    public int getSliceItemCount() {
+        return 1;
+    }
+
+    public Item getSliceItem() {
+        return this.sliceItem.get();
+    }
+
+    protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state){
         Shortcuts.setBlock(level,pos,state,PILE,1,true);
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
@@ -121,7 +113,8 @@ public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutB
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, PILE, SLICE);
+        super.createBlockStateDefinition(builder);
+        builder.add(SLICE,PILE,FACING);
     }
 
     @Override
@@ -142,10 +135,5 @@ public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutB
     @Override
     public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
         return false;
-    }
-
-    @Override
-    public boolean isKnifeItem(ItemStack itemStack) {
-        return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge:tools/knives")));
     }
 }

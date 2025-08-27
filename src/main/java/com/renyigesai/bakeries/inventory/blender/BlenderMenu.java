@@ -105,27 +105,35 @@ public class BlenderMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
+    public ItemStack quickMoveStack(Player player, int slotIndex) {
+        ItemStack originalStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(slotIndex);
+
         if (slot != null && slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
-            if (index < 5) {
-                if (!this.moveItemStackTo(itemstack1, 5, 41, true)) {
+            ItemStack stackInSlot = slot.getItem();
+            originalStack = stackInSlot.copy();
+            if (slotIndex < 11) {
+                if (!this.moveItemStackTo(stackInSlot, 21, 56, false)) { // 尝试移到玩家背包（36槽）
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 0, 4, false)) {
-                return ItemStack.EMPTY;
+            }
+            else{
+                if (!this.moveItemStackTo(stackInSlot, 0, 11, false)) { // 10~18是原料槽
+                    return ItemStack.EMPTY;
+                }
             }
 
-            if (itemstack1.isEmpty()) {
+            if (stackInSlot.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
+            if (stackInSlot.getCount() == originalStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
         }
-        return itemstack;
+
+        return originalStack;
     }
 
     @Override

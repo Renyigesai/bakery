@@ -2,16 +2,16 @@
   "type": "bakeries:blender",
   "ingredients": [
     {
-      "item": "bakeries:whole_wheat_flour"
+      "tag": "forge:flour/wheat"
     },
     {
-      "item": "bakeries:whole_wheat_flour"
+      "tag": "forge:flour/wheat"
     },
     {
-      "item": "bakeries:whole_wheat_flour"
+      "tag": "forge:flour/wheat"
     },
     {
-      "item": "bakeries:whole_wheat_flour"
+      "tag": "forge:flour/wheat"
     },
     {
       "item": "minecraft:sugar"

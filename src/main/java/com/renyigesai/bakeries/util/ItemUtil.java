@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.util;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -21,6 +22,12 @@ public class ItemUtil {
     public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, Vec3 pDeltaMovement) {
         ItemEntity entity = new ItemEntity(level, x, y, z, stack);
         entity.setDeltaMovement(pDeltaMovement);
+        level.addFreshEntity(entity);
+    }
+
+    public static void spawnItemEntity(Level level, ItemStack stack, BlockPos pos) {
+        ItemEntity entity = new ItemEntity(level, pos.getX() +  0.5,pos.getY() +  0.5,pos.getZ() +  0.5, stack);
+        entity.setDeltaMovement(new Vec3(0.0,0.0,0.0));
         level.addFreshEntity(entity);
     }
 

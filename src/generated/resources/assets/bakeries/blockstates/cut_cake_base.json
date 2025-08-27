@@ -1,12 +1,8 @@
 {
   "variants": {
-    "facing=east,roll=false": {"model": "bakeries:block/cut_cake_base", "y": 270},
-    "facing=north,roll=false": {"model": "bakeries:block/cut_cake_base", "y": 180},
-    "facing=south,roll=false": {"model": "bakeries:block/cut_cake_base"},
-    "facing=west,roll=false": {"model": "bakeries:block/cut_cake_base", "y": 90},
-    "facing=east,roll=true": {"model": "bakeries:block/cake_roll", "y": 270},
-    "facing=north,roll=true": {"model": "bakeries:block/cake_roll", "y": 180},
-    "facing=south,roll=true": {"model": "bakeries:block/cake_roll"},
-    "facing=west,roll=true": {"model": "bakeries:block/cake_roll", "y": 90}
+    "facing=east": {"model": "bakeries:block/cut_cake_base", "y": 270},
+    "facing=north": {"model": "bakeries:block/cut_cake_base", "y": 180},
+    "facing=south": {"model": "bakeries:block/cut_cake_base"},
+    "facing=west": {"model": "bakeries:block/cut_cake_base", "y": 90}
   }
 }

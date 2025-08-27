@@ -81,10 +81,36 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
             this.addSlot(new Slot(inv, si, 8 + si * 18, 142));
     }
 
-
     @Override
-    public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
-        return ItemStack.EMPTY;
+    public ItemStack quickMoveStack(Player player, int slotIndex) {
+        ItemStack originalStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(slotIndex);
+
+        if (slot != null && slot.hasItem()) {
+            ItemStack stackInSlot = slot.getItem();
+            originalStack = stackInSlot.copy();
+            if (slotIndex < 4) {
+                if (!this.moveItemStackTo(stackInSlot, 4, 39, false)) { // 尝试移到玩家背包（36槽）
+                    return ItemStack.EMPTY;
+                }
+            }
+            else{
+                if (!this.moveItemStackTo(stackInSlot, 0, 4, false)) { // 10~18是原料槽
+                    return ItemStack.EMPTY;
+                }
+            }
+
+            if (stackInSlot.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+            if (stackInSlot.getCount() == originalStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+        }
+
+        return originalStack;
     }
 
     @Override

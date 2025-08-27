@@ -2,35 +2,27 @@ package com.renyigesai.bakeries.event;
 
 import com.renyigesai.bakeries.accessor.VillagerAccessor;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
-import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
-import com.renyigesai.bakeries.block.cake.CakeProcessingInitialBlock;
-import com.renyigesai.bakeries.block.cake.CakeProcessingInitialBlockEntity;
 import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
 import com.renyigesai.bakeries.client.LookBlockEntityMap;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.RepeatEatItem;
 import com.renyigesai.bakeries.util.ItemUtil;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -83,7 +75,6 @@ public class BakeriesEvents {
         Level level = event.getLevel();
         if (entity == null || level == null)
             return;
-
             ItemStack mainHandItem = entity.getMainHandItem();
             ItemStack offhandItem = entity.getOffhandItem();
             if (offhandItem.is(BakeriesItems.BREAD_KNIFE.get()) && mainHandItem.is(Items.EGG)) {
@@ -91,6 +82,9 @@ public class BakeriesEvents {
                     event.setCanceled(true);
                     mainHandItem.shrink(1);
                     ItemUtil.givePlayerItem(entity, new ItemStack(BakeriesItems.WHOLE_EGG.get()));
+                    if (!entity.getAbilities().instabuild) {
+                        offhandItem.hurtAndBreak(1,entity, (p_41300_) -> p_41300_.broadcastBreakEvent(entity.getUsedItemHand()));
+                    }
                 }
                 level.playLocalSound(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.TURTLE_EGG_BREAK, SoundSource.PLAYERS, 1.0F, 1.0F, false);
             }
@@ -107,36 +101,9 @@ public class BakeriesEvents {
             LookBlockEntityMap.setBlocks(player,blockEntity);
             return;
         }
-        if (state.getBlock() == BakeriesBlocks.BLENDER.get()){
-            BlenderBlockEntity blockEntity = (BlenderBlockEntity) level.getBlockEntity(blockPos);
-            LookBlockEntityMap.setBlocks(player,blockEntity);
-            return;
-        }
         Map<UUID, BlockEntity> blocks = LookBlockEntityMap.getBlocks();
         if (blocks.get(player.getUUID()) != null){
             blocks.remove(player.getUUID());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onUseCakeBlock(PlayerInteractEvent.RightClickBlock event){
-        if (event.getHand() != event.getEntity().getUsedItemHand())
-            return;
-        BlockState blockState = event.getLevel().getBlockState(event.getPos());
-        ItemStack hand = event.getEntity().getItemInHand(event.getHand());
-        boolean flag;
-        if (blockState.is(BakeriesBlocks.CUT_CAKE_BASE.get()) && !hand.isEmpty()){
-            BlockEntity blockEntity = event.getLevel().getBlockEntity(event.getPos());
-            if (blockEntity instanceof CakeProcessingInitialBlockEntity cake && event.getEntity().isShiftKeyDown()){
-                flag = hand.getItem().isEdible() && !(hand.getItem() instanceof BlockItem) && !hand.hasCraftingRemainingItem() && !hand.is(BakeriesItems.CAKE_ROLL.get());
-                if (flag){
-                    if (!event.getLevel().isClientSide) {
-                        event.setCanceled(true);
-                    }
-                    event.setCancellationResult(InteractionResult.sidedSuccess(cake.addItem(hand)));
-                }
-            }
-
         }
     }
 }

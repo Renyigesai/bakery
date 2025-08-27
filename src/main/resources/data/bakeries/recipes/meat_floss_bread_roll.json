@@ -1,0 +1,17 @@
+
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:sliced_toast"
+    },
+    {
+      "item": "bakeries:meat_floss"
+    }
+  ],
+  "result": {
+    "item": "bakeries:meat_floss_bread_roll",
+    "count": 1
+  }
+}

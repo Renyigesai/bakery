@@ -98,12 +98,11 @@ public class MokaPotBlock extends BaseEntityBlock {
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof MokaPotBlockEntity mokaPotBlockEntity && mokaPotBlockEntity.getCookingTotalTime() > 0){
-            double x = pPos.getX() + 0.5;
-            double y = pPos.getY() + 0.5;
-            double z = pPos.getZ() + 0.5;
-                pLevel.addParticle(ParticleTypes.CLOUD,x,y,z,0.0,0.01,0.0);
+            double d0 = (double)pPos.getX() + 0.4D + (double)pRandom.nextFloat() * 0.2D;
+            double d1 = (double)pPos.getY() + 0.5D + (double)pRandom.nextFloat() * 0.3D;
+            double d2 = (double)pPos.getZ() + 0.4D + (double)pRandom.nextFloat() * 0.2D;
+            pLevel.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
-        super.animateTick(pState, pLevel, pPos, pRandom);
     }
 
     @Override

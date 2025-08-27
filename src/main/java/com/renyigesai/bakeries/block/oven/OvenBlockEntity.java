@@ -174,6 +174,11 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
             updateBlock(pOvenBlockEntity);
         }
     }
+
+    public ItemStackHandler getItemHandler() {
+        return this.itemHandler;
+    }
+
     public static void setFire(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
         updateBlock(pOvenBlockEntity);
         boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0;

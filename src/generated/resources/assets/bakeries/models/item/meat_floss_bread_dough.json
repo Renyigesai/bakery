@@ -1,7 +1,0 @@
-{
-  "parent": "bakeries:custom/meat_floss_bread_1",
-  "textures": {
-    "0": "bakeries:item/meat_floss_bread_dough",
-    "particle": "bakeries:item/meat_floss_bread_dough"
-  }
-}

@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:flour_sieve",
+  "output": {
+    "item": "bakeries:matcha_powder",
+    "count": 2
+  },
+  "ingredient":  {
+    "tag": "minecraft:leaves"
+  }
+}

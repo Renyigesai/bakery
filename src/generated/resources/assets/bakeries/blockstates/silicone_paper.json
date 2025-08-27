@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/silicone_paper", "y": 270},
+    "facing=north": {"model": "bakeries:block/silicone_paper", "y": 180},
+    "facing=south": {"model": "bakeries:block/silicone_paper"},
+    "facing=west": {"model": "bakeries:block/silicone_paper", "y": 90}
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/multi_layer_cream_cake", "y": 270},
+    "facing=north": {"model": "bakeries:block/multi_layer_cream_cake", "y": 180},
+    "facing=south": {"model": "bakeries:block/multi_layer_cream_cake"},
+    "facing=west": {"model": "bakeries:block/multi_layer_cream_cake", "y": 90}
+  }
+}

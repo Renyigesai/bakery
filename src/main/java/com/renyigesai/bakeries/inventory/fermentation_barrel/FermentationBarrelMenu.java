@@ -1,6 +1,6 @@
 package com.renyigesai.bakeries.inventory.fermentation_barrel;
 
-import com.renyigesai.bakeries.block.FermentationBarrelBlockEntity;
+import com.renyigesai.bakeries.block.fermentation_barrel.FermentationBarrelBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -87,27 +87,33 @@ public class FermentationBarrelMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
+    public ItemStack quickMoveStack(Player player, int slotIndex) {
+        ItemStack originalStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(slotIndex);
+
         if (slot != null && slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
-            if (index < 5) {
-                if (!this.moveItemStackTo(itemstack1, 5, 41, true)) {
+            ItemStack stackInSlot = slot.getItem();
+            originalStack = stackInSlot.copy();
+            if (slotIndex < 6 || slotIndex == 7) {
+                if (!this.moveItemStackTo(stackInSlot, 8, 43, false)) { // 尝试移到玩家背包（36槽）
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 0, 4, false)) {
-                return ItemStack.EMPTY;
             }
-
-            if (itemstack1.isEmpty()) {
+            else{
+                if (!this.moveItemStackTo(stackInSlot, 0, 6, false)) { // 10~18是原料槽
+                    return ItemStack.EMPTY;
+                }
+            }
+            if (stackInSlot.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
+            if (stackInSlot.getCount() == originalStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
         }
-        return itemstack;
+        return originalStack;
     }
 
     @Override

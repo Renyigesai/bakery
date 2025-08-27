@@ -1,0 +1,38 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    [
+      {
+        "tag": "forge:eggs"
+      },
+      {
+        "item": "bakeries:whole_egg"
+      }
+    ],
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "bakeries:fresh_cheese_cube"
+    },
+    {
+      "item": "bakeries:fresh_cheese_cube"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "forge:flour"
+    }
+  ],
+  "container": {
+    "item": "bakeries:mould_two"
+  },
+  "output": {
+    "item": "bakeries:mould_basque_cake_paste",
+    "count": 1
+  }
+}

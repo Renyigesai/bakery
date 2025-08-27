@@ -33,7 +33,6 @@ public class CoffeeRecipe implements Recipe<SimpleContainer> {
         if (pLevel.isClientSide) {
             return false;
         }
-        // 检查输入容器中的物品是否与配方匹配
         for (int i = 0; i < inputItems.size(); i++) {
             if (!inputItems.get(i).test(pContainer.getItem(i))) {
                 return false;

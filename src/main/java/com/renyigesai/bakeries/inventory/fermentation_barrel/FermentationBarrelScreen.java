@@ -2,8 +2,6 @@ package com.renyigesai.bakeries.inventory.fermentation_barrel;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.block.FermentationBarrelBlockEntity;
-import com.renyigesai.bakeries.util.TextUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -12,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
@@ -26,8 +23,8 @@ public class FermentationBarrelScreen extends AbstractContainerScreen<Fermentati
 
     public FermentationBarrelScreen(FermentationBarrelMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = 180; // GUI 宽度
-        this.imageHeight = 170; // GUI 高度
+        this.imageWidth = 176; // GUI 宽度
+        this.imageHeight = 166; // GUI 高度
     }
 
     @Override
@@ -41,6 +38,12 @@ public class FermentationBarrelScreen extends AbstractContainerScreen<Fermentati
         int y = (height - imageHeight) / 2;
         // 绘制背景
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        int width = menu.getBlockEntity().getCookingTotalTime();
+        int progressWidth = (int) (18 * (width / 3600.0f));
+        pGuiGraphics.blit(TEXTURE, x + 93, y + 51, 176, 25, progressWidth, 4); // 绘制进度条
+        if (menu.getBlockEntity().getCookingTotalTime()>0){
+            pGuiGraphics.blit(TEXTURE, x + 98, y + 23, 176, 0, 8, 25); // 绘制气泡
+        }
     }
 
     @Override

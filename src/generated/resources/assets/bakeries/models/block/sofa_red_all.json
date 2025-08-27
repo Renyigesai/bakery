@@ -1,0 +1,7 @@
+{
+  "parent": "bakeries:block/sofa_all",
+  "textures": {
+    "0": "bakeries:block/sofa_red",
+    "particle": "bakeries:block/sofa_red"
+  }
+}

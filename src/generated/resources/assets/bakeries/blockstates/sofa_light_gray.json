@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east,left=false,right=false": {"model": "bakeries:block/sofa_light_gray", "y": 270},
+    "facing=east,left=true,right=false": {"model": "bakeries:block/sofa_light_gray_left", "y": 270},
+    "facing=east,left=false,right=true": {"model": "bakeries:block/sofa_light_gray_right", "y": 270},
+    "facing=east,left=true,right=true": {"model": "bakeries:block/sofa_light_gray_all", "y": 270},
+
+    "facing=north,left=false,right=false": {"model": "bakeries:block/sofa_light_gray", "y": 180},
+    "facing=north,left=true,right=false": {"model": "bakeries:block/sofa_light_gray_left", "y": 180},
+    "facing=north,left=false,right=true": {"model": "bakeries:block/sofa_light_gray_right", "y": 180},
+    "facing=north,left=true,right=true": {"model": "bakeries:block/sofa_light_gray_all", "y": 180},
+
+    "facing=south,left=false,right=false": {"model": "bakeries:block/sofa_light_gray"},
+    "facing=south,left=true,right=false": {"model": "bakeries:block/sofa_light_gray_left"},
+    "facing=south,left=false,right=true": {"model": "bakeries:block/sofa_light_gray_right"},
+    "facing=south,left=true,right=true": {"model": "bakeries:block/sofa_light_gray_all"},
+
+    "facing=west,left=false,right=false": {"model": "bakeries:block/sofa_light_gray", "y": 90},
+    "facing=west,left=true,right=false": {"model": "bakeries:block/sofa_light_gray_left", "y": 90},
+    "facing=west,left=false,right=true": {"model": "bakeries:block/sofa_light_gray_right", "y": 90},
+    "facing=west,left=true,right=true": {"model": "bakeries:block/sofa_light_gray_all", "y": 90}
+  }
+}

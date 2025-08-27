@@ -41,12 +41,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class CakeProcessingInitialBlock extends BaseEntityBlock {
+public class CakeProcessingInitialBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty ROLL = BooleanProperty.create("roll");
     public CakeProcessingInitialBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.CAKE));
-        this.registerDefaultState(this.stateDefinition.any().setValue(ROLL,false).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
@@ -58,16 +57,7 @@ public class CakeProcessingInitialBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         if (hand.isEmpty()){
-            if (pState.getValue(ROLL)){
-                BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-                if (blockEntity instanceof CakeProcessingInitialBlockEntity cake){
-                    summonCakeRollItem(cake,pLevel,pPos.getX() + 0.5,pPos.getY() + 0.5,pPos.getZ() + 0.5,new Vec3(0.0,0.0,0.0));
-                }
-                pLevel.removeBlock(pPos,false);
-                return InteractionResult.SUCCESS;
-            }
-            pLevel.setBlock(pPos,pState.setValue(ROLL,true),3);
-            return InteractionResult.SUCCESS;
+            return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         }
         List<Item> keys = getProcessingKey();
         boolean flag = false;
@@ -95,21 +85,6 @@ public class CakeProcessingInitialBlock extends BaseEntityBlock {
     }
 
 
-    private void summonCakeRollItem(CakeProcessingInitialBlockEntity blockEntity, Level level, double x, double y, double z, Vec3 vec3){
-        ItemStack roll = new ItemStack(BakeriesItems.CAKE_ROLL.get(),2);
-        if (blockEntity.noEmpty()){
-            CompoundTag compoundTag = new CompoundTag();
-            ItemStackHandler handler = new ItemStackHandler(4);
-            for (int i = 0; i < blockEntity.inventory.getSlots(); i++) {
-                handler.setStackInSlot(i,blockEntity.inventory.getStackInSlot(i));
-            }
-            compoundTag.put("Inventory",handler.serializeNBT());
-            roll.setTag(compoundTag);
-            CakeRollItem.setName(roll);
-        }
-        ItemUtil.spawnItemEntity(level,roll,x,y,z,vec3);
-    }
-
     public static Map<Item, Block> getCakeProcessing(){
         Map<Item,Block> CAKE = new HashMap<>();
         CAKE.put(BakeriesItems.FOAMED_CREAM.get(), BakeriesBlocks.CREAM_CAKE_PROCESSING.get());
@@ -119,12 +94,6 @@ public class CakeProcessingInitialBlock extends BaseEntityBlock {
     public List<Item> getProcessingKey(){
         Set<Item> tagKeys = getCakeProcessing().keySet();
         return new ArrayList<>(tagKeys.stream().toList());
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new CakeProcessingInitialBlockEntity(pPos,pState);
     }
 
     @Override
@@ -142,7 +111,7 @@ public class CakeProcessingInitialBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING,ROLL);
+        pBuilder.add(FACING);
     }
 
 }

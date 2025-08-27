@@ -48,6 +48,7 @@ public class BakeriesMod {
         BakeriesSounds.REGISTRY.register(bus);
         BakeriesFluids.REGISTRY.register(bus);
         BakeriesFluidTypes.REGISTRY.register(bus);
+        BakeriesEntityTypes.ENTITY.register(bus);
         BakeriesVillagers.register(bus);
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
