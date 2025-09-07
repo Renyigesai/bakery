@@ -1,8 +1,6 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.util.ItemUtil;
-import com.renyigesai.bakeries.util.Shortcuts;
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -13,7 +11,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,13 +22,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 public class MilkTankBlock extends TankBlock {
 
-    public static final ModIntegerProperty MILK = ModIntegerProperty.create("milk", 0, 3);
+    public static final IntegerProperty MILK = IntegerProperty.create("milk", 0, 3);
     public static final BooleanProperty SALT = BooleanProperty.create("salt");
 
     public MilkTankBlock(Properties pProperties) {
@@ -58,7 +55,7 @@ public class MilkTankBlock extends TankBlock {
         ItemStack hand = playerIn.getItemInHand(pHand);
         int milk = state.getValue(MILK);
         if (milk > 1){
-            Shortcuts.setBlock(level,pos,state,MILK,1,false);
+            level.setBlock(pos,state.setValue(MILK,milk -1),3);
         }else {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
@@ -72,7 +69,7 @@ public class MilkTankBlock extends TankBlock {
         ItemStack hand = playerIn.getItemInHand(pHand);
         int milk = state.getValue(MILK);
         if (milk < 3){
-            Shortcuts.setBlock(level,pos,state,MILK,1,true);
+            level.setBlock(pos,state.setValue(MILK,milk +1),3);
             hand.shrink(1);
             ItemUtil.givePlayerItem(playerIn,new ItemStack(BakeriesItems.BOTTLE_MILK.get()));
         }return InteractionResult.SUCCESS;

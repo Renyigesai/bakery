@@ -1,0 +1,17 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:foamed_cream"
+    },
+    {
+      "item": "bakeries:fresh_cheese_cube"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:cheese_cream",
+      "count": 2
+    }
+  ]
+}

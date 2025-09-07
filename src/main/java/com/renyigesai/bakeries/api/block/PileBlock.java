@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.api.block;
 
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.util.ItemUtil;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -43,7 +43,7 @@ import java.util.function.Consumer;
 
 @Getter
 public class PileBlock extends HorizontalDirectionalBlock {
-    public static final ModIntegerProperty integerProperty = ModIntegerProperty.create("pile", 1, 4);
+    public static final IntegerProperty integerProperty = IntegerProperty.create("pile", 1, 4);
 
     public PileBlock() {
         super(BlockBehaviour.Properties.of().strength(0.5F,0.5F).sound(SoundType.WOOL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));

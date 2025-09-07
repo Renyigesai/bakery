@@ -1,13 +1,10 @@
 package com.renyigesai.bakeries.api.item;
 
 import com.renyigesai.bakeries.api.block.PileBlock;
-import com.renyigesai.bakeries.util.Shortcuts;
 import com.renyigesai.bakeries.util.TextUtils;
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,6 +21,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -33,16 +31,16 @@ public class FoodBlockItem extends ItemNameBlockItem {
 
     public final boolean effectTooltip;
     public final boolean customField;
-    public final ModIntegerProperty integerProperty;
+    public final IntegerProperty integerProperty;
 
-    public FoodBlockItem(Block block, ModIntegerProperty integerProperty, Item.Properties pProperties, boolean effectTooltip,boolean customField) {
+    public FoodBlockItem(Block block, IntegerProperty integerProperty, Item.Properties pProperties, boolean effectTooltip,boolean customField) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
         this.effectTooltip = effectTooltip;
         this.customField = customField;
     }
 
-    public FoodBlockItem(Block block, ModIntegerProperty integerProperty, Properties pProperties) {
+    public FoodBlockItem(Block block, IntegerProperty integerProperty, Properties pProperties) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
         this.effectTooltip = false;
@@ -66,7 +64,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
                 return this.place(new BlockPlaceContext(pContext));
             }
             if (state.is(thisBlock) && state.hasProperty(this.integerProperty)) {
-                Integer value = state.getValue(this.integerProperty);
+                int value = state.getValue(this.integerProperty);
                 PileBlock newBlock = (PileBlock) thisBlock;
                 if (value < newBlock.getMaxPile()) {
                     level.setBlock(pos, state.setValue(this.integerProperty, value + 1), 3);

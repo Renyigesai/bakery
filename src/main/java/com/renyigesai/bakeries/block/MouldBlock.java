@@ -1,10 +1,7 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
-import com.renyigesai.bakeries.util.Shortcuts;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -25,8 +22,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class MouldBlock extends HorizontalDirectionalBlock {

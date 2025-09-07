@@ -4,13 +4,19 @@ import com.renyigesai.bakeries.accessor.VillagerAccessor;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
 import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
 import com.renyigesai.bakeries.client.LookBlockEntityMap;
+import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.RepeatEatItem;
 import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.WorldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -23,10 +29,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -104,6 +114,28 @@ public class BakeriesEvents {
         Map<UUID, BlockEntity> blocks = LookBlockEntityMap.getBlocks();
         if (blocks.get(player.getUUID()) != null){
             blocks.remove(player.getUUID());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!BakeriesConfig.provideTutorialBooks){
+            return;
+        }
+        Player entity = event.getEntity();
+        if (!ModList.get().isLoaded("patchouli")){
+            if (!entity.level().isClientSide){
+                entity.displayClientMessage(Component.translatable("tip.bakeries.player_logged_in"), false);
+                return;
+            }
+        }
+        boolean b1 = WorldUtil.isDoneAdvancement(entity,entity.level(),new ResourceLocation("bakeries:root"));
+        if (!b1){
+            LootTable lootTables = WorldUtil.getLootTables("bakeries:grant_patchi_book", entity.level());
+            List<ItemStack> fromLootTableItemStack = WorldUtil.getFromLootTableItemStack(lootTables, entity.level(), entity.getOnPos());
+            for (ItemStack itemStack : fromLootTableItemStack) {
+                ItemUtil.givePlayerItem(entity, itemStack);
+            }
         }
     }
 }

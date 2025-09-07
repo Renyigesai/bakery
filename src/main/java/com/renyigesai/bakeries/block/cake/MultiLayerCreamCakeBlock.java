@@ -42,7 +42,7 @@ public class MultiLayerCreamCakeBlock extends HorizontalDirectionalBlock impleme
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
-        if (true){
+        if (isKnifeItem(hand)){
             pLevel.removeBlock(pPos,false);
             ItemUtil.spawnItemEntity(pLevel,new ItemStack(BakeriesItems.CREAM_CAKE_CUBE.get(),8),pPos);
             if (!pPlayer.getAbilities().instabuild) {

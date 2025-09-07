@@ -1,0 +1,14 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:butter_cube",
+      "count": 2
+    }
+  ]
+}

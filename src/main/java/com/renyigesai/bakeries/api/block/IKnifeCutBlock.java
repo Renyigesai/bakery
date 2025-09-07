@@ -8,6 +8,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -51,9 +53,28 @@ public interface IKnifeCutBlock {
             level.removeBlock(pos,false);
         }
         ItemUtil.spawnItemEntity(level, new ItemStack(getSliceItem(), getSliceItemCount()),pos);
-        if (!player.getAbilities().instabuild) {
+        if (!player.getAbilities().instabuild){
             hand.hurtAndBreak(1,player, (p_41300_) -> p_41300_.broadcastBreakEvent(pUsedHand));
         }
-        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
+        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.BLOCKS, 0.8F, 0.8F);
+    }
+
+    default void cut(Level level, BlockState state, BlockPos pos, LivingEntity entity, ItemStack hand, EquipmentSlot slot) {
+        boolean b1 = getSliceProperty() != null;
+        boolean b2 = false;
+        if (b1) {
+            int slice = state.getValue(getSliceProperty());
+            if (slice > getMaxSlice()) {
+                level.setBlock(pos, state.setValue(getSliceProperty(), slice - 1), 3);
+            }else {
+                b2 = true;
+            }
+        }
+        if (!b1 || b2){
+            level.removeBlock(pos,false);
+        }
+        ItemUtil.spawnItemEntity(level, new ItemStack(getSliceItem(), getSliceItemCount()),pos);
+        hand.hurtAndBreak(1,entity, (p_41300_) -> p_41300_.broadcastBreakEvent(slot));
+        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.BLOCKS, 0.8F, 0.8F);
     }
 }

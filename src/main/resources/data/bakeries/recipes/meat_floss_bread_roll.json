@@ -7,11 +7,32 @@
       "item": "bakeries:sliced_toast"
     },
     {
+      "item": "bakeries:sliced_toast"
+    },
+    {
+      "item": "bakeries:sliced_toast"
+    },
+    {
+      "item": "bakeries:sliced_toast"
+    },
+    {
       "item": "bakeries:meat_floss"
+    },
+    {
+      "item": "bakeries:meat_floss"
+    },
+    {
+      "item": "bakeries:meat_floss"
+    },
+    {
+      "item": "bakeries:meat_floss"
+    },
+    {
+      "item": "bakeries:bearnaise"
     }
   ],
   "result": {
     "item": "bakeries:meat_floss_bread_roll",
-    "count": 1
+    "count": 4
   }
 }

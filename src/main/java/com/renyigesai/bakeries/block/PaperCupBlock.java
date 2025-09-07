@@ -45,7 +45,6 @@ public class PaperCupBlock extends PileBlock {
             }
         }
         return InteractionResult.SUCCESS;
-//        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
     @Override

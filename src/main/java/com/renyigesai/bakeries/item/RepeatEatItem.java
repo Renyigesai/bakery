@@ -1,9 +1,7 @@
 package com.renyigesai.bakeries.item;
 
 import com.mojang.datafixers.util.Pair;
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
-import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
@@ -17,6 +15,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -26,11 +25,11 @@ import java.util.Objects;
 
 public abstract class RepeatEatItem extends FoodBlockItem {
 
-    public RepeatEatItem(Block block, ModIntegerProperty integerProperty, Properties pProperties, boolean effectTooltip, boolean customField) {
+    public RepeatEatItem(Block block, IntegerProperty integerProperty, Properties pProperties, boolean effectTooltip, boolean customField) {
         super(block, integerProperty, pProperties, effectTooltip, customField);
     }
 
-    public RepeatEatItem(Block block, ModIntegerProperty integerProperty, Properties pProperties) {
+    public RepeatEatItem(Block block, IntegerProperty integerProperty, Properties pProperties) {
         super(block, integerProperty, pProperties);
     }
 

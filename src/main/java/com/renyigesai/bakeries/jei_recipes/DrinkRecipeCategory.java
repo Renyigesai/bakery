@@ -42,7 +42,7 @@ public class DrinkRecipeCategory implements IRecipeCategory<CoffeeRecipe> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("");
+        return Component.translatable("container.drink");
     }
 
     @Override

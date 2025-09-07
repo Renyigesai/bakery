@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -61,15 +62,13 @@ public abstract class BCakeBlock extends HorizontalDirectionalBlock {
         return InteractionResult.SUCCESS;
     }
 
-    public void addEffect(Player pPlayer){
+    public void addEffect(LivingEntity entity){
 
     }
 
     public abstract int getFoodLevelModifier();
 
     public abstract float getSaturationLevelModifier();
-
-
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {

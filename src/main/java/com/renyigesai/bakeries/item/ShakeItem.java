@@ -2,7 +2,6 @@ package com.renyigesai.bakeries.item;
 
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.util.ItemUtil;
-import com.renyigesai.bakeries.util.Shortcuts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;

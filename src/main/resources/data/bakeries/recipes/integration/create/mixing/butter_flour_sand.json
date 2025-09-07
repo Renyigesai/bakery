@@ -1,0 +1,23 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "bakeries:butter_cube"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:butter_flour_sand",
+      "count": 4
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.baysalt_frame;
 
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
@@ -23,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -33,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BaysaltFrameBlock extends BaseEntityBlock {
     //方块状态
-    public static final ModIntegerProperty LIT = ModIntegerProperty.create("lit", 0, 2);
+    public static final IntegerProperty LIT = IntegerProperty.create("lit", 0, 2);
     public BaysaltFrameBlock() {
         super(Properties.of().sound(SoundType.WOOD).strength(1f, 10f).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, 0));

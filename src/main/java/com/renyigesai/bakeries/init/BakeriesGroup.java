@@ -86,6 +86,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.COFFEE_BEAN.get());//咖啡豆
                         output.accept(BakeriesItems.GROUND_COFFEE.get());//咖啡粉
                         output.accept(BakeriesItems.OLIVE_OIL.get());//橄榄油
+                        output.accept(BakeriesItems.BEARNAISE.get());//蛋黄酱
                         output.accept(BakeriesItems.MEAT_FLOSS.get());//肉松
                         //面包/食物
                         output.accept(BakeriesItems.SCONE.get());//司康
@@ -99,6 +100,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());//菠萝包
                         output.accept(BakeriesItems.MEAT_FLOSS_BREAD_ROLL.get());//肉松面包卷
                         output.accept(BakeriesItems.CROISSANT.get());//可颂
+                        output.accept(BakeriesItems.DIRTY_CHOCO_CROISSANT.get());//脏脏包
                         output.accept(BakeriesItems.SALT_CROISSANT.get());//盐可颂
                         output.accept(BakeriesItems.TOAST.get());//吐司
                         output.accept(BakeriesItems.SLICED_TOAST.get());//切片吐司
@@ -112,9 +114,10 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//乡村面包切片
                         output.accept(BakeriesItems.HONEY_BUTTER_SPREAD_COUNTRY_BREAD.get());//乡村面包切片
                         output.accept(BakeriesItems.BERRY_BAGEL.get());//浆果贝果
+                        output.accept(BakeriesItems.BAGEL_FILLED_SAUCE.get());//填酱贝果
                         output.accept(BakeriesItems.BAGUETTE_WITH_FILLING.get());//填馅法棍
                         output.accept(BakeriesItems.TOMATO_CHEESE_CROISSANT_SANDWICH.get());//番茄奶酪可颂三明治
-                        output.accept(BakeriesItems.CREAM_PUMPKIN_PIE.get());//番茄奶酪可颂三明治
+                        output.accept(BakeriesItems.CREAM_PUMPKIN_PIE.get());//奶油南瓜派
                         output.accept(BakeriesItems.CAKE_BASE.get());//蛋糕胚
                         output.accept(BakeriesItems.CUT_CAKE_BASE.get());//蛋糕胚切片
                         output.accept(BakeriesItems.SOAK_COFFEE_CUT_CAKE_BASE.get());//咖啡蛋糕胚切片
@@ -178,16 +181,4 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CREAM_PUMPKIN_PIE_DOUGH.get());
                     }))
                     .build());
-
-//    public static final RegistryObject<CreativeModeTab> BAKERY_COMPATIBILITY_ITEM_TAB = REGISTER.register("bakery_compatibility_item_tab",() ->
-//            CreativeModeTab.builder().icon(()-> new ItemStack(BakeriesItems.ROUND_DOUGH_DRAWING.get()))
-//                    .title(Component.translatable("creativetab_bakeries_compatibility_item_tab"))
-//                    .displayItems(((itemDisplayParameters, output) -> {
-//                        output.accept(BakeriesItems.ROUND_DOUGH_DRAWING.get());
-//                        output.accept(BakeriesItems.BAGEL_DOUGH_DRAWING.get());
-//                        output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH_DRAWING.get());
-//                        output.accept(BakeriesItems.BAGUETTE_DOUGH_DRAWING.get());
-//                        output.accept(BakeriesItems.CIABATTA_DOUGH_DRAWING.get());
-//                    }))
-//                    .build());
 }

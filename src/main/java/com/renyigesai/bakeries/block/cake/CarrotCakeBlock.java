@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.api.block.BCakeBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
@@ -32,7 +33,7 @@ public class CarrotCakeBlock extends BCakeBlock {
     }
 
     @Override
-    public void addEffect(Player pPlayer) {
-        pPlayer.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION,1200));
+    public void addEffect(LivingEntity entity) {
+        entity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION,1200));
     }
 }

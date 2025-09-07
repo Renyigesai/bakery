@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.item;
 
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
@@ -9,14 +8,14 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
 public class CupCakeItem extends FoodBlockItem {
 
-    public CupCakeItem(Block block, ModIntegerProperty integerProperty, Properties pProperties, boolean effectTooltip, boolean customField) {
+    public CupCakeItem(Block block, IntegerProperty integerProperty, Properties pProperties, boolean effectTooltip, boolean customField) {
         super(block, integerProperty, pProperties, effectTooltip, customField);
     }
 

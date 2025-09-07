@@ -5,6 +5,7 @@ import com.renyigesai.bakeries.init.BakeriesMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
@@ -24,10 +25,10 @@ public class TiramisuBlock extends BCakeBlock {
     }
 
     @Override
-    public void addEffect(Player pPlayer) {
-        pPlayer.addEffect(new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),1200));
-        pPlayer.addEffect(new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200));
-        pPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1200));
+    public void addEffect(LivingEntity entity) {
+        entity.addEffect(new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),1200));
+        entity.addEffect(new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200));
+        entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1200));
     }
 
     @Override

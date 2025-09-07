@@ -1,0 +1,20 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:foamed_cream",
+      "count": 4
+    }
+  ]
+}

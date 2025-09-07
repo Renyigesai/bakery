@@ -90,6 +90,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> BASQUE_CAKE;
     public static final RegistryObject<Block> MULTI_LAYER_CREAM_CAKE;
     public static final RegistryObject<Block> CHEESE_CREAM_BREAD;
+    public static final RegistryObject<Block> BAGEL_FILLED_SAUCE;
 
     //common
     public static final RegistryObject<Block> OVEN;
@@ -194,6 +195,7 @@ public class BakeriesBlocks {
         TOMATO_CHEESE_CROISSANT_SANDWICH = BLOCK_REGISTRY.register("tomato_cheese_croissant_sandwich",PileBlock::new);
         BERRY_BAGEL = BLOCK_REGISTRY.register("berry_bagel",PileBlock::new);
         CREAM_PUMPKIN_PIE = BLOCK_REGISTRY.register("cream_pumpkin_pie", CreamPumpkinPieBlock::new);
+        BAGEL_FILLED_SAUCE = BLOCK_REGISTRY.register("bagel_filled_sauce",PileBlock::new);
 
         /*蛋糕方块*/
         CUP_CAKE = BLOCK_REGISTRY.register("cup_cake",PileBlock::new);

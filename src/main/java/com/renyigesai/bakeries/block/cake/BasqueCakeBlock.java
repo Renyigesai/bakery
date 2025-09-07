@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.init.BakeriesMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
@@ -33,7 +34,7 @@ public class BasqueCakeBlock extends BCakeBlock {
     }
 
     @Override
-    public void addEffect(Player pPlayer) {
-        pPlayer.addEffect(new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200));
+    public void addEffect(LivingEntity entity) {
+        entity.addEffect(new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200));
     }
 }

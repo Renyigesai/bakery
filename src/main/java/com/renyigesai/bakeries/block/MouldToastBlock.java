@@ -2,9 +2,6 @@ package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.util.ItemUtil;
-import com.renyigesai.bakeries.util.Shortcuts;
-import com.renyigesai.bakeries.api.block.properties.ModIntegerProperty;
-import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -25,6 +22,7 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -35,7 +33,7 @@ import java.util.function.Supplier;
 public class MouldToastBlock extends HorizontalDirectionalBlock {
 
     public final Supplier<Item> demouldItem;
-    public static final ModIntegerProperty PILE = ModIntegerProperty.create("pile",1,2);
+    public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
     public static final BooleanProperty FILL = BooleanProperty.create("fill");
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
     protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
@@ -71,7 +69,7 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
             if (!player.getAbilities().instabuild) {
                 handStack.shrink(1);
             }
-            Shortcuts.setBlock(level,pos,state,PILE,1, true);
+            level.setBlock(pos,state.setValue(PILE,pile +1),3);
             level.playSound(null, pos, SoundEvents.METAL_PLACE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }return InteractionResult.FAIL;

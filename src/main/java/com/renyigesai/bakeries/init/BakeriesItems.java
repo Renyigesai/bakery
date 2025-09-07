@@ -85,6 +85,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> CRISPY_DOUGH;
     public static final RegistryObject<Item> SCONE_DOUGH;
     public static final RegistryObject<Item> MATCHA_POWDER;
+    public static final RegistryObject<Item> BEARNAISE;
     public static final RegistryObject<Item> CREAM_PUMPKIN_PIE_DOUGH;
     /*
     面包物品
@@ -141,6 +142,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BASQUE_CAKE;
     public static final RegistryObject<Item> CREAM_CAKE_CUBE;
     public static final RegistryObject<Item> CHEESE_CREAM_BREAD;
+    public static final RegistryObject<Item> BAGEL_FILLED_SAUCE;
     /*
     方块物品/一般物品
     */
@@ -244,6 +246,7 @@ public class BakeriesItems {
         WHOLE_EGG = REGISTER.register("whole_egg",WholeEggItem::new);
         SCONE_DOUGH = rawItem("scone_dough","180");
         MATCHA_POWDER = item("matcha_powder");
+        BEARNAISE = REGISTER.register("bearnaise",()->new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL)));
         /*
         功能物品
         */
@@ -376,6 +379,7 @@ public class BakeriesItems {
         CHEESE_CREAM_BREAD = foodBlockItem(BakeriesBlocks.CHEESE_CREAM_BREAD,BakeriesFoodProperties.CHEESE_CREAM_BREAD,true,false);
         CAKE_BOX = REGISTER.register("cake_box",()-> new CakeBoxItem(BakeriesBlocks.CAKE_BOX.get(),new Item.Properties().stacksTo(1)));
         SILICONE_PAPER = block(BakeriesBlocks.SILICONE_PAPER);
+        BAGEL_FILLED_SAUCE = foodBlockItem(BakeriesBlocks.BAGEL_FILLED_SAUCE,BakeriesFoodProperties.BAGEL_FILLED_SAUCE);
 
 
         /*饮料物品*/

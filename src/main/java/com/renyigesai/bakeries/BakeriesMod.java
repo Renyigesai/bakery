@@ -52,7 +52,7 @@ public class BakeriesMod {
         BakeriesVillagers.register(bus);
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, BakeriesConfig.SPEC, "bakeries-server.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BakeriesConfig.SPEC, "bakeries-common.toml");
     }
     private void commonSetup(FMLCommonSetupEvent event) {
         Messages.register();
