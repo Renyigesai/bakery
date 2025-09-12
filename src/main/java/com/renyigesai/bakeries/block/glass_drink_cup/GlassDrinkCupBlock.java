@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.glass_drink_cup;
 
+import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.util.ItemUtil;
@@ -99,13 +100,19 @@ public class GlassDrinkCupBlock extends BaseEntityBlock {
         }
     }
 
+
     public void spawnOrSetBlock(ItemStack stack, Level level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof GlassDrinkCupBlockEntity glassDrinkCupBlockEntity) {
             glassDrinkCupBlockEntity.removeItems();
         }
         if (stack.getItem() instanceof BlockItem blockItem && !level.getBlockState(pos.below()).is(Blocks.HOPPER)) {
-            level.setBlock(pos, blockItem.getBlock().defaultBlockState(), 3);
+            if (blockItem.getBlock() instanceof GlassDrinkCupBlock){
+                level.setBlock(pos, blockItem.getBlock().defaultBlockState().setValue(PileBlock.integerProperty,1), 3);
+            }else {
+                level.setBlock(pos, blockItem.getBlock().defaultBlockState(), 3);
+            }
+
             return;
         } else {
             ItemUtil.spawnItemEntity(level, stack, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new Vec3(0.0, 0.0, 0.0));
