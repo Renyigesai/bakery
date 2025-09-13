@@ -53,9 +53,10 @@ public class PaperCupBlock extends PileBlock {
         int i =  pState.getValue(integerProperty);
         if (i == 1){
             pLevel.removeBlock(pPos,false);
+        }else {
+            pLevel.setBlock(pPos,pState.setValue(integerProperty,i-1),3);
         }
         ItemUtil.givePlayerItem(pPlayer,new ItemStack(stack.getItem()));
-        pLevel.setBlock(pPos,pState.setValue(integerProperty,i-1),3);
         pLevel.playSound(null,pPos,getTakeSound(),SoundSource.BLOCKS);
         return InteractionResult.SUCCESS;
     }
