@@ -9,7 +9,7 @@ import net.weibai.bakeries.common.registration.impl.CreativeModeTabDeferredRegis
 import net.weibai.bakeries.common.registration.impl.DeferredCreativeModeTab;
 import net.weibai.bakeries.common.utils.UtilTranslatable;
 
-public class MSCreativeModeTabs {
+public class BakeriesCreativeModeTabs {
     @Getter
     private static final CreativeModeTabDeferredRegister REGISTER = new CreativeModeTabDeferredRegister(BakeriesMod.MODID);
     public static final DeferredCreativeModeTab<CreativeModeTab> MS_ITEM_TAB = REGISTER.register(
@@ -17,7 +17,7 @@ public class MSCreativeModeTabs {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable(UtilTranslatable.setCreativeModeTabs("items")))
                     .withTabsBefore(CreativeModeTabs.COMBAT)
-                    .icon(() -> MSItems.MS_ICON.get().getDefaultInstance())
+                    .icon(() -> BakeriesItems.MS_ICON.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
 
                     }).build());

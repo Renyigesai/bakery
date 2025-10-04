@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class MSItems {
+public class BakeriesItems {
     @Getter
     private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(BakeriesMod.MODID);
-    private MSItems(){}
+    private BakeriesItems(){}
     /**普通*/
     public static Rarity common(){return Rarity.COMMON;}
     /**罕见*/

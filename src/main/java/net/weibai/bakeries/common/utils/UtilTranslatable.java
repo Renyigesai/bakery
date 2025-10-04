@@ -4,6 +4,9 @@ import net.weibai.bakeries.BakeriesMod;
 
 
 public class UtilTranslatable {
+    public static String setTooltips(String key) {
+        return "tooltips." + BakeriesMod.MODID + "." + key;
+    }
     public static String setKeyMapping(String key) {
         return "key." + BakeriesMod.MODID + "." + key;
     }

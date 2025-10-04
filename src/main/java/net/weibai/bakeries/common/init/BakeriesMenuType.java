@@ -10,7 +10,7 @@ import net.weibai.bakeries.common.registration.impl.MenuTypeDeferredRegister;
 
 
 @EventBusSubscriber(value = Dist.CLIENT)
-public class MSMenuType {
+public class BakeriesMenuType {
     @Getter
     private static final MenuTypeDeferredRegister REGISTRY = new MenuTypeDeferredRegister(BakeriesMod.MODID);
 

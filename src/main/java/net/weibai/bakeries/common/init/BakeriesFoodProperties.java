@@ -1,5 +1,5 @@
 package net.weibai.bakeries.common.init;
 
-public class MSFoodProperties {
+public class BakeriesFoodProperties {
 //    public static final FoodProperties MEAT_FLOSS;
 }
