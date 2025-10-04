@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=east": {"model": "bakeries:block/cut_cake_base", "y": 270},
-    "facing=north": {"model": "bakeries:block/cut_cake_base", "y": 180},
-    "facing=south": {"model": "bakeries:block/cut_cake_base"},
-    "facing=west": {"model": "bakeries:block/cut_cake_base", "y": 90}
-  }
-}

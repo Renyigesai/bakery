@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "bakeries:item/music_disc_baking_in_progress"
-  }
-}

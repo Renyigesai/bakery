@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "bakeries:block/cupboard",
-    "side": "bakeries:block/cupboard_side"
-  }
-}

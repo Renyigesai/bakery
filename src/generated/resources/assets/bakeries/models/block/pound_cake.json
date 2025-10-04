@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/pound_cake",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/pound_cake",
-    "particle": "bakeries:block/pound_cake"
-  }
-}

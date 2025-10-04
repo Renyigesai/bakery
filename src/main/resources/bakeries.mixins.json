@@ -1,15 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.renyigesai.bakeries.mixin",
+  "package": "net.weibai.bakeries",
   "compatibilityLevel": "JAVA_8",
   "refmap": "bakeries.refmap.json",
   "mixins": [
-    "SnifferMixin",
-    "VillagerMixin"
+
   ],
   "client": [
-    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

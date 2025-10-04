@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bakeries:item/sliced_cheese_cocoa_toast"
-  }
-}
