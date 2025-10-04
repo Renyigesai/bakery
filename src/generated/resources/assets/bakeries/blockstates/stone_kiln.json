@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/stone_kiln", "y": 270},
+
+    "facing=north": {"model": "bakeries:block/stone_kiln", "y": 180},
+
+    "facing=south": {"model": "bakeries:block/stone_kiln"},
+
+    "facing=west": {"model": "bakeries:block/stone_kiln", "y": 90}
+  }
+}

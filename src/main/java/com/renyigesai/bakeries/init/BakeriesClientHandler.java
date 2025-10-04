@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.block.cake.CakeRollProcessingBlockEntityRender;
 import com.renyigesai.bakeries.block.cake_box.CakeBoxBlockEntityRender;
 import com.renyigesai.bakeries.block.menu.MenuBlockEntityRender;
+import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntityRender;
 import com.renyigesai.bakeries.block.wooden_tray.WoodTrayBlockEntityRender;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -24,5 +25,6 @@ public class BakeriesClientHandler {
         event.registerBlockEntityRenderer(BakeriesBlocks.WOOD_TRAY_ENTITY.get(), WoodTrayBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.CAKE_ROLL_PROCESSING_ENTITY.get(), CakeRollProcessingBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.CAKE_BOX_ENTITY.get(), CakeBoxBlockEntityRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.STONE_KILN_ENTITY.get(), StoneKilnBlockEntityRender::new);
     }
 }

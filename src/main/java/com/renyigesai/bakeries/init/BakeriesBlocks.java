@@ -30,6 +30,8 @@ import com.renyigesai.bakeries.block.moka_pot.MokaPotBlockEntity;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.block.sofa.SofaBlock;
+import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlock;
+import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntity;
 import com.renyigesai.bakeries.block.toaster.ToasterBlock;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
 import com.renyigesai.bakeries.block.wooden_tray.WoodenTrayBlock;
@@ -175,6 +177,8 @@ public class BakeriesBlocks {
     public static final RegistryObject<BlockEntityType<CakeBoxBlockEntity>> CAKE_BOX_ENTITY;
     public static RegistryObject<Block> CAKE_ROLL_PROCESSING;
     public static final RegistryObject<BlockEntityType<CakeRollProcessingBlockEntity>> CAKE_ROLL_PROCESSING_ENTITY;
+    public static RegistryObject<Block> STONE_KILN;
+    public static final RegistryObject<BlockEntityType<StoneKilnBlockEntity>> STONE_KILN_ENTITY;
 
     static {
         /*面包方块*/
@@ -358,6 +362,9 @@ public class BakeriesBlocks {
 
         CAKE_ROLL_PROCESSING = BLOCK_REGISTRY.register("cake_roll_processing", CakeRollProcessingBlock::new);
         CAKE_ROLL_PROCESSING_ENTITY = BLOCK_ENTITY_REGISTRY.register("cake_roll_processing",() -> BlockEntityType.Builder.of(CakeRollProcessingBlockEntity::new, CAKE_ROLL_PROCESSING.get()).build(null));
+
+        STONE_KILN = BLOCK_REGISTRY.register("stone_kiln", StoneKilnBlock::new);
+        STONE_KILN_ENTITY = BLOCK_ENTITY_REGISTRY.register("stone_kiln",() -> BlockEntityType.Builder.of(StoneKilnBlockEntity::new, STONE_KILN.get()).build(null));
     }
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {

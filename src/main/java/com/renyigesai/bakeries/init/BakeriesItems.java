@@ -162,6 +162,7 @@ public class BakeriesItems {
     方块物品/一般物品
     */
     public static final RegistryObject<Item> OVEN;
+    public static final RegistryObject<Item> STONE_KILN;
     public static final RegistryObject<Item> FERMENTATION_TANK;
     public static final RegistryObject<Item> YEAST_TANK;
     public static final RegistryObject<Item> CHEESE_TANK;
@@ -314,6 +315,7 @@ public class BakeriesItems {
         方块物品/一般物品
         */
         OVEN = block(BakeriesBlocks.OVEN);
+        STONE_KILN = block(BakeriesBlocks.STONE_KILN);
         BLENDER = block(BakeriesBlocks.BLENDER);
         FERMENTATION_TANK = block(BakeriesBlocks.FERMENTATION_TANK);
         YEAST_TANK = block(BakeriesBlocks.YEAST_TANK);
