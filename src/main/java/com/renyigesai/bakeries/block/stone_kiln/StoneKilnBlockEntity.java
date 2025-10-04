@@ -3,6 +3,9 @@ package com.renyigesai.bakeries.block.stone_kiln;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.WorldUtil;
+import lombok.Getter;
+import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -14,10 +17,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
-
+@Getter
 public class StoneKilnBlockEntity extends BlockEntity {
-
-    protected final ItemStackHandler inventory = new ItemStackHandler(1){
+    private final ItemStackHandler inventory = new ItemStackHandler(1){
         @Override
         protected int getStackLimit(int slot, @NotNull ItemStack stack) {
             return 1;
@@ -33,8 +35,8 @@ public class StoneKilnBlockEntity extends BlockEntity {
             return super.extractItem(slot, amount, simulate);
         }
     };
-    private int cookingTime;
-    public float size;
+    private int cookingTime = 0;
+    private float size = 1.0f;
 
     public StoneKilnBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.STONE_KILN_ENTITY.get(), pPos, pBlockState);
@@ -42,14 +44,6 @@ public class StoneKilnBlockEntity extends BlockEntity {
 
     public int getContainerSize() {
         return 1;
-    }
-
-    public ItemStackHandler getInventory() {
-        return this.inventory;
-    }
-
-    public int getCookingTime() {
-        return this.cookingTime;
     }
 
     public boolean isEmpty() {
@@ -72,9 +66,6 @@ public class StoneKilnBlockEntity extends BlockEntity {
         this.inventory.setStackInSlot(pSlot,pStack);
     }
 
-    public float getSize() {
-        return this.size;
-    }
 
     public boolean addItem(ItemStack stack){
         if (isEmpty()){
@@ -102,6 +93,13 @@ public class StoneKilnBlockEntity extends BlockEntity {
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("CookingTime", cookingTime);
+        tag.putFloat("Size", size);
+        return tag;
+    }
 
     @Override
     public void load(CompoundTag tag) {
@@ -124,7 +122,7 @@ public class StoneKilnBlockEntity extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, StoneKilnBlockEntity blockEntity){
         if (!blockEntity.isEmpty()){
             blockEntity.cookingTimeTick();
-            blockEntity.setChanged();
+
             if (!level.isClientSide) {
                 level.sendBlockUpdated(pos, state, state, 3);
             }

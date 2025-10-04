@@ -13,8 +13,10 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemStackHandler;
-
+@OnlyIn(value = Dist.CLIENT)
 public class StoneKilnBlockEntityRender implements BlockEntityRenderer<StoneKilnBlockEntity> {
 
     public StoneKilnBlockEntityRender(BlockEntityRendererProvider.Context context) {
@@ -26,7 +28,7 @@ public class StoneKilnBlockEntityRender implements BlockEntityRenderer<StoneKiln
         ItemStackHandler inventory = entity.getInventory();
         ItemStack stack = inventory.getStackInSlot(0);
         int posLong = (int) entity.getBlockPos().asLong();
-        if (!entity.isEmpty()) {
+        if (!entity.isEmpty() && !stack.isEmpty()) {
             float f1 = -direction.toYRot() - 180f;
             poseStack.pushPose();
             poseStack.translate(0.5,0.625,0.5);
@@ -36,6 +38,7 @@ public class StoneKilnBlockEntityRender implements BlockEntityRenderer<StoneKiln
             System.out.println(size);
             poseStack.scale((float) (0.5 + size), (float) (0.5 + size), (float) (0.5 + size));
             if (entity.getLevel() != null) {
+
                 Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()), pPackedOverlay, poseStack, pBuffer, entity.getLevel(), (int) (posLong + 1));
             }
             poseStack.popPose();
