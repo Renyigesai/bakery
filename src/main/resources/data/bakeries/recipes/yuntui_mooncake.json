@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:tray_yuntui_mooncake"
+    }
+  ],
+  "result": {
+    "item": "bakeries:yuntui_mooncake",
+    "count": 4
+  }
+}

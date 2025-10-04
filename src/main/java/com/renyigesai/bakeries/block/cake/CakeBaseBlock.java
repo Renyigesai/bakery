@@ -19,9 +19,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CakeBaseBlock extends BCakeBlock implements IKnifeCutBlock {
+public class CakeBaseBlock extends InstanceCakeBlock implements IKnifeCutBlock {
+
+
     public CakeBaseBlock() {
-        super(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel((l) -> 1));
+        super(5,0.4F);
     }
 
     @Override
@@ -56,9 +58,6 @@ public class CakeBaseBlock extends BCakeBlock implements IKnifeCutBlock {
                 return eat(pLevel,pPos,pState,pPlayer);
             }
             cut(pLevel,pState,pPos,pPlayer,hand,pHand);
-//            pLevel.removeBlock(pPos,false);
-//            ItemUtil.spawnItemEntity(pLevel,new ItemStack(BakeriesItems.CUT_CAKE_BASE.get(),2),pPos);
-//            pLevel.playSound(null, pPos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }
 

@@ -172,11 +172,12 @@ dependencies {
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
+    /*联动模组导入*/
+    implementation fg.deobf("curse.maven:farmersdelight-398521:6154802")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    runtimeOnly fg.deobf("curse.maven:farmersdelight-398521:6154802")
     runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

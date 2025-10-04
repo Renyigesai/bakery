@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries;
 
+import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.fluid.BakeriesFluidTypes;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
@@ -40,6 +41,7 @@ public class BakeriesMod {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         BakeriesItems.REGISTER.register(bus);
+        BakeriesCompatItems.REGISTER.register(bus);
         BakeriesBlocks.BLOCK_REGISTRY.register(bus);
         BakeriesBlocks.BLOCK_ENTITY_REGISTRY.register(bus);
         BakeriesGroup.REGISTER.register(bus);

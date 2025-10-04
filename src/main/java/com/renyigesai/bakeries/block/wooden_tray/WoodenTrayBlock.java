@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
@@ -63,16 +64,27 @@ public class WoodenTrayBlock extends BaseEntityBlock {
                     playSound(level,pos, SoundEvents.ITEM_FRAME_ADD_ITEM);
                     return InteractionResult.SUCCESS;
                 }
-                woodenTrayBlockEntity.takeOutItem(pPlayer);
+                woodenTrayBlockEntity.takeOutItem(pPlayer,level,pos,pState);
                 playSound(level,pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM);
                 return InteractionResult.SUCCESS;
             }
-            if (!handStack.isEmpty() && woodenTrayBlockEntity.addItem(handStack.copy().split(1))) {
-                if (!pPlayer.isCreative()){
-                    handStack.shrink(1);
+            if (!handStack.isEmpty()) {
+                boolean render_block = pState.getValue(RENDER_BLOCK);
+                boolean isAdd = false;
+                if (render_block) {
+                    if (handStack.getItem() instanceof BlockItem) {
+                        isAdd = true;
+                    }
+                } else {
+                    isAdd = true;
                 }
-                playSound(level,pos, SoundEvents.ITEM_FRAME_ADD_ITEM);
-                return InteractionResult.SUCCESS;
+                if (isAdd && woodenTrayBlockEntity.addItem(handStack.copy().split(1),level,pos,pState)){
+                    if (!pPlayer.isCreative()){
+                        handStack.shrink(1);
+                    }
+                    playSound(level,pos, SoundEvents.ITEM_FRAME_ADD_ITEM);
+                    return InteractionResult.SUCCESS;
+                }
             }
             return InteractionResult.FAIL;
         }

@@ -20,6 +20,10 @@ public class OvenButtonMessage {
     private final int buttonID, x, y, z,zhen_y;
     private final HashMap<String, String> textstate;
 
+    public static final int ADD = 1;
+    public static final int SUBTRACT = 2;
+    public static final int SET = 3;
+
     public OvenButtonMessage(FriendlyByteBuf buffer) {
         this.buttonID = buffer.readInt();
         this.x = buffer.readInt();
@@ -64,7 +68,7 @@ public class OvenButtonMessage {
         context.setPacketHandled(true);
     }
 
-    public static void handleButtonAction(Player entity, int buttonID, int x, int y, int z, int zhen_y, HashMap<String, String> textstate) {
+    public static void handleButtonAction(Player entity, int flag, int x, int y, int z, int zhen_y, HashMap<String, String> textstate) {
         Level world = entity.level();
         HashMap<String, Object> guistate = OvenMenu.guistate;
         for (Map.Entry<String, String> entry : textstate.entrySet()) {
@@ -79,31 +83,13 @@ public class OvenButtonMessage {
         BlockPos _bp = BlockPos.containing(x, y, z);
         BlockEntity _blockEntity = world.getBlockEntity(_bp);
         BlockState _bs = world.getBlockState(_bp);
-
-
-        if (buttonID == 0) {
-            if(_blockEntity instanceof OvenBlockEntity ovenBlockEntity){
-                ovenBlockEntity.addTemperature(ovenBlockEntity,1);
-//                if (Log.INFO) {
-//                    BakeriesMod.LOGGER.info("temperature:" + ovenBlockEntity.getTemperature(ovenBlockEntity));
-//                }
-            }
-        }
-        if (buttonID == 1) {
-            if(_blockEntity instanceof OvenBlockEntity ovenBlockEntity){
-                ovenBlockEntity.subTemperature(ovenBlockEntity,1);
-//                if(Log.INFO){
-//                    BakeriesMod.LOGGER.info("temperature:"+ovenBlockEntity.getTemperature(ovenBlockEntity));
-//                }
-            }
-        }
-        if (buttonID == 2) {
-            if(_blockEntity instanceof OvenBlockEntity ovenBlockEntity){
-                int temperature = (int) (500 - ((zhen_y - 17) / 52.0 * 500));
-                ovenBlockEntity.setTemperature(ovenBlockEntity,temperature);
-//                if(Log.INFO){
-//                    BakeriesMod.LOGGER.info("temperature:"+ovenBlockEntity.getTemperature(ovenBlockEntity));
-//                }
+        if(_blockEntity instanceof OvenBlockEntity ovenBlockEntity){
+            switch (flag){
+                case 1:ovenBlockEntity.addTemperature(ovenBlockEntity,zhen_y);
+                break;
+                case 2:ovenBlockEntity.subTemperature(ovenBlockEntity,zhen_y);
+                break;
+                case 3:ovenBlockEntity.setTemperature(ovenBlockEntity,zhen_y);
             }
         }
     }

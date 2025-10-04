@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -36,13 +37,13 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
     public final ContainerData data;
 
     public OvenMenu(int id, Inventory inv,FriendlyByteBuf byteBuf) {
-        this(id, inv, byteBuf, new SimpleContainer(4), new SimpleContainerData(5));
-
+        this(id, inv, byteBuf, new SimpleContainer(6), new SimpleContainerData(7));
     }
+
     public OvenMenu(int id, Inventory inv, FriendlyByteBuf byteBuf, Container pContainer, ContainerData pData) {
         super(BakeriesMenuType.OVEN_MENU.get(), id);
-        checkContainerSize(pContainer, 4);
-        checkContainerDataCount(pData, 5);
+        checkContainerSize(pContainer, 6);
+        checkContainerDataCount(pData, 7);
         this.entity = inv.player;
         this.world = inv.player.level();
         this.data = pData;
@@ -61,16 +62,14 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
             boundBlockEntity = this.world.getBlockEntity(pos);
         }
 
-        if (boundBlockEntity instanceof OvenBlockEntity oven) {
-            this.customSlots.put(0, this.addSlot(new OvenSlot(pContainer, 0, 62, 17) {
 
-            }));
-            this.customSlots.put(1, this.addSlot(new OvenSlot(pContainer, 1, 80, 17) {
-            }));
-            this.customSlots.put(2, this.addSlot(new OvenSlot(pContainer, 2, 62, 53) {
-            }));
-            this.customSlots.put(3, this.addSlot(new OvenSlot(pContainer, 3, 80, 53) {
-            }));
+        if (boundBlockEntity instanceof OvenBlockEntity oven) {
+            addSlot(new SlotItemHandler(oven.getItemHandler(),0,52, 16));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),1, 70, 16));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),2, 88, 16));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),3, 52, 46));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),4, 70, 46));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),5, 88, 46));
         }
 
 
@@ -89,13 +88,13 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
         if (slot != null && slot.hasItem()) {
             ItemStack stackInSlot = slot.getItem();
             originalStack = stackInSlot.copy();
-            if (slotIndex < 4) {
-                if (!this.moveItemStackTo(stackInSlot, 4, 39, false)) { // 尝试移到玩家背包（36槽）
+            if (slotIndex < 6) {
+                if (!this.moveItemStackTo(stackInSlot, 6, 39, false)) { // 尝试移到玩家背包（36槽）
                     return ItemStack.EMPTY;
                 }
             }
             else{
-                if (!this.moveItemStackTo(stackInSlot, 0, 4, false)) { // 10~18是原料槽
+                if (!this.moveItemStackTo(stackInSlot, 0, 6, false)) {
                     return ItemStack.EMPTY;
                 }
             }
@@ -132,9 +131,6 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
             }
         });
     }
-
-
-
     public Map<Integer, Slot> get() {
         return customSlots;
     }

@@ -53,7 +53,7 @@ public class MenuBlock extends BaseEntityBlock {
         if (blockEntity instanceof MenuBlockEntity menuBlockEntity) {
             ItemStack handStack = pPlayer.getItemInHand(pHand);
             if (!handStack.isEmpty()) {
-                menuBlockEntity.addItem(handStack.copy().split(1));
+                menuBlockEntity.addItem(handStack.copy().split(1),level,pos,pState);
                 playSound(level,pos,SoundEvents.ITEM_FRAME_ADD_ITEM);
                 return InteractionResult.SUCCESS;
             }else if (!menuBlockEntity.inventory.getStackInSlot(0).isEmpty()){
@@ -62,7 +62,8 @@ public class MenuBlock extends BaseEntityBlock {
                     playSound(level,pos,SoundEvents.ITEM_FRAME_ROTATE_ITEM);
                     return InteractionResult.SUCCESS;
                 }
-                menuBlockEntity.inventory.setStackInSlot(0,ItemStack.EMPTY);
+                menuBlockEntity.deleteItem(level,pos,pState);
+                level.sendBlockUpdated(pos,pState,pState,3);
                 playSound(level,pos,SoundEvents.ITEM_FRAME_REMOVE_ITEM);
                 return InteractionResult.SUCCESS;
             }

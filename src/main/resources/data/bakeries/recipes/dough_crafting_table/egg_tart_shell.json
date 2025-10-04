@@ -1,0 +1,10 @@
+
+{
+  "type": "bakeries:dough_crafting_table",
+  "count": 3,
+  "ingredient":
+  {
+    "item": "bakeries:pastry"
+  },
+  "result": "bakeries:egg_tart_shell"
+}

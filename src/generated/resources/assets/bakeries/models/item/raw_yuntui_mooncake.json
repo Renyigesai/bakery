@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "bakeries:item/raw_yuntui_mooncake"
+  }
+}

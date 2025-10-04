@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "bagel": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:egg_tart"
+          ]
+        }
+      }
+    }
+  }
+}

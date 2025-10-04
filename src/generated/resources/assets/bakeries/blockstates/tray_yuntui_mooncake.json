@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/tray_yuntui_mooncake", "y": 270},
+
+    "facing=north": {"model": "bakeries:block/tray_yuntui_mooncake", "y": 180},
+
+    "facing=south": {"model": "bakeries:block/tray_yuntui_mooncake"},
+
+    "facing=west": {"model": "bakeries:block/tray_yuntui_mooncake", "y": 90}
+  }
+}

@@ -1,8 +1,10 @@
 package com.renyigesai.bakeries.init;
 
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import vectorwing.farmersdelight.common.registry.ModEffects;
 
 public class BakeriesFoodProperties {
     public static final FoodProperties BAGEL;
@@ -44,6 +46,17 @@ public class BakeriesFoodProperties {
     public static final FoodProperties CHEESE_CREAM_BREAD;
     public static final FoodProperties MATCHA_LATTE;
     public static final FoodProperties BAGEL_FILLED_SAUCE;
+    public static final FoodProperties EGG_TART;
+
+    /*模组联动食物属性*/
+    public static final FoodProperties RICE_BREAD;
+    public static final FoodProperties RICE_BREAD_FARMERSDELIGHT;
+
+    public static final FoodProperties ORANGE_AMERICAN;
+
+    public static final FoodProperties GARLIC_FLAVORED_BAGUETTE;
+
+    public static final FoodProperties YUNTUI_MOONCAKE;
 
 
     static {
@@ -141,5 +154,17 @@ public class BakeriesFoodProperties {
         CHEESE_CREAM_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(1f).effect(()->new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200),1f).build();
 
         BAGEL_FILLED_SAUCE = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).build();
+
+        EGG_TART = new FoodProperties.Builder().nutrition(8).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.HEAL,1),1f).build();
+
+        /*模组联动食物属性*/
+        RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1f).build();
+        RICE_BREAD_FARMERSDELIGHT = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),6000),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1f).build();
+
+        ORANGE_AMERICAN = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.REGENERATION,600),1f).alwaysEat().build();
+
+        GARLIC_FLAVORED_BAGUETTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,600),1f).nutrition(8).saturationMod(0.5f).build();
+
+        YUNTUI_MOONCAKE = new FoodProperties.Builder().nutrition(3).saturationMod(1.0f).build();
     }
 }

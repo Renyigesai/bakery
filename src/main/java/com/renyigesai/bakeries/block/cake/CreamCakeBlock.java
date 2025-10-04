@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.cake;
 
+import com.renyigesai.bakeries.api.LazyMobEffectInstance;
 import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
@@ -20,10 +21,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CreamCakeBlock extends BCakeBlock {
+import java.util.List;
 
-    public CreamCakeBlock(Properties pProperties) {
-        super(pProperties);
+public class CreamCakeBlock extends InstanceCakeBlock {
+
+
+    public CreamCakeBlock(List<LazyMobEffectInstance> effects, int foodLevelModifier, float saturationLevelModifier) {
+        super(effects, foodLevelModifier, saturationLevelModifier);
     }
 
     @Override

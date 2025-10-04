@@ -43,10 +43,7 @@ public abstract class AbstractOvenRecipe implements Recipe<Container> {
         if(pLevel.isClientSide()){
             return false;
         }
-        return this.recipeItems.test(pInv.getItem(0))
-                || this.recipeItems.test(pInv.getItem(1))
-                || this.recipeItems.test(pInv.getItem(2))
-                || this.recipeItems.test(pInv.getItem(3));
+        return this.recipeItems.test(pInv.getItem(0)) || this.recipeItems.test(pInv.getItem(1)) || this.recipeItems.test(pInv.getItem(2)) || this.recipeItems.test(pInv.getItem(3)) || this.recipeItems.test(pInv.getItem(4)) || this.recipeItems.test(pInv.getItem(5));
     }
     @Override
     public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {

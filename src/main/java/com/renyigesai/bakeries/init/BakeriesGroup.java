@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
 import com.renyigesai.bakeries.item.RepeatEatItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -118,8 +119,10 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BAGUETTE_WITH_FILLING.get());//填馅法棍
                         output.accept(BakeriesItems.TOMATO_CHEESE_CROISSANT_SANDWICH.get());//番茄奶酪可颂三明治
                         output.accept(BakeriesItems.CREAM_PUMPKIN_PIE.get());//奶油南瓜派
+                        output.accept(BakeriesItems.EGG_TART.get());//蛋挞
                         output.accept(BakeriesItems.CAKE_BASE.get());//蛋糕胚
                         output.accept(BakeriesItems.CUT_CAKE_BASE.get());//蛋糕胚切片
+                        output.accept(BakeriesItems.RED_VELVET_CAKE_BASE.get());//红丝绒蛋糕胚
                         output.accept(BakeriesItems.SOAK_COFFEE_CUT_CAKE_BASE.get());//咖啡蛋糕胚切片
                         output.accept(BakeriesItems.CUP_CAKE.get());//纸杯蛋糕
                         output.accept(BakeriesItems.CAKE_ROLL.get());//蛋糕卷
@@ -129,6 +132,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CREAM_CAKE_CUBE.get());//奶油蛋糕切块
                         output.accept(BakeriesItems.TIRAMISU.get());//提拉米苏
                         output.accept(BakeriesItems.CARROT_CAKE.get());//胡萝卜蛋糕
+                        output.accept(BakeriesItems.RED_VELVET_CAKE.get());//红丝绒蛋糕
 //                        output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕
                         /*
                         饮料
@@ -158,10 +162,13 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
                         output.accept(BakeriesItems.CRISPY_DOUGH.get());
                         output.accept(BakeriesItems.PASTRY.get());
+                        output.accept(BakeriesItems.EGG_TART_SHELL.get());
+                        output.accept(BakeriesItems.RAW_EGG_TART.get());
                         output.accept(BakeriesItems.SCONE_DOUGH.get());
                         output.accept(BakeriesItems.MOULD_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_CARROT_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_BASQUE_CAKE_PASTE.get());
+                        output.accept(BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE.get());
                         output.accept(BakeriesItems.PAPER_CUP_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_POUND_CAKE_PASTE.get());
                         output.accept(BakeriesItems.BAGEL_DOUGH.get());
@@ -179,6 +186,20 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.FOCACCIA_DOUGH.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.CREAM_PUMPKIN_PIE_DOUGH.get());
+                    }))
+                    .build());
+
+    public static final RegistryObject<CreativeModeTab> BAKERY_COMPAT_TAB = REGISTER.register("bakery_compat_tab",() ->
+            CreativeModeTab.builder().icon(()-> new ItemStack(BakeriesCompatItems.GARLIC_FLAVORED_BAGUETTE.get()))
+                    .title(Component.translatable("creativetab_bakery_compat_tab"))
+                    .displayItems(((itemDisplayParameters, output) -> {
+                        output.accept(BakeriesCompatItems.RICE_BREAD.get());//米面包
+                        output.accept(BakeriesItems.RICE_BREAD_DOUGH.get());//米面包面胚
+                        output.accept(BakeriesCompatItems.GARLIC_FLAVORED_BAGUETTE.get());//蒜香法棍
+                        output.accept(BakeriesCompatItems.YUNTUI_MOONCAKE.get());//云腿月饼
+                        output.accept(BakeriesItems.RAW_YUNTUI_MOONCAKE.get());//生云腿月饼
+                        output.accept(BakeriesCompatItems.TRAY_YUNTUI_MOONCAKE.get());//盘装云腿月饼
+                        output.accept(BakeriesCompatItems.ORANGE_AMERICAN.get());//橙C美式
                     }))
                     .build());
 }

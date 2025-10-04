@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.api.block;
 
+import com.renyigesai.bakeries.api.LazyMobEffectInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -7,10 +8,12 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -22,12 +25,35 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BCakeBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty BITES = IntegerProperty.create("bites",0,3);
-    public BCakeBlock(Properties pProperties) {
+    public List<LazyMobEffectInstance> effects = new ArrayList<>();
+    public final int foodLevelModifier;
+    public final float saturationLevelModifier;
+    public BCakeBlock(Properties pProperties, int foodLevelModifier, float saturationLevelModifier) {
         super(pProperties);
+        this.foodLevelModifier = foodLevelModifier;
+        this.saturationLevelModifier = saturationLevelModifier;
         this.registerDefaultState(this.stateDefinition.any().setValue(BITES,0).setValue(FACING, Direction.NORTH));
+    }
+
+    public BCakeBlock(Properties pProperties, List<LazyMobEffectInstance> effects, int foodLevelModifier, float saturationLevelModifier) {
+        super(pProperties);
+        this.foodLevelModifier = foodLevelModifier;
+        this.saturationLevelModifier = saturationLevelModifier;
+        this.registerDefaultState(this.stateDefinition.any().setValue(BITES,0).setValue(FACING, Direction.NORTH));
+        this.effects = effects;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return box(3.0, 0.0, 3.0, 13.0, 7.0, 13.0);
     }
 
     @Override
@@ -63,12 +89,20 @@ public abstract class BCakeBlock extends HorizontalDirectionalBlock {
     }
 
     public void addEffect(LivingEntity entity){
-
+        if (!effects.isEmpty()){
+            for (LazyMobEffectInstance lazyInstance : effects) {
+                entity.addEffect(new MobEffectInstance(lazyInstance.getEffect().get(), lazyInstance.getDuration(), lazyInstance.getAmplifier()));
+            }
+        }
     }
 
-    public abstract int getFoodLevelModifier();
+    public int getFoodLevelModifier(){
+        return this.foodLevelModifier;
+    };
 
-    public abstract float getSaturationLevelModifier();
+    public float getSaturationLevelModifier(){
+        return this.saturationLevelModifier;
+    }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -86,5 +120,4 @@ public abstract class BCakeBlock extends HorizontalDirectionalBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(BITES,FACING);
     }
-
 }

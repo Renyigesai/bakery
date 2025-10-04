@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:egg_tart_shell"
+    },
+    {
+      "item": "bakeries:egg_tart_shell"
+    },
+    {
+      "item": "bakeries:egg_tart_shell"
+    },
+    {
+      "item": "bakeries:egg_tart_shell"
+    },
+    {
+      "item": "bakeries:egg_tart_shell"
+    },
+    {
+      "item": "bakeries:egg_tart_shell"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "tag": "forge:eggs"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "item": "bakeries:raw_egg_tart",
+    "count": 6
+  }
+}

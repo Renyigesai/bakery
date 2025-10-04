@@ -45,6 +45,22 @@
       },
       "text": "guide.bakeries.descr.sequence_assembly_3",
       "enable_visualize": "false"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "block.bakeries.red_velvet_cake",
+      "multiblock": {
+        "mapping": {
+          "A": "bakeries:red_velvet_cake_base",
+          "B": "bakeries:red_velvet_cake"
+        },
+        "pattern":  [
+          ["A B"],
+          [" 0 "]
+        ]
+      },
+      "text": "guide.bakeries.descr.sequence_assembly_4",
+      "enable_visualize": "false"
     }
   ]
 }

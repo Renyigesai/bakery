@@ -19,6 +19,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +29,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class BaguetteItem extends RepeatEatItem {
-    public BaguetteItem(Block pBlock, Properties properties) {
+    public BaguetteItem(Block block, IntegerProperty integerProperty, Properties pProperties, boolean effectTooltip, boolean customField) {
+        super(block, integerProperty, pProperties, effectTooltip, customField);
+    }
+
+        public BaguetteItem(Block pBlock, Properties properties) {
         super(pBlock, PileBlock.integerProperty, properties);
     }
     @Override

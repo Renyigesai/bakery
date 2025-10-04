@@ -56,7 +56,6 @@ public class FermentationBarrelScreen extends AbstractContainerScreen<Fermentati
 
     protected void renderCTooltip(GuiGraphics gui, int mouseX, int mouseY) {
         if (this.minecraft != null && this.minecraft.player != null && this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
-            System.out.println(this.hoveredSlot.index);
             if (this.hoveredSlot.index == 6) {
                 List<Component> tooltip = new ArrayList<>();
 

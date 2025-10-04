@@ -12,10 +12,14 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.items.ItemStackHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WoodenTrayBlockEntity extends BlockEntity {
     protected final ItemStackHandler inventory = new ItemStackHandler(2);
@@ -65,14 +69,19 @@ public class WoodenTrayBlockEntity extends BlockEntity {
         return true;
     }
 
-    public boolean addItem(ItemStack stack){
+    public boolean addItem(ItemStack stack, Level level, BlockPos pos, BlockState state){
         for (int i = 0; i < inventory.getSlots(); i++) {
             if (inventory.getStackInSlot(i).isEmpty()){
                 inventory.setStackInSlot(i,stack);
                 return true;
             }
         }
+        this.setChanged();
+        if (!level.isClientSide){
+            level.sendBlockUpdated(pos,state,state,3);
+        }
         return false;
+
     }
 
     public void drops(WoodenTrayBlockEntity blockEntity) {
@@ -85,7 +94,7 @@ public class WoodenTrayBlockEntity extends BlockEntity {
         }
     }
 
-    public void takeOutItem(Player player){
+    public void takeOutItem(Player player, Level level, BlockPos pos, BlockState state){
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stackInSlot = inventory.getStackInSlot(i);
             if (!stackInSlot.isEmpty()){
@@ -93,16 +102,29 @@ public class WoodenTrayBlockEntity extends BlockEntity {
                 inventory.extractItem(i,1,false);
             }
         }
+        this.setChanged();
+        if (!level.isClientSide){
+            level.sendBlockUpdated(pos,state,state,3);
+        }
     }
 
     public Vec2 getItemOffest(int i) {
+        Vec2[] vec2_1 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
+        Vec2[] vec2_2 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
+        Vec2[] vec2_3 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
+        Vec2[] vec2_4 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
+        List<Vec2[]> vec2 = new ArrayList<>();
+        vec2.add(vec2_1);
+        vec2.add(vec2_2);
+        vec2.add(vec2_3);
+        vec2.add(vec2_4);
+
+
         float x = inventory.getStackInSlot(1).isEmpty()?0.0f:-0.15f;
         float y = -0.315f;
         Vec2[] offest = new Vec2[]{
                 new Vec2(x,y),
-                new Vec2(-x,y),
-                new Vec2(x,-y),
-                new Vec2(-x,-y)
+                new Vec2(-x,y)
         };
         return offest[i];
     }

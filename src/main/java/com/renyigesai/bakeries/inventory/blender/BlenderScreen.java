@@ -18,6 +18,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         super(menu, playerInventory, title);
         this.imageWidth = 176; // GUI 宽度
         this.imageHeight = 166; // GUI 高度
+        this.titleLabelY = 4;// GUI标题高度
     }
 
     @Override

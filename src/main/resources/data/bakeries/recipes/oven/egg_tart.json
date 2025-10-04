@@ -1,0 +1,16 @@
+{
+  "type": "bakeries:oven",
+  "ingredient":  [
+    {
+      "item": "bakeries:raw_egg_tart"
+    }
+  ],
+  "output": {
+    "item": "bakeries:egg_tart",
+    "count": 1
+  },
+  "time": 300,
+  "min_temperature": 180,
+  "max_temperature": 220,
+  "perfect_temperature": 200
+}

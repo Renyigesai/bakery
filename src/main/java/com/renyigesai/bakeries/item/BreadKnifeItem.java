@@ -1,17 +1,21 @@
 package com.renyigesai.bakeries.item;
 
+import com.renyigesai.bakeries.compat.CompatMod;
 import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
@@ -21,6 +25,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,8 +38,21 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
+import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
+import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
+import vectorwing.farmersdelight.common.registry.ModAdvancements;
+import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
+import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -41,9 +62,6 @@ public class BreadKnifeItem extends DiggerItem {
     public BreadKnifeItem(float pAttackDamageModifier, float pAttackSpeedModifier, Tier pTier, Properties pProperties) {
         super(pAttackDamageModifier, pAttackSpeedModifier, pTier, BlockTags.MINEABLE_WITH_AXE, pProperties);
     }
-
-
-
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
@@ -68,22 +86,95 @@ public class BreadKnifeItem extends DiggerItem {
         if (resultItemEntity == null){
             return super.use(pLevel, pPlayer, pUsedHand);
         }
-
+        double x = resultItemEntity.getX();
+        double y = resultItemEntity.getY();
+        double z = resultItemEntity.getZ();
         Optional<BreadKnifeRecipe> recipeOptional = getCurrentRecipe(pLevel,resultItemEntity.getItem());
         if (recipeOptional.isPresent()){
             BreadKnifeRecipe recipe = recipeOptional.get();
             ItemStack resultItemStack = recipe.getResultItem(pLevel.registryAccess()).copy();
-            double x = resultItemEntity.getX();
-            double y = resultItemEntity.getY();
-            double z = resultItemEntity.getZ();
             hand.hurtAndBreak(1, pPlayer, (p_41300_) -> p_41300_.broadcastBreakEvent(pUsedHand));
             ItemUtil.spawnItemEntity(pLevel, resultItemStack, x,y,z, new Vec3(0.0,0.0,0.0));
             pLevel.addParticle(new ItemParticleOption(ParticleTypes.ITEM,resultItemStack),x,y+0.5,z,((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D);
             pLevel.playSound(null,new BlockPos((int) x,(int)y,(int)z),SoundEvents.WOOL_BREAK, SoundSource.BLOCKS);
             resultItemEntity.remove(Entity.RemovalReason.KILLED);
+        }else {
+            if (ModList.get().isLoaded(CompatMod.FARMER_S_DELIGHT)) {
+                return InteractionResultHolder.sidedSuccess(hand, processStoredItemUsingTool(pLevel, hand, resultItemEntity,pPlayer, x, y, z));
+            }else {
+                return super.use(pLevel,pPlayer,pUsedHand);
+            }
         }
         pPlayer.startUsingItem(pUsedHand);
         return InteractionResultHolder.success(hand);
+    }
+
+    public boolean processStoredItemUsingTool(Level level,ItemStack toolStack, ItemEntity item,@javax.annotation.Nullable Player player,double x,double y,double z) {
+        if (!ModList.get().isLoaded(CompatMod.FARMER_S_DELIGHT)){
+            return false;
+        }
+        if (level == null) {
+            return false;
+        } else {
+            ItemStackHandler helper = new ItemStackHandler(1);
+            helper.setStackInSlot(0,item.getItem());
+            Optional<CuttingBoardRecipe> matchingRecipe = this.getMatchingRecipe(level,new RecipeWrapper(helper),toolStack,player);
+            matchingRecipe.ifPresent((recipe) -> {
+                List<ItemStack> results = recipe.rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack));
+                    Iterator var5 = results.iterator();
+
+                    while(var5.hasNext()) {
+                        ItemStack resultStack = (ItemStack)var5.next();
+                        ItemUtils.spawnItemEntity(level, resultStack.copy(),x,y,z,0,0,0);
+                    }
+                    level.addParticle(new ItemParticleOption(ParticleTypes.ITEM,item.getItem()),x,y+0.5,z,((double)level.random.nextFloat() - 0.5D) * 0.08D, ((double)level.random.nextFloat() - 0.5D) * 0.08D, ((double)level.random.nextFloat() - 0.5D) * 0.08D);
+                    item.remove(Entity.RemovalReason.KILLED);
+                    if (player != null) {
+                        toolStack.hurtAndBreak(1, player, (user) -> {
+                            user.broadcastBreakEvent(EquipmentSlot.MAINHAND);
+                        });
+                    } else if (toolStack.hurt(1, level.random, null)) {
+                        toolStack.setCount(0);
+                    }
+
+                    level.playSound(null,new BlockPos((int) x,(int)y,(int)z),SoundEvents.WOOL_BREAK, SoundSource.BLOCKS);
+                    if (player instanceof ServerPlayer) {
+                        ModAdvancements.CUTTING_BOARD.trigger((ServerPlayer)player);
+                    }
+            });
+            return matchingRecipe.isPresent();
+        }
+    }
+
+    private Optional<CuttingBoardRecipe> getMatchingRecipe(Level level,RecipeWrapper recipeWrapper, ItemStack toolStack, @Nullable Player player) {
+        if (!ModList.get().isLoaded(CompatMod.FARMER_S_DELIGHT)){
+            return Optional.empty();
+        }
+        if (level == null) {
+            return Optional.empty();
+        } else {
+            List<CuttingBoardRecipe> recipeList = level.getRecipeManager().getRecipesFor((RecipeType)ModRecipeTypes.CUTTING.get(), recipeWrapper, level);
+            if (recipeList.isEmpty()) {
+                if (player != null) {
+                    player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item", new Object[0]), true);
+                }
+
+                return Optional.empty();
+            } else {
+                Optional<CuttingBoardRecipe> recipe = recipeList.stream().filter((cuttingRecipe) -> {
+                    return cuttingRecipe.getTool().test(toolStack);
+                }).findFirst();
+                if (!recipe.isPresent()) {
+                    if (player != null) {
+                        player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_tool", new Object[0]), true);
+                    }
+
+                    return Optional.empty();
+                } else {
+                    return recipe;
+                }
+            }
+        }
     }
 
     private Optional<BreadKnifeRecipe> getCurrentRecipe(Level level, ItemStack stack) {

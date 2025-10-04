@@ -29,7 +29,7 @@ public class BlenderCategory implements IRecipeCategory<BlenderRecipe> {
     public final IDrawable icon;
 
     public BlenderCategory(IGuiHelper helper) {
-        this.back = helper.createDrawable(TEXTURE,0, 0, 125, 86);
+        this.back = helper.createDrawable(TEXTURE,0, 0, 90, 69);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(BakeriesItems.BLENDER.get()));
     }
 
@@ -59,8 +59,8 @@ public class BlenderCategory implements IRecipeCategory<BlenderRecipe> {
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         int borderSlotSize = 18;
         //x和y轴的初始坐标，取值为gui贴图的x,y初始位置减一
-        int x = 18;
-        int y = 16;
+        int x = 4;
+        int y = 7;
         //添加原料槽
         for (int row = 0; row < 3; ++row) {
             for (int column = 0; column < 3; ++column) {
@@ -72,8 +72,8 @@ public class BlenderCategory implements IRecipeCategory<BlenderRecipe> {
             }
         }
         //添加容器槽
-        builder.addSlot(RecipeIngredientRole.INPUT,90,53).addItemStack(recipe.getContainer());
+        builder.addSlot(RecipeIngredientRole.INPUT,67,8).addItemStack(recipe.getContainer());
         //添加输出槽
-        builder.addSlot(RecipeIngredientRole.OUTPUT,90,17).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT,67,43).addItemStack(recipe.getResultItem(null));
     }
 }

@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.oven;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
@@ -38,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class OvenBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(4){
+    private final ItemStackHandler itemHandler = new ItemStackHandler(6){
         @Override
         public int getSlotLimit(int slot) {
             return 1;
@@ -46,11 +47,12 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
     };
     public final Component name = Component.translatable("container.oven");
     private LazyOptional<IItemHandler> lazyItemHandlers = LazyOptional.empty();
-    public final int[] cooking_times = new int[4];
-    public final int[] max_cooking_times = new int[4];
-    private final int[] min_temperatures = new int[4];
-    private final int[] max_temperatures = new int[4];
+    public final int[] cooking_times = new int[6];
+    public final int[] max_cooking_times = new int[6];
+    private final int[] min_temperatures = new int[6];
+    private final int[] max_temperatures = new int[6];
     public int temperature;
+    private boolean newVersion = false;
 
     public final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -61,6 +63,8 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
                 case 2 -> calculateProgress(1);
                 case 3 -> calculateProgress(2);
                 case 4 -> calculateProgress(3);
+                case 5 -> calculateProgress(4);
+                case 6 -> calculateProgress(5);
                 default -> 0;
             };
         }
@@ -81,7 +85,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
         @Override
         public int getCount() {
-            return 5;
+            return 7;
         }
     };
 
@@ -109,7 +113,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.put("Inventory", itemHandler.serializeNBT());
         pTag.putIntArray("cooking_times", this.cooking_times);
         pTag.putIntArray("max_cooking_times", this.max_cooking_times);
         pTag.putIntArray("min_temperatures", this.min_temperatures);
@@ -121,7 +125,26 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
     @Override
     public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        if (!newVersion){
+            ItemStackHandler newInventory = new ItemStackHandler(6);
+            ItemStackHandler oldInventory = new ItemStackHandler(4);
+            if (pTag.contains("inventory")) {
+                oldInventory.deserializeNBT(pTag.getCompound("inventory"));
+                itemHandler.deserializeNBT(newInventory.serializeNBT());
+            }
+            for (int i = 0; i < oldInventory.getSlots(); i++) {
+                if (i <= 4){
+                    itemHandler.setStackInSlot(i,oldInventory.getStackInSlot(i));
+                }else {
+                    itemHandler.setStackInSlot(i,ItemStack.EMPTY);
+                }
+            }
+            newVersion = true;
+        }else {
+            if (pTag.contains("Inventory")) {
+                itemHandler.deserializeNBT(pTag.getCompound("Inventory"));
+            }
+        }
         if (pTag.contains("CookingTimes", 11)) {
             int[] aint = pTag.getIntArray("CookingTimes");
             System.arraycopy(aint, 0, this.cooking_times, 0, Math.min(this.max_cooking_times.length, aint.length));
@@ -181,7 +204,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
     public static void setFire(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
         updateBlock(pOvenBlockEntity);
-        boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0;
+        boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0 || pOvenBlockEntity.cooking_times[4] > 0 || pOvenBlockEntity.cooking_times[5] > 0;
 
         world.setBlock(pos, pOvenBlockEntity.getBlockState().setValue(OvenBlock.LIT, isLit), 3);
         world.sendBlockUpdated(pos, state, state, 3);
@@ -287,7 +310,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
     @Override
     public int getContainerSize() {
-        return 4;
+        return 6;
     }
 
     @Override
@@ -345,7 +368,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
 
     @Override
-    public int @NotNull [] getSlotsForFace(@NotNull Direction pSide) {return new int[]{0, 1, 2, 3};}
+    public int @NotNull [] getSlotsForFace(@NotNull Direction pSide) {return new int[]{0,1,2,3,4,5};}
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, @NotNull ItemStack pItemStack, @Nullable Direction pDirection) {
