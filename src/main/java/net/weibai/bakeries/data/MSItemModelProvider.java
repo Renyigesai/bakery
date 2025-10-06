@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.weibai.bakeries.BakeriesMod;
-
+import net.weibai.bakeries.common.init.BakeriesBlocks;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -24,7 +24,7 @@ public class MSItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-
+        blockItem(BakeriesBlocks.ROUND_BREAD::get, "_1");
 
     }
 

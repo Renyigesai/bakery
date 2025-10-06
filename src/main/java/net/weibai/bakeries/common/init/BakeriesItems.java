@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.weibai.bakeries.BakeriesMod;
+import net.weibai.bakeries.api.items.BreadItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,16 +28,19 @@ public class BakeriesItems {
     public static Rarity rare(){return Rarity.RARE;}
     /**史诗*/
     public static Rarity epic(){return Rarity.EPIC;}
-    /**mod图标*/
-    public static final DeferredItem<Item> MS_ICON = registerItem(
-            "ms_icon",
-            ()-> new Item(new Item.Properties()
-                    .fireResistant()
-                    .stacksTo(1)
-                    .rarity(epic()))
-    );
+//    /**mod图标*/
+//    public static final DeferredItem<Item> MS_ICON = registerItem(
+//            "ms_icon",
+//            ()-> new Item(new Item.Properties()
+//                    .fireResistant()
+//                    .stacksTo(1)
+//                    .rarity(epic()))
+//    );
+    public static final DeferredItem<Item> ROUND_BREAD;
+    static {
+        ROUND_BREAD = registerBlock("round_bread", ()-> new BreadItem(BakeriesBlocks.ROUND_BREAD.get(), new Item.Properties().food(BakeriesFoodProperties.ROUND_BREAD)));
 
-
+    }
     private static DeferredItem<Item> registerBlock(Holder<Block> block) {
         return registerBlock(block, new Item.Properties());
     }

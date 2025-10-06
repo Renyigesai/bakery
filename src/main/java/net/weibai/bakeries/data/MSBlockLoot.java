@@ -13,6 +13,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.weibai.bakeries.api.blocks.BreadBlock;
 import net.weibai.bakeries.common.init.BakeriesBlocks;
 
 
@@ -25,9 +26,8 @@ public class MSBlockLoot extends VanillaBlockLoot {
     @Override
     protected void generate() {
 //        this.dropSelf(MSBlocks.TINY_ANDESITE_BLOCK.get());
-
-
 //        this.dropOther(MSBlocks.POWDER_SNOW_ACACIA_LOG_CAULDRON.get(), MSBlocks.ACACIA_LOG_CAULDRON.get());
+        this.add(BakeriesBlocks.ROUND_BREAD.get(), block -> this.createStateDrops(BakeriesBlocks.ROUND_BREAD.get(), BreadBlock.PILE));
 
     }
 

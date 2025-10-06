@@ -1,6 +1,7 @@
 package net.weibai.bakeries.data;
 
 import net.minecraft.data.PackOutput;
+import net.weibai.bakeries.common.init.BakeriesItems;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -30,7 +31,7 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
     }
 
     private void addItems() {
-
+        addItem(BakeriesItems.ROUND_BREAD, "圆面包");
     }
     private void addBlocks() {
 

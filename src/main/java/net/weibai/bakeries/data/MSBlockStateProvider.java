@@ -1,16 +1,20 @@
 package net.weibai.bakeries.data;
 
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.weibai.bakeries.BakeriesMod;
+import net.weibai.bakeries.api.blocks.BreadBlock;
+import net.weibai.bakeries.common.init.BakeriesBlocks;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -30,10 +34,34 @@ public class MSBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-
+        breadBlock(BakeriesBlocks.ROUND_BREAD::get);
 
     }
+    public void breadBlock(Supplier<Block> block){
 
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()){
+            for (int size : BreadBlock.PILE.getPossibleValues()){
+                ModelFile modelFile = sizeModel(block, size);
+
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(BreadBlock.PILE, size)
+                        .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                        .modelForState()
+                        .rotationY((int) direction.getOpposite().toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
+    }
+    public ModelFile sizeModel(Supplier<Block> block, int size){
+        return this.models().withExistingParent(
+                        this.name(block.get()) + "_" + size,
+                        this.modLoc("custom/" + this.name(block.get()) + "_" + size))
+                .texture("0", this.modLoc("block/" + this.name(block.get())))
+                .texture("particle", this.modLoc("block/" + this.name(block.get())))
+                .renderType(CUTOUT);
+    }
     public void blockSolid(Supplier<Block> block){
         ModelFile modelFile = this.models().withExistingParent(
                         this.name(block.get()),

@@ -17,9 +17,9 @@ public class BakeriesCreativeModeTabs {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable(UtilTranslatable.setCreativeModeTabs("items")))
                     .withTabsBefore(CreativeModeTabs.COMBAT)
-                    .icon(() -> BakeriesItems.MS_ICON.get().getDefaultInstance())
+                    .icon(() -> BakeriesItems.ROUND_BREAD.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
-
+                        output.accept(BakeriesItems.ROUND_BREAD.get());
                     }).build());
 
 }

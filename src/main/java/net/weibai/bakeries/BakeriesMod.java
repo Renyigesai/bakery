@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
 import net.weibai.bakeries.common.init.*;
 import org.slf4j.Logger;
 
@@ -15,7 +14,7 @@ public class BakeriesMod {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public BakeriesMod(IEventBus modEventBus, ModContainer modContainer) {
-        NeoForge.EVENT_BUS.register(this);
+//        NeoForge.EVENT_BUS.register(this);
 
         BakeriesCreativeModeTabs.getREGISTER().register(modEventBus);
         BakeriesBlocks.getREGISTER().register(modEventBus);

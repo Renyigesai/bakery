@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.weibai.bakeries.BakeriesMod;
+import net.weibai.bakeries.common.blocks.RoundBread;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -19,21 +20,19 @@ public class BakeriesBlocks {
     @Getter
     private static final DeferredRegister.Blocks REGISTER = DeferredRegister.createBlocks(BakeriesMod.MODID);
 
+    public static final DeferredBlock<RoundBread> ROUND_BREAD;
+    static {
+        ROUND_BREAD = register("round_bread", RoundBread::new);
+    }
 
-    private static DeferredBlock<Block> registerSimpleBlock(String name, BlockBehaviour.Properties props) {
-        return REGISTER.registerSimpleBlock(name, props);
-    }
-    private static DeferredBlock<Block> registerSimpleBlock(String name) {
-        return REGISTER.registerSimpleBlock(name);
-    }
-    private static DeferredBlock<Block> registerBlock(String name, Function<BlockBehaviour.Properties, ? extends Block> func, BlockBehaviour.Properties props) {
+
+    private static<B extends Block> DeferredBlock<B> registerBlock(String name, Function<BlockBehaviour.Properties, B> func, BlockBehaviour.Properties props) {
         return REGISTER.registerBlock(name, func, props);
     }
-
-    private static DeferredBlock<Block> registerBlock(String name, Function<BlockBehaviour.Properties, ? extends Block> func) {
+    private static<B extends Block> DeferredBlock<B> registerBlock(String name, Function<BlockBehaviour.Properties, B> func) {
         return REGISTER.registerBlock(name, func);
     }
-    private static DeferredBlock<Block> register(String name, Supplier<? extends Block> block) {
+    private static<B extends Block> DeferredBlock<B> register(String name, Supplier<B> block) {
         return REGISTER.register(name, block);
     }
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
