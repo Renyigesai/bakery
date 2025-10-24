@@ -1,2 +1,22 @@
-// 1.21.1	2025-10-06T20:07:07.1088171	Item Models: bakeries
+// 1.21.1	2025-10-19T21:41:52.706092	Item Models: bakeries
+9cb9073bafa8275c30d1e8ce6c792e98082eb5f8 assets/bakeries/models/item/bagel.json
+1c34a5a1201a49785ac9e264d496157f2647dc58 assets/bakeries/models/item/bagel_filled_sauce.json
+6fb88d003702fed7a706b99a1a5b996726292d21 assets/bakeries/models/item/baguette.json
+d40f7434503feba38691d644a9deda4a28c3fee9 assets/bakeries/models/item/baguette_with_filling.json
+7aa13c41a8677edbc70927c0a090820e37432a3b assets/bakeries/models/item/berry_bagel.json
+549949cdbc43643eb78c5665dc80c0edf5455bba assets/bakeries/models/item/berry_bread.json
+ca6bb171c164a76e971edd0ebeddbc94a6ea8ced assets/bakeries/models/item/brown_sugar_roll.json
+bd3a8b1cc76f9488d5f945151b623c45bb29c2dc assets/bakeries/models/item/cheese_cream_bread.json
+73808ea6475564611ea420813687072f8ff1a808 assets/bakeries/models/item/ciabatta.json
+bfec32354798fbfe821088919fec23b5fb4e297e assets/bakeries/models/item/croissant.json
+654df3b553c9c8adfc86066db982af16081ef4b5 assets/bakeries/models/item/dirty_choco_croissant.json
+e852ed89102d4ad620decebb36d69bf3230d39ec assets/bakeries/models/item/focaccia.json
+0fc6f62073a6871982b6f114d42a2c4d9241ac52 assets/bakeries/models/item/ice_cubes.json
+b03cb9347130aaab399e89bf1a6ce3126b6e821b assets/bakeries/models/item/meat_floss_bread_roll.json
+10bcc9e894e7bf95493e7b7d169bc48b74d5ac94 assets/bakeries/models/item/oven.json
+91dc6b4e6dba4c54c805f267c67ec31687ea2acf assets/bakeries/models/item/pineapple_bun.json
 0d997fd8fddf3fa398b940af0e130d675b26a10c assets/bakeries/models/item/round_bread.json
+cf9cefc4341be06c25a9b3331bd42485a648f4f8 assets/bakeries/models/item/round_bread_dough.json
+38e7613d9b91fc4855347c208ee849985ec1eb6b assets/bakeries/models/item/salt_croissant.json
+7cc2465f1350ca42cc71e5da187957d1fab842bf assets/bakeries/models/item/tomato_cheese_croissant_sandwich.json
+44c164a605f6b35d89203bce470782b89da8e178 assets/bakeries/models/item/whole_wheat_bagel.json

@@ -8,8 +8,12 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.weibai.bakeries.BakeriesMod;
+import net.weibai.bakeries.common.init.BakeriesItems;
+import net.weibai.bakeries.data.recipes.OvenRecipeBuilder;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -26,7 +30,9 @@ public class MSRecipeProvider extends RecipeProvider {
         mod(consumer);
     }
     public void mod(RecipeOutput recipeOutput){
-
+        OvenRecipeBuilder.oven(BakeriesItems.ROUND_BREAD, 1, 20, 155, 205,180,
+                Ingredient.of(new ItemStack(BakeriesItems.ROUND_BREAD_DOUGH.get())))
+                .save(recipeOutput, name(BakeriesItems.ROUND_BREAD.get()));
     }
     public void minecraft(RecipeOutput recipeOutput){
 

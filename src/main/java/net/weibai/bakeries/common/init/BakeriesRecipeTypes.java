@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLConstructModEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.weibai.bakeries.BakeriesMod;
-
+import net.weibai.bakeries.common.recipe.oven.OvenRecipe;
 
 
 @EventBusSubscriber(modid = BakeriesMod.MODID)
@@ -21,8 +21,8 @@ public class BakeriesRecipeTypes {
     @SubscribeEvent
     public static void register(FMLConstructModEvent event) {
         event.enqueueWork(() -> {
-//            SERIALIZERS.register(CollisionRecipe.ID, () -> CollisionRecipe.Serializer.INSTANCE);
-//            RECIPE_TYPE.register(CollisionRecipe.ID, () -> CollisionRecipe.Type.INSTANCE);
+            SERIALIZERS.register(OvenRecipe.ID, () -> OvenRecipe.Serializer.INSTANCE);
+            RECIPE_TYPE.register(OvenRecipe.ID, () -> OvenRecipe.Type.INSTANCE);
 
 
         });

@@ -13,8 +13,9 @@ import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.weibai.bakeries.BakeriesMod;
-import net.weibai.bakeries.api.blocks.BreadBlock;
+import net.weibai.bakeries.common.blocks.oven.OvenBlock;
 import net.weibai.bakeries.common.init.BakeriesBlocks;
+import net.weibai.rcglib.blocks.BreadBlock;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -34,18 +35,37 @@ public class MSBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        breadBlock(BakeriesBlocks.BAGEL::get);
+        breadBlock(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, BakeriesBlocks.BAGEL::get);
         breadBlock(BakeriesBlocks.ROUND_BREAD::get);
+        breadBlock(BakeriesBlocks.BERRY_BREAD::get);
+        breadBlock(BakeriesBlocks.CHEESE_CREAM_BREAD::get);
+        breadBlock(BakeriesBlocks.BROWN_SUGAR_ROLL::get);
+        breadBlock(BakeriesBlocks.PINEAPPLE_BUN::get);
+        breadBlock(BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL::get);
+        breadBlock(BakeriesBlocks.CROISSANT::get);
+        breadBlock(BakeriesBlocks.DIRTY_CHOCO_CROISSANT::get, BakeriesBlocks.CROISSANT::get);
+        breadBlock(BakeriesBlocks.SALT_CROISSANT::get);
+        breadBlock(BakeriesBlocks.CIABATTA::get);
+        breadBlock(BakeriesBlocks.FOCACCIA::get);
+        breadBlock(BakeriesBlocks.BERRY_BAGEL::get);
+        bagelFilledSauce();
+        breadBlock(BakeriesBlocks.BAGUETTE_WITH_FILLING::get);
+        breadBlock(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH::get);
+        breadBlock(BakeriesBlocks.BAGUETTE::get);
 
+        ovenBlock(BakeriesBlocks.OVEN::get);
     }
+
     public void breadBlock(Supplier<Block> block){
 
         for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()){
-            for (int size : BreadBlock.PILE.getPossibleValues()){
+            for (int size : BreadBlock.PILE_4.getPossibleValues()){
                 ModelFile modelFile = sizeModel(block, size);
 
                 this.getVariantBuilder(block.get())
                         .partialState()
-                        .with(BreadBlock.PILE, size)
+                        .with(BreadBlock.PILE_4, size)
                         .with(BlockStateProperties.HORIZONTAL_FACING, direction)
                         .modelForState()
                         .rotationY((int) direction.getOpposite().toYRot())
@@ -53,6 +73,85 @@ public class MSBlockStateProvider extends BlockStateProvider {
                         .addModel();
             }
         }
+    }
+    public void bagelFilledSauce(){
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()){
+            for (int size : BreadBlock.PILE_4.getPossibleValues()){
+                ModelFile modelFile = bagelFilledSauceModel(BakeriesBlocks.BAGEL_FILLED_SAUCE::get, BakeriesBlocks.BAGEL::get, "sauce", size);
+
+                this.getVariantBuilder(BakeriesBlocks.BAGEL_FILLED_SAUCE.get())
+                        .partialState()
+                        .with(BreadBlock.PILE_4, size)
+                        .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                        .modelForState()
+                        .rotationY((int) direction.getOpposite().toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
+    }
+    public ModelFile bagelFilledSauceModel(Supplier<Block> block, Supplier<Block> model, String model2, int size){
+        return this.models().withExistingParent(
+                        this.name(block.get()) + "_" + size,
+                        this.modLoc("custom/" + this.name(block.get()) + "_" + size))
+                .texture("0", this.modLoc("block/" + this.name(model.get())))
+                .texture("1", this.modLoc("block/" + model2))
+                .texture("particle", this.modLoc("block/" + model2))
+                .renderType(CUTOUT);
+    }
+    public void breadBlock(Supplier<Block> block, Supplier<Block> model){
+
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()){
+            for (int size : BreadBlock.PILE_4.getPossibleValues()){
+                ModelFile modelFile = sizeModel(block, model, size);
+
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(BreadBlock.PILE_4, size)
+                        .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                        .modelForState()
+                        .rotationY((int) direction.getOpposite().toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
+    }
+    public void ovenBlock(Supplier<Block> block){
+
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()){
+            for (boolean lit : OvenBlock.LIT.getPossibleValues()){
+                ModelFile modelFile = lit ? this.models().withExistingParent(
+                                this.name(block.get()) + "_fire",
+                                this.modLoc("custom/" + this.name(block.get())))
+                        .texture("0", this.modLoc("block/" + this.name(block.get()) + "_fire"))
+                        .texture("particle", this.modLoc("block/" + this.name(block.get()) + "_fire"))
+                        .renderType(CUTOUT) :
+                        this.models().withExistingParent(
+                                        this.name(block.get()),
+                                        this.modLoc("custom/" + this.name(block.get())))
+                                .texture("0", this.modLoc("block/" + this.name(block.get())))
+                                .texture("particle", this.modLoc("block/" + this.name(block.get())))
+                                .renderType(CUTOUT);
+
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(OvenBlock.LIT, lit)
+                        .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                        .modelForState()
+                        .rotationY((int) direction.toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
+    }
+
+    public ModelFile sizeModel(Supplier<Block> block, Supplier<Block> model, int size){
+        return this.models().withExistingParent(
+                        this.name(block.get()) + "_" + size,
+                        this.modLoc("custom/" + this.name(model.get()) + "_" + size))
+                .texture("0", this.modLoc("block/" + this.name(block.get())))
+                .texture("particle", this.modLoc("block/" + this.name(block.get())))
+                .renderType(CUTOUT);
     }
     public ModelFile sizeModel(Supplier<Block> block, int size){
         return this.models().withExistingParent(

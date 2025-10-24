@@ -12,6 +12,7 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.weibai.bakeries.BakeriesMod;
 import net.weibai.bakeries.common.init.BakeriesBlocks;
+import net.weibai.bakeries.common.init.BakeriesItems;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -24,10 +25,35 @@ public class MSItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        blockItem(BakeriesBlocks.BAGEL::get, "_1");
+        blockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
         blockItem(BakeriesBlocks.ROUND_BREAD::get, "_1");
+        blockItem(BakeriesBlocks.BERRY_BREAD::get, "_1");
+        blockItem(BakeriesBlocks.CHEESE_CREAM_BREAD::get, "_1");
+        blockItem(BakeriesBlocks.BROWN_SUGAR_ROLL::get, "_1");
+        blockItem(BakeriesBlocks.PINEAPPLE_BUN::get, "_1");
+        blockItem(BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL::get, "_1");
+        blockItem(BakeriesBlocks.CROISSANT::get, "_1");
+        blockItem(BakeriesBlocks.DIRTY_CHOCO_CROISSANT::get, "_1");
+        blockItem(BakeriesBlocks.SALT_CROISSANT::get, "_1");
+        blockItem(BakeriesBlocks.CIABATTA::get, "_1");
+        blockItem(BakeriesBlocks.FOCACCIA::get, "_1");
+        blockItem(BakeriesBlocks.BERRY_BAGEL::get, "_1");
+        blockItem(BakeriesBlocks.BAGEL_FILLED_SAUCE::get, "_1");
+        blockItem(BakeriesBlocks.BAGUETTE_WITH_FILLING::get, "_1");
+        blockItem(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH::get, "_1");
+        blockItem(BakeriesBlocks.BAGUETTE::get, "_1");
 
+
+        basicItem(BakeriesItems.ICE_CUBES.get());
+        blockItem(BakeriesBlocks.OVEN::get);
+        rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
     }
-
+    private ItemModelBuilder rawBreadItem(Supplier<Item> bread, Supplier<Block> block, String index) {
+        return this.getBuilder(this.name(bread.get()))
+                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index)))
+                .texture("0", this.modLoc("item/" + this.name(bread.get())));
+    }
 
     private void usingItem(Item item) {
         this.toolItem((ResourceLocation) Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)),1);

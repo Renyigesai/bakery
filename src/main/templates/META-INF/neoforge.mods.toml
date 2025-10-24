@@ -16,7 +16,6 @@ logoFile="logo.png"
 authors="${mod_authors}"
 description='''${mod_description}'''
 
-
 [[mixins]]
 config="${mod_id}.mixins.json"
 
@@ -32,4 +31,11 @@ config="${mod_id}.mixins.json"
     type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="rcg_lib"
+    type="required"
+    versionRange="[1.21.1-NeoForge-1.0.0-beta,)"
+    ordering="AFTER"
     side="BOTH"

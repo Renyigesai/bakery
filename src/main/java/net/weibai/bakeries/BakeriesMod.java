@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.weibai.bakeries.common.capabilities.BakeriesCapabilities;
 import net.weibai.bakeries.common.init.*;
 import org.slf4j.Logger;
 
@@ -23,6 +24,9 @@ public class BakeriesMod {
         BakeriesRecipeTypes.getREGISTER(modEventBus);
         BakeriesMenuType.getREGISTRY().register(modEventBus);
         BakeriesSounds.getREGISTRY().register(modEventBus);
+        BakeriesDataComponents.getREGISTER().register(modEventBus);
+
+        modEventBus.addListener(BakeriesCapabilities::registerFluidCapabilities);
 
 //        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

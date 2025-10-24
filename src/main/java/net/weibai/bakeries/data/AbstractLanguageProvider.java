@@ -16,7 +16,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.weibai.bakeries.BakeriesMod;
-import net.weibai.bakeries.common.utils.UtilTranslatable;
+import net.weibai.rcglib.utils.UtilTranslatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -117,10 +117,10 @@ public abstract class AbstractLanguageProvider extends LanguageProvider {
         this.add(tab.get().getDisplayName().getString(), en_us, zh_cn);
     }
     protected void addTooltips(String key, String en_us, String zh_cn) {
-        this.add(UtilTranslatable.setTooltips(key), en_us, zh_cn);
+        this.add(UtilTranslatable.setTooltips(BakeriesMod.MODID, key), en_us, zh_cn);
     }
     protected void addRecipeContainer(String key, String en_us, String zh_cn) {
-        this.add(UtilTranslatable.setRecipeContainer(key), en_us, zh_cn);
+        this.add(UtilTranslatable.setRecipeContainer(BakeriesMod.MODID, key), en_us, zh_cn);
     }
 
 //    protected void addFulu(Supplier<? extends Element> key, String zh_cn){
@@ -131,7 +131,7 @@ public abstract class AbstractLanguageProvider extends LanguageProvider {
         this.add("attribute." + attribute.get().getDescriptionId(), en_us, zh_cn);
     }
     protected void addKeyMapping(String name, String en_us, String zh_cn){
-        this.add(UtilTranslatable.setKeyMapping(name), en_us, zh_cn);
+        this.add(UtilTranslatable.setKeyMapping(BakeriesMod.MODID, name), en_us, zh_cn);
     }
 
     protected void add(String key, String en_us, String zh_cn) {

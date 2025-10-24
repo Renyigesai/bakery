@@ -3,8 +3,9 @@ package net.weibai.bakeries.common.init;
 import lombok.Getter;
 import net.minecraft.sounds.SoundEvent;
 import net.weibai.bakeries.BakeriesMod;
-import net.weibai.bakeries.common.registration.impl.DeferredSoundEvent;
-import net.weibai.bakeries.common.registration.impl.SoundEventDeferredRegister;
+import net.weibai.rcglib.registration.impl.DeferredSoundEvent;
+import net.weibai.rcglib.registration.impl.SoundEventDeferredRegister;
+
 
 public class BakeriesSounds {
     @Getter

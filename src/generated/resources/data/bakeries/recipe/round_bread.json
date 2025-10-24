@@ -1,0 +1,14 @@
+{
+  "type": "bakeries:collision",
+  "ingredient": {
+    "item": "bakeries:round_bread_dough"
+  },
+  "max": 205,
+  "min": 155,
+  "perfect": 180,
+  "result": {
+    "count": 1,
+    "id": "bakeries:round_bread"
+  },
+  "time": 20
+}

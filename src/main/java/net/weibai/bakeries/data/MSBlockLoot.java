@@ -13,10 +13,10 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.weibai.bakeries.api.blocks.BreadBlock;
 import net.weibai.bakeries.common.init.BakeriesBlocks;
+import net.weibai.rcglib.blocks.BreadBlock;
 
-
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MSBlockLoot extends VanillaBlockLoot {
@@ -27,8 +27,34 @@ public class MSBlockLoot extends VanillaBlockLoot {
     protected void generate() {
 //        this.dropSelf(MSBlocks.TINY_ANDESITE_BLOCK.get());
 //        this.dropOther(MSBlocks.POWDER_SNOW_ACACIA_LOG_CAULDRON.get(), MSBlocks.ACACIA_LOG_CAULDRON.get());
-        this.add(BakeriesBlocks.ROUND_BREAD.get(), block -> this.createStateDrops(BakeriesBlocks.ROUND_BREAD.get(), BreadBlock.PILE));
+        this.forAddAllBread(
+                BakeriesBlocks.BAGEL.get(),
+                BakeriesBlocks.WHOLE_WHEAT_BAGEL.get(),
+                BakeriesBlocks.ROUND_BREAD.get(),
+                BakeriesBlocks.BERRY_BREAD.get(),
+                BakeriesBlocks.CHEESE_CREAM_BREAD.get(),
+                BakeriesBlocks.BROWN_SUGAR_ROLL.get(),
+                BakeriesBlocks.PINEAPPLE_BUN.get(),
+                BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL.get(),
+                BakeriesBlocks.CROISSANT.get(),
+                BakeriesBlocks.DIRTY_CHOCO_CROISSANT.get(),
+                BakeriesBlocks.SALT_CROISSANT.get(),
+                BakeriesBlocks.CIABATTA.get(),
+                BakeriesBlocks.FOCACCIA.get(),
+                BakeriesBlocks.BERRY_BAGEL.get(),
+                BakeriesBlocks.BAGEL_FILLED_SAUCE.get(),
+                BakeriesBlocks.BAGUETTE_WITH_FILLING.get(),
+                BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH.get(),
+                BakeriesBlocks.BAGUETTE.get()
+        );
 
+        this.dropSelf(BakeriesBlocks.OVEN.get());
+    }
+    private void forAddAllBread(Block... blocks){
+        List<Block> blockList = List.of(blocks);
+        for (Block block : blockList) {
+            this.add(block, blockIn -> this.createStateDrops(block, BreadBlock.PILE_4));
+        }
     }
 
     protected LootTable.Builder createStateDrops(Block pBlock, IntegerProperty property) {
