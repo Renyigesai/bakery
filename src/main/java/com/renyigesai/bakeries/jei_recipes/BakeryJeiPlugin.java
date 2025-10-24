@@ -6,10 +6,7 @@ import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.inventory.oven.OvenScreen;
-import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
-import com.renyigesai.bakeries.recipe.CoffeeRecipe;
-import com.renyigesai.bakeries.recipe.BlenderRecipe;
-import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
+import com.renyigesai.bakeries.recipe.*;
 import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import mezz.jei.api.IModPlugin;
@@ -35,6 +32,7 @@ public class BakeryJeiPlugin implements IModPlugin {
 	public static final mezz.jei.api.recipe.RecipeType<BreadKnifeRecipe> BREAD_KNIFE_TYPE = new mezz.jei.api.recipe.RecipeType<>(BreadKnifeRecipeCategory.UID, BreadKnifeRecipe.class);
 	public static final mezz.jei.api.recipe.RecipeType<FlourSieveRecipe> FLOUR_SIEVE_TYPE = new mezz.jei.api.recipe.RecipeType<>(FlourSieveRecipeCategory.UID, FlourSieveRecipe.class);
 	public static final mezz.jei.api.recipe.RecipeType<CoffeeRecipe> DRINK_TYPE = new mezz.jei.api.recipe.RecipeType<>(DrinkRecipeCategory.UID, CoffeeRecipe.class);
+	public static final mezz.jei.api.recipe.RecipeType<StoneKilnRecipe> STONE_KILN_TYPE = new mezz.jei.api.recipe.RecipeType<>(StoneKilnCategory.UID, StoneKilnRecipe.class);
 	@Override
 	public @NotNull ResourceLocation getPluginUid() {
 		return new ResourceLocation(BakeriesMod.MODID,"jei_plugin");
@@ -48,6 +46,7 @@ public class BakeryJeiPlugin implements IModPlugin {
 		registration.addRecipeCategories(new BreadKnifeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
 		registration.addRecipeCategories(new FlourSieveRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
 		registration.addRecipeCategories(new DrinkRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+		registration.addRecipeCategories(new StoneKilnCategory(registration.getJeiHelpers().getGuiHelper()));
 	}
 
 	@Override
@@ -65,6 +64,8 @@ public class BakeryJeiPlugin implements IModPlugin {
 		registration.addRecipes(FLOUR_SIEVE_TYPE, flourSieveRecipes);
 		List<CoffeeRecipe> drinkRecipes = recipeManager.getAllRecipesFor(CoffeeRecipe.Type.INSTANCE);
 		registration.addRecipes(DRINK_TYPE, drinkRecipes);
+		List<StoneKilnRecipe> stoneRecipes = recipeManager.getAllRecipesFor(StoneKilnRecipe.Type.INSTANCE);
+		registration.addRecipes(STONE_KILN_TYPE, stoneRecipes);
 
 //		registration.addIngredientInfo(List.of(new ItemStack(BakeryBlocks.OVEN.get())), VanillaTypes.ITEM_STACK, Component.translatable("jei.defender.netheritr_blockxx_1"));
 	}
@@ -86,5 +87,6 @@ public class BakeryJeiPlugin implements IModPlugin {
 		registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BREAD_KNIFE.get()), BREAD_KNIFE_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(BakeriesItems.FLOUR_SIEVE.get()), FLOUR_SIEVE_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DRINK_CUP.get()), DRINK_TYPE);
+		registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.STONE_KILN.get()), STONE_KILN_TYPE);
 	}
 }

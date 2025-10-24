@@ -3,11 +3,10 @@ package com.renyigesai.bakeries.api;
 import net.minecraft.world.effect.MobEffect;
 
 import java.util.function.Supplier;
-
 public class LazyMobEffectInstance {
     public final Supplier<MobEffect> effect;
     private final int duration;
-    private int amplifier;
+    private final int amplifier;
 
     public LazyMobEffectInstance(Supplier<MobEffect> effect, int duration) {
         this.effect = effect;

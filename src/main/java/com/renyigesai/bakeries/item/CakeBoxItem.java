@@ -59,7 +59,9 @@ public class CakeBoxItem extends BlockItem {
 
             CompoundTag compoundTag = new CompoundTag();
             ItemStackHandler handler = new ItemStackHandler(1);
-            handler.setStackInSlot(0,offhandItem.copy());
+            ItemStack copyItem = offhandItem.copy();
+            copyItem.setCount(1);
+            handler.setStackInSlot(0,copyItem);
             compoundTag.put("Inventory",handler.serializeNBT());
             mainHandItem.setTag(compoundTag);
             if (!pPlayer.getAbilities().instabuild){
@@ -89,6 +91,7 @@ public class CakeBoxItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         ItemStack boxStack = getBoxStack(pStack);
+        pTooltip.add(Component.literal(Component.translatable("item.bakeries.cake_box.tips").getString()).withStyle(ChatFormatting.BLUE));
         if (!boxStack.isEmpty()){
             pTooltip.add(Component.literal(Component.translatable("item.bakeries.cake_box.tips").getString()).withStyle(ChatFormatting.BLUE));
             pTooltip.add(Component.literal(boxStack.getItem().getName(boxStack).getString()).withStyle(ChatFormatting.GRAY));

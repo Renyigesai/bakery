@@ -24,6 +24,7 @@ public class BakeriesGroup {
                     .displayItems(((itemDisplayParameters, output) -> {
                         //功能方块/方块/物品
                         output.accept(BakeriesItems.OVEN.get());//烤箱
+                        output.accept(BakeriesItems.STONE_KILN.get());//石窑炉
                         output.accept(BakeriesItems.BLENDER.get());//搅拌机
                         output.accept(BakeriesItems.MOKA_POT.get());//摩卡壶
                         output.accept(BakeriesItems.MOKA_POT_FILL.get());//装有咖啡的摩卡壶
@@ -52,6 +53,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());//黑白混凝土
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());//面粉筛
                         output.accept(BakeriesItems.BREAD_KNIFE.get());//面包刀
+                        output.accept(BakeriesItems.STONE_KILN_SHOVEL.get());//炉铲
                         output.accept(BakeriesItems.MOULD.get());//模具
                         output.accept(BakeriesItems.MOULD_TWO.get());//模具
                         output.accept(BakeriesItems.PAPER_CUP.get());//纸杯
@@ -99,6 +101,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CHEESE_CREAM_BREAD.get());//莓果面包
                         output.accept(BakeriesItems.BROWN_SUGAR_ROLL.get());//红糖卷
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());//菠萝包
+                        output.accept(BakeriesItems.PINEAPPLE_OIL.get());//菠萝包
                         output.accept(BakeriesItems.MEAT_FLOSS_BREAD_ROLL.get());//肉松面包卷
                         output.accept(BakeriesItems.CROISSANT.get());//可颂
                         output.accept(BakeriesItems.DIRTY_CHOCO_CROISSANT.get());//脏脏包
@@ -133,6 +136,8 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.TIRAMISU.get());//提拉米苏
                         output.accept(BakeriesItems.CARROT_CAKE.get());//胡萝卜蛋糕
                         output.accept(BakeriesItems.RED_VELVET_CAKE.get());//红丝绒蛋糕
+                        output.accept(BakeriesItems.PIZZA.get());//披萨
+                        output.accept(BakeriesItems.CUSTOM_PIZZA.get());//自定义披萨
 //                        output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕
                         /*
                         饮料
@@ -142,6 +147,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BROWN_SUGAR_LATTE.get());//黑铁拿铁
                         output.accept(BakeriesItems.CREAM_BINGLE_COFFEE.get());//奶油冰冰乐
                         output.accept(BakeriesItems.MATCHA_LATTE.get());//抹茶拿铁
+                        output.accept(BakeriesItems.MATCHA_PARFAIT.get());//抹茶巴菲
                         /*
                         唱片
                         */
@@ -186,6 +192,9 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.FOCACCIA_DOUGH.get());
                         output.accept(BakeriesItems.COUNTRY_BREAD_DOUGH.get());
                         output.accept(BakeriesItems.CREAM_PUMPKIN_PIE_DOUGH.get());
+                        output.accept(BakeriesItems.PIZZA_FLATBREAD.get());
+                        output.accept(BakeriesItems.RAW_PIZZA.get());
+                        output.accept(BakeriesItems.RAW_CUSTOM_PIZZA.get());
                     }))
                     .build());
 
@@ -195,6 +204,7 @@ public class BakeriesGroup {
                     .displayItems(((itemDisplayParameters, output) -> {
                         output.accept(BakeriesCompatItems.RICE_BREAD.get());//米面包
                         output.accept(BakeriesItems.RICE_BREAD_DOUGH.get());//米面包面胚
+                        output.accept(BakeriesCompatItems.SALMON_SANDWICH.get());//鲑鱼三明治
                         output.accept(BakeriesCompatItems.GARLIC_FLAVORED_BAGUETTE.get());//蒜香法棍
                         output.accept(BakeriesCompatItems.YUNTUI_MOONCAKE.get());//云腿月饼
                         output.accept(BakeriesItems.RAW_YUNTUI_MOONCAKE.get());//生云腿月饼

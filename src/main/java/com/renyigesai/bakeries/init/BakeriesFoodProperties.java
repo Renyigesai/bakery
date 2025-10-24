@@ -45,8 +45,11 @@ public class BakeriesFoodProperties {
     public static final FoodProperties CREAM_CAKE_CUBE;
     public static final FoodProperties CHEESE_CREAM_BREAD;
     public static final FoodProperties MATCHA_LATTE;
+    public static final FoodProperties MATCHA_PARFAIT;
     public static final FoodProperties BAGEL_FILLED_SAUCE;
     public static final FoodProperties EGG_TART;
+    public static final FoodProperties SALMON_SANDWICH;
+    public static final FoodProperties PINEAPPLE_OIL;
 
     /*模组联动食物属性*/
     public static final FoodProperties RICE_BREAD;
@@ -99,7 +102,7 @@ public class BakeriesFoodProperties {
 
         CIABATTA = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).build();
 
-        MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(7).saturationMod(0.75f).build();
+        MEAT_FLOSS_BREAD = new FoodProperties.Builder().nutrition(7).saturationMod(0.75f).alwaysEat().build();
 
         FOCACCIA = new FoodProperties.Builder().nutrition(8).saturationMod(1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1F).build();
@@ -121,19 +124,18 @@ public class BakeriesFoodProperties {
         CREAM_BINGLE_COFFEE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).nutrition(1).saturationMod(0.5f).alwaysEat().build();
 
         MATCHA_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(1).saturationMod(0.5f).alwaysEat().build();
+        MATCHA_PARFAIT = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(9).saturationMod(0.5f).alwaysEat().build();
 
         DIRTY_CHOCO_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1200),1F)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),1200),1F)
                 .build();
 
-        BAGUETTE_WITH_FILLING = new FoodProperties.Builder().nutrition(13).saturationMod(0.4f).build();
+        BAGUETTE_WITH_FILLING = new FoodProperties.Builder().nutrition(13).saturationMod(0.4f).alwaysEat().build();
 
-        TOMATO_CHEESE_CROISSANT_SANDWICH = new FoodProperties.Builder().nutrition(10).saturationMod(0.9f)
-                .effect(()->new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),6000),1F).build();
+        TOMATO_CHEESE_CROISSANT_SANDWICH = new FoodProperties.Builder().nutrition(10).saturationMod(0.9f).effect(()->new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),6000),1F).alwaysEat().build();
 
-        BERRY_BAGEL = new FoodProperties.Builder().nutrition(8).saturationMod(0.625f)
-                .effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F).build();
+        BERRY_BAGEL = new FoodProperties.Builder().nutrition(8).saturationMod(0.625f).effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F).alwaysEat().build();
 
         HONEY_BUTTER_SPREAD_TOAST = new FoodProperties.Builder().nutrition(8).saturationMod(0.5f).alwaysEat().build();
 
@@ -151,15 +153,19 @@ public class BakeriesFoodProperties {
 
         CREAM_CAKE_CUBE = new FoodProperties.Builder().nutrition(5).saturationMod(0.4f).effect(()->new MobEffectInstance(BakeriesMobEffects.SOFT.get(),1200),1f).effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1f).alwaysEat().build();
 
-        CHEESE_CREAM_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(1f).effect(()->new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200),1f).build();
+        CHEESE_CREAM_BREAD = new FoodProperties.Builder().nutrition(6).saturationMod(1f).effect(()->new MobEffectInstance(BakeriesMobEffects.CHEESE_POWER.get(),1200),1f).alwaysEat().build();
 
-        BAGEL_FILLED_SAUCE = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).build();
+        BAGEL_FILLED_SAUCE = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).alwaysEat().build();
 
         EGG_TART = new FoodProperties.Builder().nutrition(8).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.HEAL,1),1f).build();
+
+        PINEAPPLE_OIL = new FoodProperties.Builder().nutrition(8).saturationMod(1.5f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1800),1F).alwaysEat().build();
 
         /*模组联动食物属性*/
         RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1f).build();
         RICE_BREAD_FARMERSDELIGHT = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),6000),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1f).build();
+
+        SALMON_SANDWICH = new FoodProperties.Builder().nutrition(10).saturationMod(0.85f).effect(new MobEffectInstance(MobEffects.REGENERATION,600),1f).alwaysEat().build();
 
         ORANGE_AMERICAN = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.REGENERATION,600),1f).alwaysEat().build();
 

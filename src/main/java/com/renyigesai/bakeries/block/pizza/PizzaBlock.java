@@ -1,4 +1,4 @@
-package com.renyigesai.bakeries.block;
+package com.renyigesai.bakeries.block.pizza;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +16,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -31,10 +32,10 @@ public class PizzaBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty SLICE = IntegerProperty.create("slice",0,3);
     public final int nutrition;
     public final float saturationModifier;
-    public Supplier<Item> SLICE_ITEM;
+    public Supplier<Item> sliceItem;
     protected static final VoxelShape BOX = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 2.0D, 15.0D);
-    public PizzaBlock(Properties pProperties, int nutrition, float saturationModifier) {
-        super(pProperties);
+    public PizzaBlock(int nutrition, float saturationModifier) {
+        super(BlockBehaviour.Properties.copy(Blocks.CAKE));
         this.nutrition = nutrition;
         this.saturationModifier = saturationModifier;
         this.registerDefaultState(this.stateDefinition.any().setValue(SLICE, 0).setValue(FACING,Direction.NORTH));
@@ -51,20 +52,16 @@ public class PizzaBlock extends HorizontalDirectionalBlock {
     }
 
     public InteractionResult eat(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
-        if (!pPlayer.canEat(false)){
-            return InteractionResult.PASS;
+        pPlayer.getFoodData().eat(this.nutrition, this.saturationModifier);
+        pLevel.gameEvent(pPlayer, GameEvent.EAT, pPos);
+        int slice = pState.getValue(SLICE);
+        if (slice < getSlice() - 1){
+            pLevel.setBlock(pPos, pState.setValue(SLICE, slice + 1), 3);
         }else {
-            pPlayer.getFoodData().eat(this.nutrition, this.saturationModifier);
-            pLevel.gameEvent(pPlayer, GameEvent.EAT, pPos);
-            int slice = pState.getValue(SLICE);
-            if (slice < getSlice() - 1){
-                pLevel.setBlock(pPos, pState.setValue(SLICE, slice + 1), 3);
-            }else {
-                pLevel.removeBlock(pPos, false);
-            }
-            pLevel.playSound(null,pPos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
-            return InteractionResult.SUCCESS;
+            pLevel.removeBlock(pPos, false);
         }
+        pLevel.playSound(null,pPos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

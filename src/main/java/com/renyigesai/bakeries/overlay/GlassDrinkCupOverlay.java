@@ -22,7 +22,6 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber({Dist.CLIENT})
 public class GlassDrinkCupOverlay {
-    private static final Map<UUID, BlockEntity> playerViewMap = new HashMap<>();
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public static void add(RenderGuiEvent.Pre event){
         int w = event.getWindow().getGuiScaledWidth() / 2 - 71;
@@ -50,16 +49,4 @@ public class GlassDrinkCupOverlay {
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1, 1, 1, 1);
     }
-    public static void setVisible(Player player, BlockEntity entity) {
-        if (player.level().isClientSide) { // 确保只在客户端调用
-            playerViewMap.put(player.getUUID(), entity);
-        }
-    }
-//    @SubscribeEvent
-//    public static void onPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-//        LocalPlayer player = event.getPlayer();
-//        if (player != null) {
-//            playerViewMap.remove(player.getUUID());
-//        }
-//    }
 }

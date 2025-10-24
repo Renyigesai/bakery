@@ -1,6 +1,9 @@
 package com.renyigesai.bakeries.api.item;
 
+import com.renyigesai.bakeries.block.mix_block.MixBlock;
+import com.renyigesai.bakeries.block.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.api.block.PileBlock;
+import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.util.TextUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -20,6 +23,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
@@ -60,24 +64,67 @@ public class FoodBlockItem extends ItemNameBlockItem {
             Block thisBlock = this.getBlock();
             BlockPos pos = pContext.getClickedPos();
             BlockState state = level.getBlockState(pos);
-            if (!state.is(thisBlock)) {
-                return this.place(new BlockPlaceContext(pContext));
+
+            if (state.is(BakeriesBlocks.MIX_BREAD_BLOCK.get())){
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof MixBlockEntity mix){
+                    boolean flag = mix.addItem(new ItemStack(thisBlock.asItem()));
+                    if (flag){
+                        if (!player.getAbilities().instabuild) {
+                            pContext.getItemInHand().shrink(1);
+                        }
+                        level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+                    }
+                    return InteractionResult.sidedSuccess(flag);
+                }
             }
-            if (state.is(thisBlock) && state.hasProperty(this.integerProperty)) {
-                int value = state.getValue(this.integerProperty);
-                PileBlock newBlock = (PileBlock) thisBlock;
-                if (value < newBlock.getMaxPile()) {
-                    level.setBlock(pos, state.setValue(this.integerProperty, value + 1), 3);
-                    level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+
+            if (!state.is(thisBlock)) {
+                if (state.getBlock() instanceof PileBlock pileBlock && state.getValue(PileBlock.integerProperty) < pileBlock.getMaxPile() && thisBlock instanceof PileBlock){
+                    fillMixBlock(state,thisBlock,level,pos);
                     if (!player.getAbilities().instabuild) {
                         pContext.getItemInHand().shrink(1);
                     }
-                    result = InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
+                    level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+                    return InteractionResult.SUCCESS;
+                }else {
+                    return this.place(new BlockPlaceContext(pContext));
+                }
+
+            }
+            if (state.is(thisBlock)) {
+                if (state.hasProperty(this.integerProperty)){
+                    int value = state.getValue(this.integerProperty);
+                    PileBlock newBlock = (PileBlock) thisBlock;
+                    if (value < newBlock.getMaxPile()) {
+                        level.setBlock(pos, state.setValue(this.integerProperty, value + 1), 3);
+                        level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+                        if (!player.getAbilities().instabuild) {
+                            pContext.getItemInHand().shrink(1);
+                        }
+                        result = InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
+                    }
                 }
             }
         }
         return result;
     }
+
+    private void fillMixBlock(BlockState state,Block block,Level level,BlockPos pos){
+        int integerProperty = state.getValue(PileBlock.integerProperty);
+        Item item = state.getBlock().asItem();
+        level.setBlock(pos, BakeriesBlocks.MIX_BREAD_BLOCK.get().defaultBlockState().setValue(MixBlock.FACING,state.getValue(PileBlock.FACING)),3);
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof MixBlockEntity mix){
+            for (int i = 0; i < integerProperty; i++) {
+                mix.addItem(new ItemStack(item));
+                mix.updateBlock();
+            }
+            mix.addItem(new ItemStack(block.asItem()));
+            mix.updateBlock();
+        }
+    }
+
     public boolean isExtra(UseOnContext pContext) {
         return true;
     }

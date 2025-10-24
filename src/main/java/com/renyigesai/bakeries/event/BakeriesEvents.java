@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.event;
 import com.renyigesai.bakeries.accessor.VillagerAccessor;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
 import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
+import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntity;
 import com.renyigesai.bakeries.client.LookBlockEntityMap;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
@@ -108,6 +109,11 @@ public class BakeriesEvents {
         BlockPos blockPos = event.getBlockPos();
         if (state.getBlock() == BakeriesBlocks.DRINK_CUP.get()){
             GlassDrinkCupBlockEntity blockEntity = (GlassDrinkCupBlockEntity) level.getBlockEntity(blockPos);
+            LookBlockEntityMap.setBlocks(player,blockEntity);
+            return;
+        }
+        if (state.getBlock() == BakeriesBlocks.STONE_KILN.get()){
+            StoneKilnBlockEntity blockEntity = (StoneKilnBlockEntity) level.getBlockEntity(blockPos);
             LookBlockEntityMap.setBlocks(player,blockEntity);
             return;
         }

@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.item;
 
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.util.TextUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,11 +74,16 @@ public class CakeRollItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag isAdvanced) {
-        List<ItemStack> inventoryList = getInventoryList(stack);
-        for (ItemStack itemStack : inventoryList) {
-            TextUtils.addFoodEffectTooltip(itemStack, tooltip, 1.0F);
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        pTooltip.add(Component.literal(Component.translatable("item.bakeries.custom_containing.tips").getString()).withStyle(ChatFormatting.BLUE));
+        List<ItemStack> inventoryList = getInventoryList(pStack);
+        if (!inventoryList.isEmpty()){
+            for (ItemStack itemStack : inventoryList) {
+                if (!itemStack.isEmpty()) {
+                    pTooltip.add(Component.literal(itemStack.getItem().getName(itemStack).getString()).withStyle(ChatFormatting.GRAY));
+                }
+            }
         }
-        TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
     }
 }

@@ -1,0 +1,24 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "tag": "forge:matcha"
+    }
+  ],
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "output": {
+    "item": "bakeries:matcha_parfait",
+    "count": 1
+  }
+}

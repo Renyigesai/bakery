@@ -41,4 +41,5 @@ public class ColdDrinkBlock extends PileBlock {
     public int getMaxPile() {
         return 2;
     }
+
 }

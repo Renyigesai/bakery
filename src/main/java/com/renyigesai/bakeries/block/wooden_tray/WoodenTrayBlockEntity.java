@@ -109,16 +109,6 @@ public class WoodenTrayBlockEntity extends BlockEntity {
     }
 
     public Vec2 getItemOffest(int i) {
-        Vec2[] vec2_1 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
-        Vec2[] vec2_2 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
-        Vec2[] vec2_3 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
-        Vec2[] vec2_4 = {new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1), new Vec2(1, 1)};
-        List<Vec2[]> vec2 = new ArrayList<>();
-        vec2.add(vec2_1);
-        vec2.add(vec2_2);
-        vec2.add(vec2_3);
-        vec2.add(vec2_4);
-
 
         float x = inventory.getStackInSlot(1).isEmpty()?0.0f:-0.15f;
         float y = -0.315f;

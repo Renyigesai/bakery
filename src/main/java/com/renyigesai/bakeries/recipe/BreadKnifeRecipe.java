@@ -85,10 +85,7 @@ public class BreadKnifeRecipe implements Recipe<SimpleContainer> {
             // 动态获取原料数量
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.create();
-
-//            for (int i = 0; i < ingredients.size(); i++) {
-                inputs.add(Ingredient.fromJson(ingredients.get(0)));
-//            }
+            inputs.add(Ingredient.fromJson(ingredients.get(0)));
 
             return new BreadKnifeRecipe(inputs,output,pRecipeId);
         }

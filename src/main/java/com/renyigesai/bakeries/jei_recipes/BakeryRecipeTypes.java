@@ -43,6 +43,10 @@ public class BakeryRecipeTypes {
 			RECIPE_TYPE.register(BreadKnifeRecipe.Type.ID,() ->BreadKnifeRecipe.Type.INSTANCE);
 			SERIALIZERS.register(FermentationRecipe.Type.ID,() ->FermentationRecipe.Serializer.INSTANCE);
 			RECIPE_TYPE.register(FermentationRecipe.Type.ID,() ->FermentationRecipe.Type.INSTANCE);
+			SERIALIZERS.register(PizzaRecipe.Type.ID,() ->PizzaRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register(PizzaRecipe.Type.ID,() ->PizzaRecipe.Type.INSTANCE);
+			SERIALIZERS.register(StoneKilnRecipe.Type.ID,() ->StoneKilnRecipe.Serializer.INSTANCE);
+			RECIPE_TYPE.register(StoneKilnRecipe.Type.ID,() ->StoneKilnRecipe.Type.INSTANCE);
 		});
 	}
 }

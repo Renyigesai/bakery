@@ -27,6 +27,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class BakeriesCompatItems {
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, BakeriesMod.MODID);
     public static final RegistryObject<Item> RICE_BREAD;
+    public static final RegistryObject<Item> SALMON_SANDWICH;
     public static final RegistryObject<Item> GARLIC_FLAVORED_BAGUETTE;
     public static final RegistryObject<Item> ORANGE_AMERICAN;
     public static final RegistryObject<Item> YUNTUI_MOONCAKE;
@@ -34,6 +35,7 @@ public class BakeriesCompatItems {
 
     static {
         RICE_BREAD = foodBlockItem(BakeriesBlocks.RICE_BREAD, conditionReturn(CompatMod.FARMER_S_DELIGHT,BakeriesFoodProperties.RICE_BREAD_FARMERSDELIGHT,BakeriesFoodProperties.RICE_BREAD),true,false);
+        SALMON_SANDWICH = foodBlockItem(BakeriesBlocks.SALMON_SANDWICH,BakeriesFoodProperties.SALMON_SANDWICH,true,false,ItemUtil.ADVANCED);
         ORANGE_AMERICAN = coldDrinkItem(BakeriesBlocks.ORANGE_AMERICAN,BakeriesFoodProperties.ORANGE_AMERICAN,true,3,3,true);
         GARLIC_FLAVORED_BAGUETTE = REGISTER.register("garlic_flavored_baguette",()->new GarlicFlavoredBaguetteItem(BakeriesBlocks.GARLIC_FLAVORED_BAGUETTE.get(),PileBlock.integerProperty,new Item.Properties().durability(4).food(BakeriesFoodProperties.GARLIC_FLAVORED_BAGUETTE).rarity(ItemUtil.ADVANCED),true,false));
         YUNTUI_MOONCAKE = REGISTER.register("yuntui_mooncake",()-> new Item(new Item.Properties().food(BakeriesFoodProperties.YUNTUI_MOONCAKE)));
