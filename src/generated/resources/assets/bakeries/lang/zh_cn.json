@@ -196,8 +196,9 @@
   "item.bakeries.mould_red_velvet_cake_paste": "红丝绒蛋糕面糊",
   "item.bakeries.stone_kiln_shovel": "炉铲",
   "item.bakeries.custom_containing.tips": "自定义 内含",
+  "item.bakeries.containing.tips": "内含",
   "item.bakeries.raw_custom_pizza": "生披萨",
-  "item.bakeries.stone_kiln_shovel_tips_2": "内含",
+  "block.bakeries.raw_pizza": "生披萨",
   "block.bakeries.custom_pizza": "披萨",
   "block.bakeries.mould_red_velvet_cake": "红丝绒蛋糕胚",
   "block.bakeries.red_velvet_cake_base": "红丝绒蛋糕胚",
@@ -283,6 +284,7 @@
   "guide.bakeries.descr.fresh_cheese_cube": "你可以通过在发酵桶中放入一份牛奶和一份盐来得到4份鲜奶酪块。",
   "guide.bakeries.descr.cake_roll": "$(l:https://www.bilibili.com/video/BV1WcuAzQEMr)蛋糕卷制作保姆级教程",
   "guide.bakeries.descr.matcha_powder": "使用$(l:baking_utensil/flour_sieve)面粉筛/$将树叶过筛为抹茶粉。",
+  "guide.bakeries.descr.stone_kiln": "非常原始的烤炉，你可以用来烤披萨，你还需要一个炉铲，用来放入和取出物品。",
   "advancements.bakeries_root.title": "烘焙坊",
   "advancements.bakeries_root.descr": "精致烘焙。",
   "advancements.sieving.title": "唰唰唰!!",
@@ -348,5 +350,6 @@
   "tip.bakeries.pizza_cheese": "你还没放置奶酪呢",
   "tip.bakeries.pizza_stone_kiln_shovel": "你需要使用炉铲",
   "gui.bakeries.oven.temperature": "当前温度",
-  "gui.bakeries.oven.rolling": "§o滚动调整"
+  "gui.bakeries.oven.rolling": "§o滚动调整",
+  "rarity.advanced.name": "加强"
 }

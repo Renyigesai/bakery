@@ -1,11 +1,14 @@
 package com.renyigesai.bakeries.block.pizza;
 
+import com.renyigesai.bakeries.api.LazyMobEffectInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -26,18 +29,28 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class PizzaBlock extends HorizontalDirectionalBlock {
     public static final IntegerProperty SLICE = IntegerProperty.create("slice",0,3);
     public final int nutrition;
     public final float saturationModifier;
-    public Supplier<Item> sliceItem;
+    public List<LazyMobEffectInstance> effects = new ArrayList<>();
     protected static final VoxelShape BOX = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 2.0D, 15.0D);
     public PizzaBlock(int nutrition, float saturationModifier) {
         super(BlockBehaviour.Properties.copy(Blocks.CAKE));
         this.nutrition = nutrition;
         this.saturationModifier = saturationModifier;
+        this.registerDefaultState(this.stateDefinition.any().setValue(SLICE, 0).setValue(FACING,Direction.NORTH));
+    }
+
+    public PizzaBlock(int nutrition, float saturationModifier,List<LazyMobEffectInstance> effects) {
+        super(BlockBehaviour.Properties.copy(Blocks.CAKE));
+        this.nutrition = nutrition;
+        this.saturationModifier = saturationModifier;
+        this.effects = effects;
         this.registerDefaultState(this.stateDefinition.any().setValue(SLICE, 0).setValue(FACING,Direction.NORTH));
     }
 
@@ -53,6 +66,7 @@ public class PizzaBlock extends HorizontalDirectionalBlock {
 
     public InteractionResult eat(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
         pPlayer.getFoodData().eat(this.nutrition, this.saturationModifier);
+        addEffect(pPlayer);
         pLevel.gameEvent(pPlayer, GameEvent.EAT, pPos);
         int slice = pState.getValue(SLICE);
         if (slice < getSlice() - 1){
@@ -62,6 +76,14 @@ public class PizzaBlock extends HorizontalDirectionalBlock {
         }
         pLevel.playSound(null,pPos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
+    }
+
+    public void addEffect(LivingEntity entity){
+        if (!effects.isEmpty()){
+            for (LazyMobEffectInstance lazyInstance : effects) {
+                entity.addEffect(new MobEffectInstance(lazyInstance.getEffect().get(), lazyInstance.getDuration(), lazyInstance.getAmplifier()));
+            }
+        }
     }
 
     @Override

@@ -239,7 +239,6 @@ public class StoneKilnBlockEntity extends BlockEntity {
 
     public void startTurnOver(){
         this.turnOver ++;
-//        this.setAnimationStatus(StoneKilnBlockEntity.AnimationStatus.TURN_OVER);
         this.progress = 0.0f;
         this.isTurnOver = false;
         this.level.blockEvent(worldPosition,this.getBlockState().getBlock(), 1,0);

@@ -72,9 +72,9 @@ public class CustomPizzaBlock extends BaseEntityBlock {
             float saturationMod = pizza.getSaturationMod();
             if (player != null){
                 player.getFoodData().eat(nutrition,saturationMod);
+                addEffects(pizza,player);
+                pLevel.gameEvent(player, GameEvent.EAT, pPos);
             }
-            addEffects(pizza,livingEntity);
-            pLevel.gameEvent(livingEntity, GameEvent.EAT, pPos);
             int slice = pState.getValue(SLICE);
             if (slice < getSlice() - 1){
                 pLevel.setBlock(pPos, pState.setValue(SLICE, slice + 1), 3);
@@ -88,11 +88,11 @@ public class CustomPizzaBlock extends BaseEntityBlock {
 
     }
 
-    public void addEffects(CustomPizzaBlockEntity pizza, LivingEntity livingEntity){
-        List<List<Pair<MobEffectInstance, Float>>> effects = pizza.getEffects(livingEntity);
+    public void addEffects(CustomPizzaBlockEntity pizza, Player player){
+        List<List<Pair<MobEffectInstance, Float>>> effects = pizza.getEffects(player);
         for (List<Pair<MobEffectInstance, Float>> pairs : effects) {
             for (Pair<MobEffectInstance, Float> mobEffectInstanceFloatPair : pairs) {
-                livingEntity.addEffect(mobEffectInstanceFloatPair.getFirst());
+                player.addEffect(mobEffectInstanceFloatPair.getFirst());
             }
         }
     }

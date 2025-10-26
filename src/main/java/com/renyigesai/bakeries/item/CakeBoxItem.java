@@ -93,7 +93,7 @@ public class CakeBoxItem extends BlockItem {
         ItemStack boxStack = getBoxStack(pStack);
         pTooltip.add(Component.literal(Component.translatable("item.bakeries.cake_box.tips").getString()).withStyle(ChatFormatting.BLUE));
         if (!boxStack.isEmpty()){
-            pTooltip.add(Component.literal(Component.translatable("item.bakeries.cake_box.tips").getString()).withStyle(ChatFormatting.BLUE));
+            pTooltip.add(Component.literal(Component.translatable("item.bakeries.containing.tips").getString()).withStyle(ChatFormatting.BLUE));
             pTooltip.add(Component.literal(boxStack.getItem().getName(boxStack).getString()).withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);

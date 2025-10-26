@@ -1,0 +1,26 @@
+{
+  "name": "block.bakeries.stone_kiln",
+  "icon": "bakeries:stone_kiln",
+  "category": "bakeries:baking_utensil",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:stone_kiln",
+      "text": "guide.bakeries.descr.stone_kiln"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "block.bakeries.stone_kiln",
+      "multiblock": {
+        "mapping": {
+          "S": "bakeries:stone_kiln[lit=true]"
+        },
+        "pattern":  [
+          ["S"],
+          ["0"]
+        ]
+      },
+      "enable_visualize": "false"
+    }
+  ]
+}

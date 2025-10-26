@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.potion;
 
+import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesMobEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -27,7 +28,9 @@ public class CocoaManiaMobEffect extends MobEffect {
             Entity attacker = event.getSource().getEntity();
             Entity entity = event.getEntity();
             if (attacker instanceof LivingEntity livingEntity && livingEntity.hasEffect(BakeriesMobEffects.COCOA_MANIA.get())){
+                if (BakeriesConfig.cocoaManinDamageEffect) {
                     entity.invulnerableTime = 0;
+                }
             }
         }
     }

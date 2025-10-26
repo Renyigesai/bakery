@@ -113,10 +113,11 @@ public class PizzaFlatbreadBlockEntity extends BlockEntity {
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stackInSlot = inventory.getStackInSlot(i);
             if (stackInSlot.isEmpty()){
-                if (!stack.is(ItemTags.create(new ResourceLocation("bakeries:not_pizza_ingredients")))){
+                if (stack.getItem().isEdible() && !stack.is(ItemTags.create(new ResourceLocation("bakeries:not_pizza_ingredients")))){
                     if (stack.hasCraftingRemainingItem()) {
                         ItemUtil.givePlayerItem(player, stack.getCraftingRemainingItem());
                     }
+                    stack.setCount(1);
                     inventory.setStackInSlot(i,stack);
                     updateBlock();
                     return true;
