@@ -60,6 +60,9 @@ public class  StoneKilnOverlay {
                 String string = maxTurnOver + "/" + stoneKilnBlockEntity.getTurnOver();
                 guiGraphics.drawString(mc.font, Component.nullToEmpty(string),44,9,16777215);
             }
+            if (stoneKilnBlockEntity.isTurnOver()){
+                guiGraphics.drawString(mc.font, Component.translatable("tip.bakeries.stone_kiln_stone_kiln_shovel"),25,35,16777215);
+            }
             guiGraphics.pose().popPose();
         }
         RenderSystem.depthMask(true);

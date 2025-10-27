@@ -53,6 +53,7 @@ public class StoneKilnShovelItem extends ShovelItem {
             if (itemInHand.getItem() instanceof StoneKilnShovelItem shovelItem && !kiln.isEmpty() && shovelItem.isEmpty(itemInHand)){
                 addItem(player.getItemInHand(pContext.getHand()),kiln.getInventory().getStackInSlot(0).copy());
                 kiln.getInventory().setStackInSlot(0,ItemStack.EMPTY);
+                kiln.initialize();
                 level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.BLOCKS, 0.8F, 0.8F);
                 return InteractionResult.SUCCESS;
             }

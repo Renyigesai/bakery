@@ -129,6 +129,7 @@ public class StoneKilnBlockEntity extends BlockEntity {
         if (isEmpty()){
             this.inventory.setStackInSlot(0,stack);
             this.size = 0f;
+            initialize();
             this.setChanged();
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             return true;
@@ -189,7 +190,21 @@ public class StoneKilnBlockEntity extends BlockEntity {
         tag.putFloat("Size", size);
     }
 
+    public void initialize(){
+        this.maxCookingTime = 0;
+        this.maxStageCookingTime = 0;
+        this.cookingTime = 0;
+        this.stageCookingTime = 0;
+        this.maxTurnOver = 0;
+        this.isTurnOver = false;
+        this.turnOver = 0;
+        this.nextStage = 0;
+    }
+
     public static void tick(Level level, BlockPos pos, BlockState state, StoneKilnBlockEntity blockEntity){
+        if (!state.getValue(StoneKilnBlock.LIT)){
+            return;
+        }
         if (!blockEntity.isEmpty()){
             blockEntity.cookingTick();
             blockEntity.setChanged();
@@ -276,11 +291,7 @@ public class StoneKilnBlockEntity extends BlockEntity {
             smokingCookingTick(smokingRecipe);
             return;
         }
-        this.maxCookingTime = 0;
-        this.cookingTime = 0;
-        this.maxTurnOver = 0;
-        this.turnOver = 0;
-        this.nextStage = 0;
+        initialize();
     }
 
     private void smokingCookingTick(SmokingRecipe recipe){
@@ -313,24 +324,41 @@ public class StoneKilnBlockEntity extends BlockEntity {
             if (this.cookingTime >= this.maxCookingTime){
                 flag = true;
             }else {
-                for (int i = this.nextStage; i < times.length; i++) {
-                    this.maxStageCookingTime = times[i];
-                    if (this.turnOver == i) {
-                        if (this.stageCookingTime < this.maxStageCookingTime){
-                            this.stageCookingTime++;
-                            this.size += (float) (0.075/this.maxStageCookingTime/times.length);
-                        }else {
-                            this.cookingTime += stageCookingTime;
-                            this.stageCookingTime = 0;
-                            this.maxStageCookingTime = 0;
-                            if (this.nextStage + 1 < times.length){
-                                this.nextStage ++;
-                            }
+                this.maxStageCookingTime = times[nextStage];
+                if (this.turnOver == this.nextStage){
+                    if (this.stageCookingTime < this.maxStageCookingTime){
+                        this.stageCookingTime++;
+                        this.size += (float) (0.075/this.maxStageCookingTime/times.length);
+                    }else {
+                        this.cookingTime += stageCookingTime;
+                        this.stageCookingTime = 0;
+                        this.maxStageCookingTime = 0;
+                        if (this.nextStage + 1 < times.length){
+                            this.nextStage ++;
                         }
-                    } else {
-                        this.isTurnOver = true;/*翻面标记,提醒玩家需要翻面后烹饪才会继续*/
                     }
+                }else {
+                    this.isTurnOver = true;/*翻面标记,提醒玩家需要翻面后烹饪才会继续*/
                 }
+
+//                for (int i = this.nextStage; i < times.length; i++) {
+//                    this.maxStageCookingTime = times[i];
+//                    if (this.turnOver == i) {
+//                        if (this.stageCookingTime < this.maxStageCookingTime){
+//                            this.stageCookingTime++;
+//                            this.size += (float) (0.075/this.maxStageCookingTime/times.length);
+//                        }else {
+//                            this.cookingTime += stageCookingTime;
+//                            this.stageCookingTime = 0;
+//                            this.maxStageCookingTime = 0;
+//                            if (this.nextStage + 1 < times.length){
+//                                this.nextStage ++;
+//                            }
+//                        }
+//                    } else {
+//                        this.isTurnOver = true;/*翻面标记,提醒玩家需要翻面后烹饪才会继续*/
+//                    }
+//                }
             }
         }
         if (flag){

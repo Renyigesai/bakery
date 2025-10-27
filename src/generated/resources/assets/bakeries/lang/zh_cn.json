@@ -349,6 +349,7 @@
   "tip.bakeries.pizza_tomato": "你需要先放置番茄",
   "tip.bakeries.pizza_cheese": "你还没放置奶酪呢",
   "tip.bakeries.pizza_stone_kiln_shovel": "你需要使用炉铲",
+  "tip.bakeries.stone_kiln_stone_kiln_shovel": "使用炉铲以翻面",
   "gui.bakeries.oven.temperature": "当前温度",
   "gui.bakeries.oven.rolling": "§o滚动调整",
   "rarity.advanced.name": "加强"

@@ -351,6 +351,7 @@
   "tip.bakeries.pizza_tomato": "You need to place the tomatoes first",
   "tip.bakeries.pizza_cheese": "You haven't placed the cheese yet",
   "tip.bakeries.pizza_stone_kiln_shovel": "You need to use a stove shovel",
+  "tip.bakeries.stone_kiln_stone_kiln_shovel": "Use Stone Kiln Shovel to flip",
   "gui.bakeries.oven.temperature": "Current Temperature",
   "gui.bakeries.oven.rolling": "§oRolling adjustment",
   "rarity.advanced.name": "Advanced"
