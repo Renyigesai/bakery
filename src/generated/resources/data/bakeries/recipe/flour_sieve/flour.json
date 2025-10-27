@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:flour_sieve",
+  "output": {
+    "item": "bakeries:flour",
+    "count": 1
+  },
+  "ingredient":  {
+    "item": "bakeries:whole_wheat_flour"
+  }
+}

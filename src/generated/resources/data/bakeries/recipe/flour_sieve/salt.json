@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:flour_sieve",
+  "output": {
+    "item": "bakeries:salt",
+    "count": 9
+  },
+  "ingredient":  {
+    "item": "bakeries:raw_salt_block"
+  }
+}

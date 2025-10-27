@@ -1,4 +1,4 @@
-// 1.21.1	2025-10-19T21:41:52.7000921	Loot Tables
+// 1.21.1	2025-10-27T21:21:51.3562459	Loot Tables
 d6c59ba879e88b81d7290687ad9416e9ae0ec0b5 data/bakeries/loot_table/blocks/bagel.json
 340ab91612d51e7e4d355a5168a3d2d9c6142879 data/bakeries/loot_table/blocks/bagel_filled_sauce.json
 f12d4dcf673a6c3fff890ad15ff8556074e7acae data/bakeries/loot_table/blocks/baguette.json
@@ -16,5 +16,6 @@ e97a3de56e4ee0dfc5402ce91a055cb5d0dec2b0 data/bakeries/loot_table/blocks/oven.js
 a6d261ae57cb2aea4e31e9232270fb89156c8bd5 data/bakeries/loot_table/blocks/pineapple_bun.json
 0e55f18b959e895589f564bb617beb5c29060c52 data/bakeries/loot_table/blocks/round_bread.json
 e16345e1303cb563cec0ce65cfdf36bbd9955590 data/bakeries/loot_table/blocks/salt_croissant.json
+352f77b14c8f3c3c8750b0673679bbcba33b90a1 data/bakeries/loot_table/blocks/toast.json
 42156edac33a82a01f91c69ff639620bb8d3496c data/bakeries/loot_table/blocks/tomato_cheese_croissant_sandwich.json
 da8972be2c4fb90b2400c0fda9409dfe74cae43c data/bakeries/loot_table/blocks/whole_wheat_bagel.json
