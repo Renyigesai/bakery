@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.common.recipe.FlourSieveRecipe;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
@@ -32,6 +33,9 @@ public class BakeriesRecipeTypes {
             /*面粉筛*/
             SERIALIZERS.register(FlourSieveRecipe.ID, () -> FlourSieveRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(FlourSieveRecipe.ID, () -> FlourSieveRecipe.Type.INSTANCE);
+            /*搅拌机*/
+            SERIALIZERS.register(BlenderRecipe.ID, () -> BlenderRecipe.Serializer.INSTANCE);
+            RECIPE_TYPE.register(BlenderRecipe.ID, () -> BlenderRecipe.Type.INSTANCE);
 
         });
     }

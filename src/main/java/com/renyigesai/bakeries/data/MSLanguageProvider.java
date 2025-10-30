@@ -32,6 +32,7 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven"),"Oven", "烤箱");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.temperature"),"Current temperature", "当前温度");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.rolling"),"Scroll the middle mouse to adjust the temperature.", "滚动鼠标中键调节温度");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "blender"),"Blender", "搅拌机");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "bread_knife"),"When using  cut the object pointed by the target.", "使用时切开准星所指的物品");
     }
     private void addCreativeModeTabs() {

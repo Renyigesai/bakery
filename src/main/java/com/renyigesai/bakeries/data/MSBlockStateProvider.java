@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.data;
 
 
+import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -136,6 +137,35 @@ public class MSBlockStateProvider extends BlockStateProvider {
                 this.getVariantBuilder(block.get())
                         .partialState()
                         .with(OvenBlock.LIT, lit)
+                        .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                        .modelForState()
+                        .rotationY((int) direction.toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
+    }
+
+    public void blenderBlock(Supplier<Block> block){
+
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()){
+            for (boolean powered : BlenderBlock.POWERED.getPossibleValues()){
+                ModelFile modelFile = powered ? this.models().withExistingParent(
+                                this.name(block.get()) + "_fire",
+                                this.modLoc("custom/" + this.name(block.get())))
+                        .texture("0", this.modLoc("block/" + this.name(block.get()) + "_fire"))
+                        .texture("particle", this.modLoc("block/" + this.name(block.get()) + "_fire"))
+                        .renderType(CUTOUT) :
+                        this.models().withExistingParent(
+                                        this.name(block.get()),
+                                        this.modLoc("custom/" + this.name(block.get())))
+                                .texture("0", this.modLoc("block/" + this.name(block.get())))
+                                .texture("particle", this.modLoc("block/" + this.name(block.get())))
+                                .renderType(CUTOUT);
+
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(BlenderBlock.POWERED, powered)
                         .with(BlockStateProperties.HORIZONTAL_FACING, direction)
                         .modelForState()
                         .rotationY((int) direction.toYRot())

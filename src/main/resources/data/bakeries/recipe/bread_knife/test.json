@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredient":[
+    {
+      "item": "minecraft:apple"
+    }
+  ],
+  "output": {
+    "id": "minecraft:stone",
+    "count": 1
+  }
+}

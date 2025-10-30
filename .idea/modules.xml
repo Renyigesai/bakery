@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Bakery_NeoForge1.21.1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Bakery_NeoForge1.21.1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bakeries1.21.1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bakeries1.21.1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bakeries1.21.1.test.iml" filepath="$PROJECT_DIR$/.idea/modules/bakeries1.21.1.test.iml" />
     </modules>
   </component>
 </project>

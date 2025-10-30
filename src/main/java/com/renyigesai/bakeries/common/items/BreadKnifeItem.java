@@ -40,7 +40,7 @@ import java.util.Optional;
 
 public class BreadKnifeItem extends DiggerItem {
 
-    private static final RecipeManager.CachedCheck<RecipeInput, BreadKnifeRecipe> CHECK = RecipeManager.createCheck(BreadKnifeRecipe.Type.INSTANCE);
+    private final RecipeManager.CachedCheck<RecipeInput, BreadKnifeRecipe> CHECK = RecipeManager.createCheck(BreadKnifeRecipe.Type.INSTANCE);
 
     public BreadKnifeItem(Tier tier, Properties properties) {
         super(tier, BlockTags.MINEABLE_WITH_AXE, properties);

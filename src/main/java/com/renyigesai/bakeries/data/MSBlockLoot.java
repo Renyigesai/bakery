@@ -49,6 +49,7 @@ public class MSBlockLoot extends VanillaBlockLoot {
         );
 
         this.dropSelf(BakeriesBlocks.OVEN.get());
+        this.dropSelf(BakeriesBlocks.BLENDER.get());
         this.dropSelf(BakeriesBlocks.TOAST.get());//占位
     }
     private void forAddAllBread(Block... blocks){

@@ -1,6 +1,8 @@
 package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
+import com.renyigesai.bakeries.common.blocks.blander.BlenderBlockEntity;
 import com.renyigesai.bakeries.common.blocks.bread.*;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -64,7 +67,9 @@ public class BakeriesBlocks {
 
 
 
+    public static final DeferredBlock<Block> BLENDER;
     public static final DeferredBlock<OvenBlock> OVEN;
+
     static {
         /*面包方块*/
         BAGEL = register("bagel", Bagel::new);
@@ -88,6 +93,7 @@ public class BakeriesBlocks {
         TOAST = register("toast", () ->
                 new Block(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
 
+        BLENDER = REGISTER.register("blender",()-> new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         OVEN = registerBlock("oven", OvenBlock::new, BlockBehaviour.Properties.of().strength(3.5F));
     }
 
@@ -106,12 +112,8 @@ public class BakeriesBlocks {
     }
     public static class MSBlockEntities {
         public static final DeferredRegister<BlockEntityType<?>> REGISTER = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, BakeriesMod.MODID);
-        public static final Supplier<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY = REGISTER.register(
-                "cauldron_block_entity",
-                () -> BlockEntityType.Builder.of(
-                        OvenBlockEntity::new,
-                        OVEN.get()
-                ).build(null));
+        public static final Supplier<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY = REGISTER.register("cauldron_block_entity", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
+        public static final Supplier<BlockEntityType<BlenderBlockEntity>> BLENDER_ENTITY = REGISTER.register("blender", () -> BlockEntityType.Builder.of(BlenderBlockEntity::new, BLENDER.get()).build(null));
 //        public static final Supplier<BlockEntityType<MSFluidPipeBlockEntity>> FLUID_PIPE_BLOCK_ENTITY = REGISTER.register(
 //                "fluid_pipe_block_entity",
 //                () -> BlockEntityType.Builder.of(
