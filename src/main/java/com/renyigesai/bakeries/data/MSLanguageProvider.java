@@ -86,6 +86,7 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
     }
     private void addBlocks() {
         addBlock(BakeriesBlocks.OVEN, "烤箱");
+        addBlock(BakeriesBlocks.BLENDER, "搅拌机");
     }
 
     private void addElements() {

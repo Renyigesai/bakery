@@ -64,6 +64,7 @@ public class MSItemModelProvider extends ItemModelProvider {
 
         basicItem(BakeriesItems.ICE_CUBES.get());
         blockItem(BakeriesBlocks.OVEN::get);
+        blockItem(BakeriesBlocks.BLENDER);
         rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
         toolItem(BakeriesItems.BREAD_KNIFE.asItem());
     }

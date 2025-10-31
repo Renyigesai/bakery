@@ -98,6 +98,8 @@ public class BakeriesItems {
 
 
 
+    /**搅拌机*/
+    public static final DeferredItem<Item> BLENDER;
     /**烤箱*/
     public static final DeferredItem<Item> OVEN;
     /**生圆面包*/
@@ -152,6 +154,7 @@ public class BakeriesItems {
         BREAD_KNIFE = REGISTER.register("bread_knife",()-> new BreadKnifeItem(Tiers.IRON,new Item.Properties()));
 
 
+        BLENDER = registerBlock(BakeriesBlocks.BLENDER);
         OVEN = registerBlock(BakeriesBlocks.OVEN);
 
         ROUND_BREAD_DOUGH = rawItem("round_bread_dough", 155);
