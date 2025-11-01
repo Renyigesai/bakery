@@ -57,6 +57,11 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
         addItem(BakeriesItems.FRESH_CHEESE_CUBE,"鲜奶酪块");
         addItem(BakeriesItems.BROWN_SUGAR_CUBE,"红糖块");
 
+        addItem(BakeriesItems.BOTTLE_YEAST,"瓶装鲜酵母");
+        addItem(BakeriesItems.BOTTLE_MILK,"瓶装奶");
+        addItem(BakeriesItems.BOTTLE_CREAM,"瓶装淡奶油");
+        addItem(BakeriesItems.BOTTLE_BUTTER,"瓶装黄油");
+
         /**面包*/
         addItem(BakeriesItems.BAGEL, "贝果");
         addItem(BakeriesItems.WHOLE_WHEAT_BAGEL, "全麦贝果");
@@ -79,6 +84,7 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
 
         /**功能物品*/
         addItem(BakeriesItems.BREAD_KNIFE, "面包刀");
+        addItem(BakeriesItems.FLOUR_SIEVE, "面粉筛");
 
         /**杂项*/
         addItem(BakeriesItems.ROUND_BREAD_DOUGH, "圆面包面胚");

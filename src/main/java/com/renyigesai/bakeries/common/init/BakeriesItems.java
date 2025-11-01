@@ -4,6 +4,8 @@ package com.renyigesai.bakeries.common.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.items.RawItem;
 import com.renyigesai.bakeries.common.items.BreadKnifeItem;
+import com.renyigesai.bakeries.common.items.FlourSieveItem;
+import com.renyigesai.bakeries.common.items.ShakeItem;
 import com.renyigesai.bakeries.common.items.WholeEggItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -53,6 +55,11 @@ public class BakeriesItems {
     public static final DeferredItem<Item> FRESH_CHEESE_CUBE;
     public static final DeferredItem<Item> BROWN_SUGAR_CUBE;
 
+    public static final DeferredItem<Item> BOTTLE_YEAST;
+    public static final DeferredItem<Item> BOTTLE_MILK;
+    public static final DeferredItem<Item> BOTTLE_CREAM;
+    public static final DeferredItem<Item> BOTTLE_BUTTER;
+
 
     /*面包方块*/
     /**贝果*/
@@ -95,6 +102,7 @@ public class BakeriesItems {
     /*功能物品*/
     /**面包刀*/
     public static final DeferredItem<Item> BREAD_KNIFE;
+    public static final DeferredItem<Item> FLOUR_SIEVE;
 
 
 
@@ -128,6 +136,11 @@ public class BakeriesItems {
         FRESH_CHEESE_CUBE = foodItem("fresh_cheese_cube",BakeriesFoodProperties.CHEESE_CUBE);
         BROWN_SUGAR_CUBE = item("brown_sugar_cube");
 
+        BOTTLE_YEAST = REGISTER.register("bottle_yeast",()-> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)));
+        BOTTLE_MILK = REGISTER.register("bottle_milk",()-> new ShakeItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE),BakeriesItems.BOTTLE_CREAM));
+        BOTTLE_CREAM = REGISTER.register("bottle_cream",()-> new ShakeItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE),BakeriesItems.BOTTLE_BUTTER));
+        BOTTLE_BUTTER = REGISTER.register("bottle_butter",()-> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)));
+
 
         BAGEL = foodBreadBlock(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
         WHOLE_WHEAT_BAGEL = foodBreadBlock(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL);
@@ -152,6 +165,7 @@ public class BakeriesItems {
 
         /*功能物品*/
         BREAD_KNIFE = REGISTER.register("bread_knife",()-> new BreadKnifeItem(Tiers.IRON,new Item.Properties()));
+        FLOUR_SIEVE = REGISTER.register("flour_sieve",()-> new FlourSieveItem(new Item.Properties().stacksTo(1).durability(250)));
 
 
         BLENDER = registerBlock(BakeriesBlocks.BLENDER);

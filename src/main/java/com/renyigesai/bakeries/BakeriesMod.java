@@ -24,6 +24,7 @@ public class BakeriesMod {
         BakeriesRecipeTypes.getRegister(modEventBus);
         BakeriesMenuType.REGISTRY.register(modEventBus);
         BakeriesSounds.REGISTRY.register(modEventBus);
+        BakeriesMobEffects.EFFECTS.register(modEventBus);
         BakeriesDataComponents.REGISTER.register(modEventBus);
 
         modEventBus.addListener(BakeriesCapabilities::registerFluidCapabilities);

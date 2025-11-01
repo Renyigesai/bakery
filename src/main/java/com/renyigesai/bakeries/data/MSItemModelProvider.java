@@ -42,6 +42,12 @@ public class MSItemModelProvider extends ItemModelProvider {
         basicItem(BakeriesItems.CHEESE_CUBE.get());
         basicItem(BakeriesItems.BROWN_SUGAR_CUBE.get());
 
+        basicItem(BakeriesItems.BOTTLE_YEAST.get());
+        basicItem(BakeriesItems.BOTTLE_MILK.get());
+        basicItem(BakeriesItems.BOTTLE_CREAM.get());
+        basicItem(BakeriesItems.BOTTLE_BUTTER.get());
+
+
         blockItem(BakeriesBlocks.BAGEL::get, "_1");
         blockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
         blockItem(BakeriesBlocks.ROUND_BREAD::get, "_1");
@@ -67,11 +73,16 @@ public class MSItemModelProvider extends ItemModelProvider {
         blockItem(BakeriesBlocks.BLENDER);
         rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
         toolItem(BakeriesItems.BREAD_KNIFE.asItem());
+        customModelItem(BakeriesItems.FLOUR_SIEVE,"item/flour_sieve");
     }
     private ItemModelBuilder rawBreadItem(Supplier<Item> bread, Supplier<Block> block, String index) {
         return this.getBuilder(this.name(bread.get()))
                 .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index)))
                 .texture("0", this.modLoc("item/" + this.name(bread.get())));
+    }
+
+    private ItemModelBuilder customModelItem(Supplier<Item> item, String path) {
+        return this.getBuilder(this.name(item.get())).parent(new ModelFile.UncheckedModelFile(this.modLoc(path)));
     }
 
     private void usingItem(Item item) {
