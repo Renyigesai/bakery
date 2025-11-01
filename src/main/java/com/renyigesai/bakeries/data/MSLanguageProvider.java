@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesCreativeModeTabs;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
+import com.renyigesai.bakeries.common.init.BakeriesMobEffects;
 import net.minecraft.data.PackOutput;
 import net.weibai.rcglib.utils.UtilTranslatable;
 
@@ -25,6 +26,7 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
         addBlocks();
         addElements();
         add();
+        addEffects();
     }
 
     private void add() {
@@ -96,8 +98,13 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
     }
 
     private void addElements() {
-//        addElements(ElementCollections.H2_NI_O3_SI, "硅酸镍");
-//        addElements(ElementCollections.C_H_FE_O4, "碳酸铁");
-//        addElements(ElementCollections.CA_C_O3, "CaCO\\U+2083", "CaCO\\U+2083");
+;
+    }
+
+    private void addEffects(){
+        addEffect(BakeriesMobEffects.CHEESE_POWER::value,"Cheese Power","芝士力");
+        addEffect(BakeriesMobEffects.COCOA_MANIA::value,"Cocoa Mania","可可狂热");
+        addEffect(BakeriesMobEffects.SOFT::value,"Soft","柔软");
+        addEffect(BakeriesMobEffects.ENJOY::value,"Enjoy","享受");
     }
 }
