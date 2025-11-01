@@ -89,7 +89,9 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     protected NonNullList<ItemStack> getItems() {
         NonNullList<ItemStack> nonNullList = NonNullList.withSize(inventory.getSlots(),ItemStack.EMPTY);
         for (int i = 0; i < inventory.getSlots(); i++) {
-            nonNullList.add(inventory.getStackInSlot(i));
+            if (!inventory.getStackInSlot(i).isEmpty()) {
+                nonNullList.add(inventory.getStackInSlot(i));
+            }
         }
         return nonNullList;
     }
