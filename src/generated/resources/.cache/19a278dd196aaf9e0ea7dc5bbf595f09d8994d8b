@@ -1,10 +1,15 @@
-// 1.21.1	2025-10-27T21:21:51.3572469	Item Models: bakeries
+// 1.21.1	2025-11-03T13:36:22.9483142	Item Models: bakeries
 9cb9073bafa8275c30d1e8ce6c792e98082eb5f8 assets/bakeries/models/item/bagel.json
 1c34a5a1201a49785ac9e264d496157f2647dc58 assets/bakeries/models/item/bagel_filled_sauce.json
 6fb88d003702fed7a706b99a1a5b996726292d21 assets/bakeries/models/item/baguette.json
 d40f7434503feba38691d644a9deda4a28c3fee9 assets/bakeries/models/item/baguette_with_filling.json
 7aa13c41a8677edbc70927c0a090820e37432a3b assets/bakeries/models/item/berry_bagel.json
 549949cdbc43643eb78c5665dc80c0edf5455bba assets/bakeries/models/item/berry_bread.json
+8917aef7023d794a595fb12f833691ba0544357a assets/bakeries/models/item/blender.json
+3f922c9e77bcad9b52739f7bfe22f4d96779c9c9 assets/bakeries/models/item/bottle_butter.json
+45a5f766df0986dcab9be4bd1ccb3e6f24d7bc23 assets/bakeries/models/item/bottle_cream.json
+c4c43aebd5bed72f358f6668d4ed284ed609d3e6 assets/bakeries/models/item/bottle_milk.json
+fa5b12b7c7ccd1e288f1eeeeeb2fe11561661f7a assets/bakeries/models/item/bottle_yeast.json
 df9c4e432405a60f4ff3bbd55d0dcccfb9e3b243 assets/bakeries/models/item/bread_knife.json
 6df6fc6c8909a20b3d07a2355d49068c066d6ba5 assets/bakeries/models/item/brown_sugar_cube.json
 ca6bb171c164a76e971edd0ebeddbc94a6ea8ced assets/bakeries/models/item/brown_sugar_roll.json
@@ -17,6 +22,7 @@ bd3a8b1cc76f9488d5f945151b623c45bb29c2dc assets/bakeries/models/item/cheese_crea
 bfec32354798fbfe821088919fec23b5fb4e297e assets/bakeries/models/item/croissant.json
 654df3b553c9c8adfc86066db982af16081ef4b5 assets/bakeries/models/item/dirty_choco_croissant.json
 041d157d47c3d3f62c3cce0ac3777a9e147a9804 assets/bakeries/models/item/flour.json
+3ac33ae5940bac2216e8110f2bd48120ddc28e90 assets/bakeries/models/item/flour_sieve.json
 4bb252a97a02ca3a9a7f0056d528363f114325a5 assets/bakeries/models/item/foamed_cream.json
 e852ed89102d4ad620decebb36d69bf3230d39ec assets/bakeries/models/item/focaccia.json
 04bf230f63e1fee7fbdd34522a5862a119ad229b assets/bakeries/models/item/fresh_cheese_cube.json
@@ -30,8 +36,11 @@ b03cb9347130aaab399e89bf1a6ce3126b6e821b assets/bakeries/models/item/meat_floss_
 0d997fd8fddf3fa398b940af0e130d675b26a10c assets/bakeries/models/item/round_bread.json
 cf9cefc4341be06c25a9b3331bd42485a648f4f8 assets/bakeries/models/item/round_bread_dough.json
 0514ac275f240ce72cdc35fa589733c0c236a37e assets/bakeries/models/item/salt.json
+85aa5fff0d7ff322086a309d485fbfad848c34bc assets/bakeries/models/item/salted_dough.json
 38e7613d9b91fc4855347c208ee849985ec1eb6b assets/bakeries/models/item/salt_croissant.json
+295f35946c9ca020830152770e2cafbb52f24af3 assets/bakeries/models/item/sweet_dough.json
 7cc2465f1350ca42cc71e5da187957d1fab842bf assets/bakeries/models/item/tomato_cheese_croissant_sandwich.json
 df92f9245eecf46940056d4395dff8b47d9cfdf0 assets/bakeries/models/item/whole_egg.json
 44c164a605f6b35d89203bce470782b89da8e178 assets/bakeries/models/item/whole_wheat_bagel.json
+253313fb3f6c61a671c862ec8a76d808ae4bc99d assets/bakeries/models/item/whole_wheat_dough.json
 cda9b6dfb4ca66444d434c80be71f1b1a526ee4d assets/bakeries/models/item/whole_wheat_flour.json

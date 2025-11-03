@@ -47,6 +47,9 @@ public class MSItemModelProvider extends ItemModelProvider {
         basicItem(BakeriesItems.BOTTLE_CREAM.get());
         basicItem(BakeriesItems.BOTTLE_BUTTER.get());
 
+        basicItem(BakeriesItems.SWEET_DOUGH.get());
+        basicItem(BakeriesItems.SALTED_DOUGH.get());
+        basicItem(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
 
         blockItem(BakeriesBlocks.BAGEL::get, "_1");
         blockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
@@ -70,7 +73,7 @@ public class MSItemModelProvider extends ItemModelProvider {
 
         basicItem(BakeriesItems.ICE_CUBES.get());
         blockItem(BakeriesBlocks.OVEN::get);
-        blockItem(BakeriesBlocks.BLENDER);
+        blockItem(BakeriesBlocks.BLENDER::get);
         rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
         toolItem(BakeriesItems.BREAD_KNIFE.asItem());
         customModelItem(BakeriesItems.FLOUR_SIEVE,"item/flour_sieve");

@@ -23,6 +23,7 @@ public class MSBlockLoot extends VanillaBlockLoot {
     public MSBlockLoot(HolderLookup.Provider registries) {
         super(registries);
     }
+
     @Override
     protected void generate() {
 //        this.dropSelf(MSBlocks.TINY_ANDESITE_BLOCK.get());
@@ -52,7 +53,8 @@ public class MSBlockLoot extends VanillaBlockLoot {
         this.dropSelf(BakeriesBlocks.BLENDER.get());
         this.dropSelf(BakeriesBlocks.TOAST.get());//占位
     }
-    private void forAddAllBread(Block... blocks){
+
+    private void forAddAllBread(Block... blocks) {
         List<Block> blockList = List.of(blocks);
         for (Block block : blockList) {
             this.add(block, blockIn -> this.createStateDrops(block, BreadBlock.PILE_4));
@@ -68,111 +70,9 @@ public class MSBlockLoot extends VanillaBlockLoot {
                 ))
         );
     }
+
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return BakeriesBlocks.REGISTER.getEntries().stream().map(DeferredHolder::value).collect(Collectors.toList());
     }
 }
-//        this.add(MSBlocks.METEORITE_IRON_ORE.get(), block -> this.createOreDrop(block, MSItems.RAW_METEORITE_IRON.get()));
-//        this.add(MSBlocks.DEEPSLATE_METEORITE_IRON_ORE.get(), block -> this.createOreDrop(block, MSItems.RAW_METEORITE_IRON.get()));
-//        this.dropSelf(MSBlocks.RAW_METEORITE_IRON_BLOCK.get());
-//
-//        this.add(MSBlocks.MAGNETIC_IRON_ORE.get(), block -> this.createOreDrop(block, MSItems.RAW_MAGNETIC_IRON.get()));
-//        this.add(MSBlocks.DEEPSLATE_MAGNETIC_IRON_ORE.get(), block -> this.createOreDrop(block, MSItems.RAW_MAGNETIC_IRON.get()));
-//        this.dropSelf(MSBlocks.RAW_MAGNETIC_IRON_BLOCK.get());
-//
-//        this.add(MSBlocks.HEMATITE_IRON_ORE.get(), block -> this.createOreDrop(block, MSItems.RAW_HEMATITE_IRON.get()));
-//        this.add(MSBlocks.DEEPSLATE_HEMATITE_IRON_ORE.get(), block -> this.createOreDrop(block, MSItems.RAW_HEMATITE_IRON.get()));
-//        this.dropSelf(MSBlocks.RAW_HEMATITE_IRON_BLOCK.get());
-//
-//        this.add(MSBlocks.LIGNITE_ORE.get(), block -> this.createOreDrop(block, MSItems.LIGNITE.get()));
-//        this.add(MSBlocks.DEEPSLATE_LIGNITE_ORE.get(), block -> this.createOreDrop(block, MSItems.LIGNITE.get()));
-//        this.dropSelf(MSBlocks.LIGNITE_BLOCK.get());
-//
-//        this.add(MSBlocks.BITUMINOUS_COAL_ORE.get(), block -> this.createOreDrop(block, MSItems.BITUMINOUS_COAL.get()));
-//        this.add(MSBlocks.DEEPSLATE_BITUMINOUS_COAL_ORE.get(), block -> this.createOreDrop(block, MSItems.BITUMINOUS_COAL.get()));
-//        this.dropSelf(MSBlocks.BITUMINOUS_COAL_BLOCK.get());
-
-//        this.add(MSBlocks.ITEM_BLOCK.get(), noDrop());
-//        this.add(MSBlocks.OAK_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.BIRCH_SOIL_BURNING_BLOCK.get(),block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.SPRUCE_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.JUNGLE_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.ACACIA_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.DARK_OAK_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.BAMBOO_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.CHERRY_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.MANGROVE_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.CRIMSON_STEM_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        this.add(MSBlocks.WARPED_STEM_SOIL_BURNING_BLOCK.get(), block -> createStateDrops(block, SoilBurningBlock.VALUE));
-//        LootItemCondition.Builder flaxBlockLootCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(MSBlocks.FLAX_BLOCK.get())
-//                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FlaxPlantBlock.AGE, 5));
-//
-//        this.add(MSBlocks.FLAX_BLOCK.get(), this.createCropDrops(MSBlocks.FLAX_BLOCK.get(), MSItems.FLAX.get(), MSItems.FLAX_SEEDS.get(), flaxBlockLootCondition));
-//
-//        this.add(MSBlocks.OAK_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.BIRCH_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SPRUCE_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.JUNGLE_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.ACACIA_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.DARK_OAK_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.BAMBOO_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.CHERRY_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.MANGROVE_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.CRIMSON_STEM_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.WARPED_STEM_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_OAK_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
-//        this.add(MSBlocks.SOUL_BIRCH_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_SPRUCE_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_JUNGLE_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_ACACIA_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_DARK_OAK_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_BAMBOO_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_CHERRY_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_MANGROVE_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_CRIMSON_STEM_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
-//        this.add(MSBlocks.SOUL_WARPED_STEM_CAMPFIRE.get(), block -> this.createSilkTouchDispatchTable(block,
-//                this.applyExplosionCondition(block, LootItem.lootTableItem(Items.CHARCOAL)
-//                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
