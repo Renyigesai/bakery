@@ -1,0 +1,6 @@
+{
+  "parent": "bakeries:block/whole_wheat_bagel_1",
+  "textures": {
+    "0": "bakeries:item/whole_wheat_bagel_dough"
+  }
+}

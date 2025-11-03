@@ -95,13 +95,13 @@ public class BakeriesItems {
     @ItemData(zhCn = "瓶装黄油", enUs = "Bottle of Butter", itemType = ItemType.ITEM)
     public static final DeferredItem<Item> BOTTLE_BUTTER;
 
-    @ItemData(zhCn = "甜面团", enUs = "Sweet Dough", itemType = ItemType.ITEM)
+    @ItemData(zhCn = "甜面团", enUs = "Sweet Dough", itemType = ItemType.ITEM,groups = Group.SFP)
     public static final DeferredItem<Item> SWEET_DOUGH;
 
-    @ItemData(zhCn = "咸面团", enUs = "Salted Dough", itemType = ItemType.ITEM)
+    @ItemData(zhCn = "咸面团", enUs = "Salted Dough", itemType = ItemType.ITEM,groups = Group.SFP)
     public static final DeferredItem<Item> SALTED_DOUGH;
 
-    @ItemData(zhCn = "全麦面团", enUs = "Whole Wheat Dough", itemType = ItemType.ITEM)
+    @ItemData(zhCn = "全麦面团", enUs = "Whole Wheat Dough", itemType = ItemType.ITEM,groups = Group.SFP)
     public static final DeferredItem<Item> WHOLE_WHEAT_DOUGH;
 
     /*面包方块*/
@@ -162,6 +162,7 @@ public class BakeriesItems {
     /*功能物品*/
     @ItemData(zhCn = "面包刀", enUs = "Bread Knife", itemType = ItemType.ITEM)
     public static final DeferredItem<Item> BREAD_KNIFE;
+
     @ItemData(zhCn = "面粉筛", enUs = "Flour Sieve", itemType = ItemType.ITEM)
     public static final DeferredItem<Item> FLOUR_SIEVE;
 
@@ -172,8 +173,42 @@ public class BakeriesItems {
     @ItemData(zhCn = "烤箱", enUs = "Oven", itemType = ItemType.BLOCK)
     public static final DeferredItem<Item> OVEN;
 
+    @ItemData(zhCn = "酥皮", enUs = "Pastry", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> PASTRY;
+
+    @ItemData(zhCn = "贝果面胚", enUs = "Bagel Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> BAGEL_DOUGH;
+
+    @ItemData(zhCn = "全麦贝果面胚", enUs = "Whole Wheat Bagel Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> WHOLE_WHEAT_BAGEL_DOUGH;
+
     @ItemData(zhCn = "圆面包面胚", enUs = "Round Bread Dough", itemType = ItemType.ITEM,groups = Group.SFP)
     public static final DeferredItem<Item> ROUND_BREAD_DOUGH;
+
+    @ItemData(zhCn = "红糖卷面胚", enUs = "Brown Sugar Roll Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> BROWN_SUGAR_ROLL_DOUGH;
+
+    @ItemData(zhCn = "菠萝包面胚", enUs = "Pineapple Bun Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> PINEAPPLE_BUN_DOUGH;
+
+    @ItemData(zhCn = "可颂面胚", enUs = "Croissant Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> CROISSANT_DOUGH;
+
+    @ItemData(zhCn = "盐可颂面胚", enUs = "Salt Croissant Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> SALT_CROISSANT_DOUGH;
+
+    @ItemData(zhCn = "法棍面胚", enUs = "Baguette Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> BAGUETTE_DOUGH;
+
+    @ItemData(zhCn = "恰巴塔面胚", enUs = "Ciabatta Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> CIABATTA_DOUGH;
+
+    @ItemData(zhCn = "佛卡夏面胚", enUs = "Focaccia Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> FOCACCIA_DOUGH;
+
+    @ItemData(zhCn = "乡村面包面胚", enUs = "Country Bread Dough", itemType = ItemType.ITEM,groups = Group.SFP)
+    public static final DeferredItem<Item> COUNTRY_BREAD_DOUGH;
+
 
     @ItemData(zhCn = "冰块", enUs = "Ice Cubes", itemType = ItemType.ITEM)
     public static final DeferredItem<Item> ICE_CUBES;
@@ -206,6 +241,19 @@ public class BakeriesItems {
         SWEET_DOUGH = item("sweet_dough");
         SALTED_DOUGH = item("salted_dough");
         WHOLE_WHEAT_DOUGH = item("whole_wheat_dough");
+
+        PASTRY = item("pastry");
+        BAGEL_DOUGH = rawItem("bagel_dough",200);
+        WHOLE_WHEAT_BAGEL_DOUGH = rawItem("whole_wheat_bagel_dough",200);
+        BROWN_SUGAR_ROLL_DOUGH = rawItem("brown_sugar_roll_dough",155);
+        PINEAPPLE_BUN_DOUGH = rawItem("pineapple_bun_dough",170);
+        CROISSANT_DOUGH = rawItem("croissant_dough",175);
+        SALT_CROISSANT_DOUGH = rawItem("salt_croissant_dough",180);
+        BAGUETTE_DOUGH = rawItem("baguette_dough",230);
+        CIABATTA_DOUGH = rawItem("ciabatta_dough",210);
+        FOCACCIA_DOUGH = rawItem("focaccia_dough",230);
+        COUNTRY_BREAD_DOUGH = rawItem("country_bread_dough",225);
+
 
         BAGEL = foodBreadBlock(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
         WHOLE_WHEAT_BAGEL = foodBreadBlock(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL);

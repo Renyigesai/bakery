@@ -23,14 +23,29 @@ public class BakeriesCreativeModeTabs {
                     .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> BakeriesItems.OVEN.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
-                        BakeriesItems.REGISTER.getEntries().forEach(( item)->
-                                output.accept(item.get()));
+                        for (Field field : BakeriesItems.class.getDeclaredFields()){
+                            if (field.isAnnotationPresent(ItemData.class)){
+                                try {
+                                    Object object = field.get(null);
+                                    if (object instanceof DeferredItem<?> deferredItem){
+                                        ItemData annotation = field.getAnnotation(ItemData.class);
+                                        if (annotation.groups() == Group.MAIN){
+                                            output.accept(deferredItem.get());
+                                        }
+                                    }
+                                } catch (IllegalAccessException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+//                        BakeriesItems.REGISTER.getEntries().forEach(( item)->
+//                                output.accept(item.get()));
                     }).build());
 
     public static final DeferredCreativeModeTab<CreativeModeTab> SFP_TAB = REGISTER.register(
-            BakeriesMod.MODID + "sfp_tab",
+            BakeriesMod.MODID + "_sfp_tab",
             () -> CreativeModeTab.builder()
-                    .title(Component.translatable(UtilTranslatable.setCreativeModeTabs(BakeriesMod.MODID ,BakeriesMod.MODID + "sfp_tab")))
+                    .title(Component.translatable(UtilTranslatable.setCreativeModeTabs(BakeriesMod.MODID ,BakeriesMod.MODID + "_sfp_tab")))
                     .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> BakeriesItems.ROUND_BREAD_DOUGH.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
@@ -49,8 +64,6 @@ public class BakeriesCreativeModeTabs {
                                 }
                             }
                         }
-//                        BakeriesItems.REGISTER.getEntries().forEach(( item)->
-//                                output.accept(item.get()));
                     }).build());
 
 
