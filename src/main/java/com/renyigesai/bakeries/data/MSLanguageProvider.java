@@ -74,66 +74,6 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
         addCreativeModeTab(BakeriesCreativeModeTabs.SFP_TAB, "烘培坊 半成品");
     }
 
-//    private void addItems() {
-//
-//        /**一般物品 食材 食物*/
-//        addItem(BakeriesItems.FLOUR,"面粉");
-//        addItem(BakeriesItems.WHOLE_WHEAT_FLOUR,"全麦面粉");
-//        addItem(BakeriesItems.SALT,"盐");
-//        addItem(BakeriesItems.COCOA_POWDER,"可可粉");
-//        addItem(BakeriesItems.MATCHA_POWDER,"抹茶粉");
-//        addItem(BakeriesItems.BUTTER_CUBE,"黄油块");
-//        addItem(BakeriesItems.FOAMED_CREAM,"打发奶油");
-//        addItem(BakeriesItems.CHEESE_CREAM,"奶酪奶油");
-//        addItem(BakeriesItems.WHOLE_EGG,"全蛋");
-//        addItem(BakeriesItems.RAW_PROTEIN,"生蛋白");
-//        addItem(BakeriesItems.RAW_EGG_YOLK,"生蛋黄");
-//        addItem(BakeriesItems.CHEESE_CUBE,"干酪块");
-//        addItem(BakeriesItems.FRESH_CHEESE_CUBE,"鲜奶酪块");
-//        addItem(BakeriesItems.BROWN_SUGAR_CUBE,"红糖块");
-//
-//        addItem(BakeriesItems.BOTTLE_YEAST,"瓶装鲜酵母");
-//        addItem(BakeriesItems.BOTTLE_MILK,"瓶装奶");
-//        addItem(BakeriesItems.BOTTLE_CREAM,"瓶装淡奶油");
-//        addItem(BakeriesItems.BOTTLE_BUTTER,"瓶装黄油");
-//
-//        addItem(BakeriesItems.SWEET_DOUGH,"甜面团");
-//        addItem(BakeriesItems.SALTED_DOUGH,"咸面团");
-//        addItem(BakeriesItems.WHOLE_WHEAT_DOUGH,"全麦面团");
-//
-//        /**面包*/
-//        addItem(BakeriesItems.BAGEL, "贝果");
-//        addItem(BakeriesItems.WHOLE_WHEAT_BAGEL, "全麦贝果");
-//        addItem(BakeriesItems.ROUND_BREAD, "圆面包");
-//        addItem(BakeriesItems.BERRY_BREAD, "莓果面包");
-//        addItem(BakeriesItems.CHEESE_CREAM_BREAD, "乳酪面包");
-//        addItem(BakeriesItems.BROWN_SUGAR_ROLL, "红糖卷");
-//        addItem(BakeriesItems.PINEAPPLE_BUN, "菠萝包");
-//        addItem(BakeriesItems.MEAT_FLOSS_BREAD_ROLL, "肉松面包卷");
-//        addItem(BakeriesItems.CROISSANT, "可颂");
-//        addItem(BakeriesItems.DIRTY_CHOCO_CROISSANT, "脏脏包");
-//        addItem(BakeriesItems.SALT_CROISSANT, "盐可颂");
-//        addItem(BakeriesItems.CIABATTA, "恰巴塔面包");
-//        addItem(BakeriesItems.FOCACCIA, "佛卡夏面包");
-//        addItem(BakeriesItems.BERRY_BAGEL, "浆果贝果");
-//        addItem(BakeriesItems.BAGEL_FILLED_SAUCE, "填酱贝果");
-//        addItem(BakeriesItems.BAGUETTE_WITH_FILLING, "填馅法棍");
-//        addItem(BakeriesItems.TOMATO_CHEESE_CROISSANT_SANDWICH, "番茄奶酪可颂三明治");
-//        addItem(BakeriesItems.BAGUETTE, "法棍");
-//
-//        /**功能物品*/
-//        addItem(BakeriesItems.BREAD_KNIFE, "面包刀");
-//        addItem(BakeriesItems.FLOUR_SIEVE, "面粉筛");
-//
-//        /**杂项*/
-//        addItem(BakeriesItems.ROUND_BREAD_DOUGH, "圆面包面胚");
-//        addItem(BakeriesItems.ICE_CUBES, "冰块");
-//    }
-//    private void addBlocks() {
-//        addBlock(BakeriesBlocks.OVEN, "烤箱");
-//        addBlock(BakeriesBlocks.BLENDER, "搅拌机");
-//    }
-
     private void addElements() {
 ;
     }

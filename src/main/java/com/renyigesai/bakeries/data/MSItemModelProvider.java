@@ -72,9 +72,20 @@ public class MSItemModelProvider extends ItemModelProvider {
 
 
         basicItem(BakeriesItems.ICE_CUBES.get());
+        basicItem(BakeriesItems.PASTRY.get());
         blockItem(BakeriesBlocks.OVEN::get);
         blockItem(BakeriesBlocks.BLENDER::get);
+        rawBreadItem(BakeriesItems.BAGEL_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
+        rawBreadItem(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH ,BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
         rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
+        rawBreadItem(BakeriesItems.BROWN_SUGAR_ROLL_DOUGH ,BakeriesBlocks.BROWN_SUGAR_ROLL::get, "_1");
+        rawBreadItem(BakeriesItems.PINEAPPLE_BUN_DOUGH ,BakeriesBlocks.PINEAPPLE_BUN::get, "_1");
+        rawBreadItem(BakeriesItems.CROISSANT_DOUGH ,BakeriesBlocks.CROISSANT::get, "_1");
+        rawBreadItem(BakeriesItems.SALT_CROISSANT_DOUGH ,BakeriesBlocks.SALT_CROISSANT::get, "_1");
+        rawBreadItem(BakeriesItems.BAGUETTE_DOUGH ,BakeriesBlocks.BAGUETTE::get, "_1");
+        rawBreadItem(BakeriesItems.CIABATTA_DOUGH ,BakeriesBlocks.CIABATTA::get, "_1");
+        rawBreadItem(BakeriesItems.FOCACCIA_DOUGH ,BakeriesBlocks.FOCACCIA::get, "_1");
+//        rawBreadItem(BakeriesItems.COUNTRY_BREAD_DOUGH ,BakeriesBlocks.::get, "_1");
         toolItem(BakeriesItems.BREAD_KNIFE.asItem());
         customModelItem(BakeriesItems.FLOUR_SIEVE,"item/flour_sieve");
     }

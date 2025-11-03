@@ -1,0 +1,6 @@
+{
+  "parent": "bakeries:block/brown_sugar_roll_1",
+  "textures": {
+    "0": "bakeries:item/brown_sugar_roll_dough"
+  }
+}
