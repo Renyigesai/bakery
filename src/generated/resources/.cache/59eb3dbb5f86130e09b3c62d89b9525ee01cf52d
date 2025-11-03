@@ -1,10 +1,11 @@
-// 1.21.1	2025-10-27T21:21:51.3562459	Loot Tables
+// 1.21.1	2025-11-03T11:41:08.9303133	Loot Tables
 d6c59ba879e88b81d7290687ad9416e9ae0ec0b5 data/bakeries/loot_table/blocks/bagel.json
 340ab91612d51e7e4d355a5168a3d2d9c6142879 data/bakeries/loot_table/blocks/bagel_filled_sauce.json
 f12d4dcf673a6c3fff890ad15ff8556074e7acae data/bakeries/loot_table/blocks/baguette.json
 d3499713949dbe2528440773de194d5693ef1cd4 data/bakeries/loot_table/blocks/baguette_with_filling.json
 0de5bd5054a4e09043ee1586bf16e09b99988c79 data/bakeries/loot_table/blocks/berry_bagel.json
 1c83b870d07a6e51304afa845ac3bc7606048199 data/bakeries/loot_table/blocks/berry_bread.json
+86ee3dcd1c6b7c12c2a6fa666a8b05d0546c4db0 data/bakeries/loot_table/blocks/blender.json
 5253b50ebe8e4b9a4ef2ba1488c936815f173635 data/bakeries/loot_table/blocks/brown_sugar_roll.json
 441a72cfb065cf847824cf8e438b6c392ad992b1 data/bakeries/loot_table/blocks/cheese_cream_bread.json
 59aa3711adde0a30900faba48eaa686050a028ae data/bakeries/loot_table/blocks/ciabatta.json
