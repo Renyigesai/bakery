@@ -54,7 +54,7 @@ public class MSBlockStateProvider extends BlockStateProvider {
         breadBlock(BakeriesBlocks.BAGUETTE_WITH_FILLING::get);
         breadBlock(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH::get);
         breadBlock(BakeriesBlocks.BAGUETTE::get);
-
+        blenderBlock(BakeriesBlocks.BLENDER::get);
         ovenBlock(BakeriesBlocks.OVEN::get);
     }
 
@@ -146,15 +146,20 @@ public class MSBlockStateProvider extends BlockStateProvider {
         }
     }
 
+
     public void blenderBlock(Supplier<Block> block){
 
         for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()){
             for (boolean powered : BlenderBlock.POWERED.getPossibleValues()){
                 ModelFile modelFile = powered ? this.models().withExistingParent(
-                                this.name(block.get()) + "_fire",
+                                this.name(block.get()) + "_powered",
                                 this.modLoc("custom/" + this.name(block.get())))
-                        .texture("0", this.modLoc("block/" + this.name(block.get()) + "_fire"))
-                        .texture("particle", this.modLoc("block/" + this.name(block.get()) + "_fire"))
+                        .texture("0", this.modLoc("block/" + this.name(block.get()) ))
+                        .texture("1", this.modLoc("block/mixing_head_1"))
+                        .texture("2", this.modLoc("block/mixing_head_2"))
+                        .texture("3", this.modLoc("block/mixing_head_3"))
+                        .texture("4", this.modLoc("block/mixing_head_4"))
+                        .texture("particle", this.modLoc("block/" + this.name(block.get())))
                         .renderType(CUTOUT) :
                         this.models().withExistingParent(
                                         this.name(block.get()),

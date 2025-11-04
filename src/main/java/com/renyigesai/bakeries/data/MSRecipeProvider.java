@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.data;
 
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.data.recipes.OvenRecipeBuilder;
 import net.minecraft.core.HolderLookup;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
-import com.renyigesai.bakeries.BakeriesMod;
 
 import java.util.concurrent.CompletableFuture;
 

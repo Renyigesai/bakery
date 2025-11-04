@@ -1,8 +1,9 @@
 package com.renyigesai.bakeries.common.items;
 
-import com.renyigesai.bakeries.common.compat.CompatMod;
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ModIsLoaded;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -33,7 +34,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.fml.ModList;
+import net.weibai.rcglib.utils.UtilTranslatable;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,7 +84,7 @@ public class BreadKnifeItem extends DiggerItem {
             pLevel.playSound(null,new BlockPos((int) x,(int)y,(int)z), SoundEvents.WOOL_BREAK, SoundSource.BLOCKS);
             resultItemEntity.remove(Entity.RemovalReason.KILLED);
         }else {
-            if (ModList.get().isLoaded(CompatMod.FARMER_S_DELIGHT)) {
+            if (ModIsLoaded.isFarmerSDelight()) {
 //                return InteractionResultHolder.sidedSuccess(hand, processStoredItemUsingTool(pLevel, hand, resultItemEntity,pPlayer, x, y, z));
             }else {
                 return super.use(pLevel,pPlayer,pUsedHand);
@@ -132,6 +133,6 @@ public class BreadKnifeItem extends DiggerItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("item.bakeries.bread_knife.tips").withStyle(ChatFormatting.BLUE));
+        tooltipComponents.add(Component.translatable(UtilTranslatable.setTooltips(BakeriesMod.MODID, "bread_knife")).withStyle(ChatFormatting.BLUE));
     }
 }

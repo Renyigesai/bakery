@@ -10,7 +10,6 @@ import com.renyigesai.bakeries.BakeriesMod;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-;
 
 public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
 

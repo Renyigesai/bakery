@@ -67,7 +67,7 @@ public class BakeriesBlocks {
 
 
 
-    public static final DeferredBlock<BlenderBlock> BLENDER;
+    public static final DeferredBlock<Block> BLENDER;
     public static final DeferredBlock<OvenBlock> OVEN;
 
     static {
@@ -93,7 +93,7 @@ public class BakeriesBlocks {
         TOAST = register("toast", () ->
                 new Block(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
 
-        BLENDER = REGISTER.register("blender",()-> new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
+        BLENDER = REGISTER.register("blender",()-> new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         OVEN = registerBlock("oven", OvenBlock::new, BlockBehaviour.Properties.of().strength(3.5F));
     }
 

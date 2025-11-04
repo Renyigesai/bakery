@@ -1,8 +1,7 @@
 package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.api.annotation.Group;
-import com.renyigesai.bakeries.api.annotation.ItemData;
+import com.renyigesai.bakeries.api.annotation.ItemType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -24,12 +23,12 @@ public class BakeriesCreativeModeTabs {
                     .icon(() -> BakeriesItems.OVEN.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         for (Field field : BakeriesItems.class.getDeclaredFields()){
-                            if (field.isAnnotationPresent(ItemData.class)){
+                            if (field.isAnnotationPresent(ItemType.class)){
                                 try {
                                     Object object = field.get(null);
                                     if (object instanceof DeferredItem<?> deferredItem){
-                                        ItemData annotation = field.getAnnotation(ItemData.class);
-                                        if (annotation.groups() == Group.MAIN){
+                                        ItemType annotation = field.getAnnotation(ItemType.class);
+                                        if (annotation != null && annotation.group().equals(BakeriesItems.BAKERIES_TAB)) {
                                             output.accept(deferredItem.get());
                                         }
                                     }
@@ -50,12 +49,12 @@ public class BakeriesCreativeModeTabs {
                     .icon(() -> BakeriesItems.ROUND_BREAD_DOUGH.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         for (Field field : BakeriesItems.class.getDeclaredFields()){
-                            if (field.isAnnotationPresent(ItemData.class)){
+                            if (field.isAnnotationPresent(ItemType.class)){
                                 try {
                                     Object object = field.get(null);
                                     if (object instanceof DeferredItem<?> deferredItem){
-                                        ItemData annotation = field.getAnnotation(ItemData.class);
-                                        if (annotation.groups() == Group.SFP){
+                                        ItemType annotation = field.getAnnotation(ItemType.class);
+                                        if (annotation != null && annotation.group().equals(BakeriesItems.SFP_TAB)) {
                                             output.accept(deferredItem.get());
                                         }
                                     }
@@ -64,6 +63,8 @@ public class BakeriesCreativeModeTabs {
                                 }
                             }
                         }
+//                        BakeriesItems.REGISTER.getEntries().forEach(( item)->
+//                                output.accept(item.get()));
                     }).build());
 
 

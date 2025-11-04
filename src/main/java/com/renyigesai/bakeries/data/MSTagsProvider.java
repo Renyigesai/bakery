@@ -1,12 +1,13 @@
 package com.renyigesai.bakeries.data;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import com.renyigesai.bakeries.BakeriesMod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -65,23 +66,10 @@ public class MSTagsProvider extends AbstractTagProvider {
 //                MSBlocks.TINY_DIORITE_BLOCK,
 //                MSBlocks.TINY_GRANITE_BLOCK
 //        );
-//        addToHarvestTag(BlockTags.MINEABLE_WITH_PICKAXE,
-//                MSBlocks.METEORITE_IRON_ORE,
-//                MSBlocks.DEEPSLATE_METEORITE_IRON_ORE,
-//                MSBlocks.RAW_METEORITE_IRON_BLOCK,
-//                MSBlocks.MAGNETIC_IRON_ORE,
-//                MSBlocks.DEEPSLATE_MAGNETIC_IRON_ORE,
-//                MSBlocks.RAW_MAGNETIC_IRON_BLOCK,
-//                MSBlocks.HEMATITE_IRON_ORE,
-//                MSBlocks.DEEPSLATE_HEMATITE_IRON_ORE,
-//                MSBlocks.RAW_HEMATITE_IRON_BLOCK,
-//                MSBlocks.BITUMINOUS_COAL_ORE,
-//                MSBlocks.DEEPSLATE_BITUMINOUS_COAL_ORE,
-//                MSBlocks.BITUMINOUS_COAL_BLOCK,
-//                MSBlocks.LIGNITE_BLOCK,
-//                MSBlocks.LIGNITE_ORE,
-//                MSBlocks.DEEPSLATE_LIGNITE_ORE
-//        );
+        addToHarvestTag(BlockTags.MINEABLE_WITH_PICKAXE,
+                BakeriesBlocks.BLENDER
+
+        );
 //        addToHarvestTag(MSTags.Blocks.MINEABLE_WITH_SCYTHE,
 //                MSBlocks.FLAX_BLOCK
 //
@@ -99,11 +87,6 @@ public class MSTagsProvider extends AbstractTagProvider {
 //                MSBlocks.WARPED_STEM_CAULDRON
 //        );
 
-//        addToHarvestTag(MSTags.Blocks.MINEABLE_WITH_TINY_STONE_1,
-//                Blocks.DIRT.defaultBlockState().getBlockHolder());
-//        addToHarvestTag(MSTags.Blocks.MINEABLE_WITH_TINY_STONE_1,
-//                Blocks.TALL_GRASS.defaultBlockState().getBlockHolder(),
-//                Blocks.GRASS_BLOCK.defaultBlockState().getBlockHolder());
 
 //        addToTag(BlockTags.NEEDS_STONE_TOOL,
 //                MSBlocks.MAGNETIC_IRON_ORE,

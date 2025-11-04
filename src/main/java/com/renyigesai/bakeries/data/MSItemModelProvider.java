@@ -29,27 +29,44 @@ public class MSItemModelProvider extends ItemModelProvider {
         /*一般物品 食材 食物*/
         basicItem(BakeriesItems.FLOUR.get());
         basicItem(BakeriesItems.WHOLE_WHEAT_FLOUR.get());
-        basicItem(BakeriesItems.SALT.get());
         basicItem(BakeriesItems.COCOA_POWDER.get());
         basicItem(BakeriesItems.MATCHA_POWDER.get());
+        basicItem(BakeriesItems.SALT.get());
         basicItem(BakeriesItems.BUTTER_CUBE.get());
         basicItem(BakeriesItems.FOAMED_CREAM.get());
         basicItem(BakeriesItems.CHEESE_CREAM.get());
+        basicItem(BakeriesItems.BUTTER_FLOUR_SAND.get());
+        basicItem(BakeriesItems.HONEY_BUTTER.get());
         basicItem(BakeriesItems.WHOLE_EGG.get());
         basicItem(BakeriesItems.RAW_PROTEIN.get());
         basicItem(BakeriesItems.RAW_EGG_YOLK.get());
-        basicItem(BakeriesItems.FRESH_CHEESE_CUBE.get());
         basicItem(BakeriesItems.CHEESE_CUBE.get());
+        basicItem(BakeriesItems.FRESH_CHEESE_CUBE.get());
         basicItem(BakeriesItems.BROWN_SUGAR_CUBE.get());
+        basicItem(BakeriesItems.RAW_COFFEE_BEAN.get());
+        basicItem(BakeriesItems.COFFEE_BEAN.get());
+        basicItem(BakeriesItems.GROUND_COFFEE.get());
+        basicItem(BakeriesItems.BEARNAISE.get());
+        basicItem(BakeriesItems.OLIVE_OIL.get());
+        basicItem(BakeriesItems.MEAT_FLOSS.get());
+        basicItem(BakeriesItems.SCONE.get());
+        basicItem(BakeriesItems.TOMATO.get());
+        basicItem(BakeriesItems.OLIVE.get());
+        basicItem(BakeriesItems.SLICED_TOAST.get());
+        basicItem(BakeriesItems.HONEY_BUTTER_SPREAD_TOAST.get());
+        basicItem(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());
+        basicItem(BakeriesItems.COUNTRY_BREAD_SLICE.get());
+        basicItem(BakeriesItems.HONEY_BUTTER_SPREAD_COUNTRY_BREAD.get());
+        basicItem(BakeriesItems.PASTRY.get());
+        basicItem(BakeriesItems.SWEET_DOUGH.get());
+        basicItem(BakeriesItems.SALTED_DOUGH.get());
+        basicItem(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
 
         basicItem(BakeriesItems.BOTTLE_YEAST.get());
         basicItem(BakeriesItems.BOTTLE_MILK.get());
         basicItem(BakeriesItems.BOTTLE_CREAM.get());
         basicItem(BakeriesItems.BOTTLE_BUTTER.get());
 
-        basicItem(BakeriesItems.SWEET_DOUGH.get());
-        basicItem(BakeriesItems.SALTED_DOUGH.get());
-        basicItem(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
 
         blockItem(BakeriesBlocks.BAGEL::get, "_1");
         blockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
@@ -70,25 +87,38 @@ public class MSItemModelProvider extends ItemModelProvider {
         blockItem(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH::get, "_1");
         blockItem(BakeriesBlocks.BAGUETTE::get, "_1");
 
+        rawBreadItem(BakeriesItems.BAGEL_DOUGH,
+                BakeriesBlocks.BAGEL::get, "_1");
+        rawBreadItem(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH,
+                BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
+        rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH,
+                BakeriesBlocks.ROUND_BREAD::get, "_1");
+        rawBreadItem(BakeriesItems.BROWN_SUGAR_ROLL_DOUGH,
+                BakeriesBlocks.BROWN_SUGAR_ROLL::get, "_1");
+        rawBreadItem(BakeriesItems.PINEAPPLE_BUN_DOUGH,
+                BakeriesBlocks.PINEAPPLE_BUN::get, "_1");
+        rawBreadItem(BakeriesItems.CROISSANT_DOUGH,
+                BakeriesBlocks.CROISSANT::get, "_1");
+        rawBreadItem(BakeriesItems.SALT_CROISSANT_DOUGH,
+                BakeriesBlocks.SALT_CROISSANT::get, "_1");
+        rawBreadItem(BakeriesItems.BAGUETTE_DOUGH,
+                BakeriesBlocks.BAGUETTE::get, "_1");
+        rawBreadItem(BakeriesItems.CIABATTA_DOUGH,
+                BakeriesBlocks.CIABATTA::get, "_1");
+        rawBreadItem(BakeriesItems.FOCACCIA_DOUGH,
+                BakeriesBlocks.FOCACCIA::get, "_1");
+        rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH,
+                BakeriesBlocks.ROUND_BREAD::get, "_1");
+//        rawBreadItem(BakeriesItems.COUNTRY_BREAD_DOUGH,
+//                BakeriesBlocks.COUNTRY_BREAD_DOUGH::get, "_1");
 
         basicItem(BakeriesItems.ICE_CUBES.get());
-        basicItem(BakeriesItems.PASTRY.get());
         blockItem(BakeriesBlocks.OVEN::get);
-        blockItem(BakeriesBlocks.BLENDER::get);
-        rawBreadItem(BakeriesItems.BAGEL_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
-        rawBreadItem(BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH ,BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
-        rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH ,BakeriesBlocks.ROUND_BREAD::get, "_1");
-        rawBreadItem(BakeriesItems.BROWN_SUGAR_ROLL_DOUGH ,BakeriesBlocks.BROWN_SUGAR_ROLL::get, "_1");
-        rawBreadItem(BakeriesItems.PINEAPPLE_BUN_DOUGH ,BakeriesBlocks.PINEAPPLE_BUN::get, "_1");
-        rawBreadItem(BakeriesItems.CROISSANT_DOUGH ,BakeriesBlocks.CROISSANT::get, "_1");
-        rawBreadItem(BakeriesItems.SALT_CROISSANT_DOUGH ,BakeriesBlocks.SALT_CROISSANT::get, "_1");
-        rawBreadItem(BakeriesItems.BAGUETTE_DOUGH ,BakeriesBlocks.BAGUETTE::get, "_1");
-        rawBreadItem(BakeriesItems.CIABATTA_DOUGH ,BakeriesBlocks.CIABATTA::get, "_1");
-        rawBreadItem(BakeriesItems.FOCACCIA_DOUGH ,BakeriesBlocks.FOCACCIA::get, "_1");
-//        rawBreadItem(BakeriesItems.COUNTRY_BREAD_DOUGH ,BakeriesBlocks.::get, "_1");
-        toolItem(BakeriesItems.BREAD_KNIFE.asItem());
-        customModelItem(BakeriesItems.FLOUR_SIEVE,"item/flour_sieve");
+        blockItem(BakeriesBlocks.BLENDER);
+        toolItem(BakeriesItems.BREAD_KNIFE.get());
+        customModelItem(BakeriesItems.FLOUR_SIEVE,"custom/flour_sieve");
     }
+
     private ItemModelBuilder rawBreadItem(Supplier<Item> bread, Supplier<Block> block, String index) {
         return this.getBuilder(this.name(bread.get()))
                 .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index)))

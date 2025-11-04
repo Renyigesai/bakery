@@ -1,10 +1,11 @@
-// 1.21.1	2025-10-19T21:41:52.702092	Block States: bakeries
+// 1.21.1	2025-11-03T23:20:34.0491984	Block States: bakeries
 99b3b1aaa1fd74bce1d16ff0448c5eaa7581a663 assets/bakeries/blockstates/bagel.json
 3710b4733002155265173a435599201860b17396 assets/bakeries/blockstates/bagel_filled_sauce.json
 365bff84cef494274f95b73f7f0d7b0d37c2fac3 assets/bakeries/blockstates/baguette.json
 2034f3b8ae69881b0f033e617d06da83545b2d81 assets/bakeries/blockstates/baguette_with_filling.json
 d4964fe6abb35f7a49461cc53982ee96ebbaf0cc assets/bakeries/blockstates/berry_bagel.json
 bf6b8022aa23621d4f216f6eaec05af47ccaab0f assets/bakeries/blockstates/berry_bread.json
+9ccef3bf57decb5ac36fbe5a7e072e4d72a2d9a0 assets/bakeries/blockstates/blender.json
 c5575954293f55dec0807ff936426eeab062f565 assets/bakeries/blockstates/brown_sugar_roll.json
 c6b7d094ddc44432dc8365b8e22bda42871bbd93 assets/bakeries/blockstates/cheese_cream_bread.json
 281cdef90a359ad72c51af44d92605d3382c1206 assets/bakeries/blockstates/ciabatta.json
@@ -42,6 +43,8 @@ a30620b8f91f992c5edc9e5e9f6deba43b068111 assets/bakeries/models/block/berry_brea
 008a8e7356645e37a40025624a9714302888fbee assets/bakeries/models/block/berry_bread_2.json
 32ded86eb041ede7f130b1c13027f7e39d507186 assets/bakeries/models/block/berry_bread_3.json
 662e52d12582ce21e3b5b3c99bea66038f998afa assets/bakeries/models/block/berry_bread_4.json
+b8ba3c3ed457f4d0ea373fc051895dc1483a205f assets/bakeries/models/block/blender.json
+57f87e3431f076d0c8adcd607e7300504a19ff91 assets/bakeries/models/block/blender_powered.json
 effb1e7b4703ded0642535f0f576f43cf33ad7b4 assets/bakeries/models/block/brown_sugar_roll_1.json
 3cdd1778cf58a7469808a1de90bf793e278cb4d7 assets/bakeries/models/block/brown_sugar_roll_2.json
 38fefdf2a1b876dd800c8fcb9583fcc62e99567f assets/bakeries/models/block/brown_sugar_roll_3.json
