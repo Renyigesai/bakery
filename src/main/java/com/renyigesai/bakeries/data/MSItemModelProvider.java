@@ -2,18 +2,22 @@ package com.renyigesai.bakeries.data;
 
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.api.annotation.ItemData;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredItem;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -25,47 +29,79 @@ public class MSItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        Class<BakeriesItems> _class = BakeriesItems.class;
+        for (Field field : _class.getDeclaredFields()) {
+            boolean isAnnotationPresent = field.isAnnotationPresent(ItemData.class);
+            if (isAnnotationPresent){
+                try {
+                    Object object = field.get(null);
+                    if (object instanceof DeferredItem<?> deferredItem){
+                        ItemData annotation = field.getAnnotation(ItemData.class);
+                        ItemData.ModelType model = annotation.model();
+                        if (model != ItemData.ModelType.CUSTOM) {
+                            Item item = deferredItem.get();
+                            if (model == ItemData.ModelType.GENERAL) {
+                                System.out.println(item);
+                                basicItem(item);
+                            }
+                            if (model == ItemData.ModelType.BLOCK) {
+                                if (item instanceof BlockItem blockItem) {
+                                    blockItem(blockItem::getBlock);
+                                } else {
+                                    throw new IllegalAccessException(field.getName() + " Not BlockItem");
+                                }
+                            }
+                            if (model == ItemData.ModelType.TOOL) {
+                                toolItem(item);
+                            }
+                        }
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 
         /*一般物品 食材 食物*/
-        basicItem(BakeriesItems.FLOUR.get());
-        basicItem(BakeriesItems.WHOLE_WHEAT_FLOUR.get());
-        basicItem(BakeriesItems.COCOA_POWDER.get());
-        basicItem(BakeriesItems.MATCHA_POWDER.get());
-        basicItem(BakeriesItems.SALT.get());
-        basicItem(BakeriesItems.BUTTER_CUBE.get());
-        basicItem(BakeriesItems.FOAMED_CREAM.get());
-        basicItem(BakeriesItems.CHEESE_CREAM.get());
-        basicItem(BakeriesItems.BUTTER_FLOUR_SAND.get());
-        basicItem(BakeriesItems.HONEY_BUTTER.get());
-        basicItem(BakeriesItems.WHOLE_EGG.get());
-        basicItem(BakeriesItems.RAW_PROTEIN.get());
-        basicItem(BakeriesItems.RAW_EGG_YOLK.get());
-        basicItem(BakeriesItems.CHEESE_CUBE.get());
-        basicItem(BakeriesItems.FRESH_CHEESE_CUBE.get());
-        basicItem(BakeriesItems.BROWN_SUGAR_CUBE.get());
-        basicItem(BakeriesItems.RAW_COFFEE_BEAN.get());
-        basicItem(BakeriesItems.COFFEE_BEAN.get());
-        basicItem(BakeriesItems.GROUND_COFFEE.get());
-        basicItem(BakeriesItems.BEARNAISE.get());
-        basicItem(BakeriesItems.OLIVE_OIL.get());
-        basicItem(BakeriesItems.MEAT_FLOSS.get());
-        basicItem(BakeriesItems.SCONE.get());
-        basicItem(BakeriesItems.TOMATO.get());
-        basicItem(BakeriesItems.OLIVE.get());
-        basicItem(BakeriesItems.SLICED_TOAST.get());
-        basicItem(BakeriesItems.HONEY_BUTTER_SPREAD_TOAST.get());
-        basicItem(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());
-        basicItem(BakeriesItems.COUNTRY_BREAD_SLICE.get());
-        basicItem(BakeriesItems.HONEY_BUTTER_SPREAD_COUNTRY_BREAD.get());
-        basicItem(BakeriesItems.PASTRY.get());
-        basicItem(BakeriesItems.SWEET_DOUGH.get());
-        basicItem(BakeriesItems.SALTED_DOUGH.get());
-        basicItem(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
-
-        basicItem(BakeriesItems.BOTTLE_YEAST.get());
-        basicItem(BakeriesItems.BOTTLE_MILK.get());
-        basicItem(BakeriesItems.BOTTLE_CREAM.get());
-        basicItem(BakeriesItems.BOTTLE_BUTTER.get());
+//        basicItem(BakeriesItems.FLOUR.get());
+//        basicItem(BakeriesItems.WHOLE_WHEAT_FLOUR.get());
+//        basicItem(BakeriesItems.COCOA_POWDER.get());
+//        basicItem(BakeriesItems.MATCHA_POWDER.get());
+//        basicItem(BakeriesItems.SALT.get());
+//        basicItem(BakeriesItems.BUTTER_CUBE.get());
+//        basicItem(BakeriesItems.FOAMED_CREAM.get());
+//        basicItem(BakeriesItems.CHEESE_CREAM.get());
+//        basicItem(BakeriesItems.BUTTER_FLOUR_SAND.get());
+//        basicItem(BakeriesItems.HONEY_BUTTER.get());
+//        basicItem(BakeriesItems.WHOLE_EGG.get());
+//        basicItem(BakeriesItems.RAW_PROTEIN.get());
+//        basicItem(BakeriesItems.RAW_EGG_YOLK.get());
+//        basicItem(BakeriesItems.CHEESE_CUBE.get());
+//        basicItem(BakeriesItems.FRESH_CHEESE_CUBE.get());
+//        basicItem(BakeriesItems.BROWN_SUGAR_CUBE.get());
+//        basicItem(BakeriesItems.RAW_COFFEE_BEAN.get());
+//        basicItem(BakeriesItems.COFFEE_BEAN.get());
+//        basicItem(BakeriesItems.GROUND_COFFEE.get());
+//        basicItem(BakeriesItems.BEARNAISE.get());
+//        basicItem(BakeriesItems.OLIVE_OIL.get());
+//        basicItem(BakeriesItems.MEAT_FLOSS.get());
+//        basicItem(BakeriesItems.SCONE.get());
+//        basicItem(BakeriesItems.TOMATO.get());
+//        basicItem(BakeriesItems.OLIVE.get());
+//        basicItem(BakeriesItems.SLICED_TOAST.get());
+//        basicItem(BakeriesItems.HONEY_BUTTER_SPREAD_TOAST.get());
+//        basicItem(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());
+//        basicItem(BakeriesItems.COUNTRY_BREAD_SLICE.get());
+//        basicItem(BakeriesItems.HONEY_BUTTER_SPREAD_COUNTRY_BREAD.get());
+//        basicItem(BakeriesItems.PASTRY.get());
+//        basicItem(BakeriesItems.SWEET_DOUGH.get());
+//        basicItem(BakeriesItems.SALTED_DOUGH.get());
+//        basicItem(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
+//
+//        basicItem(BakeriesItems.BOTTLE_YEAST.get());
+//        basicItem(BakeriesItems.BOTTLE_MILK.get());
+//        basicItem(BakeriesItems.BOTTLE_CREAM.get());
+//        basicItem(BakeriesItems.BOTTLE_BUTTER.get());
 
 
         blockItem(BakeriesBlocks.BAGEL::get, "_1");
@@ -112,10 +148,10 @@ public class MSItemModelProvider extends ItemModelProvider {
 //        rawBreadItem(BakeriesItems.COUNTRY_BREAD_DOUGH,
 //                BakeriesBlocks.COUNTRY_BREAD_DOUGH::get, "_1");
 
-        basicItem(BakeriesItems.ICE_CUBES.get());
-        blockItem(BakeriesBlocks.OVEN::get);
-        blockItem(BakeriesBlocks.BLENDER);
-        toolItem(BakeriesItems.BREAD_KNIFE.get());
+//        basicItem(BakeriesItems.ICE_CUBES.get());
+//        blockItem(BakeriesBlocks.OVEN::get);
+//        blockItem(BakeriesBlocks.BLENDER);
+//        toolItem(BakeriesItems.BREAD_KNIFE.get());
         customModelItem(BakeriesItems.FLOUR_SIEVE,"custom/flour_sieve");
     }
 

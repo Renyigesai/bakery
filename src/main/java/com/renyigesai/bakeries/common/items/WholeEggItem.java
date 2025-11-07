@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 
 public class WholeEggItem extends Item {
     public WholeEggItem() {
-        super(new Properties());
+        super(new Item.Properties());
     }
 
     @Override

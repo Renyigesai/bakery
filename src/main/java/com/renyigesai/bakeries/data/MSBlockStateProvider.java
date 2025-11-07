@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.data;
 
 
+import com.renyigesai.bakeries.common.blocks.TomatoBlock;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import net.minecraft.core.Direction;
@@ -36,6 +37,8 @@ public class MSBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        simpleBlock(BakeriesBlocks.SALT_ORE.get());
+        simpleBlock(BakeriesBlocks.DEEPSLATE_SALT_ORE.get());
         breadBlock(BakeriesBlocks.BAGEL::get);
         breadBlock(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, BakeriesBlocks.BAGEL::get);
         breadBlock(BakeriesBlocks.ROUND_BREAD::get);
@@ -54,7 +57,7 @@ public class MSBlockStateProvider extends BlockStateProvider {
         breadBlock(BakeriesBlocks.BAGUETTE_WITH_FILLING::get);
         breadBlock(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH::get);
         breadBlock(BakeriesBlocks.BAGUETTE::get);
-        blenderBlock(BakeriesBlocks.BLENDER::get);
+        blenderBlock(BakeriesBlocks.BLENDER);
         ovenBlock(BakeriesBlocks.OVEN::get);
     }
 

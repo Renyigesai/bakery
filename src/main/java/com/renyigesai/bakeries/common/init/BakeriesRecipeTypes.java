@@ -3,22 +3,29 @@ package com.renyigesai.bakeries.common.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
+import com.renyigesai.bakeries.common.recipe.DoughCraftingRecipe;
 import com.renyigesai.bakeries.common.recipe.FlourSieveRecipe;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLConstructModEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.function.Supplier;
+
 
 @EventBusSubscriber(modid = BakeriesMod.MODID)
 public class BakeriesRecipeTypes {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, BakeriesMod.MODID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPE = DeferredRegister.create(Registries.RECIPE_TYPE, BakeriesMod.MODID);
+
+    /*面胚工作台*/
+    public static final Supplier<RecipeType<DoughCraftingRecipe>> DOUGH_CRAFTING_TYPE = RECIPE_TYPE.register("dough_crafting_table", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"dough_crafting_table")));
+    public static final Supplier<RecipeSerializer<?>> DOUGH_CRAFTING_SERIALIZERS = SERIALIZERS.register("dough_crafting_table", ()-> new SingleItemRecipe.Serializer<>(DoughCraftingRecipe::new));
 
     @SuppressWarnings("removal")
     @SubscribeEvent
@@ -36,7 +43,6 @@ public class BakeriesRecipeTypes {
             /*搅拌机*/
             SERIALIZERS.register(BlenderRecipe.ID, () -> BlenderRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(BlenderRecipe.ID, () -> BlenderRecipe.Type.INSTANCE);
-
         });
     }
     public static void getRegister(IEventBus bus){

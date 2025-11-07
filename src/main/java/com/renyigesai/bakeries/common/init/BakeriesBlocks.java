@@ -1,18 +1,26 @@
 package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.common.blocks.*;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlockEntity;
 import com.renyigesai.bakeries.common.blocks.bread.*;
+import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlock;
+import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlockEntity;
+import com.renyigesai.bakeries.common.blocks.dough_crafting_table.DoughCraftingTableBlock;
+import com.renyigesai.bakeries.common.blocks.dough_crafting_table.DoughCraftingTableBlockEntity;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -65,10 +73,27 @@ public class BakeriesBlocks {
     /**吐司*/
     public static final DeferredBlock<Block> TOAST;
 
+    /**番茄*/
+    public static final DeferredBlock<Block> TOMATO;
+    /**咖啡丛*/
+    public static final DeferredBlock<Block> COFFEE_PLANT;
+
+    /**盐矿石*/
+    public static final DeferredBlock<Block> SALT_ORE;
+    public static final DeferredBlock<Block> DEEPSLATE_SALT_ORE;
+
+    /**发酵罐*/
+
+    public static final DeferredBlock<Block> FERMENTATION_TANK;
+    public static final DeferredBlock<Block> YEAST_TANK;
+    public static final DeferredBlock<Block> MILk_TANK;
+    public static final DeferredBlock<Block> CHEESE_TANK;
 
 
     public static final DeferredBlock<Block> BLENDER;
     public static final DeferredBlock<OvenBlock> OVEN;
+    public static final DeferredBlock<DoughCraftingTableBlock> DOUGH_CRAFTING_TABLE;
+    public static final DeferredBlock<CupboardBlock> CUPBOARD;
 
     static {
         /*面包方块*/
@@ -93,8 +118,29 @@ public class BakeriesBlocks {
         TOAST = register("toast", () ->
                 new Block(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
 
+        TOMATO = REGISTER.register("tomato",() ->
+                new TomatoBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
+        COFFEE_PLANT = REGISTER.register("coffee_plant",()->
+                new CoffeePlantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
+
+        SALT_ORE = REGISTER.register("salt_ore", () ->
+                new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F)));
+        DEEPSLATE_SALT_ORE = REGISTER.register("deepslate_salt_ore", () ->
+                new Block(BlockBehaviour.Properties.ofFullCopy(SALT_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
+
+        FERMENTATION_TANK = REGISTER.register("fermentation_tank",()->
+                new FermentationTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).randomTicks()));
+        YEAST_TANK = REGISTER.register("yeast_tank",()->
+                new YeastTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+        MILk_TANK = REGISTER.register("milk_tank",()->
+                new MilkTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).randomTicks()));
+        CHEESE_TANK = REGISTER.register("cheese_tank",()->
+                new CheeseTankBkock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+
         BLENDER = REGISTER.register("blender",()-> new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         OVEN = registerBlock("oven", OvenBlock::new, BlockBehaviour.Properties.of().strength(3.5F));
+        CUPBOARD = REGISTER.register("cupboard", ()-> new CupboardBlock(BlockBehaviour.Properties.of().strength(2.0F,3.0F).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY).sound(SoundType.CHISELED_BOOKSHELF)));
+        DOUGH_CRAFTING_TABLE = REGISTER.register("dough_crafting_table", DoughCraftingTableBlock::new);
     }
 
 
@@ -114,6 +160,9 @@ public class BakeriesBlocks {
         public static final DeferredRegister<BlockEntityType<?>> REGISTER = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, BakeriesMod.MODID);
         public static final Supplier<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY = REGISTER.register("cauldron_block_entity", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         public static final Supplier<BlockEntityType<BlenderBlockEntity>> BLENDER_ENTITY = REGISTER.register("blender", () -> BlockEntityType.Builder.of(BlenderBlockEntity::new, BLENDER.get()).build(null));
+        public static final Supplier<BlockEntityType<CupboardBlockEntity>> CUPBOARD_ENTITY = REGISTER.register("cupboard", () -> BlockEntityType.Builder.of(CupboardBlockEntity::new, CUPBOARD.get()).build(null));
+        public static final Supplier<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_ENTITY = REGISTER.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, DOUGH_CRAFTING_TABLE.get()).build(null));
+
 //        public static final Supplier<BlockEntityType<MSFluidPipeBlockEntity>> FLUID_PIPE_BLOCK_ENTITY = REGISTER.register(
 //                "fluid_pipe_block_entity",
 //                () -> BlockEntityType.Builder.of(

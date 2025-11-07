@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-03T23:20:34.0491984	Block States: bakeries
+// 1.21.1	2025-11-05T12:02:15.9156356	Block States: bakeries
 99b3b1aaa1fd74bce1d16ff0448c5eaa7581a663 assets/bakeries/blockstates/bagel.json
 3710b4733002155265173a435599201860b17396 assets/bakeries/blockstates/bagel_filled_sauce.json
 365bff84cef494274f95b73f7f0d7b0d37c2fac3 assets/bakeries/blockstates/baguette.json
@@ -10,6 +10,7 @@ c5575954293f55dec0807ff936426eeab062f565 assets/bakeries/blockstates/brown_sugar
 c6b7d094ddc44432dc8365b8e22bda42871bbd93 assets/bakeries/blockstates/cheese_cream_bread.json
 281cdef90a359ad72c51af44d92605d3382c1206 assets/bakeries/blockstates/ciabatta.json
 a120c9953292b0c3b9085303cb7341c86d4818aa assets/bakeries/blockstates/croissant.json
+9361cd6947376c0d6463fdee4f6daba7dd193a86 assets/bakeries/blockstates/deepslate_salt_ore.json
 ca2268502995760fcc1379c6574f2c0c595807fd assets/bakeries/blockstates/dirty_choco_croissant.json
 92943ac1a690a2241758f4209319ed8c7f83b49d assets/bakeries/blockstates/focaccia.json
 d227eaf68724ba36dab2e448200ab67e708638d7 assets/bakeries/blockstates/meat_floss_bread_roll.json
@@ -17,6 +18,7 @@ d227eaf68724ba36dab2e448200ab67e708638d7 assets/bakeries/blockstates/meat_floss_
 975f55e3d044a98ebdaff44b467abc25a1147fd9 assets/bakeries/blockstates/pineapple_bun.json
 7eb74d7aaa9793587e6a8410c01bd0fd84e98784 assets/bakeries/blockstates/round_bread.json
 e89e9b47ac57c2f9035f6724769bb4d4ca0c4b5c assets/bakeries/blockstates/salt_croissant.json
+648f5ab5dfdf44e6e2abb641b7c0e19d64458154 assets/bakeries/blockstates/salt_ore.json
 ed656097b23b0b9a916bc6200909232142229f95 assets/bakeries/blockstates/tomato_cheese_croissant_sandwich.json
 7565ec23fac20b2ef0b76ee8241313b0432d8d6e assets/bakeries/blockstates/whole_wheat_bagel.json
 a3f8910d5fde4495c4808de8f93d9c5a23057d61 assets/bakeries/models/block/bagel_1.json
@@ -61,6 +63,7 @@ f4b23fee26f11525c517ede482844796d1f5bb92 assets/bakeries/models/block/ciabatta_2
 8165e8e7d5960e8ca0297068577966f56c5aec5f assets/bakeries/models/block/croissant_2.json
 532c5febd1017b7bd2ce230d5953946d702d7f8e assets/bakeries/models/block/croissant_3.json
 9cb28e1c1b2d86ffec20d3bc0f8d339a251f8770 assets/bakeries/models/block/croissant_4.json
+e3e54f5017eec69667e9537b12e04457c8335a6f assets/bakeries/models/block/deepslate_salt_ore.json
 d87bd2a41743ccd68eff2a3a941eb9576662939d assets/bakeries/models/block/dirty_choco_croissant_1.json
 44eacb4b1c1fb244378094708b3b0af74e332a41 assets/bakeries/models/block/dirty_choco_croissant_2.json
 ff1ba12f44384e67f5a7bde7ee247c003b4c7824 assets/bakeries/models/block/dirty_choco_croissant_3.json
@@ -87,6 +90,7 @@ a4058253ae6a19970c4b8a462193d333366227c7 assets/bakeries/models/block/round_brea
 6ed2fc2319f7d85a5f76e96037e44c557ab34e8d assets/bakeries/models/block/salt_croissant_2.json
 9f5b3691508d78c20f0ee77a4ba76b23a218350e assets/bakeries/models/block/salt_croissant_3.json
 6962f4f7eb7006fe978c0b6ae9b76a1e853c6cb5 assets/bakeries/models/block/salt_croissant_4.json
+0bbd36d3e42f74669d9d5d99c2c04548661edcd8 assets/bakeries/models/block/salt_ore.json
 513c7360db722b70301eb1084e90d2b14c00ebc2 assets/bakeries/models/block/tomato_cheese_croissant_sandwich_1.json
 6d449899e0f43cbb36992b19444a71116526dfd3 assets/bakeries/models/block/tomato_cheese_croissant_sandwich_2.json
 4163c39f8650dc01c3f422cd9783dceb0624b8e1 assets/bakeries/models/block/tomato_cheese_croissant_sandwich_3.json

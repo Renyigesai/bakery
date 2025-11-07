@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.data;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.annotation.CustomData;
-import com.renyigesai.bakeries.api.annotation.ItemType;
+import com.renyigesai.bakeries.api.annotation.ItemData;
 import com.renyigesai.bakeries.common.init.BakeriesCreativeModeTabs;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.init.BakeriesMobEffects;
@@ -36,7 +36,6 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
             LOGGER.error("Failed to access item fields", e);
             throw new RuntimeException("Failed to access item fields during language generation", e);
         }
-//        addBlocks();
         addElements();
         add();
         addEffects();
@@ -50,6 +49,8 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.temperature"),"Current temperature", "当前温度");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.rolling"),"Scroll the middle mouse to adjust the temperature.", "滚动鼠标中键调节温度");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "blender"),"Blender", "搅拌机");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "dough_crafting_table"),"Dough Crafting Table", "面胚制作台");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "cupboard"),"Cupboard", "厨台");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "bread_knife"),"When using  cut the object pointed by the target.", "使用时切开准星所指的物品");
     }
     private void addCreativeModeTabs() {
@@ -70,46 +71,79 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
         addEffect(BakeriesMobEffects.ENJOY::value,"Enjoy","享受");
     }
     private void addItems() throws IllegalAccessException {
-        for(Class<?> _class: this.getClasses()){
-            if (!_class.isAnnotationPresent(CustomData.class)) {
-                throw new IllegalStateException("Class <<<" + _class.getName() + ">>> does not have @CustomData annotation!");
-            }
-            for (Field field : _class.getDeclaredFields()) {
-                if (field.isAnnotationPresent(ItemType.class)) {
-                    Object object = field.get(null);
-                    if (object instanceof DeferredItem<?> deferredItem) {
-                        ItemType annotation = field.getAnnotation(ItemType.class);
-                        if (annotation != null) {
-                            String zh = annotation.zhCn();
-                            String en = annotation.enUs();
-                            switch (annotation.itemClass()){
-                                case ITEM -> addItem(deferredItem, zh);
-                                case BLOCK -> {
-                                    Item item = deferredItem.get();
-                                    if (item instanceof BlockItem blockItem) {
-                                        addBlock(blockItem::getBlock, zh);
-                                    } else {
-                                        throw new IllegalStateException("Field <<<" + field.getName() + ">>> is annotated as BLOCK but is not a BlockItem!");
-                                    }
-                                }
-                                case CUSTOM_ITEM -> addItem(deferredItem,en, zh);
-                                case CUSTOM_BLOCK -> {
-                                    Item item = deferredItem.get();
-                                    if (item instanceof BlockItem blockItem) {
-                                        addBlock(blockItem::getBlock, en, zh);
-                                    } else {
-                                        throw new IllegalStateException("Field <<<" + field.getName() + ">>> is annotated as BLOCK but is not a BlockItem!");
-                                    }
-                                }
+        Class<BakeriesItems> _class = BakeriesItems.class;
+        for (Field field : _class.getDeclaredFields()) {
+            if (field.isAnnotationPresent(ItemData.class)){
+                Object object = field.get(null);
+                DeferredItem<?> deferredItem = null;
+                if (object instanceof DeferredItem<?>){
+                    deferredItem = (DeferredItem<?>) object;
+                }
+                if (deferredItem != null){
+                    ItemData itemData = field.getAnnotation(ItemData.class);
+                    if (itemData != null){
+                        String zh = itemData.zhCn();
+                        String en = itemData.enUs();
+                        if (itemData.itemType() == ItemData.ItemType.ITEM){
+                            if (en.isEmpty()){
+                                addItem(deferredItem,zh);
+                            }else {
+                                addItem(deferredItem,en,zh);
                             }
                         }
-                    } else {
-                        throw new IllegalStateException("The field <<<" + field.getName() + ">>> in class <<<" + _class.getName() + ">>> does not contain a valid DeferredItem!");
+                        if (itemData.itemType() == ItemData.ItemType.BLOCK){
+                            Item item = deferredItem.get();
+                            if (item instanceof BlockItem blockItem) {
+                                addBlock(blockItem::getBlock, en, zh);
+                            } else {
+                                throw new IllegalStateException("Field <<<" + field.getName() + ">>> is annotated as BLOCK but is not a BlockItem!");
+                            }
+                        }
                     }
                 }
             }
         }
+//        for(Class<?> _class: this.getClasses()){
+//            if (!_class.isAnnotationPresent(CustomData.class)) {
+//                throw new IllegalStateException("Class <<<" + _class.getName() + ">>> does not have @CustomData annotation!");
+//            }
+//            for (Field field : _class.getDeclaredFields()) {
+//                if (field.isAnnotationPresent(ItemData.class)) {
+//                    Object object = field.get(null);
+//                    if (object instanceof DeferredItem<?> deferredItem) {
+//                        ItemData annotation = field.getAnnotation(ItemData.class);
+//                        if (annotation != null) {
+//                            String zh = annotation.zhCn();
+//                            String en = annotation.enUs();
+//                            switch (annotation.itemType()){
+//                                case ITEM -> addItem(deferredItem, zh);
+//                                case BLOCK -> {
+//                                    Item item = deferredItem.get();
+//                                    if (item instanceof BlockItem blockItem) {
+//                                        addBlock(blockItem::getBlock, zh);
+//                                    } else {
+//                                        throw new IllegalStateException("Field <<<" + field.getName() + ">>> is annotated as BLOCK but is not a BlockItem!");
+//                                    }
+//                                }
+//                                case CUSTOM_ITEM -> addItem(deferredItem,en, zh);
+//                                case CUSTOM_BLOCK -> {
+//                                    Item item = deferredItem.get();
+//                                    if (item instanceof BlockItem blockItem) {
+//                                        addBlock(blockItem::getBlock, en, zh);
+//                                    } else {
+//                                        throw new IllegalStateException("Field <<<" + field.getName() + ">>> is annotated as BLOCK but is not a BlockItem!");
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        throw new IllegalStateException("The field <<<" + field.getName() + ">>> in class <<<" + _class.getName() + ">>> does not contain a valid DeferredItem!");
+//                    }
+//                }
+//            }
+//        }
     }
+
     private List<Class<?>> getClasses() {
         List<Class<?>> classes = new ArrayList<>();
         classes.add(BakeriesItems.class);

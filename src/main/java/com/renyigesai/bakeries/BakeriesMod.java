@@ -9,6 +9,8 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
+import java.util.Locale;
+
 @Mod(BakeriesMod.MODID)
 public class BakeriesMod {
     public static final String MODID = "bakeries";
@@ -30,6 +32,10 @@ public class BakeriesMod {
         modEventBus.addListener(BakeriesCapabilities::registerFluidCapabilities);
 
 //        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    public static ResourceLocation prefix(String name) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, name.toLowerCase(Locale.ROOT));
     }
 
     public static ResourceLocation rl(String path) {

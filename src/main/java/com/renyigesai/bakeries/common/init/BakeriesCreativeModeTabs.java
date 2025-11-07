@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.api.annotation.ItemType;
+import com.renyigesai.bakeries.api.annotation.ItemData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -23,12 +23,12 @@ public class BakeriesCreativeModeTabs {
                     .icon(() -> BakeriesItems.OVEN.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         for (Field field : BakeriesItems.class.getDeclaredFields()){
-                            if (field.isAnnotationPresent(ItemType.class)){
+                            if (field.isAnnotationPresent(ItemData.class)){
                                 try {
                                     Object object = field.get(null);
                                     if (object instanceof DeferredItem<?> deferredItem){
-                                        ItemType annotation = field.getAnnotation(ItemType.class);
-                                        if (annotation != null && annotation.group().equals(BakeriesItems.BAKERIES_TAB)) {
+                                        ItemData annotation = field.getAnnotation(ItemData.class);
+                                        if (annotation != null && annotation.group().equals("bakeries_main")) {
                                             output.accept(deferredItem.get());
                                         }
                                     }
@@ -37,8 +37,6 @@ public class BakeriesCreativeModeTabs {
                                 }
                             }
                         }
-//                        BakeriesItems.REGISTER.getEntries().forEach(( item)->
-//                                output.accept(item.get()));
                     }).build());
 
     public static final DeferredCreativeModeTab<CreativeModeTab> SFP_TAB = REGISTER.register(
@@ -49,12 +47,12 @@ public class BakeriesCreativeModeTabs {
                     .icon(() -> BakeriesItems.ROUND_BREAD_DOUGH.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         for (Field field : BakeriesItems.class.getDeclaredFields()){
-                            if (field.isAnnotationPresent(ItemType.class)){
+                            if (field.isAnnotationPresent(ItemData.class)){
                                 try {
                                     Object object = field.get(null);
                                     if (object instanceof DeferredItem<?> deferredItem){
-                                        ItemType annotation = field.getAnnotation(ItemType.class);
-                                        if (annotation != null && annotation.group().equals(BakeriesItems.SFP_TAB)) {
+                                        ItemData annotation = field.getAnnotation(ItemData.class);
+                                        if (annotation != null && annotation.group().equals("bakeries_sfp")) {
                                             output.accept(deferredItem.get());
                                         }
                                     }

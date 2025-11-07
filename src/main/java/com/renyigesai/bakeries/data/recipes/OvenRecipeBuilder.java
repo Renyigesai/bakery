@@ -61,6 +61,7 @@ public class OvenRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(RecipeOutput recipeOutput, ResourceLocation id) {
+        ResourceLocation recipeId = id.withPrefix("oven/");
         Advancement.Builder advancementBuilder = recipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))
@@ -69,6 +70,6 @@ public class OvenRecipeBuilder implements RecipeBuilder {
         this.criteria.forEach(advancementBuilder::addCriterion);
 
         OvenRecipe recipe = new OvenRecipe(this.resultStack, this.time, this.minTemperature, this.maxTemperature, this.perfectTemperature, this.recipeItems);
-        recipeOutput.accept(id, recipe, advancementBuilder.build(id.withPrefix("recipes/oven/")));
+        recipeOutput.accept(recipeId, recipe, advancementBuilder.build(id.withPrefix("recipes/oven/")));
     }
 }

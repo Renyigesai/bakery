@@ -1,5 +1,8 @@
 {
   "values": [
-    "bakeries:blender"
+    "bakeries:blender",
+    "bakeries:oven",
+    "bakeries:deepslate_salt_ore",
+    "bakeries:salt_ore"
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:dough_crafting_table",
+  "ingredient": {
+    "item": "bakeries:sweet_dough"
+  },
+  "result": {
+    "count": 6,
+    "id": "bakeries:round_bread_dough"
+  }
+}

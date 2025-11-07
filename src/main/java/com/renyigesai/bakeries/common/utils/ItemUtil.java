@@ -14,7 +14,6 @@ import java.util.List;
 
 public class ItemUtil {
 
-//    public static final Rarity ADVANCED = Rarity.create("advanced", style -> style.withColor(TextColor.fromRgb(0XEDA624)));
 
 //    public static List<LazyMobEffectInstance> addEffects(LazyMobEffectInstance... effects){
 //        return List.of(effects);
@@ -22,6 +21,15 @@ public class ItemUtil {
 
     public static void givePlayerItem(Player player, ItemStack item){
         player.getInventory().placeItemBackInInventory(item);
+    }
+
+    public static void shrinkAndReturn(ItemStack stack,Player player){
+        if (!player.getAbilities().instabuild){
+            stack.shrink(1);
+        }
+        if (stack.hasCraftingRemainingItem()){
+            givePlayerItem(player,stack.getCraftingRemainingItem());
+        }
     }
 
     //By Farmer's Delight

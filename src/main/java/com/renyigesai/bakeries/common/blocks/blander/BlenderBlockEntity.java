@@ -82,7 +82,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container.blender");
+        return Component.translatable("container.bakeries.blender");
     }
 
     @Override
