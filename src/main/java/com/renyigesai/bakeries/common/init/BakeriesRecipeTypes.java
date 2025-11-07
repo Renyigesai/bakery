@@ -27,7 +27,6 @@ public class BakeriesRecipeTypes {
     public static final Supplier<RecipeType<DoughCraftingRecipe>> DOUGH_CRAFTING_TYPE = RECIPE_TYPE.register("dough_crafting_table", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"dough_crafting_table")));
     public static final Supplier<RecipeSerializer<?>> DOUGH_CRAFTING_SERIALIZERS = SERIALIZERS.register("dough_crafting_table", ()-> new SingleItemRecipe.Serializer<>(DoughCraftingRecipe::new));
 
-    @SuppressWarnings("removal")
     @SubscribeEvent
     public static void register(FMLConstructModEvent event) {
         event.enqueueWork(() -> {

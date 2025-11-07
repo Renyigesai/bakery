@@ -317,7 +317,7 @@ public class BakeriesItems {
         BEARNAISE = registerItem("bearnaise",()->new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL)));
         OLIVE_OIL = registerItem("olive_oil",()-> new OliveOilItem(new Item.Properties().durability(6)));
         MEAT_FLOSS = foodItem("meat_floss",BakeriesFoodProperties.MEAT_FLOSS);
-        ICE_CUBES = itemRarity("ice_cubes", ItemRaritr.common());
+        ICE_CUBES = item("ice_cubes");
         SCONE = foodItem("scone",BakeriesFoodProperties.SCONE);
         TOMATO = REGISTER.register("tomato",()-> new BlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties().food(BakeriesFoodProperties.TOMATO)));
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);

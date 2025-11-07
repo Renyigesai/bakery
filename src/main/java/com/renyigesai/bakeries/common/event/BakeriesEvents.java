@@ -3,6 +3,11 @@ package com.renyigesai.bakeries.common.event;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.utils.ItemUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -12,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 @EventBusSubscriber(modid = BakeriesMod.MODID)
@@ -115,4 +121,9 @@ public class BakeriesEvents {
 //            }
 //        }
 //    }
+
+    @SubscribeEvent
+    public static void addPackFinders(AddPackFindersEvent event) {
+        event.addPackFinders(ResourceLocation.fromNamespaceAndPath("bakeries","resourcepacks/b_16x"),PackType.CLIENT_RESOURCES,Component.literal("Bakeries 16x Texture"),PackSource.DEFAULT,false,Pack.Position.TOP);
+    }
 }
