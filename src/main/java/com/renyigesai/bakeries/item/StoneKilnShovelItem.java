@@ -46,7 +46,7 @@ public class StoneKilnShovelItem extends ShovelItem {
         Player player = pContext.getPlayer();
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (player == null){
-            return super.useOn(pContext);
+            return InteractionResult.PASS;
         }
         if (blockEntity instanceof StoneKilnBlockEntity kiln && player.isShiftKeyDown()) {
             ItemStack itemInHand = player.getItemInHand(pContext.getHand());
@@ -58,7 +58,7 @@ public class StoneKilnShovelItem extends ShovelItem {
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.useOn(pContext);
+        return InteractionResult.PASS;
     }
 
     public boolean isEmpty(ItemStack stack){

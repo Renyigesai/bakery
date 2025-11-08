@@ -83,7 +83,6 @@ public class PizzaFlatbreadBlock extends BaseEntityBlock {
                 if (!pPlayer.getAbilities().instabuild){
                     itemInHand.shrink(1);
                 }
-//                pLevel.addParticle(BakeriesParticleTypes.TOMATO_SAUCE.get(), pPos.getX() + 0.5, pPos.getY() + 0.063, pPos.getZ() + 0.5, 0, 0, 0);
                 useEvent(4,pLevel,pPos);
                 return InteractionResult.SUCCESS;
             }else {

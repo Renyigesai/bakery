@@ -2,20 +2,45 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "name": "pool1",
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "bakeries:yeast_tank"
         }
       ],
-      "rolls": 1.0
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "bakeries:yeast_tank",
+          "properties": {
+            "yeast": "3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "pool2",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "bakeries:fermentation_tank"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:block_state_property",
+            "block": "bakeries:yeast_tank",
+            "properties": {
+              "yeast": "3"
+            }
+          }
+        }
+      ]
     }
-  ],
-  "random_sequence": "bakeries:blocks/yeast_tank"
+  ]
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -84,6 +85,24 @@ public class TextUtils {
                 }
             }
         }
-
     }
+
+    public static int getLength(String string,int maxLength){
+        if (string == null || maxLength == 0){
+            throw new IllegalArgumentException("Text cannot be null or Max width must be positive");
+        }
+        int width = 0;
+        int length = 0;
+        Minecraft mc = Minecraft.getInstance();
+        for (int i = 0; i < string.length(); i++) {
+            char _char = string.charAt(i);
+            width += mc.font.width(String.valueOf(_char));
+            length ++;
+            if (width > maxLength){
+                return length - 1;
+            }
+        }
+        return maxLength;
+    }
+
 }

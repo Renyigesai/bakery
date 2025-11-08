@@ -72,15 +72,21 @@ public class CustomPizzaItem extends BlockItem {
         List<Object> list = new ArrayList<>();
         int nutrition = 0;
         float saturationMod = 0.0f;
+        int i = 0;
         for (ItemStack itemStack : stacks) {
             FoodProperties foodProperties = itemStack.getFoodProperties(null);
             if (foodProperties != null){
                 nutrition += foodProperties.getNutrition();
                 saturationMod += foodProperties.getSaturationModifier();
+                i ++;
             }
         }
-        list.add(nutrition);
-        list.add(saturationMod);
+        int x = 1;
+        if (i != 0){
+            x = i;
+        }
+        list.add(nutrition / x + 4);
+        list.add(saturationMod / x + 0.5F);
         return list;
     }
 

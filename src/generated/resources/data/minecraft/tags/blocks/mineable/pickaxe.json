@@ -15,6 +15,7 @@
     "bakeries:mould",
     "bakeries:mould_two",
     "bakeries:cash_register_computer",
-    "bakeries:stone_kiln"
+    "bakeries:stone_kiln",
+    "bakeries:luminous_light_sign"
   ]
 }

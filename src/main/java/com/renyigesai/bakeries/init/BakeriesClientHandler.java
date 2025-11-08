@@ -2,6 +2,8 @@ package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.block.cake.CakeRollProcessingBlockEntityRender;
 import com.renyigesai.bakeries.block.cake_box.CakeBoxBlockEntityRender;
+import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
+import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntityRender;
 import com.renyigesai.bakeries.block.menu.MenuBlockEntityRender;
 import com.renyigesai.bakeries.block.mix_block.MixBlockEntityRender;
 import com.renyigesai.bakeries.block.pizza.PizzaFlatbreadBlockEntityRender;
@@ -30,5 +32,6 @@ public class BakeriesClientHandler {
         event.registerBlockEntityRenderer(BakeriesBlocks.STONE_KILN_ENTITY.get(), StoneKilnBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.PIZZA_FLATBREAD_ENTITY.get(), PizzaFlatbreadBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.MIX_BLOCK_ENTITY.get(), MixBlockEntityRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.LUMINOUS_LIGHT_SIGN_ENTITY.get(), LuminousLightSignBlockEntityRender::new);
     }
 }

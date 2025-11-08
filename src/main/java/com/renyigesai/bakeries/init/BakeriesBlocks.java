@@ -2,6 +2,8 @@ package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.LazyMobEffectInstance;
+import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlock;
+import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.block.mix_block.MixBlock;
 import com.renyigesai.bakeries.block.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.block.CreamPumpkinPieBlock;
@@ -197,6 +199,8 @@ public class BakeriesBlocks {
     public static RegistryObject<BlockEntityType<CustomPizzaBlockEntity>> CUSTOM_PIZZA_ENTITY;
     public static RegistryObject<Block> MIX_BREAD_BLOCK;
     public static RegistryObject<BlockEntityType<MixBlockEntity>> MIX_BLOCK_ENTITY;
+    public static RegistryObject<Block> LUMINOUS_LIGHT_SIGN;
+    public static RegistryObject<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY;
 
     static {
         /*面包方块*/
@@ -316,7 +320,7 @@ public class BakeriesBlocks {
         MATCHA_LATTE = coldDrinkBlock("matcha_latte");
         MATCHA_PARFAIT = BLOCK_REGISTRY.register("matcha_parfait", MatchaParfaitBlock::new);
         COFFEE_PLANT = BLOCK_REGISTRY.register("coffee_plant",()->
-                new CoffeePlantBlock(BlockBehaviour.Properties.copy(Blocks.AZALEA)));
+                new CoffeePlantBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
         TRAY_SCONE = BLOCK_REGISTRY.register("tray_scone",()->
                 new TraySconeBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         PAPER_CUP = BLOCK_REGISTRY.register("paper_cup",()->
@@ -397,6 +401,9 @@ public class BakeriesBlocks {
 
         MIX_BREAD_BLOCK = BLOCK_REGISTRY.register("mix_bread_block", MixBlock::new);
         MIX_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("mix_block",() -> BlockEntityType.Builder.of(MixBlockEntity::new, MIX_BREAD_BLOCK.get()).build(null));
+
+        LUMINOUS_LIGHT_SIGN = BLOCK_REGISTRY.register("luminous_light_sign", LuminousLightSignBlock::new);
+        LUMINOUS_LIGHT_SIGN_ENTITY = BLOCK_ENTITY_REGISTRY.register("luminous_light_sign",() -> BlockEntityType.Builder.of(LuminousLightSignBlockEntity::new, LUMINOUS_LIGHT_SIGN.get()).build(null));
 
     }
 

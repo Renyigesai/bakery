@@ -24,7 +24,7 @@ public class HorizontalConnectBlock extends HorizontalDirectionalBlock {
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection())/*.setValue(LEFT,isSofa(left,level)).setValue(RIGHT,isSofa(right,level))*/;
+        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection());
     }
 
     @Override

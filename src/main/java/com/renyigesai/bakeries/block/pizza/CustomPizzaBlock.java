@@ -61,20 +61,14 @@ public class CustomPizzaBlock extends BaseEntityBlock {
         return eat(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
-    public InteractionResult eat(BlockState pState, Level pLevel, BlockPos pPos, LivingEntity livingEntity, InteractionHand pHand, BlockHitResult pHit){
-        Player player = null;
-        if (livingEntity instanceof Player){
-            player = (Player)livingEntity;
-        }
+    public InteractionResult eat(BlockState pState, Level pLevel, BlockPos pPos, Player player, InteractionHand pHand, BlockHitResult pHit){
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof CustomPizzaBlockEntity pizza){
             int nutrition = pizza.getNutrition();
             float saturationMod = pizza.getSaturationMod();
-            if (player != null){
-                player.getFoodData().eat(nutrition,saturationMod);
-                addEffects(pizza,player);
-                pLevel.gameEvent(player, GameEvent.EAT, pPos);
-            }
+            player.getFoodData().eat(nutrition,saturationMod);
+            addEffects(pizza,player,pLevel);
+            pLevel.gameEvent(player, GameEvent.EAT, pPos);
             int slice = pState.getValue(SLICE);
             if (slice < getSlice() - 1){
                 pLevel.setBlock(pPos, pState.setValue(SLICE, slice + 1), 3);
@@ -88,11 +82,13 @@ public class CustomPizzaBlock extends BaseEntityBlock {
 
     }
 
-    public void addEffects(CustomPizzaBlockEntity pizza, Player player){
+    public void addEffects(CustomPizzaBlockEntity pizza, Player player,Level level){
         List<List<Pair<MobEffectInstance, Float>>> effects = pizza.getEffects(player);
         for (List<Pair<MobEffectInstance, Float>> pairs : effects) {
             for (Pair<MobEffectInstance, Float> mobEffectInstanceFloatPair : pairs) {
-                player.addEffect(mobEffectInstanceFloatPair.getFirst());
+                if (!level.isClientSide && mobEffectInstanceFloatPair.getFirst() != null && level.random.nextFloat() < mobEffectInstanceFloatPair.getSecond()) {
+                    player.addEffect(new MobEffectInstance(mobEffectInstanceFloatPair.getFirst()));
+                }
             }
         }
     }

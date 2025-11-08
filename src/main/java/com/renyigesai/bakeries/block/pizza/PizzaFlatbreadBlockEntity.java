@@ -57,11 +57,11 @@ public class PizzaFlatbreadBlockEntity extends BlockEntity {
     public boolean isEmpty() {
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stackInSlot = inventory.getStackInSlot(i);
-            if (stackInSlot.isEmpty()) {
-                return true;
+            if (!stackInSlot.isEmpty()) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public ItemStack getItem(int pSlot) {

@@ -220,6 +220,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> SILICONE_PAPER;
     public static final RegistryObject<Item> EGG_TART_SHELL;
     public static final RegistryObject<Item> PIZZA_FLATBREAD;
+    public static final RegistryObject<Item> LUMINOUS_LIGHT_SIGN;
 
     /*
     饮料物品
@@ -362,6 +363,7 @@ public class BakeriesItems {
         SOFA_LIGHT_GRAY = block(BakeriesBlocks.SOFA_LIGHT_GRAY);
         CASH_REGISTER_COMPUTER = block(BakeriesBlocks.CASH_REGISTER_COMPUTER);
         PIZZA_FLATBREAD = block(BakeriesBlocks.PIZZA_FLATBREAD);
+        LUMINOUS_LIGHT_SIGN = block(BakeriesBlocks.LUMINOUS_LIGHT_SIGN);
 
         /*
         面包物品
