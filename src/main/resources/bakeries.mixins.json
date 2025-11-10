@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.weibai.bakeries.mixin",
+  "package": "com.renyigesai.bakeries.common.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "bakeries.refmap.json",
   "mixins": [

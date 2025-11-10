@@ -12,7 +12,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
 public class OvenRecipe extends AbstractOvenRecipe{
-	public static final String ID = "collision";
+	public static final String ID = "oven";
 	public OvenRecipe(ItemStack output, int time, int minTemperature, int maxTemperature, int perfectTemperature, Ingredient recipeItems) {
 		super(Type.INSTANCE, Serializer.INSTANCE, output, time, minTemperature, maxTemperature, perfectTemperature, recipeItems);
 	}
@@ -22,7 +22,7 @@ public class OvenRecipe extends AbstractOvenRecipe{
 	public static class Serializer implements RecipeSerializer<OvenRecipe> {
 		public static final Serializer INSTANCE = new Serializer(OvenRecipe::new);
 		private static Factory<OvenRecipe> factory;
-		Serializer(Factory<OvenRecipe> pFactory) {
+		public Serializer(Factory<OvenRecipe> pFactory) {
 			factory = pFactory;
 		}
 		public static final MapCodec<OvenRecipe> CODEC = RecordCodecBuilder.mapCodec(

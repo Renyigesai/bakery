@@ -44,7 +44,7 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
 
 
     private void add() {
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "row_item_temperature"), "Min %s °c", "最小 %s °c");
+        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "row_item_temperature"), "Min %s °c", "Min %s °c");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven"),"Oven", "烤箱");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.temperature"),"Current temperature", "当前温度");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.rolling"),"Scroll the middle mouse to adjust the temperature.", "滚动鼠标中键调节温度");

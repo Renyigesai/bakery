@@ -23,12 +23,16 @@ public class ItemUtil {
         player.getInventory().placeItemBackInInventory(item);
     }
 
-    public static void shrinkAndReturn(ItemStack stack,Player player){
+    public static void shrink(ItemStack stack,int count,Player player){
         if (!player.getAbilities().instabuild){
-            stack.shrink(1);
+            stack.shrink(count);
         }
+    }
+
+    public static void shrinkAndReturn(ItemStack stack,int count,Player player){
+        shrink(stack,count,player);
         if (stack.hasCraftingRemainingItem()){
-            givePlayerItem(player,stack.getCraftingRemainingItem());
+            givePlayerItem(player,new ItemStack(stack.getItem(),count));
         }
     }
 

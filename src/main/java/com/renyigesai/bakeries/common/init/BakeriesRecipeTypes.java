@@ -23,7 +23,7 @@ public class BakeriesRecipeTypes {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, BakeriesMod.MODID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPE = DeferredRegister.create(Registries.RECIPE_TYPE, BakeriesMod.MODID);
 
-    /*面胚工作台*/
+    /*面胚制作台*/
     public static final Supplier<RecipeType<DoughCraftingRecipe>> DOUGH_CRAFTING_TYPE = RECIPE_TYPE.register("dough_crafting_table", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"dough_crafting_table")));
     public static final Supplier<RecipeSerializer<?>> DOUGH_CRAFTING_SERIALIZERS = SERIALIZERS.register("dough_crafting_table", ()-> new SingleItemRecipe.Serializer<>(DoughCraftingRecipe::new));
 
@@ -47,5 +47,11 @@ public class BakeriesRecipeTypes {
     public static void getRegister(IEventBus bus){
         SERIALIZERS.register(bus);
         RECIPE_TYPE.register(bus);
+    }
+
+    public static class JEI {
+        public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<DoughCraftingRecipe>> DOUGH_CRAFTING = mezz.jei.api.recipe.RecipeType.createFromVanilla(DOUGH_CRAFTING_TYPE.get());
+        public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<OvenRecipe>> OVEN = mezz.jei.api.recipe.RecipeType.createFromVanilla(OvenRecipe.Type.INSTANCE);
+        public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<BlenderRecipe>> BLENDER = mezz.jei.api.recipe.RecipeType.createFromVanilla(BlenderRecipe.Type.INSTANCE);
     }
 }

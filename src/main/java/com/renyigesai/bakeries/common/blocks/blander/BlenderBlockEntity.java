@@ -67,7 +67,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     public int filtrationIndex;
 
     private final RecipeManager.CachedCheck<RecipeWrapper, BlenderRecipe> CHECK = RecipeManager.createCheck(BlenderRecipe.Type.INSTANCE);
-    private final RecipeManager.CachedCheck<RecipeInput, BreadKnifeRecipe> CHECK_2 = RecipeManager.createCheck(BreadKnifeRecipe.Type.INSTANCE);
     public BlenderBlockEntity(BlockPos pos, BlockState blockState) {
         super(BakeriesBlocks.MSBlockEntities.BLENDER_ENTITY.get(), pos, blockState);
     }
@@ -267,8 +266,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         if (recipe.isPresent()) {
 
         }else {
-            System.out.println("Not Present");
-            cookingTotalTime = 0; // 重置进度
+            cookingTotalTime = 0;
             return;
         }
         BlenderRecipe blenderRecipe = recipe.get().value();
@@ -301,10 +299,8 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             }
 
             if (outputStack.isEmpty()) {
-                System.out.println("Set " + resultItem);
                 inventory.setStackInSlot(OUTPUT_SLOT, resultItem);
             } else {
-                System.out.println("Grow " + resultItem.getCount());
                 outputStack.grow(resultItem.getCount());
             }
 
@@ -347,18 +343,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         return CHECK.getRecipeFor(inventoryWrapper, this.level);
     }
 
-
-    private Optional<RecipeHolder<BreadKnifeRecipe>> getCurrentRecipe(Level level, ItemStack stack) {
-        if (level == null) {
-            return Optional.empty();
-        }
-        return CHECK_2.getRecipeFor(new SingleRecipeInput(stack),level);
-    }
-
-//    private Optional<RecipeHolder<BlenderRecipe>> getMatchingRecipe(RecipeInput input) {
-//        if (level == null) return Optional.empty();
-//        return level.getRecipeManager().getRecipeFor(BlenderRecipe.Type.INSTANCE, input, level);
-//    }
 
     private void spawnParticle(){
         BlockPos pos = this.getBlockPos();

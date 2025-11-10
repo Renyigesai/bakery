@@ -1,5 +1,5 @@
 {
-  "type": "bakeries:collision",
+  "type": "bakeries:oven",
   "ingredient": {
     "item": "bakeries:round_bread_dough"
   },

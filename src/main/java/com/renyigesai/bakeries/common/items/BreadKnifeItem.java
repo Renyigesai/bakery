@@ -1,14 +1,18 @@
 package com.renyigesai.bakeries.common.items;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.common.utils.ItemUtil;
 import com.renyigesai.bakeries.common.utils.ModIsLoaded;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -27,6 +31,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,7 +41,16 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.weibai.rcglib.utils.UtilTranslatable;
+import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
+import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
+import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipeInput;
+import vectorwing.farmersdelight.common.registry.ModAdvancements;
+import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
+import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
+import vectorwing.farmersdelight.integration.jei.FDRecipes;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +88,7 @@ public class BreadKnifeItem extends DiggerItem {
         double x = resultItemEntity.getX();
         double y = resultItemEntity.getY();
         double z = resultItemEntity.getZ();
-        Optional<RecipeHolder<BreadKnifeRecipe>> optional = getCurrentRecipe(pLevel, resultItemEntity.getItem());
+        Optional<RecipeHolder<BreadKnifeRecipe>> optional = getBreadKnifeRecipe(pLevel, resultItemEntity.getItem());
 
         if (optional.isPresent()){
             SingleRecipeInput singleRecipeInput = new SingleRecipeInput(resultItemEntity.getItem());
@@ -85,7 +100,7 @@ public class BreadKnifeItem extends DiggerItem {
             resultItemEntity.remove(Entity.RemovalReason.KILLED);
         }else {
             if (ModIsLoaded.isFarmerSDelight()) {
-//                return InteractionResultHolder.sidedSuccess(hand, processStoredItemUsingTool(pLevel, hand, resultItemEntity,pPlayer, x, y, z));
+                return InteractionResultHolder.sidedSuccess(hand, processStoredItemUsingTool(pLevel, hand, resultItemEntity,pPlayer, x, y, z));
             }else {
                 return super.use(pLevel,pPlayer,pUsedHand);
             }
@@ -94,11 +109,45 @@ public class BreadKnifeItem extends DiggerItem {
         return InteractionResultHolder.success(hand);
     }
 
-    private Optional<RecipeHolder<BreadKnifeRecipe>> getCurrentRecipe(Level level, ItemStack stack) {
+    public boolean processStoredItemUsingTool(Level level,ItemStack hand,ItemEntity itemEntity, @Nullable Player player,double x,double y,double z) {
+        if (level == null) return false;
+
+        Optional<RecipeHolder<CuttingBoardRecipe>> matchingRecipe = getCuttingRecipe(level,itemEntity.getItem());
+
+        matchingRecipe.ifPresent(recipe -> {
+            List<ItemStack> results = recipe.value().rollResults(level.random, EnchantmentHelper.getTagEnchantmentLevel(level.holder(Enchantments.FORTUNE).get(), hand));
+            for (ItemStack resultStack : results) {
+                ItemUtils.spawnItemEntity(level,resultStack.copy(),x,y,z,0,0,0);
+            }
+            if (!level.isClientSide) {
+                hand.hurtAndBreak(1, (ServerLevel) level, player, (item) -> {
+                });
+            }
+
+            level.playSound(null,new BlockPos((int) x,(int)y,(int)z),SoundEvents.WOOL_BREAK, SoundSource.BLOCKS);
+            itemEntity.remove(Entity.RemovalReason.KILLED);
+            if (player instanceof ServerPlayer) {
+                ModAdvancements.USE_CUTTING_BOARD.get().trigger((ServerPlayer) player);
+            }
+        });
+
+        return matchingRecipe.isPresent();
+    }
+
+    private Optional<RecipeHolder<BreadKnifeRecipe>> getBreadKnifeRecipe(Level level, ItemStack stack) {
         if (level == null) {
             return Optional.empty();
         }
         return CHECK.getRecipeFor(new SingleRecipeInput(stack),level);
+    }
+
+    private Optional<RecipeHolder<CuttingBoardRecipe>> getCuttingRecipe(Level level, ItemStack stack) {
+        if (!ModIsLoaded.isFarmerSDelight())
+            return Optional.empty();
+        if (level == null) {
+            return Optional.empty();
+        }
+        return RecipeManager.createCheck(ModRecipeTypes.CUTTING.get()).getRecipeFor(new CuttingBoardRecipeInput(stack,new ItemStack(BakeriesItems.BREAD_KNIFE.get())),level);
     }
 
     @Override

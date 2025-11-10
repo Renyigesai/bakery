@@ -1,11 +1,11 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
-license="${mod_license}"
+license="All Rights Reserved / CC BY-NC-ND 4.0"
 
 [[mods]]
-modId="${mod_id}"
-version="${mod_version}"
-displayName="${mod_name}"
+modId = "bakeries"
+version="1.21.1-NeoForge-1.0.0-beta"
+displayName="Bakeries"
 # A URL to query for updates for this mod. See the JSON update specification https://docs.neoforged.net/docs/misc/updatechecker/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -13,27 +13,27 @@ displayName="${mod_name}"
 logoFile="logo.png"
 # A text field displayed in the mod UI
 #credits="" #optional
-authors="${mod_authors}"
-description='''${mod_description}'''
+authors="Renyigesai,1-weibai-1"
+description="This is a Baker yummy mod"
 
 [[mixins]]
-config="${mod_id}.mixins.json"
+config="bakeries.mixins.json"
 
-[[dependencies.${mod_id}]]
+[[dependencies.bakeries]]
     modId="neoforge"
     type="required"
     versionRange="[${neo_version},)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.bakeries]]
     modId="minecraft"
     type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.bakeries]]
     modId="rcg_lib"
     type="required"
     versionRange="[1.21.1-NeoForge-1.0.0-beta,)"
