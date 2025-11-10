@@ -65,6 +65,7 @@ public @interface ItemData {
         BLOCK,
     // 工具模型类型
         TOOL,
+        BREAD,
     // 自定义模型类型
         CUSTOM
     }

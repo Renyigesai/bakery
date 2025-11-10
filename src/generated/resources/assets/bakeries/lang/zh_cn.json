@@ -92,5 +92,5 @@
   "item_group.bakeries.bakeries_sfp_tab": "烘培坊（半成品）",
   "item_group.bakeries.bakeries_tab": "烘培坊",
   "tooltips.bakeries.bread_knife": "使用时切开准星所指的物品",
-  "tooltips.bakeries.row_item_temperature": "最小 %s °c"
+  "tooltips.bakeries.row_item_temperature": "Min %s °c"
 }

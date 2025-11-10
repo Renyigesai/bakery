@@ -41,18 +41,19 @@ public class MSItemModelProvider extends ItemModelProvider {
                         if (model != ItemData.ModelType.CUSTOM) {
                             Item item = deferredItem.get();
                             if (model == ItemData.ModelType.GENERAL) {
-                                System.out.println(item);
                                 basicItem(item);
-                            }
-                            if (model == ItemData.ModelType.BLOCK) {
-                                if (item instanceof BlockItem blockItem) {
-                                    blockItem(blockItem::getBlock);
-                                } else {
-                                    throw new IllegalAccessException(field.getName() + " Not BlockItem");
-                                }
                             }
                             if (model == ItemData.ModelType.TOOL) {
                                 toolItem(item);
+                            }
+                            if (isBlockItem(item)){
+                                BlockItem blockItem = (BlockItem) item;
+                                if (model == ItemData.ModelType.BLOCK){
+                                    blockItem(blockItem::getBlock);
+                                }
+                                if (model == ItemData.ModelType.BREAD){
+                                    blockItem(blockItem::getBlock,"_1");
+                                }
                             }
                         }
                     }
@@ -104,24 +105,24 @@ public class MSItemModelProvider extends ItemModelProvider {
 //        basicItem(BakeriesItems.BOTTLE_BUTTER.get());
 
 
-        blockItem(BakeriesBlocks.BAGEL::get, "_1");
-        blockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
-        blockItem(BakeriesBlocks.ROUND_BREAD::get, "_1");
-        blockItem(BakeriesBlocks.BERRY_BREAD::get, "_1");
-        blockItem(BakeriesBlocks.CHEESE_CREAM_BREAD::get, "_1");
-        blockItem(BakeriesBlocks.BROWN_SUGAR_ROLL::get, "_1");
-        blockItem(BakeriesBlocks.PINEAPPLE_BUN::get, "_1");
-        blockItem(BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL::get, "_1");
-        blockItem(BakeriesBlocks.CROISSANT::get, "_1");
-        blockItem(BakeriesBlocks.DIRTY_CHOCO_CROISSANT::get, "_1");
-        blockItem(BakeriesBlocks.SALT_CROISSANT::get, "_1");
-        blockItem(BakeriesBlocks.CIABATTA::get, "_1");
-        blockItem(BakeriesBlocks.FOCACCIA::get, "_1");
-        blockItem(BakeriesBlocks.BERRY_BAGEL::get, "_1");
-        blockItem(BakeriesBlocks.BAGEL_FILLED_SAUCE::get, "_1");
-        blockItem(BakeriesBlocks.BAGUETTE_WITH_FILLING::get, "_1");
-        blockItem(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH::get, "_1");
-        blockItem(BakeriesBlocks.BAGUETTE::get, "_1");
+//        blockItem(BakeriesBlocks.BAGEL::get, "_1");
+//        blockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL::get, "_1");
+//        blockItem(BakeriesBlocks.ROUND_BREAD::get, "_1");
+//        blockItem(BakeriesBlocks.BERRY_BREAD::get, "_1");
+//        blockItem(BakeriesBlocks.CHEESE_CREAM_BREAD::get, "_1");
+//        blockItem(BakeriesBlocks.BROWN_SUGAR_ROLL::get, "_1");
+//        blockItem(BakeriesBlocks.PINEAPPLE_BUN::get, "_1");
+//        blockItem(BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL::get, "_1");
+//        blockItem(BakeriesBlocks.CROISSANT::get, "_1");
+//        blockItem(BakeriesBlocks.DIRTY_CHOCO_CROISSANT::get, "_1");
+//        blockItem(BakeriesBlocks.SALT_CROISSANT::get, "_1");
+//        blockItem(BakeriesBlocks.CIABATTA::get, "_1");
+//        blockItem(BakeriesBlocks.FOCACCIA::get, "_1");
+//        blockItem(BakeriesBlocks.BERRY_BAGEL::get, "_1");
+//        blockItem(BakeriesBlocks.BAGEL_FILLED_SAUCE::get, "_1");
+//        blockItem(BakeriesBlocks.BAGUETTE_WITH_FILLING::get, "_1");
+//        blockItem(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH::get, "_1");
+//        blockItem(BakeriesBlocks.BAGUETTE::get, "_1");
 
         rawBreadItem(BakeriesItems.BAGEL_DOUGH,
                 BakeriesBlocks.BAGEL::get, "_1");
@@ -153,6 +154,10 @@ public class MSItemModelProvider extends ItemModelProvider {
 //        blockItem(BakeriesBlocks.BLENDER);
 //        toolItem(BakeriesItems.BREAD_KNIFE.get());
         customModelItem(BakeriesItems.FLOUR_SIEVE,"custom/flour_sieve");
+    }
+
+    private boolean isBlockItem(Item item){
+        return item instanceof BlockItem;
     }
 
     private ItemModelBuilder rawBreadItem(Supplier<Item> bread, Supplier<Block> block, String index) {
