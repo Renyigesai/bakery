@@ -234,7 +234,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     }
 
     private Optional<BlenderRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(10);
+        SimpleContainer inventory = new SimpleContainer(9);
         List<ItemStack> inputs = new ArrayList<>();
 
         for (int i = 0; i < 9; i++) {

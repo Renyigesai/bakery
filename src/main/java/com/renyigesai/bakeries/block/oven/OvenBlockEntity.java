@@ -1,10 +1,7 @@
 package com.renyigesai.bakeries.block.oven;
 
-import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
-import com.renyigesai.bakeries.init.BakeriesItemTag;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
-import com.renyigesai.bakeries.item.RepeatEatItem;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
@@ -53,6 +50,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
     private final int[] max_temperatures = new int[6];
     public int temperature;
     private boolean newVersion = false;
+    public int loadVersion = 23;
 
     public final ContainerData dataAccess = new ContainerData() {
         @Override
@@ -119,13 +117,14 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         pTag.putIntArray("min_temperatures", this.min_temperatures);
         pTag.putIntArray("max_temperatures", this.max_temperatures);
         pTag.putInt("temperature", this.temperature);
+        pTag.putInt("LoadVersion", 23);
         super.saveAdditional(pTag);
     }
 
     @Override
     public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
-        if (!newVersion){
+        if (isMigration(pTag)){
             ItemStackHandler newInventory = new ItemStackHandler(6);
             ItemStackHandler oldInventory = new ItemStackHandler(4);
             if (pTag.contains("inventory")) {
@@ -139,7 +138,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
                     itemHandler.setStackInSlot(i,ItemStack.EMPTY);
                 }
             }
-            newVersion = true;
         }else {
             if (pTag.contains("Inventory")) {
                 itemHandler.deserializeNBT(pTag.getCompound("Inventory"));
@@ -158,6 +156,17 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
             System.arraycopy(aint, 0, this.max_temperatures, 0, Math.min(this.max_temperatures.length, aint.length));
         }
         this.temperature = pTag.getInt("temperature");
+        loadVersion = pTag.getInt("LoadVersion");
+    }
+
+    private boolean isMigration(CompoundTag tag){
+        if (!tag.contains("LoadVersion")){
+            return true;
+        }
+        if (tag.getInt("LoadVersion") == loadVersion){
+            return false;
+        }
+        return tag.getInt("LoadVersion") < loadVersion;
     }
 
     @Override

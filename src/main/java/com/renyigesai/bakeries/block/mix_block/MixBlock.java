@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.block.mix_block;
 
 import com.renyigesai.bakeries.api.block.PileBlock;
-import com.renyigesai.bakeries.block.pizza.PizzaFlatbreadBlockEntity;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -101,36 +100,24 @@ public class MixBlock extends BaseEntityBlock {
         }
         mix = (MixBlockEntity) blockEntity;
         ItemStackHandler inventory = mix.getInventory();
-        boolean flag = false;
-        ItemStack outStack = ItemStack.EMPTY;
+        ItemStack outStack;
         int inventoryCount = mix.getInventoryCount();
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            ItemStack stackInSlot = inventory.getStackInSlot(i);
-            if (!stackInSlot.isEmpty()){
-                System.out.println(stackInSlot);
-                outStack = stackInSlot.copy();
-                System.out.println(outStack);
-                inventory.setStackInSlot(i,ItemStack.EMPTY);
-                mix.updateBlock();
-                flag = true;
-                break;
-            }
+        ItemStack stackInSlot = inventory.getStackInSlot(inventoryCount - 1);
+        outStack = stackInSlot.copy();
+        inventory.setStackInSlot(inventoryCount - 1,ItemStack.EMPTY);
+        mix.updateBlock();
+        if (inventoryCount == 1){
+            pLevel.removeBlock(pPos,false);
         }
-        if (flag){
-            if (inventoryCount == 1){
-                pLevel.removeBlock(pPos,false);
-            }
-            SoundEvent soundEvent;
-            if (outStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof PileBlock pileBlock){
-                soundEvent = pileBlock.getTakeSound();
-            }else {
-                soundEvent = SoundEvents.WOOL_BREAK;
-            }
-            ItemUtil.givePlayerItem(pPlayer,outStack);
-            pLevel.playSound(null,pPos,soundEvent, SoundSource.BLOCKS);
-            return InteractionResult.SUCCESS;
+        SoundEvent soundEvent;
+        if (outStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof PileBlock pileBlock){
+            soundEvent = pileBlock.getTakeSound();
+        }else {
+            soundEvent = SoundEvents.WOOL_BREAK;
         }
-        return InteractionResult.FAIL;
+        ItemUtil.givePlayerItem(pPlayer,outStack);
+        pLevel.playSound(null,pPos,soundEvent, SoundSource.BLOCKS);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

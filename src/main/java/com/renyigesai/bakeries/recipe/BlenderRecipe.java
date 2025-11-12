@@ -42,7 +42,7 @@ public class BlenderRecipe implements Recipe<SimpleContainer> {
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
         int i = 0;
 
-        for (int j = 0; j < 6; ++j) {
+        for (int j = 0; j < 9; ++j) {
             ItemStack itemstack = inv.getItem(j);
             if (!itemstack.isEmpty()) {
                 ++i;
