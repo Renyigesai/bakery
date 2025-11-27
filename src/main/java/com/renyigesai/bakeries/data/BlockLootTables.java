@@ -1,0 +1,91 @@
+package com.renyigesai.bakeries.data;
+
+
+import com.renyigesai.bakeries.common.init.BakeriesBlocks;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.loot.packs.VanillaBlockLoot;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.weibai.rcglib.blocks.BreadBlock;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class BlockLootTables extends VanillaBlockLoot {
+
+    private final Set<Block> generatedLootTables = new HashSet<>();
+    public BlockLootTables(HolderLookup.Provider registries) {
+        super(registries);
+    }
+    @Override
+    protected void generate() {
+        this.forAddAllBread(
+                BakeriesBlocks.BAGEL.get(),
+                BakeriesBlocks.WHOLE_WHEAT_BAGEL.get(),
+                BakeriesBlocks.ROUND_BREAD.get(),
+                BakeriesBlocks.BERRY_BREAD.get(),
+                BakeriesBlocks.CHEESE_CREAM_BREAD.get(),
+                BakeriesBlocks.BROWN_SUGAR_ROLL.get(),
+                BakeriesBlocks.PINEAPPLE_BUN.get(),
+                BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL.get(),
+                BakeriesBlocks.CROISSANT.get(),
+                BakeriesBlocks.DIRTY_CHOCO_CROISSANT.get(),
+                BakeriesBlocks.SALT_CROISSANT.get(),
+                BakeriesBlocks.CIABATTA.get(),
+                BakeriesBlocks.FOCACCIA.get(),
+                BakeriesBlocks.BERRY_BAGEL.get(),
+                BakeriesBlocks.BAGEL_FILLED_SAUCE.get(),
+                BakeriesBlocks.BAGUETTE_WITH_FILLING.get(),
+                BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH.get(),
+                BakeriesBlocks.BAGUETTE.get()
+        );
+        this.dropSelf(BakeriesBlocks.SALT_ORE.get());
+        this.dropSelf(BakeriesBlocks.DEEPSLATE_SALT_ORE.get());
+        this.dropSelf(BakeriesBlocks.RAW_SALT_BLOCK.get());
+        this.dropSelf(BakeriesBlocks.CUPBOARD.get());
+        this.dropSelf(BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
+        this.dropSelf(BakeriesBlocks.OVEN.get());
+        this.dropSelf(BakeriesBlocks.BLENDER.get());
+        this.dropSelf(BakeriesBlocks.MOULD.get());
+        this.dropSelf(BakeriesBlocks.WOOD_COUNTER.get());
+        this.dropSelf(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG.get());
+        this.dropSelf(BakeriesBlocks.FLOUR_BAG.get());
+        this.dropSelf(BakeriesBlocks.BREAD_BASKET.get());
+        this.dropSelf(BakeriesBlocks.GLASS_CABINET_DOOR.get());
+    }
+    private void forAddAllBread(Block... blocks){
+        List<Block> blockList = List.of(blocks);
+        for (Block block : blockList) {
+            this.add(block, blockIn -> this.createStateDrops(block, BreadBlock.PILE_4));
+        }
+    }
+
+    protected LootTable.Builder createStateDrops(Block pBlock, IntegerProperty property) {
+        return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(pBlock).apply(property.getPossibleValues(), integer ->
+                        SetItemCountFunction.setCount(ConstantValue.exactly(integer))
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(pBlock)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(property, integer)))
+                ))
+        );
+    }
+
+    @Override
+    protected void add(Block block, LootTable.Builder builder) {
+        this.generatedLootTables.add(block);
+        this.map.put(block.getLootTable(), builder);
+    }
+
+    @Override
+    protected Iterable<Block> getKnownBlocks() {
+        return generatedLootTables;
+    }
+}

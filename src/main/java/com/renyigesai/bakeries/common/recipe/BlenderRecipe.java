@@ -13,6 +13,7 @@ import net.neoforged.neoforge.common.util.RecipeMatcher;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BlenderRecipe implements Recipe<RecipeWrapper> {
@@ -26,9 +27,9 @@ public class BlenderRecipe implements Recipe<RecipeWrapper> {
     public BlenderRecipe(NonNullList<Ingredient> ingredients, ItemStack output, ItemStack container) {
         this.inputItems = ingredients;
         this.output = output;
-        if (!container.isEmpty()){
+        if (!container.isEmpty()) {
             this.container = container;
-        }else {
+        } else {
             this.container = ItemStack.EMPTY;
         }
 
@@ -64,6 +65,10 @@ public class BlenderRecipe implements Recipe<RecipeWrapper> {
         return output.copy();
     }
 
+    public NonNullList<Ingredient> getInputItems() {
+        return inputItems;
+    }
+
     public ItemStack getContainer() {
         return container.copy();
     }
@@ -86,12 +91,18 @@ public class BlenderRecipe implements Recipe<RecipeWrapper> {
     public static class Serializer implements RecipeSerializer<BlenderRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         private static final MapCodec<BlenderRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                Ingredient.LIST_CODEC_NONEMPTY.fieldOf("ingredients").xmap(ingredients -> {
-                    NonNullList<Ingredient> nonNullList = NonNullList.create();
-                    nonNullList.addAll(ingredients);
-                    return nonNullList;
-                }, ingredients -> ingredients).forGetter(BlenderRecipe::getIngredients),
-                ItemStack.STRICT_CODEC.fieldOf("output").forGetter(blenderRecipe -> blenderRecipe.output),
+                Ingredient.CODEC.listOf().fieldOf("ingredients").xmap(
+                        ingredients -> {
+                            NonNullList<Ingredient> nonNullList = NonNullList.create();
+                            nonNullList.addAll(ingredients);
+                            if (nonNullList.isEmpty()) {
+                                throw new IllegalArgumentException("Ingredients list cannot be empty");
+                            }
+                            return nonNullList;
+                        },
+                        ArrayList::new
+                ).forGetter(BlenderRecipe::getInputItems),
+                ItemStack.STRICT_CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                 ItemStack.STRICT_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(BlenderRecipe::getContainer)
         ).apply(inst, BlenderRecipe::new));
 

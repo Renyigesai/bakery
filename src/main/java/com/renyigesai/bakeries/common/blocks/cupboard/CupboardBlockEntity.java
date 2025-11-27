@@ -47,7 +47,7 @@ public class CupboardBlockEntity extends RandomizableContainerBlockEntity {
     };
 
     public CupboardBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.MSBlockEntities.CUPBOARD_ENTITY.get(), pPos, pBlockState);
+        super(BakeriesBlocks.Entities.CUPBOARD_ENTITY.get(), pPos, pBlockState);
     }
 
     @Override

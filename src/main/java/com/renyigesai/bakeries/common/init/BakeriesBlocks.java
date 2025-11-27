@@ -5,6 +5,8 @@ import com.renyigesai.bakeries.common.blocks.*;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlockEntity;
 import com.renyigesai.bakeries.common.blocks.bread.*;
+import com.renyigesai.bakeries.common.blocks.bread_basket.BreadBasketBlock;
+import com.renyigesai.bakeries.common.blocks.bread_basket.BreadBasketBlockEntity;
 import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlock;
 import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlockEntity;
 import com.renyigesai.bakeries.common.blocks.dough_crafting_table.DoughCraftingTableBlock;
@@ -14,11 +16,12 @@ import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -70,8 +73,14 @@ public class BakeriesBlocks {
     public static final DeferredBlock<TomatoCheeseCroissantSandwich> TOMATO_CHEESE_CROISSANT_SANDWICH;
     /**法棍*/
     public static final DeferredBlock<Baguette> BAGUETTE;
+    /**乡村面包*/
+    public static final DeferredBlock<Block> COUNTRY_BREAD;
     /**吐司*/
     public static final DeferredBlock<Block> TOAST;
+    public static final DeferredBlock<Block> MOULD_TOAST;
+
+    public static final DeferredBlock<Block> CHEESE_COCOA_TOAST;
+    public static final DeferredBlock<Block> MOULD_CHEESE_COCOA_TOAST;
 
     /**番茄*/
     public static final DeferredBlock<Block> TOMATO;
@@ -83,17 +92,31 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> DEEPSLATE_SALT_ORE;
 
     /**发酵罐*/
-
     public static final DeferredBlock<Block> FERMENTATION_TANK;
     public static final DeferredBlock<Block> YEAST_TANK;
     public static final DeferredBlock<Block> MILk_TANK;
     public static final DeferredBlock<Block> CHEESE_TANK;
+
+    /**模具*/
+    public static final DeferredBlock<Block> MOULD;
+
+    /**面粉袋*/
+    public static final DeferredBlock<Block> WHOLE_WHEAT_FLOUR_BAG;
+    public static final DeferredBlock<Block> FLOUR_BAG;
+
+    /**木制柜台*/
+    public static final DeferredBlock<Block> WOOD_COUNTER;
+
+    public static final DeferredBlock<Block> GLASS_CABINET_DOOR;
+
+    public static final DeferredBlock<Block> RAW_SALT_BLOCK;
 
 
     public static final DeferredBlock<Block> BLENDER;
     public static final DeferredBlock<OvenBlock> OVEN;
     public static final DeferredBlock<DoughCraftingTableBlock> DOUGH_CRAFTING_TABLE;
     public static final DeferredBlock<CupboardBlock> CUPBOARD;
+    public static final DeferredBlock<BreadBasketBlock> BREAD_BASKET;
 
     static {
         /*面包方块*/
@@ -115,9 +138,15 @@ public class BakeriesBlocks {
         BAGUETTE_WITH_FILLING = register("baguette_with_filling",BaguetteWithFilling::new);
         TOMATO_CHEESE_CROISSANT_SANDWICH = register("tomato_cheese_croissant_sandwich",TomatoCheeseCroissantSandwich::new);
         BAGUETTE = register("baguette", Baguette::new);
-        TOAST = register("toast", () ->
-                new Block(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
+        COUNTRY_BREAD = register("country_bread",()-> new CountryBreadBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F)));
+        TOAST = register("toast", () -> new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_TOAST));
+        MOULD_TOAST = REGISTER.register("mould_toast", () ->
+                new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.TOAST));
+        CHEESE_COCOA_TOAST = register("cheese_cocoa_toast", () -> new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_CHEESE_COCOA_TOAST));
+        MOULD_CHEESE_COCOA_TOAST = REGISTER.register("mould_cheese_cocoa_toast", () ->
+                new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.CHEESE_COCOA_TOAST));
 
+        /*作物*/
         TOMATO = REGISTER.register("tomato",() ->
                 new TomatoBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
         COFFEE_PLANT = REGISTER.register("coffee_plant",()->
@@ -128,6 +157,7 @@ public class BakeriesBlocks {
         DEEPSLATE_SALT_ORE = REGISTER.register("deepslate_salt_ore", () ->
                 new Block(BlockBehaviour.Properties.ofFullCopy(SALT_ORE.get()).mapColor(MapColor.DEEPSLATE).strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE)));
 
+        /*发酵罐*/
         FERMENTATION_TANK = REGISTER.register("fermentation_tank",()->
                 new FermentationTankBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).randomTicks()));
         YEAST_TANK = REGISTER.register("yeast_tank",()->
@@ -137,10 +167,21 @@ public class BakeriesBlocks {
         CHEESE_TANK = REGISTER.register("cheese_tank",()->
                 new CheeseTankBkock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 
+        /*面粉袋*/
+        WHOLE_WHEAT_FLOUR_BAG = REGISTER.register("whole_wheat_flour_bag",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
+        FLOUR_BAG = REGISTER.register("flour_bag",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
+
+        WOOD_COUNTER = REGISTER.register("wood_counter",()-> new WoodCounterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+        GLASS_CABINET_DOOR = REGISTER.register("glass_cabinet_door", () ->
+                new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+
+        MOULD = register("mould", () -> new MouldBlock(BakeriesItems.MOULD));
+        RAW_SALT_BLOCK = REGISTER.register("raw_salt_block",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
         BLENDER = REGISTER.register("blender",()-> new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         OVEN = registerBlock("oven", OvenBlock::new, BlockBehaviour.Properties.of().strength(3.5F));
         CUPBOARD = REGISTER.register("cupboard", ()-> new CupboardBlock(BlockBehaviour.Properties.of().strength(2.0F,3.0F).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY).sound(SoundType.CHISELED_BOOKSHELF)));
         DOUGH_CRAFTING_TABLE = REGISTER.register("dough_crafting_table", DoughCraftingTableBlock::new);
+        BREAD_BASKET = REGISTER.register("bread_basket",()-> new BreadBasketBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).strength(0.0F,0.0F)));
     }
 
 
@@ -156,39 +197,12 @@ public class BakeriesBlocks {
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return state -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
     }
-    public static class MSBlockEntities {
+    public static class Entities {
         public static final DeferredRegister<BlockEntityType<?>> REGISTER = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, BakeriesMod.MODID);
-        public static final Supplier<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY = REGISTER.register("cauldron_block_entity", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
+        public static final Supplier<BlockEntityType<OvenBlockEntity>> OVEN_BLOCK_ENTITY = REGISTER.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
         public static final Supplier<BlockEntityType<BlenderBlockEntity>> BLENDER_ENTITY = REGISTER.register("blender", () -> BlockEntityType.Builder.of(BlenderBlockEntity::new, BLENDER.get()).build(null));
         public static final Supplier<BlockEntityType<CupboardBlockEntity>> CUPBOARD_ENTITY = REGISTER.register("cupboard", () -> BlockEntityType.Builder.of(CupboardBlockEntity::new, CUPBOARD.get()).build(null));
         public static final Supplier<BlockEntityType<DoughCraftingTableBlockEntity>> DOUGH_CRAFTING_TABLE_ENTITY = REGISTER.register("dough_crafting_table", () -> BlockEntityType.Builder.of(DoughCraftingTableBlockEntity::new, DOUGH_CRAFTING_TABLE.get()).build(null));
-
-//        public static final Supplier<BlockEntityType<MSFluidPipeBlockEntity>> FLUID_PIPE_BLOCK_ENTITY = REGISTER.register(
-//                "fluid_pipe_block_entity",
-//                () -> BlockEntityType.Builder.of(
-//                        MSFluidPipeBlockEntity::new,
-//                        FLUID_PIPE.get()
-//                ).build(null));
-
-
-//        public static final Supplier<BlockEntityType<ItemBlockEntity>> ITEM_BLOCK_ENTITY = REGISTER.register(
-//                "item_block_entity",
-//                () -> BlockEntityType.Builder.of(ItemBlockEntity::new, ITEM_BLOCK.get()).build(null));
-//        public static final Supplier<BlockEntityType<SoilBurningBlockEntity>> SOIL_BURNING_BLOCK_ENTITY = REGISTER.register(
-//                "soil_burning_block_entity",
-//                () -> BlockEntityType.Builder.of(
-//                        SoilBurningBlockEntity::new,
-//                        OAK_SOIL_BURNING_BLOCK.get(),
-//                        SPRUCE_SOIL_BURNING_BLOCK.get(),
-//                        BIRCH_SOIL_BURNING_BLOCK.get(),
-//                        DARK_OAK_SOIL_BURNING_BLOCK.get(),
-//                        ACACIA_SOIL_BURNING_BLOCK.get(),
-//                        JUNGLE_SOIL_BURNING_BLOCK.get(),
-//                        MANGROVE_SOIL_BURNING_BLOCK.get(),
-//                        CHERRY_SOIL_BURNING_BLOCK.get(),
-//                        BAMBOO_SOIL_BURNING_BLOCK.get(),
-//                        WARPED_STEM_SOIL_BURNING_BLOCK.get(),
-//                        CRIMSON_STEM_SOIL_BURNING_BLOCK.get()).build(null));
-
+        public static final Supplier<BlockEntityType<BreadBasketBlockEntity>> BREAD_BASKET_ENTITY = REGISTER.register("bread_basket", () -> BlockEntityType.Builder.of(BreadBasketBlockEntity::new, BREAD_BASKET.get()).build(null));
     }
 }

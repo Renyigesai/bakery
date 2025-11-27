@@ -3,6 +3,10 @@
     "bakeries:blender",
     "bakeries:oven",
     "bakeries:deepslate_salt_ore",
-    "bakeries:salt_ore"
+    "bakeries:salt_ore",
+    "bakeries:mould_toast",
+    "bakeries:mould_cheese_cocoa_toast",
+    "bakeries:raw_salt_block",
+    "bakeries:glass_cabinet_door"
   ]
 }

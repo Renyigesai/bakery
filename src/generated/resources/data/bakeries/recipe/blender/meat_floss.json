@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "minecraft:cooked_porkchop"
+    }
+  ],
+  "output": {
+    "count": 4,
+    "id": "bakeries:meat_floss"
+  }
+}

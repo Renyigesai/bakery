@@ -1,13 +1,10 @@
 package com.renyigesai.bakeries.common.blocks.blander;
 
 import com.mojang.serialization.MapCodec;
-import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -30,7 +27,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -55,17 +51,14 @@ public class BlenderBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-//        if (pState.getValue(SHAPE) == BakeriesEnumProperty.NONE){
-//            Direction direction = pState.getValue(FACING);
-//            return direction.getAxis() == Direction.Axis.X ? Z_BOX : X_BOX;
-//        }
-        return BOX;
+        Direction direction = pState.getValue(FACING);
+        return direction.getAxis() == Direction.Axis.X ? Z_BOX : X_BOX;
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.MSBlockEntities.BLENDER_ENTITY.get(),
+        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
                 BlenderBlockEntity::craftTick);
     }
 

@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class DoughCraftingTableBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final Component DOUCH_CRAFTING_TABLE_TITLE = Component.translatable("container.dough_crafting_table");
+    public static final Component DOUCH_CRAFTING_TABLE_TITLE = Component.translatable("container.bakeries.dough_crafting_table");
     public DoughCraftingTableBlock() {
         super(Properties.of().strength(2.5f, 10f).sound(SoundType.WOOD).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));

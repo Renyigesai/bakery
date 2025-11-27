@@ -1,6 +1,7 @@
 {
   "values": [
     "bakeries:cupboard",
-    "bakeries:dough_crafting_table"
+    "bakeries:dough_crafting_table",
+    "bakeries:glass_cabinet_door"
   ]
 }

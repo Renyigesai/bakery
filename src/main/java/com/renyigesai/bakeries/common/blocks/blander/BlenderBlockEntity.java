@@ -3,7 +3,6 @@ package com.renyigesai.bakeries.common.blocks.blander;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
-import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.common.utils.ItemUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,7 +32,6 @@ import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class BlenderBlockEntity extends BaseContainerBlockEntity {
@@ -68,7 +66,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     private final RecipeManager.CachedCheck<RecipeWrapper, BlenderRecipe> CHECK = RecipeManager.createCheck(BlenderRecipe.Type.INSTANCE);
     public BlenderBlockEntity(BlockPos pos, BlockState blockState) {
-        super(BakeriesBlocks.MSBlockEntities.BLENDER_ENTITY.get(), pos, blockState);
+        super(BakeriesBlocks.Entities.BLENDER_ENTITY.get(), pos, blockState);
     }
 
     public ItemStackHandler getInventory() {
@@ -250,7 +248,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     public static void craftTick(Level level, BlockPos pos, BlockState state, BlenderBlockEntity blockEntity) {
         if (blockEntity.hasInput()) {
-            System.out.println("Yes Tick");
             blockEntity.craftItem();
             boolean temp = blockEntity.cookingTotalTime > 0;
             level.setBlock(pos, state.setValue(BlenderBlock.POWERED, temp), 3);

@@ -99,7 +99,7 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
 
 
     public OvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.MSBlockEntities.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
+        super(BakeriesBlocks.Entities.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
         optionalIItemHandler = Optional.empty();
     }
     public void drops() {
@@ -136,25 +136,8 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        if (!newVersion){
-            ItemStackHandler newInventory = new ItemStackHandler(6);
-            ItemStackHandler oldInventory = new ItemStackHandler(4);
-            if (tag.contains("inventory")) {
-                oldInventory.deserializeNBT(registries, tag.getCompound("inventory"));
-                itemHandler.deserializeNBT(registries, newInventory.serializeNBT(registries));
-            }
-            for (int i = 0; i < oldInventory.getSlots(); i++) {
-                if (i <= 4){
-                    itemHandler.setStackInSlot(i,oldInventory.getStackInSlot(i));
-                }else {
-                    itemHandler.setStackInSlot(i, ItemStack.EMPTY);
-                }
-            }
-            newVersion = true;
-        }else {
-            if (tag.contains("Inventory")) {
-                itemHandler.deserializeNBT(registries, tag.getCompound("Inventory"));
-            }
+        if (tag.contains("Inventory")) {
+            itemHandler.deserializeNBT(registries, tag.getCompound("Inventory"));
         }
         if (tag.contains("CookingTimes", 11)) {
             int[] aint = tag.getIntArray("CookingTimes");

@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,fill=false": {
+      "model": "bakeries:block/bread_basket",
+      "y": 90
+    },
+    "facing=east,fill=true": {
+      "model": "bakeries:block/bread_basket_fill",
+      "y": 90
+    },
+    "facing=north,fill=false": {
+      "model": "bakeries:block/bread_basket"
+    },
+    "facing=north,fill=true": {
+      "model": "bakeries:block/bread_basket_fill"
+    },
+    "facing=south,fill=false": {
+      "model": "bakeries:block/bread_basket",
+      "y": 180
+    },
+    "facing=south,fill=true": {
+      "model": "bakeries:block/bread_basket_fill",
+      "y": 180
+    },
+    "facing=west,fill=false": {
+      "model": "bakeries:block/bread_basket",
+      "y": 270
+    },
+    "facing=west,fill=true": {
+      "model": "bakeries:block/bread_basket_fill",
+      "y": 270
+    }
+  }
+}

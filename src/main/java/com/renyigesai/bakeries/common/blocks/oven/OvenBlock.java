@@ -2,9 +2,11 @@ package com.renyigesai.bakeries.common.blocks.oven;
 
 
 import com.mojang.serialization.MapCodec;
+import com.renyigesai.bakeries.common.init.BakeriesSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -103,7 +105,7 @@ public class OvenBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
 
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.MSBlockEntities.OVEN_BLOCK_ENTITY.get(),
+        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.Entities.OVEN_BLOCK_ENTITY.get(),
                 OvenBlockEntity::serverTick);
     }
 
@@ -132,9 +134,9 @@ public class OvenBlock extends BaseEntityBlock {
 
         if (blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
             ((ServerPlayer) player).openMenu((MenuProvider)ovenBlockEntity, pos);
-//            if (level instanceof ServerLevel serverLevel) {
-//                serverLevel.playSound(null, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.BLOCKS);
-//            }
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.playSound(null, pos, BakeriesSounds.OVEN_OPEN.get(), SoundSource.BLOCKS);
+            }
             return InteractionResult.CONSUME;
         }else {
             throw new IllegalStateException("Our Container provider is missing!");

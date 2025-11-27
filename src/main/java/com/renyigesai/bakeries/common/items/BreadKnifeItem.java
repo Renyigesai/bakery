@@ -2,12 +2,12 @@ package com.renyigesai.bakeries.common.items;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
+import com.renyigesai.bakeries.common.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.common.utils.ItemUtil;
 import com.renyigesai.bakeries.common.utils.ModIsLoaded;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -28,7 +28,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -41,22 +40,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.weibai.rcglib.utils.UtilTranslatable;
-import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipeInput;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
-import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
-import vectorwing.farmersdelight.integration.jei.FDRecipes;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
 public class BreadKnifeItem extends DiggerItem {
-
-    private final RecipeManager.CachedCheck<RecipeInput, BreadKnifeRecipe> CHECK = RecipeManager.createCheck(BreadKnifeRecipe.Type.INSTANCE);
 
     public BreadKnifeItem(Tier tier, Properties properties) {
         super(tier, BlockTags.MINEABLE_WITH_AXE, properties);
@@ -88,11 +82,9 @@ public class BreadKnifeItem extends DiggerItem {
         double x = resultItemEntity.getX();
         double y = resultItemEntity.getY();
         double z = resultItemEntity.getZ();
-        Optional<RecipeHolder<BreadKnifeRecipe>> optional = getBreadKnifeRecipe(pLevel, resultItemEntity.getItem());
-
+        Optional<RecipeHolder<BreadKnifeRecipe>> optional = getBreadKnifeRecipe(pLevel,resultItemEntity.getItem());
         if (optional.isPresent()){
-            SingleRecipeInput singleRecipeInput = new SingleRecipeInput(resultItemEntity.getItem());
-            ItemStack resultItemStack = CHECK.getRecipeFor(singleRecipeInput, pLevel).map((p_344662_) -> p_344662_.value().assemble(singleRecipeInput, pLevel.registryAccess())).orElse(resultItemEntity.getItem());
+            ItemStack resultItemStack = optional.get().value().getResultItem(null);
             hand.hurtAndBreak(1,pPlayer,LivingEntity.getSlotForHand(pPlayer.getUsedItemHand()));
             ItemUtil.spawnItemEntity(pLevel, resultItemStack, x,y,z, new Vec3(0.0,0.0,0.0));
             pLevel.addParticle(new ItemParticleOption(ParticleTypes.ITEM,resultItemStack),x,y+0.5,z,((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D);
@@ -138,7 +130,7 @@ public class BreadKnifeItem extends DiggerItem {
         if (level == null) {
             return Optional.empty();
         }
-        return CHECK.getRecipeFor(new SingleRecipeInput(stack),level);
+        return RecipeManager.createCheck(BakeriesRecipeTypes.BREAD_KNIFE_TYPE.get()).getRecipeFor(new SingleRecipeInput(stack),level);
     }
 
     private Optional<RecipeHolder<CuttingBoardRecipe>> getCuttingRecipe(Level level, ItemStack stack) {

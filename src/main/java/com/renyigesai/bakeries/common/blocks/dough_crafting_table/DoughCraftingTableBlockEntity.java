@@ -47,7 +47,7 @@ public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEnt
     };
 
     public DoughCraftingTableBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BakeriesBlocks.MSBlockEntities.DOUGH_CRAFTING_TABLE_ENTITY.get(), pPos, pBlockState);
+        super(BakeriesBlocks.Entities.DOUGH_CRAFTING_TABLE_ENTITY.get(), pPos, pBlockState);
     }
 
     @Override

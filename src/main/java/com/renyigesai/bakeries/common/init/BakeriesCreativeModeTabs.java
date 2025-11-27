@@ -61,8 +61,6 @@ public class BakeriesCreativeModeTabs {
                                 }
                             }
                         }
-//                        BakeriesItems.REGISTER.getEntries().forEach(( item)->
-//                                output.accept(item.get()));
                     }).build());
 
 

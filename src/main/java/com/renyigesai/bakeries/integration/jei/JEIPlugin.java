@@ -3,8 +3,11 @@ package com.renyigesai.bakeries.integration.jei;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.init.BakeriesRecipeTypes;
+import com.renyigesai.bakeries.common.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.common.inventory.oven.OvenScreen;
+import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
+import com.renyigesai.bakeries.integration.jei.category.BlenderRecipeCategory;
 import com.renyigesai.bakeries.integration.jei.category.DoughCraftingRecipeCategory;
 import com.renyigesai.bakeries.integration.jei.category.OvenRecipeCategory;
 import mezz.jei.api.IModPlugin;
@@ -31,26 +34,33 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new OvenRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new BlenderRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DoughCraftingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
+
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-        registration.addRecipes(BakeriesRecipeTypes.JEI.OVEN,recipeManager.getAllRecipesFor(OvenRecipe.Type.INSTANCE));
-        registration.addRecipes(BakeriesRecipeTypes.JEI.DOUGH_CRAFTING,recipeManager.getAllRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING_TYPE.get()));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.OVEN, recipeManager.getAllRecipesFor(OvenRecipe.Type.INSTANCE));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.BLENDER, recipeManager.getAllRecipesFor(BlenderRecipe.Type.INSTANCE));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.DOUGH_CRAFTING, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING_TYPE.get()));
     }
+
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.OVEN.get()), BakeriesRecipeTypes.JEI.OVEN);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DOUGH_CRAFTING_TABLE.get()), BakeriesRecipeTypes.JEI.DOUGH_CRAFTING);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BLENDER.get()), BakeriesRecipeTypes.JEI.BLENDER);
     }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration){
-        registration.addRecipeClickArea(OvenScreen.class,110,16,8,54, BakeriesRecipeTypes.JEI.OVEN);
+        registration.addRecipeClickArea(OvenScreen.class, 110, 16, 8, 54, BakeriesRecipeTypes.JEI.OVEN);
+        registration.addRecipeClickArea(BlenderScreen.class, 136, 38, 20, 20, BakeriesRecipeTypes.JEI.BLENDER);
     }
+
 
     @Override
     public ResourceLocation getPluginUid() {

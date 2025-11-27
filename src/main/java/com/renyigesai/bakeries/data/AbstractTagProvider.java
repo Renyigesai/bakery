@@ -169,6 +169,7 @@ public abstract class AbstractTagProvider  implements DataProvider {
         getItemBuilder(tag).addTyped(ItemLike::asItem, itemProviders);
     }
 
+
     @SafeVarargs
     protected final void addToTag(TagKey<Block> tag, Holder<Block>... blockProviders) {
         getBlockBuilder(tag).addTyped(Holder::value, blockProviders);
@@ -236,6 +237,7 @@ public abstract class AbstractTagProvider  implements DataProvider {
             builder.addElement(value.location());
         }
     }
+
 
 //    protected final void addToTag(IntrinsicTagBuilder<Chemical> tagBuilder, IChemicalProvider... providers) {
 //        tagBuilder.addTyped(IChemicalProvider::getChemical, providers);

@@ -1,0 +1,15 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:foamed_cream"
+    },
+    {
+      "item": "bakeries:fresh_cheese_cube"
+    }
+  ],
+  "output": {
+    "count": 2,
+    "id": "bakeries:cheese_cream"
+  }
+}

@@ -3,8 +3,10 @@ package com.renyigesai.bakeries.common.potion;
 import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
 public class SoftMobEffect extends MobEffect {
     public SoftMobEffect() {
@@ -14,9 +16,8 @@ public class SoftMobEffect extends MobEffect {
 //    @EventBusSubscriber(modid = BakeriesMod.MODID)
     public static class SoftPotionEffect{
 //        @SubscribeEvent
-        public static void on(/*LivingAttackEvent event*/){
+        public static void on(/*LivingDamageEvent event*/){
 //            Entity source = event.getSource().getEntity();
-//            LivingEntity entity = event.getEntity();
 //            if (source != null && entity  != null && entity.hasEffect(BakeriesMobEffects.SOFT.get())){
 //                Vec3 vec3 = entity.getDeltaMovement();
 //                double s = 1.5;

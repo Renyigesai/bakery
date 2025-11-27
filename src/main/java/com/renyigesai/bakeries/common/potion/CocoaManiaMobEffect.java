@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 
 public class CocoaManiaMobEffect extends MobEffect {
 
@@ -27,9 +28,9 @@ public class CocoaManiaMobEffect extends MobEffect {
     public static class CocoaManiaPotionEffect{
         @SubscribeEvent
         @SuppressWarnings("unused")
-        public static void onChocolateMania(LivingDeathEvent event){
-            Entity attacker = event.getSource().getEntity();
-            Entity entity = event.getEntity();
+        public static void onChocolateMania(CriticalHitEvent event){
+            Entity attacker = event.getEntity();
+            Entity entity = event.getTarget();
             if (attacker instanceof LivingEntity livingEntity && livingEntity.hasEffect(BakeriesMobEffects.COCOA_MANIA)){
 /*                if (BakeriesConfig.cocoaManinDamageEffect) {*/
                     entity.invulnerableTime = 0;

@@ -4,6 +4,7 @@ package com.renyigesai.bakeries.common.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.annotation.CustomData;
 import com.renyigesai.bakeries.api.annotation.ItemData;
+import com.renyigesai.bakeries.api.items.BBreadItem;
 import com.renyigesai.bakeries.api.items.RawItem;
 import com.renyigesai.bakeries.common.items.*;
 import net.minecraft.core.Holder;
@@ -17,6 +18,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.weibai.rcglib.items.BreadItem;
@@ -32,6 +34,7 @@ import java.util.function.Supplier;
 public class BakeriesItems {
     public static final String BAKERIES_TAB = BakeriesMod.MODID + "_tab";
     public static final String SFP_TAB = BakeriesMod.MODID + "_sfp";
+    public static final String NOT = BakeriesMod.MODID + "_not";
 
     public static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(BakeriesMod.MODID);
     private BakeriesItems(){}
@@ -54,17 +57,34 @@ public class BakeriesItems {
     @ItemData(zhCn = "满装酵母罐",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> YEAST_TANK;
 
-    @ItemData(zhCn = "满装牛奶罐",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    @ItemData(zhCn = "满装牛奶罐",group = NOT,itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> MILK_TANK;
 
     @ItemData(zhCn = "满装奶酪罐",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> CHEESE_TANK;
+
+    @ItemData(zhCn = "全麦面粉袋",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> WHOLE_WHEAT_FLOUR_BAG;
+    @ItemData(zhCn = "面粉袋",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> FLOUR_BAG;
+
+    @ItemData(zhCn = "木制柜台",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> WOOD_COUNTER;
+
+    @ItemData(zhCn = "玻璃橱柜门",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> GLASS_CABINET_DOOR;
+
+    @ItemData(zhCn = "面包筐",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> BREAD_BASKET;
 
     @ItemData(zhCn = "面包刀",model = ItemData.ModelType.TOOL)
     public static final DeferredItem<Item> BREAD_KNIFE;
 
     @ItemData(zhCn = "面粉筛",model = ItemData.ModelType.CUSTOM)
     public static final DeferredItem<Item> FLOUR_SIEVE;
+
+    @ItemData(zhCn = "模具",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> MOULD;
 
     @ItemData(zhCn = "面粉")
     public static final DeferredItem<Item> FLOUR;
@@ -86,6 +106,9 @@ public class BakeriesItems {
 
     @ItemData(zhCn = "盐")
     public static final DeferredItem<Item> SALT;
+
+    @ItemData(zhCn = "盐块",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> RAW_SALT_BLOCK;
 
     @ItemData(zhCn = "瓶装酵母")
     public static final DeferredItem<Item> BOTTLE_YEAST;
@@ -159,11 +182,17 @@ public class BakeriesItems {
     @ItemData(zhCn = "橄榄")
     public static final DeferredItem<Item> OLIVE;
 
+    @ItemData(zhCn = "吐司",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> TOAST;
+
     @ItemData(zhCn = "吐司片")
     public static final DeferredItem<Item> SLICED_TOAST;
 
     @ItemData(zhCn = "蜂蜜黄油抹吐司片")
     public static final DeferredItem<Item> HONEY_BUTTER_SPREAD_TOAST;
+
+    @ItemData(zhCn = "奶酪可可吐司",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> CHEESE_COCOA_TOAST;
 
     @ItemData(zhCn = "奶酪可可吐司片")
     public static final DeferredItem<Item> SLICED_CHEESE_COCOA_TOAST;
@@ -223,6 +252,9 @@ public class BakeriesItems {
     @ItemData(zhCn = "法棍",model = ItemData.ModelType.BREAD)
     public static final DeferredItem<Item> BAGUETTE;
 
+    @ItemData(zhCn = "乡村面包",model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> COUNTRY_BREAD;
+
     @ItemData(zhCn = "恰巴塔面包",model = ItemData.ModelType.BREAD)
     public static final DeferredItem<Item> CIABATTA;
 
@@ -277,8 +309,22 @@ public class BakeriesItems {
     @ItemData(zhCn = "乡村面包面胚", group = SFP_TAB,model = ItemData.ModelType.CUSTOM)
     public static final DeferredItem<Item> COUNTRY_BREAD_DOUGH;
 
-    static {
+    @ItemData(zhCn = "吐司面胚", group = SFP_TAB,model = ItemData.ModelType.CUSTOM)
+    public static final DeferredItem<Item> MOULD_TOAST_DOUGH;
 
+    @ItemData(zhCn = "吐司",group = NOT,itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> MOULD_TOAST;
+
+    @ItemData(zhCn = "奶酪可可吐司面胚", group = SFP_TAB,model = ItemData.ModelType.CUSTOM)
+    public static final DeferredItem<Item> MOULD_CHEESE_COCOA_TOAST_DOUGH;
+
+    @ItemData(zhCn = "奶酪可可吐司",group = NOT,itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> MOULD_CHEESE_COCOA_TOAST;
+
+
+
+
+    static {
         OVEN = block(BakeriesBlocks.OVEN);
         BLENDER = block(BakeriesBlocks.BLENDER);
         DOUGH_CRAFTING_TABLE = block(BakeriesBlocks.DOUGH_CRAFTING_TABLE);
@@ -287,8 +333,14 @@ public class BakeriesItems {
         YEAST_TANK = block(BakeriesBlocks.YEAST_TANK);
         MILK_TANK = block(BakeriesBlocks.MILk_TANK);
         CHEESE_TANK = block(BakeriesBlocks.CHEESE_TANK);
+        WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
+        GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
+        BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
+        WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);
+        FLOUR_BAG = block(BakeriesBlocks.FLOUR_BAG);
         BREAD_KNIFE = REGISTER.register("bread_knife",()-> new BreadKnifeItem(Tiers.IRON,new Item.Properties()));
         FLOUR_SIEVE = REGISTER.register("flour_sieve",()-> new FlourSieveItem(new Item.Properties().stacksTo(1).durability(250)));
+        MOULD = block(BakeriesBlocks.MOULD);
         FLOUR = item("flour");
         WHOLE_WHEAT_FLOUR = item("whole_wheat_flour");
         COCOA_POWDER = item("cocoa_powder");
@@ -296,6 +348,7 @@ public class BakeriesItems {
         SALT_ORE = block(BakeriesBlocks.SALT_ORE);
         DEEPSLATE_SALT_ORE = block(BakeriesBlocks.DEEPSLATE_SALT_ORE);
         SALT = item("salt");
+        RAW_SALT_BLOCK = block(BakeriesBlocks.RAW_SALT_BLOCK);
         BOTTLE_YEAST = REGISTER.register("bottle_yeast",()-> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE)));
         BOTTLE_MILK = REGISTER.register("bottle_milk",()-> new ShakeItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE),BakeriesItems.BOTTLE_CREAM));
         BOTTLE_CREAM = REGISTER.register("bottle_cream",()-> new ShakeItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE),BakeriesItems.BOTTLE_BUTTER));
@@ -321,8 +374,10 @@ public class BakeriesItems {
         SCONE = foodItem("scone",BakeriesFoodProperties.SCONE);
         TOMATO = REGISTER.register("tomato",()-> new BlockItem(BakeriesBlocks.TOMATO.get(),new Item.Properties().food(BakeriesFoodProperties.TOMATO)));
         OLIVE = foodItem("olive",BakeriesFoodProperties.OLIVE);
+        TOAST = block(BakeriesBlocks.TOAST);
         SLICED_TOAST = foodItem("sliced_toast",BakeriesFoodProperties.SLICED_TOAST);
         HONEY_BUTTER_SPREAD_TOAST = registerItem("honey_butter_spread_toast",()-> new Item(new Item.Properties().food(BakeriesFoodProperties.HONEY_BUTTER_SPREAD_TOAST)));
+        CHEESE_COCOA_TOAST = block(BakeriesBlocks.CHEESE_COCOA_TOAST);
         SLICED_CHEESE_COCOA_TOAST = foodItem("sliced_cheese_cocoa_toast",BakeriesFoodProperties.SLICED_CHEESE_COCOA_TOAST);
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
         HONEY_BUTTER_SPREAD_COUNTRY_BREAD = registerItem("honey_butter_spread_country_bread",()-> new Item(new Item.Properties().food(BakeriesFoodProperties.HONEY_BUTTER_SPREAD_COUNTRY_BREAD)));
@@ -331,21 +386,24 @@ public class BakeriesItems {
         WHOLE_WHEAT_BAGEL = foodBreadBlock(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL);
         ROUND_BREAD = foodBreadBlock(BakeriesBlocks.ROUND_BREAD, BakeriesFoodProperties.ROUND_BREAD);
         BERRY_BREAD = foodBreadBlock(BakeriesBlocks.BERRY_BREAD, BakeriesFoodProperties.BERRY_BREAD);
-        CHEESE_CREAM_BREAD = foodBreadBlock(BakeriesBlocks.CHEESE_CREAM_BREAD, ItemRarity.advanced(), BakeriesFoodProperties.CHEESE_CREAM_BREAD);
-        BROWN_SUGAR_ROLL = foodBreadBlock(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL);
-        PINEAPPLE_BUN = foodBreadBlock(BakeriesBlocks.PINEAPPLE_BUN, BakeriesFoodProperties.PINEAPPLE_BUN);
+        CHEESE_CREAM_BREAD = foodBreadBlock(BakeriesBlocks.CHEESE_CREAM_BREAD, ItemRarity.advanced(), BakeriesFoodProperties.CHEESE_CREAM_BREAD,true);
+        BROWN_SUGAR_ROLL = foodBreadBlock(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true);
+        PINEAPPLE_BUN = foodBreadBlock(BakeriesBlocks.PINEAPPLE_BUN, BakeriesFoodProperties.PINEAPPLE_BUN,true);
         MEAT_FLOSS_BREAD_ROLL = foodBreadBlock(BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL, ItemRarity.advanced(), BakeriesFoodProperties.MEAT_FLOSS_BREAD);
-        CROISSANT = foodBreadBlock(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT);
-        DIRTY_CHOCO_CROISSANT = foodBreadBlock(BakeriesBlocks.DIRTY_CHOCO_CROISSANT, BakeriesFoodProperties.DIRTY_CHOCO_CROISSANT);
-        SALT_CROISSANT = foodBreadBlock(BakeriesBlocks.SALT_CROISSANT, BakeriesFoodProperties.SALT_CROISSANT);
+        CROISSANT = foodBreadBlock(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT,true);
+        DIRTY_CHOCO_CROISSANT = foodBreadBlock(BakeriesBlocks.DIRTY_CHOCO_CROISSANT, BakeriesFoodProperties.DIRTY_CHOCO_CROISSANT,true);
+        SALT_CROISSANT = foodBreadBlock(BakeriesBlocks.SALT_CROISSANT, BakeriesFoodProperties.SALT_CROISSANT,true);
         CIABATTA = foodBreadBlock(BakeriesBlocks.CIABATTA, BakeriesFoodProperties.CIABATTA);
-        FOCACCIA = foodBreadBlock(BakeriesBlocks.FOCACCIA, BakeriesFoodProperties.FOCACCIA);
-        BERRY_BAGEL = foodBreadBlock(BakeriesBlocks.BERRY_BAGEL, ItemRarity.advanced(), BakeriesFoodProperties.BERRY_BAGEL);
+        FOCACCIA = foodBreadBlock(BakeriesBlocks.FOCACCIA, BakeriesFoodProperties.FOCACCIA,true);
+        BERRY_BAGEL = foodBreadBlock(BakeriesBlocks.BERRY_BAGEL, ItemRarity.advanced(), BakeriesFoodProperties.BERRY_BAGEL,true);
         BAGEL_FILLED_SAUCE = foodBreadBlock(BakeriesBlocks.BAGEL_FILLED_SAUCE, ItemRarity.advanced(), BakeriesFoodProperties.BAGEL_FILLED_SAUCE);
         BAGUETTE_WITH_FILLING = foodBreadBlock(BakeriesBlocks.BAGUETTE_WITH_FILLING, ItemRarity.advanced(), BakeriesFoodProperties.BAGUETTE_WITH_FILLING);
-        TOMATO_CHEESE_CROISSANT_SANDWICH = foodBreadBlock(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH, ItemRarity.advanced(), BakeriesFoodProperties.TOMATO_CHEESE_CROISSANT_SANDWICH);
+        TOMATO_CHEESE_CROISSANT_SANDWICH = foodBreadBlock(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH, ItemRarity.advanced(), BakeriesFoodProperties.TOMATO_CHEESE_CROISSANT_SANDWICH,true);
         BAGUETTE = foodWeaponBreadBlock(BakeriesBlocks.BAGUETTE, 4, ItemRarity.common(), BakeriesFoodProperties.BAGUETTE,
                 ItemAttributeModifiers.builder().add(Attributes.ATTACK_DAMAGE, new AttributeModifier(ResourceLocation.withDefaultNamespace("base_attack_damage"), 3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).add(Attributes.ATTACK_SPEED, new AttributeModifier(ResourceLocation.withDefaultNamespace("base_attack_speed"), -3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND).build());
+        COUNTRY_BREAD = block(BakeriesBlocks.COUNTRY_BREAD);
+        MOULD_TOAST = block(BakeriesBlocks.MOULD_TOAST);
+        MOULD_CHEESE_COCOA_TOAST = block(BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST);
 
         SWEET_DOUGH = item("sweet_dough");
         SALTED_DOUGH = item("salted_dough");
@@ -362,11 +420,31 @@ public class BakeriesItems {
         CIABATTA_DOUGH = rawItem("ciabatta_dough",210);
         FOCACCIA_DOUGH = rawItem("focaccia_dough",230);
         COUNTRY_BREAD_DOUGH = rawItem("country_bread_dough",225);
+        MOULD_TOAST_DOUGH = rawItem("mould_toast_dough",135);
+        MOULD_CHEESE_COCOA_TOAST_DOUGH = rawItem("mould_cheese_cocoa_toast_dough",135);
         /*功能物品*/
     }
 
     private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, Rarity rarity, FoodProperties foodProperties) {
-        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new BreadItem(block.value(), new Item.Properties().rarity(rarity).food(foodProperties)) {
+        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new BBreadItem(block.value(), new Item.Properties().rarity(rarity).food(foodProperties)) {
+            @Override
+            public DataComponentType<Boolean> perfectComponent() {
+                return BakeriesDataComponents.PERFECT.get();
+            }
+        });
+    }
+
+    private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, Rarity rarity, FoodProperties foodProperties,boolean effectTool) {
+        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new BBreadItem(block.value(), new Item.Properties().rarity(rarity).food(foodProperties),effectTool) {
+            @Override
+            public DataComponentType<Boolean> perfectComponent() {
+                return BakeriesDataComponents.PERFECT.get();
+            }
+        });
+    }
+
+    private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, FoodProperties foodProperties,boolean effectTool) {
+        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new BBreadItem(block.value(), new Item.Properties().food(foodProperties),effectTool) {
             @Override
             public DataComponentType<Boolean> perfectComponent() {
                 return BakeriesDataComponents.PERFECT.get();
@@ -375,7 +453,7 @@ public class BakeriesItems {
     }
 
     private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, FoodProperties foodProperties) {
-        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new BreadItem(block.value(), new Item.Properties().food(foodProperties)) {
+        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new BBreadItem(block.value(), new Item.Properties().food(foodProperties)) {
             @Override
             public DataComponentType<Boolean> perfectComponent() {
                 return BakeriesDataComponents.PERFECT.get();

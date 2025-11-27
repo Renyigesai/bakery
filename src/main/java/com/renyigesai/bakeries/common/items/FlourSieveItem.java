@@ -1,10 +1,8 @@
 package com.renyigesai.bakeries.common.items;
 
 
-import com.renyigesai.bakeries.common.init.BakeriesTags;
 import com.renyigesai.bakeries.common.recipe.FlourSieveRecipe;
 import com.renyigesai.bakeries.common.utils.ItemUtil;
-import com.renyigesai.bakeries.common.utils.RandomText;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -27,6 +25,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class FlourSieveItem extends Item {
 
@@ -43,9 +42,10 @@ public class FlourSieveItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack mainHandItem = pPlayer.getMainHandItem();
-        if (!mainHandItem.is(BakeriesTags.Items.FLOUR)){
+        Optional<RecipeHolder<FlourSieveRecipe>> recipeFor = CHECK.getRecipeFor(new SingleRecipeInput(mainHandItem), pLevel);
+        if (recipeFor.isEmpty()){
             pPlayer.getCooldowns().addCooldown(this,20);
-            pPlayer.displayClientMessage(Component.translatable(RandomText.getFlourSieveRandomText()), true);
+            pPlayer.displayClientMessage(Component.translatable(getFlourSieveRandomText()), true);
             return super.use(pLevel, pPlayer, pUsedHand);
         }
         pPlayer.startUsingItem(pUsedHand);
@@ -70,12 +70,22 @@ public class FlourSieveItem extends Item {
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 
+    private String getFlourSieveRandomText(){
+        return "tooltips.bakeries.flour_sieve_" + getRandom();
+    }
 
-//    public boolean hasRecipe(Player player, Level pLevel) {
-//        Optional<FlourSieveRecipe> recipe = getCurrentRecipe(player, pLevel);
-//        return recipe.isPresent() && recipe.get().getIngredients().get(0).test(player.getMainHandItem());
-//    }
+    public static int getRandom(){
+        return random(3,1);
+    }
 
+    public static Integer random(int max, int min) {
+        Random rand = new Random();
+        int value = 0;
+        for (int i = 0; i < max; i++) {
+            value = rand.nextInt(max - min + 1) + min;
+        }
+        return value;
+    }
 
     private Optional<RecipeHolder<FlourSieveRecipe>> getCurrentRecipe(Level level, ItemStack stack) {
         if (level == null) {
@@ -96,7 +106,7 @@ public class FlourSieveItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("tooltips.bakeries.bread_knife").withStyle(ChatFormatting.BLUE));
+        tooltipComponents.add(Component.translatable("tooltips.bakeries.flour_sieve_0").withStyle(ChatFormatting.BLUE));
     }
 
 }

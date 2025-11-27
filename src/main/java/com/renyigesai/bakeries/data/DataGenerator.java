@@ -30,15 +30,15 @@ public class DataGenerator {
 
         generator.addProvider(event.includeClient(),  new RegistryDataGenerator(output, provider));
         generator.addProvider(event.includeClient(), new MSSoundsProvider(output, existingFileHelper));
-        generator.addProvider(event.includeServer(), new MSBlockStateProvider(output, existingFileHelper));
-        generator.addProvider(event.includeServer(), new MSItemModelProvider(output, existingFileHelper));
+        generator.addProvider(event.includeServer(), new BlockStates(output, existingFileHelper));
+        generator.addProvider(event.includeServer(), new ItemModel(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new MSLootTableProvider(output, provider));
-        generator.addProvider(event.includeServer(), new MSRecipeProvider(output, provider));
+        generator.addProvider(event.includeServer(), new Recipe(output, provider));
         generator.addProvider(event.includeClient(), new MSLanguageProvider(output, "en_us"));
         generator.addProvider(event.includeClient(), new MSLanguageProvider(output, "zh_cn"));
 
 
-        generator.addProvider(event.includeServer(), new MSTagsProvider(output, provider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new Tags(output, provider, existingFileHelper));
     }
 
 }
