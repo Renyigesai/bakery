@@ -6,6 +6,7 @@ import com.renyigesai.bakeries.common.blocks.ToastBlock;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.bread_basket.BreadBasketBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
+import com.renyigesai.bakeries.common.blocks.sofa.SofaBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -77,6 +79,11 @@ public class BlockStates extends BlockStateProvider {
 
         bagBlock(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG.get(),"whole_wheat_");
         bagBlock(BakeriesBlocks.FLOUR_BAG.get(),"");
+
+        sofaBlock(BakeriesBlocks.SOFA_WHITE);
+        sofaBlock(BakeriesBlocks.SOFA_RED);
+        sofaBlock(BakeriesBlocks.SOFA_LIGHT_GRAY);
+
         breadBasketBlock(BakeriesBlocks.BREAD_BASKET::get);
     }
 
@@ -258,6 +265,37 @@ public class BlockStates extends BlockStateProvider {
                         .rotationY((int) direction.toYRot())
                         .modelFile(modelFile)
                         .addModel();
+            }
+        }
+    }
+
+    public void sofaBlock(Supplier<SofaBlock> sofa){
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
+            for (Boolean left : SofaBlock.LEFT.getPossibleValues()) {
+                for (Boolean right : SofaBlock.RIGHT.getPossibleValues()) {
+                    String state = "";
+                    if (left && !right){
+                        state = "_left";
+                    }
+                    if (right && !left){
+                        state = "_right";
+                    }
+                    if (right && left){
+                        state = "_all";
+                    }
+                    String color = sofa.get().getColor().getColorKey();
+                    String texture = "block/sofa_" + color;
+                    ModelFile modelFile = this.models().withExistingParent("sofa_" + color + state , this.modLoc("custom/sofa" + state)).texture("0", texture).texture("particle", texture).renderType(CUTOUT);
+                    this.getVariantBuilder(sofa.get())
+                            .partialState()
+                            .with(SofaBlock.LEFT, left)
+                            .with(SofaBlock.RIGHT, right)
+                            .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                            .modelForState()
+                            .rotationY((int) direction.toYRot())
+                            .modelFile(modelFile)
+                            .addModel();
+                }
             }
         }
     }

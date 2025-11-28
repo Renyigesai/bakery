@@ -71,6 +71,15 @@ public class BakeriesItems {
     @ItemData(zhCn = "木制柜台",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> WOOD_COUNTER;
 
+    @ItemData(zhCn = "沙发",enUs = "Sofa",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> SOFA_WHITE;
+
+    @ItemData(zhCn = "红色沙发",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> SOFA_RED;
+
+    @ItemData(zhCn = "淡灰色沙发",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> SOFA_LIGHT_GRAY;
+
     @ItemData(zhCn = "玻璃橱柜门",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> GLASS_CABINET_DOOR;
 
@@ -334,6 +343,9 @@ public class BakeriesItems {
         MILK_TANK = block(BakeriesBlocks.MILk_TANK);
         CHEESE_TANK = block(BakeriesBlocks.CHEESE_TANK);
         WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
+        SOFA_WHITE = block(BakeriesBlocks.SOFA_WHITE);
+        SOFA_RED = block(BakeriesBlocks.SOFA_RED);
+        SOFA_LIGHT_GRAY = block(BakeriesBlocks.SOFA_LIGHT_GRAY);
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);

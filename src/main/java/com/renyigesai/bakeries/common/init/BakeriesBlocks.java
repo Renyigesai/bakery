@@ -13,6 +13,7 @@ import com.renyigesai.bakeries.common.blocks.dough_crafting_table.DoughCraftingT
 import com.renyigesai.bakeries.common.blocks.dough_crafting_table.DoughCraftingTableBlockEntity;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
+import com.renyigesai.bakeries.common.blocks.sofa.SofaBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -111,6 +112,10 @@ public class BakeriesBlocks {
 
     public static final DeferredBlock<Block> RAW_SALT_BLOCK;
 
+    public static final DeferredBlock<SofaBlock> SOFA_WHITE;
+    public static final DeferredBlock<SofaBlock> SOFA_RED;
+    public static final DeferredBlock<SofaBlock> SOFA_LIGHT_GRAY;
+
 
     public static final DeferredBlock<Block> BLENDER;
     public static final DeferredBlock<OvenBlock> OVEN;
@@ -174,6 +179,10 @@ public class BakeriesBlocks {
         WOOD_COUNTER = REGISTER.register("wood_counter",()-> new WoodCounterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
         GLASS_CABINET_DOOR = REGISTER.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+
+        SOFA_WHITE = REGISTER.register("sofa_white",()-> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), SofaBlock.Color.WHITE));
+        SOFA_RED = REGISTER.register("sofa_red",()-> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), SofaBlock.Color.RED));
+        SOFA_LIGHT_GRAY = REGISTER.register("sofa_light_gray",()-> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), SofaBlock.Color.LIGHT_GRAY));
 
         MOULD = register("mould", () -> new MouldBlock(BakeriesItems.MOULD));
         RAW_SALT_BLOCK = REGISTER.register("raw_salt_block",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));

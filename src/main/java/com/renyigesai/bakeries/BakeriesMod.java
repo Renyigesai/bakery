@@ -27,6 +27,7 @@ public class BakeriesMod {
         BakeriesSounds.REGISTRY.register(modEventBus);
         BakeriesMobEffects.EFFECTS.register(modEventBus);
         BakeriesDataComponents.REGISTER.register(modEventBus);
+        BakeriesEntityTypes.ENTITY.register(modEventBus);
         BakeriesVillagers.register(modEventBus);
 
         modEventBus.addListener(BakeriesCapabilities::registerFluidCapabilities);
