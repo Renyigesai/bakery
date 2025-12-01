@@ -2,7 +2,6 @@ package com.renyigesai.bakeries.common.init;
 
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.api.annotation.CustomData;
 import com.renyigesai.bakeries.api.annotation.ItemData;
 import com.renyigesai.bakeries.api.items.BBreadItem;
 import com.renyigesai.bakeries.api.items.RawItem;
@@ -18,10 +17,8 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.weibai.rcglib.items.BreadItem;
 import net.weibai.rcglib.items.FoodWeaponItem;
 import net.weibai.rcglib.items.ItemRarity;
 import net.weibai.rcglib.items.RepeatEatItem;
@@ -30,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-@CustomData
 public class BakeriesItems {
     public static final String BAKERIES_TAB = BakeriesMod.MODID + "_tab";
     public static final String SFP_TAB = BakeriesMod.MODID + "_sfp";
@@ -71,6 +67,9 @@ public class BakeriesItems {
     @ItemData(zhCn = "木制柜台",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> WOOD_COUNTER;
 
+    @ItemData(zhCn = "咖啡桌",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> COFFEE_TABLE;
+
     @ItemData(zhCn = "沙发",enUs = "Sofa",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> SOFA_WHITE;
 
@@ -79,6 +78,9 @@ public class BakeriesItems {
 
     @ItemData(zhCn = "淡灰色沙发",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> SOFA_LIGHT_GRAY;
+
+    @ItemData(zhCn = "收银电脑",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> CASH_REGISTER_COMPUTER;
 
     @ItemData(zhCn = "玻璃橱柜门",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> GLASS_CABINET_DOOR;
@@ -343,9 +345,11 @@ public class BakeriesItems {
         MILK_TANK = block(BakeriesBlocks.MILk_TANK);
         CHEESE_TANK = block(BakeriesBlocks.CHEESE_TANK);
         WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
+        COFFEE_TABLE = block(BakeriesBlocks.COFFEE_TABLE);
         SOFA_WHITE = block(BakeriesBlocks.SOFA_WHITE);
         SOFA_RED = block(BakeriesBlocks.SOFA_RED);
         SOFA_LIGHT_GRAY = block(BakeriesBlocks.SOFA_LIGHT_GRAY);
+        CASH_REGISTER_COMPUTER = block(BakeriesBlocks.CASH_REGISTER_COMPUTER);
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);

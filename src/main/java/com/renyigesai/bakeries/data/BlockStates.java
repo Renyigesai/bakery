@@ -1,8 +1,7 @@
 package com.renyigesai.bakeries.data;
 
 
-import com.renyigesai.bakeries.common.blocks.MouldToastBlock;
-import com.renyigesai.bakeries.common.blocks.ToastBlock;
+import com.renyigesai.bakeries.common.blocks.*;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.bread_basket.BreadBasketBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
@@ -80,9 +79,12 @@ public class BlockStates extends BlockStateProvider {
         bagBlock(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG.get(),"whole_wheat_");
         bagBlock(BakeriesBlocks.FLOUR_BAG.get(),"");
 
+        coffeeTableBlock(BakeriesBlocks.COFFEE_TABLE);
+
         sofaBlock(BakeriesBlocks.SOFA_WHITE);
         sofaBlock(BakeriesBlocks.SOFA_RED);
         sofaBlock(BakeriesBlocks.SOFA_LIGHT_GRAY);
+        cashRegisterComputerBlock(BakeriesBlocks.CASH_REGISTER_COMPUTER);
 
         breadBasketBlock(BakeriesBlocks.BREAD_BASKET::get);
     }
@@ -296,6 +298,55 @@ public class BlockStates extends BlockStateProvider {
                             .modelFile(modelFile)
                             .addModel();
                 }
+            }
+        }
+    }
+
+    public void coffeeTableBlock(Supplier<Block> block){
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
+            for (Boolean left : CoffeeTableBlock.LEFT.getPossibleValues()) {
+                for (Boolean right : CoffeeTableBlock.RIGHT.getPossibleValues()) {
+                    String state = "";
+                    if (left && !right){
+                        state = "_left";
+                    }
+                    if (right && !left){
+                        state = "_right";
+                    }
+                    if (right && left){
+                        state = "_all";
+                    }
+                    ModelFile modelFile = this.models().withExistingParent("coffee_table"+ state , this.modLoc("custom/coffee_table" + state)).texture("0", "minecraft:block/stripped_oak_log").texture("1","minecraft:block/quartz_block_top").texture("particle", "minecraft:block/quartz_block_top").renderType(CUTOUT);
+                    this.getVariantBuilder(block.get())
+                            .partialState()
+                            .with(CoffeeTableBlock.LEFT, left)
+                            .with(CoffeeTableBlock.RIGHT, right)
+                            .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                            .modelForState()
+                            .rotationY((int) direction.toYRot())
+                            .modelFile(modelFile)
+                            .addModel();
+                }
+            }
+        }
+    }
+
+    public void cashRegisterComputerBlock(Supplier<Block> block){
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
+            for (Boolean lit : CashRegisterComputerBlock.LIT.getPossibleValues()) {
+                String texture = "block/cash_register_computer";
+                String texture_lit = "block/cash_register_computer_lit";
+                ModelFile modelFile = lit ?
+                        this.models().withExistingParent("cash_register_computer_lit", this.modLoc("custom/cash_register_computer")).texture("0", texture_lit).texture("particle", texture_lit).renderType(CUTOUT):
+                        this.models().withExistingParent("cash_register_computer" , this.modLoc("custom/cash_register_computer")).texture("0", texture).texture("particle", texture).renderType(CUTOUT);
+                        this.getVariantBuilder(block.get())
+                            .partialState()
+                            .with(CashRegisterComputerBlock.LIT,lit)
+                            .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                            .modelForState()
+                            .rotationY((int) direction.toYRot())
+                            .modelFile(modelFile)
+                            .addModel();
             }
         }
     }

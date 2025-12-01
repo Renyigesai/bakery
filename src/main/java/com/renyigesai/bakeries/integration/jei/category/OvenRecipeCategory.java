@@ -62,6 +62,7 @@ public class OvenRecipeCategory implements IRecipeCategory<RecipeHolder<OvenReci
         }
     }
 
+    @SuppressWarnings("removal")
     @Nullable
     @Override
     public IDrawable getBackground() {

@@ -6,10 +6,11 @@ import com.renyigesai.bakeries.common.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.common.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.common.inventory.oven.OvenScreen;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
+import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
+import com.renyigesai.bakeries.common.recipe.FlourSieveRecipe;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
-import com.renyigesai.bakeries.integration.jei.category.BlenderRecipeCategory;
-import com.renyigesai.bakeries.integration.jei.category.DoughCraftingRecipeCategory;
-import com.renyigesai.bakeries.integration.jei.category.OvenRecipeCategory;
+import com.renyigesai.bakeries.data.builder.BreadKnifeBuilder;
+import com.renyigesai.bakeries.integration.jei.category.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -36,6 +37,8 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new OvenRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new BlenderRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DoughCraftingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new BreadKnifeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new FlourSieveRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
 
@@ -45,6 +48,8 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(BakeriesRecipeTypes.JEI.OVEN, recipeManager.getAllRecipesFor(OvenRecipe.Type.INSTANCE));
         registration.addRecipes(BakeriesRecipeTypes.JEI.BLENDER, recipeManager.getAllRecipesFor(BlenderRecipe.Type.INSTANCE));
         registration.addRecipes(BakeriesRecipeTypes.JEI.DOUGH_CRAFTING, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING_TYPE.get()));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.BREAD_KNIFE, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE_TYPE.get()));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.FLOUR_SIEVE, recipeManager.getAllRecipesFor(FlourSieveRecipe.Type.INSTANCE));
     }
 
 
@@ -53,6 +58,8 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.OVEN.get()), BakeriesRecipeTypes.JEI.OVEN);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DOUGH_CRAFTING_TABLE.get()), BakeriesRecipeTypes.JEI.DOUGH_CRAFTING);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BLENDER.get()), BakeriesRecipeTypes.JEI.BLENDER);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BREAD_KNIFE.get()), BakeriesRecipeTypes.JEI.BREAD_KNIFE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.FLOUR_SIEVE.get()), BakeriesRecipeTypes.JEI.FLOUR_SIEVE);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.data;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.api.annotation.CustomData;
 import com.renyigesai.bakeries.api.annotation.ItemData;
 import com.renyigesai.bakeries.common.init.BakeriesCreativeModeTabs;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
@@ -19,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
-public class MSLanguageProvider extends AbstractLanguageProvider {
+public class Languages extends AbstractLanguageProvider {
     private final PackOutput output;
     private final String locale;
 
-    public MSLanguageProvider(PackOutput output, String locale) {
+    public Languages(PackOutput output, String locale) {
         super(output, locale);
         this.output = output;
         this.locale = locale;
@@ -53,6 +52,8 @@ public class MSLanguageProvider extends AbstractLanguageProvider {
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "blender"), "Blender", "搅拌机");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "dough_crafting_table"), "Dough Crafting Table", "面胚制作台");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "cupboard"), "Cupboard", "厨台");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "bread_knife"), "Bread Knife", "面包刀");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "flour_sieve"), "Flour Sieve", "面粉筛");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "bread_knife"), "When using  cut the object pointed by the target.", "使用时切开准星所指的物品");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "wood_counter"), "Use Bowl to Change State", "使用碗右键方块以改变状态");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "flour_sieve_0"), "Sift the item in the main hand while holding it off hand", "拿在副手时过筛主手的物品");

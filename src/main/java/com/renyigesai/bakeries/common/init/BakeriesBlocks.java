@@ -107,6 +107,8 @@ public class BakeriesBlocks {
 
     /**木制柜台*/
     public static final DeferredBlock<Block> WOOD_COUNTER;
+    /**咖啡桌*/
+    public static final DeferredBlock<Block> COFFEE_TABLE;
 
     public static final DeferredBlock<Block> GLASS_CABINET_DOOR;
 
@@ -116,6 +118,7 @@ public class BakeriesBlocks {
     public static final DeferredBlock<SofaBlock> SOFA_RED;
     public static final DeferredBlock<SofaBlock> SOFA_LIGHT_GRAY;
 
+    public static final DeferredBlock<Block> CASH_REGISTER_COMPUTER;
 
     public static final DeferredBlock<Block> BLENDER;
     public static final DeferredBlock<OvenBlock> OVEN;
@@ -177,12 +180,15 @@ public class BakeriesBlocks {
         FLOUR_BAG = REGISTER.register("flour_bag",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL)));
 
         WOOD_COUNTER = REGISTER.register("wood_counter",()-> new WoodCounterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+        COFFEE_TABLE = REGISTER.register("coffee_table",()-> new CoffeeTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
         GLASS_CABINET_DOOR = REGISTER.register("glass_cabinet_door", () ->
                 new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 
         SOFA_WHITE = REGISTER.register("sofa_white",()-> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), SofaBlock.Color.WHITE));
         SOFA_RED = REGISTER.register("sofa_red",()-> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), SofaBlock.Color.RED));
         SOFA_LIGHT_GRAY = REGISTER.register("sofa_light_gray",()-> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), SofaBlock.Color.LIGHT_GRAY));
+
+        CASH_REGISTER_COMPUTER = REGISTER.register("cash_register_computer",()-> new CashRegisterComputerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 6.0F).lightLevel(litBlockEmission(10))));
 
         MOULD = register("mould", () -> new MouldBlock(BakeriesItems.MOULD));
         RAW_SALT_BLOCK = REGISTER.register("raw_salt_block",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));

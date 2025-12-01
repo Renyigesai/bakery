@@ -4,7 +4,6 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
-import com.renyigesai.bakeries.common.recipe.DoughCraftingRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

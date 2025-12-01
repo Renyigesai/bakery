@@ -34,8 +34,8 @@ public class DataGenerator {
         generator.addProvider(event.includeServer(), new ItemModel(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new MSLootTableProvider(output, provider));
         generator.addProvider(event.includeServer(), new Recipe(output, provider));
-        generator.addProvider(event.includeClient(), new MSLanguageProvider(output, "en_us"));
-        generator.addProvider(event.includeClient(), new MSLanguageProvider(output, "zh_cn"));
+        generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
+        generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
 
 
         generator.addProvider(event.includeServer(), new Tags(output, provider, existingFileHelper));

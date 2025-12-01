@@ -24,6 +24,7 @@ public class OvenRecipes extends Recipes {
         OvenRecipeBuilder.oven(BakeriesItems.PINEAPPLE_BUN, 1, 200, 170, 190,180, Ingredient.of(new ItemStack(BakeriesItems.PINEAPPLE_BUN_DOUGH.get()))).save(output, name(BakeriesItems.PINEAPPLE_BUN.get()));
         OvenRecipeBuilder.oven(BakeriesItems.SALT_CROISSANT, 1, 200, 180, 190,180, Ingredient.of(new ItemStack(BakeriesItems.SALT_CROISSANT_DOUGH.get()))).save(output, name(BakeriesItems.SALT_CROISSANT.get()));
         OvenRecipeBuilder.oven(BakeriesItems.MOULD_TOAST, 1, 400, 135, 185,0, Ingredient.of(new ItemStack(BakeriesItems.MOULD_TOAST_DOUGH.get()))).save(output, name(BakeriesItems.TOAST.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.MOULD_CHEESE_COCOA_TOAST, 1, 400, 135, 185,0, Ingredient.of(new ItemStack(BakeriesItems.MOULD_CHEESE_COCOA_TOAST_DOUGH.get()))).save(output, name(BakeriesItems.CHEESE_COCOA_TOAST.get()));
         OvenRecipeBuilder.oven(BakeriesItems.COUNTRY_BREAD, 1, 300, 225, 275,0, Ingredient.of(new ItemStack(BakeriesItems.COUNTRY_BREAD_DOUGH.get()))).save(output, name(BakeriesItems.COUNTRY_BREAD.get()));
     }
 }

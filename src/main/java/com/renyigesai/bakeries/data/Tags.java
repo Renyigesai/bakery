@@ -72,7 +72,8 @@ public class Tags extends AbstractTagProvider {
                 BakeriesBlocks.MOULD_TOAST,
                 BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST,
                 BakeriesBlocks.RAW_SALT_BLOCK,
-                BakeriesBlocks.GLASS_CABINET_DOOR
+                BakeriesBlocks.GLASS_CABINET_DOOR,
+                BakeriesBlocks.CASH_REGISTER_COMPUTER
         );
         addToHarvestTag(BlockTags.MINEABLE_WITH_AXE,
                 BakeriesBlocks.CUPBOARD,
@@ -80,7 +81,8 @@ public class Tags extends AbstractTagProvider {
                 BakeriesBlocks.GLASS_CABINET_DOOR,
                 BakeriesBlocks.SOFA_WHITE,
                 BakeriesBlocks.SOFA_RED,
-                BakeriesBlocks.SOFA_LIGHT_GRAY
+                BakeriesBlocks.SOFA_LIGHT_GRAY,
+                BakeriesBlocks.COFFEE_TABLE
         );
         /*∫Ê±∫∑ª±Í«©*/
         addToTag(BlockTags.create(ResourceLocation.fromNamespaceAndPath("bakeries","sofa")), BakeriesBlocks.SOFA_WHITE,BakeriesBlocks.SOFA_RED,BakeriesBlocks.SOFA_LIGHT_GRAY);

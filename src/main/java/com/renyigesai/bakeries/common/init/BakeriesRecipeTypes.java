@@ -33,9 +33,6 @@ public class BakeriesRecipeTypes {
             /*烤炉*/
             SERIALIZERS.register(OvenRecipe.ID, () -> OvenRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(OvenRecipe.ID, () -> OvenRecipe.Type.INSTANCE);
-//            /*面包刀*/
-//            SERIALIZERS.register(BreadKnifeRecipe.ID, () -> BreadKnifeRecipe.Serializer.INSTANCE);
-//            RECIPE_TYPE.register(BreadKnifeRecipe.ID, () -> BreadKnifeRecipe.Type.INSTANCE);
             /*面粉筛*/
             SERIALIZERS.register(FlourSieveRecipe.ID, () -> FlourSieveRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(FlourSieveRecipe.ID, () -> FlourSieveRecipe.Type.INSTANCE);
@@ -54,5 +51,6 @@ public class BakeriesRecipeTypes {
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<BreadKnifeRecipe>> BREAD_KNIFE = mezz.jei.api.recipe.RecipeType.createFromVanilla(BREAD_KNIFE_TYPE.get());
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<OvenRecipe>> OVEN = mezz.jei.api.recipe.RecipeType.createFromVanilla(OvenRecipe.Type.INSTANCE);
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<BlenderRecipe>> BLENDER = mezz.jei.api.recipe.RecipeType.createFromVanilla(BlenderRecipe.Type.INSTANCE);
+        public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<FlourSieveRecipe>> FLOUR_SIEVE = mezz.jei.api.recipe.RecipeType.createFromVanilla(FlourSieveRecipe.Type.INSTANCE);
     }
 }
