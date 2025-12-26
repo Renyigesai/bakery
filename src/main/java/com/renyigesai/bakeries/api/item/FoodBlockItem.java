@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.block.mix_block.MixBlock;
 import com.renyigesai.bakeries.block.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.util.TextUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -52,7 +53,7 @@ public class FoodBlockItem extends ItemNameBlockItem {
     }
 
     public SoundEvent getPlaceSound(){
-        return SoundEvents.WOOL_STEP;
+        return BakeriesSounds.PASTRY_PLACE.get();
     }
 
     @Override

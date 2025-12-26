@@ -15,6 +15,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -70,6 +70,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     public int cookingTotalTime;
     public int filtrationIndex;
+
+    public State state = State.CLOSE;
+    public float progress;
+    public float progressOld;
+    public float rProgress;
+    public float rProgressOld;
 
     public BlenderBlockEntity(BlockPos pos, BlockState state) {
         super(BakeriesBlocks.BLENDER_ENTITY.get(), pos, state);
@@ -214,6 +220,34 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         load(pkt.getTag());
     }
 
+    public float getProgress(float pPartialTicks) {
+        return Mth.lerp(pPartialTicks, this.progressOld, this.progress);
+    }
+
+    public float getRprogress(float pPartialTicks) {
+        return Mth.lerp(pPartialTicks, this.rProgressOld, this.rProgress);
+    }
+
+    @Override
+    public boolean triggerEvent(int pId, int pType) {
+        if (pId == 0) {
+            if (pType == 0) {
+                this.state = State.OPEN_PROCESS;
+            }
+            if (pType == 1) {
+                this.state = State.CLOSE_PROCESS;
+            }
+            doNeighborUpdates(this.getLevel(), this.worldPosition, this.getBlockState());
+            return true;
+        } else {
+            return super.triggerEvent(pId, pType);
+        }
+    }
+
+    private static void doNeighborUpdates(Level pLevel, BlockPos pPos, BlockState pState) {
+        pState.updateNeighbourShapes(pLevel, pPos, 3);
+    }
+
     public void drops(BlenderBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.inventory.getSlots());
         for (int i = 0; i < blockEntity.inventory.getSlots(); i++) {
@@ -250,6 +284,47 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
         return level.getRecipeManager()
                 .getRecipeFor(BlenderRecipe.Type.INSTANCE, inventory, level);
+    }
+
+    public static void clientTick(Level level, BlockPos pos, BlockState state, BlenderBlockEntity blockEntity){
+        blockEntity.progressOld = blockEntity.progress;
+        blockEntity.rProgressOld = blockEntity.rProgress;
+        if (!state.getValue(BlenderBlock.POWERED)) {
+            switch (blockEntity.state) {
+                case OPEN_PROCESS:
+                    blockEntity.progress += 0.5F;
+                    if (blockEntity.progress >= 1.0F) {
+                        blockEntity.progress = 1.0F;
+                        blockEntity.state = State.OPEN;
+                    }
+                    break;
+                case OPEN:
+                    blockEntity.progress = 1.0F;
+                    break;
+                case CLOSE_PROCESS:
+                    blockEntity.progress -= 0.5F;
+                    if (blockEntity.progress <= 0F) {
+                        blockEntity.progress = 0F;
+                        blockEntity.state = State.CLOSE;
+                    }
+                    break;
+                case CLOSE:
+                    blockEntity.progress = 0.0F;
+                    break;
+            }
+        }else {
+            blockEntity.rProgress += 0.1F;
+            if (blockEntity.rProgress >= 1.0F){
+                blockEntity.rProgress = 0.0F;
+            }
+            if (blockEntity.progress > 0F){
+                blockEntity.progress -= 0.25F;
+            }
+            if (blockEntity.progress <= 0){
+                blockEntity.progress = 0F;
+            }
+            blockEntity.state = State.CLOSE;
+        }
     }
 
     public static void craftTick(Level level, BlockPos pos, BlockState state, BlenderBlockEntity blockEntity) {
@@ -310,68 +385,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }
-
-//    private void craftItem() {
-//        Optional<BlenderRecipe> recipeOptional = getCurrentRecipe();
-//        if (recipeOptional.isEmpty()) {
-//            cookingTotalTime = 0; // 重置进度
-//            return;
-//        }
-//
-//        BlenderRecipe recipe = recipeOptional.get();
-//        ItemStack resultItem = recipe.getResultItem(level.registryAccess()).copy();
-//        ItemStack outputStack = inventory.getStackInSlot(OUTPUT_SLOT);
-//
-//        if (!canCraft(resultItem, outputStack) || !isContainer()) {
-//            cookingTotalTime = 0;
-//            return;
-//        }
-//
-//        List<Ingredient> ingredientsToConsume = new ArrayList<>(recipe.getIngredients());
-//        List<Integer> slotsToConsume = new ArrayList<>();
-//
-//        outer:
-//        for (Ingredient ingredient : ingredientsToConsume) {
-//            for (int i = 0; i < 9; i++) {
-//                ItemStack stack = inventory.getStackInSlot(i);
-//                if (!stack.isEmpty() && ingredient.test(stack) && !slotsToConsume.contains(i)) {
-//                    slotsToConsume.add(i);
-//                    continue outer;
-//                }
-//            }
-//            cookingTotalTime = 0;
-//            return;
-//        }
-//
-//        if (cookingTotalTime < 100) {
-//            cookingTotalTime++;
-//            spawnParticle();
-//        } else {
-//            for (int slot : slotsToConsume) {
-//                ItemStack stack = inventory.getStackInSlot(slot);
-//                if (!stack.is(Items.WATER_BUCKET)){
-//                    if (stack.hasCraftingRemainingItem()) {
-//                        ejectIngredientRemainder(stack.getCraftingRemainingItem());
-//                    }
-//                    inventory.extractItem(slot, 1, false);
-//                }
-//            }
-//
-//            if (!recipe.getContainer().isEmpty()) {
-//                inventory.extractItem(CONTAINER_SLOT, 1, false);
-//            }
-//
-//            if (outputStack.isEmpty()) {
-//                inventory.setStackInSlot(OUTPUT_SLOT, resultItem);
-//            } else {
-//                outputStack.grow(resultItem.getCount());
-//            }
-//
-//            cookingTotalTime = 0;
-//            setChanged();
-//            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-//        }
-//    }
 
     protected void ejectIngredientRemainder(ItemStack remainderStack) {
         BlockPos pos = this.getBlockPos();
@@ -450,5 +463,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             }
         }
         return super.getCapability(cap, side);
+    }
+
+    public enum State {
+        OPEN_PROCESS,
+        OPEN,
+        CLOSE_PROCESS,
+        CLOSE,
     }
 }

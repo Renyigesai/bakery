@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.util;
 
 import com.renyigesai.bakeries.api.LazyMobEffectInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.tags.TagKey;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.swing.text.Style;
 import java.util.List;
@@ -70,5 +72,23 @@ public class ItemUtil {
             }
         }
         return flag;
+    }
+
+    public static boolean isExist(ItemStackHandler handler,Item item){
+        for (int i = 0; i < handler.getSlots(); i++) {
+            if (handler.getStackInSlot(i).is(item)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isExist(ItemStackHandler handler,TagKey<Item> pTag){
+        for (int i = 0; i < handler.getSlots(); i++) {
+            if (handler.getStackInSlot(i).is(pTag)){
+                return true;
+            }
+        }
+        return false;
     }
 }

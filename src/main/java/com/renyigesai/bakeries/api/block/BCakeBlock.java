@@ -20,10 +20,13 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -36,6 +39,7 @@ public abstract class BCakeBlock extends HorizontalDirectionalBlock {
     public List<LazyMobEffectInstance> effects = new ArrayList<>();
     public final int foodLevelModifier;
     public final float saturationLevelModifier;
+    public static final BlockBehaviour.Properties CAKE = BlockBehaviour.Properties.of().forceSolidOn().strength(0.5F).sound(PileBlock.PASTRY).pushReaction(PushReaction.DESTROY);
     public BCakeBlock(Properties pProperties, int foodLevelModifier, float saturationLevelModifier) {
         super(pProperties);
         this.foodLevelModifier = foodLevelModifier;

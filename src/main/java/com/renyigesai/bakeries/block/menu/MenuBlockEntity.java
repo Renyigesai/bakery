@@ -16,7 +16,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class MenuBlockEntity extends BlockEntity {
     protected final ItemStackHandler inventory = new ItemStackHandler(1);
-    protected boolean vertical;
     public MenuBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.MENU_ENTITY.get(), pPos, pBlockState);
     }
@@ -41,14 +40,12 @@ public class MenuBlockEntity extends BlockEntity {
         if (tag.contains("Inventory")) {
             inventory.deserializeNBT(tag.getCompound("Inventory"));
         }
-        vertical = tag.getBoolean("Vertical");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("Inventory", inventory.serializeNBT());
-        tag.putBoolean("Vertical", vertical);
     }
 
     public ItemStackHandler getInventory() {
@@ -69,17 +66,5 @@ public class MenuBlockEntity extends BlockEntity {
         if (!level.isClientSide){
             level.sendBlockUpdated(pos,state,state,3);
         }
-    }
-
-    public Vec2 getItemOffest(int i) {
-        float x = -0.2f;
-        float y = vertical?-0.375f:-0.18f;
-        Vec2[] offest = new Vec2[]{
-                new Vec2(x,y),
-                new Vec2(-x,y),
-                new Vec2(x,-y),
-                new Vec2(-x,-y)
-        };
-        return offest[i];
     }
 }

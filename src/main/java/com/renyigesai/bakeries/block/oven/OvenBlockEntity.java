@@ -1,5 +1,7 @@
 package com.renyigesai.bakeries.block.oven;
 
+import com.renyigesai.bakeries.block.blender.BlenderBlock;
+import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
@@ -12,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
@@ -49,7 +52,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
     private final int[] min_temperatures = new int[6];
     private final int[] max_temperatures = new int[6];
     public int temperature;
-    private boolean newVersion = false;
     public int loadVersion = 23;
 
     public final ContainerData dataAccess = new ContainerData() {
@@ -87,6 +89,9 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         }
     };
 
+    public State state = State.CLOSE;
+    public float progress;
+    public float progressOld;
 
     public OvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
@@ -108,6 +113,17 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
     protected @NotNull AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory) {
         return new OvenMenu(pContainerId, pInventory,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition),this, this.dataAccess);
     }
+
+//    @Override
+//    public CompoundTag getUpdateTag() {
+//        CompoundTag tag = new CompoundTag();
+//        tag.put("Inventory",itemHandler.serializeNBT());
+//        return tag;
+//    }
+
+//    public ItemStackHandler getItemHandler(){
+//        return itemHandler;
+//    }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
@@ -159,6 +175,24 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         loadVersion = pTag.getInt("LoadVersion");
     }
 
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag pTag = new CompoundTag();
+        pTag.put("Inventory", itemHandler.serializeNBT());
+        pTag.putIntArray("cooking_times", this.cooking_times);
+        pTag.putIntArray("max_cooking_times", this.max_cooking_times);
+        pTag.putIntArray("min_temperatures", this.min_temperatures);
+        pTag.putIntArray("max_temperatures", this.max_temperatures);
+        pTag.putInt("temperature", this.temperature);
+        pTag.putInt("LoadVersion", 23);
+        return pTag;
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
     private boolean isMigration(CompoundTag tag){
         if (!tag.contains("LoadVersion")){
             return true;
@@ -188,9 +222,64 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         lazyItemHandlers.invalidate();
     }
 
+    public float getProgress(float pPartialTicks) {
+        return Mth.lerp(pPartialTicks, this.progressOld, this.progress);
+    }
+
     @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
+    public boolean triggerEvent(int pId, int pType) {
+        if (pId == 0) {
+            if (pType == 0) {
+                this.state = OvenBlockEntity.State.OPEN_PROCESS;
+            }
+            if (pType == 1) {
+                this.state = OvenBlockEntity.State.CLOSE_PROCESS;
+            }
+            doNeighborUpdates(this.getLevel(), this.worldPosition, this.getBlockState());
+            return true;
+        } else {
+            return super.triggerEvent(pId, pType);
+        }
+    }
+
+    private static void doNeighborUpdates(Level pLevel, BlockPos pPos, BlockState pState) {
+        pState.updateNeighbourShapes(pLevel, pPos, 3);
+    }
+
+    public static void clientTick(Level level, BlockPos pos, BlockState state, OvenBlockEntity blockEntity){
+        blockEntity.progressOld = blockEntity.progress;
+        if (!state.getValue(OvenBlock.LIT)) {
+            switch (blockEntity.state) {
+                case OPEN_PROCESS:
+                    blockEntity.progress += 0.25F;
+                    if (blockEntity.progress >= 1.0F) {
+                        blockEntity.progress = 1.0F;
+                        blockEntity.state = OvenBlockEntity.State.OPEN;
+                    }
+                    break;
+                case OPEN:
+                    blockEntity.progress = 1.0F;
+                    break;
+                case CLOSE_PROCESS:
+                    blockEntity.progress -= 0.25F;
+                    if (blockEntity.progress <= 0F) {
+                        blockEntity.progress = 0F;
+                        blockEntity.state = OvenBlockEntity.State.CLOSE;
+                    }
+                    break;
+                case CLOSE:
+                    blockEntity.progress = 0.0F;
+                    break;
+            }
+        }else {
+            if (blockEntity.progress > 0F){
+                blockEntity.progress -= 0.25F;
+            }
+            if (blockEntity.progress <= 0){
+                blockEntity.progress = 0F;
+            }
+            blockEntity.state = OvenBlockEntity.State.CLOSE;
+        }
     }
 
     public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, OvenBlockEntity pOvenBlockEntity) {
@@ -393,5 +482,10 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
       return /*pStack.is(BakeriesItemTag.RAE_FOOD) &&*/ itemHandler.getStackInSlot(pIndex).isEmpty();
     }
 
-
+    public enum State {
+        OPEN_PROCESS,
+        OPEN,
+        CLOSE_PROCESS,
+        CLOSE,
+    }
 }

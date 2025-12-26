@@ -62,13 +62,9 @@ public class ColdDrinkItem extends RepeatEatItem{
     }
 
     @Override
-    void eat(ItemStack pStack, Level level, LivingEntity pLivingEntity, Vec3 vec3) {
-        level.gameEvent(pLivingEntity, GameEvent.EAT, vec3);
-        if (this.isEdible() && pLivingEntity instanceof Player player){
-            player.getFoodData().eat(this.asItem(), this.getDefaultInstance());
-        }
+    public void rEat(Level level, ItemStack food, LivingEntity living) {
         if (this.isThirst()) {
-            CompoundTag compoundTag = pLivingEntity.serializeNBT();
+            CompoundTag compoundTag = living.serializeNBT();
             if (compoundTag.getCompound("ForgeCaps").getCompound("thirst:thirst").contains("thirst") && compoundTag.getCompound("ForgeCaps").getCompound("thirst:thirst").contains("quenched")) {
                 int nbtThirst = compoundTag.getCompound("ForgeCaps").getCompound("thirst:thirst").getInt("thirst");
                 int thirst = getThirst() + nbtThirst > 20 ? 20 - nbtThirst : getThirst();
@@ -76,7 +72,7 @@ public class ColdDrinkItem extends RepeatEatItem{
                 int quenched = getQuenched() + nbtQuenched > 20 ? 20 - nbtThirst : getQuenched();
                 compoundTag.getCompound("ForgeCaps").getCompound("thirst:thirst").putInt("thirst", nbtThirst + thirst);
                 compoundTag.getCompound("ForgeCaps").getCompound("thirst:thirst").putInt("quenched", nbtQuenched + quenched);
-                pLivingEntity.deserializeNBT(compoundTag);
+                living.deserializeNBT(compoundTag);
             }
         }
     }

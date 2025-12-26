@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -55,7 +56,7 @@ public class FlourSieveItem extends Item {
             if (recipe.isPresent()) {
                 if (!player.getAbilities().instabuild) {
                     mainHandItem.shrink(1);
-                    pStack.hurt(1, RandomSource.create(), null);
+                    pStack.hurtAndBreak(1,pLivingEntity, (p_41300_) -> p_41300_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }
                 player.getInventory().placeItemBackInInventory(recipe.get().getResultItem(null));
             }

@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.block;
 import com.renyigesai.bakeries.block.cake.CakeRollProcessingBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -38,6 +39,7 @@ public class SiliconePaperBlock extends HorizontalDirectionalBlock {
         if (hand.is(BakeriesItems.CUT_CAKE_BASE.get())){
             Direction facing = pState.getValue(FACING);
             pLevel.setBlock(pPos,BakeriesBlocks.CAKE_ROLL_PROCESSING.get().defaultBlockState().setValue(CakeRollProcessingBlock.FACING,facing),3);
+            ItemUtil.shrink(hand,1,pPlayer);
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

@@ -9,10 +9,10 @@ import java.util.List;
 
 public class InstanceCakeBlock extends BCakeBlock {
     public InstanceCakeBlock(int foodLevelModifier, float saturationLevelModifier) {
-        super(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel((l) -> 1), foodLevelModifier, saturationLevelModifier);
+        super(CAKE.lightLevel((l) -> 1), foodLevelModifier, saturationLevelModifier);
     }
 
     public InstanceCakeBlock(List<LazyMobEffectInstance> effects, int foodLevelModifier, float saturationLevelModifier) {
-        super(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel((l) -> 1), effects, foodLevelModifier, saturationLevelModifier);
+        super(CAKE.lightLevel((l) -> 1), effects, foodLevelModifier, saturationLevelModifier);
     }
 }

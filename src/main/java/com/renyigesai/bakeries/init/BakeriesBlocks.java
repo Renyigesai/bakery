@@ -114,6 +114,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> RED_VELVET_CAKE;
     public static final RegistryObject<Block> SALMON_SANDWICH;
     public static final RegistryObject<Block> PINEAPPLE_OIL;
+    public static final RegistryObject<Block> FLAT_CROISSANT;
 
     //common
     public static final RegistryObject<Block> OVEN;
@@ -217,9 +218,9 @@ public class BakeriesBlocks {
         ROUND_BREAD = BLOCK_REGISTRY.register("round_bread", PileBlock::new);
         SALT_CROISSANT = BLOCK_REGISTRY.register("salt_croissant", PileBlock::new);
         TOAST = BLOCK_REGISTRY.register("toast", () ->
-                new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_TOAST));
+                new ToastBlock(BlockBehaviour.Properties.of().sound(PileBlock.PASTRY).strength(0.5F,0.5F), BakeriesItems.SLICED_TOAST));
         CHEESE_COCOA_TOAST = BLOCK_REGISTRY.register("cheese_cocoa_toast", () ->
-                new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F), BakeriesItems.SLICED_CHEESE_COCOA_TOAST));
+                new ToastBlock(BlockBehaviour.Properties.of().sound(PileBlock.PASTRY).strength(0.5F,0.5F), BakeriesItems.SLICED_CHEESE_COCOA_TOAST));
         BERRY_BREAD = BLOCK_REGISTRY.register("berry_bread", PileBlock::new);
         MEAT_FLOSS_BREAD_ROLL = BLOCK_REGISTRY.register("meat_floss_bread_roll", PileBlock::new);
         PIZZA = BLOCK_REGISTRY.register("pizza",()->
@@ -240,7 +241,7 @@ public class BakeriesBlocks {
         CHEESE_CREAM_BREAD = BLOCK_REGISTRY.register("cheese_cream_bread",PileBlock::new);
         SALMON_SANDWICH = BLOCK_REGISTRY.register("salmon_sandwich",PileBlock::new);
         PINEAPPLE_OIL = BLOCK_REGISTRY.register("pineapple_oil",PileBlock::new);
-
+        FLAT_CROISSANT = BLOCK_REGISTRY.register("flat_croissant",PileBlock::new);
         /*蛋糕方块*/
         CUP_CAKE = BLOCK_REGISTRY.register("cup_cake",PileBlock::new);
 
@@ -261,7 +262,7 @@ public class BakeriesBlocks {
 
         SOAK_COFFEE_CUT_CAKE_BASE = BLOCK_REGISTRY.register("soak_coffee_cut_cake_base", ()-> new CakeProcessingBlock(BakeriesItems.CHEESE_CREAM,BakeriesItems.SOAK_COFFEE_CUT_CAKE_BASE,BakeriesItems.CHEESE_CREAM,BakeriesItems.COCOA_POWDER,TIRAMISU));
 
-        POUND_CAKE = BLOCK_REGISTRY.register("pound_cake",()-> new ToastBlock(BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(0.5F,0.5F),BakeriesItems.SLICED_POUND_CAKE));
+        POUND_CAKE = BLOCK_REGISTRY.register("pound_cake",()-> new ToastBlock(BlockBehaviour.Properties.of().sound(PileBlock.PASTRY).strength(0.5F,0.5F),BakeriesItems.SLICED_POUND_CAKE));
 
         CARROT_CAKE = BLOCK_REGISTRY.register("carrot_cake",()-> new InstanceCakeBlock(ItemUtil.addEffects(
                 new LazyMobEffectInstance(()-> MobEffects.NIGHT_VISION,1200)),10,0.25f));
@@ -344,7 +345,7 @@ public class BakeriesBlocks {
         方块实体BlockEntity
         */
         OVEN = BLOCK_REGISTRY.register("oven", ()->new OvenBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
-                .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
+                .sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false).hasPostProcess((bs, br, bp) -> true)));
         OVEN_BLOCK_ENTITY = BLOCK_ENTITY_REGISTRY.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, OVEN.get()).build(null));
 
         CUPBOARD = BLOCK_REGISTRY.register("cupboard",() ->

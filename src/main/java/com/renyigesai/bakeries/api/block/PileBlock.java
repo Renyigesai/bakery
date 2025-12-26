@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.api.block;
 
+import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.util.ItemUtil;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -43,10 +44,11 @@ import java.util.function.Consumer;
 
 @Getter
 public class PileBlock extends HorizontalDirectionalBlock {
+    public static final SoundType PASTRY = new SoundType(1.0F, 1.0F, SoundEvents.WOOL_BREAK, SoundEvents.WOOL_STEP, BakeriesSounds.PASTRY_PLACE.get(), SoundEvents.WOOL_HIT, SoundEvents.WOOL_FALL);
     public static final IntegerProperty integerProperty = IntegerProperty.create("pile", 1, 4);
 
     public PileBlock() {
-        super(BlockBehaviour.Properties.of().strength(0.5F,0.5F).sound(SoundType.WOOL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
+        super(BlockBehaviour.Properties.of().strength(0.5F,0.5F).sound(PASTRY).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(integerProperty, 1));
     }
 

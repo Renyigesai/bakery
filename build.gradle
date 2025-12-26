@@ -180,6 +180,8 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
+//    runtimeOnly fg.deobf("curse.maven:depression-1055915:6584434")
+//    runtimeOnly fg.deobf("curse.maven:architectury-api-419699:5137936")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

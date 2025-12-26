@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.cake;
 
+import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.CakeRollItem;
 import com.renyigesai.bakeries.util.ItemUtil;
@@ -34,7 +35,7 @@ public class CakeRollProcessingBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty ROLL = BooleanProperty.create("roll");
     public CakeRollProcessingBlock() {
-        super(Properties.copy(Blocks.CAKE));
+        super(BCakeBlock.CAKE);
         this.registerDefaultState(this.stateDefinition.any().setValue(ROLL,false).setValue(FACING, Direction.NORTH));
     }
 

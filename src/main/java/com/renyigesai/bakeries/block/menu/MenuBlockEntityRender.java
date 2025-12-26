@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.menu;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -16,6 +17,12 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class MenuBlockEntityRender implements BlockEntityRenderer<MenuBlockEntity> {
+
+    private static final float SIZE = 0.0f;
+    private static final Vec2 V_NORTH = new Vec2(0.5f,0.9375f - SIZE);
+    private static final Vec2 V_SOUTH = new Vec2(0.5f,0.0625f - SIZE);
+    private static final Vec2 V_EAST = new Vec2(0.0625f - SIZE,0.5f);
+    private static final Vec2 V_WEST = new Vec2(0.9375f - SIZE,0.5f);
     public MenuBlockEntityRender(BlockEntityRendererProvider.Context context){
 
     }
@@ -24,30 +31,30 @@ public class MenuBlockEntityRender implements BlockEntityRenderer<MenuBlockEntit
         Direction direction = entity.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
         ItemStackHandler inventory = entity.getInventory();
         int posLong = (int) entity.getBlockPos().asLong();
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            ItemStack stack1 = inventory.getStackInSlot(i);
-            if (!stack1.isEmpty()){
-                poseStack.pushPose();
-                poseStack.translate(0.5,0.5,0.5);
-                float f1 = -direction.toYRot();
-                poseStack.mulPose(Axis.YP.rotationDegrees(f1));
-                boolean vertical = entity.vertical;
-                float f2 = vertical?90:0;
-                poseStack.mulPose(Axis.XP.rotationDegrees(f2));
-                Vec2 itemOff = entity.getItemOffest(i);
-                float f3 = vertical?0.15f:-0.4f;
-                poseStack.translate(itemOff.x,itemOff.y,f3);
-                poseStack.scale(0.4f,0.4f,0.4f);
-                if (entity.getLevel() != null){
-                    Minecraft.getInstance().getItemRenderer().renderStatic(
-                            stack1, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(entity.getLevel(),entity.getBlockPos()),packedOverlay,poseStack,buffer,entity.getLevel(),posLong  + i);
-                }
-                poseStack.popPose();
+        ItemStack stackInSlot = inventory.getStackInSlot(0);
+        if (!stackInSlot.isEmpty()){
+            Vec2 vec2 = transformPositionByDirection(direction);
+            float f1 = -direction.toYRot() - 180f;
+            poseStack.pushPose();
+            poseStack.translate(vec2.x,0.3125,vec2.y);
+            float scale = 0.55f;
+            poseStack.scale(scale,scale,scale);
+            poseStack.mulPose(Axis.YP.rotationDegrees(f1));
+            if (entity.getLevel() != null) {
+                Minecraft.getInstance().getItemRenderer().renderStatic(stackInSlot, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()), packedOverlay, poseStack, buffer, entity.getLevel(), (int) (posLong + 1));
             }
-
+            poseStack.popPose();
         }
-
-
-
     }
+
+    private Vec2 transformPositionByDirection(Direction direction) {
+        return switch (direction){
+            case NORTH -> V_NORTH;
+            case SOUTH -> V_SOUTH;
+            case EAST -> V_EAST;
+            case WEST -> V_WEST;
+            default -> new Vec2(0.0f,0.0f);
+        };
+    }
+
 }

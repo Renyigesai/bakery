@@ -1,8 +1,5 @@
 {
-  "parent": "bakeries:custom/oven",
-  "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakeries:block/oven",
-    "particle": "bakeries:block/oven"
+    "particle": "minecraft:block/iron_block"
   }
 }

@@ -3,23 +3,29 @@ package com.renyigesai.bakeries.item;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.api.item.FoodBlockItem;
 import com.renyigesai.bakeries.util.ItemUtil;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,15 +63,7 @@ public abstract class RepeatEatItem extends FoodBlockItem {
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        if (pStack.getDamageValue() == pStack.getMaxDamage()-1) {
-            eat(pStack, pLevel, pLivingEntity,new Vec3(pLivingEntity.getX(),pLivingEntity.getY(),pLivingEntity.getZ()));
-            addEffect(pLevel,pLivingEntity);
-            return pStack.hasCraftingRemainingItem() && !pStack.getCraftingRemainingItem().isEmpty()? super.finishUsingItem(residue(pStack),pLevel,pLivingEntity): super.finishUsingItem(pStack,pLevel,pLivingEntity);
-        }
-        pStack.hurt(1, RandomSource.create(), null);
-        eat(pStack, pLevel, pLivingEntity,new Vec3(pLivingEntity.getX(),pLivingEntity.getY(),pLivingEntity.getZ()));
-        addEffect(pLevel,pLivingEntity);
-        return pStack;
+        return eat(pLevel,pStack,pLivingEntity);
     }
 
     public static void rHurt(Player entity,ItemStack hand,ItemStack stack){
@@ -85,17 +83,24 @@ public abstract class RepeatEatItem extends FoodBlockItem {
         }
     }
 
-    abstract void eat(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, Vec3 vec3);
+    public void rEat(Level level,ItemStack food,LivingEntity living){
 
-    public void addEffect(Level level, LivingEntity pLivingEntity){
-        List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(new ItemStack(this).getFoodProperties(pLivingEntity)).getEffects();
-        for (Pair<MobEffectInstance, Float> effect : effects) {
-            if (!level.isClientSide && effect.getFirst() != null && level.random.nextFloat() < effect.getSecond()) {
-                pLivingEntity.addEffect(new MobEffectInstance(effect.getFirst()));
-            }
-        }
     }
 
+    public ItemStack eat(Level pLevel, ItemStack pFood,LivingEntity living){
+        if (living instanceof Player player){
+            player.getFoodData().eat(pFood.getItem(),pFood,living);
+            rEat(pLevel,pFood,living);
+            player.awardStat(Stats.ITEM_USED.get(pFood.getItem()));
+            pLevel.playSound((Player)null, living.getX(), living.getY(), living.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, pLevel.random.nextFloat() * 0.1F + 0.9F);
+            if (player instanceof ServerPlayer) {
+                CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, pFood);
+            }
+            pFood.hurt(1,living.getRandom(),null);
+            return pFood.getDamageValue() > pFood.getMaxDamage()-1 ? residue(pFood) : pFood;
+        }
+        return pFood;
+    }
 
     public ItemStack residue(ItemStack stack){
         return stack.getCraftingRemainingItem();

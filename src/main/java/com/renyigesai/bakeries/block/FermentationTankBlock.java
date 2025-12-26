@@ -67,7 +67,7 @@ public class FermentationTankBlock extends TankBlock {
         ItemStack handStack = playerIn.getItemInHand(pHand);
         level.setBlock(pos, state.setValue(WATER,true),0);
         ItemUtil.shrink(handStack,1,playerIn);
-        ItemUtil.givePlayerItem(playerIn,handStack);
+        ItemUtil.givePlayerItem(playerIn,new ItemStack(Items.GLASS_BOTTLE));
         level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }

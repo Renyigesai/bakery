@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.cake;
 
+import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,7 +36,7 @@ public class CakeProcessingBlock extends Block {
     public final int maxStage;
 
     public CakeProcessingBlock(Supplier<Item> mItem_0, Supplier<Item> mItem_1, Supplier<Item> mItem_2, Supplier<Item> mItem_3,Supplier<Block> rBlock, int maxStage) {
-        super(BlockBehaviour.Properties.copy(Blocks.CAKE));
+        super(BCakeBlock.CAKE);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE,0));
         this.mItem_0 = mItem_0;
         this.mItem_1 = mItem_1;

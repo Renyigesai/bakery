@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.cake;
 
+import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
@@ -28,7 +29,7 @@ import java.util.*;
 public class CakeProcessingInitialBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public CakeProcessingInitialBlock() {
-        super(BlockBehaviour.Properties.copy(Blocks.CAKE));
+        super(BCakeBlock.CAKE);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 

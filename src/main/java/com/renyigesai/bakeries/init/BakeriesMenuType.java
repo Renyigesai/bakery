@@ -11,7 +11,6 @@ import com.renyigesai.bakeries.inventory.fermentation_barrel.FermentationBarrelS
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.inventory.oven.OvenScreen;
 
-import com.renyigesai.bakeries.overlay.GlassDrinkCupOverlay;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlags;

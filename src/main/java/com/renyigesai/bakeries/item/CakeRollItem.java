@@ -76,6 +76,7 @@ public class CakeRollItem extends Item {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        TextUtils.addFoodEffectTooltip(pStack, pTooltip, 1.0F);
         pTooltip.add(Component.literal(Component.translatable("item.bakeries.custom_containing.tips").getString()).withStyle(ChatFormatting.BLUE));
         List<ItemStack> inventoryList = getInventoryList(pStack);
         if (!inventoryList.isEmpty()){

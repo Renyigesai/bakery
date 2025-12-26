@@ -269,7 +269,7 @@ public class StoneKilnBlockEntity extends BlockEntity {
     }
 
     private void cookingTick(){
-        Optional<StoneKilnRecipe> currentRecipe = getCurrentRecipe();/*ÓÅÏÈ¼ì²âÊ¯Ò¤Â¯×Ô¼ºµÄÅä·½*/
+        Optional<StoneKilnRecipe> currentRecipe = getCurrentRecipe();/*ä¼˜å…ˆæ£€æµ‹çŸ³çª‘ç‚‰è‡ªå·±çš„é…æ–¹*/
         if (currentRecipe.isPresent()){
             StoneKilnRecipe stoneKilnRecipe = currentRecipe.get();
             if (this.maxCookingTime == 0) {
@@ -281,7 +281,7 @@ public class StoneKilnBlockEntity extends BlockEntity {
             stoneKilnCookingTick(stoneKilnRecipe);
             return;
         }
-        Optional<SmokingRecipe> smokerRecipe = getSmokerRecipe();/*Èç¹ûÕÒ²»µ½,³¢ÊÔ²éÕÒÊÇ·ñÊôÓÚóô»ğÅä·½*/
+        Optional<SmokingRecipe> smokerRecipe = getSmokerRecipe();/*å¦‚æœæ‰¾ä¸åˆ°,å°è¯•æŸ¥æ‰¾æ˜¯å¦å±äºç¯ç«é…æ–¹*/
         if (smokerRecipe.isPresent()){
             SmokingRecipe smokingRecipe = smokerRecipe.get();
             if (this.maxCookingTime == 0) {
@@ -308,8 +308,8 @@ public class StoneKilnBlockEntity extends BlockEntity {
     private void stoneKilnCookingTick(StoneKilnRecipe recipe){
         boolean flag = false;
         boolean flags = false;
-        int[] times = recipe.getTime();/*»ñÈ¡Ê±¼ä½×¶Î*/
-        if (times.length == 1){/*Èç¹ûÖ»ÓĞÒ»¸öÊ±¼ä½×¶Î¼òµ¥´¦ÀíÅëâ¿*/
+        int[] times = recipe.getTime();/*è·å–æ—¶é—´é˜¶æ®µ*/
+        if (times.length == 1){/*å¦‚æœåªæœ‰ä¸€ä¸ªæ—¶é—´é˜¶æ®µç®€å•å¤„ç†çƒ¹é¥ª*/
             if (this.cookingTime < times[0]){
                 this.cookingTime ++;
                 this.size += (float) (0.075/times[0]);
@@ -319,7 +319,7 @@ public class StoneKilnBlockEntity extends BlockEntity {
         }else {
             flags = true;
         }
-        if (flags){/*´¦Àí¶à¸öÊ±¼ä½×¶ÎµÄÅëâ¿Âß¼­*/
+        if (flags){/*å¤„ç†å¤šä¸ªæ—¶é—´é˜¶æ®µçš„çƒ¹é¥ªé€»è¾‘*/
             if (this.cookingTime >= this.maxCookingTime){
                 flag = true;
             }else {
@@ -337,27 +337,8 @@ public class StoneKilnBlockEntity extends BlockEntity {
                         }
                     }
                 }else {
-                    this.isTurnOver = true;/*·­Ãæ±ê¼Ç,ÌáĞÑÍæ¼ÒĞèÒª·­ÃæºóÅëâ¿²Å»á¼ÌĞø*/
+                    this.isTurnOver = true;/*ç¿»é¢æ ‡è®°,æé†’ç©å®¶éœ€è¦ç¿»é¢åçƒ¹é¥ªæ‰ä¼šç»§ç»­*/
                 }
-
-//                for (int i = this.nextStage; i < times.length; i++) {
-//                    this.maxStageCookingTime = times[i];
-//                    if (this.turnOver == i) {
-//                        if (this.stageCookingTime < this.maxStageCookingTime){
-//                            this.stageCookingTime++;
-//                            this.size += (float) (0.075/this.maxStageCookingTime/times.length);
-//                        }else {
-//                            this.cookingTime += stageCookingTime;
-//                            this.stageCookingTime = 0;
-//                            this.maxStageCookingTime = 0;
-//                            if (this.nextStage + 1 < times.length){
-//                                this.nextStage ++;
-//                            }
-//                        }
-//                    } else {
-//                        this.isTurnOver = true;/*·­Ãæ±ê¼Ç,ÌáĞÑÍæ¼ÒĞèÒª·­ÃæºóÅëâ¿²Å»á¼ÌĞø*/
-//                    }
-//                }
             }
         }
         if (flag){

@@ -25,6 +25,7 @@ public class BakeriesGroup {
                         //功能方块/方块/物品
                         output.accept(BakeriesItems.OVEN.get());//烤箱
                         output.accept(BakeriesItems.STONE_KILN.get());//石窑炉
+                        output.accept(BakeriesItems.TOASTER.get());//烤吐司机
                         output.accept(BakeriesItems.BLENDER.get());//搅拌机
                         output.accept(BakeriesItems.MOKA_POT.get());//摩卡壶
                         output.accept(BakeriesItems.MOKA_POT_FILL.get());//装有咖啡的摩卡壶
@@ -102,13 +103,15 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CHEESE_CREAM_BREAD.get());//莓果面包
                         output.accept(BakeriesItems.BROWN_SUGAR_ROLL.get());//红糖卷
                         output.accept(BakeriesItems.PINEAPPLE_BUN.get());//菠萝包
-                        output.accept(BakeriesItems.PINEAPPLE_OIL.get());//菠萝包
+                        output.accept(BakeriesItems.PINEAPPLE_OIL.get());//菠萝油
                         output.accept(BakeriesItems.MEAT_FLOSS_BREAD_ROLL.get());//肉松面包卷
                         output.accept(BakeriesItems.CROISSANT.get());//可颂
+                        output.accept(BakeriesItems.FLAT_CROISSANT.get());//扁可颂
                         output.accept(BakeriesItems.DIRTY_CHOCO_CROISSANT.get());//脏脏包
                         output.accept(BakeriesItems.SALT_CROISSANT.get());//盐可颂
                         output.accept(BakeriesItems.TOAST.get());//吐司
                         output.accept(BakeriesItems.SLICED_TOAST.get());//切片吐司
+                        output.accept(BakeriesItems.BAKE_SLICED_TOAST.get());//烤吐司
                         output.accept(BakeriesItems.HONEY_BUTTER_SPREAD_TOAST.get());//蜂蜜黄油抹吐司
                         output.accept(BakeriesItems.CHEESE_COCOA_TOAST.get());//奶酪可可吐司
                         output.accept(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get());//切片奶酪可可吐司
@@ -137,6 +140,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.TIRAMISU.get());//提拉米苏
                         output.accept(BakeriesItems.CARROT_CAKE.get());//胡萝卜蛋糕
                         output.accept(BakeriesItems.RED_VELVET_CAKE.get());//红丝绒蛋糕
+                        output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕
                         output.accept(BakeriesItems.PIZZA.get());//披萨
                         output.accept(BakeriesItems.CUSTOM_PIZZA.get());//自定义披萨
 //                        output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕

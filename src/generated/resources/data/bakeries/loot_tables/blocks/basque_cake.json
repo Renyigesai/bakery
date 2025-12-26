@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "bakeries:basque_cake"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "bakeries:basque_cake",
+          "properties": {
+            "bites": "0"
+          }
+        }
+      ]
+    }
+  ],
+  "random_sequence": "bakeries:block/basque_cake"
+}

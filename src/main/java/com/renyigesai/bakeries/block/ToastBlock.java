@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
+import com.renyigesai.bakeries.init.BakeriesSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -81,7 +82,7 @@ public class ToastBlock extends AKnifeCutBlock {
 
     protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state){
         level.setBlock(pos,state.setValue(PILE,state.getValue(PILE) + 1),3);
-        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
+        level.playSound(null, pos, BakeriesSounds.PASTRY_PLACE.get(), SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 

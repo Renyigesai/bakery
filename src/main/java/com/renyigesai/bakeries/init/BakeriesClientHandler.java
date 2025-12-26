@@ -1,14 +1,25 @@
 package com.renyigesai.bakeries.init;
 
+import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.block.blender.BlenderRenderer;
 import com.renyigesai.bakeries.block.cake.CakeRollProcessingBlockEntityRender;
 import com.renyigesai.bakeries.block.cake_box.CakeBoxBlockEntityRender;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntityRender;
 import com.renyigesai.bakeries.block.menu.MenuBlockEntityRender;
 import com.renyigesai.bakeries.block.mix_block.MixBlockEntityRender;
+import com.renyigesai.bakeries.block.oven.OvenRender;
 import com.renyigesai.bakeries.block.pizza.PizzaFlatbreadBlockEntityRender;
 import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntityRender;
+import com.renyigesai.bakeries.block.toaster.ToasterBlockEntityRender;
 import com.renyigesai.bakeries.block.wooden_tray.WoodTrayBlockEntityRender;
+import com.renyigesai.bakeries.client.model.BlenderModel;
+import com.renyigesai.bakeries.client.model.OvenModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,11 +28,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class BakeriesClientHandler {
+
     @SubscribeEvent
     public static void onClientEvent(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
 
-        });
     }
     @SubscribeEvent
     public static void onRenders(EntityRenderersEvent.RegisterRenderers event){
@@ -33,5 +43,14 @@ public class BakeriesClientHandler {
         event.registerBlockEntityRenderer(BakeriesBlocks.PIZZA_FLATBREAD_ENTITY.get(), PizzaFlatbreadBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.MIX_BLOCK_ENTITY.get(), MixBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.LUMINOUS_LIGHT_SIGN_ENTITY.get(), LuminousLightSignBlockEntityRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.TOASTER_ENTITY.get(), ToasterBlockEntityRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.BLENDER_ENTITY.get(), BlenderRenderer::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.OVEN_BLOCK_ENTITY.get(), OvenRender::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(BlenderModel.BLENDER, BlenderModel::createBodyLayer);
+        event.registerLayerDefinition(OvenModel.OVEN, OvenModel::createBodyLayer);
     }
 }

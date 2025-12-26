@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "bakeries:flat_croissant"
+    },
+    "title": {
+      "translate": "advancements.get_flat_croissant.title"
+    },
+    "description": {
+      "translate": "advancements.get_flat_croissant.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "witness_anvil_fall": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "bakeries:root"
+}

@@ -57,11 +57,6 @@ public class MenuBlock extends BaseEntityBlock {
                 playSound(level,pos,SoundEvents.ITEM_FRAME_ADD_ITEM);
                 return InteractionResult.SUCCESS;
             }else if (!menuBlockEntity.inventory.getStackInSlot(0).isEmpty()){
-                if (!pPlayer.isShiftKeyDown()){
-                    menuBlockEntity.vertical = !menuBlockEntity.vertical;
-                    playSound(level,pos,SoundEvents.ITEM_FRAME_ROTATE_ITEM);
-                    return InteractionResult.SUCCESS;
-                }
                 menuBlockEntity.deleteItem(level,pos,pState);
                 level.sendBlockUpdated(pos,pState,pState,3);
                 playSound(level,pos,SoundEvents.ITEM_FRAME_REMOVE_ITEM);

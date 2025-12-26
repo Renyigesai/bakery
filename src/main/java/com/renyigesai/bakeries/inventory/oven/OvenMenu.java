@@ -78,6 +78,7 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
                 this.addSlot(new Slot(inv, sj + (si + 1) * 9, 8 + sj * 18, 84 + si * 18));
         for (int si = 0; si < 9; ++si)
             this.addSlot(new Slot(inv, si, 8 + si * 18, 142));
+        boundBlockEntity.getLevel().blockEvent(boundBlockEntity.getBlockPos(),boundBlockEntity.getBlockState().getBlock(), 0,0);
     }
 
     @Override
@@ -135,4 +136,9 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
         return customSlots;
     }
 
+    @Override
+    public void removed(Player pPlayer) {
+        super.removed(pPlayer);
+        boundBlockEntity.getLevel().blockEvent(boundBlockEntity.getBlockPos(),boundBlockEntity.getBlockState().getBlock(), 0,1);
+    }
 }

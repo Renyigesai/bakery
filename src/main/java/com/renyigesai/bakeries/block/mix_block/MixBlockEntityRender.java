@@ -72,7 +72,8 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
         poseStack.translate(transformedPosition.x, 0.125, transformedPosition.y);
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation - 15));
         poseStack.mulPose(Axis.XP.rotationDegrees(0));
-        poseStack.scale(0.5f, 0.5f, 0.5f);
+        float size = 0.55f;
+        poseStack.scale(size, size, size);
         if (entity.getLevel() != null) {
             if (isBlock) {
                 BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();

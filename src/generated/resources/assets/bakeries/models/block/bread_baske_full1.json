@@ -1,9 +1,0 @@
-{
-	"parent": "bakeries:custom/bread_baske_full1",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"0": "bakeries:block/bread_baske",
-		"1": "bakeries:block/baguette_16x",
-		"particle": "bakeries:block/bread_baske"
-	}
-}

@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.cake;
 
+import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
@@ -30,7 +31,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MultiLayerCreamCakeBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
     public MultiLayerCreamCakeBlock() {
-        super(BlockBehaviour.Properties.copy(Blocks.CAKE).lightLevel((l) -> 1));
+        super(BCakeBlock.CAKE.lightLevel((l) -> 1));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 

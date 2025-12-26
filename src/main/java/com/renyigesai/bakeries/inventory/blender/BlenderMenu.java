@@ -2,8 +2,12 @@ package com.renyigesai.bakeries.inventory.blender;
 
 import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
+import com.renyigesai.bakeries.init.BakeriesSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -28,7 +32,6 @@ public class BlenderMenu extends AbstractContainerMenu {
         this.blockEntity = blockEntity;
         this.player = playerInventory.player;
         this.playerInventory = new InvWrapper(playerInventory);
-
         // 添加输入槽 (0-8)
         int ix = 54;
         int iy = 17;
@@ -54,6 +57,15 @@ public class BlenderMenu extends AbstractContainerMenu {
             addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 51));
         // 添加玩家物品栏
         addPlayerSlots(8,84);
+        blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(), 0,0);
+    }
+
+    @Override
+    public boolean canTakeItemForPickAll(ItemStack pStack, Slot pSlot) {/*2025/12/14新增 防止双击堆叠全部复制过滤槽物品*/
+        if (pSlot instanceof SlotItemHandler slotItemHandler){
+            return slotItemHandler.getItemHandler() != blockEntity.getFiltrationinventory();
+        }
+        return false;
     }
 
     public static BlenderMenu create(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
@@ -134,6 +146,15 @@ public class BlenderMenu extends AbstractContainerMenu {
         }
 
         return originalStack;
+    }
+
+    @Override
+    public void removed(Player pPlayer) {
+        super.removed(pPlayer);
+        blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(), 0,1);
+        if (blockEntity.getLevel() instanceof ServerLevel serverLevel){
+            serverLevel.playSound(null,blockEntity.getBlockPos(), SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS);
+        }
     }
 
     @Override
