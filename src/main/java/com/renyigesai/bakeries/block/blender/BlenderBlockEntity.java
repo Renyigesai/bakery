@@ -1,20 +1,25 @@
 package com.renyigesai.bakeries.block.blender;
 
+import com.renyigesai.bakeries.api.block.BakeriesWorkBlock;
 import com.renyigesai.bakeries.api.block.WrappedHandler;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.util.ItemUtil;
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
@@ -41,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class BlenderBlockEntity extends BaseContainerBlockEntity {
+public class BlenderBlockEntity extends BaseContainerBlockEntity implements BakeriesWorkBlock {
 
     private static final int CONTAINER_SLOT = 9;
     private static final int OUTPUT_SLOT = 10;
@@ -96,7 +101,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory playerInventory) {
-        return new BlenderMenu(containerId, playerInventory, this);
+        return new BlenderMenu(containerId, playerInventory, this.worldPosition,this);
     }
 
     @Override
@@ -463,6 +468,16 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             }
         }
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public SoundEvent getOpenSound() {
+        return SoundEvents.IRON_TRAPDOOR_OPEN;
+    }
+
+    @Override
+    public SoundEvent getCloseSound() {
+        return SoundEvents.IRON_TRAPDOOR_CLOSE;
     }
 
     public enum State {

@@ -26,4 +26,5 @@ public class BakeriesSounds {
     public static final RegistryObject<SoundEvent> TOASTER_IN = registerSoundEvents("block.generic.toaster_in");
     public static final RegistryObject<SoundEvent> TOASTER_OUT = registerSoundEvents("block.generic.toaster_out");
     public static final RegistryObject<SoundEvent> PASTRY_PLACE = registerSoundEvents("block.generic.pastry_place");
+    public static final RegistryObject<SoundEvent> STEEL_PIPE = registerSoundEvents("block.generic.steel_pipe");
 }

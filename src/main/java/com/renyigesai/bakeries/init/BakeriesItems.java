@@ -400,7 +400,7 @@ public class BakeriesItems {
         HONEY_BUTTER_SPREAD_COUNTRY_BREAD = REGISTER.register("honey_butter_spread_country_bread",()-> new HoneyFoodItem(new Item.Properties().food(BakeriesFoodProperties.HONEY_BUTTER_SPREAD_COUNTRY_BREAD)));
         BAGEL_FILLED_SAUCE = foodBlockItem(BakeriesBlocks.BAGEL_FILLED_SAUCE,BakeriesFoodProperties.BAGEL_FILLED_SAUCE,ItemUtil.ADVANCED);
         PINEAPPLE_OIL = foodBlockItem(BakeriesBlocks.PINEAPPLE_OIL,BakeriesFoodProperties.PINEAPPLE_OIL,true,false,ItemUtil.ADVANCED);
-        FLAT_CROISSANT = foodBlockItem(BakeriesBlocks.FLAT_CROISSANT,BakeriesFoodProperties.CROISSANT,true,false,ItemUtil.ADVANCED);
+        FLAT_CROISSANT = foodBlockItem(BakeriesBlocks.FLAT_CROISSANT,BakeriesFoodProperties.FLAT_CROISSANT,true,false,ItemUtil.ADVANCED);
 
         /*
         蛋糕物品

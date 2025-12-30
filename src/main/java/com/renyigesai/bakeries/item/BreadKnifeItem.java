@@ -5,6 +5,7 @@ import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -83,9 +84,10 @@ public class BreadKnifeItem extends DiggerItem {
         Optional<BreadKnifeRecipe> recipeOptional = getCurrentRecipe(pLevel,resultItemEntity.getItem());
         if (recipeOptional.isPresent()){
             BreadKnifeRecipe recipe = recipeOptional.get();
-            ItemStack resultItemStack = recipe.getResultItem(pLevel.registryAccess()).copy();
+            ItemStack resultItemStack = recipe.getResultItem(pLevel.registryAccess());
             hand.hurtAndBreak(1, pPlayer, (p_41300_) -> p_41300_.broadcastBreakEvent(pUsedHand));
-            ItemUtil.spawnItemEntity(pLevel, resultItemStack, x,y,z, new Vec3(0.0,0.0,0.0));
+            recipe.getOutput().forEach((item)->{ItemUtil.spawnItemEntity(pLevel,item,x,y,z,Vec3.ZERO);});
+//            ItemUtil.spawnItemEntity(pLevel, resultItemStack, x,y,z, new Vec3(0.0,0.0,0.0));
             pLevel.addParticle(new ItemParticleOption(ParticleTypes.ITEM,resultItemStack),x,y+0.5,z,((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D);
             pLevel.playSound(null,new BlockPos((int) x,(int)y,(int)z),SoundEvents.WOOL_BREAK, SoundSource.BLOCKS);
             resultItemEntity.remove(Entity.RemovalReason.KILLED);
@@ -167,6 +169,10 @@ public class BreadKnifeItem extends DiggerItem {
                 }
             }
         }
+    }
+
+    private void dropAll(NonNullList<ItemStack> stacks){
+
     }
 
     private Optional<BreadKnifeRecipe> getCurrentRecipe(Level level, ItemStack stack) {

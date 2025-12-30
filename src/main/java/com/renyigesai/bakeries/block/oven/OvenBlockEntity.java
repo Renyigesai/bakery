@@ -1,8 +1,10 @@
 package com.renyigesai.bakeries.block.oven;
 
+import com.renyigesai.bakeries.api.block.BakeriesWorkBlock;
 import com.renyigesai.bakeries.block.blender.BlenderBlock;
 import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import io.netty.buffer.Unpooled;
@@ -12,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -38,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class OvenBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
+public class OvenBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, BakeriesWorkBlock {
     private final ItemStackHandler itemHandler = new ItemStackHandler(6){
         @Override
         public int getSlotLimit(int slot) {
@@ -113,17 +116,6 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
     protected @NotNull AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory) {
         return new OvenMenu(pContainerId, pInventory,  new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition),this, this.dataAccess);
     }
-
-//    @Override
-//    public CompoundTag getUpdateTag() {
-//        CompoundTag tag = new CompoundTag();
-//        tag.put("Inventory",itemHandler.serializeNBT());
-//        return tag;
-//    }
-
-//    public ItemStackHandler getItemHandler(){
-//        return itemHandler;
-//    }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
@@ -363,8 +355,17 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
                         ovenBlockEntity.itemHandler.setStackInSlot(slot, new ItemStack(Items.CHARCOAL, 1));
                     }
                     world.sendBlockUpdated(pos, state, state, 3);
-                    world.playSound(null, pos, SoundEvents.NOTE_BLOCK_BELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                     resetProgress(ovenBlockEntity, slot);
+                    boolean playSound = true;
+                    for (int i = 0; i < ovenBlockEntity.cooking_times.length; i++) {
+                        if (ovenBlockEntity.cooking_times[i] != 0) {
+                            playSound = false;
+                            break;
+                        }
+                    }
+                    if (playSound){
+                        world.playSound(null, pos, SoundEvents.NOTE_BLOCK_BELL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
                 }
             }
         } else {
@@ -480,6 +481,16 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
 
     public boolean canPlaceItem(int pIndex, @NotNull ItemStack pStack) {
       return /*pStack.is(BakeriesItemTag.RAE_FOOD) &&*/ itemHandler.getStackInSlot(pIndex).isEmpty();
+    }
+
+    @Override
+    public SoundEvent getOpenSound() {
+        return BakeriesSounds.OVEN_OPEN.get();
+    }
+
+    @Override
+    public SoundEvent getCloseSound() {
+        return SoundEvents.IRON_TRAPDOOR_CLOSE;
     }
 
     public enum State {

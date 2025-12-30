@@ -73,12 +73,14 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
         }
 
 
-        for (int si = 0; si < 3; ++si)
-            for (int sj = 0; sj < 9; ++sj)
-                this.addSlot(new Slot(inv, sj + (si + 1) * 9, 8 + sj * 18, 84 + si * 18));
-        for (int si = 0; si < 9; ++si)
-            this.addSlot(new Slot(inv, si, 8 + si * 18, 142));
-        boundBlockEntity.getLevel().blockEvent(boundBlockEntity.getBlockPos(),boundBlockEntity.getBlockState().getBlock(), 0,0);
+//        for (int si = 0; si < 3; ++si)
+//            for (int sj = 0; sj < 9; ++sj)
+//                this.addSlot(new Slot(inv, sj + (si + 1) * 9, 8 + sj * 18, 84 + si * 18));
+//        for (int si = 0; si < 9; ++si)
+//            this.addSlot(new Slot(inv, si, 8 + si * 18, 142));
+
+        addPlayerSlots(8,84,inv);
+//        boundBlockEntity.getLevel().blockEvent(boundBlockEntity.getBlockPos(),boundBlockEntity.getBlockState().getBlock(), 0,0);
     }
 
     @Override
@@ -111,6 +113,14 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
         }
 
         return originalStack;
+    }
+
+    protected void addPlayerSlots(int x, int y,Inventory inventory) {
+        for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot)
+            this.addSlot(new Slot(inventory, hotbarSlot, x + hotbarSlot * 18, y + 58));
+        for (int row = 0; row < 3; ++row)
+            for (int col = 0; col < 9; ++col)
+                this.addSlot(new Slot(inventory, col + row * 9 + 9, x + col * 18, y + row * 18));
     }
 
     @Override

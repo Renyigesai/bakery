@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.renyigesai.bakeries.BakeriesMod;
@@ -15,14 +16,17 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
+
+import java.util.Iterator;
 
 public class BreadKnifeRecipe implements Recipe<SimpleContainer> {
 
-    private final NonNullList<Ingredient> inputItems;
-    private final ItemStack output;
+    private final Ingredient inputItems;
+    private final NonNullList<ItemStack> output;
     private final ResourceLocation id;
 
-    public BreadKnifeRecipe(NonNullList<Ingredient> ingredient, ItemStack output, ResourceLocation id) {
+    public BreadKnifeRecipe(Ingredient ingredient, NonNullList<ItemStack> output, ResourceLocation id) {
         this.inputItems = ingredient;
         this.output = output;
         this.id = id;
@@ -31,17 +35,23 @@ public class BreadKnifeRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        return this.inputItems.get(0).test(pContainer.getItem(0));
+        return this.inputItems.test(pContainer.getItem(0));
     }
 
     @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
-        return output.copy();
+        return output.get(0).copy();
     }
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        return inputItems;
+        NonNullList<Ingredient> nonnulllist = NonNullList.create();
+        nonnulllist.add(this.inputItems);
+        return nonnulllist;
+    }
+
+    public NonNullList<ItemStack> getOutput() {
+        return output;
     }
 
     @Override
@@ -51,7 +61,7 @@ public class BreadKnifeRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-        return output.copy();
+        return output.get(0);
     }
 
     @Override
@@ -80,37 +90,44 @@ public class BreadKnifeRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public BreadKnifeRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-
-            // 动态获取原料数量
+            JsonArray output = GsonHelper.getAsJsonArray(pSerializedRecipe, "output");
+            NonNullList<ItemStack> outputs = readResults(output);
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.create();
             inputs.add(Ingredient.fromJson(ingredients.get(0)));
 
-            return new BreadKnifeRecipe(inputs,output,pRecipeId);
+            return new BreadKnifeRecipe(inputs.get(0),outputs,pRecipeId);
+        }
+
+        private static NonNullList<ItemStack> readResults(JsonArray resultArray) {
+            NonNullList<ItemStack> results = NonNullList.create();
+            Iterator var2 = resultArray.iterator();
+            while(var2.hasNext()) {
+                JsonObject result = (JsonObject)var2.next();
+                results.add(ShapedRecipe.itemStackFromJson(result));
+            }
+
+            return results;
         }
 
         @Override
         public @Nullable BreadKnifeRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int ingredientCount = pBuffer.readInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-            if (inputs.size() > 1){
-                throw new JsonParseException("Too many ingredients for bread knife recipe! The max is 1");
-            }else {
-                inputs.set(0, Ingredient.fromNetwork(pBuffer));
-                ItemStack output = pBuffer.readItem();
-                return new BreadKnifeRecipe(inputs, output,pRecipeId);
+            Ingredient ingredient = Ingredient.fromNetwork(pBuffer);
+            int outputCount = pBuffer.readVarInt();
+            NonNullList<ItemStack> outputs = NonNullList.withSize(outputCount, ItemStack.EMPTY);
+            for (int i = 0; i < outputCount; ++i) {
+                outputs.set(i, pBuffer.readItem());
             }
+            return new BreadKnifeRecipe(ingredient, outputs, pRecipeId);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, BreadKnifeRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
+            pRecipe.inputItems.toNetwork(pBuffer);
+            pBuffer.writeVarInt(pRecipe.output.size());
+            for (ItemStack stack : pRecipe.output) {
+                pBuffer.writeItem(stack);
             }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
         }
     }
 }

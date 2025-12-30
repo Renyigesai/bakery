@@ -1,9 +1,12 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.network.SwitchButtonMessage;
+import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -11,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -24,9 +28,12 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
    private boolean scrolling;
    private int startIndex;
    private boolean displayRecipes;
+   public int x,y,z;
+   private final Inventory pPlayerInventory;
    public DoughCraftingTableScreen(DoughCraftingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);
-      pMenu.registerUpdateListener(this::containerChanged);
+       this.pPlayerInventory = pPlayerInventory;
+       pMenu.registerUpdateListener(this::containerChanged);
       --this.titleLabelY;
    }
    public void render(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
@@ -145,6 +152,18 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          this.scrollOffs = 0.0F;
          this.startIndex = 0;
       }
+   }
 
+   @Override
+   protected void init() {
+      super.init();
+      for (int i = 0; i < 3; i++) {
+         int finalI = i;
+         ImageButton button = new ImageButton(this.leftPos + i * 17, this.topPos - 17, 18, 18, 0, 0, 1, new ResourceLocation(BakeriesMod.MODID, "textures/gui/switch_button_" + (i + 1) + ".png"), 18, 18, e -> {
+            Player player = pPlayerInventory.player;
+            Messages.sendToServer(new SwitchButtonMessage(finalI,player.getBlockX(),player.getBlockY(),player.getBlockZ()));
+         });
+         this.addRenderableWidget(button);
+      }
    }
 }

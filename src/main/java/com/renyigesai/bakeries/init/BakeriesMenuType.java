@@ -34,6 +34,8 @@ public class BakeriesMenuType {
 			create("oven_menu", OvenMenu::new);
 	public static final RegistryObject<MenuType<DoughCraftingTableMenu>> DOUGH_CRAFTING_TABLE_MENU =
 			register("dough_crafting_table_menu", DoughCraftingTableMenu::new);
+
+
 	private static<T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(String pKey, MenuType.MenuSupplier<T> pFactory) {
 		return REGISTRY.register(pKey, () -> new MenuType<>(pFactory, FeatureFlags.VANILLA_SET));
 	}

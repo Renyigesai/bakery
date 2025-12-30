@@ -61,5 +61,11 @@
       "bakeries:pastry_place1",
       "bakeries:pastry_place2"
     ]
+  },
+  "block.generic.steel_pipe": {
+    "subtitle":"block.generic.steel_pipe",
+    "sounds": [
+      "bakeries:steel_pipe"
+    ]
   }
 }

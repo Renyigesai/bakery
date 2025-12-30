@@ -5,8 +5,10 @@
       "item": "bakeries:cake_base"
     }
   ],
-  "output": {
-    "item": "bakeries:cut_cake_base",
-    "count": 2
-  }
+  "output": [
+    {
+      "item": "bakeries:cut_cake_base",
+      "count": 2
+    }
+  ]
 }

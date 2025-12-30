@@ -45,6 +45,11 @@ public class Messages {
                 .encoder(OvenButtonMessage::toBytes)
                 .consumerMainThread(OvenButtonMessage::handle)
                 .add();
+        net.messageBuilder(SwitchButtonMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SwitchButtonMessage::new)
+                .encoder(SwitchButtonMessage::toBytes)
+                .consumerMainThread(SwitchButtonMessage::handle)
+                .add();
         net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(FluidSyncS2CPacket::new)
                 .encoder(FluidSyncS2CPacket::toBytes)

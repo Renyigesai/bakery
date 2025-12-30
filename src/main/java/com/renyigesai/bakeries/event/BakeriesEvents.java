@@ -1,14 +1,11 @@
 package com.renyigesai.bakeries.event;
 
+import com.google.common.collect.ImmutableMap;
 import com.renyigesai.bakeries.accessor.VillagerAccessor;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
-import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
-import com.renyigesai.bakeries.block.menu.MenuBlockEntity;
-import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntity;
 import com.renyigesai.bakeries.client.LookBlockEntityMap;
 import com.renyigesai.bakeries.config.BakeriesConfig;
-import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.RepeatEatItem;
 import com.renyigesai.bakeries.util.ItemUtil;
@@ -19,7 +16,6 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -29,15 +25,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,10 +39,10 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber
 public class BakeriesEvents {
+
     @SubscribeEvent
     public static void onUseCreeper(PlayerInteractEvent.EntityInteract event){
         Player entity = event.getEntity();
@@ -113,19 +107,11 @@ public class BakeriesEvents {
         Player player = event.getPlayer();
         BlockState state = event.getBlockState();
         BlockPos blockPos = event.getBlockPos();
-        if (state.getBlock() == BakeriesBlocks.DRINK_CUP.get()){
-            GlassDrinkCupBlockEntity blockEntity = (GlassDrinkCupBlockEntity) level.getBlockEntity(blockPos);
-            LookBlockEntityMap.setBlocks(player,blockEntity);
-            return;
-        }
-        if (state.getBlock() == BakeriesBlocks.STONE_KILN.get()){
-            StoneKilnBlockEntity blockEntity = (StoneKilnBlockEntity) level.getBlockEntity(blockPos);
-            LookBlockEntityMap.setBlocks(player,blockEntity);
-            return;
-        }
-        if (state.getBlock() == BakeriesBlocks.MENU_BLOCK.get()){
-            MenuBlockEntity blockEntity = (MenuBlockEntity ) level.getBlockEntity(blockPos);
-            LookBlockEntityMap.setBlocks(player,blockEntity);
+        ImmutableMap<Block, Class<? extends BlockEntity>> map = LookBlockEntityMap.getRegister();
+        Class<? extends BlockEntity> aClass = map.get(state.getBlock());
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if (aClass != null && aClass.isInstance(blockEntity)){
+            LookBlockEntityMap.setBlocks(player,aClass.cast(blockEntity));
             return;
         }
         Map<UUID, BlockEntity> blocks = LookBlockEntityMap.getBlocks();

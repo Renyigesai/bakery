@@ -1,10 +1,12 @@
 package com.renyigesai.bakeries.block.dough_crafting_table;
 
+import com.renyigesai.bakeries.api.block.BakeriesWorkBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,7 +20,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEntity {
+public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEntity implements BakeriesWorkBlock {
     private NonNullList<ItemStack> items = NonNullList.withSize(27,ItemStack.EMPTY);
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
@@ -99,4 +101,13 @@ public class DoughCraftingTableBlockEntity extends RandomizableContainerBlockEnt
         }
     }
 
+    @Override
+    public SoundEvent getOpenSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getCloseSound() {
+        return null;
+    }
 }

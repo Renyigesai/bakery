@@ -5,8 +5,10 @@
       "item": "bakeries:toast"
     }
   ],
-  "output": {
-    "item": "bakeries:sliced_toast",
-    "count": 4
-  }
+  "output": [
+    {
+      "item": "bakeries:sliced_toast",
+      "count": 4
+    }
+  ]
 }

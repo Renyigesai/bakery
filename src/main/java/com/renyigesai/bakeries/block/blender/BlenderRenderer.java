@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.block.blender;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.client.model.BlenderModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -11,6 +12,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+import java.util.Calendar;
 
 public class BlenderRenderer implements BlockEntityRenderer<BlenderBlockEntity> {
     private final BlenderModel<?> model;
@@ -30,7 +33,11 @@ public class BlenderRenderer implements BlockEntityRenderer<BlenderBlockEntity> 
         pPoseStack.scale(0.9995F, 0.9995F, 0.9995F);
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         this.model.getUp().xRot = (float) Math.toRadians(blender.getProgress(pPartialTick) * -25);
-        this.model.getHead().yRot = (float) Math.toRadians(blender.getRprogress(pPartialTick) * 360);
+        if (!BakeriesMod.aprilFoolsDay){
+            this.model.getHead().yRot = (float) Math.toRadians(blender.getRprogress(pPartialTick) * 360);
+        }else {
+            this.model.getAll().yRot = (float) Math.toRadians(blender.getRprogress(pPartialTick) * 360);
+        }
         this.model.renderToBuffer(pPoseStack, vertexConsumer, i, i1, 1.0F, 1.0F, 1.0F, 1.0F);
         pPoseStack.popPose();
     }

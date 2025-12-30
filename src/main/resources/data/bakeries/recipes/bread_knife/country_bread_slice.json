@@ -5,8 +5,10 @@
       "item": "bakeries:country_bread"
     }
   ],
-  "output": {
-    "item": "bakeries:country_bread_slice",
-    "count": 6
-  }
+  "output": [
+    {
+      "item": "bakeries:country_bread_slice",
+      "count": 6
+    }
+  ]
 }

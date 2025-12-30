@@ -1,7 +1,9 @@
 package com.renyigesai.bakeries.block.blender;
 
+import com.renyigesai.bakeries.api.block.BakeriesWorkBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
+import com.renyigesai.bakeries.util.WorldUtil;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -61,10 +63,7 @@ public class BlenderBlock extends BaseEntityBlock {
             super.use(blockstate, world, pos, entity, hand, hit);
             if (blockEntity instanceof BlenderBlockEntity blenderBlockEntity) {
                 world.blockEvent(pos,this, 1,0);
-                NetworkHooks.openScreen(((ServerPlayer) entity), blenderBlockEntity, pos);
-                if (blockEntity.getLevel() instanceof ServerLevel serverLevel){
-                    serverLevel.playSound(null,blockEntity.getBlockPos(), SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS);
-                }
+                BakeriesWorkBlock.openScreen(((ServerPlayer) entity),blenderBlockEntity,pos,world,blockstate,blenderBlockEntity.getOpenSound());
                 return InteractionResult.CONSUME;
             }else {
                 throw new IllegalStateException("Our Container provider is missing!");

@@ -2,7 +2,6 @@ package com.renyigesai.bakeries.inventory.blender;
 
 import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
-import com.renyigesai.bakeries.init.BakeriesSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
@@ -19,20 +18,23 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import org.jetbrains.annotations.NotNull;
 
 public class BlenderMenu extends AbstractContainerMenu {
     private final BlenderBlockEntity blockEntity;
     private final Player player;
     private final IItemHandler playerInventory;
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(10);
+    public int x,y,z;
 
-    public BlenderMenu(int windowId, Inventory playerInventory, BlenderBlockEntity blockEntity) {
+    public BlenderMenu(int windowId, Inventory playerInventory,BlockPos pos, BlenderBlockEntity blockEntity) {
         super(BakeriesMenuType.BLENDER_MENU.get(), windowId);
         this.blockEntity = blockEntity;
         this.player = playerInventory.player;
         this.playerInventory = new InvWrapper(playerInventory);
         // 添加输入槽 (0-8)
+        this.x = pos.getX();
+        this.y = pos.getY();
+        this.z = pos.getZ();
         int ix = 54;
         int iy = 17;
         for (int y = 0; y < 3; ++y) {
@@ -57,7 +59,7 @@ public class BlenderMenu extends AbstractContainerMenu {
             addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 51));
         // 添加玩家物品栏
         addPlayerSlots(8,84);
-        blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(), 0,0);
+//        blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(), 0,0);
     }
 
     @Override
@@ -72,7 +74,7 @@ public class BlenderMenu extends AbstractContainerMenu {
         BlockPos pos = data.readBlockPos();
         BlockEntity blockEntity = playerInventory.player.level().getBlockEntity(pos);
         if (blockEntity instanceof BlenderBlockEntity) {
-            return new BlenderMenu(windowId, playerInventory, (BlenderBlockEntity) blockEntity);
+            return new BlenderMenu(windowId, playerInventory, pos,(BlenderBlockEntity) blockEntity);
         }
         throw new IllegalStateException("Block entity is not an BlenderCoolerBlockEntity!");
     }
@@ -153,7 +155,7 @@ public class BlenderMenu extends AbstractContainerMenu {
         super.removed(pPlayer);
         blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(), 0,1);
         if (blockEntity.getLevel() instanceof ServerLevel serverLevel){
-            serverLevel.playSound(null,blockEntity.getBlockPos(), SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS);
+            serverLevel.playSound(null,blockEntity.getBlockPos(), blockEntity.getCloseSound(), SoundSource.BLOCKS);
         }
     }
 

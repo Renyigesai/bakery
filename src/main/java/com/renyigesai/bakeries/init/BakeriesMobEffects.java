@@ -1,10 +1,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.potion.BakeriesMobEffect;
-import com.renyigesai.bakeries.potion.CocoaManiaMobEffect;
-import com.renyigesai.bakeries.potion.EnjoyMobEffect;
-import com.renyigesai.bakeries.potion.SoftMobEffect;
+import com.renyigesai.bakeries.potion.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;

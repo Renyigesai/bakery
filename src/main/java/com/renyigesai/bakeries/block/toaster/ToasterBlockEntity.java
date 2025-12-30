@@ -191,6 +191,15 @@ public class ToasterBlockEntity extends BlockEntity {
         return true;
     }
 
+    public boolean isEmpty2(){
+        for (int i = 0; i < this.items.getSlots(); i++) {
+            if (!this.items.getStackInSlot(i).isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public Optional<CampfireCookingRecipe> getSmokerRecipe(ItemStack stack) {
         SimpleContainer inventory = new SimpleContainer(1);
         inventory.setItem(0, stack);

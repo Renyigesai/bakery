@@ -1,10 +1,14 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
 import com.google.common.collect.Lists;
+import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
+import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
 import lombok.Getter;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -15,12 +19,13 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class DoughCraftingTableMenu extends AbstractContainerMenu {
-   private final ContainerLevelAccess access;
+   public final ContainerLevelAccess access;
    private final DataSlot selectedRecipeIndex = DataSlot.standalone();
    private final Level level;
    @Getter
@@ -91,7 +96,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
    public boolean hasInputItem() {
       boolean hasItem = this.inputSlot.hasItem();
       boolean hasRecipes = !this.recipes.isEmpty();
-      System.out.println("Has input item: " + hasItem + ", Has recipes: " + hasRecipes);
+//      System.out.println("Has input item: " + hasItem + ", Has recipes: " + hasRecipes);
       return hasItem && hasRecipes;
    }
    public boolean stillValid(@NotNull Player pPlayer) {

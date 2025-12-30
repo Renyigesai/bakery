@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block.mix_block;
 
 import com.renyigesai.bakeries.api.block.PileBlock;
+import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -38,10 +40,11 @@ import org.jetbrains.annotations.Nullable;
 public class MixBlock extends BaseEntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty TRAY = BooleanProperty.create("tray");
 
     public MixBlock() {
         super(BlockBehaviour.Properties.of().strength(0.5F,0.5F).sound(SoundType.WOOL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false));
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TRAY,false));
     }
 
     public RenderShape getRenderShape(BlockState pState) {
@@ -73,7 +76,7 @@ public class MixBlock extends BaseEntityBlock {
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING,TRAY);
     }
 
     @Override
@@ -87,6 +90,11 @@ public class MixBlock extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         }
         if (!pPlayer.isShiftKeyDown()){
+            ItemStack itemInHand = pPlayer.getItemInHand(pHand);
+            if (itemInHand.is(BakeriesItems.WOOD_TRAY.get())){
+                pLevel.setBlock(pPos,pState.setValue(TRAY,true),3);
+                return InteractionResult.SUCCESS;
+            }
             return take(pLevel, pPos, pPlayer);
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

@@ -50,6 +50,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties EGG_TART;
     public static final FoodProperties SALMON_SANDWICH;
     public static final FoodProperties PINEAPPLE_OIL;
+    public static final FoodProperties FLAT_CROISSANT;
 
     /*模组联动食物属性*/
     public static final FoodProperties RICE_BREAD;
@@ -160,6 +161,8 @@ public class BakeriesFoodProperties {
         EGG_TART = new FoodProperties.Builder().nutrition(8).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.HEAL,1),1f).build();
 
         PINEAPPLE_OIL = new FoodProperties.Builder().nutrition(8).saturationMod(1.5f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1800),1F).alwaysEat().build();
+
+        FLAT_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1F).effect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,600),1f).build();
 
         /*模组联动食物属性*/
         RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1f).build();

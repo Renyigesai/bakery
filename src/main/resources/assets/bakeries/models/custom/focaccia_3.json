@@ -1,10 +1,4 @@
 {
-	"format_version": "1.9.0",
-	"credit": "Made with Blockbench",
-	"textures": {
-		"0": "focaccia",
-		"particle": "focaccia"
-	},
 	"elements": [
 		{
 			"from": [9.5, 1.5, 11.25],

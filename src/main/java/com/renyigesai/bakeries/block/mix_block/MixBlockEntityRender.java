@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.block.mix_block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -53,23 +54,27 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
                 itemsToRender.add(stack);
             }
         }
+        boolean isTray = entity.getBlockState().getValue(MixBlock.TRAY);
         for (int i = 0; i < itemsToRender.size(); i++) {
             if (i >= positions.length) {
                 break;
             }
             ItemStack stack = itemsToRender.get(i);
             Vec2 position = positions[i];
-            renderItem(stack, entity, direction, position, poseStack, pBuffer, pPackedLight, pPackedOverlay);
+            renderItem(stack, entity, direction, position, poseStack, pBuffer, pPackedLight, pPackedOverlay,isTray);
+            if (isTray){
+                renderTray(entity,direction,poseStack,pBuffer,pPackedOverlay);
+            }
         }
     }
 
-    private void renderItem(ItemStack stack, MixBlockEntity entity, Direction direction, Vec2 position, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    private void renderItem(ItemStack stack, MixBlockEntity entity, Direction direction, Vec2 position, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay,boolean isTray) {
         boolean isBlock = stack.getItem() instanceof BlockItem;
         int posLong = (int) entity.getBlockPos().asLong();
         float rotation = -direction.toYRot();
         poseStack.pushPose();
         Vec2 transformedPosition = transformPositionByDirection(position, direction);
-        poseStack.translate(transformedPosition.x, 0.125, transformedPosition.y);
+        poseStack.translate(transformedPosition.x, 0.125 + (isTray ? 0.0625 : 0), transformedPosition.y);
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation - 15));
         poseStack.mulPose(Axis.XP.rotationDegrees(0));
         float size = 0.55f;
@@ -83,6 +88,16 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
                 Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()), pPackedOverlay, poseStack, pBuffer, entity.getLevel(), (int) (posLong + 1));
             }
         }
+        poseStack.popPose();
+    }
+
+    private void renderTray(MixBlockEntity entity, Direction direction,PoseStack poseStack, MultiBufferSource pBuffer, int pPackedOverlay){
+        BlockState state = BakeriesBlocks.WOOD_TRAY.get().defaultBlockState();
+        poseStack.pushPose();
+//        poseStack.translate(0f, 0.0625f, 0f);
+//        poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
+        poseStack.scale(1f,1f,1f);
+        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state,poseStack,pBuffer,LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()),pPackedOverlay);
         poseStack.popPose();
     }
 

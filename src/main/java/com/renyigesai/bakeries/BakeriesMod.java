@@ -36,6 +36,7 @@ public class BakeriesMod {
 
     public static final String MODID = "bakeries";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static boolean aprilFoolsDay;
     @SuppressWarnings("removal")
     public BakeriesMod() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -59,6 +60,10 @@ public class BakeriesMod {
     }
     private void commonSetup(FMLCommonSetupEvent event) {
         Messages.register();
+        if (BakeriesConfig.aprilFoolsDayEffect){
+            Calendar calendar = Calendar.getInstance();
+            aprilFoolsDay = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
+        }
     }
 
     private void clientSetup(FMLClientSetupEvent event) {

@@ -5,8 +5,10 @@
       "item": "bakeries:pound_cake"
     }
   ],
-  "output": {
-    "item": "bakeries:sliced_pound_cake",
-    "count": 4
-  }
+  "output": [
+    {
+      "item": "bakeries:sliced_pound_cake",
+      "count": 4
+    }
+  ]
 }

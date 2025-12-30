@@ -5,8 +5,10 @@
       "item": "bakeries:cheese_cocoa_toast"
     }
   ],
-  "output": {
+  "output": [
+    {
     "item": "bakeries:sliced_cheese_cocoa_toast",
     "count": 4
-  }
+    }
+  ]
 }

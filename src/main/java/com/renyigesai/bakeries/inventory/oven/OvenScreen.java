@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.inventory.oven;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.inventory.CustomButton;
+import com.renyigesai.bakeries.network.SwitchButtonMessage;
 import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.network.OvenButtonMessage;
 import lombok.Getter;
@@ -161,6 +162,18 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         });
         guistate.put("button:imagebutton_sub", imagebutton_sub);
         this.addRenderableWidget(imagebutton_sub);
+
+        for (int i = 0; i < 3; i++) {
+            int finalI = i;
+            ImageButton button = new ImageButton(this.leftPos + i * 17, this.topPos - 17, 18, 18, 0, 0, 1, new ResourceLocation(BakeriesMod.MODID, "textures/gui/switch_button_" + (i + 1) + ".png"), 18, 18, e -> {
+                if (!(boundBlockEntity instanceof OvenBlockEntity && finalI == 2)) {
+                    Messages.sendToServer(new SwitchButtonMessage(finalI,x,y,z));
+                }
+            });
+            this.addRenderableWidget(button);
+        }
+
+
 
     }
 

@@ -3,11 +3,15 @@ package com.renyigesai.bakeries.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.datafixers.util.Pair;
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.init.BakeriesSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,7 +50,14 @@ public class BaguetteItem extends RepeatEatItem {
 
     @Override
     public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
-        itemstack.hurtAndBreak(2, entity, i -> i.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        if (itemstack.getMaxDamage() > 0){
+            itemstack.hurtAndBreak(1, entity, i -> i.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        }
+        if (BakeriesMod.aprilFoolsDay){
+            if (sourceentity.level() instanceof ServerLevel serverLevel){
+                serverLevel.playSound(null,sourceentity.getX(),sourceentity.getY(),sourceentity.getZ(), BakeriesSounds.STEEL_PIPE.get(), SoundSource.PLAYERS,1,1);
+            }
+        }
         return true;
     }
 

@@ -197,6 +197,7 @@
   "block.generic.toaster_in": "Toaster in",
   "block.generic.toaster_out": "Toaster out",
   "block.generic.pastry_place": "Block placed",
+  "block.generic.steel_pipe": "",
   "entity.generic.shake": "Shake",
   "entity.minecraft.villager.bakeries.pistrinamaster": "Pistrina Master",
   "entity.minecraft.villager.pistrinamaster": "Pistrina Master",
@@ -363,6 +364,8 @@
   "tip.bakeries.pizza_cheese": "You haven't placed the cheese yet",
   "tip.bakeries.pizza_stone_kiln_shovel": "You need to use a stove shovel",
   "tip.bakeries.stone_kiln_stone_kiln_shovel": "Use Stone Kiln Shovel to flip",
+  "tip.bakeries.toaster_1": "Right-click with your left hand to start baking.",
+  "tip.bakeries.toaster_2": "Crouch down and right-click to retrieve the item.",
   "gui.bakeries.oven.temperature": "Current Temperature",
   "gui.bakeries.oven.rolling": "§oRolling adjustment",
   "rarity.advanced.name": "Advanced"
