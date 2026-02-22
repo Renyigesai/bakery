@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.block.cake_box;
 
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -63,12 +63,12 @@ public class CakeBoxBlock extends BaseEntityBlock {
                 if (stackInSlot.getItem() instanceof BlockItem blockItem){
                     pLevel.setBlock(pPos,blockItem.getBlock().defaultBlockState(),3);
                 }else {
-                    ItemUtil.spawnItemEntity(pLevel,stackInSlot,pPos);
+                    ItemUtils.spawnItemEntity(pLevel,stackInSlot,pPos);
                 }
             }else {
                 pLevel.destroyBlock(pPos,false);
             }
-            ItemUtil.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.CAKE_BOX.get()));
+            ItemUtils.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.CAKE_BOX.get()));
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

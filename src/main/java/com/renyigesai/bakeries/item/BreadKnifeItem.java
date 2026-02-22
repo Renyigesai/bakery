@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.item;
 
 import com.renyigesai.bakeries.compat.CompatMod;
 import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -41,7 +41,6 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
-import vectorwing.farmersdelight.common.utility.ItemUtils;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
 import java.util.Iterator;
@@ -86,13 +85,13 @@ public class BreadKnifeItem extends DiggerItem {
             BreadKnifeRecipe recipe = recipeOptional.get();
             ItemStack resultItemStack = recipe.getResultItem(pLevel.registryAccess());
             hand.hurtAndBreak(1, pPlayer, (p_41300_) -> p_41300_.broadcastBreakEvent(pUsedHand));
-            recipe.getOutput().forEach((item)->{ItemUtil.spawnItemEntity(pLevel,item,x,y,z,Vec3.ZERO);});
-//            ItemUtil.spawnItemEntity(pLevel, resultItemStack, x,y,z, new Vec3(0.0,0.0,0.0));
+            recipe.getOutput().forEach((item)->{
+                ItemUtils.spawnItemEntity(pLevel,item,x,y,z,Vec3.ZERO);});
             pLevel.addParticle(new ItemParticleOption(ParticleTypes.ITEM,resultItemStack),x,y+0.5,z,((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D, ((double)pLevel.random.nextFloat() - 0.5D) * 0.08D);
             pLevel.playSound(null,new BlockPos((int) x,(int)y,(int)z),SoundEvents.WOOL_BREAK, SoundSource.BLOCKS);
             resultItemEntity.remove(Entity.RemovalReason.KILLED);
         }else {
-            if (ModList.get().isLoaded(CompatMod.FARMER_S_DELIGHT)) {
+            if (CompatMod.FARMER_S_DELIGHT) {
                 return InteractionResultHolder.sidedSuccess(hand, processStoredItemUsingTool(pLevel, hand, resultItemEntity,pPlayer, x, y, z));
             }else {
                 return super.use(pLevel,pPlayer,pUsedHand);
@@ -104,7 +103,7 @@ public class BreadKnifeItem extends DiggerItem {
 
 
     public boolean processStoredItemUsingTool(Level level,ItemStack toolStack, ItemEntity item,@javax.annotation.Nullable Player player,double x,double y,double z) {
-        if (!ModList.get().isLoaded(CompatMod.FARMER_S_DELIGHT)){
+        if (!CompatMod.FARMER_S_DELIGHT){
             return false;
         }
         if (level == null) {
@@ -119,7 +118,7 @@ public class BreadKnifeItem extends DiggerItem {
 
                     while(var5.hasNext()) {
                         ItemStack resultStack = (ItemStack)var5.next();
-                        ItemUtils.spawnItemEntity(level, resultStack.copy(),x,y,z,0,0,0);
+                        vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level, resultStack.copy(),x,y,z,0,0,0);
                     }
                     level.addParticle(new ItemParticleOption(ParticleTypes.ITEM,item.getItem()),x,y+0.5,z,((double)level.random.nextFloat() - 0.5D) * 0.08D, ((double)level.random.nextFloat() - 0.5D) * 0.08D, ((double)level.random.nextFloat() - 0.5D) * 0.08D);
                     item.remove(Entity.RemovalReason.KILLED);
@@ -141,7 +140,7 @@ public class BreadKnifeItem extends DiggerItem {
     }
 
     private Optional<CuttingBoardRecipe> getMatchingRecipe(Level level,RecipeWrapper recipeWrapper, ItemStack toolStack, @Nullable Player player) {
-        if (!ModList.get().isLoaded(CompatMod.FARMER_S_DELIGHT)){
+        if (!CompatMod.FARMER_S_DELIGHT){
             return Optional.empty();
         }
         if (level == null) {

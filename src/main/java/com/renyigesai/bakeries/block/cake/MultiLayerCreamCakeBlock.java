@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.cake;
 import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +21,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -45,7 +44,7 @@ public class MultiLayerCreamCakeBlock extends HorizontalDirectionalBlock impleme
         ItemStack hand = pPlayer.getItemInHand(pHand);
         if (isKnifeItem(hand)){
             pLevel.removeBlock(pPos,false);
-            ItemUtil.spawnItemEntity(pLevel,new ItemStack(BakeriesItems.CREAM_CAKE_CUBE.get(),8),pPos);
+            ItemUtils.spawnItemEntity(pLevel,new ItemStack(BakeriesItems.CREAM_CAKE_CUBE.get(),8),pPos);
             if (!pPlayer.getAbilities().instabuild) {
                 hand.hurtAndBreak(1,pPlayer, (p_41300_) -> p_41300_.broadcastBreakEvent(pHand));
             }

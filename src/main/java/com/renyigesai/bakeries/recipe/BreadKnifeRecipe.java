@@ -32,7 +32,6 @@ public class BreadKnifeRecipe implements Recipe<SimpleContainer> {
         this.id = id;
     }
 
-
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
         return this.inputItems.test(pContainer.getItem(0));

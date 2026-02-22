@@ -1,8 +1,8 @@
 package com.renyigesai.bakeries.item;
 
 import com.mojang.datafixers.util.Pair;
-import com.renyigesai.bakeries.api.item.FoodBlockItem;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.api.item.PileItem;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,16 +20,14 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
-public abstract class RepeatEatItem extends FoodBlockItem {
+public abstract class RepeatEatItem extends PileItem {
 
     public RepeatEatItem(Block block, IntegerProperty integerProperty, Properties pProperties, boolean effectTooltip, boolean customField) {
         super(block, integerProperty, pProperties, effectTooltip, customField);
@@ -69,7 +67,7 @@ public abstract class RepeatEatItem extends FoodBlockItem {
     public static void rHurt(Player entity,ItemStack hand,ItemStack stack){
         if (hand.getDamageValue() == hand.getMaxDamage()-1) {
             hand.shrink(1);
-            ItemUtil.givePlayerItem(entity,stack);
+            ItemUtils.givePlayerItem(entity,stack);
         }else {
             hand.hurt(1, RandomSource.create(), null);
         }
@@ -83,23 +81,41 @@ public abstract class RepeatEatItem extends FoodBlockItem {
         }
     }
 
-    public void rEat(Level level,ItemStack food,LivingEntity living){
+    public void repeatEat(Level level, ItemStack food, LivingEntity living){
 
     }
 
     public ItemStack eat(Level pLevel, ItemStack pFood,LivingEntity living){
+        boolean isPlayer = false;
         if (living instanceof Player player){
-            player.getFoodData().eat(pFood.getItem(),pFood,living);
-            rEat(pLevel,pFood,living);
+            isPlayer = true;
+            player.getFoodData().eat(pFood.getItem(),pFood,player);
             player.awardStat(Stats.ITEM_USED.get(pFood.getItem()));
-            pLevel.playSound((Player)null, living.getX(), living.getY(), living.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, pLevel.random.nextFloat() * 0.1F + 0.9F);
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, pFood);
             }
-            pFood.hurt(1,living.getRandom(),null);
-            return pFood.getDamageValue() > pFood.getMaxDamage()-1 ? residue(pFood) : pFood;
         }
-        return pFood;
+        if (!isPlayer){
+            living.eat(pLevel,pFood);
+        }
+        FoodProperties foodProperties = pFood.getFoodProperties(living);
+        if (foodProperties != null){
+            ForgeEventFactory.onItemUseFinish(living, pFood.copy(), 0, ItemStack.EMPTY);
+            addAllEffect(foodProperties,living,pLevel);
+        }
+        pFood.hurt(1,living.getRandom(),null);
+        repeatEat(pLevel,pFood,living);
+        pLevel.playSound((Player)null, living.getX(), living.getY(), living.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, pLevel.random.nextFloat() * 0.1F + 0.9F);
+        return pFood.getDamageValue() > pFood.getMaxDamage()-1 ? residue(pFood) : pFood;
+    }
+
+    public void addAllEffect(FoodProperties foodProperties,LivingEntity living,Level level){
+        List<Pair<MobEffectInstance, Float>> effects = foodProperties.getEffects();
+        for (Pair<MobEffectInstance, Float> next : effects) {
+            if (!level.isClientSide && next != null && level.random.nextFloat() < next.getSecond()) {
+                living.addEffect(new MobEffectInstance(next.getFirst()));
+            }
+        }
     }
 
     public ItemStack residue(ItemStack stack){

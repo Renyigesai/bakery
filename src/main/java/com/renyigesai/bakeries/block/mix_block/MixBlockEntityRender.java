@@ -2,14 +2,25 @@ package com.renyigesai.bakeries.block.mix_block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlock;
+import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.util.TextUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.font.FontManager;
+import net.minecraft.client.gui.font.FontSet;
+import net.minecraft.client.gui.font.glyphs.BakedGlyph;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -21,9 +32,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+
 @OnlyIn(value = Dist.CLIENT)
 public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity> {
-
     public static final float ADD_SIZE = 0.25f;
     public static final Vec2[][] VEC2S = {
             new Vec2[]{},
@@ -32,8 +44,11 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
             new Vec2[]{new Vec2(0.5f - ADD_SIZE, 0.5f - ADD_SIZE), new Vec2(0.5f + ADD_SIZE, 0.5f - ADD_SIZE), new Vec2(0.5f, 0.5f + ADD_SIZE)},
             new Vec2[]{new Vec2(0.5f - ADD_SIZE, 0.5f - ADD_SIZE), new Vec2(0.5f + ADD_SIZE, 0.5f - ADD_SIZE),new Vec2(0.5f - ADD_SIZE, 0.5f + ADD_SIZE), new Vec2(0.5f + ADD_SIZE, 0.5f + ADD_SIZE)}
     };
+    public static final float textScale = 0.01f;
+    private final Font font;
 
     public MixBlockEntityRender(BlockEntityRendererProvider.Context context) {
+        this.font = context.getFont();
     }
 
     @Override
@@ -66,6 +81,11 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
                 renderTray(entity,direction,poseStack,pBuffer,pPackedOverlay);
             }
         }
+        if (!entity.getText().isEmpty()){
+            poseStack.pushPose();
+            renderText(entity,poseStack,pBuffer,pPackedLight,direction);
+            poseStack.popPose();
+        }
     }
 
     private void renderItem(ItemStack stack, MixBlockEntity entity, Direction direction, Vec2 position, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay,boolean isTray) {
@@ -75,7 +95,8 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
         poseStack.pushPose();
         Vec2 transformedPosition = transformPositionByDirection(position, direction);
         poseStack.translate(transformedPosition.x, 0.125 + (isTray ? 0.0625 : 0), transformedPosition.y);
-        poseStack.mulPose(Axis.YP.rotationDegrees(rotation - 15));
+
+        poseStack.mulPose(Axis.YP.rotationDegrees(rotation + 15));
         poseStack.mulPose(Axis.XP.rotationDegrees(0));
         float size = 0.55f;
         poseStack.scale(size, size, size);
@@ -94,19 +115,50 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
     private void renderTray(MixBlockEntity entity, Direction direction,PoseStack poseStack, MultiBufferSource pBuffer, int pPackedOverlay){
         BlockState state = BakeriesBlocks.WOOD_TRAY.get().defaultBlockState();
         poseStack.pushPose();
-//        poseStack.translate(0f, 0.0625f, 0f);
-//        poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
         poseStack.scale(1f,1f,1f);
         Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state,poseStack,pBuffer,LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()),pPackedOverlay);
         poseStack.popPose();
+    }
+
+    private void renderText(MixBlockEntity entity, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, Direction direction){
+        poseStack.translate(0.5, 0.25, 0.5);
+
+        poseStack.scale(textScale, -textScale, textScale);
+        float yRot = 0;
+        Direction newDirection = direction.getOpposite();
+        if (newDirection == Direction.NORTH){
+            yRot = 180;
+        }
+        if (newDirection == Direction.SOUTH){
+            yRot = -180;
+        }
+        String text = entity.getText();
+        if (text == null){
+            return;
+        }
+        int textWidth = font.width(text);
+        int color = entity.getColor();
+        poseStack.mulPose(Axis.YP.rotationDegrees(newDirection.toYRot() + yRot));
+        poseStack.translate(0, 0, 0.5f/textScale);
+        poseStack.mulPose(Axis.XP.rotationDegrees(45.0f));
+        startRender(text,textWidth,color,poseStack,pBuffer);
+    }
+
+    private void startRender(String text,int textWidth,int color,PoseStack poseStack,MultiBufferSource pBuffer){
+        float x = 0.5f / textScale - textWidth;
+        font.drawInBatch(Component.nullToEmpty(text), x, 1, color, false, poseStack.last().pose(), pBuffer, Font.DisplayMode.NORMAL, 0, 15728880);
+        if (pBuffer instanceof MultiBufferSource.BufferSource) {
+            BakedGlyph texturedglyph = font.getFontSet(Style.DEFAULT_FONT).whiteGlyph();
+            ((MultiBufferSource.BufferSource)pBuffer).endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));
+        }
     }
 
     private Vec2 transformPositionByDirection(Vec2 position, Direction direction) {
         float x = position.x;
         float y = position.y;
         return switch (direction) {
-            case NORTH -> new Vec2(x, y);
-            case SOUTH -> new Vec2(1 - x, 1 - y);
+            case NORTH -> new Vec2(1 - x, 1 - y);
+            case SOUTH -> new Vec2(x, y);
             case EAST -> new Vec2(y, 1 - x);
             case WEST -> new Vec2(1 - y, x);
             default -> position;

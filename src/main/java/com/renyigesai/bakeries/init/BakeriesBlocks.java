@@ -47,7 +47,7 @@ import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
 import com.renyigesai.bakeries.block.wooden_tray.WoodenTrayBlock;
 import com.renyigesai.bakeries.block.wooden_tray.WoodenTrayBlockEntity;
 import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
@@ -112,9 +112,11 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> MOULD_RED_VELVET_CAKE;
     public static final RegistryObject<Block> RED_VELVET_CAKE_BASE;
     public static final RegistryObject<Block> RED_VELVET_CAKE;
+    public static final RegistryObject<Block> TARO_CAKE;
     public static final RegistryObject<Block> SALMON_SANDWICH;
     public static final RegistryObject<Block> PINEAPPLE_OIL;
     public static final RegistryObject<Block> FLAT_CROISSANT;
+    public static final RegistryObject<Block> TARO_SALT_YOLK_BREAD;
 
     //common
     public static final RegistryObject<Block> OVEN;
@@ -137,6 +139,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> RAW_SALT_BLOCK;
     public static final RegistryObject<Block> WOOD_COUNTER;
     public static final RegistryObject<Block> TOMATO;
+    public static final RegistryObject<Block> TARO;
     public static final RegistryObject<Block> BLACK_WHITE_CONCRETE ;
     public static final RegistryObject<Block> CUPBOARD;
     public static final RegistryObject<Block> FLOUR_BAG;
@@ -150,6 +153,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> CREAM_BINGLE_COFFEE;
     public static final RegistryObject<Block> MATCHA_LATTE;
     public static final RegistryObject<Block> MATCHA_PARFAIT;
+    public static final RegistryObject<Block> TARO_MILK;
     public static final RegistryObject<Block> TRAY_SCONE;
     public static final RegistryObject<Block> PAPER_CUP;
     public static final RegistryObject<Block> MOULD_POUND_CAKE;
@@ -242,12 +246,13 @@ public class BakeriesBlocks {
         SALMON_SANDWICH = BLOCK_REGISTRY.register("salmon_sandwich",PileBlock::new);
         PINEAPPLE_OIL = BLOCK_REGISTRY.register("pineapple_oil",PileBlock::new);
         FLAT_CROISSANT = BLOCK_REGISTRY.register("flat_croissant",PileBlock::new);
+        TARO_SALT_YOLK_BREAD = BLOCK_REGISTRY.register("taro_salt_yolk_bread",PileBlock::new);
         /*蛋糕方块*/
         CUP_CAKE = BLOCK_REGISTRY.register("cup_cake",PileBlock::new);
 
         CAKE_BASE = BLOCK_REGISTRY.register("cake_base", CakeBaseBlock::new);
 
-        CREAM_CAKE = BLOCK_REGISTRY.register("cream_cake",()-> new CreamCakeBlock(ItemUtil.addEffects(
+        CREAM_CAKE = BLOCK_REGISTRY.register("cream_cake",()-> new CreamCakeBlock(ItemUtils.addEffects(
                 new LazyMobEffectInstance(()-> MobEffects.REGENERATION,1200),
                 new LazyMobEffectInstance(BakeriesMobEffects.SOFT,1200)),10,0.25f));
 
@@ -255,7 +260,7 @@ public class BakeriesBlocks {
 
         CREAM_CAKE_PROCESSING = BLOCK_REGISTRY.register("cream_cake_processing",()-> new CakeProcessingBlock(BakeriesItems.CUT_CAKE_BASE,BakeriesItems.FOAMED_CREAM,()-> Items.SWEET_BERRIES,()-> Items.SWEET_BERRIES,CREAM_CAKE,2));
 
-        TIRAMISU = BLOCK_REGISTRY.register("tiramisu", ()-> new InstanceCakeBlock(ItemUtil.addEffects(
+        TIRAMISU = BLOCK_REGISTRY.register("tiramisu", ()-> new InstanceCakeBlock(ItemUtils.addEffects(
                 new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200),
                 new LazyMobEffectInstance(BakeriesMobEffects.COCOA_MANIA,1200),
                 new LazyMobEffectInstance(()-> MobEffects.NIGHT_VISION,1200)),4,0.5f));
@@ -264,10 +269,10 @@ public class BakeriesBlocks {
 
         POUND_CAKE = BLOCK_REGISTRY.register("pound_cake",()-> new ToastBlock(BlockBehaviour.Properties.of().sound(PileBlock.PASTRY).strength(0.5F,0.5F),BakeriesItems.SLICED_POUND_CAKE));
 
-        CARROT_CAKE = BLOCK_REGISTRY.register("carrot_cake",()-> new InstanceCakeBlock(ItemUtil.addEffects(
+        CARROT_CAKE = BLOCK_REGISTRY.register("carrot_cake",()-> new InstanceCakeBlock(ItemUtils.addEffects(
                 new LazyMobEffectInstance(()-> MobEffects.NIGHT_VISION,1200)),10,0.25f));
 
-        BASQUE_CAKE = BLOCK_REGISTRY.register("basque_cake", ()-> new InstanceCakeBlock(ItemUtil.addEffects(
+        BASQUE_CAKE = BLOCK_REGISTRY.register("basque_cake", ()-> new InstanceCakeBlock(ItemUtils.addEffects(
                 new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200)),6,0.5f));
 
         MULTI_LAYER_CREAM_CAKE = BLOCK_REGISTRY.register("multi_layer_cream_cake",MultiLayerCreamCakeBlock::new);
@@ -275,6 +280,10 @@ public class BakeriesBlocks {
         RED_VELVET_CAKE_BASE = BLOCK_REGISTRY.register("red_velvet_cake_base", RedVelvetCakeBaseBlock::new);
 
         RED_VELVET_CAKE = BLOCK_REGISTRY.register("red_velvet_cake", ()-> new InstanceCakeBlock(5,0.25f));
+
+//        TARO_CAKE = BLOCK_REGISTRY.register("taro_cake",()-> new InstanceCakeBlock(5,0.25f));
+
+        TARO_CAKE = BLOCK_REGISTRY.register("taro_cake",PileBlock::new);
 
         /*普通方块*/
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
@@ -306,6 +315,7 @@ public class BakeriesBlocks {
                 new WoodCounterBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         TOMATO = BLOCK_REGISTRY.register("tomato",() ->
                 new TomatoBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
+        TARO = BLOCK_REGISTRY.register("taro",()-> new TaroBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
         BLACK_WHITE_CONCRETE = BLOCK_REGISTRY.register("black_white_concrete", () ->
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_CONCRETE)));
         BREAD_HOLDERS = BLOCK_REGISTRY.register("bread_holders",()->new BreadHoldersBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
@@ -319,6 +329,7 @@ public class BakeriesBlocks {
         ORANGE_AMERICAN = coldDrinkBlock("orange_american");
         CREAM_BINGLE_COFFEE = coldDrinkBlock("cream_bingle_coffee");
         MATCHA_LATTE = coldDrinkBlock("matcha_latte");
+        TARO_MILK = coldDrinkBlock("taro_milk");
         MATCHA_PARFAIT = BLOCK_REGISTRY.register("matcha_parfait", MatchaParfaitBlock::new);
         COFFEE_PLANT = BLOCK_REGISTRY.register("coffee_plant",()->
                 new CoffeePlantBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));

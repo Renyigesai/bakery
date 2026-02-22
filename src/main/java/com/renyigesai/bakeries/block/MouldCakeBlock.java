@@ -1,7 +1,9 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.api.block.IMouldBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -11,19 +13,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -31,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class MouldCakeBlock extends Block {
+public class MouldCakeBlock extends Block implements IMouldBlock {
     public final Supplier<Item> demouldItem;
     public MouldCakeBlock(Supplier<Item> demouldItem) {
         super(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F));
@@ -50,7 +48,7 @@ public class MouldCakeBlock extends Block {
         return take(pLevel, pPos, pState, pPlayer);
     }
     protected InteractionResult take(Level level, BlockPos pos, BlockState state, Player player){
-        ItemUtil.givePlayerItem(player,new ItemStack(this.demouldItem.get()));
+        ItemUtils.givePlayerItem(player,new ItemStack(this.demouldItem.get()));
         level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         BlockState bBlockState = BakeriesBlocks.MOULD_TWO.get().defaultBlockState();
         level.setBlockAndUpdate(pos,bBlockState);
@@ -65,5 +63,15 @@ public class MouldCakeBlock extends Block {
     @Override
     public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
         return level.getBlockState(pos.below()).isSolid();
+    }
+
+    @Override
+    public Supplier<Item> getMouldContentItem() {
+        return demouldItem;
+    }
+
+    @Override
+    public Supplier<Item> getMouldItem() {
+        return BakeriesItems.MOULD_TWO;
     }
 }

@@ -1,27 +1,39 @@
 package com.renyigesai.bakeries.key;
 
-import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.network.KeyAuxiliaryMessage;
+import com.renyigesai.bakeries.network.Messages;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import org.apache.commons.lang3.ArrayUtils;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
-@OnlyIn(Dist.CLIENT)
+
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
 public class BakeriesKeyMapping {
-    public static KeyMapping place;
-    @OnlyIn(Dist.CLIENT)
-    public static void register(final FMLClientSetupEvent event){
-        place = create("xuixian_menu", GLFW.GLFW_KEY_LEFT_SHIFT);
-        registerKeyBinding(place);
-    }
-    private static KeyMapping create(String name, int key){
-        return new KeyMapping("key." + BakeriesMod.MODID + "." + name, key, Component.translatable("key.bakeries."+BakeriesMod.MODID).getString());
-    }
-    public static synchronized void registerKeyBinding(KeyMapping key) {
-        Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, key);
+    public static final KeyMapping AUXILIARY = new KeyMapping("key.bakeries.auxiliary",GLFW.GLFW_KEY_LEFT_SHIFT,"key.bakeries.bakeries"){
+        private boolean isDownOld = false;
+        @Override
+        public void setDown(boolean isDown) {
+            if (this.isDownOld == isDown){
+                super.setDown(isDown);
+                return;
+            }
+            super.setDown(isDown);
+            if (Minecraft.getInstance().getConnection() != null) {
+                int type = 1;
+                if (isDownOld != isDown && isDown) {
+                    type = 0;
+                }
+                Messages.sendToServer(new KeyAuxiliaryMessage(type));
+                isDownOld = isDown;
+            }
+        }
+    };
+    @SubscribeEvent
+    public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        event.register(AUXILIARY);
     }
 }

@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.api.block;
 
 import com.renyigesai.bakeries.init.BakeriesItemTag;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -58,7 +58,7 @@ public abstract class AKnifeCutBlock extends HorizontalDirectionalBlock {
         if (!b1 || b2){
             level.removeBlock(pos,false);
         }
-        ItemUtil.spawnItemEntity(level, new ItemStack(getSliceItem(), getSliceItemCount()),pos);
+        ItemUtils.spawnItemEntity(level, new ItemStack(getSliceItem(), getSliceItemCount()),pos);
         if (!entity.getAbilities().instabuild){
                 hand.hurtAndBreak(1,entity, (p_41300_) -> p_41300_.broadcastBreakEvent(pUsedHand));
         }
@@ -79,7 +79,7 @@ public abstract class AKnifeCutBlock extends HorizontalDirectionalBlock {
         if (!b1 || b2){
             level.removeBlock(pos,false);
         }
-        ItemUtil.spawnItemEntity(level, new ItemStack(getSliceItem(), getSliceItemCount()),pos);
+        ItemUtils.spawnItemEntity(level, new ItemStack(getSliceItem(), getSliceItemCount()),pos);
         hand.hurtAndBreak(1,entity, (p_41300_) -> p_41300_.broadcastBreakEvent(slot));
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.BLOCKS, 0.8F, 0.8F);
     }

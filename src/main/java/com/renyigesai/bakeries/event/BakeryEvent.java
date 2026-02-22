@@ -68,6 +68,8 @@ public class BakeryEvent {
             trades.get(1).add((traner,rand) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD,2),new ItemStack(BakeriesItems.TOMATO.get(),4),16,1,0.05f));
             trades.get(1).add((traner,rand) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD,2),new ItemStack(BakeriesItems.TARO.get(),4),16,1,0.05f));
+            trades.get(1).add((traner,rand) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD,2),new ItemStack(BakeriesItems.OLIVE.get(),2),16,1,0.05f));
         }
     }

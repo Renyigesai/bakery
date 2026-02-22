@@ -1,0 +1,11 @@
+{
+  "name": "item.bakeries.salt_yolk",
+  "icon": "bakeries:salt_yolk",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:salt_yolk"
+    }
+  ]
+}

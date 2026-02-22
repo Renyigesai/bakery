@@ -1,0 +1,18 @@
+{
+  "type": "bakeries:coffee",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "bakeries:mashed_taro"
+    }
+  ],
+  "output": {
+    "item": "bakeries:taro_milk",
+    "count": 1
+  }
+}

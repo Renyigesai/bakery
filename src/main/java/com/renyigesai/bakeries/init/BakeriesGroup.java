@@ -70,6 +70,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SALT_WATER_BUCKET.get());//盐水桶
                         output.accept(BakeriesItems.RAW_SALT_BLOCK.get());//粗盐块
                         output.accept(BakeriesItems.SALT.get());//盐
+                        output.accept(Items.SUGAR);//糖
                         output.accept(BakeriesItems.BOTTLE_YEAST.get());//瓶装鲜酵母
                         output.accept(BakeriesItems.BOTTLE_MILK.get());//瓶装牛奶
                         output.accept(BakeriesItems.BOTTLE_CREAM.get());//瓶装奶油
@@ -82,10 +83,14 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.WHOLE_EGG.get());//全蛋
                         output.accept(BakeriesItems.RAW_PROTEIN.get());//生蛋白
                         output.accept(BakeriesItems.RAW_EGG_YOLK.get());//生蛋黄
+                        output.accept(BakeriesItems.SALT_YOLK.get());//咸蛋黄
                         output.accept(BakeriesItems.CHEESE_CUBE.get());//干酪块
                         output.accept(BakeriesItems.FRESH_CHEESE_CUBE.get());//鲜奶酪块
                         output.accept(BakeriesItems.BROWN_SUGAR_CUBE.get());//红糖块
                         output.accept(BakeriesItems.TOMATO.get());//番茄
+                        output.accept(BakeriesItems.TARO.get());//芋头
+                        output.accept(BakeriesItems.COOKED_TARO.get());//熟芋头
+                        output.accept(BakeriesItems.MASHED_TARO.get());//芋泥
                         output.accept(BakeriesItems.OLIVE.get());//橄榄
                         output.accept(BakeriesItems.RAW_COFFEE_BEAN.get());//生咖啡豆
                         output.accept(BakeriesItems.COFFEE_BEAN.get());//咖啡豆
@@ -121,6 +126,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.COUNTRY_BREAD.get());//乡村面包
                         output.accept(BakeriesItems.COUNTRY_BREAD_SLICE.get());//乡村面包切片
                         output.accept(BakeriesItems.HONEY_BUTTER_SPREAD_COUNTRY_BREAD.get());//乡村面包切片
+                        output.accept(BakeriesItems.TARO_SALT_YOLK_BREAD.get());//芋泥咸蛋黄面包
                         output.accept(BakeriesItems.BERRY_BAGEL.get());//浆果贝果
                         output.accept(BakeriesItems.BAGEL_FILLED_SAUCE.get());//填酱贝果
                         output.accept(BakeriesItems.BAGUETTE_WITH_FILLING.get());//填馅法棍
@@ -141,9 +147,9 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CARROT_CAKE.get());//胡萝卜蛋糕
                         output.accept(BakeriesItems.RED_VELVET_CAKE.get());//红丝绒蛋糕
                         output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕
+                        output.accept(BakeriesItems.TARO_CAKE.get());//芋泥蛋糕
                         output.accept(BakeriesItems.PIZZA.get());//披萨
                         output.accept(BakeriesItems.CUSTOM_PIZZA.get());//自定义披萨
-//                        output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕
                         /*
                         饮料
                         */
@@ -153,6 +159,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CREAM_BINGLE_COFFEE.get());//奶油冰冰乐
                         output.accept(BakeriesItems.MATCHA_LATTE.get());//抹茶拿铁
                         output.accept(BakeriesItems.MATCHA_PARFAIT.get());//抹茶巴菲
+                        output.accept(BakeriesItems.TARO_MILK.get());//芋泥牛乳
                         /*
                         唱片
                         */

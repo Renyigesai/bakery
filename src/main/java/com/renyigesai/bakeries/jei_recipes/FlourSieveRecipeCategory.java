@@ -23,7 +23,7 @@ import java.util.List;
 
 public class FlourSieveRecipeCategory implements IRecipeCategory<FlourSieveRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "flour_sieve");//配方id
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_single_recipe.png");//配方gui贴图路径
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_single_recipe.png");//配方gui贴图路径
 
     public final IDrawable back;
     public final IDrawable icon;

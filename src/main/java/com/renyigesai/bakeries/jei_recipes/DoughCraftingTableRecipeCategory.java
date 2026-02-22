@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DoughCraftingTableRecipeCategory implements IRecipeCategory<DoughCraftingRecipe> {
 	public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "dough_crafting_table_recipe");
-	public final static ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_dough_crafting_table_gui.png");
+	public final static ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_dough_crafting_table_gui.png");
 	protected final IDrawable background;
 	protected final IDrawable icon;
 	public DoughCraftingTableRecipeCategory(IGuiHelper helper) {//96, 87

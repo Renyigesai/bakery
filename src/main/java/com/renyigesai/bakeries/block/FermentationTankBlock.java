@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -58,7 +58,7 @@ public class FermentationTankBlock extends TankBlock {
         ItemStack handStack = playerIn.getItemInHand(pHand);
         int flour = state.getValue(FLOUR);
         level.setBlock(pos,state.setValue(FLOUR,flour + 1),3);
-        ItemUtil.shrink(handStack,1,playerIn);
+        ItemUtils.shrink(handStack,1,playerIn);
         level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
@@ -66,16 +66,16 @@ public class FermentationTankBlock extends TankBlock {
     public static InteractionResult fillWater(Level level, BlockPos pos, BlockState state, Player playerIn,InteractionHand pHand){
         ItemStack handStack = playerIn.getItemInHand(pHand);
         level.setBlock(pos, state.setValue(WATER,true),0);
-        ItemUtil.shrink(handStack,1,playerIn);
-        ItemUtil.givePlayerItem(playerIn,new ItemStack(Items.GLASS_BOTTLE));
+        ItemUtils.shrink(handStack,1,playerIn);
+        ItemUtils.givePlayerItem(playerIn,new ItemStack(Items.GLASS_BOTTLE));
         level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
 
     public static InteractionResult fillMilk(Level level, BlockPos pos, BlockState state, Player playerIn,InteractionHand pHand){
         ItemStack handStack = playerIn.getItemInHand(pHand);
-        ItemUtil.shrink(handStack,1,playerIn);
-        ItemUtil.givePlayerItem(playerIn,new ItemStack(Items.BUCKET));
+        ItemUtils.shrink(handStack,1,playerIn);
+        ItemUtils.givePlayerItem(playerIn,new ItemStack(Items.BUCKET));
         level.setBlock(pos, BakeriesBlocks.Milk_TANK.get().defaultBlockState(), 3);
         level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;

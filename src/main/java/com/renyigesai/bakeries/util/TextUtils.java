@@ -5,9 +5,12 @@ import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.font.FontSet;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -18,16 +21,17 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Map;
-
-//By Farmer's Delight
+import java.util.function.Function;
 
 public class TextUtils {
     private static final MutableComponent NO_EFFECTS = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
+    private static final int MAX_LENGTH = 1024;
 
     public static MutableComponent getTranslation(String key, Object... args) {
         return Component.translatable(BakeriesMod.MODID + "." + key, args);
     }
 
+    /**By Farmer's Delight*/
     public static void addFoodEffectTooltip(ItemStack itemIn, List<Component> lores, float durationFactor) {
         FoodProperties foodStats = itemIn.getItem().getFoodProperties();
         if (foodStats == null) {
@@ -87,9 +91,10 @@ public class TextUtils {
         }
     }
 
+    /**获取当前字符串的像素长度,可指定最大值*/
     public static int getLength(String string,int maxLength){
-        if (string == null || maxLength == 0){
-            throw new IllegalArgumentException("Text cannot be null or Max width must be positive");
+        if (string == null || maxLength == 0 || maxLength > MAX_LENGTH){
+            throw new IllegalArgumentException("The text cannot be empty and its length must be greater than 0 and less than 1024.");
         }
         int width = 0;
         int length = 0;
@@ -105,17 +110,16 @@ public class TextUtils {
         return maxLength;
     }
 
+    /**获取当前字符串的像素长度*/
     public static int getLength(String string){
-        if (string == null){
-            throw new IllegalArgumentException("Text cannot be null or Max width must be positive");
-        }
-        int width = 0;
-        Minecraft mc = Minecraft.getInstance();
-        for (int i = 0; i < string.length(); i++) {
-            char _char = string.charAt(i);
-            width += mc.font.width(String.valueOf(_char));
-        }
-        return width;
+        return getLength(string,MAX_LENGTH);
+    }
+
+    /**输入资源地址返回一个自定义字体*/
+    public static Font getCustomFont(ResourceLocation fontLocation,boolean filterFishyGlyphs){
+        FontSet fontSet = Minecraft.getInstance().font.getFontSet(fontLocation);
+        Function<ResourceLocation, FontSet> function = location -> fontSet;
+        return new Font(function,filterFishyGlyphs);
     }
 
 }

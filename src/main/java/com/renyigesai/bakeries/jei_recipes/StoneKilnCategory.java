@@ -28,7 +28,7 @@ import java.util.List;
 public class StoneKilnCategory implements IRecipeCategory<StoneKilnRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "stone_kiln");
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_stone_kiln.png");
+            new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_stone_kiln.png");
 
     public final IDrawable back;
     public final IDrawable icon;

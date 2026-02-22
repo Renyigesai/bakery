@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.cake;
 import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -15,7 +15,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -47,7 +46,7 @@ public class CakeProcessingInitialBlock extends Block {
         List<Item> keys = getProcessingKey();
         boolean flag = false;
         for (int i = 0; i < keys.size(); i++) {
-            if (hand.is(keys.get(i)) || ItemUtil.isTag(hand,keys.get(i))) {
+            if (hand.is(keys.get(i)) || ItemUtils.isTag(hand,keys.get(i))) {
                 Map<Item, Block> cake = getCakeProcessing();
                 pLevel.setBlock(pPos, cake.get(keys.get(0)).defaultBlockState(), 3);
                 flag = true;
@@ -56,7 +55,7 @@ public class CakeProcessingInitialBlock extends Block {
         if (flag) {
             if (!pPlayer.getAbilities().instabuild) {
                 if (hand.hasCraftingRemainingItem()){
-                    ItemUtil.givePlayerItem(pPlayer,hand.getCraftingRemainingItem());
+                    ItemUtils.givePlayerItem(pPlayer,hand.getCraftingRemainingItem());
                 }
                 hand.shrink(1);
             }

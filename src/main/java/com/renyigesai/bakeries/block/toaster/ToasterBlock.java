@@ -1,12 +1,9 @@
 package com.renyigesai.bakeries.block.toaster;
 
-import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
-import com.renyigesai.bakeries.block.moka_pot.MokaPotBlockEntity;
-import com.renyigesai.bakeries.block.state.BakeriesEnumProperty;
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
-import com.renyigesai.bakeries.init.BakeriesEntityTypes;
 import com.renyigesai.bakeries.init.BakeriesSounds;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,13 +15,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -32,12 +26,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
@@ -85,14 +77,17 @@ public class ToasterBlock extends BaseEntityBlock {
                 Optional<CampfireCookingRecipe> smokerRecipe = toaster.getSmokerRecipe(itemInHand);
                 if (smokerRecipe.isPresent() && pState.getValue(STATE) == State.IDLE){
                     toaster.addItem(itemInHand.copy(),smokerRecipe.get().getCookingTime());
-                    ItemUtil.shrink(itemInHand,1,pPlayer);
+                    ItemUtils.shrink(itemInHand,1,pPlayer);
                     playSound(pLevel,pPos, SoundEvents.ITEM_FRAME_ADD_ITEM);
                     return InteractionResult.SUCCESS;
                 }else {
                     return InteractionResult.FAIL;
                 }
             }else {
-                if (pPlayer.isShiftKeyDown()){
+                if (pLevel.isClientSide){
+                    return InteractionResult.SUCCESS;
+                }
+                if (BakeriesMod.onAuxiliaryKey(pPlayer)){
                     toaster.getItem(pPlayer);
                     pLevel.setBlock(pPos,pState.setValue(STATE,State.IDLE),3);
                     playSound(pLevel,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM);

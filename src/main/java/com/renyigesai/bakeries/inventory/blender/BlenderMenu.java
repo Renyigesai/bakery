@@ -5,7 +5,6 @@ import com.renyigesai.bakeries.init.BakeriesMenuType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -53,10 +52,10 @@ public class BlenderMenu extends AbstractContainerMenu {
             for (int y = 0; y < 3; ++y) {
                 for (int x = 0; x < 3; ++x) {
                     int slotIndex = (y * 3) + x;
-                    addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
+                    addSlot(new FiltrationSlot(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
                 }
             }
-            addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 51));
+            addSlot(new FiltrationSlot(blockEntity.getFiltrationinventory(), 9, 32, 51));
         // 添加玩家物品栏
         addPlayerSlots(8,84);
 //        blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(), 0,0);
@@ -166,5 +165,21 @@ public class BlenderMenu extends AbstractContainerMenu {
 
     public BlenderBlockEntity getBlockEntity() {
         return blockEntity;
+    }
+
+    public static class FiltrationSlot extends SlotItemHandler{
+        private boolean isActive = true;
+        public FiltrationSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        @Override
+        public boolean isActive() {
+            return isActive;
+        }
+
+        public void setActive(boolean active) {
+            isActive = active;
+        }
     }
 }

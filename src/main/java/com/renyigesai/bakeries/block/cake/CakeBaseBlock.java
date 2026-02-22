@@ -2,7 +2,9 @@ package com.renyigesai.bakeries.block.cake;
 
 import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
+import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -44,6 +47,8 @@ public class CakeBaseBlock extends InstanceCakeBlock implements IKnifeCutBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.isClientSide) {
+//            BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity();
+//            brushableBlockEntity.type
             return cutOrEat(pState, pLevel, pPos, pPlayer, pHand);
         }
 
@@ -58,6 +63,11 @@ public class CakeBaseBlock extends InstanceCakeBlock implements IKnifeCutBlock {
                 return eat(pLevel,pPos,pState,pPlayer);
             }
             cut(pLevel,pState,pPos,pPlayer,hand,pHand);
+            return InteractionResult.SUCCESS;
+        }
+        if (hand.is(BakeriesItems.MASHED_TARO.get()) && hand.getCount() >= 4){
+            pLevel.setBlock(pPos, BakeriesBlocks.TARO_CAKE.get().defaultBlockState(),3);
+            ItemUtils.shrink(hand,4,pPlayer);
             return InteractionResult.SUCCESS;
         }
 

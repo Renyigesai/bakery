@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.cake;
 import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.CakeRollItem;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -95,7 +95,7 @@ public class CakeRollProcessingBlock extends BaseEntityBlock {
             roll.setTag(compoundTag);
             CakeRollItem.setName(roll);
         }
-        ItemUtil.spawnItemEntity(level,roll,x,y,z,vec3);
+        ItemUtils.spawnItemEntity(level,roll,x,y,z,vec3);
     }
 
     @Nullable

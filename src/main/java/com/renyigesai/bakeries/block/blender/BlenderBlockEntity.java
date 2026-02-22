@@ -1,22 +1,22 @@
 package com.renyigesai.bakeries.block.blender;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.BakeriesWorkBlock;
 import com.renyigesai.bakeries.api.block.WrappedHandler;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.recipe.BlenderRecipe;
-import com.renyigesai.bakeries.util.ItemUtil;
-import io.netty.buffer.Unpooled;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -28,6 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -41,10 +42,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class BlenderBlockEntity extends BaseContainerBlockEntity implements BakeriesWorkBlock {
 
@@ -53,6 +51,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
     private static final int[] SLOTS_FOR_DOWN = new int[]{10};
 
     protected final ItemStackHandler inventory = new ItemStackHandler(11);//11个槽位
+    public ItemStackHandler cacheInventory = new ItemStackHandler(10);
 
     protected final ItemStackHandler filtrationinventory = new ItemStackHandler(10){
         @Override
@@ -75,6 +74,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
 
     public int cookingTotalTime;
     public int filtrationIndex;
+    public String cacheRecipeId;
 
     public State state = State.CLOSE;
     public float progress;
@@ -199,6 +199,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
         }
         cookingTotalTime = tag.getInt("CookingTotalTime");
         filtrationIndex = tag.getInt("FiltrationIndex");
+        cacheRecipeId = tag.getString("CacheRecipeId");
     }
 
     @Override
@@ -208,6 +209,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
         tag.put("FiltrationInventory", filtrationinventory.serializeNBT());
         tag.putInt("CookingTotalTime", cookingTotalTime);
         tag.putInt("FiltrationIndex", filtrationIndex);
+        tag.putString("CacheRecipeId", Objects.requireNonNullElse(cacheRecipeId, ""));
     }
 
     @Override
@@ -334,30 +336,51 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
 
     public static void craftTick(Level level, BlockPos pos, BlockState state, BlenderBlockEntity blockEntity) {
         if (blockEntity.hasInput()) {
-            blockEntity.craftItem();
+            boolean isCraftItem = blockEntity.craftItem();
             boolean temp = blockEntity.cookingTotalTime > 0;
             level.setBlock(pos, state.setValue(BlenderBlock.POWERED, temp), 3);
-            setChanged(level, pos, state);
-            if (!level.isClientSide) {
-                level.sendBlockUpdated(pos, state, state, 3);
+            if (isCraftItem){
+                setChanged(level, pos, state);
+                if (!level.isClientSide) {
+                    level.sendBlockUpdated(pos, state, state, 3);
+                }
             }
+        }else {
+            blockEntity.cookingTotalTime = 0;
+            level.setBlock(pos, state.setValue(BlenderBlock.POWERED, false), 3);
         }
     }
 
-    private void craftItem() {
-        Optional<BlenderRecipe> recipeOptional = getCurrentRecipe();
+    private boolean craftItem() {
+        Optional<? extends Recipe<?>> recipeOptional = Optional.empty();
+        boolean save = false;
+        if (theSameRecipe()){
+            Optional<? extends Recipe<?>> recipe = this.level.getRecipeManager().byKey(new ResourceLocation(BakeriesMod.MODID, cacheRecipeId));
+            if (recipe.isPresent()){
+                recipeOptional = recipe;
+            }
+        }else {
+            recipeOptional = getCurrentRecipe();
+            save = true;
+        }
         if (recipeOptional.isEmpty()) {
             cookingTotalTime = 0;
-            return;
+            return false;
         }
-        BlenderRecipe blenderRecipe = recipeOptional.get();
+        if (recipeOptional.get() instanceof BlenderRecipe blenderRecipe){
 
+        }else {
+            cookingTotalTime = 0;
+            return false;
+        }
+        if (save){
+            saveRecipe(blenderRecipe);
+        }
         ItemStack resultItem = blenderRecipe.getResultItem(null);
         ItemStack outputStack = inventory.getStackInSlot(OUTPUT_SLOT);
-
-        if (!canCraft(resultItem, outputStack) || !isContainer()) {
+        if (!canCraft(resultItem, outputStack) || !isContainer(blenderRecipe)) {
             cookingTotalTime = 0;
-            return;
+            return false;
         }
 
         if (cookingTotalTime < 100) {
@@ -386,9 +409,9 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
             }
 
             cookingTotalTime = 0;
-            setChanged();
-            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+            return true;
         }
+        return false;
     }
 
     protected void ejectIngredientRemainder(ItemStack remainderStack) {
@@ -399,19 +422,14 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
         double z = pos.getZ() + 0.5D;
         double newX = x + (facing.getStepX()*1.0D);
         double newZ = z + (facing.getStepZ()*1.0D);
-        ItemUtil.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
+        ItemUtils.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
     }
 
-    private boolean isContainer(){
-        Optional<BlenderRecipe> recipeOptional = getCurrentRecipe();
-        if (recipeOptional.isPresent()){
-            BlenderRecipe recipe = recipeOptional.get();
-            if (recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
-                return true;
-            }
-            return recipe.getContainer().isEmpty();
+    private boolean isContainer(BlenderRecipe recipe){
+        if (recipe.getContainer().is(this.inventory.getStackInSlot(CONTAINER_SLOT).getItem())){
+            return true;
         }
-        return false;
+        return recipe.getContainer().isEmpty();
     }
 
     private boolean canCraft(ItemStack resultItem,ItemStack outputStack){
@@ -422,6 +440,25 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
             return true;
         }
         return false;
+    }
+
+    private boolean theSameRecipe(){
+        if (cacheRecipeId == null){
+            return false;
+        }
+        for (int i = 0; i < cacheInventory.getSlots(); i++) {
+            if (!cacheInventory.getStackInSlot(i).is(inventory.getStackInSlot(i).getItem())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void saveRecipe(BlenderRecipe blenderRecipe){
+        cacheRecipeId = blenderRecipe.getId().getPath();
+        for (int i = 0; i < 9; i++) {
+            cacheInventory.setStackInSlot(i,inventory.getStackInSlot(i).copy());
+        }
     }
 
     private void spawnParticle(){

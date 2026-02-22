@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.renyigesai.bakeries.client.model.OvenModel;
+import com.renyigesai.bakeries.init.BakeriesItemTag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,7 +28,6 @@ public class OvenRender implements BlockEntityRenderer<OvenBlockEntity> {
     public static final ResourceLocation TEXTURE = new ResourceLocation("bakeries","textures/entity/oven/oven.png");
     public static final ResourceLocation TEXTURE_LIT = new ResourceLocation("bakeries","textures/entity/oven/oven_lit.png");
     public static final ResourceLocation TEXTURE_GLOW = new ResourceLocation("bakeries","textures/entity/oven/oven_glow.png");
-    private static final float LEFT_MOVE = 0.0625f;
     private static final float ADD = 0.225f;
     public static final Vec2[] VEC2S_1 = new Vec2[]{
             new Vec2(0.5f - ADD,0.5f),
@@ -67,8 +67,15 @@ public class OvenRender implements BlockEntityRenderer<OvenBlockEntity> {
                 poseStack.pushPose();
                 float y = solt > 2 ? 0.3125f + 0.03125f : 0.5625f + 0.03125f;
                 Vec2[] vec2 = getVec2(direction);
-                poseStack.translate(vec2[solt].x - LEFT_MOVE,y,vec2[solt].y - LEFT_MOVE);
-                poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot() - 180));
+                final float LEFT_MOVE;
+                if (direction == Direction.SOUTH || direction == Direction.WEST){
+                    LEFT_MOVE = 0.0625f;
+                }else {
+                   LEFT_MOVE = -0.0625f;
+                }
+                float yp = item.is(BakeriesItemTag.UPRIGHT_ON_OVEN) ? 90f : 0f;
+                poseStack.translate(vec2[solt].x + LEFT_MOVE,y,vec2[solt].y + LEFT_MOVE);
+                poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot() - 180 + yp));
                 poseStack.scale(0.35f,0.35f,0.35f);
                 renderModel(item,oven,poseStack,multiBufferSource,i1,posLong);
                 poseStack.popPose();

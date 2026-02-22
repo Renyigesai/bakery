@@ -1,7 +1,8 @@
 package com.renyigesai.bakeries.item;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntity;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,8 +10,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -124,7 +122,7 @@ public class StoneKilnShovelItem extends ShovelItem {
 
         if (pPlayer.isShiftKeyDown()) {
             if (!isEmpty(hand)) {
-                ItemUtil.givePlayerItem(pPlayer, getInventoryStack(hand).copy());
+                ItemUtils.givePlayerItem(pPlayer, getInventoryStack(hand).copy());
                 removeItem(hand);
                 pPlayer.startUsingItem(pUsedHand);
                 pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.8F, 0.8F);

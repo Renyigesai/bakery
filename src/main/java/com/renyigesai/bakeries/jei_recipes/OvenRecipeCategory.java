@@ -29,7 +29,7 @@ import java.util.List;
 @SuppressWarnings("all")
 public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 	public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "oven_recipe");
-	public final static ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_oven_gui.png");
+	public final static ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_oven_gui.png");
 	protected final IDrawable background;
 	protected final IDrawable icon;
 	private final IDrawable cachedArrows;
@@ -57,8 +57,8 @@ public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 	protected void renderTemperatureTooltip(Minecraft minecraft,GuiGraphics gui, double mouseX, double mouseY,OvenRecipe recipe) {
 		if (minecraft != null && minecraft.player != null) {
 			List<Component> tooltip = new ArrayList<>();
-			tooltip.add(Component.literal("Min " + recipe.getMin_temperature() + "\u00b0C").withStyle(ChatFormatting.BLUE));
-			tooltip.add(Component.literal("Max " + recipe.getMax_temperature() + "\u00b0C").withStyle(ChatFormatting.BLUE));
+			tooltip.add(Component.literal("Min " + recipe.getMinTemperature() + "\u00b0C").withStyle(ChatFormatting.BLUE));
+			tooltip.add(Component.literal("Max " + recipe.getMaxTemperature() + "\u00b0C").withStyle(ChatFormatting.BLUE));
 			gui.renderComponentTooltip(minecraft.font, tooltip, (int) mouseX,(int)mouseY);
 		}
 	}

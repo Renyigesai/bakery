@@ -1,10 +1,9 @@
 package com.renyigesai.bakeries.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntity;
-import com.renyigesai.bakeries.client.LookBlockEntityMap;
-import com.renyigesai.bakeries.recipe.StoneKilnRecipe;
+import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -12,29 +11,27 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber({Dist.CLIENT})
-public class  StoneKilnOverlay {
-    @SubscribeEvent(priority = EventPriority.NORMAL)
-    public static void add(RenderGuiEvent.Pre event){
+@OnlyIn(Dist.CLIENT)
+public class  StoneKilnOverlay implements ILookOverlay<StoneKilnBlockEntity>{
+
+    @Override
+    public void create(RenderGuiEvent.Pre event, StoneKilnBlockEntity entity, Player localPlayer, Minecraft mc) {
         int w = event.getWindow().getGuiScaledWidth() / 2 - 56 - 23;
         int h = event.getWindow().getGuiScaledHeight() / 2 + 15;
         GuiGraphics guiGraphics = event.getGuiGraphics();
-        Minecraft mc = Minecraft.getInstance();
-        Player localPlayer = mc.player;
         if (localPlayer == null) {
             return;
         }
-        Map<UUID, BlockEntity> blocks = LookBlockEntityMap.getBlocks();
+        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
         BlockEntity blockEntity = blocks.get(localPlayer.getUUID());
         if (blockEntity instanceof StoneKilnBlockEntity stoneKilnBlockEntity) {
             /*
@@ -80,5 +77,10 @@ public class  StoneKilnOverlay {
         }else {
             return  0;
         }
+    }
+
+    @Override
+    public boolean isOverlay(StoneKilnBlockEntity entity, Player localPlayer, Minecraft mc) {
+        return true;
     }
 }

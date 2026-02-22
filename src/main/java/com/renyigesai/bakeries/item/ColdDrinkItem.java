@@ -1,20 +1,20 @@
 package com.renyigesai.bakeries.item;
 
 import com.renyigesai.bakeries.block.ColdDrinkBlock;
-import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.init.BakeriesMobEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,19 +24,22 @@ public class ColdDrinkItem extends RepeatEatItem{
     private final boolean is_thirst;
     private final int thirst;
     private final int quenched;
+    private final int upEffect;
 
-    public ColdDrinkItem(Block block, Properties pProperties, boolean effectTooltip, boolean customField) {
+    public ColdDrinkItem(Block block, Properties pProperties, boolean effectTooltip, boolean customField, int upEffect) {
         super(block, ColdDrinkBlock.integerProperty, pProperties, effectTooltip, customField);
+        this.upEffect = upEffect;
         this.is_thirst = false;
         this.thirst = 0;
         this.quenched = 0;
     }
 
-    public ColdDrinkItem(Block block, Properties pProperties, boolean is_thirst,int thirst,int quenched,boolean effectTooltip, boolean customField) {
+    public ColdDrinkItem(Block block, Properties pProperties, boolean is_thirst, int thirst, int quenched, boolean effectTooltip, boolean customField, int upEffect) {
         super(block, ColdDrinkBlock.integerProperty, pProperties, effectTooltip, customField);
         this.is_thirst = is_thirst;
         this.thirst = thirst;
         this.quenched = quenched;
+        this.upEffect = upEffect;
     }
 
     public boolean isThirst() {
@@ -61,8 +64,25 @@ public class ColdDrinkItem extends RepeatEatItem{
         return true;
     }
 
+    public int getUpEffect() {
+        return upEffect;
+    }
+
     @Override
-    public void rEat(Level level, ItemStack food, LivingEntity living) {
+    public void addAllEffect(FoodProperties foodProperties, LivingEntity player, Level level) {
+        super.addAllEffect(foodProperties, player, level);
+        if (this.upEffect > 0){
+            if (!level.isClientSide()) {
+                if (player.hasEffect(BakeriesMobEffects.ENJOY.get()) && player.getEffect(BakeriesMobEffects.ENJOY.get()).getAmplifier() < this.upEffect) {
+                    int amplifier = player.getEffect(BakeriesMobEffects.ENJOY.get()).getAmplifier();
+                    player.addEffect(new MobEffectInstance(BakeriesMobEffects.ENJOY.get(), player.getEffect(BakeriesMobEffects.ENJOY.get()).getDuration() + 200, amplifier + 1), player);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void repeatEat(Level level, ItemStack food, LivingEntity living) {
         if (this.isThirst()) {
             CompoundTag compoundTag = living.serializeNBT();
             if (compoundTag.getCompound("ForgeCaps").getCompound("thirst:thirst").contains("thirst") && compoundTag.getCompound("ForgeCaps").getCompound("thirst:thirst").contains("quenched")) {
@@ -80,6 +100,9 @@ public class ColdDrinkItem extends RepeatEatItem{
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag isAdvanced) {
         tooltip.add(Component.translatable("item.bakeries.tips.cold_drink").withStyle(ChatFormatting.BLUE));
+        if (this.upEffect > 0) {
+            tooltip.add(Component.translatable("item.bakeries.tips.cold_drink_2", Component.translatable("potion.potency." + this.upEffect)).withStyle(ChatFormatting.DARK_GRAY));
+        }
         super.appendHoverText(stack, level, tooltip, isAdvanced);
     }
 }

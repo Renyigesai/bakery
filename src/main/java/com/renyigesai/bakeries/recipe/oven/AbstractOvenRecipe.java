@@ -83,4 +83,20 @@ public abstract class AbstractOvenRecipe implements Recipe<Container> {
     public @NotNull RecipeSerializer<?> getSerializer() {
         return serializer;
     }
+
+    public int getTime() {
+        return time;
+    }
+
+    public int getMaxTemperature() {
+        return max_temperature;
+    }
+
+    public int getMinTemperature() {
+        return min_temperature;
+    }
+
+    public int getPerfectTemperature() {
+        return perfect_temperature;
+    }
 }

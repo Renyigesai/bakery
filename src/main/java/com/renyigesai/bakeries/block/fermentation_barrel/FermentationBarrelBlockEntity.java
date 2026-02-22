@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.fermentation_barrel;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.inventory.fermentation_barrel.FermentationBarrelMenu;
 import com.renyigesai.bakeries.recipe.FermentationRecipe;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -262,7 +262,7 @@ public class FermentationBarrelBlockEntity extends BaseContainerBlockEntity {
         double newZ = z + (facing.getStepZ()*1.0D);
         System.out.println(newX);
         System.out.println(newZ);
-        ItemUtil.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
+        ItemUtils.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
     }
 
     public IItemHandler getInventory() {

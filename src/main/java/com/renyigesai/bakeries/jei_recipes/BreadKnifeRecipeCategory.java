@@ -22,13 +22,13 @@ import java.util.List;
 
 public class BreadKnifeRecipeCategory implements IRecipeCategory<BreadKnifeRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "bread_knife");//配方id
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_single_recipe.png");//配方gui贴图路径
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_single_recipe.png");//配方gui贴图路径
 
     public final IDrawable back;
     public final IDrawable icon;
 
     public BreadKnifeRecipeCategory(IGuiHelper helper) {
-        this.back = helper.createDrawable(TEXTURE,0, 0, 93, 21);
+        this.back = helper.createDrawable(TEXTURE,0, 0, 109, 21);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
     }
 
@@ -59,7 +59,11 @@ public class BreadKnifeRecipeCategory implements IRecipeCategory<BreadKnifeRecip
         //添加一个原料槽
         builder.addSlot(RecipeIngredientRole.INPUT,26,2).addItemStacks(List.of(recipeIngredients.get(0).getItems()));
         //添加输出槽
-        builder.addSlot(RecipeIngredientRole.OUTPUT,74,2).addItemStack(recipe.getResultItem(null));
+//        builder.addSlot(RecipeIngredientRole.OUTPUT,74,2).addItemStack(recipe.getResultItem(null));
+        NonNullList<ItemStack> output = recipe.getOutput();
+        for (int i = 0; i < output.size(); i++) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT,74 + (i * 16),2).addItemStack(output.get(i));
+        }
         //添加图标
         builder.addSlot(RecipeIngredientRole.OUTPUT,3,3).addItemStack(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
     }

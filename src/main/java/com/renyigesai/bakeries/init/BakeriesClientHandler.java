@@ -8,12 +8,14 @@ import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockE
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntityRender;
 import com.renyigesai.bakeries.block.menu.MenuBlockEntityRender;
 import com.renyigesai.bakeries.block.mix_block.MixBlockEntityRender;
+import com.renyigesai.bakeries.block.moka_pot.MokaPotRender;
 import com.renyigesai.bakeries.block.oven.OvenRender;
 import com.renyigesai.bakeries.block.pizza.PizzaFlatbreadBlockEntityRender;
 import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntityRender;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntityRender;
 import com.renyigesai.bakeries.block.wooden_tray.WoodTrayBlockEntityRender;
 import com.renyigesai.bakeries.client.model.BlenderModel;
+import com.renyigesai.bakeries.client.model.MokaPotModel;
 import com.renyigesai.bakeries.client.model.OvenModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -46,11 +48,13 @@ public class BakeriesClientHandler {
         event.registerBlockEntityRenderer(BakeriesBlocks.TOASTER_ENTITY.get(), ToasterBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.BLENDER_ENTITY.get(), BlenderRenderer::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.OVEN_BLOCK_ENTITY.get(), OvenRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.MOKA_POT_ENTITY.get(), MokaPotRender::new);
     }
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(BlenderModel.BLENDER, BlenderModel::createBodyLayer);
         event.registerLayerDefinition(OvenModel.OVEN, OvenModel::createBodyLayer);
+        event.registerLayerDefinition(MokaPotModel.MOKA_POT, MokaPotModel::createBodyLayer);
     }
 }

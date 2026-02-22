@@ -22,8 +22,8 @@ public abstract class FallingBlockEntityMixin extends Entity {
         super(pEntityType, pLevel);
     }
 
-    @Inject(method = "causeFallDamage",at = @At(value = "INVOKE",target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;",shift = At.Shift.BEFORE),locals = LocalCapture.CAPTURE_FAILSOFT)
-    public void causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource, CallbackInfoReturnable<Boolean> cir, int i, Predicate predicate, Block $$8, DamageSource damagesource1, DamageSource damagesource, float f) {
+    @Inject(method = "causeFallDamage",at = @At(value = "INVOKE",target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;",shift = At.Shift.BEFORE))
+    public void causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource, CallbackInfoReturnable<Boolean> cir) {
         AnvilLandingEvent anvilLandingEvent = new AnvilLandingEvent(this,this.level());
         MinecraftForge.EVENT_BUS.post(anvilLandingEvent);
     }

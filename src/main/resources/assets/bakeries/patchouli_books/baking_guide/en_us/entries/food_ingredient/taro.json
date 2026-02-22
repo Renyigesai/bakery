@@ -1,0 +1,13 @@
+{
+  "name": "item.bakeries.taro",
+  "icon": "bakeries:taro",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:taro",
+      "title": "item.bakeries.taro",
+      "text": "guide.bakeries.descr.taro"
+    }
+  ]
+}

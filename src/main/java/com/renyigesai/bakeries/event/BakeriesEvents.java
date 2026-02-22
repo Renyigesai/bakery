@@ -1,14 +1,14 @@
 package com.renyigesai.bakeries.event;
 
-import com.google.common.collect.ImmutableMap;
-import com.renyigesai.bakeries.accessor.VillagerAccessor;
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
-import com.renyigesai.bakeries.client.LookBlockEntityMap;
+import com.renyigesai.bakeries.api.item.PileItem;
+import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.RepeatEatItem;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.WorldUtil;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.BlockPos;
@@ -20,6 +20,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -27,13 +28,14 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -74,7 +76,7 @@ public class BakeriesEvents {
                 event.setCanceled(true);
             }
             villager.restock();
-            ((VillagerAccessor)villager).bakery$setNumberOfRestocksToday(0);
+            villager.numberOfRestocksToday = 0;
             RepeatEatItem.rHurt(entity,hand,new ItemStack(BakeriesItems.DRINK_CUP.get()));
             villager.level().playSound(null, BlockPos.containing(villager.getX(),villager.getY(),villager.getZ()), SoundEvents.GENERIC_DRINK, SoundSource.BLOCKS);
         }
@@ -84,15 +86,16 @@ public class BakeriesEvents {
     public static void onRightClickEgg(PlayerInteractEvent.RightClickItem event) {
         Player entity = event.getEntity();
         Level level = event.getLevel();
-        if (entity == null || level == null)
+        if (entity == null || level == null) {
             return;
+        }
             ItemStack mainHandItem = entity.getMainHandItem();
             ItemStack offhandItem = entity.getOffhandItem();
             if (offhandItem.is(BakeriesItems.BREAD_KNIFE.get()) && mainHandItem.is(Items.EGG)) {
                 if (!level.isClientSide()) {
                     event.setCanceled(true);
                     mainHandItem.shrink(1);
-                    ItemUtil.givePlayerItem(entity, new ItemStack(BakeriesItems.WHOLE_EGG.get()));
+                    ItemUtils.givePlayerItem(entity, new ItemStack(BakeriesItems.WHOLE_EGG.get()));
                     if (!entity.getAbilities().instabuild) {
                         offhandItem.hurtAndBreak(1,entity, (p_41300_) -> p_41300_.broadcastBreakEvent(entity.getUsedItemHand()));
                     }
@@ -105,16 +108,13 @@ public class BakeriesEvents {
     public static void onLookBlock(PlayerLookBlockEvent event){
         Level level = event.getPlayer().level();
         Player player = event.getPlayer();
-        BlockState state = event.getBlockState();
         BlockPos blockPos = event.getBlockPos();
-        ImmutableMap<Block, Class<? extends BlockEntity>> map = LookBlockEntityMap.getRegister();
-        Class<? extends BlockEntity> aClass = map.get(state.getBlock());
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if (aClass != null && aClass.isInstance(blockEntity)){
-            LookBlockEntityMap.setBlocks(player,aClass.cast(blockEntity));
+        if (blockEntity != null){
+            LookBlockEntityRegistries.setBlocks(player,blockEntity);
             return;
         }
-        Map<UUID, BlockEntity> blocks = LookBlockEntityMap.getBlocks();
+        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
         if (blocks.get(player.getUUID()) != null){
             blocks.remove(player.getUUID());
         }
@@ -137,7 +137,7 @@ public class BakeriesEvents {
             LootTable lootTables = WorldUtil.getLootTables("bakeries:grant_patchi_book", entity.level());
             List<ItemStack> fromLootTableItemStack = WorldUtil.getFromLootTableItemStack(lootTables, entity.level(), entity.getOnPos());
             for (ItemStack itemStack : fromLootTableItemStack) {
-                ItemUtil.givePlayerItem(entity, itemStack);
+                ItemUtils.givePlayerItem(entity, itemStack);
             }
         }
     }
@@ -172,6 +172,23 @@ public class BakeriesEvents {
                     }
                 });
                 break;
+            }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onPlacePileBlock(PlayerInteractEvent.RightClickBlock event){
+        Player entity = event.getEntity();
+        InteractionHand hand = entity.getMainHandItem().getItem() instanceof PileItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        ItemStack handItem = entity.getItemInHand(hand);
+        if (BakeriesMod.onAuxiliaryKey(entity)){
+            if (handItem.getItem() instanceof PileItem pileItem){
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+                if (entity instanceof ServerPlayer serverPlayer){
+                    pileItem.pileUseOn(new UseOnContext(serverPlayer,hand,event.getHitVec()));
+                    entity.swing(hand);
+                }
             }
         }
     }

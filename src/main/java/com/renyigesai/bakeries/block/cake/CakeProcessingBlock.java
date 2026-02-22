@@ -1,10 +1,8 @@
 package com.renyigesai.bakeries.block.cake;
 
 import com.renyigesai.bakeries.api.block.BCakeBlock;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -78,7 +76,7 @@ public class CakeProcessingBlock extends Block {
         int stage = pState.getValue(STAGE);
         ItemStack hand = pPlayer.getItemInHand(pHand);
         List<ItemStack> itemList = getProcessingItemList();
-        if (hand.is(itemList.get(stage).getItem()) || ItemUtil.isTag(hand,itemList.get(stage).getItem())){
+        if (hand.is(itemList.get(stage).getItem()) || ItemUtils.isTag(hand,itemList.get(stage).getItem())){
             if (stage < maxStage){
                 pLevel.setBlock(pPos, pState.setValue(STAGE, stage + 1), 3);
             }else {
@@ -87,7 +85,7 @@ public class CakeProcessingBlock extends Block {
             }
             if (!pPlayer.getAbilities().instabuild) {
                 if (hand.hasCraftingRemainingItem()){
-                    ItemUtil.givePlayerItem(pPlayer,hand.getCraftingRemainingItem());
+                    ItemUtils.givePlayerItem(pPlayer,hand.getCraftingRemainingItem());
                 }
                 hand.shrink(1);
             }

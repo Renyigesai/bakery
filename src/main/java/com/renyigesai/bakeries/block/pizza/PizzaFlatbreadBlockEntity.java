@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.pizza;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.recipe.PizzaRecipe;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -115,7 +115,7 @@ public class PizzaFlatbreadBlockEntity extends BlockEntity {
             if (stackInSlot.isEmpty()){
                 if (stack.getItem().isEdible() && !stack.is(ItemTags.create(new ResourceLocation("bakeries:not_pizza_ingredients")))){
                     if (stack.hasCraftingRemainingItem()) {
-                        ItemUtil.givePlayerItem(player, stack.getCraftingRemainingItem());
+                        ItemUtils.givePlayerItem(player, stack.getCraftingRemainingItem());
                     }
                     stack.setCount(1);
                     inventory.setStackInSlot(i,stack);
@@ -147,7 +147,7 @@ public class PizzaFlatbreadBlockEntity extends BlockEntity {
                     level.setBlock(worldPosition,blockItem.getBlock().defaultBlockState(),3);
                 }else {
                     level.removeBlock(worldPosition,false);
-                    ItemUtil.spawnItemEntity(level,resultItem,worldPosition);
+                    ItemUtils.spawnItemEntity(level,resultItem,worldPosition);
                 }
                 return true;
             }

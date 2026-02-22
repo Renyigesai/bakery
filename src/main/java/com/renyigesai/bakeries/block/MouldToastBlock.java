@@ -1,7 +1,9 @@
 package com.renyigesai.bakeries.block;
 
+import com.renyigesai.bakeries.api.block.IMouldBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -30,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class MouldToastBlock extends HorizontalDirectionalBlock {
+public class MouldToastBlock extends HorizontalDirectionalBlock implements IMouldBlock {
 
     public final Supplier<Item> demouldItem;
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
@@ -78,7 +80,7 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
     protected InteractionResult take(Level level, BlockPos pos, BlockState state, Player player){
         int pile = state.getValue(PILE);
         if (pile == 1){
-            ItemUtil.givePlayerItem(player,new ItemStack(this.demouldItem.get()));
+            ItemUtils.givePlayerItem(player,new ItemStack(this.demouldItem.get()));
             level.playSound(null, pos, SoundEvents.WOOL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
             Direction facing = state.getValue(FACING);
             BlockState bBlockState = BakeriesBlocks.MOULD.get().defaultBlockState()
@@ -115,5 +117,15 @@ public class MouldToastBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING,PILE,FILL);
+    }
+
+    @Override
+    public Supplier<Item> getMouldContentItem() {
+        return demouldItem;
+    }
+
+    @Override
+    public Supplier<Item> getMouldItem() {
+        return BakeriesItems.MOULD;
     }
 }

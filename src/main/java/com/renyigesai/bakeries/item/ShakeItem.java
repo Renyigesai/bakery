@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.item;
 
 import com.renyigesai.bakeries.init.BakeriesSounds;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -62,9 +62,9 @@ public class ShakeItem extends Item {
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
         pStack.shrink(1);
         if (pLivingEntity instanceof Player player){
-            ItemUtil.givePlayerItem(player,this.getFinishItem());
+            ItemUtils.givePlayerItem(player,this.getFinishItem());
         }else {
-            ItemUtil.spawnItemEntity(pLevel,this.getFinishItem(),pLivingEntity.getX()+0.5,pLivingEntity.getY(),pLivingEntity.getZ()+0.5,new Vec3(0.0,0.0,0.0));
+            ItemUtils.spawnItemEntity(pLevel,this.getFinishItem(),pLivingEntity.getX()+0.5,pLivingEntity.getY(),pLivingEntity.getZ()+0.5,new Vec3(0.0,0.0,0.0));
         }
 
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);

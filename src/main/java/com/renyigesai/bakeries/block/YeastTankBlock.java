@@ -1,6 +1,6 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -47,8 +47,8 @@ public class YeastTankBlock extends TankBlock {
         }else {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
-        ItemUtil.shrinkAndReturn(hand,1,playerIn);
-        ItemUtil.givePlayerItem(playerIn,new ItemStack(BakeriesItems.BOTTLE_YEAST.get()));
+        ItemUtils.shrinkAndReturn(hand,1,playerIn);
+        ItemUtils.givePlayerItem(playerIn,new ItemStack(BakeriesItems.BOTTLE_YEAST.get()));
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }

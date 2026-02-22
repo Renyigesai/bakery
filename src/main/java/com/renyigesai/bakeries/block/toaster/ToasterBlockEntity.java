@@ -1,10 +1,9 @@
 package com.renyigesai.bakeries.block.toaster;
 
-import com.renyigesai.bakeries.block.state.BakeriesEnumProperty;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -87,7 +86,7 @@ public class ToasterBlockEntity extends BlockEntity {
         for (int i = 0; i < this.items.getSlots(); i++) {
             ItemStack stackInSlot = this.items.getStackInSlot(i);
             if (!stackInSlot.isEmpty()){
-                ItemUtil.givePlayerItem(player,stackInSlot);
+                ItemUtils.givePlayerItem(player,stackInSlot);
                 this.items.setStackInSlot(i,ItemStack.EMPTY);
                 this.cookingTime[i] = 0;
                 this.cookingProgress[i] = 0;

@@ -273,16 +273,23 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
             blockEntity.state = OvenBlockEntity.State.CLOSE;
         }
     }
+    private boolean hasInput() {
+        for(int i = 0; i < itemHandler.getSlots(); ++i) {
+            if (!this.itemHandler.getStackInSlot(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, OvenBlockEntity pOvenBlockEntity) {
-        boolean flag = false;
-        updateBlock(pOvenBlockEntity);
-        setFire(pLevel, pPos, pState, pOvenBlockEntity);
-        for (int i = 0; i < pOvenBlockEntity.itemHandler.getSlots(); i++) {
-            flag = true;
-            recipeItem(pLevel, pPos, pState, i, pOvenBlockEntity);
-        }
-        if (flag) {
+        if (pOvenBlockEntity.hasInput()){
+            for (int i = 0; i < pOvenBlockEntity.itemHandler.getSlots(); i++) {
+                if (!pOvenBlockEntity.itemHandler.getStackInSlot(i).isEmpty()){
+                    recipeItem(pLevel, pPos, pState, i, pOvenBlockEntity);
+                }
+            }
+            setFire(pLevel, pPos, pOvenBlockEntity);
             setChanged(pLevel, pPos, pState);
             updateBlock(pOvenBlockEntity);
         }
@@ -292,13 +299,9 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         return this.itemHandler;
     }
 
-    public static void setFire(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
-        updateBlock(pOvenBlockEntity);
+    public static void setFire(Level world, BlockPos pos, OvenBlockEntity pOvenBlockEntity) {
         boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0 || pOvenBlockEntity.cooking_times[4] > 0 || pOvenBlockEntity.cooking_times[5] > 0;
-
         world.setBlock(pos, pOvenBlockEntity.getBlockState().setValue(OvenBlock.LIT, isLit), 3);
-        world.sendBlockUpdated(pos, state, state, 3);
-        setChanged(world, pos, state);
     }
     public int getTemperature(OvenBlockEntity ovenBlockEntity) {
         return ovenBlockEntity.temperature;
@@ -332,8 +335,8 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         int temperature = ovenBlockEntity.temperature;
         recipe.ifPresent(ovenRecipe -> {
             ovenBlockEntity.max_cooking_times[slot] = ovenRecipe.getTime();
-            ovenBlockEntity.min_temperatures[slot] = Math.max(recipe.get().getMin_temperature(), 0);
-            ovenBlockEntity.max_temperatures[slot] = Math.min(recipe.get().getMax_temperature(), 500);
+            ovenBlockEntity.min_temperatures[slot] = Math.max(recipe.get().getMinTemperature(), 0);
+            ovenBlockEntity.max_temperatures[slot] = Math.min(recipe.get().getMaxTemperature(), 500);
         });
         if (ovenBlockEntity.hasRecipe(slot) && recipe.isPresent() && Math.max(ovenBlockEntity.min_temperatures[slot], 0) <= temperature) {
 
@@ -347,7 +350,7 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
                 if (cookingTime >= max_cooking_time) {
                     if (temperature <= craft_temperature) {
                         boolean perfect = true;
-                        if (!recipe.get().isPresentPerfect() || temperature != recipe.get().getPerfect_temperature()){
+                        if (!recipe.get().isPresentPerfect() || temperature != recipe.get().getPerfectTemperature()){
                             perfect = false;
                         }
                         ovenBlockEntity.craftItem(ovenBlockEntity, slot, perfect);

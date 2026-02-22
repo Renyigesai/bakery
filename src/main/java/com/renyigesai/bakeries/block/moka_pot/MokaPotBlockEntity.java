@@ -20,6 +20,7 @@ public class MokaPotBlockEntity extends BlockEntity {
     protected final ItemStackHandler inventory = new ItemStackHandler(1);//11个槽位
     public int cookingTotalTime;
     public boolean fill;
+    public long wobbleStartedAtTick;
     public MokaPotBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.MOKA_POT_ENTITY.get(), pPos, pBlockState);
     }
@@ -78,6 +79,18 @@ public class MokaPotBlockEntity extends BlockEntity {
         return state.getBlock().getStateDefinition().getProperty("lit") instanceof BooleanProperty booleanProperty && state.getValue(booleanProperty);
     }
 
+    @Override
+    public boolean triggerEvent(int id, int type) {
+        if (id == 0) {
+            if (type == 0 && this.level != null) {
+                this.wobbleStartedAtTick = this.level.getGameTime();
+            }
+            return true;
+        } else {
+            return super.triggerEvent(id, type);
+        }
+    }
+
     public static void craftTick(Level level, BlockPos pos, BlockState state, MokaPotBlockEntity blockEntity) {
         if (blockEntity.isCraft(level, pos) && !blockEntity.isInventoryFull()) {
             blockEntity.tick();
@@ -92,6 +105,11 @@ public class MokaPotBlockEntity extends BlockEntity {
         if (inventory.getStackInSlot(0).is(ItemTags.create(new ResourceLocation("forge:coffee_grounds")))){
             if (cookingTotalTime < 200){
                 ++ cookingTotalTime;
+                if (cookingTotalTime % 10 == 0){
+                    if (level != null && !level.isClientSide()) {
+                        level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 0, 0);
+                    }
+                }
             }else {
                 inventory.extractItem(0,1,false);
                 cookingTotalTime = 0;

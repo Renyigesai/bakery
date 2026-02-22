@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.block.glass_drink_cup;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -115,7 +114,7 @@ public class GlassDrinkCupBlock extends BaseEntityBlock {
 
             return;
         } else {
-            ItemUtil.spawnItemEntity(level, stack, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new Vec3(0.0, 0.0, 0.0));
+            ItemUtils.spawnItemEntity(level, stack, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new Vec3(0.0, 0.0, 0.0));
         }
         level.removeBlock(pos, false);
     }

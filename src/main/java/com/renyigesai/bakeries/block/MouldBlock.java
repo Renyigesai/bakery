@@ -1,6 +1,6 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -38,7 +38,7 @@ public class MouldBlock extends HorizontalDirectionalBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        ItemUtil.givePlayerItem(pPlayer,new ItemStack(this.mould.get()));
+        ItemUtils.givePlayerItem(pPlayer,new ItemStack(this.mould.get()));
         pLevel.playSound(null, pPos, SoundEvents.METAL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         pLevel.removeBlock(pPos,false);
         return InteractionResult.SUCCESS;

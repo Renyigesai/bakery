@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class BlenderCategory implements IRecipeCategory<BlenderRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "blender");
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_blender_gui.png");
+            new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_blender_gui.png");
 
     public final IDrawable back;
     public final IDrawable icon;

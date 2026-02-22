@@ -1,7 +1,8 @@
 package com.renyigesai.bakeries.api.block;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesSounds;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -97,14 +98,14 @@ public class PileBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide){
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (level.isClientSide){
             return InteractionResult.SUCCESS;
         }
-        if (!pPlayer.isShiftKeyDown()){
-            return take(pState, pLevel, pPos, pPlayer);
+        if (!BakeriesMod.onAuxiliaryKey(pPlayer)){
+            return take(state, level, pos, pPlayer);
         }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return super.use(state, level, pos, pPlayer, pHand, pHit);
     }
 
     public InteractionResult take(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer){
@@ -114,7 +115,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
         }else {
             pLevel.setBlock(pPos,pState.setValue(integerProperty,i-1),3);
         }
-        ItemUtil.givePlayerItem(pPlayer,new ItemStack(this.asItem()));
+        ItemUtils.givePlayerItem(pPlayer,new ItemStack(this.asItem()));
         pLevel.playSound(null,pPos,getTakeSound(),SoundSource.BLOCKS);
         return InteractionResult.SUCCESS;
     }

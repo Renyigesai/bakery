@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.block.luminous_light_sign;
 
 import com.renyigesai.bakeries.block.sofa.SofaBlock;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.TextUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -72,27 +72,12 @@ public class LuminousLightSignBlock extends BaseEntityBlock {
             if (itemInHand.getItem() instanceof DyeItem dye){
                 if (blockEntity instanceof LuminousLightSignBlockEntity sign){
                     sign.setColor(dye.getDyeColor().getTextColor());
-                    ItemUtil.shrink(itemInHand,1,pPlayer);
+                    ItemUtils.shrink(itemInHand,1,pPlayer);
                     return InteractionResult.SUCCESS;
                 }
             }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-    }
-
-    private int getLength(String string,int maxLength){
-        int width = 0;
-        int length = 0;
-        Minecraft mc = Minecraft.getInstance();
-        for (int i = 0; i < string.length(); i++) {
-            char _char = string.charAt(i);
-            width += mc.font.width(String.valueOf(_char));
-            length ++;
-            if (width > maxLength){
-                return length - 1;
-            }
-        }
-        return length;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {

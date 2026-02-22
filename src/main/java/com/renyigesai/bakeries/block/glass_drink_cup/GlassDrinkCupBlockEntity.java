@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.block.glass_drink_cup;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.recipe.CoffeeRecipe;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -23,6 +23,8 @@ import java.util.Optional;
 public class GlassDrinkCupBlockEntity extends BlockEntity {
     protected final ItemStackHandler inventory = new ItemStackHandler(5);
     public int stage;
+
+
 
     public GlassDrinkCupBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.DRINK_CUP_ENTITY.get(), pPos, pBlockState);
@@ -79,7 +81,7 @@ public class GlassDrinkCupBlockEntity extends BlockEntity {
             if (inventory.getStackInSlot(i).isEmpty()) {
                 if (stack.hasCraftingRemainingItem()) {
                     inventory.setStackInSlot(i, stack);
-                    ItemUtil.givePlayerItem(player, stack.getCraftingRemainingItem());
+                    ItemUtils.givePlayerItem(player, stack.getCraftingRemainingItem());
                     break;
                 }
                 inventory.setStackInSlot(i, stack);

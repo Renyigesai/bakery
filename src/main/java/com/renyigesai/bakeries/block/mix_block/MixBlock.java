@@ -1,10 +1,15 @@
 package com.renyigesai.bakeries.block.mix_block;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
+import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
+import com.renyigesai.bakeries.util.TextUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -15,7 +20,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.NameTagItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -89,10 +96,15 @@ public class MixBlock extends BaseEntityBlock {
         if (pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }
-        if (!pPlayer.isShiftKeyDown()){
+        if (!BakeriesMod.onAuxiliaryKey(pPlayer)){
             ItemStack itemInHand = pPlayer.getItemInHand(pHand);
             if (itemInHand.is(BakeriesItems.WOOD_TRAY.get())){
                 pLevel.setBlock(pPos,pState.setValue(TRAY,true),3);
+                return InteractionResult.SUCCESS;
+            }
+            if (addText(itemInHand,pLevel,pPos)){
+                return InteractionResult.SUCCESS;
+            }else if (setColor(itemInHand,pLevel,pPos,pPlayer)){
                 return InteractionResult.SUCCESS;
             }
             return take(pLevel, pPos, pPlayer);
@@ -123,9 +135,35 @@ public class MixBlock extends BaseEntityBlock {
         }else {
             soundEvent = SoundEvents.WOOL_BREAK;
         }
-        ItemUtil.givePlayerItem(pPlayer,outStack);
+        ItemUtils.givePlayerItem(pPlayer,outStack);
         pLevel.playSound(null,pPos,soundEvent, SoundSource.BLOCKS);
         return InteractionResult.SUCCESS;
+    }
+
+    private boolean addText(ItemStack itemInHand,Level level,BlockPos pos) {
+        if (itemInHand.getItem() instanceof NameTagItem) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof MixBlockEntity mix) {
+                Component hoverName = itemInHand.getHoverName();
+                int length = TextUtils.getLength(hoverName.getString(),90);
+                String string = hoverName.getString(length);
+                mix.setText(string);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean setColor(ItemStack itemInHand,Level level,BlockPos pos,Player player){
+        if (itemInHand.getItem() instanceof DyeItem dye){
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof MixBlockEntity mix){
+                mix.setColor(dye.getDyeColor().getTextColor());
+                ItemUtils.shrink(itemInHand,1,player);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.block;
 
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -40,7 +40,7 @@ public class PaperCupBlock extends PileBlock {
                 if (!pPlayer.getAbilities().instabuild){
                     hand.shrink(1);
                 }
-                ItemUtil.givePlayerItem(pPlayer,new ItemStack(Items.BUCKET));
+                ItemUtils.givePlayerItem(pPlayer,new ItemStack(Items.BUCKET));
                 pLevel.setBlock(pPos,pState.setValue(FILL,true),3);
             }
         }
@@ -56,7 +56,7 @@ public class PaperCupBlock extends PileBlock {
         }else {
             pLevel.setBlock(pPos,pState.setValue(integerProperty,i-1),3);
         }
-        ItemUtil.givePlayerItem(pPlayer,new ItemStack(stack.getItem()));
+        ItemUtils.givePlayerItem(pPlayer,new ItemStack(stack.getItem()));
         pLevel.playSound(null,pPos,getTakeSound(),SoundSource.BLOCKS);
         return InteractionResult.SUCCESS;
     }

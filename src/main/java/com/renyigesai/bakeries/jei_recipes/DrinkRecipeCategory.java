@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 public class DrinkRecipeCategory implements IRecipeCategory<CoffeeRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "drink");//配方id
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_drink_gui.png");//配方gui贴图路径
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_drink_gui.png");//配方gui贴图路径
 
     public final IDrawable back;
     public final IDrawable icon;

@@ -1,6 +1,6 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
@@ -59,8 +59,8 @@ public class MilkTankBlock extends TankBlock {
         }else {
             level.setBlock(pos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState(),0);
         }
-        ItemUtil.shrink(hand,1,playerIn);
-        ItemUtil.givePlayerItem(playerIn,new ItemStack(BakeriesItems.BOTTLE_MILK.get()));
+        ItemUtils.shrink(hand,1,playerIn);
+        ItemUtils.givePlayerItem(playerIn,new ItemStack(BakeriesItems.BOTTLE_MILK.get()));
         level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
     }
@@ -71,7 +71,7 @@ public class MilkTankBlock extends TankBlock {
         if (milk < 3){
             level.setBlock(pos,state.setValue(MILK,milk +1),3);
             hand.shrink(1);
-            ItemUtil.shrinkAndReturn(hand,1,playerIn);
+            ItemUtils.shrinkAndReturn(hand,1,playerIn);
         }return InteractionResult.SUCCESS;
     }
 
@@ -81,7 +81,7 @@ public class MilkTankBlock extends TankBlock {
         if (milk == 3) {
             level.setBlock(pos, state.setValue(SALT, true), 0);
             handStack.shrink(1);
-            ItemUtil.shrink(handStack,1,playerIn);
+            ItemUtils.shrink(handStack,1,playerIn);
             level.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.PLAYERS, 0.8F, 0.8F);
         }
         return InteractionResult.SUCCESS;

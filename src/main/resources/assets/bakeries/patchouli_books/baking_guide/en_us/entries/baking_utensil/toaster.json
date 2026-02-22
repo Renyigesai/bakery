@@ -1,0 +1,12 @@
+{
+  "name": "block.bakeries.toaster",
+  "icon": "bakeries:toaster",
+  "category": "bakeries:baking_utensil",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:toaster",
+      "text": "guide.bakeries.descr.toaster"
+    }
+  ]
+}

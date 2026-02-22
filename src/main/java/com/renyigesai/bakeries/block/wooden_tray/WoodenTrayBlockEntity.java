@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.block.wooden_tray;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -17,9 +17,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.items.ItemStackHandler;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WoodenTrayBlockEntity extends BlockEntity {
     protected final ItemStackHandler inventory = new ItemStackHandler(2);
@@ -98,7 +95,7 @@ public class WoodenTrayBlockEntity extends BlockEntity {
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stackInSlot = inventory.getStackInSlot(i);
             if (!stackInSlot.isEmpty()){
-                ItemUtil.givePlayerItem(player,stackInSlot);
+                ItemUtils.givePlayerItem(player,stackInSlot);
                 inventory.extractItem(i,1,false);
             }
         }

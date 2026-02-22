@@ -175,6 +175,9 @@ dependencies {
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
     /*联动模组导入*/
     implementation fg.deobf("curse.maven:farmersdelight-398521:6154802")
+    implementation fg.deobf("curse.maven:thirst_was_taken-679270:6660408")
+    implementation fg.deobf("curse.maven:embeddium-908741:5681725")
+    implementation fg.deobf("curse.maven:mekalus-oculus-fork-with-fixed-mekanism-mekasuit-1130957:6994299")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

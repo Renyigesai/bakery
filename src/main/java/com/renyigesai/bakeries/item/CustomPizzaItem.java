@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.item;
 
 import com.renyigesai.bakeries.block.pizza.CustomPizzaBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.util.ItemUtil;
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -23,11 +23,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CustomPizzaItem extends BlockItem {
     public CustomPizzaItem(Block block) {
-        super(block,new Item.Properties().stacksTo(1).rarity(ItemUtil.ADVANCED));
+        super(block,new Item.Properties().stacksTo(1).rarity(ItemUtils.ADVANCED));
     }
 
     public List<ItemStack> getInventoryList(ItemStack stack){

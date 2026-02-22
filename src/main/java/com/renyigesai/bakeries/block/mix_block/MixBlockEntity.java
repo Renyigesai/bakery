@@ -1,7 +1,5 @@
 package com.renyigesai.bakeries.block.mix_block;
 
-import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
-import com.renyigesai.bakeries.block.pizza.PizzaFlatbreadBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,12 +7,12 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class MixBlockEntity extends BlockEntity {
 
@@ -35,6 +33,9 @@ public class MixBlockEntity extends BlockEntity {
         }
     };
 
+    private String text;
+    private int color = 16777215;
+
     public MixBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.MIX_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
@@ -51,6 +52,24 @@ public class MixBlockEntity extends BlockEntity {
             }
         }
         return count;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+        updateBlock();
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+        updateBlock();
     }
 
     public void drops(MixBlockEntity blockEntity) {
@@ -77,9 +96,7 @@ public class MixBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag() {
-        CompoundTag tag = new CompoundTag();
-        tag.put("Inventory",inventory.serializeNBT());
-        return tag;
+        return this.saveWithoutMetadata();
     }
 
     @Override
@@ -93,12 +110,18 @@ public class MixBlockEntity extends BlockEntity {
         if (tag.contains("Inventory")) {
             inventory.deserializeNBT(tag.getCompound("Inventory"));
         }
+        if (tag.contains("Text")) {
+            text = tag.getString("Text");
+        }
+        color = tag.getInt("Color");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("Inventory", inventory.serializeNBT());
+        tag.putString("Text", Objects.requireNonNullElse(text, ""));
+        tag.putInt("Color",color);
     }
 
     public boolean addItem(ItemStack stack){
