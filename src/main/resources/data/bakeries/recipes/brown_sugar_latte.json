@@ -5,7 +5,7 @@
       "item": "minecraft:ice"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     },
     {
       "item": "bakeries:brown_sugar_cube"

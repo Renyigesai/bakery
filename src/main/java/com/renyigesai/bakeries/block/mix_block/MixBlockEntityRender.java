@@ -81,7 +81,7 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
                 renderTray(entity,direction,poseStack,pBuffer,pPackedOverlay);
             }
         }
-        if (!entity.getText().isEmpty()){
+        if (entity.getText() != null && !entity.getText().isEmpty()){
             poseStack.pushPose();
             renderText(entity,poseStack,pBuffer,pPackedLight,direction);
             poseStack.popPose();

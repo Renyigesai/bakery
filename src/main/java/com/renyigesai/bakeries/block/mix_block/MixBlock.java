@@ -96,7 +96,7 @@ public class MixBlock extends BaseEntityBlock {
         if (pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }
-        if (!BakeriesMod.onAuxiliaryKey(pPlayer)){
+        if (!pPlayer.isShiftKeyDown()){
             ItemStack itemInHand = pPlayer.getItemInHand(pHand);
             if (itemInHand.is(BakeriesItems.WOOD_TRAY.get())){
                 pLevel.setBlock(pPos,pState.setValue(TRAY,true),3);
