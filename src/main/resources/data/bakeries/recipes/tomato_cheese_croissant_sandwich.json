@@ -6,10 +6,10 @@
       "item": "bakeries:croissant"
     },
     {
-      "tag": "forge:crops/tomato"
+      "tag": "c:foods/tomato"
     },
     {
-      "tag": "forge:cheese"
+      "tag": "c:cheese"
     }
   ],
   "result": {

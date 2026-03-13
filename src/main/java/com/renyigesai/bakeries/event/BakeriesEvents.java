@@ -11,6 +11,7 @@ import com.renyigesai.bakeries.item.RepeatEatItem;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.WorldUtil;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -31,7 +32,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
@@ -176,18 +181,17 @@ public class BakeriesEvents {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onPlacePileBlock(PlayerInteractEvent.RightClickBlock event){
-        Player entity = event.getEntity();
-        InteractionHand hand = entity.getMainHandItem().getItem() instanceof PileItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-        ItemStack handItem = entity.getItemInHand(hand);
-        if (BakeriesMod.onAuxiliaryKey(entity)){
-            if (handItem.getItem() instanceof PileItem pileItem){
-                event.setCanceled(true);
-                event.setCancellationResult(InteractionResult.SUCCESS);
-                if (entity instanceof ServerPlayer serverPlayer){
-                    pileItem.pileUseOn(new UseOnContext(serverPlayer,hand,event.getHitVec()));
-                    entity.swing(hand);
+    @SubscribeEvent
+    public static void onPlayerLookBlock(TickEvent.PlayerTickEvent event){
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.hitResult instanceof BlockHitResult blockHitResult){
+            BlockPos pos = blockHitResult.getBlockPos();
+            Level level = mc.level;
+            if (level != null) {
+                BlockState state = level.getBlockState(pos);
+                if (!state.isAir()){
+                    PlayerLookBlockEvent playerLookBlockEvent = new PlayerLookBlockEvent(mc.player, pos,state);
+                    MinecraftForge.EVENT_BUS.post(playerLookBlockEvent);
                 }
             }
         }

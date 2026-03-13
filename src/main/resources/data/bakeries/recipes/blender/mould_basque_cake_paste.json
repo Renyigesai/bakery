@@ -3,7 +3,7 @@
   "ingredients": [
     [
       {
-        "tag": "forge:eggs"
+        "tag": "c:eggs"
       },
       {
         "item": "bakeries:whole_egg"
@@ -25,7 +25,7 @@
       "item": "minecraft:sugar"
     },
     {
-      "tag": "forge:flour"
+      "tag": "c:flours"
     }
   ],
   "container": {

@@ -8,13 +8,13 @@
       "item": "bakeries:raw_egg_yolk"
     },
     {
-      "tag": "forge:flour"
+      "tag": "c:flours"
     },
     {
-      "tag": "forge:flour"
+      "tag": "c:flours"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     }
   ],
   "container": {

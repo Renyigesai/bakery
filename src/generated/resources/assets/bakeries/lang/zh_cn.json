@@ -377,7 +377,7 @@
   "tip.bakeries.pizza_stone_kiln_shovel": "你需要使用炉铲",
   "tip.bakeries.stone_kiln_stone_kiln_shovel": "使用炉铲以翻面",
   "tip.bakeries.toaster_1": "空手右键以开始烤制",
-  "tip.bakeries.toaster_2": "%s加右键以取出物品",
+  "tip.bakeries.toaster_2": "潜行加右键以取出物品",
   "gui.bakeries.oven.temperature": "当前温度",
   "gui.bakeries.oven.rolling": "§o滚动调整",
   "key.bakeries.bakeries": "烘焙坊",

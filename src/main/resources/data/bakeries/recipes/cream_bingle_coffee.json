@@ -5,7 +5,7 @@
       "item": "minecraft:packed_ice"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     },
     {
       "item": "bakeries:moka_pot_fill"

@@ -61,13 +61,13 @@ public class PileItem extends ItemNameBlockItem {
     /*不使用原版放置方法*/
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
-        return InteractionResult.FAIL;
+        return pileUseOn(pContext);
     }
 
     public InteractionResult pileUseOn(UseOnContext pContext){
         Player player = pContext.getPlayer();
         InteractionResult result = this.use(pContext.getLevel(), player, pContext.getHand()).getResult();
-        if (BakeriesMod.onAuxiliaryKey(player) && this.isExtra(pContext)) {
+        if (player.isShiftKeyDown() && this.isExtra(pContext)) {
             Level level = pContext.getLevel();
             Block thisBlock = this.getBlock();
             BlockPos pos = pContext.getClickedPos();

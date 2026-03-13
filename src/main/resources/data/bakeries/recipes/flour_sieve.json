@@ -8,7 +8,7 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:rods"
+      "item": "minecraft:stick"
     },
     "b": {
       "item": "minecraft:string"
