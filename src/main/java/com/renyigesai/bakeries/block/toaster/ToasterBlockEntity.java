@@ -68,7 +68,7 @@ public class ToasterBlockEntity extends BlockEntity {
         return tag;
     }
 
-    public void addItem(ItemStack item, int time){
+    public boolean addItem(ItemStack item, int time){
         for (int i = 0; i < this.items.getSlots(); i++) {
             ItemStack stack = this.items.getStackInSlot(i);
             if (stack.isEmpty()){
@@ -77,9 +77,10 @@ public class ToasterBlockEntity extends BlockEntity {
                 this.cookingTime[i] = (int) (time / BakeriesConfig.toasterDoubleSpeed);
                 this.cookingProgress[i] = 0;
                 updateBlock();
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     public void getItem(Player player){
@@ -92,6 +93,7 @@ public class ToasterBlockEntity extends BlockEntity {
                 this.cookingProgress[i] = 0;
             }
         }
+        updateBlock();
         this.animationStatus = AnimationStatus.IDLE;
     }
 
@@ -182,15 +184,6 @@ public class ToasterBlockEntity extends BlockEntity {
     }
 
     public boolean isEmpty(){
-        for (int i = 0; i < this.items.getSlots(); i++) {
-            if (!this.items.getStackInSlot(i).isEmpty()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isEmpty2(){
         for (int i = 0; i < this.items.getSlots(); i++) {
             if (!this.items.getStackInSlot(i).isEmpty()){
                 return false;

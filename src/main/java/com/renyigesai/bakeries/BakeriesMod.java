@@ -1,7 +1,10 @@
 package com.renyigesai.bakeries;
 
+import com.renyigesai.bakeries.api.conditions.AbstractConfigCondition;
+import com.renyigesai.bakeries.api.conditions.AbstractConfigConditionSerializer;
 import com.renyigesai.bakeries.capabilities.PlayerKeyAuxiliary;
 import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
+import com.renyigesai.bakeries.conditions.ConfigCondition;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.fluid.BakeriesFluidTypes;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
@@ -12,6 +15,7 @@ import com.renyigesai.bakeries.villager.BakeriesVillagers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -21,7 +25,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
 
@@ -58,6 +61,8 @@ public class BakeriesMod {
             Calendar calendar = Calendar.getInstance();
             aprilFoolsDay = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
         }
+        CraftingHelper.register(ConfigCondition.Serializer.INSTANCE);
+        BakeriesConfig.ConfigMapping.init();
     }
 
     public static boolean onAuxiliaryKey(Player player){

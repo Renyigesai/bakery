@@ -517,6 +517,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
         return SoundEvents.IRON_TRAPDOOR_CLOSE;
     }
 
+    public void sendBlockEvent(int eventId,int ventParam){
+        if (level != null) {
+            level.blockEvent(this.getBlockPos(),this.getBlockState().getBlock(),eventId,ventParam);
+        }
+    }
+
     public enum State {
         OPEN_PROCESS,
         OPEN,

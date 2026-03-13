@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.recipe.oven;
 
-import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -18,13 +17,9 @@ public abstract class AbstractOvenRecipe implements Recipe<Container> {
     private final RecipeSerializer<?> serializer;
     protected final ResourceLocation id;
     protected final ItemStack output;
-    @Getter
     protected final int time;
-    @Getter
     protected final int min_temperature;
-    @Getter
     protected final int max_temperature;
-    @Getter
     protected final int perfect_temperature;
     protected final Ingredient recipeItems;
     public AbstractOvenRecipe(RecipeType<?> recipeType, RecipeSerializer<?> serializer, ResourceLocation id, ItemStack output, int time, int min_temperature, int max_temperature, int perfectTemperature, Ingredient recipeItems) {

@@ -20,6 +20,7 @@ public class BottleButterItem extends Item {
         ItemStack itemInHand = pPlayer.getItemInHand(pUsedHand);
         if (!pLevel.isClientSide()){
             ItemUtils.shrink(itemInHand,1,pPlayer);
+            pPlayer.getCooldowns().addCooldown(this,5);
             ItemUtils.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.BUTTER_CUBE.get()));
             return InteractionResultHolder.success(itemInHand);
         }

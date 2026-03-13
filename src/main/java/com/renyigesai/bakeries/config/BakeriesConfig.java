@@ -6,14 +6,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 @Mod.EventBusSubscriber(modid = BakeriesMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BakeriesConfig {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 	private static final ForgeConfigSpec.BooleanValue PROVIDE_TUTORIAL_BOOKS = BUILDER.comment("A tutorial book is provided when players enter the world for the first time").define("provideTutorialBooks", true);
 	private static final ForgeConfigSpec.BooleanValue COCOA_MANIN_DAMAGE_EFFECT = BUILDER.comment("After being turned off, the Cocoa Manin effect will not remove the invincibility frame of the creatures").define("cocoaManinDamageEffect", true);
-	private static final ForgeConfigSpec.DoubleValue TOASTER_DOUBLE_SPEED = BUILDER.comment("The baking speed of Toaster compared to Campfire").defineInRange("toasterDoubleSpeed", 3d,1d,30d);
+	private static final ForgeConfigSpec.DoubleValue TOASTER_DOUBLE_SPEED = BUILDER.comment("The baking speed of Toaster compared to Campfire").defineInRange("toasterDoubleSpeed", 3d, 1d, 30d);
 	private static final ForgeConfigSpec.BooleanValue APRIL_FOOLS_DAY_EFFECT = BUILDER.comment("After disabling this option, there will be no April Fool's Day effect.").define("aprilFoolsDayEffect", true);
-	private static final ForgeConfigSpec.DoubleValue ETERNAL_BAGUETTE_DAMAGE_UP = BUILDER.comment("Enjoy effect increases the damage dealt by Eternal Baguette").defineInRange("eternalBaguetteDamageUp",2d,0d,Double.MAX_VALUE);
+	private static final ForgeConfigSpec.DoubleValue ETERNAL_BAGUETTE_DAMAGE_UP = BUILDER.comment("Enjoy effect increases the damage dealt by Eternal Baguette").defineInRange("eternalBaguetteDamageUp", 2d, 0d, Double.MAX_VALUE);
 	public static final ForgeConfigSpec SPEC = BUILDER.build();
 
 	public static boolean provideTutorialBooks;
@@ -30,4 +34,25 @@ public class BakeriesConfig {
 		aprilFoolsDayEffect = APRIL_FOOLS_DAY_EFFECT.get();
 		eternalBaguetteDamageUp = ETERNAL_BAGUETTE_DAMAGE_UP.get();
 	}
+
+	public static class ConfigMapping {
+		public static Map<String,Supplier<?>> map = new HashMap<>();
+
+		public static void register(String key, Supplier<?> object) {
+			map.put(key, object);
+		}
+
+		public static Supplier<?> getValue(String key) {
+			return map.get(key);
+		}
+
+		public static void init(){
+			register("provideTutorialBooks",PROVIDE_TUTORIAL_BOOKS);
+			register("cocoaManinDamageEffect",COCOA_MANIN_DAMAGE_EFFECT);
+			register("aprilFoolsDayEffect",APRIL_FOOLS_DAY_EFFECT);
+			register("toasterDoubleSpeed",TOASTER_DOUBLE_SPEED);
+			register("eternalBaguetteDamageUp",ETERNAL_BAGUETTE_DAMAGE_UP);
+		}
+	}
 }
+
