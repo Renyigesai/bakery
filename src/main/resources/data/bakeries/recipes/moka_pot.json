@@ -11,7 +11,7 @@
       "item": "minecraft:iron_ingot"
     },
     "b": {
-      "tag": "forge:rods"
+      "item": "minecraft:stick"
     },
     "c": {
       "item": "minecraft:black_dye"

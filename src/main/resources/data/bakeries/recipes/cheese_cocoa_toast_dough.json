@@ -7,7 +7,7 @@
   ],
   "key": {
     "a": {
-      "tag": "forge:cheese"
+      "tag": "c:cheese"
     },
     "b": {
       "item": "bakeries:cocoa_dough"

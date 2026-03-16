@@ -100,7 +100,7 @@ public class PileBlock extends HorizontalDirectionalBlock {
         if (level.isClientSide){
             return InteractionResult.SUCCESS;
         }
-        if (!BakeriesMod.onAuxiliaryKey(pPlayer)){
+        if (!pPlayer.isShiftKeyDown()){
             return take(state, level, pos, pPlayer);
         }
         return super.use(state, level, pos, pPlayer, pHand, pHit);

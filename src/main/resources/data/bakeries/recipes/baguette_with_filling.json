@@ -6,10 +6,10 @@
       "item": "bakeries:baguette"
     },
     {
-      "tag": "forge:crops/tomato"
+      "tag": "c:foods/tomato"
     },
     {
-      "tag": "forge:cooked_pork"
+      "item": "minecraft:cooked_porkchop"
     }
   ],
   "result": {

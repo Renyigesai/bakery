@@ -54,8 +54,8 @@ public class ShakeItem extends Item {
 
     @Override
     public @NotNull InteractionResultHolder use(@NotNull Level world, Player entity, @NotNull InteractionHand hand) {
-            entity.startUsingItem(hand);
-            return new InteractionResultHolder(InteractionResult.PASS, entity.getItemInHand(hand));
+        entity.startUsingItem(hand);
+        return new InteractionResultHolder(InteractionResult.PASS, entity.getItemInHand(hand));
     }
 
     @Override

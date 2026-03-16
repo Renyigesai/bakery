@@ -37,8 +37,7 @@ public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
             if (!toaster.getItems().getStackInSlot(0).isEmpty() && state == ToasterBlock.State.IDLE){
                 text = Component.translatable("tip.bakeries.toaster_1").getString();
             }else if (state == ToasterBlock.State.FINISH){
-                String keyName = BakeriesMod.getAuxiliaryKeyName();
-                text = Component.translatable("tip.bakeries.toaster_2",keyName).getString();
+                text = Component.translatable("tip.bakeries.toaster_2").getString();
             }
 
             if (!text.isEmpty()){
@@ -46,7 +45,6 @@ public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
                 System.out.println(length);
                 guiGraphics.renderTooltip(mc.font,Component.literal(text),w - length / 2 - 8,h + 64);
             }
-
         }
     }
 

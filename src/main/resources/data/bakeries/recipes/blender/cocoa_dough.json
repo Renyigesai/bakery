@@ -20,13 +20,13 @@
       "item": "bakeries:bottle_yeast"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:foods/milk"
     },
     {
-      "tag": "forge:salt"
+      "tag": "c:salt"
     },
     {
-      "tag": "forge:butter"
+      "tag": "c:butter"
     }
   ],
   "output": {

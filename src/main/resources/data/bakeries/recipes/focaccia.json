@@ -13,7 +13,7 @@
       "item": "bakeries:olive_oil"
     },
     "c": {
-      "tag": "forge:crops/tomato"
+      "tag": "c:foods/tomato"
     },
     "d": {
       "item": "bakeries:salted_dough"

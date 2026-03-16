@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.item;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.compat.CompatMod;
 import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.util.ItemUtils;
@@ -106,14 +107,15 @@ public class BreadKnifeItem extends DiggerItem {
         if (!CompatMod.FARMER_S_DELIGHT){
             return false;
         }
-        if (level == null) {
-            return false;
-        } else {
-            ItemStackHandler helper = new ItemStackHandler(1);
-            helper.setStackInSlot(0,item.getItem());
-            Optional<CuttingBoardRecipe> matchingRecipe = this.getMatchingRecipe(level,new RecipeWrapper(helper),toolStack,player);
-            matchingRecipe.ifPresent((recipe) -> {
-                List<ItemStack> results = recipe.rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack));
+        try {
+            if (level == null) {
+                return false;
+            } else {
+                ItemStackHandler helper = new ItemStackHandler(1);
+                helper.setStackInSlot(0,item.getItem());
+                Optional<CuttingBoardRecipe> matchingRecipe = this.getMatchingRecipe(level,new RecipeWrapper(helper),toolStack,player);
+                matchingRecipe.ifPresent((recipe) -> {
+                    List<ItemStack> results = recipe.rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack));
                     Iterator var5 = results.iterator();
 
                     while(var5.hasNext()) {
@@ -134,40 +136,49 @@ public class BreadKnifeItem extends DiggerItem {
                     if (player instanceof ServerPlayer) {
                         ModAdvancements.CUTTING_BOARD.trigger((ServerPlayer)player);
                     }
-            });
-            return matchingRecipe.isPresent();
+                });
+                return matchingRecipe.isPresent();
+            }
+        }catch (NoSuchFieldError error){
+            BakeriesMod.LOGGER.error(error);
         }
+        return false;
     }
 
     private Optional<CuttingBoardRecipe> getMatchingRecipe(Level level,RecipeWrapper recipeWrapper, ItemStack toolStack, @Nullable Player player) {
         if (!CompatMod.FARMER_S_DELIGHT){
             return Optional.empty();
         }
-        if (level == null) {
-            return Optional.empty();
-        } else {
-            List<CuttingBoardRecipe> recipeList = level.getRecipeManager().getRecipesFor((RecipeType)ModRecipeTypes.CUTTING.get(), recipeWrapper, level);
-            if (recipeList.isEmpty()) {
-                if (player != null) {
-                    player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item", new Object[0]), true);
-                }
-
+        try {
+            if (level == null) {
                 return Optional.empty();
             } else {
-                Optional<CuttingBoardRecipe> recipe = recipeList.stream().filter((cuttingRecipe) -> {
-                    return cuttingRecipe.getTool().test(toolStack);
-                }).findFirst();
-                if (!recipe.isPresent()) {
+                List<CuttingBoardRecipe> recipeList = level.getRecipeManager().getRecipesFor((RecipeType)ModRecipeTypes.CUTTING.get(), recipeWrapper, level);
+                if (recipeList.isEmpty()) {
                     if (player != null) {
-                        player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_tool", new Object[0]), true);
+                        player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item", new Object[0]), true);
                     }
 
                     return Optional.empty();
                 } else {
-                    return recipe;
+                    Optional<CuttingBoardRecipe> recipe = recipeList.stream().filter((cuttingRecipe) -> {
+                        return cuttingRecipe.getTool().test(toolStack);
+                    }).findFirst();
+                    if (!recipe.isPresent()) {
+                        if (player != null) {
+                            player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_tool", new Object[0]), true);
+                        }
+
+                        return Optional.empty();
+                    } else {
+                        return recipe;
+                    }
                 }
             }
+        }catch (NoSuchFieldError error){
+            BakeriesMod.LOGGER.error(error);
         }
+        return Optional.empty();
     }
 
     private void dropAll(NonNullList<ItemStack> stacks){

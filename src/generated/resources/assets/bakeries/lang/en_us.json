@@ -379,7 +379,7 @@
   "tip.bakeries.pizza_stone_kiln_shovel": "You need to use a stove shovel",
   "tip.bakeries.stone_kiln_stone_kiln_shovel": "Use Stone Kiln Shovel to flip",
   "tip.bakeries.toaster_1": "Right-click with your left hand to start baking.",
-  "tip.bakeries.toaster_2": "%s and right-click to retrieve the item.",
+  "tip.bakeries.toaster_2": "Shift and right-click to retrieve the item.",
   "gui.bakeries.oven.temperature": "Current Temperature",
   "gui.bakeries.oven.rolling": "§oRolling adjustment",
   "key.bakeries.bakeries": "Bakeries",

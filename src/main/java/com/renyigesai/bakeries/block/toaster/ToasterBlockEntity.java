@@ -93,6 +93,7 @@ public class ToasterBlockEntity extends BlockEntity {
                 this.cookingProgress[i] = 0;
             }
         }
+        updateBlock();
         this.animationStatus = AnimationStatus.IDLE;
     }
 
@@ -183,15 +184,6 @@ public class ToasterBlockEntity extends BlockEntity {
     }
 
     public boolean isEmpty(){
-        for (int i = 0; i < this.items.getSlots(); i++) {
-            if (!this.items.getStackInSlot(i).isEmpty()){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isEmpty2(){
         for (int i = 0; i < this.items.getSlots(); i++) {
             if (!this.items.getStackInSlot(i).isEmpty()){
                 return false;

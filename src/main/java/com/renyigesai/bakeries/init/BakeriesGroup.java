@@ -1,17 +1,11 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
-import com.renyigesai.bakeries.item.RepeatEatItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.List;
-import java.util.Set;
 
 public class BakeriesGroup {
 
@@ -207,21 +201,6 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.PIZZA_FLATBREAD.get());
                         output.accept(BakeriesItems.RAW_PIZZA.get());
                         output.accept(BakeriesItems.RAW_CUSTOM_PIZZA.get());
-                    }))
-                    .build());
-
-    public static final RegistryObject<CreativeModeTab> BAKERY_COMPAT_TAB = REGISTER.register("bakery_compat_tab",() ->
-            CreativeModeTab.builder().icon(()-> new ItemStack(BakeriesCompatItems.GARLIC_FLAVORED_BAGUETTE.get()))
-                    .title(Component.translatable("creativetab_bakery_compat_tab"))
-                    .displayItems(((itemDisplayParameters, output) -> {
-                        output.accept(BakeriesCompatItems.RICE_BREAD.get());//米面包
-                        output.accept(BakeriesItems.RICE_BREAD_DOUGH.get());//米面包面胚
-                        output.accept(BakeriesCompatItems.SALMON_SANDWICH.get());//鲑鱼三明治
-                        output.accept(BakeriesCompatItems.GARLIC_FLAVORED_BAGUETTE.get());//蒜香法棍
-                        output.accept(BakeriesCompatItems.YUNTUI_MOONCAKE.get());//云腿月饼
-                        output.accept(BakeriesItems.RAW_YUNTUI_MOONCAKE.get());//生云腿月饼
-                        output.accept(BakeriesCompatItems.TRAY_YUNTUI_MOONCAKE.get());//盘装云腿月饼
-                        output.accept(BakeriesCompatItems.ORANGE_AMERICAN.get());//橙C美式
                     }))
                     .build());
 }

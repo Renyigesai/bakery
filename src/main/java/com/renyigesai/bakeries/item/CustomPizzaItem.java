@@ -10,10 +10,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +23,7 @@ import java.util.List;
 
 public class CustomPizzaItem extends BlockItem {
     public CustomPizzaItem(Block block) {
-        super(block,new Item.Properties().stacksTo(1).rarity(ItemUtils.ADVANCED));
+        super(block,new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
     }
 
     public List<ItemStack> getInventoryList(ItemStack stack){
