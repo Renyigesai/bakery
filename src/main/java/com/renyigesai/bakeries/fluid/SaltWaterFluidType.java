@@ -1,6 +1,7 @@
 
 package com.renyigesai.bakeries.fluid;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -19,7 +20,7 @@ public class SaltWaterFluidType extends FluidType {
     @Override
     public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
         consumer.accept(new IClientFluidTypeExtensions() {
-            private static final ResourceLocation STILL_TEXTURE = new ResourceLocation("bakeries:block/salt_water_still"), FLOWING_TEXTURE = new ResourceLocation("bakeries:block/salt_water_flow");
+            private static final ResourceLocation STILL_TEXTURE = new ResourceLocation(BakeriesMod.MODID,"block/salt_water_still"), FLOWING_TEXTURE = new ResourceLocation(BakeriesMod.MODID,"block/salt_water_flow");
 
             @Override
             public ResourceLocation getStillTexture() {

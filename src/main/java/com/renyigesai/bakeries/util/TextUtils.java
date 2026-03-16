@@ -111,8 +111,17 @@ public class TextUtils {
     }
 
     /**获取当前字符串的像素长度*/
-    public static int getLength(String string){
-        return getLength(string,MAX_LENGTH);
+    public static int getPixelLength(String string){
+        if (string == null){
+            throw new IllegalArgumentException("The text cannot be empty and its length must be greater than 0 and less than 1024.");
+        }
+        int width = 0;
+        Minecraft mc = Minecraft.getInstance();
+        for (int i = 0; i < string.length(); i++) {
+            char _char = string.charAt(i);
+            width += mc.font.width(String.valueOf(_char));
+        }
+        return width;
     }
 
     /**输入资源地址返回一个自定义字体*/

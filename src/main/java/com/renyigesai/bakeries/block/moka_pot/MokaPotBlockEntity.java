@@ -102,7 +102,7 @@ public class MokaPotBlockEntity extends BlockEntity {
     }
 
     public void tick(){
-        if (inventory.getStackInSlot(0).is(ItemTags.create(new ResourceLocation("forge:coffee_grounds")))){
+        if (inventory.getStackInSlot(0).is(ItemTags.create(new ResourceLocation("forge","coffee_grounds")))){
             if (cookingTotalTime < 200){
                 ++ cookingTotalTime;
                 if (cookingTotalTime % 10 == 0){

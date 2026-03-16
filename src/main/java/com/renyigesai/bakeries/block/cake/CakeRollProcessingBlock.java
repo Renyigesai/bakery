@@ -62,7 +62,7 @@ public class CakeRollProcessingBlock extends BaseEntityBlock {
         boolean flag;
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof CakeRollProcessingBlockEntity cake){
-            flag = (!hand.is(ItemTags.create(new ResourceLocation("bakeries:not_cake_roll_ingredients"))) && hand.getItem().isEdible() && !(hand.getItem() instanceof BlockItem) && !hand.hasCraftingRemainingItem() && !hand.is(BakeriesItems.CAKE_ROLL.get()));
+            flag = (!hand.is(ItemTags.create(new ResourceLocation("bakeries","not_cake_roll_ingredients"))) && hand.getItem().isEdible() && !(hand.getItem() instanceof BlockItem) && !hand.hasCraftingRemainingItem() && !hand.is(BakeriesItems.CAKE_ROLL.get()));
             if (flag){
                 boolean trigger = cake.addItem(hand);
                 if (trigger){

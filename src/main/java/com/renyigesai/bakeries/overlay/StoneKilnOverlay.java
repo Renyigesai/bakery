@@ -49,9 +49,9 @@ public class  StoneKilnOverlay implements ILookOverlay<StoneKilnBlockEntity>{
             guiGraphics.pose().pushPose();
             guiGraphics.pose().translate(w, h, 0); // 调整平移坐标
             guiGraphics.pose().scale(scale, scale, scale);
-            guiGraphics.blit(new ResourceLocation("bakeries:textures/gui/stone_kiln_progress_bar.png"), 0, 0, 0, 0, 103, 40, 103, 46);
+            guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/stone_kiln_progress_bar.png"), 0, 0, 0, 0, 103, 40, 103, 46);
             int progressWidth = getProgressWidth(stoneKilnBlockEntity);
-            guiGraphics.blit(new ResourceLocation("bakeries:textures/gui/stone_kiln_progress_bar.png"), 13, 19, 0, 40, progressWidth, 6, 103, 46);
+            guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/stone_kiln_progress_bar.png"), 13, 19, 0, 40, progressWidth, 6, 103, 46);
             int maxTurnOver = stoneKilnBlockEntity.getMaxTurnOver();
             if (maxTurnOver != 0){
                 String string = maxTurnOver + "/" + stoneKilnBlockEntity.getTurnOver();

@@ -1,14 +1,9 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
 import com.google.common.collect.Lists;
-import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
-import com.renyigesai.bakeries.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
-import lombok.Getter;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -19,7 +14,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -28,7 +22,6 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
    public final ContainerLevelAccess access;
    private final DataSlot selectedRecipeIndex = DataSlot.standalone();
    private final Level level;
-   @Getter
    private List<DoughCraftingRecipe> recipes = Lists.newArrayList();
    private ItemStack input = ItemStack.EMPTY;
    long lastSoundTime;
@@ -199,5 +192,9 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       this.access.execute((p_40313_, p_40314_) -> {
          this.clearContainer(pPlayer, this.container);
       });
+   }
+
+   public List<DoughCraftingRecipe> getRecipes() {
+      return recipes;
    }
 }

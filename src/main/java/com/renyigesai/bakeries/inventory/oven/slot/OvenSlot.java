@@ -1,14 +1,11 @@
 package com.renyigesai.bakeries.inventory.oven.slot;
 
-import com.renyigesai.bakeries.init.BakeriesItemTag;
-import lombok.Getter;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class OvenSlot extends Slot {
-    @Getter
     private final int slot;
     public OvenSlot(Container container, int pSlot, int pX, int pY) {
         super(container, pSlot, pX, pY);

@@ -2,6 +2,7 @@ package com.renyigesai.bakeries;
 
 import com.renyigesai.bakeries.capabilities.PlayerKeyAuxiliary;
 import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
+import com.renyigesai.bakeries.conditions.ConfigCondition;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.fluid.BakeriesFluidTypes;
 import com.renyigesai.bakeries.fluid.BakeriesFluids;
@@ -12,6 +13,7 @@ import com.renyigesai.bakeries.villager.BakeriesVillagers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -54,6 +56,8 @@ public class BakeriesMod {
     }
     private void commonSetup(FMLCommonSetupEvent event) {
         Messages.register();
+        BakeriesConfig.ConfigMapping.init();
+        CraftingHelper.register(ConfigCondition.Serializer.INSTANCE);
         if (BakeriesConfig.aprilFoolsDayEffect){
             Calendar calendar = Calendar.getInstance();
             aprilFoolsDay = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);

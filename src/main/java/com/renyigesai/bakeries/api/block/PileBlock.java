@@ -3,7 +3,6 @@ package com.renyigesai.bakeries.api.block;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.util.ItemUtils;
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -43,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-@Getter
 public class PileBlock extends HorizontalDirectionalBlock {
     public static final SoundType PASTRY = new SoundType(1.0F, 1.0F, SoundEvents.WOOL_BREAK, SoundEvents.WOOL_STEP, BakeriesSounds.PASTRY_PLACE.get(), SoundEvents.WOOL_HIT, SoundEvents.WOOL_FALL);
     public static final IntegerProperty integerProperty = IntegerProperty.create("pile", 1, 4);

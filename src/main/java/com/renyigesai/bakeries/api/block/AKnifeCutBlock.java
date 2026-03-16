@@ -28,7 +28,7 @@ public abstract class AKnifeCutBlock extends HorizontalDirectionalBlock {
 
     /*获取传入的物品是否为可用的刀*/
     public boolean isKnifeItem(ItemStack itemStack) {
-        return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge:tools/knives")));
+        return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge","tools/knives")));
     }
 
     /*返回切片方块状态,对于只切一刀的方块请返回null*/

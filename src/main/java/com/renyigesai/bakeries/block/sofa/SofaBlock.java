@@ -46,7 +46,7 @@ public class SofaBlock extends HorizontalConnectBlock {
         Direction direction = getLeft(facing);
         BlockPos directionPos = pos.relative(isRight?direction.getOpposite():direction);
         BlockState state = level.getBlockState(directionPos);
-        return state.is(BlockTags.create(new ResourceLocation("bakeries:sofa"))) && state.getValue(SofaBlock.FACING) == oleState.getValue(FACING);
+        return state.is(BlockTags.create(new ResourceLocation("bakeries","sofa"))) && state.getValue(SofaBlock.FACING) == oleState.getValue(FACING);
     }
 
     private void sit(Level world, BlockPos pos, Player pPlayer){

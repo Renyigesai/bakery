@@ -3,7 +3,6 @@ package com.renyigesai.bakeries.recipe;
 import com.google.gson.JsonObject;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
-import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class DoughCraftingRecipe implements  Recipe<Container> {
-    @Getter
     private final ResourceLocation id;
     final Ingredient ingredient;
     final ItemStack result;
@@ -65,6 +63,12 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
     }
+
+    @Override
+    public ResourceLocation getId() {
+        return id;
+    }
+
     public static class Type implements RecipeType<DoughCraftingRecipe> {
         private Type() {
         }

@@ -2,7 +2,7 @@
   "parent": "bakeries:custom/croissant_3",
   "render_type": "minecraft:cutout",
   "textures": {
-    "2": "bakeries:block/croissant",
+    "0": "bakeries:block/croissant",
     "particle": "bakeries:block/croissant"
   }
 }

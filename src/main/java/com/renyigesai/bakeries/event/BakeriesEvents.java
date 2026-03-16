@@ -132,9 +132,9 @@ public class BakeriesEvents {
                 return;
             }
         }
-        boolean b1 = WorldUtil.isDoneAdvancement(entity,entity.level(),new ResourceLocation("bakeries:root"));
+        boolean b1 = WorldUtil.isDoneAdvancement(entity,entity.level(),new ResourceLocation("bakeries","root"));
         if (!b1){
-            LootTable lootTables = WorldUtil.getLootTables("bakeries:grant_patchi_book", entity.level());
+            LootTable lootTables = WorldUtil.getLootTables("grant_patchi_book", entity.level(),"bakeries");
             List<ItemStack> fromLootTableItemStack = WorldUtil.getFromLootTableItemStack(lootTables, entity.level(), entity.getOnPos());
             for (ItemStack itemStack : fromLootTableItemStack) {
                 ItemUtils.givePlayerItem(entity, itemStack);
@@ -164,7 +164,7 @@ public class BakeriesEvents {
                 players.forEach(player -> {
                     if (!WorldUtil.isDoneAdvancement(player,level,new ResourceLocation("bakeries","get_flat_croissant"))){
                         if (player instanceof ServerPlayer serverPlayer){
-                            Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("bakeries:get_flat_croissant"));
+                            Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("bakeries","get_flat_croissant"));
                             if (advancement != null) {
                                 serverPlayer.getAdvancements().award(advancement,"witness_anvil_fall");
                             }

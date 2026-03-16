@@ -30,7 +30,7 @@ public class GlassDrinkCupOverlay implements ILookOverlay<GlassDrinkCupBlockEnti
         Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
         BlockEntity blockEntity = blocks.get(localPlayer.getUUID());
         if (blockEntity instanceof GlassDrinkCupBlockEntity glassDrinkCupBlockEntity) {
-            guiGraphics.blit(new ResourceLocation("bakeries:textures/gui/glass_drink_cup_overlay.png"), w, h, 0, 0, 142, 22, 142, 22);
+            guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/glass_drink_cup_overlay.png"), w, h, 0, 0, 142, 22, 142, 22);
             int x = w + 3;
             int y = h + 3;
             for (int i = 0; i < 4; ++i) {

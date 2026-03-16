@@ -59,7 +59,7 @@ public class MokaPotBlock extends BaseEntityBlock {
         ItemStack handStack = pPlayer.getItemInHand(pHand);
         if (blockEntity instanceof MokaPotBlockEntity mokaPotBlockEntity) {
             if (!handStack.isEmpty()) {
-                if (mokaPotBlockEntity.isInventoryFull() && handStack.is(ItemTags.create(new ResourceLocation("forge:coffee_grounds")))) {
+                if (mokaPotBlockEntity.isInventoryFull() && handStack.is(ItemTags.create(new ResourceLocation("forge","coffee_grounds")))) {
                     mokaPotBlockEntity.addGroundCoffee(handStack.copy().split(1));
                     handStack.shrink(1);
                     pLevel.playSound(null, pPos, SoundEvents.WOOL_STEP, SoundSource.PLAYERS, 0.8F, 0.8F);

@@ -1,12 +1,25 @@
+
+buildscript {
+    repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
 plugins {
     id 'eclipse'
     id 'idea'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+//    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'io.freefair.lombok' version '8.6'
-    id 'org.spongepowered.mixin' version '0.7.+'
+//    id 'io.freefair.lombok' version '8.6'
+//    id 'org.spongepowered.mixin' version '0.7.+'
 }
+
+apply plugin: 'org.spongepowered.mixin'
 
 version = "${mod_version}"
 group = "${mod_group_id}"
@@ -16,9 +29,10 @@ base {
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
     // The mappings can be changed at any time and must be in the following format.
     // Channel:   Version:
@@ -33,7 +47,8 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: "${mapping_channel}", version:  "${mapping_version}"
+//    mappings channel: "${mapping_channel}", version:  "${mapping_version}"
+    mappings channel: mapping_channel, version: mapping_version
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // When true, this property will have all Eclipse/IntelliJ IDEA run configurations run the "prepareX" task for the given run configuration before launching the game.
@@ -131,28 +146,33 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
+//    maven {
+//        name = "Forge"
+//        url = "https://bmclapi2.bangbang93.com/maven/"
+//    }
+//
+//    maven {
+//        name = "Progwml6 maven"
+//        url = "https://dvs1.progwml6.com/files/maven/"
+//    }
+//    maven {
+//        name = "ModMaven"
+//        url = "https://modmaven.dev"
+//    }
     maven {
         url = "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
-    maven {
-        url = "https://maven.jaackson.me"
-    }
-    maven {
-        // location of the maven that hosts JEI files since January 2023
-        name = "Jared's maven"
-        url = "https://maven.blamejared.com/"
-    }
+//    maven {
+//        url = "https://maven.jaackson.me"
+//    }
+//    maven {
+//        // location of the maven that hosts JEI files since January 2023
+//        name = "Jared's maven"
+//        url = "https://maven.blamejared.com/"
+//    }
 }
 
 dependencies {
@@ -165,26 +185,30 @@ dependencies {
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
-    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+//     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+//     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+//     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    implementation fg.deobf("curse.maven:jei-238222:7361881")
+    implementation fg.deobf("curse.maven:jade-324717:6291330")
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-    /*联动模组导入*/
+    /*锟斤拷锟斤拷模锟介导锟斤拷*/
     implementation fg.deobf("curse.maven:farmersdelight-398521:6154802")
-    implementation fg.deobf("curse.maven:thirst_was_taken-679270:6660408")
+//    implementation fg.deobf("curse.maven:thirst_was_taken-679270:6660408")
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     implementation fg.deobf("curse.maven:mekalus-oculus-fork-with-fixed-mekanism-mekasuit-1130957:6994299")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
+//    runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
 //    runtimeOnly fg.deobf("curse.maven:depression-1055915:6584434")
-//    runtimeOnly fg.deobf("curse.maven:architectury-api-419699:5137936")
+    runtimeOnly fg.deobf("curse.maven:architectury-api-419699:5137936")
+
+//    implementation fg.deobf("curse.maven:patchouli-306770:7731017")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
@@ -226,26 +250,26 @@ tasks.named('jar', Jar).configure {
 }
 
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing:
- tasks.named('publish').configure {
-     dependsOn 'reobfJar'
- }
+//tasks.named('publish').configure {
+//    dependsOn 'reobfJar'
+//}
 
 // Example configuration to allow publishing using the maven-publish plugin
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
+//publishing {
+//    publications {
+//        register('mavenJava', MavenPublication) {
+//            artifact jar
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url "file://${project.projectDir}/mcmodsrepo"
+//        }
+//    }
+//}
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
-apply from: 'plugs.gradle'
+//apply from: 'plugs.gradle'

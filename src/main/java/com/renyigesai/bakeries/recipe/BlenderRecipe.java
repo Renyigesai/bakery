@@ -112,27 +112,23 @@ public class BlenderRecipe implements Recipe<SimpleContainer> {
             }
         }
 
-        @Override
-        public @Nullable BlenderRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        public BlenderRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             int ingredientCount = pBuffer.readInt();
             NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
             for (int i = 0; i < ingredientCount; i++) {
                 inputs.set(i, Ingredient.fromNetwork(pBuffer));
             }
-            ItemStack container = pBuffer.readItem();
-            ItemStack output = pBuffer.readItem();
-            return new BlenderRecipe(inputs, output,container,pRecipeId);
+            ItemStack output = pBuffer.readItem();      // 先读 output
+            ItemStack container = pBuffer.readItem();   // 再读 container
+            return new BlenderRecipe(inputs, output, container, pRecipeId);
         }
 
-        @Override
         public void toNetwork(FriendlyByteBuf pBuffer, BlenderRecipe pRecipe) {
             pBuffer.writeInt(pRecipe.inputItems.size());
-
             for (Ingredient ingredient : pRecipe.getIngredients()) {
                 ingredient.toNetwork(pBuffer);
             }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            pBuffer.writeItem(pRecipe.getResultItem(null));   // 自动写入完整数据
             pBuffer.writeItem(pRecipe.container);
         }
     }

@@ -45,7 +45,7 @@ public class MilkTankBlock extends TankBlock {
             return ladleOut(pLevel,pPos,pState,pPlayer,pHand);
         } else if (hand.is(BakeriesItems.BOTTLE_MILK.get())) {
             return fillMilk(pLevel,pPos,pState,pPlayer,pHand);
-        } else if (hand.is(ItemTags.create(new ResourceLocation("forge:salt")))) {
+        } else if (hand.is(ItemTags.create(new ResourceLocation("forge","salt")))) {
             return fillSalt(pLevel,pPos,pState,pPlayer,pHand);
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

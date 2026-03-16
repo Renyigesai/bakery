@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.recipe.toaster;
 
-import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +17,6 @@ public abstract class AbstractToasterRecipe implements Recipe<Container> {
     private final RecipeSerializer<?> serializer;
     protected final ResourceLocation id;
     protected final ItemStack output;
-    @Getter
     protected final int time;
     protected final Ingredient recipeItems;
     public AbstractToasterRecipe(RecipeType<?> recipeType, RecipeSerializer<?> serializer, ResourceLocation id, ItemStack output, int time, Ingredient recipeItems) {

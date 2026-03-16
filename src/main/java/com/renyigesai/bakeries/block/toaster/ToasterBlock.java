@@ -75,8 +75,7 @@ public class ToasterBlock extends BaseEntityBlock {
             if (!pPlayer.getItemInHand(pHand).isEmpty()) {
                 ItemStack itemInHand = pPlayer.getItemInHand(pHand);
                 Optional<CampfireCookingRecipe> smokerRecipe = toaster.getSmokerRecipe(itemInHand);
-                if (smokerRecipe.isPresent() && pState.getValue(STATE) == State.IDLE){
-                    toaster.addItem(itemInHand.copy(),smokerRecipe.get().getCookingTime());
+                if (smokerRecipe.isPresent() && pState.getValue(STATE) == State.IDLE && toaster.addItem(itemInHand.copy(),smokerRecipe.get().getCookingTime())){
                     ItemUtils.shrink(itemInHand,1,pPlayer);
                     playSound(pLevel,pPos, SoundEvents.ITEM_FRAME_ADD_ITEM);
                     return InteractionResult.SUCCESS;

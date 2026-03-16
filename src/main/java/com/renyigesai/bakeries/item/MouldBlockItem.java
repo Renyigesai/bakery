@@ -69,7 +69,7 @@ public class MouldBlockItem extends BlockItem {
     }
 
     public boolean isKnifeItem(ItemStack itemStack) {
-        return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge:tools/knives")));
+        return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge","tools/knives")));
     }
 
     @Override

@@ -42,13 +42,9 @@ public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
             }
 
             if (!text.isEmpty()){
-                int length = TextUtils.getLength(text);
-                RenderSystem.enableBlend();
-                RenderSystem.defaultBlendFunc();
-                RenderSystem.setShaderColor(1, 1, 1, 0.75f);
+                int length = TextUtils.getPixelLength(text);
+                System.out.println(length);
                 guiGraphics.renderTooltip(mc.font,Component.literal(text),w - length / 2 - 8,h + 64);
-                RenderSystem.setShaderColor(1, 1, 1, 1f);
-                RenderSystem.disableBlend();
             }
 
         }

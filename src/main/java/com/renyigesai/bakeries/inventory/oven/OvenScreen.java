@@ -6,7 +6,6 @@ import com.renyigesai.bakeries.inventory.CustomButton;
 import com.renyigesai.bakeries.network.SwitchButtonMessage;
 import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.network.OvenButtonMessage;
-import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -41,7 +40,6 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     private final Player player;
     private CustomButton zhi_zheng;
 
-    @Getter
     public static int zhen_y = 69; // 初始位置
     public OvenScreen(OvenMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);

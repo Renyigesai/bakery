@@ -62,9 +62,8 @@ public class ShakeItem extends Item {
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
         pStack.shrink(1);
         if (pLivingEntity instanceof Player player){
+            player.getCooldowns().addCooldown(this.getFinishItem().getItem(),10);
             ItemUtils.givePlayerItem(player,this.getFinishItem());
-        }else {
-            ItemUtils.spawnItemEntity(pLevel,this.getFinishItem(),pLivingEntity.getX()+0.5,pLivingEntity.getY(),pLivingEntity.getZ()+0.5,new Vec3(0.0,0.0,0.0));
         }
 
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);

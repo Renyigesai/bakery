@@ -6,6 +6,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 @Mod.EventBusSubscriber(modid = BakeriesMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BakeriesConfig {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -29,5 +33,25 @@ public class BakeriesConfig {
 		toasterDoubleSpeed = TOASTER_DOUBLE_SPEED.get();
 		aprilFoolsDayEffect = APRIL_FOOLS_DAY_EFFECT.get();
 		eternalBaguetteDamageUp = ETERNAL_BAGUETTE_DAMAGE_UP.get();
+	}
+
+	public static class ConfigMapping {
+		public static Map<String,Supplier<?>> map = new HashMap<>();
+
+		public static void register(String key, Supplier<?> object) {
+			map.put(key, object);
+		}
+
+		public static Supplier<?> getValue(String key) {
+			return map.get(key);
+		}
+
+		public static void init(){
+			register("provideTutorialBooks",PROVIDE_TUTORIAL_BOOKS);
+			register("cocoaManinDamageEffect",COCOA_MANIN_DAMAGE_EFFECT);
+			register("aprilFoolsDayEffect",APRIL_FOOLS_DAY_EFFECT);
+			register("toasterDoubleSpeed",TOASTER_DOUBLE_SPEED);
+			register("eternalBaguetteDamageUp",ETERNAL_BAGUETTE_DAMAGE_UP);
+		}
 	}
 }

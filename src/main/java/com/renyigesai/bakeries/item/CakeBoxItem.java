@@ -54,7 +54,7 @@ public class CakeBoxItem extends BlockItem {
 
             ItemStack offhandItem = pPlayer.getOffhandItem();
             Item fitem = offhandItem.getItem();
-            if (offhandItem.isEmpty() || fitem instanceof CakeBoxItem || offhandItem.is(ItemTags.create(new ResourceLocation("bakeries:not_cake_box_ingredients"))))//如果副手为空,或为蛋糕盒直接返回
+            if (offhandItem.isEmpty() || fitem instanceof CakeBoxItem || offhandItem.is(ItemTags.create(new ResourceLocation("bakeries","not_cake_box_ingredients"))))//如果副手为空,或为蛋糕盒直接返回
                 return super.use(pLevel, pPlayer, pUsedHand);
 
             CompoundTag compoundTag = new CompoundTag();

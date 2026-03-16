@@ -25,7 +25,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Sniffer.class)
 public abstract class SnifferMixin extends Animal {
 
-    @Shadow protected abstract BlockPos getHeadBlock();
+    @Shadow (remap = false)
+    protected abstract BlockPos getHeadBlock();
 
     protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -34,8 +35,8 @@ public abstract class SnifferMixin extends Animal {
     @Inject(method = "dropSeed",at = @At(value = "INVOKE",target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z",shift = At.Shift.AFTER))
     private void dropSeed(CallbackInfo ci){
         Level level = this.level();
-        BlockPos blockpos = this.getHeadBlock();
-        SnifferDropSeedEvent snifferDropSeedEvent = new SnifferDropSeedEvent(level,blockpos);
+        BlockPos headBlock = this.getHeadBlock();
+        SnifferDropSeedEvent snifferDropSeedEvent = new SnifferDropSeedEvent(level,headBlock);
         MinecraftForge.EVENT_BUS.post(snifferDropSeedEvent);
     }
 }

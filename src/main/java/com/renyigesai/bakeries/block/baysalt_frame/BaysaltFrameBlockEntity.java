@@ -5,7 +5,6 @@ import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.network.FluidSyncS2CPacket;
 import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.util.FluidUtil;
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -21,7 +20,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 
 public class BaysaltFrameBlockEntity extends BlockEntity {
-    @Getter
+
     private final FluidTank fluidTank = new FluidTank(2000, fs -> {
         return fs.getFluid() == BakeriesFluids.FLOWING_SALT_WATER.get();
     }) {
@@ -117,5 +116,9 @@ public class BaysaltFrameBlockEntity extends BlockEntity {
         BlockState state = world.getBlockState(pos);
         setChanged(world, pos, state);
         world.sendBlockUpdated(pos, state, state, 3);
+    }
+
+    public FluidTank getFluidTank() {
+        return fluidTank;
     }
 }

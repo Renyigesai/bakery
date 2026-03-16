@@ -53,9 +53,9 @@ public class WorldUtil {
     }
 
     /*通过输入资源地址获取一个战利品表*/
-    public static LootTable getLootTables(String name, Level world){
+    public static LootTable getLootTables(String name, Level world,String modId){
         if (!world.isClientSide() && world.getServer() != null) {
-            return world.getServer().getLootData().getLootTable(new ResourceLocation(name));
+            return world.getServer().getLootData().getLootTable(new ResourceLocation(modId,name));
         }
         return LootTable.lootTable().build();
     }
