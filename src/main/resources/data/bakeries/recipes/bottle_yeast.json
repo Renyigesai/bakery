@@ -2,13 +2,13 @@
   "type": "bakeries:fermentation",
   "ingredients": [
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
       "item": "minecraft:water_bucket"

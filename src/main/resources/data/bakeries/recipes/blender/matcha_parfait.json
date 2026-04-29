@@ -5,13 +5,13 @@
       "item": "minecraft:ice"
     },
     {
-      "tag": "c:foods/milk"
+      "tag": "forge:milk"
     },
     {
       "item": "bakeries:bottle_cream"
     },
     {
-      "tag": "c:matcha"
+      "tag": "forge:matcha"
     }
   ],
   "container": {

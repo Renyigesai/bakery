@@ -10,7 +10,7 @@
       "item": "bakeries:croissant_dough"
     },
     "b": {
-      "tag": "c:salt"
+      "tag": "forge:salt"
     }
   },
   "result": {

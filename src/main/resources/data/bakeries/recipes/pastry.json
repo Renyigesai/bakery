@@ -1,4 +1,12 @@
 {
+  "conditions": [
+    {
+      "type": "bakeries:config",
+      "value_type": "boolean",
+      "config_key": "fermentationGameplay",
+      "expected": false
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
@@ -10,7 +18,7 @@
       "item": "bakeries:sweet_dough"
     },
     "b": {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     }
   },
   "result": {

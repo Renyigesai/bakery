@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/bread_holders",
-  "textures": {
-    "0": "bakeries:block/bread_holders",
-    "1": "bakeries:block/bread_holders",
-    "particle": "bakeries:block/bread_holders"
-  }
-}

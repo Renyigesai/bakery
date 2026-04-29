@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleContainer;
@@ -38,12 +39,15 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -115,7 +119,19 @@ public class BreadKnifeItem extends DiggerItem {
                 helper.setStackInSlot(0,item.getItem());
                 Optional<CuttingBoardRecipe> matchingRecipe = this.getMatchingRecipe(level,new RecipeWrapper(helper),toolStack,player);
                 matchingRecipe.ifPresent((recipe) -> {
-                    List<ItemStack> results = recipe.rollResults(level.random, EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack));
+                    List<ItemStack> results;
+                    if (isFarmersDelightAbove_1_3_0()){
+                        results = recipe.rollResults(level.random,EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack),new RecipeWrapper(helper));
+                    }else {
+                        //使用反射获取旧版本方法
+                        try {
+                            Method rollResults = CuttingBoardRecipe.class.getMethod("rollResults", RandomSource.class, int.class);
+                            results = (List<ItemStack>)rollResults.invoke(recipe, level.random, EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack));
+                        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                            results = List.of();
+                            BakeriesMod.LOGGER.error(e);
+                        }
+                    }
                     Iterator var5 = results.iterator();
 
                     while(var5.hasNext()) {
@@ -143,6 +159,21 @@ public class BreadKnifeItem extends DiggerItem {
             BakeriesMod.LOGGER.error(error);
         }
         return false;
+    }
+
+    private boolean isFarmersDelightAbove_1_3_0(){
+        String fullVersion = ModList.get().getModFileById("farmersdelight").versionString();
+        if (fullVersion == null || fullVersion.isEmpty()) {
+            return false;
+        }
+        String modVersion = fullVersion;
+        int dashIdx = fullVersion.indexOf('-');
+        if (dashIdx != -1 && dashIdx + 1 < fullVersion.length()) {
+            modVersion = fullVersion.substring(dashIdx + 1);
+        }
+        ComparableVersion current = new ComparableVersion(modVersion);
+        ComparableVersion target = new ComparableVersion("1.2.9");
+        return current.compareTo(target) > 0;
     }
 
     private Optional<CuttingBoardRecipe> getMatchingRecipe(Level level,RecipeWrapper recipeWrapper, ItemStack toolStack, @Nullable Player player) {
@@ -179,10 +210,6 @@ public class BreadKnifeItem extends DiggerItem {
             BakeriesMod.LOGGER.error(error);
         }
         return Optional.empty();
-    }
-
-    private void dropAll(NonNullList<ItemStack> stacks){
-
     }
 
     private Optional<BreadKnifeRecipe> getCurrentRecipe(Level level, ItemStack stack) {

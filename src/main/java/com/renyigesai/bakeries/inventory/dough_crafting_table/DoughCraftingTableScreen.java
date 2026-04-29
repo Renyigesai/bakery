@@ -5,6 +5,7 @@ import com.renyigesai.bakeries.network.SwitchButtonMessage;
 import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -15,6 +16,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +32,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
    private boolean displayRecipes;
    public int x,y,z;
    private final Inventory pPlayerInventory;
+   private double savedMouseX, savedMouseY;
    public DoughCraftingTableScreen(DoughCraftingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);
        this.pPlayerInventory = pPlayerInventory;

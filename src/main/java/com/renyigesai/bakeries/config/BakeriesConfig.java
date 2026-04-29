@@ -18,6 +18,7 @@ public class BakeriesConfig {
 	private static final ForgeConfigSpec.DoubleValue TOASTER_DOUBLE_SPEED = BUILDER.comment("The baking speed of Toaster compared to Campfire").defineInRange("toasterDoubleSpeed", 3d, 1d, 30d);
 	private static final ForgeConfigSpec.BooleanValue APRIL_FOOLS_DAY_EFFECT = BUILDER.comment("After disabling this option, there will be no April Fool's Day effect.").define("aprilFoolsDayEffect", true);
 	private static final ForgeConfigSpec.DoubleValue ETERNAL_BAGUETTE_DAMAGE_UP = BUILDER.comment("Enjoy effect increases the damage dealt by Eternal Baguette").defineInRange("eternalBaguetteDamageUp", 2d, 0d, Double.MAX_VALUE);
+	private static final ForgeConfigSpec.BooleanValue FERMENTATION_GAMEPLAY = BUILDER.comment("After being turned off, the Cocoa Manin effect will not remove the invincibility frame of the creatures").define("fermentationGameplay", true);
 	public static final ForgeConfigSpec SPEC = BUILDER.build();
 
 	public static boolean provideTutorialBooks;
@@ -25,6 +26,7 @@ public class BakeriesConfig {
 	public static double toasterDoubleSpeed;
 	public static boolean aprilFoolsDayEffect;
 	public static double eternalBaguetteDamageUp;
+	public static boolean fermentationGameplay;
 
 	@SubscribeEvent
 	static void onLoad(final ModConfigEvent event) {
@@ -33,6 +35,7 @@ public class BakeriesConfig {
 		toasterDoubleSpeed = TOASTER_DOUBLE_SPEED.get();
 		aprilFoolsDayEffect = APRIL_FOOLS_DAY_EFFECT.get();
 		eternalBaguetteDamageUp = ETERNAL_BAGUETTE_DAMAGE_UP.get();
+		fermentationGameplay = FERMENTATION_GAMEPLAY.get();
 	}
 
 	public static class ConfigMapping {
@@ -52,6 +55,7 @@ public class BakeriesConfig {
 			register("aprilFoolsDayEffect",APRIL_FOOLS_DAY_EFFECT);
 			register("toasterDoubleSpeed",TOASTER_DOUBLE_SPEED);
 			register("eternalBaguetteDamageUp",ETERNAL_BAGUETTE_DAMAGE_UP);
+			register("fermentationGameplay",FERMENTATION_GAMEPLAY);
 		}
 	}
 }

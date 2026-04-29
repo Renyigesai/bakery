@@ -3,7 +3,7 @@
   "ingredients": [
     [
       {
-        "tag": "c:eggs"
+        "tag": "forge:eggs"
       },
       {
         "item": "bakeries:whole_egg"
@@ -11,20 +11,20 @@
     ],
     [
       {
-        "tag": "c:eggs"
+        "tag": "forge:eggs"
       },
       {
         "item": "bakeries:whole_egg"
       }
     ],
     {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     },
     {
-      "tag": "c:flours"
+      "tag": "forge:flour"
     },
     {
-      "tag": "c:flours"
+      "tag": "forge:flour"
     },
     {
       "item": "bakeries:cocoa_powder"

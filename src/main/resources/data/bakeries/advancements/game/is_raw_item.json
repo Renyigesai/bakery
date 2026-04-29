@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "bakeries:raw_food"
+            "item": "bakeries:round_bread_dough"
           }
         ]
       }

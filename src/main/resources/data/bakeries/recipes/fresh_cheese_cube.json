@@ -2,10 +2,10 @@
   "type": "bakeries:fermentation",
   "ingredients": [
     {
-      "tag": "c:foods/milk"
+      "tag": "forge:milk"
     },
     {
-      "tag": "c:salt"
+      "tag": "forge:salt"
     }
   ],
   "output": {

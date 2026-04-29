@@ -17,10 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -32,83 +29,104 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class PileItem extends ItemNameBlockItem {
-
     public final boolean effectTooltip;
     public final boolean customField;
     public final IntegerProperty integerProperty;
+    private final SoundEvent placeSound;
 
     public PileItem(Block block, IntegerProperty integerProperty, Item.Properties pProperties, boolean effectTooltip, boolean customField) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
+        this.placeSound = BakeriesSounds.PASTRY_PLACE.get();
         this.effectTooltip = effectTooltip;
         this.customField = customField;
+    }
+
+    public PileItem(Block block, PileItem.PileProperties pileProperties) {
+        super(block, pileProperties.itemProperties);
+        this.integerProperty = pileProperties.pile;
+        this.placeSound = pileProperties.placeSound;
+        this.effectTooltip = pileProperties.effectTooltip;
+        this.customField = pileProperties.customField;
     }
 
     public PileItem(Block block, IntegerProperty integerProperty, Properties pProperties) {
         super(block, pProperties);
         this.integerProperty = integerProperty;
+        this.placeSound = BakeriesSounds.PASTRY_PLACE.get();
         this.effectTooltip = false;
         this.customField = false;
     }
 
     public SoundEvent getPlaceSound(){
-        return BakeriesSounds.PASTRY_PLACE.get();
+        return placeSound;
     }
 
     /*不使用原版放置方法*/
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
-        return pileUseOn(pContext);
+        return InteractionResult.FAIL;
     }
 
-    public InteractionResult pileUseOn(UseOnContext pContext){
+    public InteractionResult pileUseOn(UseOnContext pContext) {
         Player player = pContext.getPlayer();
-        InteractionResult result = this.use(pContext.getLevel(), player, pContext.getHand()).getResult();
-        if (player.isShiftKeyDown() && this.isExtra(pContext)) {
-            Level level = pContext.getLevel();
-            Block thisBlock = this.getBlock();
-            BlockPos pos = pContext.getClickedPos();
-            BlockState state = level.getBlockState(pos);
-            if (state.is(BakeriesBlocks.MIX_BREAD_BLOCK.get())){
-                return addMixBlock(level,pos,thisBlock,player,pContext);
+        if (player == null) return InteractionResult.PASS;
+        Level level = pContext.getLevel();
+        Block thisBlock = this.getBlock();
+        BlockPos pos = pContext.getClickedPos();
+        BlockState state = level.getBlockState(pos);
+        if (BakeriesMod.onAuxiliaryKey(player) && this.isExtra(pContext)) {
+            if (state.is(BakeriesBlocks.MIX_BREAD_BLOCK.get())) {
+                addMixBlock(level, pos, thisBlock, player, pContext);
+                return InteractionResult.SUCCESS;
             }
-            if (!state.is(thisBlock)) {
-                if (state.getBlock() instanceof PileBlock pileBlock && state.getValue(PileBlock.integerProperty) < pileBlock.getMaxPile() && thisBlock instanceof PileBlock){
-                    return placeMixBlock(state,thisBlock,level,pos,player,pContext);
-                }else {
-                    this.place(new BlockPlaceContext(pContext));
-                    player.awardStat(Stats.ITEM_USED.get(this));
-                    level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
-                    return InteractionResult.SUCCESS;
-                }
+            if (!state.is(thisBlock) &&
+                    state.getBlock() instanceof PileBlock pileBlock &&
+                    state.getValue(PileBlock.integerProperty) < pileBlock.getMaxPile() &&
+                    thisBlock instanceof PileBlock) {
+                placeMixBlock(state, thisBlock, level, pos, player, pContext);
+                return InteractionResult.SUCCESS;
             }
             if (state.is(thisBlock)) {
-                return addPileBlock(state,thisBlock,level,pos,player,pContext);
+                addPileBlock(state, thisBlock, level, pos, player, pContext);
+                return InteractionResult.SUCCESS;
             }
+//            InteractionResult placeResult = this.place(new BlockPlaceContext(pContext));
+//            if (placeResult.consumesAction()) {
+//                player.awardStat(Stats.ITEM_USED.get(this));
+//                level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+//            }
+            BlockPlaceContext placeContext = new BlockPlaceContext(pContext);
+            InteractionResult placeResult = this.place(placeContext);
+            if (placeResult.consumesAction()) {
+                player.awardStat(Stats.ITEM_USED.get(this));
+                level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
         }
-        return result;
+        return InteractionResult.PASS;
     }
 
-    public InteractionResult addMixBlock(Level level,BlockPos pos,Block thisBlock,Player player,UseOnContext pContext){
+    public InteractionResult addMixBlock(Level level, BlockPos pos, Block thisBlock, Player player, UseOnContext pContext) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof MixBlockEntity mix){
+        if (blockEntity instanceof MixBlockEntity mix) {
             boolean flag = mix.addItem(new ItemStack(thisBlock.asItem()));
-            if (flag){
+            if (flag) {
                 if (!player.getAbilities().instabuild) {
                     pContext.getItemInHand().shrink(1);
                 }
                 level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+                return InteractionResult.SUCCESS;
             }
-            return InteractionResult.sidedSuccess(flag);
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.PASS;
     }
 
-    public InteractionResult addPileBlock(BlockState state,Block thisBlock,Level level,BlockPos pos,Player player,UseOnContext pContext){
-        if (state.hasProperty(this.integerProperty)){
+    public InteractionResult addPileBlock(BlockState state, Block thisBlock, Level level, BlockPos pos, Player player, UseOnContext pContext) {
+        if (state.hasProperty(this.integerProperty)) {
             int value = state.getValue(this.integerProperty);
             PileBlock newBlock = (PileBlock) thisBlock;
             if (value < newBlock.getMaxPile()) {
@@ -120,7 +138,7 @@ public class PileItem extends ItemNameBlockItem {
                 return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.PASS;
     }
 
     public InteractionResult placeMixBlock(BlockState state,Block thisBlock,Level level,BlockPos pos,Player player,UseOnContext pContext){
@@ -180,6 +198,47 @@ public class PileItem extends ItemNameBlockItem {
         }
         if (effectTooltip) {
             TextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
+        }
+    }
+
+    public static class PileProperties{
+        private IntegerProperty pile;
+        private SoundEvent placeSound;
+        private boolean effectTooltip;
+        private boolean customField;
+        private Item.Properties itemProperties;
+
+        public PileProperties() {
+            this.itemProperties = new Item.Properties();
+            this.pile = PileBlock.integerProperty;
+            this.placeSound = BakeriesSounds.PASTRY_PLACE.get();
+            this.effectTooltip = false;
+            this.customField = false;
+        }
+
+        public PileProperties itemProperties(Item.Properties properties){
+            this.itemProperties = properties;
+            return this;
+        }
+
+        public PileProperties pileProperty(IntegerProperty property){
+            this.pile = property;
+            return this;
+        }
+
+        public PileProperties effectTooltip(boolean effectTooltip){
+            this.effectTooltip = effectTooltip;
+            return this;
+        }
+
+        public PileProperties customField(boolean customField){
+            this.customField = customField;
+            return this;
+        }
+
+        public PileProperties placeSound(SoundEvent placeSound){
+            this.placeSound = placeSound;
+            return this;
         }
     }
 }

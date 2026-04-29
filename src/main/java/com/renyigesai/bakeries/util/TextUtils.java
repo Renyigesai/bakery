@@ -135,5 +135,4 @@ public class TextUtils {
         Function<ResourceLocation, FontSet> function = location -> fontSet;
         return new Font(function,filterFishyGlyphs);
     }
-
 }

@@ -86,7 +86,7 @@ public class ToasterBlock extends BaseEntityBlock {
                 if (pLevel.isClientSide){
                     return InteractionResult.SUCCESS;
                 }
-                if (pPlayer.isShiftKeyDown()){
+                if (BakeriesMod.onAuxiliaryKey(pPlayer)){
                     toaster.getItem(pPlayer);
                     pLevel.setBlock(pPos,pState.setValue(STATE,State.IDLE),3);
                     playSound(pLevel,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM);

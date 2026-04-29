@@ -31,6 +31,13 @@ public class AddPackEvent {
                 if (pack1 != null) {
                     consumer.accept(pack1);
                 }
+//                Pack pack2 = Pack.readMetaAndCreate(BakeriesMod.prefix("b_2d_icon").toString(),
+//                        Component.literal("Bakeries 2D Icon"), false, id ->
+//                                new BakeriesFilePackResource(id, modFile, "resourcepacks/b_2d_icon"),
+//                        PackType.CLIENT_RESOURCES, Pack.Position.TOP, PackSource.BUILT_IN);
+//                if (pack2 != null) {
+//                    consumer.accept(pack2);
+//                }
             });
         }
     }

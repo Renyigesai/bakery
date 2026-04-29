@@ -20,7 +20,6 @@ public class BakeriesClientEvents {
         LocalPlayer player = event.getPlayer();
         if (player != null) {
             LookBlockEntityRegistries.getBlocks().remove(player.getUUID());
-
         }
     }
 

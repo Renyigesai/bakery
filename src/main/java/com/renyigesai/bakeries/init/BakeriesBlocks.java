@@ -2,6 +2,11 @@ package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.LazyMobEffectInstance;
+import com.renyigesai.bakeries.block.bread_rack.BreadRackBlock;
+import com.renyigesai.bakeries.block.bread_rack.BreadRackBlockEntity;
+import com.renyigesai.bakeries.block.bread_rack.GlassBreadRackBlock;
+import com.renyigesai.bakeries.block.fermentation_box.FermentationBoxBlock;
+import com.renyigesai.bakeries.block.fermentation_box.FermentationBoxBlockEntity;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlock;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.block.mix_block.MixBlock;
@@ -117,6 +122,8 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> PINEAPPLE_OIL;
     public static final RegistryObject<Block> FLAT_CROISSANT;
     public static final RegistryObject<Block> TARO_SALT_YOLK_BREAD;
+    public static final RegistryObject<Block> BEARNAISE;
+    public static final RegistryObject<Block> OLIVE_OIL;
 
     //common
     public static final RegistryObject<Block> OVEN;
@@ -167,9 +174,15 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> CASH_REGISTER_COMPUTER;
     public static final RegistryObject<Block> SILICONE_PAPER;
     public static final RegistryObject<Block> TRAY_YUNTUI_MOONCAKE;
+    public static final RegistryObject<Block> CHANDELIER;
+    public static final RegistryObject<Block> SWEET_BERRIES_JAM;
 
     /*生披萨*/
     public static final RegistryObject<Block> RAW_PIZZA;
+
+    /**模组联动方块*/
+    public static final RegistryObject<Block> CREAM_MUSHROOM_SOUP_WITH_BAGUETTE;
+    public static final RegistryObject<Block> DONGPO_PORK_HAMBURG;
 
     /*方块实体*/
     public static final RegistryObject<Block> BREAD_BASKET ;
@@ -206,6 +219,11 @@ public class BakeriesBlocks {
     public static RegistryObject<BlockEntityType<MixBlockEntity>> MIX_BLOCK_ENTITY;
     public static RegistryObject<Block> LUMINOUS_LIGHT_SIGN;
     public static RegistryObject<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY;
+    public static RegistryObject<Block> FERMENTATION_BOX;
+    public static RegistryObject<BlockEntityType<FermentationBoxBlockEntity>> FERMENTATION_BOX_ENTITY;
+    public static RegistryObject<Block> BREAD_RACK;
+    public static RegistryObject<Block> GLASS_BREAD_RACK;
+    public static RegistryObject<BlockEntityType<BreadRackBlockEntity>> BREAD_RACK_ENTITY;
 
     static {
         /*面包方块*/
@@ -247,6 +265,8 @@ public class BakeriesBlocks {
         PINEAPPLE_OIL = BLOCK_REGISTRY.register("pineapple_oil",PileBlock::new);
         FLAT_CROISSANT = BLOCK_REGISTRY.register("flat_croissant",PileBlock::new);
         TARO_SALT_YOLK_BREAD = BLOCK_REGISTRY.register("taro_salt_yolk_bread",PileBlock::new);
+        BEARNAISE = BLOCK_REGISTRY.register("bearnaise",()-> new PileBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        OLIVE_OIL = BLOCK_REGISTRY.register("olive_oil",()-> new OliveOilBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         /*蛋糕方块*/
         CUP_CAKE = BLOCK_REGISTRY.register("cup_cake",PileBlock::new);
 
@@ -350,8 +370,16 @@ public class BakeriesBlocks {
         CASH_REGISTER_COMPUTER = BLOCK_REGISTRY.register("cash_register_computer",()->new CashRegisterComputerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 6.0F).lightLevel(litBlockEmission(10))));
         SILICONE_PAPER = BLOCK_REGISTRY.register("silicone_paper",()-> new SiliconePaperBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL).strength(0.1f)));
         TRAY_YUNTUI_MOONCAKE = BLOCK_REGISTRY.register("tray_yuntui_mooncake",()-> new TraySconeBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+        CHANDELIER = BLOCK_REGISTRY.register("chandelier",()-> new LanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)));
+        SWEET_BERRIES_JAM = BLOCK_REGISTRY.register("sweet_berries_jam", PileBlock::new);
         /*生披萨*/
         RAW_PIZZA = BLOCK_REGISTRY.register("raw_pizza", ()-> new RawPizzaBlock(BakeriesItems.RAW_PIZZA));
+
+        /**模组联动方块*/
+        CREAM_MUSHROOM_SOUP_WITH_BAGUETTE = BLOCK_REGISTRY.register("cream_mushroom_soup_with_baguette",()-> new CreamMushroomSoupWithBaguetteBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+        DONGPO_PORK_HAMBURG = BLOCK_REGISTRY.register("dongpo_pork_hamburg", PileBlock::new);
+
+
         /*
         方块实体BlockEntity
         */
@@ -416,6 +444,14 @@ public class BakeriesBlocks {
 
         LUMINOUS_LIGHT_SIGN = BLOCK_REGISTRY.register("luminous_light_sign", LuminousLightSignBlock::new);
         LUMINOUS_LIGHT_SIGN_ENTITY = BLOCK_ENTITY_REGISTRY.register("luminous_light_sign",() -> BlockEntityType.Builder.of(LuminousLightSignBlockEntity::new, LUMINOUS_LIGHT_SIGN.get()).build(null));
+
+        FERMENTATION_BOX = BLOCK_REGISTRY.register("fermentation_box",()-> new FermentationBoxBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
+                .sound(SoundType.NETHERITE_BLOCK).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
+        FERMENTATION_BOX_ENTITY = BLOCK_ENTITY_REGISTRY.register("fermentation_box",()-> BlockEntityType.Builder.of(FermentationBoxBlockEntity::new,FERMENTATION_BOX.get()).build(null));
+
+        BREAD_RACK = BLOCK_REGISTRY.register("bread_rack",()-> new BreadRackBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+        GLASS_BREAD_RACK = BLOCK_REGISTRY.register("glass_bread_rack",()-> new GlassBreadRackBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+        BREAD_RACK_ENTITY = BLOCK_ENTITY_REGISTRY.register("bread_rack",()-> BlockEntityType.Builder.of(BreadRackBlockEntity::new,BREAD_RACK.get(),GLASS_BREAD_RACK.get()).build(null));
 
     }
 

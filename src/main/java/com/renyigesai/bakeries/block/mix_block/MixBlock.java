@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -43,6 +44,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MixBlock extends BaseEntityBlock {
 
@@ -96,7 +99,7 @@ public class MixBlock extends BaseEntityBlock {
         if (pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }
-        if (!pPlayer.isShiftKeyDown()){
+        if (!BakeriesMod.onAuxiliaryKey(pPlayer)){
             ItemStack itemInHand = pPlayer.getItemInHand(pHand);
             if (itemInHand.is(BakeriesItems.WOOD_TRAY.get())){
                 pLevel.setBlock(pPos,pState.setValue(TRAY,true),3);

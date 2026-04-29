@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:fruits/orange"
+      }
+    }
+  ],
+  "type": "bakeries:coffee",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "forge:fruits/orange"
+    },
+    {
+      "item": "bakeries:moka_pot_fill"
+    }
+  ],
+  "output": {
+    "item": "bakeries:orange_american",
+    "count": 1
+  }
+}

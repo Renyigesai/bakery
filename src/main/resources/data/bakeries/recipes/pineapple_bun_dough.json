@@ -10,7 +10,7 @@
       "item": "bakeries:round_bread_dough"
     },
     "b": {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     },
     "c": {
       "item": "minecraft:sugar"

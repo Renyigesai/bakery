@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "bakeries:config",
+      "value_type": "boolean",
+      "config_key": "fermentationGameplay",
+      "expected": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a",
+    "b"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:sweet_dough_fermentation"
+    },
+    "b": {
+      "tag": "forge:butter"
+    }
+  },
+  "result": {
+    "item": "bakeries:pastry",
+    "count": 4
+  }
+}

@@ -1,4 +1,12 @@
 {
+  "conditions": [
+    {
+      "type": "bakeries:config",
+      "value_type": "boolean",
+      "config_key": "fermentationGameplay",
+      "expected": false
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
@@ -7,7 +15,7 @@
   ],
   "key": {
     "a": {
-      "tag": "c:cheese"
+      "tag": "forge:cheese"
     },
     "b": {
       "item": "bakeries:cocoa_dough"

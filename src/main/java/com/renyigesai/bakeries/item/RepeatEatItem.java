@@ -86,18 +86,16 @@ public abstract class RepeatEatItem extends PileItem {
     }
 
     public ItemStack eat(Level pLevel, ItemStack pFood,LivingEntity living){
-        boolean isPlayer = false;
         if (living instanceof Player player){
-            isPlayer = true;
             player.getFoodData().eat(pFood.getItem(),pFood,player);
             player.awardStat(Stats.ITEM_USED.get(pFood.getItem()));
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, pFood);
             }
         }
-        if (!isPlayer){
-            living.eat(pLevel,pFood);
-        }
+//        if (!isPlayer){
+//            living.eat(pLevel,pFood);
+//        }
         FoodProperties foodProperties = pFood.getFoodProperties(living);
         if (foodProperties != null){
             ForgeEventFactory.onItemUseFinish(living, pFood.copy(), 0, ItemStack.EMPTY);

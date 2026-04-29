@@ -7,6 +7,7 @@ import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlock;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.util.TextUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.FontManager;
@@ -146,7 +147,7 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
 
     private void startRender(String text,int textWidth,int color,PoseStack poseStack,MultiBufferSource pBuffer){
         float x = 0.5f / textScale - textWidth;
-        font.drawInBatch(Component.nullToEmpty(text), x, 1, color, false, poseStack.last().pose(), pBuffer, Font.DisplayMode.NORMAL, 0, 15728880);
+        font.drawInBatch(Component.literal(text).withStyle(ChatFormatting.BOLD), x, 1, color, false, poseStack.last().pose(), pBuffer, Font.DisplayMode.NORMAL, 0, 15728880);
         if (pBuffer instanceof MultiBufferSource.BufferSource) {
             BakedGlyph texturedglyph = font.getFontSet(Style.DEFAULT_FONT).whiteGlyph();
             ((MultiBufferSource.BufferSource)pBuffer).endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));

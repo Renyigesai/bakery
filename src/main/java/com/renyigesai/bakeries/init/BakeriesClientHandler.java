@@ -1,10 +1,10 @@
 package com.renyigesai.bakeries.init;
 
-import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.blender.BlenderRenderer;
+import com.renyigesai.bakeries.block.bread_rack.BreadRackRender;
 import com.renyigesai.bakeries.block.cake.CakeRollProcessingBlockEntityRender;
 import com.renyigesai.bakeries.block.cake_box.CakeBoxBlockEntityRender;
-import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
+import com.renyigesai.bakeries.block.fermentation_box.FermentationBoxRender;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntityRender;
 import com.renyigesai.bakeries.block.menu.MenuBlockEntityRender;
 import com.renyigesai.bakeries.block.mix_block.MixBlockEntityRender;
@@ -14,14 +14,7 @@ import com.renyigesai.bakeries.block.pizza.PizzaFlatbreadBlockEntityRender;
 import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntityRender;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntityRender;
 import com.renyigesai.bakeries.block.wooden_tray.WoodTrayBlockEntityRender;
-import com.renyigesai.bakeries.client.model.BlenderModel;
-import com.renyigesai.bakeries.client.model.MokaPotModel;
-import com.renyigesai.bakeries.client.model.OvenModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
+import com.renyigesai.bakeries.client.model.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,6 +42,8 @@ public class BakeriesClientHandler {
         event.registerBlockEntityRenderer(BakeriesBlocks.BLENDER_ENTITY.get(), BlenderRenderer::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.OVEN_BLOCK_ENTITY.get(), OvenRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.MOKA_POT_ENTITY.get(), MokaPotRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.FERMENTATION_BOX_ENTITY.get(), FermentationBoxRender::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.BREAD_RACK_ENTITY.get(), BreadRackRender::new);
     }
 
     @SubscribeEvent
@@ -56,5 +51,7 @@ public class BakeriesClientHandler {
         event.registerLayerDefinition(BlenderModel.BLENDER, BlenderModel::createBodyLayer);
         event.registerLayerDefinition(OvenModel.OVEN, OvenModel::createBodyLayer);
         event.registerLayerDefinition(MokaPotModel.MOKA_POT, MokaPotModel::createBodyLayer);
+        event.registerLayerDefinition(FermentationBoxModel.FERMENTATION_BOX, FermentationBoxModel::createBodyLayer);
+        event.registerLayerDefinition(GlassBreadRackDoorModel.LAYER_LOCATION, GlassBreadRackDoorModel::createBodyLayer);
     }
 }

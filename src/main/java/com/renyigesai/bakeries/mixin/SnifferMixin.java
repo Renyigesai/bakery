@@ -25,7 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Sniffer.class)
 public abstract class SnifferMixin extends Animal {
 
-    @Shadow (remap = false)
     protected abstract BlockPos getHeadBlock();
 
     protected SnifferMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {

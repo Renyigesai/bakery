@@ -23,10 +23,10 @@
       "item": "minecraft:sugar"
     },
     {
-      "tag": "c:salt"
+      "tag": "forge:salt"
     },
     {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     },
     {
       "item": "bakeries:bottle_yeast"

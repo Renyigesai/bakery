@@ -1,4 +1,12 @@
 {
+  "conditions": [
+    {
+      "type": "bakeries:config",
+      "value_type": "boolean",
+      "config_key": "fermentationGameplay",
+      "expected": false
+    }
+  ],
   "type": "bakeries:dough_crafting_table",
   "count": 2,
   "ingredient":

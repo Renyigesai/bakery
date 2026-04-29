@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.luminous_light_sign;
 
+import com.renyigesai.bakeries.block.HorizontalConnectBlock;
 import com.renyigesai.bakeries.block.sofa.SofaBlock;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.TextUtils;
@@ -31,13 +32,13 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class LuminousLightSignBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+public class LuminousLightSignBlock extends HorizontalConnectBlock implements EntityBlock {
+//    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LEFT = BooleanProperty.create("left");
     public static final BooleanProperty RIGHT = BooleanProperty.create("right");
     public LuminousLightSignBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.GLASS).lightLevel((BlockState) -> 5).hasPostProcess((bs, br, bp) -> true));
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LEFT,false).setValue(RIGHT,false));
+//        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LEFT,false).setValue(RIGHT,false));
     }
 
     @Override
@@ -80,41 +81,41 @@ public class LuminousLightSignBlock extends BaseEntityBlock {
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection());
-    }
-
-    public BlockState rotate(BlockState pState, Rotation pRot) {
-        return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
-    }
-
-    public BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
-    }
-
-    @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
-        Direction facing = state.getValue(FACING);
-        boolean shouldConnect1 = canConnectTo(level, currentPos, facing,state,false);
-        boolean shouldConnect2 = canConnectTo(level, currentPos, facing,state,true);
-        return state.setValue(LEFT, shouldConnect1).setValue(RIGHT,shouldConnect2);
-    }
-
-    protected boolean canConnectTo(BlockGetter level, BlockPos pos, Direction facing, BlockState oleState, boolean isRight) {
-        Direction direction = getLeft(facing);
-        BlockPos directionPos = pos.relative(isRight?direction.getOpposite():direction);
-        BlockState state = level.getBlockState(directionPos);
-        return state.is(this) && state.getValue(SofaBlock.FACING) == oleState.getValue(FACING);
-    }
-
-    protected Direction getLeft(Direction direction){
-        return direction.getCounterClockWise();
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING,LEFT,RIGHT);
-    }
+//    public BlockState getStateForPlacement(BlockPlaceContext context) {
+//        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection());
+//    }
+//
+//    public BlockState rotate(BlockState pState, Rotation pRot) {
+//        return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
+//    }
+//
+//    public BlockState mirror(BlockState pState, Mirror pMirror) {
+//        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+//    }
+//
+//    @Override
+//    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
+//        Direction facing = state.getValue(FACING);
+//        boolean shouldConnect1 = canConnectTo(level, currentPos, facing,state,false);
+//        boolean shouldConnect2 = canConnectTo(level, currentPos, facing,state,true);
+//        return state.setValue(LEFT, shouldConnect1).setValue(RIGHT,shouldConnect2);
+//    }
+//
+//    protected boolean canConnectTo(BlockGetter level, BlockPos pos, Direction facing, BlockState oleState, boolean isRight) {
+//        Direction direction = getLeft(facing);
+//        BlockPos directionPos = pos.relative(isRight?direction.getOpposite():direction);
+//        BlockState state = level.getBlockState(directionPos);
+//        return state.is(this) && state.getValue(SofaBlock.FACING) == oleState.getValue(FACING);
+//    }
+//
+//    protected Direction getLeft(Direction direction){
+//        return direction.getCounterClockWise();
+//    }
+//
+//    @Override
+//    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+//        pBuilder.add(FACING,LEFT,RIGHT);
+//    }
 
     public boolean propagatesSkylightDown(BlockState p_154824_, BlockGetter p_154825_, BlockPos p_154826_) {
         return true;

@@ -1,11 +1,18 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
+import com.renyigesai.bakeries.config.BakeriesConfig;
+import com.renyigesai.bakeries.item.RepeatEatItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
+import java.util.Set;
 
 public class BakeriesGroup {
 
@@ -21,6 +28,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.STONE_KILN.get());//石窑炉
                         output.accept(BakeriesItems.TOASTER.get());//烤吐司机
                         output.accept(BakeriesItems.BLENDER.get());//搅拌机
+                        conditionOutput(output,BakeriesItems.FERMENTATION_BOX.get(),BakeriesConfig.fermentationGameplay);
                         output.accept(BakeriesItems.MOKA_POT.get());//摩卡壶
                         output.accept(BakeriesItems.MOKA_POT_FILL.get());//装有咖啡的摩卡壶
                         output.accept(BakeriesItems.DOUGH_CRAFTING_TABLE.get());//面胚制作台
@@ -28,7 +36,6 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.FERMENTATION_TANK.get());//发酵罐
                         output.accept(BakeriesItems.YEAST_TANK.get());//满装酵母罐
                         output.accept(BakeriesItems.CHEESE_TANK.get());//满装奶酪罐
-                        output.accept(BakeriesItems.FERMENTATION_BARREL.get());//满装奶酪罐
                         output.accept(BakeriesItems.DRINK_CUP.get());//玻璃饮料杯
                         output.accept(BakeriesItems.WHOLE_WHEAT_FLOUR_BAG.get());//全麦面粉袋
                         output.accept(BakeriesItems.FLOUR_BAG.get());//面粉袋
@@ -43,6 +50,8 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.LUMINOUS_LIGHT_SIGN.get());//发光灯牌
                         output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐
+                        output.accept(BakeriesItems.BREAD_RACK.get());//面包架
+                        output.accept(BakeriesItems.GLASS_BREAD_RACK.get());//玻璃面包架
                         output.accept(BakeriesItems.CAKE_BOX.get());//蛋糕盒
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR.get());//玻璃柜门
                         output.accept(BakeriesItems.GLASS_CABINET_DOOR_TWO.get());//玻璃柜门二号
@@ -91,6 +100,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.GROUND_COFFEE.get());//咖啡粉
                         output.accept(BakeriesItems.OLIVE_OIL.get());//橄榄油
                         output.accept(BakeriesItems.BEARNAISE.get());//蛋黄酱
+                        output.accept(BakeriesItems.SWEET_BERRIES_JAM.get());//甜浆果酱
                         output.accept(BakeriesItems.MEAT_FLOSS.get());//肉松
                         //面包/食物
                         output.accept(BakeriesItems.SCONE.get());//司康
@@ -169,8 +179,11 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.EGG_YOLK_PASTE_BUCKET.get());
                         output.accept(BakeriesItems.FOAMED_PROTEIN_BUCKET.get());
                         output.accept(BakeriesItems.SWEET_DOUGH.get());
+                        conditionOutput(output,BakeriesItems.SWEET_DOUGH_FERMENTATION.get(), BakeriesConfig.fermentationGameplay);
                         output.accept(BakeriesItems.COCOA_DOUGH.get());
+                        conditionOutput(output,BakeriesItems.COCOA_DOUGH_FERMENTATION.get(),BakeriesConfig.fermentationGameplay);
                         output.accept(BakeriesItems.SALTED_DOUGH.get());
+                        conditionOutput(output,BakeriesItems.SALTED_DOUGH_FERMENTATION.get(), BakeriesConfig.fermentationGameplay);
                         output.accept(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
                         output.accept(BakeriesItems.CRISPY_DOUGH.get());
                         output.accept(BakeriesItems.PASTRY.get());
@@ -203,4 +216,27 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.RAW_CUSTOM_PIZZA.get());
                     }))
                     .build());
+
+    public static final RegistryObject<CreativeModeTab> BAKERY_COMPAT_TAB = REGISTER.register("bakery_compat_tab",() ->
+            CreativeModeTab.builder().icon(()-> new ItemStack(BakeriesCompatItems.GARLIC_FLAVORED_BAGUETTE.get()))
+                    .title(Component.translatable("creativetab_bakery_compat_tab"))
+                    .displayItems(((itemDisplayParameters, output) -> {
+                        output.accept(BakeriesCompatItems.RICE_BREAD.get());//米面包
+                        output.accept(BakeriesItems.RICE_BREAD_DOUGH.get());//米面包面胚
+                        output.accept(BakeriesCompatItems.SALMON_SANDWICH.get());//鲑鱼三明治
+                        output.accept(BakeriesCompatItems.GARLIC_FLAVORED_BAGUETTE.get());//蒜香法棍
+                        output.accept(BakeriesCompatItems.YUNTUI_MOONCAKE.get());//云腿月饼
+                        output.accept(BakeriesItems.RAW_YUNTUI_MOONCAKE.get());//生云腿月饼
+                        output.accept(BakeriesCompatItems.TRAY_YUNTUI_MOONCAKE.get());//盘装云腿月饼
+                        output.accept(BakeriesCompatItems.ORANGE_AMERICAN.get());//橙C美式
+                        output.accept(BakeriesCompatItems.CREAM_MUSHROOM_SOUP_WITH_BAGUETTE.get());//奶油蘑菇汤配法棍
+                        output.accept(BakeriesCompatItems.DONGPO_PORK_HAMBURG.get());//东坡肉汉堡
+                    }))
+                    .build());
+
+    private static void conditionOutput(CreativeModeTab.Output pDisplayItemsGenerator, Item item,boolean condition){
+        if (condition){
+            pDisplayItemsGenerator.accept(item);
+        }
+    }
 }

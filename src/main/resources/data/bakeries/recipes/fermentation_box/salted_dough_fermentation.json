@@ -1,0 +1,20 @@
+{
+  "conditions": [
+    {
+      "type": "bakeries:config",
+      "value_type": "boolean",
+      "config_key": "fermentationGameplay",
+      "expected": true
+    }
+  ],
+  "type": "bakeries:fermentation_box",
+  "ingredients":  [
+    {
+      "item": "bakeries:salted_dough"
+    }
+  ],
+  "output": {
+    "item": "bakeries:salted_dough_fermentation",
+    "count": 1
+  }
+}

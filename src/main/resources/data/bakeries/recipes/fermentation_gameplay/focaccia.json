@@ -1,0 +1,34 @@
+{
+  "conditions": [
+    {
+      "type": "bakeries:config",
+      "value_type": "boolean",
+      "config_key": "fermentationGameplay",
+      "expected": true
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abc",
+    " d "
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:olive"
+    },
+    "b": {
+      "item": "bakeries:olive_oil"
+    },
+    "c": {
+      "tag": "forge:crops/tomato"
+    },
+    "d": {
+      "item": "bakeries:salted_dough_fermentation"
+    }
+  },
+  "result": {
+    "item": "bakeries:focaccia_dough",
+    "count": 4
+  }
+}

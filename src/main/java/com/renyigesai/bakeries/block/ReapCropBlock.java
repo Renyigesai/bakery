@@ -9,6 +9,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,6 +27,9 @@ public class ReapCropBlock extends CropBlock {
         int age = state.getValue(AGE);
         ItemStack handStack = player.getItemInHand(hand);
         if (age == getMaxAge() && handStack.isEmpty()) {
+            if (level.isClientSide){
+                return InteractionResult.SUCCESS;
+            }
             boolean temp = false;
             if (level instanceof ServerLevel level1) {
                 List<ItemStack> stacks = getDrops(state, level1, pos, null);
@@ -41,6 +45,10 @@ public class ReapCropBlock extends CropBlock {
                 level.playSound(null, pos, SoundEvents.PLAYER_HURT_SWEET_BERRY_BUSH, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
                 return InteractionResult.SUCCESS;
             }
+        }
+        ItemStack itemInHand = player.getItemInHand(hand);
+        if (itemInHand.is(Items.BONE_MEAL)){
+            return InteractionResult.PASS;
         }
         return super.use(state, level, pos, player, hand, hitResult);
     }

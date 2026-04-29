@@ -41,12 +41,12 @@ public abstract class AbstractConfigCondition implements ICondition {
         switch (valueType) {
             case "boolean":
                 if (expected instanceof Boolean && actual instanceof Boolean) {
-                    return ((Boolean) actual).equals(expected);
+                    return actual.equals(expected);
                 }
                 break;
             case "string":
                 if (expected instanceof String && actual instanceof String) {
-                    return ((String) actual).equals(expected);
+                    return actual.equals(expected);
                 }
                 break;
             case "double":

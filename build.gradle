@@ -190,25 +190,14 @@ dependencies {
 //     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
     implementation fg.deobf("curse.maven:jei-238222:7361881")
     implementation fg.deobf("curse.maven:jade-324717:6291330")
-
-    // Example mod dependency using a mod jar from ./libs with a flat dir repository
-    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
-    // The group id is ignored when searching -- in this case, it is "blank"
-    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-    /*����ģ�鵼��*/
-    implementation fg.deobf("curse.maven:farmersdelight-398521:6154802")
-//    implementation fg.deobf("curse.maven:thirst_was_taken-679270:6660408")
+    implementation fg.deobf("curse.maven:farmers-delight-398521:8007609")
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     implementation fg.deobf("curse.maven:mekalus-oculus-fork-with-fixed-mekanism-mekasuit-1130957:6994299")
-
-    // For more info:
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-//    runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
-//    runtimeOnly fg.deobf("curse.maven:depression-1055915:6584434")
+    implementation fg.deobf("curse.maven:patchouli-306770:7731017")
+    runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
     runtimeOnly fg.deobf("curse.maven:architectury-api-419699:5137936")
-
-//    implementation fg.deobf("curse.maven:patchouli-306770:7731017")
+    implementation fg.deobf("curse.maven:kaleidoscope-cookery-1309203:7966280")
+    implementation fg.deobf("curse.maven:appleskin-248787:4770828")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

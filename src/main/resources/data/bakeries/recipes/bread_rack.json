@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a a",
+    "aba",
+    "aba"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:stick"
+    },
+    "b": {
+      "item": "bakeries:wood_tray"
+    }
+  },
+  "result": {
+    "item": "bakeries:bread_rack",
+    "count": 1
+  }
+}

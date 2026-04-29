@@ -75,10 +75,7 @@ public class MixBlockEntity extends BlockEntity {
     public void drops(MixBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.inventory.getSlots() + 1);
         for (int i = 0; i < blockEntity.inventory.getSlots(); i++) {
-            ItemStack stackInSlot = blockEntity.inventory.getStackInSlot(i);
-            if (!stackInSlot.hasCraftingRemainingItem()){
-                inventory.setItem(i, blockEntity.inventory.getStackInSlot(i));
-            }
+            inventory.setItem(i, blockEntity.inventory.getStackInSlot(i));
         }
         if (this.level != null) {
             Containers.dropContents(this.level, this.worldPosition, inventory);

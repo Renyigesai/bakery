@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.overlay;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.toaster.ToasterBlock;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
@@ -37,7 +36,7 @@ public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
             if (!toaster.getItems().getStackInSlot(0).isEmpty() && state == ToasterBlock.State.IDLE){
                 text = Component.translatable("tip.bakeries.toaster_1").getString();
             }else if (state == ToasterBlock.State.FINISH){
-                text = Component.translatable("tip.bakeries.toaster_2").getString();
+                text = Component.translatable("tip.bakeries.toaster_2",BakeriesMod.getAuxiliaryKeyName()).getString();
             }
 
             if (!text.isEmpty()){

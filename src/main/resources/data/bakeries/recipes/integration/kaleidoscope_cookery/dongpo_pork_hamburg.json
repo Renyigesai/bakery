@@ -1,0 +1,34 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "kaleidoscope_cookery"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "kaleidoscope_cookery:dongpo_pork"
+    },
+    {
+      "item": "bakeries:round_bread"
+    },
+    {
+      "item": "bakeries:round_bread"
+    },
+    {
+      "item": "bakeries:round_bread"
+    },
+    {
+      "item": "bakeries:round_bread"
+    },
+    {
+      "tag": "forge:crops/tomato"
+    }
+  ],
+  "result": {
+    "item": "bakeries:dongpo_pork_hamburg",
+    "count": 4
+  }
+}

@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.recipe;
 
 import com.google.gson.JsonObject;
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.api.item.IFermentationItem;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -40,6 +41,17 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
     }
     @Override
     public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
+        System.out.println("Yes assemble");
+        ItemStack input = pContainer.getItem(0);
+        if (!input.isEmpty()) {
+            if (input.getItem() instanceof IFermentationItem fermentationItem) {
+                int multiplication = fermentationItem.fermentationCraftingCount(input);
+                // 复制原始模板，避免污染
+                ItemStack resultOut = this.result.copy();
+                resultOut.setCount(resultOut.getCount() * multiplication);
+                return resultOut;
+            }
+        }
         return this.result.copy();
     }
 

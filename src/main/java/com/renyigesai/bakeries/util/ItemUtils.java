@@ -18,8 +18,8 @@ import java.util.List;
 
 public class ItemUtils {
 
-//    public static final Rarity ADVANCED = Rarity.create("advanced", style -> style.withColor(0XEDA624));//0XEDA624
-//    public static final Rarity TARO = Rarity.create("taro", style -> style.withColor(0XC889FF));//0XC889FF
+    public static final Rarity ADVANCED = Rarity.create("advanced", style -> style.withColor(0XEDA624));//0XEDA624
+    public static final Rarity TARO = Rarity.create("taro", style -> style.withColor(0XC889FF));//0XC889FF
 
     public static List<LazyMobEffectInstance> addEffects(LazyMobEffectInstance... effects){
         return List.of(effects);

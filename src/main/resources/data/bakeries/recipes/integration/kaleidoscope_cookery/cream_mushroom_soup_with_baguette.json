@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "kaleidoscope_cookery"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:baguette"
+    },
+    {
+      "item": "kaleidoscope_cookery:brown_mushroom_pot_soup"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "tag": "forge:cheese"
+    }
+  ],
+  "result": {
+    "item": "bakeries:cream_mushroom_soup_with_baguette",
+    "count": 1
+  }
+}

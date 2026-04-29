@@ -3,7 +3,7 @@
   "ingredients": [
     [
       {
-        "tag": "c:eggs"
+        "tag": "forge:eggs"
       },
       {
         "item": "bakeries:whole_egg"
@@ -11,20 +11,20 @@
     ],
     [
       {
-        "tag": "c:eggs"
+        "tag": "forge:eggs"
       },
       {
         "item": "bakeries:whole_egg"
       }
     ],
     {
-      "tag": "c:flours"
+      "tag": "forge:flour"
     },
     {
-      "tag": "c:flours"
+      "tag": "forge:flour"
     },
     {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     },
     {
       "item": "bakeries:brown_sugar_cube"

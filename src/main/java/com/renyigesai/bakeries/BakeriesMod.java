@@ -34,6 +34,7 @@ public class BakeriesMod {
     public static final String MODID = "bakeries";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static boolean aprilFoolsDay;
+    public static int floatingTemperature;
     @SuppressWarnings("removal")
     public BakeriesMod() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -50,6 +51,8 @@ public class BakeriesMod {
         BakeriesFluidTypes.REGISTRY.register(bus);
         BakeriesEntityTypes.ENTITY.register(bus);
         BakeriesParticleTypes.REGISTRY.register(bus);
+        BakeriesRecipeTypes.RECIPE_TYPES.register(bus);
+        BakeriesRecipeSerializers.RECIPE_SERIALIZERS.register(bus);
         BakeriesVillagers.register(bus);
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
@@ -63,8 +66,11 @@ public class BakeriesMod {
             Calendar calendar = Calendar.getInstance();
             aprilFoolsDay = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
         }
-        CraftingHelper.register(ConfigCondition.Serializer.INSTANCE);
-        BakeriesConfig.ConfigMapping.init();
+        refreshFloatingTemperature();
+    }
+
+    public static void refreshFloatingTemperature(){
+        floatingTemperature = new Random().nextInt(-5,10);
     }
 
     public static boolean onAuxiliaryKey(Player player){

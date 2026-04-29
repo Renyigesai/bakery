@@ -8,32 +8,32 @@
   "type": "create:mixing",
   "ingredients": [
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
       "item": "minecraft:sugar"
     },
     {
-      "tag": "c:salt"
+      "tag": "forge:salt"
     },
     {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     },
     {
       "item": "bakeries:bottle_yeast"
     },
     {
       "amount": 250,
-      "fluid": "milk:still_milk"
+      "fluidTag": "forge:milk"
     }
   ],
   "results": [

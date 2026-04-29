@@ -11,7 +11,6 @@ import com.renyigesai.bakeries.item.RepeatEatItem;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.WorldUtil;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,15 +31,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -167,7 +160,7 @@ public class BakeriesEvents {
                 level.addFreshEntity(new ItemEntity(level,x,y,z,new ItemStack(BakeriesItems.FLAT_CROISSANT.get())));
                 List<Player> players = level.getEntitiesOfClass(Player.class,entity.getBoundingBox().inflate(6));
                 players.forEach(player -> {
-                    if (!WorldUtil.isDoneAdvancement(player,level,new ResourceLocation("bakeries","get_flat_croissant"))){
+                    if (!WorldUtil.isDoneAdvancement(player,level,new ResourceLocation("bakeries","get_flat_croissant_null"))){
                         if (player instanceof ServerPlayer serverPlayer){
                             Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("bakeries","get_flat_croissant"));
                             if (advancement != null) {
@@ -182,18 +175,26 @@ public class BakeriesEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerLookBlock(TickEvent.PlayerTickEvent event){
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.hitResult instanceof BlockHitResult blockHitResult){
-            BlockPos pos = blockHitResult.getBlockPos();
-            Level level = mc.level;
-            if (level != null) {
-                BlockState state = level.getBlockState(pos);
-                if (!state.isAir()){
-                    PlayerLookBlockEvent playerLookBlockEvent = new PlayerLookBlockEvent(mc.player, pos,state);
-                    MinecraftForge.EVENT_BUS.post(playerLookBlockEvent);
-                }
-            }
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        ItemStack handItem = event.getItemStack();
+        InteractionHand hand = event.getHand();
+        if (level.isClientSide){
+            return;
+        }
+        if (!BakeriesMod.onAuxiliaryKey(player)){
+            return;
+        }
+        if (!(handItem.getItem() instanceof PileItem pileItem)){
+            return;
+        }
+        event.setCanceled(true);
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        UseOnContext context = new UseOnContext(level, player, hand, handItem, event.getHitVec());
+        InteractionResult result = pileItem.pileUseOn(context);
+        if (result == InteractionResult.PASS) {
+
         }
     }
 }

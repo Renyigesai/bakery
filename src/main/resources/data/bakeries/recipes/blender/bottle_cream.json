@@ -2,7 +2,7 @@
   "type": "bakeries:blender",
   "ingredients": [
     {
-      "tag": "c:foods/milk"
+      "tag": "forge:milk"
     }
   ],
   "container": {

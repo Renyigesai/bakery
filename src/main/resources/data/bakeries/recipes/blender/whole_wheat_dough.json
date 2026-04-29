@@ -2,16 +2,16 @@
   "type": "bakeries:blender",
   "ingredients": [
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "forge:flour/wheat"
     },
     {
       "item": "minecraft:sugar"
@@ -20,13 +20,13 @@
       "item": "bakeries:bottle_yeast"
     },
     {
-      "tag": "c:foods/milk"
+      "tag": "forge:milk"
     },
     {
-      "tag": "c:salt"
+      "tag": "forge:salt"
     },
     {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     }
   ],
   "output": {

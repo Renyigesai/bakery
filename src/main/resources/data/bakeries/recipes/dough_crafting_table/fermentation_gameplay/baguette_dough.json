@@ -1,0 +1,17 @@
+{
+  "conditions": [
+    {
+      "type": "bakeries:config",
+      "value_type": "boolean",
+      "config_key": "fermentationGameplay",
+      "expected": true
+    }
+  ],
+  "type": "bakeries:dough_crafting_table",
+  "count": 2,
+  "ingredient":
+  {
+    "item": "bakeries:salted_dough_fermentation"
+  },
+  "result": "bakeries:baguette_dough"
+}

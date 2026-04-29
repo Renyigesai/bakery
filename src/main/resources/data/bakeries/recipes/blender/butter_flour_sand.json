@@ -11,7 +11,7 @@
       "item": "minecraft:sugar"
     },
     {
-      "tag": "c:butter"
+      "tag": "forge:butter"
     }
   ],
   "output": {

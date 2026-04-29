@@ -1,6 +1,8 @@
 package com.renyigesai.bakeries.util;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.recipe.CoffeeRecipe;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -70,7 +72,16 @@ public class WorldUtil {
 
     public static boolean isDoneAdvancement(Player player,Level level,ResourceLocation resourceLocation){
         if (player instanceof ServerPlayer serverPlayer && level instanceof ServerLevel) {
-            return serverPlayer.getAdvancements().getOrStartProgress(serverPlayer.server.getAdvancements().getAdvancement(resourceLocation)).isDone();
+            try {
+                Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(resourceLocation);
+                if (advancement == null){
+                    return false;
+                }
+                return serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone();
+            }catch (Exception e){
+                BakeriesMod.LOGGER.error("Failed to check advancement {} for player {}", resourceLocation, player.getName(), e);
+                return false;
+            }
         }
         return false;
     }
