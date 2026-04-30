@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.item;
 
+import com.google.common.collect.Sets;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.compat.CompatMod;
 import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
@@ -222,6 +224,10 @@ public class BreadKnifeItem extends DiggerItem {
                 .getRecipeFor(BreadKnifeRecipe.Type.INSTANCE, inventory, level);
     }
 
+    public int getEnchantmentValue() {
+        return 15;
+    }
+
     @Override
     public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
         return !player.isCreative();
@@ -250,6 +256,22 @@ public class BreadKnifeItem extends DiggerItem {
     @Override
     public boolean isRepairable(ItemStack itemstack) {
         return false;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack pStack) {
+        return true;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        Set<Enchantment> ALLOWED_ENCHANTMENTS = Sets.newHashSet(Enchantments.SHARPNESS, Enchantments.SMITE, Enchantments.BANE_OF_ARTHROPODS, Enchantments.KNOCKBACK, Enchantments.FIRE_ASPECT, Enchantments.MOB_LOOTING);
+        if (ALLOWED_ENCHANTMENTS.contains(enchantment)) {
+            return true;
+        } else {
+            Set<Enchantment> DENIED_ENCHANTMENTS = Sets.newHashSet(Enchantments.BLOCK_FORTUNE);
+            return !DENIED_ENCHANTMENTS.contains(enchantment) && enchantment.category.canEnchant(stack.getItem());
+        }
     }
 
     @Override
