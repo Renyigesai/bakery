@@ -44,16 +44,12 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
+import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.utility.TextUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class BreadKnifeItem extends DiggerItem {
     public static final Set<ToolAction> KNIFE_ACTIONS = Set.of(ToolActions.SHEARS_CARVE);
@@ -121,19 +117,7 @@ public class BreadKnifeItem extends DiggerItem {
                 helper.setStackInSlot(0,item.getItem());
                 Optional<CuttingBoardRecipe> matchingRecipe = this.getMatchingRecipe(level,new RecipeWrapper(helper),toolStack,player);
                 matchingRecipe.ifPresent((recipe) -> {
-                    List<ItemStack> results;
-                    if (isFarmersDelightAbove_1_3_0()){
-                        results = recipe.rollResults(level.random,EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack),new RecipeWrapper(helper));
-                    }else {
-                        //使用反射获取旧版本方法
-                        try {
-                            Method rollResults = CuttingBoardRecipe.class.getMethod("rollResults", RandomSource.class, int.class);
-                            results = (List<ItemStack>)rollResults.invoke(recipe, level.random, EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack));
-                        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                            results = List.of();
-                            BakeriesMod.LOGGER.error(e);
-                        }
-                    }
+                    List<ItemStack> results = rollResults(level.random,EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, toolStack),matchingRecipe);
                     Iterator var5 = results.iterator();
 
                     while(var5.hasNext()) {
@@ -163,19 +147,19 @@ public class BreadKnifeItem extends DiggerItem {
         return false;
     }
 
-    private boolean isFarmersDelightAbove_1_3_0(){
-        String fullVersion = ModList.get().getModFileById("farmersdelight").versionString();
-        if (fullVersion == null || fullVersion.isEmpty()) {
-            return false;
+    public List<ItemStack> rollResults(RandomSource rand, int fortuneLevel, Optional<CuttingBoardRecipe> cuttingBoardRecipe) {
+        if (!cuttingBoardRecipe.isPresent()){
+            return List.of();
         }
-        String modVersion = fullVersion;
-        int dashIdx = fullVersion.indexOf('-');
-        if (dashIdx != -1 && dashIdx + 1 < fullVersion.length()) {
-            modVersion = fullVersion.substring(dashIdx + 1);
+        List<ItemStack> results = new ArrayList<>();
+        NonNullList<ChanceResult> rollableResults = cuttingBoardRecipe.get().getRollableResults();
+        for (ChanceResult output : rollableResults) {
+            ItemStack stack = output.rollOutput(rand, fortuneLevel);
+            if (!stack.isEmpty()) {
+                results.add(stack);
+            }
         }
-        ComparableVersion current = new ComparableVersion(modVersion);
-        ComparableVersion target = new ComparableVersion("1.2.9");
-        return current.compareTo(target) > 0;
+        return results;
     }
 
     private Optional<CuttingBoardRecipe> getMatchingRecipe(Level level,RecipeWrapper recipeWrapper, ItemStack toolStack, @Nullable Player player) {
