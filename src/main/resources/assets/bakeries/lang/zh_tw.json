@@ -379,7 +379,7 @@
   "tip.bakeries.toaster_1": "空手右鍵以開始烤製",
   "tip.bakeries.toaster_2": "%s加右鍵以取出物品",
   "gui.bakeries.oven.temperature": "當前溫度",
-  "gui.bakeries.oven.rolling": "§o滾動調整",
+  "gui.bakeries.rolling": "§o滾動調整",
   "key.bakeries.bakeries": "烘焙坊",
   "key.bakeries.auxiliary": "輔助按鍵",
   "rarity.advanced.name": "加強"
