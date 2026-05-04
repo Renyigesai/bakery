@@ -25,19 +25,12 @@ public class AddPackEvent {
             IModFile modFile = modFileInfo.getFile();
             event.addRepositorySource(consumer -> {
                 Pack pack1 = Pack.readMetaAndCreate(BakeriesMod.prefix("b_16x").toString(),
-                        Component.literal("Bakeries 16x Texture"), false, id ->
+                        Component.literal("Bakeries 16x Texture"), true, id ->
                                 new BakeriesFilePackResource(id, modFile, "resourcepacks/b_16x"),
                         PackType.CLIENT_RESOURCES, Pack.Position.TOP, PackSource.BUILT_IN);
                 if (pack1 != null) {
                     consumer.accept(pack1);
                 }
-//                Pack pack2 = Pack.readMetaAndCreate(BakeriesMod.prefix("b_2d_icon").toString(),
-//                        Component.literal("Bakeries 2D Icon"), false, id ->
-//                                new BakeriesFilePackResource(id, modFile, "resourcepacks/b_2d_icon"),
-//                        PackType.CLIENT_RESOURCES, Pack.Position.TOP, PackSource.BUILT_IN);
-//                if (pack2 != null) {
-//                    consumer.accept(pack2);
-//                }
             });
         }
     }
