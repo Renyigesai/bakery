@@ -4,13 +4,9 @@ import com.renyigesai.bakeries.block.fermentation_box.FermentationBoxBlockEntity
 import com.renyigesai.bakeries.init.BakeriesMenuType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -39,12 +35,12 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
         this.z = pos.getZ();
         // ÃÌº” ‰»Î≤€ (0-5)
         ItemStackHandler items = blockEntity.getItems();
-        addSlot(new SlotItemHandler(items,0,52, 16));
-        addSlot(new SlotItemHandler(items,1, 70, 16));
-        addSlot(new SlotItemHandler(items,2, 88, 16));
-        addSlot(new SlotItemHandler(items,3, 52, 46));
-        addSlot(new SlotItemHandler(items,4, 70, 46));
-        addSlot(new SlotItemHandler(items,5, 88, 46));
+        addSlot(new FermentationBoxSlot(items,0,52, 16));
+        addSlot(new FermentationBoxSlot(items,1, 70, 16));
+        addSlot(new FermentationBoxSlot(items,2, 88, 16));
+        addSlot(new FermentationBoxSlot(items,3, 52, 46));
+        addSlot(new FermentationBoxSlot(items,4, 70, 46));
+        addSlot(new FermentationBoxSlot(items,5, 88, 46));
 
 
         addPlayerSlots(8,84);
@@ -112,5 +108,17 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
     public void removed(Player pPlayer) {
         super.removed(pPlayer);
         blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(),0,1);
+    }
+
+    public static class FermentationBoxSlot extends SlotItemHandler{
+
+        public FermentationBoxSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        @Override
+        public int getMaxStackSize() {
+            return 1;
+        }
     }
 }

@@ -36,13 +36,6 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         this.z = pMenu.z;
     }
 
-//    @Override
-//    protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
-//        guiGraphics.pose().pushPose();
-//        guiGraphics.blit(TEXTURE, this.leftPos, this.topPos,this.imageWidth,this.imageHeight, 0,0,this.imageWidth, this.imageHeight, 256, 256);
-//        guiGraphics.pose().popPose();
-//    }
-
     @Override
     public void render(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         this.renderBackground(pGuiGraphics);
@@ -52,7 +45,7 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         int y = this.topPos;
         if (pMouseX >= x + 121 && pMouseX <= x + 145 && pMouseY >= y + 33 && pMouseY <= y + 48){
             if (blockEntity instanceof FermentationBoxBlockEntity box) {
-                renderHumidityTooltip(pGuiGraphics, pMouseX, pMouseY,box);
+                renderTemperatureTooltip(pGuiGraphics, pMouseX, pMouseY,box);
             }
         }
     }
@@ -93,12 +86,13 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         return (int) (38.0 * time / max);
     }
 
-    protected void renderHumidityTooltip(GuiGraphics gui, int mouseX, int mouseY, FermentationBoxBlockEntity box) {
+    protected void renderTemperatureTooltip(GuiGraphics gui, int mouseX, int mouseY, FermentationBoxBlockEntity box) {
         if (this.minecraft != null && this.minecraft.player != null && this.menu.getCarried().isEmpty()) {
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(Component.translatable("gui.bakeries.today_temperature",box.getTemperature() + "°c").withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.literal(box.getFermentationMaxTime() + "s").withStyle(ChatFormatting.WHITE));
-            tooltip.add(Component.translatable("gui.bakeries.suggested_time",box.getPerfectTime() - 200,box.getPerfectTime() + 200).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.literal(box.getFermentationMaxTime() + "tick").withStyle(ChatFormatting.WHITE));
+            int min = Math.max(box.getPerfectTime() - 200, 430);
+            tooltip.add(Component.translatable("gui.bakeries.suggested_time",min,box.getPerfectTime() + 200).withStyle(ChatFormatting.DARK_GRAY));
             tooltip.add(Component.translatable("gui.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY));
             gui.renderComponentTooltip(font, tooltip, mouseX,mouseY);
         }

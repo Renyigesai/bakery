@@ -101,7 +101,7 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public int getContainerSize() {
-        return 0;
+        return 6;
     }
 
     public boolean isEmpty(){
@@ -137,13 +137,17 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
         return stack;
     }
 
-    public void setItem(int slot, ItemStack stack){
-        if (slot > items.getSlots()-1){
-            return;
+    @Override
+    public void setItem(int pSlot, ItemStack pStack) {
+        ItemStack itemstack = this.items.getStackInSlot(pSlot);
+        boolean flag = !pStack.isEmpty() && ItemStack.isSameItemSameTags(itemstack, pStack);
+        this.items.insertItem(pSlot,pStack, false);
+        if (pStack.getCount() > this.getMaxStackSize()) {
+            pStack.setCount(this.getMaxStackSize());
         }
-        items.setStackInSlot(slot,stack);
-        fermentationTime[slot] = 0;
-        setChanged();
+        if (pSlot == 0 && !flag) {
+            this.setChanged();
+        }
     }
 
     public int getHumidity() {
@@ -210,7 +214,7 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        if (directionWrappedHandlerMap.containsKey(side)) {
+        if (side != null && directionWrappedHandlerMap.containsKey(side)) {
             return directionWrappedHandlerMap.get(side).cast();
         }
         return super.getCapability(cap, side);
