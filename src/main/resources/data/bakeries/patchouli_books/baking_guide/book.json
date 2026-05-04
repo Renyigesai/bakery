@@ -1,6 +1,6 @@
 {
   "name": "item.bakeries.baking_guide",
-  "landing_text": "Hello Bakeries!",
+  "landing_text": "guide.bakeries.landing_text",
   "version": 1,
   "creative_tab": "bakeries:bakeries_tab",
   "use_resource_pack": true,
