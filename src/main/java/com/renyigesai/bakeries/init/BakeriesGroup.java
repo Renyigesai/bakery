@@ -185,6 +185,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SALTED_DOUGH.get());
                         conditionOutput(output,BakeriesItems.SALTED_DOUGH_FERMENTATION.get(), BakeriesConfig.fermentationGameplay);
                         output.accept(BakeriesItems.WHOLE_WHEAT_DOUGH.get());
+                        conditionOutput(output,BakeriesItems.WHOLE_WHEAT_DOUGH_FERMENTATION.get(), BakeriesConfig.fermentationGameplay);
                         output.accept(BakeriesItems.CRISPY_DOUGH.get());
                         output.accept(BakeriesItems.PASTRY.get());
                         output.accept(BakeriesItems.EGG_TART_SHELL.get());

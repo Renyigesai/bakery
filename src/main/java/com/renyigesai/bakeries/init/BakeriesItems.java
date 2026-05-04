@@ -62,6 +62,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> SWEET_DOUGH;
     public static final RegistryObject<Item> SWEET_DOUGH_FERMENTATION;
     public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH;
+    public static final RegistryObject<Item> WHOLE_WHEAT_DOUGH_FERMENTATION;
     public static final RegistryObject<Item> SALTED_DOUGH;
     public static final RegistryObject<Item> SALTED_DOUGH_FERMENTATION;
     public static final RegistryObject<Item> COCOA_DOUGH;
@@ -263,6 +264,7 @@ public class BakeriesItems {
         SWEET_DOUGH = item("sweet_dough");
         SWEET_DOUGH_FERMENTATION = REGISTER.register("sweet_dough_fermentation",()-> new DoughItem(new Item.Properties(),2));
         WHOLE_WHEAT_DOUGH = item("whole_wheat_dough");
+        WHOLE_WHEAT_DOUGH_FERMENTATION = REGISTER.register("whole_wheat_dough_fermentation",()-> new DoughItem(new Item.Properties(),2));
         SALTED_DOUGH = item("salted_dough");
         SALTED_DOUGH_FERMENTATION =  REGISTER.register("salted_dough_fermentation",()-> new DoughItem(new Item.Properties(),2));
         COCOA_DOUGH = item("cocoa_dough");
