@@ -2,7 +2,6 @@ package com.renyigesai.bakeries.inventory.oven;
 
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesMenuType;
-import com.renyigesai.bakeries.inventory.oven.slot.OvenSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;

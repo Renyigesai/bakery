@@ -40,6 +40,13 @@ public class FermentationBoxRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> ingredients = NonNullList.create();
+        ingredients.add(input);
+        return ingredients;
+    }
+
+    @Override
     public boolean matches(SimpleContainer container, Level level) {
         return this.input.test(container.getItem(0));
     }

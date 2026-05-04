@@ -1,8 +1,9 @@
-package com.renyigesai.bakeries.jei_recipes;
+package com.renyigesai.bakeries.compat.jei.category;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.compat.jei.BakeryJeiPlugin;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
+import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,26 +21,26 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BreadKnifeRecipeCategory implements IRecipeCategory<BreadKnifeRecipe> {
-    public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "bread_knife");//配方id
+public class FlourSieveRecipeCategory implements IRecipeCategory<FlourSieveRecipe> {
+    public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "flour_sieve");//配方id
     public static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_single_recipe.png");//配方gui贴图路径
 
     public final IDrawable back;
     public final IDrawable icon;
 
-    public BreadKnifeRecipeCategory(IGuiHelper helper) {
-        this.back = helper.createDrawable(TEXTURE,0, 0, 109, 21);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+    public FlourSieveRecipeCategory(IGuiHelper helper) {
+        this.back = helper.createDrawable(TEXTURE,0, 0, 93, 21);
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(BakeriesItems.FLOUR_SIEVE.get()));
     }
 
     @Override
-    public RecipeType<BreadKnifeRecipe> getRecipeType() {
-        return BakeryJeiPlugin.BREAD_KNIFE_TYPE;
+    public RecipeType<FlourSieveRecipe> getRecipeType() {
+        return BakeryJeiPlugin.FLOUR_SIEVE_TYPE;
     }
 
     @Override
     public Component getTitle() {
-        return Component.translatable("container.bread_knife");
+        return Component.translatable("container.flour_sieve");
     }
 
     @Override
@@ -54,17 +55,12 @@ public class BreadKnifeRecipeCategory implements IRecipeCategory<BreadKnifeRecip
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, BreadKnifeRecipe recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder builder, FlourSieveRecipe recipe, IFocusGroup iFocusGroup) {
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         //添加一个原料槽
         builder.addSlot(RecipeIngredientRole.INPUT,26,2).addItemStacks(List.of(recipeIngredients.get(0).getItems()));
         //添加输出槽
-//        builder.addSlot(RecipeIngredientRole.OUTPUT,74,2).addItemStack(recipe.getResultItem(null));
-        NonNullList<ItemStack> output = recipe.getOutput();
-        for (int i = 0; i < output.size(); i++) {
-            builder.addSlot(RecipeIngredientRole.OUTPUT,74 + (i * 16),2).addItemStack(output.get(i));
-        }
-        //添加图标
-        builder.addSlot(RecipeIngredientRole.OUTPUT,3,3).addItemStack(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        builder.addSlot(RecipeIngredientRole.OUTPUT,74,2).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT,3,3).addItemStack(new ItemStack(BakeriesItems.FLOUR_SIEVE.get()));
     }
 }

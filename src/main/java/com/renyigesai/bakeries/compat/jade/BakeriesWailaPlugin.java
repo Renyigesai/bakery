@@ -1,4 +1,4 @@
-package com.renyigesai.bakeries.jade;
+package com.renyigesai.bakeries.compat.jade;
 
 import snownee.jade.api.IWailaPlugin;
 import snownee.jade.api.WailaPlugin;

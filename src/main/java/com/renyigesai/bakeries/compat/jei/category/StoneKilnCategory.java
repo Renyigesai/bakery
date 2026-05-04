@@ -1,8 +1,8 @@
-package com.renyigesai.bakeries.jei_recipes;
+package com.renyigesai.bakeries.compat.jei.category;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.compat.jei.BakeryJeiPlugin;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.init.BakeriesParticleTypes;
 import com.renyigesai.bakeries.recipe.StoneKilnRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -13,7 +13,6 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.NonNullList;

@@ -1,4 +1,4 @@
-package com.renyigesai.bakeries.jade;
+package com.renyigesai.bakeries.compat.jade;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraft.resources.ResourceLocation;

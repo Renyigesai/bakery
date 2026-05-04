@@ -1,9 +1,9 @@
-package com.renyigesai.bakeries.jei_recipes;
+package com.renyigesai.bakeries.compat.jei.category;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.compat.jei.BakeryJeiPlugin;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.recipe.CoffeeRecipe;
-import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

@@ -1,6 +1,7 @@
-package com.renyigesai.bakeries.jei_recipes;
+package com.renyigesai.bakeries.compat.jei.category;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.compat.jei.BakeryJeiPlugin;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.recipe.BlenderRecipe;
 import mezz.jei.api.constants.VanillaTypes;

@@ -1,8 +1,8 @@
 
-package com.renyigesai.bakeries.jei_recipes;
+package com.renyigesai.bakeries.compat.jei.category;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
+import com.renyigesai.bakeries.compat.jei.BakeryJeiPlugin;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -20,7 +20,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -65,7 +64,7 @@ public class OvenRecipeCategory implements IRecipeCategory<OvenRecipe> {
 
 	@Override
 	public mezz.jei.api.recipe.@NotNull RecipeType<OvenRecipe> getRecipeType() {
-		return BakeryJeiPlugin.Oven_Type;
+		return BakeryJeiPlugin.OVEN_TYPE;
 	}
 
 	@Override
