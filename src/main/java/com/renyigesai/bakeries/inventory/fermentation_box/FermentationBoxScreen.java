@@ -83,7 +83,7 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
             return 0;
         }
         int time = boxBlock.getFermentationTime()[slot];
-        return (int) (38.0 * time / max);
+        return (int) (14.0 * time / max);
     }
 
     protected void renderTemperatureTooltip(GuiGraphics gui, int mouseX, int mouseY, FermentationBoxBlockEntity box) {

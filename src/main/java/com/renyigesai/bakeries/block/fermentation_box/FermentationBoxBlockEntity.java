@@ -65,34 +65,11 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
 
     private final int[] fermentationTime;
     private int fermentationMaxTime;
-    private int humidity;
     private int temperature;
     private int perfectTime;
     public float progress;
     public float progressOld;
     public FermentationBoxBlockEntity.State state = FermentationBoxBlockEntity.State.CLOSE;
-
-    public final ContainerData dataAccess = new ContainerData() {
-        @Override
-        public int get(int pIndex) {
-            if (pIndex == 0){
-                return humidity;
-            }
-            return 0;
-        }
-
-        @Override
-        public void set(int pIndex, int amount) {
-            if (pIndex == 0){
-                humidity = amount;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 1;
-        }
-    };
 
     public FermentationBoxBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.FERMENTATION_BOX_ENTITY.get(), pPos, pBlockState);
@@ -139,24 +116,9 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public void setItem(int pSlot, ItemStack pStack) {
-        ItemStack itemstack = this.items.getStackInSlot(pSlot);
-        boolean flag = !pStack.isEmpty() && ItemStack.isSameItemSameTags(itemstack, pStack);
-        this.items.insertItem(pSlot,pStack, false);
-        if (pStack.getCount() > this.getMaxStackSize()) {
-            pStack.setCount(this.getMaxStackSize());
-        }
-        if (pSlot == 0 && !flag) {
-            this.setChanged();
-        }
-    }
-
-    public int getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(int humidity) {
-        updateBlock();
-        this.humidity = humidity;
+        this.items.setStackInSlot(pSlot,pStack);
+        this.fermentationTime[pSlot] = 0;
+        setChanged();
     }
 
     public int getTemperature() {
@@ -165,16 +127,6 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
 
     public void setTemperature(int temperature) {
         this.temperature = temperature;
-    }
-
-    public void addHumidity(FermentationBoxBlockEntity box, int amount) {
-        updateBlock();
-        box.humidity = Math.min(Math.max(getHumidity() + amount, 0), 100);
-    }
-
-    public void subHumidity(FermentationBoxBlockEntity box,int amount) {
-        updateBlock();
-        box.humidity = Math.min(Math.max(humidity - amount, 0), 100);
     }
 
     public void addFermentationMaxTime(FermentationBoxBlockEntity box, int amount) {
@@ -211,14 +163,6 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
         }
         return false;
     }
-
-//    @Override
-//    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-//        if (side != null && directionWrappedHandlerMap.containsKey(side)) {
-//            return directionWrappedHandlerMap.get(side).cast();
-//        }
-//        return super.getCapability(cap, side);
-//    }
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
