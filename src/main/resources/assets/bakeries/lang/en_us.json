@@ -403,5 +403,6 @@
   "gui.bakeries.suggested_time": "Today's recommended fermentation time %s-%s",
   "key.bakeries.bakeries": "Bakeries",
   "key.bakeries.auxiliary": "Auxiliary",
-  "rarity.advanced.name": "Advanced"
+  "rarity.advanced.name": "Advanced",
+  "rarity.taro.name": "Taro"
 }

@@ -401,5 +401,6 @@
   "gui.bakeries.suggested_time": "今日建议发酵时间 %s-%s",
   "key.bakeries.bakeries": "烘焙坊",
   "key.bakeries.auxiliary": "辅助按键",
-  "rarity.advanced.name": "加强"
+  "rarity.advanced.name": "加强",
+  "rarity.taro.name": "香芋紫"
 }
