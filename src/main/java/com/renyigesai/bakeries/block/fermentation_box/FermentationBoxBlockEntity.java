@@ -212,9 +212,17 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
         return false;
     }
 
+//    @Override
+//    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+//        if (side != null && directionWrappedHandlerMap.containsKey(side)) {
+//            return directionWrappedHandlerMap.get(side).cast();
+//        }
+//        return super.getCapability(cap, side);
+//    }
+
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        if (side != null && directionWrappedHandlerMap.containsKey(side)) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER && side != null && directionWrappedHandlerMap.containsKey(side)) {
             return directionWrappedHandlerMap.get(side).cast();
         }
         return super.getCapability(cap, side);
