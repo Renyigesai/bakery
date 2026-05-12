@@ -7,6 +7,7 @@ import com.renyigesai.bakeries.common.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.common.inventory.oven.OvenScreen;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
+import com.renyigesai.bakeries.common.recipe.DrinkRecipe;
 import com.renyigesai.bakeries.common.recipe.FlourSieveRecipe;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
 import com.renyigesai.bakeries.data.builder.BreadKnifeBuilder;
@@ -39,6 +40,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new DoughCraftingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new BreadKnifeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FlourSieveRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DrinkRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
 
@@ -50,6 +52,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(BakeriesRecipeTypes.JEI.DOUGH_CRAFTING, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING_TYPE.get()));
         registration.addRecipes(BakeriesRecipeTypes.JEI.BREAD_KNIFE, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE_TYPE.get()));
         registration.addRecipes(BakeriesRecipeTypes.JEI.FLOUR_SIEVE, recipeManager.getAllRecipesFor(FlourSieveRecipe.Type.INSTANCE));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.DRINK, recipeManager.getAllRecipesFor(DrinkRecipe.Type.INSTANCE));
     }
 
 
@@ -60,6 +63,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BLENDER.get()), BakeriesRecipeTypes.JEI.BLENDER);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BREAD_KNIFE.get()), BakeriesRecipeTypes.JEI.BREAD_KNIFE);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.FLOUR_SIEVE.get()), BakeriesRecipeTypes.JEI.FLOUR_SIEVE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DRINK_CUP.get()), BakeriesRecipeTypes.JEI.DRINK);
     }
 
     @Override

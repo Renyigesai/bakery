@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:bottle_yeast"
+    },
+    "title": {
+      "translate": "advancements.bakeries.natural_activity.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.natural_activity.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "natural_activity": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:bottle_yeast"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:start_the_experiment"
+}

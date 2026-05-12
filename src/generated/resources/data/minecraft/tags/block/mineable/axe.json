@@ -7,6 +7,9 @@
     "bakeries:sofa_red",
     "bakeries:sofa_light_gray",
     "bakeries:coffee_table",
-    "bakeries:cash_register_computer"
+    "bakeries:menu",
+    "bakeries:wood_tray",
+    "bakeries:bread_rack",
+    "bakeries:glass_bread_rack"
   ]
 }

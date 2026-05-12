@@ -1,0 +1,13 @@
+{
+  "name": "item.bakeries.whole_egg",
+  "icon": "bakeries:whole_egg",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:whole_egg",
+      "title": "item.bakeries.whole_egg",
+      "text": "guide.bakeries.descr.whole_egg"
+    }
+  ]
+}

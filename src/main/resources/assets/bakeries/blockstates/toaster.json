@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "facing=east,state=idle": {"model": "bakeries:block/toaster", "y": 270},
+    "facing=north,state=idle": {"model": "bakeries:block/toaster", "y": 180},
+    "facing=south,state=idle": {"model": "bakeries:block/toaster"},
+    "facing=west,state=idle": {"model": "bakeries:block/toaster", "y": 90},
+
+    "facing=east,state=finish": {"model": "bakeries:block/toaster", "y": 270},
+    "facing=north,state=finish": {"model": "bakeries:block/toaster", "y": 180},
+    "facing=south,state=finish": {"model": "bakeries:block/toaster"},
+    "facing=west,state=finish": {"model": "bakeries:block/toaster", "y": 90},
+
+    "facing=east,state=lit": {"model": "bakeries:block/toaster_lit", "y": 270},
+    "facing=north,state=lit": {"model": "bakeries:block/toaster_lit", "y": 180},
+    "facing=south,state=lit": {"model": "bakeries:block/toaster_lit"},
+    "facing=west,state=lit": {"model": "bakeries:block/toaster_lit", "y": 90}
+  }
+}

@@ -25,7 +25,10 @@ public class BakeriesRecipeTypes {
     public static final Supplier<RecipeSerializer<?>> DOUGH_CRAFTING_SERIALIZERS = SERIALIZERS.register("dough_crafting_table", ()-> new SingleItemRecipe.Serializer<>(DoughCraftingRecipe::new));
 
     public static final Supplier<RecipeType<BreadKnifeRecipe>> BREAD_KNIFE_TYPE = RECIPE_TYPE.register("bread_knife", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"bread_knife")));
-    public static final Supplier<RecipeSerializer<?>> BREAD_KNIFE_SERIALIZERS = SERIALIZERS.register("bread_knife", ()-> new SingleItemRecipe.Serializer<>(BreadKnifeRecipe::new));
+    public static final Supplier<RecipeSerializer<?>> BREAD_KNIFE_SERIALIZERS = SERIALIZERS.register("bread_knife", ()-> new MultiOutputSingleItemRecipe.Serializer<>(BreadKnifeRecipe::new));
+
+    public static final Supplier<RecipeType<FermentationBoxRecipe>> FERMENTATION_BOX_TYPE = RECIPE_TYPE.register("fermentation_box", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"fermentation_box")));
+    public static final Supplier<RecipeSerializer<?>> FERMENTATION_BOX_SERIALIZERS = SERIALIZERS.register("fermentation_box", ()-> new MultiOutputSingleItemRecipe.Serializer<>(FermentationBoxRecipe::new));
 
     @SubscribeEvent
     public static void register(FMLConstructModEvent event) {
@@ -39,6 +42,9 @@ public class BakeriesRecipeTypes {
             /*搅拌机*/
             SERIALIZERS.register(BlenderRecipe.ID, () -> BlenderRecipe.Serializer.INSTANCE);
             RECIPE_TYPE.register(BlenderRecipe.ID, () -> BlenderRecipe.Type.INSTANCE);
+            /*饮料*/
+            SERIALIZERS.register(DrinkRecipe.ID, () -> DrinkRecipe.Serializer.INSTANCE);
+            RECIPE_TYPE.register(DrinkRecipe.ID, () -> DrinkRecipe.Type.INSTANCE);
         });
     }
     public static void getRegister(IEventBus bus){
@@ -52,5 +58,6 @@ public class BakeriesRecipeTypes {
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<OvenRecipe>> OVEN = mezz.jei.api.recipe.RecipeType.createFromVanilla(OvenRecipe.Type.INSTANCE);
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<BlenderRecipe>> BLENDER = mezz.jei.api.recipe.RecipeType.createFromVanilla(BlenderRecipe.Type.INSTANCE);
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<FlourSieveRecipe>> FLOUR_SIEVE = mezz.jei.api.recipe.RecipeType.createFromVanilla(FlourSieveRecipe.Type.INSTANCE);
+        public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<DrinkRecipe>> DRINK = mezz.jei.api.recipe.RecipeType.createFromVanilla(DrinkRecipe.Type.INSTANCE);
     }
 }

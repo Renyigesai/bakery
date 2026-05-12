@@ -26,5 +26,7 @@ public class OvenRecipes extends Recipes {
         OvenRecipeBuilder.oven(BakeriesItems.MOULD_TOAST, 1, 400, 135, 185,0, Ingredient.of(new ItemStack(BakeriesItems.MOULD_TOAST_DOUGH.get()))).save(output, name(BakeriesItems.TOAST.get()));
         OvenRecipeBuilder.oven(BakeriesItems.MOULD_CHEESE_COCOA_TOAST, 1, 400, 135, 185,0, Ingredient.of(new ItemStack(BakeriesItems.MOULD_CHEESE_COCOA_TOAST_DOUGH.get()))).save(output, name(BakeriesItems.CHEESE_COCOA_TOAST.get()));
         OvenRecipeBuilder.oven(BakeriesItems.COUNTRY_BREAD, 1, 300, 225, 275,0, Ingredient.of(new ItemStack(BakeriesItems.COUNTRY_BREAD_DOUGH.get()))).save(output, name(BakeriesItems.COUNTRY_BREAD.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.RICE_BREAD, 1, 200, 155, 205,180, Ingredient.of(new ItemStack(BakeriesItems.RICE_BREAD_DOUGH.get()))).save(output, name(BakeriesItems.RICE_BREAD.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.EGG_TART, 1, 300, 180, 220,200, Ingredient.of(new ItemStack(BakeriesItems.RAW_EGG_TART.get()))).save(output, name(BakeriesItems.EGG_TART.get()));
     }
 }

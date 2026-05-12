@@ -1,11 +1,15 @@
 package com.renyigesai.bakeries.common.utils;
 
+import com.renyigesai.bakeries.BakeriesMod;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -115,9 +119,9 @@ public class WorldUtils {
     }
 
     /*通过输入资源地址获取一个战利品表*/
-    public static LootTable getLootTables(String name, Level world){
+    public static LootTable getLootTables(ResourceLocation location, Level world){
         if (!world.isClientSide() && world.getServer() != null) {
-            return world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace(name)));
+            return world.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, location));
         }
         return LootTable.lootTable().build();
     }
@@ -128,6 +132,23 @@ public class WorldUtils {
             stacks.addAll(lootTable.getRandomItems(new LootParams.Builder((ServerLevel) world).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos)).withParameter(LootContextParams.BLOCK_STATE, world.getBlockState(pos)).withOptionalParameter(LootContextParams.BLOCK_ENTITY, world.getBlockEntity(pos)).create(LootContextParamSets.EMPTY)));
         }
         return stacks;
+    }
+
+    public static boolean isDoneAdvancement(Player player, Level level, ResourceLocation resourceLocation){
+        if (player instanceof ServerPlayer serverPlayer && level instanceof ServerLevel) {
+            try {
+                AdvancementHolder advancementHolder = serverPlayer.server.getAdvancements().get(resourceLocation);
+                if (advancementHolder == null){
+                    return false;
+                }
+                return serverPlayer.getAdvancements().getOrStartProgress(advancementHolder).isDone();
+            }catch (Exception e){
+                BakeriesMod.LOGGER.error("Failed to check advancement {} for player {}", resourceLocation, player.getName(), e);
+                return false;
+            }
+
+        }
+        return false;
     }
 
 }

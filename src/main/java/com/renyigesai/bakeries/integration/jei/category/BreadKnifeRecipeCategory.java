@@ -29,7 +29,7 @@ public class BreadKnifeRecipeCategory implements IRecipeCategory<RecipeHolder<Br
     public final IDrawable icon;
 
     public BreadKnifeRecipeCategory(IGuiHelper helper) {
-        this.back = helper.createDrawable(TEXTURE,0, 0, 93, 21);
+        this.back = helper.createDrawable(TEXTURE,0, 0, 109, 21);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
     }
 
@@ -55,7 +55,10 @@ public class BreadKnifeRecipeCategory implements IRecipeCategory<RecipeHolder<Br
         //添加一个原料槽
         builder.addSlot(RecipeIngredientRole.INPUT,26,2).addItemStacks(List.of(recipeIngredients.getFirst().getItems()));
         //添加输出槽
-        builder.addSlot(RecipeIngredientRole.OUTPUT,74,2).addItemStack(recipe.value().getResultItem(null));
+        NonNullList<ItemStack> allResults = recipe.value().getAllResults();
+        for (int i = 0; i < allResults.size(); i++) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT,74 + (i * 16),2).addItemStack(allResults.get(i));
+        }
         //添加图标
         builder.addSlot(RecipeIngredientRole.OUTPUT,3,3).addItemStack(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
     }

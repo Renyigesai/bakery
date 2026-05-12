@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/blender",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/blender",
-    "particle": "bakeries:block/blender"
-  }
-}

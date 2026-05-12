@@ -1,11 +1,10 @@
 package com.renyigesai.bakeries.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -43,7 +42,7 @@ public class MouldBlock extends HorizontalDirectionalBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        ItemUtil.givePlayerItem(player,new ItemStack(this.mould.get()));
+        ItemUtils.givePlayerItem(player,new ItemStack(this.mould.get()));
         level.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.PLAYERS, 0.8F, 0.8F);
         level.removeBlock(pos,false);
         return InteractionResult.SUCCESS;

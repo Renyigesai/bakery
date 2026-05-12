@@ -1,0 +1,15 @@
+{
+  "name": "block.bakeries.mould",
+  "icon": "bakeries:mould",
+  "category": "bakeries:baking_utensil",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.mould"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:mould"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.common.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -40,6 +41,13 @@ public class FlourSieveRecipe implements Recipe<RecipeInput> {
     @Override
     public ItemStack getResultItem(HolderLookup.Provider provider) {
         return output.copy();
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> nonNullList = NonNullList.create();
+        nonNullList.add(this.inputItems);
+        return nonNullList;
     }
 
     @Override

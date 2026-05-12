@@ -25,6 +25,9 @@ public class ReapCropBlock extends CropBlock {
         int age = state.getValue(AGE);
         if (age == getMaxAge()) {
             boolean temp = false;
+            if (level.isClientSide){
+                return InteractionResult.SUCCESS;
+            }
             if (level instanceof ServerLevel level1) {
                 List<ItemStack> stacks = getDrops(state, level1, pos, null);
                 if (!stacks.isEmpty()) {

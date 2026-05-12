@@ -5,11 +5,17 @@ import com.renyigesai.bakeries.common.tag.CommonTags;
 import com.renyigesai.bakeries.data.builder.BreadKnifeBuilder;
 import com.renyigesai.bakeries.data.builder.DoughCraftingBuilder;
 import com.renyigesai.bakeries.data.builder.FlourSieveBuilder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SingleItemRecipes extends Recipes{
     public static void register(RecipeOutput output) {
@@ -26,12 +32,15 @@ public class SingleItemRecipes extends Recipes{
         addDoughCrafting(Ingredient.of(BakeriesItems.SALTED_DOUGH),BakeriesItems.BAGUETTE_DOUGH,2,output);
         addDoughCrafting(Ingredient.of(BakeriesItems.SALTED_DOUGH),BakeriesItems.CIABATTA_DOUGH,4,output);
         addDoughCrafting(Ingredient.of(BakeriesItems.SALTED_DOUGH),BakeriesItems.COUNTRY_BREAD_DOUGH,1,output);
+        addDoughCrafting(Ingredient.of(BakeriesItems.PASTRY),BakeriesItems.EGG_TART_SHELL,3,output);
     }
 
     private static void onBreadKnife(RecipeOutput output){
-        addBreadKnife(Ingredient.of(BakeriesItems.TOAST),BakeriesItems.SLICED_TOAST,4,output);
-        addBreadKnife(Ingredient.of(BakeriesItems.CHEESE_COCOA_TOAST),BakeriesItems.SLICED_CHEESE_COCOA_TOAST,4,output);
-        addBreadKnife(Ingredient.of(BakeriesItems.COUNTRY_BREAD),BakeriesItems.COUNTRY_BREAD_SLICE,6,output);
+        addBreadKnife(Ingredient.of(BakeriesItems.WHOLE_EGG),getItems(new ItemStack(BakeriesItems.RAW_EGG_YOLK.get()),new ItemStack(BakeriesItems.RAW_PROTEIN.get())),output);
+        addBreadKnife(Ingredient.of(BakeriesItems.TOAST),new ItemStack(BakeriesItems.SLICED_TOAST.get(),4) ,output);
+        addBreadKnife(Ingredient.of(BakeriesItems.CHEESE_COCOA_TOAST),new ItemStack(BakeriesItems.SLICED_CHEESE_COCOA_TOAST.get(),4),output);
+        addBreadKnife(Ingredient.of(BakeriesItems.COUNTRY_BREAD),new ItemStack(BakeriesItems.COUNTRY_BREAD_SLICE.get(),6),output);
+        addBreadKnife(Ingredient.of(Items.EGG),new ItemStack(BakeriesItems.WHOLE_EGG.get(),1),output);
     }
 
     private static void onFlourSieve(RecipeOutput output){
@@ -42,8 +51,12 @@ public class SingleItemRecipes extends Recipes{
     }
 
 
-    private static  void addBreadKnife(Ingredient recipeItems, ItemLike output, int count, RecipeOutput recipeOutput){
-        BreadKnifeBuilder.breadKnife(recipeItems,output,count).save(recipeOutput,name(output.asItem()));
+    private static  void addBreadKnife(Ingredient recipeItems, NonNullList<ItemStack> outputs, RecipeOutput recipeOutput){
+        BreadKnifeBuilder.breadKnife(recipeItems,outputs).build(recipeOutput);
+    }
+
+    private static  void addBreadKnife(Ingredient recipeItems, ItemStack output, RecipeOutput recipeOutput){
+        BreadKnifeBuilder.breadKnife(recipeItems,output).build(recipeOutput);
     }
 
     private static  void addDoughCrafting(Ingredient recipeItems, ItemLike output, int count, RecipeOutput recipeOutput){
@@ -52,5 +65,12 @@ public class SingleItemRecipes extends Recipes{
 
     private static  void addFlourSieve(Ingredient recipeItems, ItemLike output, int count, RecipeOutput recipeOutput){
         FlourSieveBuilder.flourSieve(recipeItems,output,count).save(recipeOutput,name(output.asItem()));
+    }
+
+    private static NonNullList<ItemStack> getItems(ItemStack... stacks){
+        List<ItemStack> list = Arrays.asList(stacks);
+        NonNullList<ItemStack> nonNullList = NonNullList.create();
+        nonNullList.addAll(list);
+        return nonNullList;
     }
 }

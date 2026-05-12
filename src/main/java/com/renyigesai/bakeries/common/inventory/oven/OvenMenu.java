@@ -2,9 +2,13 @@ package com.renyigesai.bakeries.common.inventory.oven;
 
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.common.init.BakeriesMenuType;
+import com.renyigesai.bakeries.common.init.BakeriesSounds;
 import com.renyigesai.bakeries.common.inventory.oven.slot.OvenSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -56,6 +60,10 @@ public class OvenMenu extends AbstractContainerMenu{
                 this.addSlot(new Slot(inv, sj + (si + 1) * 9, 8 + sj * 18, 84 + si * 18));
         for (int si = 0; si < 9; ++si)
             this.addSlot(new Slot(inv, si, 8 + si * 18, 142));
+        this.ovenBlockEntity.getLevel().blockEvent(this.ovenBlockEntity.getBlockPos(),this.ovenBlockEntity.getBlockState().getBlock(),0,0);
+        if (ovenBlockEntity.getLevel() instanceof ServerLevel serverLevel){
+            serverLevel.playSound(null,ovenBlockEntity.getBlockPos(), BakeriesSounds.OVEN_OPEN.get(), SoundSource.BLOCKS);
+        }
     }
 
     @Override
@@ -97,6 +105,12 @@ public class OvenMenu extends AbstractContainerMenu{
         if(ovenBlockEntity != null){
             return AbstractContainerMenu.stillValid(this.access, player, this.ovenBlockEntity.getBlockState().getBlock());
         }else return false;
+    }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        this.ovenBlockEntity.getLevel().blockEvent(this.ovenBlockEntity.getBlockPos(),this.ovenBlockEntity.getBlockState().getBlock(),0,1);
     }
 
     public OvenBlockEntity getBlockEntity() {

@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.common.items;
 
 import com.renyigesai.bakeries.common.init.BakeriesItems;
-import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -21,8 +21,8 @@ public class WholeEggItem extends Item {
             if (!pPlayer.getAbilities().instabuild){
                 hand.shrink(1);
             }
-            ItemUtil.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.RAW_PROTEIN.get()));
-            ItemUtil.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.RAW_EGG_YOLK.get()));
+            ItemUtils.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.RAW_PROTEIN.get()));
+            ItemUtils.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.RAW_EGG_YOLK.get()));
             return InteractionResultHolder.success(hand);
         }
         return super.use(pLevel, pPlayer, pUsedHand);

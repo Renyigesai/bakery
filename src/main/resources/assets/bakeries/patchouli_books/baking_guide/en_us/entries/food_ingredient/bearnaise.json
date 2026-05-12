@@ -1,0 +1,11 @@
+{
+  "name": "item.bakeries.bearnaise",
+  "icon": "bakeries:bearnaise",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:bearnaise"
+    }
+  ]
+}

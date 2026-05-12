@@ -4,6 +4,9 @@ import com.renyigesai.bakeries.common.blocks.blander.BlenderBlockEntity;
 import com.renyigesai.bakeries.common.init.BakeriesMenuType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -52,12 +55,16 @@ public class BlenderMenu extends AbstractContainerMenu {
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 3; ++x) {
                 int slotIndex = (y * 3) + x;
-                addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
+                addSlot(new FiltrationSlot(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
             }
         }
         addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 51));
         // 添加玩家物品栏
         addPlayerSlots(8,84);
+        this.blockEntity.getLevel().blockEvent(this.blockEntity.getBlockPos(),this.blockEntity.getBlockState().getBlock(),0,0);
+        if (blockEntity.getLevel() instanceof ServerLevel serverLevel){
+            serverLevel.playSound(null,blockEntity.getBlockPos(), SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS);
+        }
     }
 
     public static BlenderMenu create(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
@@ -75,6 +82,14 @@ public class BlenderMenu extends AbstractContainerMenu {
         for (int row = 0; row < 3; ++row)
             for (int col = 0; col < 9; ++col)
                 this.addSlot(new SlotItemHandler(playerInventory, col + row * 9 + 9, x + col * 18, y + row * 18));
+    }
+
+    @Override
+    public boolean canTakeItemForPickAll(ItemStack pStack, Slot pSlot) {/*2025/12/14新增 防止双击堆叠全部复制过滤槽物品*/
+        if (pSlot instanceof SlotItemHandler slotItemHandler){
+            return slotItemHandler.getItemHandler() != blockEntity.getFiltrationinventory();
+        }
+        return false;
     }
 
     @Override
@@ -141,6 +156,15 @@ public class BlenderMenu extends AbstractContainerMenu {
     }
 
     @Override
+    public void removed(Player player) {
+        super.removed(player);
+        this.blockEntity.getLevel().blockEvent(this.blockEntity.getBlockPos(),this.blockEntity.getBlockState().getBlock(),0,1);
+        if (blockEntity.getLevel() instanceof ServerLevel serverLevel){
+            serverLevel.playSound(null,blockEntity.getBlockPos(), SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.BLOCKS);
+        }
+    }
+
+    @Override
     public boolean stillValid(Player player) {
         return blockEntity.stillValid(player);
     }
@@ -153,6 +177,22 @@ public class BlenderMenu extends AbstractContainerMenu {
             return (BlenderBlockEntity) tileAtPos;
         }
         throw new IllegalStateException("Tile entity is not correct! " + tileAtPos);
+    }
+
+    public static class FiltrationSlot extends SlotItemHandler{
+        private boolean isActive = true;
+        public FiltrationSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        @Override
+        public boolean isActive() {
+            return isActive;
+        }
+
+        public void setActive(boolean active) {
+            isActive = active;
+        }
     }
 
 }

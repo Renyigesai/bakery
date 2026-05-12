@@ -1,0 +1,18 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "bakeries:block/cream_bingle_coffee_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/cream_bingle_coffee_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/cream_bingle_coffee_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/cream_bingle_coffee_2d"
+    }
+  }
+}

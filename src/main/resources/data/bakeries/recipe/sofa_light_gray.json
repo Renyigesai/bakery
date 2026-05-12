@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " aa",
+    " bb"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:light_gray_wool"
+    },
+    "b": {
+      "item": "minecraft:stripped_oak_log"
+    }
+  },
+  "result": {
+    "id": "bakeries:sofa_light_gray",
+    "count": 2
+  }
+}

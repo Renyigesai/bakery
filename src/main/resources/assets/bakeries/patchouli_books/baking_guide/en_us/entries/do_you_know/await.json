@@ -1,0 +1,12 @@
+{
+  "name": "guide.bakeries.entries.await",
+  "icon": "bakeries:round_bread_dough",
+  "category": "bakeries:do_you_know",
+  "advancement": "bakeries:game/is_raw_item",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.await"
+    }
+  ]
+}

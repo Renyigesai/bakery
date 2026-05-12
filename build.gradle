@@ -137,6 +137,7 @@ repositories {
     }
     flatDir(dirs: "libs")
 
+
 }
 // 定义依赖
 dependencies {
@@ -146,7 +147,11 @@ dependencies {
     runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
     implementation "maven.modrinth:jade:${jade_version}"
     implementation "curse.maven:farmersdelight-398521:6917256"
-    implementation files('libs/rcg_lib-1.21.1-NeoForge-1.0.0-beta.jar')
+    implementation files('libs/rcg_lib-1.21.1-NeoForge-1.0.2-beta.jar')
+    jarJar("project:rcg_lib-1.21.1-NeoForge-1.0.2-beta:1.0.2-beta")
+    implementation "curse.maven:patchouli-306770:6164617"
+    implementation "curse.maven:create-328085:6624071"
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -199,4 +204,8 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+jar {
+    exclude 'com/renyigesai/bakeries/data/**'
 }

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "bakeries:block/drink_cup",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "bakeries:block/drink_cup",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "bakeries:block/drink_cup"
+    },
+    "facing=west": {
+      "model": "bakeries:block/drink_cup",
+      "y": 90
+    }
+  }
+}

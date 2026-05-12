@@ -1,0 +1,13 @@
+{
+  "name": "item.bakeries.matcha_powder",
+  "icon": "bakeries:matcha_powder",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:matcha_powder",
+      "title": "item.bakeries.matcha_powder",
+      "text": "guide.bakeries.descr.matcha_powder"
+    }
+  ]
+}

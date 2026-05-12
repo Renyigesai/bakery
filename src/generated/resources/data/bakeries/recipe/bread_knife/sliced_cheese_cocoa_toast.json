@@ -3,8 +3,10 @@
   "ingredient": {
     "item": "bakeries:cheese_cocoa_toast"
   },
-  "result": {
-    "count": 4,
-    "id": "bakeries:sliced_cheese_cocoa_toast"
-  }
+  "results": [
+    {
+      "count": 4,
+      "id": "bakeries:sliced_cheese_cocoa_toast"
+    }
+  ]
 }

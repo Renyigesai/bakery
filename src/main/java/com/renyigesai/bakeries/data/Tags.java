@@ -50,16 +50,26 @@ public class Tags extends AbstractTagProvider {
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","butter")), BakeriesItems.BUTTER_CUBE);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","eggs")), BakeriesItems.WHOLE_EGG);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","tools/knife")), BakeriesItems.BREAD_KNIFE);
-        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","tools")), BakeriesItems.BREAD_KNIFE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","tools")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","crops/tomato")), BakeriesItems.TOMATO);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","foods/vegetables")), BakeriesItems.TOMATO);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","foods/tomato")), BakeriesItems.TOMATO);
-        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge","matcha")), BakeriesItems.MATCHA_POWDER);
-        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge","cheese")), BakeriesItems.CHEESE_CUBE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","coffee_grounds")), BakeriesItems.GROUND_COFFEE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","matcha")), BakeriesItems.MATCHA_POWDER);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","cheese")), BakeriesItems.CHEESE_CUBE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","enchantables")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge","cream")), BakeriesItems.FOAMED_CREAM);
-        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge","coffee_grounds")), BakeriesItems.COCOA_POWDER);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge","flour/wheat")), BakeriesItems.WHOLE_WHEAT_FLOUR);
         /*∫Ê±∫∑ª±Í«©*/
+        /*‘≠∞Ê±Í«©*/
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/vanishing")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE,BakeriesItems.ETERNAL_BAGUETTE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/mining")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE,BakeriesItems.ETERNAL_BAGUETTE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/mining_loot")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE,BakeriesItems.ETERNAL_BAGUETTE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/durability")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE,BakeriesItems.ETERNAL_BAGUETTE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/sharp_weapon")), BakeriesItems.BREAD_KNIFE,BakeriesItems.ETERNAL_BAGUETTE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/weapon")), BakeriesItems.BREAD_KNIFE,BakeriesItems.ETERNAL_BAGUETTE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/sword")), BakeriesItems.BREAD_KNIFE,BakeriesItems.ETERNAL_BAGUETTE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/fire_aspect")), BakeriesItems.BREAD_KNIFE,BakeriesItems.ETERNAL_BAGUETTE);
     }
 
     private void addBlocks() {
@@ -73,7 +83,11 @@ public class Tags extends AbstractTagProvider {
                 BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST,
                 BakeriesBlocks.RAW_SALT_BLOCK,
                 BakeriesBlocks.GLASS_CABINET_DOOR,
-                BakeriesBlocks.CASH_REGISTER_COMPUTER
+                BakeriesBlocks.CASH_REGISTER_COMPUTER,
+                BakeriesBlocks.MOKA_POT,
+                BakeriesBlocks.DRINK_CUP,
+                BakeriesBlocks.TOASTER,
+                BakeriesBlocks.FERMENTATION_BOX
         );
         addToHarvestTag(BlockTags.MINEABLE_WITH_AXE,
                 BakeriesBlocks.CUPBOARD,
@@ -82,9 +96,25 @@ public class Tags extends AbstractTagProvider {
                 BakeriesBlocks.SOFA_WHITE,
                 BakeriesBlocks.SOFA_RED,
                 BakeriesBlocks.SOFA_LIGHT_GRAY,
-                BakeriesBlocks.COFFEE_TABLE
+                BakeriesBlocks.COFFEE_TABLE,
+                BakeriesBlocks.MENU,
+                BakeriesBlocks.WOOD_TRAY,
+                BakeriesBlocks.BREAD_RACK,
+                BakeriesBlocks.GLASS_BREAD_RACK
         );
         /*∫Ê±∫∑ª±Í«©*/
         addToTag(BlockTags.create(ResourceLocation.fromNamespaceAndPath("bakeries","sofa")), BakeriesBlocks.SOFA_WHITE,BakeriesBlocks.SOFA_RED,BakeriesBlocks.SOFA_LIGHT_GRAY);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("bakeries","upright_on_oven")),
+                BakeriesItems.MOULD_TOAST,
+                BakeriesItems.MOULD_TOAST_DOUGH,
+                BakeriesItems.MOULD_CHEESE_COCOA_TOAST,
+                BakeriesItems.MOULD_CHEESE_COCOA_TOAST_DOUGH,
+                BakeriesItems.CIABATTA,
+                BakeriesItems.CIABATTA_DOUGH,
+                BakeriesItems.COUNTRY_BREAD,
+                BakeriesItems.COUNTRY_BREAD_DOUGH,
+                BakeriesItems.BAGUETTE,
+                BakeriesItems.BAGUETTE_DOUGH
+        );
     }
 }

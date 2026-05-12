@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.pineapple_bun",
+  "icon": "bakeries:pineapple_bun",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/pineapple_bun",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:pineapple_bun",
+      "title": "180°c"
+    }
+  ]
+}

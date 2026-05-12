@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:fermentation_tank"
+    },
+    "title": {
+      "translate": "advancements.bakeries.start_the_experiment.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.start_the_experiment.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "start_the_experiment": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "bakeries:fermentation_tank"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:root"
+}

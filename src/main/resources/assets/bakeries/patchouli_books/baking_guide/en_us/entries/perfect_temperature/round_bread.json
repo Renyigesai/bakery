@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.round_bread",
+  "icon": "bakeries:round_bread",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/round_bread",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:round_bread",
+      "title": "180°c"
+    }
+  ]
+}

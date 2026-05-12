@@ -20,6 +20,8 @@ public class CommonTags {
     public static final TagKey<Item> WHOLE_WHEAT_FLOUR = commonItemTag("flours/wheat");
     public static final TagKey<Item> KNIFE = commonItemTag("tools/knife");
     public static final TagKey<Item> TOMATO = commonItemTag("crops/tomato");
+    public static final TagKey<Item> MATCHA = commonItemTag("matcha");
+    public static final TagKey<Item> UPRIGHT_ON_OVEN = commonItemTag("bakeries","upright_on_oven");
 
     public CommonTags() {
     }

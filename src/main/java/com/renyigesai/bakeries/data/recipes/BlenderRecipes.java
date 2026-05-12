@@ -24,16 +24,26 @@ public class BlenderRecipes extends Recipes{
                 .addIngredient(CommonTags.BUTTER)
                 .build(output);
 
-        BlenderBuilder.blender(BakeriesItems.SALTED_DOUGH.get(),1)
+        BlenderBuilder.blender(BakeriesItems.COCOA_DOUGH.get(),1)
                 .addIngredient(BakeriesItems.FLOUR)
                 .addIngredient(BakeriesItems.FLOUR)
                 .addIngredient(BakeriesItems.FLOUR)
-                .addIngredient(BakeriesItems.FLOUR)
+                .addIngredient(BakeriesItems.COCOA_POWDER)
                 .addIngredient(Items.SUGAR)
                 .addIngredient(CommonTags.MILK)
                 .addIngredient(BakeriesItems.BOTTLE_YEAST)
                 .addIngredient(CommonTags.SALT)
                 .addIngredient(CommonTags.BUTTER)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.SALTED_DOUGH.get(),1)
+                .addIngredient(BakeriesItems.FLOUR)
+                .addIngredient(BakeriesItems.FLOUR)
+                .addIngredient(BakeriesItems.FLOUR)
+                .addIngredient(BakeriesItems.FLOUR)
+                .addIngredient(Items.WATER_BUCKET)
+                .addIngredient(BakeriesItems.BOTTLE_YEAST)
+                .addIngredient(CommonTags.SALT)
                 .build(output);
 
         BlenderBuilder.blender(BakeriesItems.WHOLE_WHEAT_DOUGH.get(),1)
@@ -80,6 +90,27 @@ public class BlenderRecipes extends Recipes{
                 .addIngredient(BakeriesItems.OLIVE)
                 .addIngredient(BakeriesItems.OLIVE)
                 .addIngredient(BakeriesItems.OLIVE)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.MATCHA_PARFAIT,Items.GLASS_BOTTLE,1)
+                .addIngredient(Items.ICE)
+                .addIngredient(CommonTags.MILK)
+                .addIngredient(BakeriesItems.BOTTLE_CREAM)
+                .addIngredient(CommonTags.MATCHA)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.MASHED_TARO,4)
+                .addIngredient(BakeriesItems.COOKED_TARO)
+                .addIngredient(Items.SUGAR)
+                .addIngredient(BakeriesItems.BOTTLE_CREAM)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.FRESH_CHEESE_CUBE,4)
+                .addIngredient(BakeriesItems.CHEESE_CUBE)
+                .addIngredient(BakeriesItems.CHEESE_CUBE)
+                .addIngredient(BakeriesItems.CHEESE_CUBE)
+                .addIngredient(BakeriesItems.CHEESE_CUBE)
+                .addIngredient(BakeriesItems.BOTTLE_CREAM)
                 .build(output);
     }
 }

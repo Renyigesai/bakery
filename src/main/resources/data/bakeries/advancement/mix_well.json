@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:blender"
+    },
+    "title": {
+      "translate": "advancements.bakeries.mix_well.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.mix_well.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "mix_well": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "bakeries:blender"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:root"
+}

@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.common.blocks;
 import com.mojang.serialization.MapCodec;
 import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
-import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -86,7 +86,7 @@ public class CountryBreadBlock extends AKnifeCutBlock {
         }
 
         if (handItem.is(asItem()) && pile < 2){
-            ItemUtil.shrink(handItem,1,player);
+            ItemUtils.shrink(handItem,1,player);
             return pileUp(level,pos,state,player);
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);

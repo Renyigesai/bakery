@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.data;
 
 import com.renyigesai.bakeries.data.recipes.BlenderRecipes;
+import com.renyigesai.bakeries.data.recipes.DrinkRecipes;
 import com.renyigesai.bakeries.data.recipes.OvenRecipes;
 import com.renyigesai.bakeries.data.recipes.SingleItemRecipes;
 import net.minecraft.core.HolderLookup;
@@ -21,6 +22,7 @@ public class Recipe extends RecipeProvider {
     protected void buildRecipes(RecipeOutput consumer) {
         OvenRecipes.register(consumer);
         BlenderRecipes.register(consumer);
+        DrinkRecipes.register(consumer);
         SingleItemRecipes.register(consumer);
     }
 

@@ -58,7 +58,8 @@ public class BlenderBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
+        return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
+                BlenderBlockEntity::clientTick) : createTickerHelper(pBlockEntityType, BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
                 BlenderBlockEntity::craftTick);
     }
 
@@ -119,11 +120,6 @@ public class BlenderBlock extends BaseEntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
-    }
-
-    @Override
-    public RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.MODEL;
     }
 
     @Nullable

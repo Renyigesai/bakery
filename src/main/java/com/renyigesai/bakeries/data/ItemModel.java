@@ -86,10 +86,16 @@ public class ItemModel extends ItemModelProvider {
                 BakeriesBlocks.FOCACCIA::get, "_1");
         rawBreadItem(BakeriesItems.ROUND_BREAD_DOUGH,
                 BakeriesBlocks.ROUND_BREAD::get, "_1");
+        rawBreadItem(BakeriesItems.RICE_BREAD_DOUGH,
+                BakeriesBlocks.RICE_BREAD, "_1");
         customModelItem(BakeriesItems.COUNTRY_BREAD_DOUGH,"custom/country_bread_dough");
         customModelItem(BakeriesItems.MOULD_TOAST_DOUGH,"custom/mould_toast_dough");
         customModelItem(BakeriesItems.MOULD_CHEESE_COCOA_TOAST_DOUGH,"custom/mould_toast_dough");
         customModelItem(BakeriesItems.FLOUR_SIEVE,"custom/flour_sieve");
+        customModelItem(BakeriesItems.MOKA_POT,"custom/moka_pot");
+        customModelItem(BakeriesItems.MOKA_POT_FILL,"custom/moka_pot");
+        customModelItem(BakeriesItems.DRINK_CUP,"block/drink_cup");
+        customModelItem(BakeriesItems.ETERNAL_BAGUETTE,"block/baguette_1");
     }
 
     private boolean isBlockItem(Item item){

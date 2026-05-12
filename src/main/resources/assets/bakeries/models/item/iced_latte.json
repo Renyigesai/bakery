@@ -1,0 +1,18 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "bakeries:block/iced_latte_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/iced_latte_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/iced_latte_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/iced_latte_2d"
+    }
+  }
+}

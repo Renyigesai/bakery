@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:croissant"
+    },
+    {
+      "item": "bakeries:croissant"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "bakeries:cocoa_powder"
+    }
+  ],
+  "result": {
+    "id": "bakeries:dirty_choco_croissant",
+    "count": 2
+  }
+}

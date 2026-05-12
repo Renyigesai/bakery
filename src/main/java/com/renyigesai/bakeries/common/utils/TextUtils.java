@@ -109,4 +109,17 @@ public class TextUtils {
         return maxLength;
     }
 
+    public static int getLength(String string){
+        if (string == null){
+            throw new IllegalArgumentException("Text cannot be null or Max width must be positive");
+        }
+        int width = 0;
+        Minecraft mc = Minecraft.getInstance();
+        for (int i = 0; i < string.length(); i++) {
+            char _char = string.charAt(i);
+            width += mc.font.width(String.valueOf(_char));
+        }
+        return width;
+    }
+
 }

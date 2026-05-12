@@ -7,6 +7,7 @@ import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -30,9 +31,11 @@ public class BlenderRecipeCategory implements IRecipeCategory<RecipeHolder<Blend
     public final IDrawable back;
     public final IDrawable icon;
 
+
     public BlenderRecipeCategory(IGuiHelper helper) {
         this.back = helper.createDrawable(TEXTURE,0, 0, 90, 69);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,new ItemStack(BakeriesItems.BLENDER.get()));
+
     }
 
     @SuppressWarnings("removal")

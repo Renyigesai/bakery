@@ -45,11 +45,8 @@ public class SofaBlock extends HorizontalConnectBlock {
     }
 
     @Override
-    protected boolean canConnectTo(BlockGetter level, BlockPos pos, Direction facing, BlockState oleState, boolean isRight) {
-        Direction direction = getLeft(facing);
-        BlockPos directionPos = pos.relative(isRight?direction.getOpposite():direction);
-        BlockState state = level.getBlockState(directionPos);
-        return state.is(BlockTags.create(ResourceLocation.fromNamespaceAndPath("bakeries" ,"sofa"))) && state.getValue(SofaBlock.FACING) == oleState.getValue(FACING);
+    public boolean matchConnect(BlockState state) {
+        return state.is(BlockTags.create(ResourceLocation.fromNamespaceAndPath("bakeries","sofa")));
     }
 
     private void sit(Level world, BlockPos pos, Player pPlayer){

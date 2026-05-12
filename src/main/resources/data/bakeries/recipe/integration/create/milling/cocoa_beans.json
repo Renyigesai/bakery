@@ -1,0 +1,20 @@
+{
+  "conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:cocoa_beans"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "id": "bakeries:cocoa_powder"
+    }
+  ]
+}

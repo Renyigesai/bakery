@@ -20,6 +20,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class FlourSieveRecipeCategory implements IRecipeCategory<RecipeHolder<FlourSieveRecipe>> {
@@ -51,9 +52,10 @@ public class FlourSieveRecipeCategory implements IRecipeCategory<RecipeHolder<Fl
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<FlourSieveRecipe> recipe, IFocusGroup focuses) {
-        NonNullList<Ingredient> recipeIngredients = recipe.value().getIngredients();
+        NonNullList<Ingredient> ingredients = recipe.value().getIngredients();
         //添加一个原料槽
-        builder.addSlot(RecipeIngredientRole.INPUT,26,2).addItemStacks(List.of(recipeIngredients.getFirst().getItems()));
+        builder.addSlot(RecipeIngredientRole.INPUT,26,2).addItemStacks(List.of(ingredients.getFirst().getItems()));
+
         //添加输出槽
         builder.addSlot(RecipeIngredientRole.OUTPUT,74,2).addItemStack(recipe.value().getResultItem(null));
         builder.addSlot(RecipeIngredientRole.OUTPUT,3,3).addItemStack(new ItemStack(BakeriesItems.FLOUR_SIEVE.get()));

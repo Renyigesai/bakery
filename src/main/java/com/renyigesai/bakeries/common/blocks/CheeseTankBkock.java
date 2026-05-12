@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.common.blocks;
 
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
-import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +22,7 @@ public class CheeseTankBkock extends TankBlock {
     }
 
     public InteractionResult ladleOut(Level pLevel, BlockPos pPos, Player pPlayer){
-        ItemUtil.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.CHEESE_CUBE.get(),4));
+        ItemUtils.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.CHEESE_CUBE.get(),4));
         pLevel.setBlockAndUpdate(pPos, BakeriesBlocks.FERMENTATION_TANK.get().defaultBlockState());
         return InteractionResult.SUCCESS;
     }

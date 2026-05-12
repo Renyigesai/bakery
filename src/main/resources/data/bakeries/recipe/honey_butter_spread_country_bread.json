@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:honey_butter"
+    },
+    {
+      "item": "bakeries:country_bread_slice"
+    },
+    {
+      "item": "bakeries:country_bread_slice"
+    },
+    {
+      "item": "bakeries:country_bread_slice"
+    },
+    {
+      "item": "bakeries:country_bread_slice"
+    }
+  ],
+  "result": {
+    "id": "bakeries:honey_butter_spread_country_bread",
+    "count": 4
+  }
+}

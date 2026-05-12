@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "BAKERIES_ADVANCED",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "com/renyigesai/bakeries/common/init/BakeriesRarity",
+        "field": "ADVANCED"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/item/Rarity",
+      "name": "BAKERIES_TARO",
+      "constructor": "(ILjava/lang/String;Ljava/util/function/UnaryOperator;)V",
+      "parameters": {
+        "class": "com/renyigesai/bakeries/common/init/BakeriesRarity",
+        "field": "TARO"
+      }
+    }
+  ]
+}

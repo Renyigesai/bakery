@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.coffee_plant",
+  "icon": "bakeries:raw_coffee_bean",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:raw_coffee_bean",
+      "title": "block.bakeries.raw_coffee_bean",
+      "text": "guide.bakeries.descr.raw_coffee_bean"
+    }
+  ]
+}

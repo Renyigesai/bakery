@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:taro"
+    },
+    "title": {
+      "translate": "advancements.bakeries.get_taro.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.get_taro.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:taro"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:root"
+}

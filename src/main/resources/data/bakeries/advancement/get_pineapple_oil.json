@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:pineapple_oil"
+    },
+    "title": {
+      "translate": "advancements.bakeries.get_pineapple_oil.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.get_pineapple_oil.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:pineapple_oil"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:root"
+}

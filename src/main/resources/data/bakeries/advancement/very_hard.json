@@ -1,0 +1,46 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "minecraft:anvil"
+    },
+    "title": {
+      "translate": "advancements.bakeries.very_hard.title",
+      "color": "gold"
+    },
+    "description": {
+      "translate": "advancements.bakeries.very_hard.descr"
+    },
+    "announce_to_chat": false
+  },
+  "parent": "bakeries:root",
+  "criteria": {
+    "bagel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:baguette"
+            ],
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantments": [
+                    "minecraft:unbreaking"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "loot": [
+      "bakeries:game/eternal_baguette"
+    ]
+  },
+  "sends_telemetry_event": true
+}

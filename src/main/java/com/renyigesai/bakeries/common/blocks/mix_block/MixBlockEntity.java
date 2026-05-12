@@ -1,0 +1,122 @@
+package com.renyigesai.bakeries.common.blocks.mix_block;
+
+import com.renyigesai.bakeries.common.init.BakeriesBlocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
+
+public class MixBlockEntity extends BlockEntity {
+
+    private final ItemStackHandler inventory = new ItemStackHandler(4){
+        @Override
+        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+            return 1;
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            return super.insertItem(slot, stack, simulate);
+        }
+
+        @Override
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+            return super.extractItem(slot, amount, simulate);
+        }
+    };
+
+    public MixBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(BakeriesBlocks.Entities.MIX_BLOCK_ENTITY.get(), pPos, pBlockState);
+    }
+
+    public ItemStackHandler getInventory() {
+        return inventory;
+    }
+
+    public int getInventoryCount() {
+        int count = 0;
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            if (!inventory.getStackInSlot(i).isEmpty()){
+                count ++;
+            }
+        }
+        return count;
+    }
+
+    public void drops(MixBlockEntity blockEntity) {
+        SimpleContainer inventory = new SimpleContainer(blockEntity.inventory.getSlots() + 1);
+        for (int i = 0; i < blockEntity.inventory.getSlots(); i++) {
+            ItemStack stackInSlot = blockEntity.inventory.getStackInSlot(i);
+            if (!stackInSlot.hasCraftingRemainingItem()){
+                inventory.setItem(i, blockEntity.inventory.getStackInSlot(i));
+            }
+        }
+        if (this.level != null) {
+            Containers.dropContents(this.level, this.worldPosition, inventory);
+        }
+    }
+
+    public boolean isEmpty(){
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            if (!inventory.getStackInSlot(i).isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = new CompoundTag();
+        tag.put("Inventory",inventory.serializeNBT(registries));
+        return tag;
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        if (tag.contains("Inventory")) {
+            inventory.deserializeNBT(registries,tag.getCompound("Inventory"));
+        }
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.put("Inventory", inventory.serializeNBT(registries));
+    }
+
+    public boolean addItem(ItemStack stack){
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            ItemStack stackInSlot = inventory.getStackInSlot(i);
+            if (stackInSlot.isEmpty()){
+                inventory.setStackInSlot(i,stack);
+                updateBlock();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void updateBlock() {
+        if (level == null){
+            return;
+        }
+        BlockState state = level.getBlockState(worldPosition);
+        setChanged(level, worldPosition, state);
+        level.sendBlockUpdated(worldPosition, state, state, 3);
+    }
+}

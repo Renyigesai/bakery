@@ -3,7 +3,7 @@ package com.renyigesai.bakeries.common.blocks.blander;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.inventory.blender.BlenderMenu;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
-import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -63,6 +64,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     public int cookingTotalTime;
     public int filtrationIndex;
+
+    public State state = State.CLOSE;
+    public float progress;
+    public float progressOld;
+    public float rProgress;
+    public float rProgressOld;
 
     private final RecipeManager.CachedCheck<RecipeWrapper, BlenderRecipe> CHECK = RecipeManager.createCheck(BlenderRecipe.Type.INSTANCE);
     public BlenderBlockEntity(BlockPos pos, BlockState blockState) {
@@ -182,6 +189,35 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         return filtrationIndex;
     }
 
+
+    public float getProgress(float pPartialTicks) {
+        return Mth.lerp(pPartialTicks, this.progressOld, this.progress);
+    }
+
+    public float getRprogress(float pPartialTicks) {
+        return Mth.lerp(pPartialTicks, this.rProgressOld, this.rProgress);
+    }
+
+    @Override
+    public boolean triggerEvent(int pId, int pType) {
+        if (pId == 0) {
+            if (pType == 0) {
+                this.state = State.OPEN_PROCESS;
+            }
+            if (pType == 1) {
+                this.state = State.CLOSE_PROCESS;
+            }
+            doNeighborUpdates(this.getLevel(), this.worldPosition, this.getBlockState());
+            return true;
+        } else {
+            return super.triggerEvent(pId, pType);
+        }
+    }
+
+    private static void doNeighborUpdates(Level pLevel, BlockPos pPos, BlockState pState) {
+        pState.updateNeighbourShapes(pLevel, pPos, 3);
+    }
+
     @Override
     public void clearContent() {
         for (int i = 0; i < inventory.getSlots(); i++) {
@@ -243,6 +279,47 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D,
                 (double) this.worldPosition.getY() + 0.5D,
                 (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
+    }
+
+    public static void clientTick(Level level, BlockPos pos, BlockState state, BlenderBlockEntity blockEntity){
+        blockEntity.progressOld = blockEntity.progress;
+        blockEntity.rProgressOld = blockEntity.rProgress;
+        if (!state.getValue(BlenderBlock.POWERED)) {
+            switch (blockEntity.state) {
+                case OPEN_PROCESS:
+                    blockEntity.progress += 0.5F;
+                    if (blockEntity.progress >= 1.0F) {
+                        blockEntity.progress = 1.0F;
+                        blockEntity.state = State.OPEN;
+                    }
+                    break;
+                case OPEN:
+                    blockEntity.progress = 1.0F;
+                    break;
+                case CLOSE_PROCESS:
+                    blockEntity.progress -= 0.5F;
+                    if (blockEntity.progress <= 0F) {
+                        blockEntity.progress = 0F;
+                        blockEntity.state = State.CLOSE;
+                    }
+                    break;
+                case CLOSE:
+                    blockEntity.progress = 0.0F;
+                    break;
+            }
+        }else {
+            blockEntity.rProgress += 0.1F;
+            if (blockEntity.rProgress >= 1.0F){
+                blockEntity.rProgress = 0.0F;
+            }
+            if (blockEntity.progress > 0F){
+                blockEntity.progress -= 0.25F;
+            }
+            if (blockEntity.progress <= 0){
+                blockEntity.progress = 0F;
+            }
+            blockEntity.state = State.CLOSE;
+        }
     }
 
 
@@ -316,7 +393,7 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         double z = pos.getZ() + 0.5D;
         double newX = x + (facing.getStepX()*1.0D);
         double newZ = z + (facing.getStepZ()*1.0D);
-        ItemUtil.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
+        ItemUtils.spawnItemEntity(this.level,remainderStack, newX, pos.getY(), newZ,new Vec3(0.0D,0.0D,0.0D));
     }
 
     private boolean isContainer(RecipeHolder<BlenderRecipe> recipeHolder){
@@ -368,6 +445,13 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             }
         }
         return false;
+    }
+
+    public enum State {
+        OPEN_PROCESS,
+        OPEN,
+        CLOSE_PROCESS,
+        CLOSE,
     }
 
 }

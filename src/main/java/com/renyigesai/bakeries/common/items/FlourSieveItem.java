@@ -2,8 +2,9 @@ package com.renyigesai.bakeries.common.items;
 
 
 import com.renyigesai.bakeries.common.recipe.FlourSieveRecipe;
-import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -21,13 +22,20 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 public class FlourSieveItem extends Item {
+
+    public static final Set<ItemAbility> SIEVE_ACTIONS;
 
     private static final RecipeManager.CachedCheck<RecipeInput, FlourSieveRecipe> CHECK = RecipeManager.createCheck(FlourSieveRecipe.Type.INSTANCE);
 
@@ -42,6 +50,9 @@ public class FlourSieveItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack mainHandItem = pPlayer.getMainHandItem();
+        if (mainHandItem.is(this)){
+            return super.use(pLevel, pPlayer, pUsedHand);
+        }
         Optional<RecipeHolder<FlourSieveRecipe>> recipeFor = CHECK.getRecipeFor(new SingleRecipeInput(mainHandItem), pLevel);
         if (recipeFor.isEmpty()){
             pPlayer.getCooldowns().addCooldown(this,20);
@@ -65,7 +76,7 @@ public class FlourSieveItem extends Item {
                 mainHandItem.shrink(1);
                 pStack.hurtAndBreak(1,player, EquipmentSlot.OFFHAND);
             }
-            ItemUtil.givePlayerItem(player,resultItemStack);
+            ItemUtils.givePlayerItem(player,resultItemStack);
         }
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
@@ -107,6 +118,25 @@ public class FlourSieveItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("tooltips.bakeries.flour_sieve_0").withStyle(ChatFormatting.BLUE));
+    }
+
+    @Override
+    public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
+        return !enchantment.is(Enchantments.SWEEPING_EDGE) && super.isPrimaryItemFor(stack, enchantment);
+    }
+
+    @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+        return !enchantment.is(Enchantments.SWEEPING_EDGE) && super.supportsEnchantment(stack, enchantment);
+    }
+
+    @Override
+    public boolean canPerformAction(ItemStack stack, ItemAbility toolAction) {
+        return SIEVE_ACTIONS.contains(toolAction);
+    }
+
+    static {
+        SIEVE_ACTIONS = Set.of(ItemAbilities.SHEARS_CARVE);
     }
 
 }

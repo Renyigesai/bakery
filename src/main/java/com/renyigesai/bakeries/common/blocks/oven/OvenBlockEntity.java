@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -97,6 +98,10 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
         }
     };
 
+    public State state = State.CLOSE;
+    public float progress;
+    public float progressOld;
+
 
     public OvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.Entities.OVEN_BLOCK_ENTITY.get(), pPos, pBlockState);
@@ -121,6 +126,9 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
         return new OvenMenu(pContainerId, pInventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition),this, this.dataAccess);
     }
 
+    public ItemStackHandler getItemHandler() {
+        return itemHandler;
+    }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
@@ -183,27 +191,92 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
         return tag;
     }
 
-    public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, OvenBlockEntity pOvenBlockEntity) {
-        boolean flag = false;
-        updateBlock(pOvenBlockEntity);
-        setFire(pLevel, pPos, pState, pOvenBlockEntity);
-        for (int i = 0; i < pOvenBlockEntity.itemHandler.getSlots(); i++) {
-            flag = true;
-            recipeItem(pLevel, pPos, pState, i, pOvenBlockEntity);
-        }
-        if (flag) {
-            setChanged(pLevel, pPos, pState);
-            updateBlock(pOvenBlockEntity);
+    public float getProgress(float pPartialTicks) {
+        return Mth.lerp(pPartialTicks, this.progressOld, this.progress);
+    }
+
+    @Override
+    public boolean triggerEvent(int pId, int pType) {
+        if (pId == 0) {
+            if (pType == 0) {
+                this.state = OvenBlockEntity.State.OPEN_PROCESS;
+            }
+            if (pType == 1) {
+                this.state = OvenBlockEntity.State.CLOSE_PROCESS;
+            }
+            doNeighborUpdates(this.getLevel(), this.worldPosition, this.getBlockState());
+            return true;
+        } else {
+            return super.triggerEvent(pId, pType);
         }
     }
 
-    public static void setFire(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
-        updateBlock(pOvenBlockEntity);
-        boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0 || pOvenBlockEntity.cooking_times[4] > 0 || pOvenBlockEntity.cooking_times[5] > 0;
+    private static void doNeighborUpdates(Level pLevel, BlockPos pPos, BlockState pState) {
+        pState.updateNeighbourShapes(pLevel, pPos, 3);
+    }
 
+    public static void clientTick(Level level, BlockPos pos, BlockState state, OvenBlockEntity blockEntity){
+        blockEntity.progressOld = blockEntity.progress;
+        if (!state.getValue(OvenBlock.LIT)) {
+            switch (blockEntity.state) {
+                case OPEN_PROCESS:
+                    blockEntity.progress += 0.25F;
+                    if (blockEntity.progress >= 1.0F) {
+                        blockEntity.progress = 1.0F;
+                        blockEntity.state = OvenBlockEntity.State.OPEN;
+                    }
+                    break;
+                case OPEN:
+                    blockEntity.progress = 1.0F;
+                    break;
+                case CLOSE_PROCESS:
+                    blockEntity.progress -= 0.25F;
+                    if (blockEntity.progress <= 0F) {
+                        blockEntity.progress = 0F;
+                        blockEntity.state = OvenBlockEntity.State.CLOSE;
+                    }
+                    break;
+                case CLOSE:
+                    blockEntity.progress = 0.0F;
+                    break;
+            }
+        }else {
+            if (blockEntity.progress > 0F){
+                blockEntity.progress -= 0.25F;
+            }
+            if (blockEntity.progress <= 0){
+                blockEntity.progress = 0F;
+            }
+            blockEntity.state = OvenBlockEntity.State.CLOSE;
+        }
+    }
+
+    private boolean hasInput() {
+        for(int i = 0; i < itemHandler.getSlots(); ++i) {
+            if (!this.itemHandler.getStackInSlot(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, OvenBlockEntity pOvenBlockEntity) {
+        if (pOvenBlockEntity.hasInput()){
+            for (int i = 0; i < pOvenBlockEntity.itemHandler.getSlots(); i++) {
+                if (!pOvenBlockEntity.itemHandler.getStackInSlot(i).isEmpty()) {
+                    recipeItem(pLevel, pPos, pState, i, pOvenBlockEntity);
+                }
+            }
+            setFire(pLevel, pPos, pState, pOvenBlockEntity);
+            setChanged(pLevel, pPos, pState);
+            updateBlock(pOvenBlockEntity);
+        }
+
+    }
+
+    public static void setFire(Level world, BlockPos pos, BlockState state, OvenBlockEntity pOvenBlockEntity) {
+        boolean isLit = pOvenBlockEntity.cooking_times[0] > 0 || pOvenBlockEntity.cooking_times[1] > 0 || pOvenBlockEntity.cooking_times[2] > 0 || pOvenBlockEntity.cooking_times[3] > 0 || pOvenBlockEntity.cooking_times[4] > 0 || pOvenBlockEntity.cooking_times[5] > 0;
         world.setBlock(pos, pOvenBlockEntity.getBlockState().setValue(OvenBlock.LIT, isLit), 3);
-        world.sendBlockUpdated(pos, state, state, 3);
-        setChanged(world, pos, state);
     }
 
 
@@ -285,7 +358,6 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
             if (perfect){
                 takeItem.set(BakeriesDataComponents.PERFECT.get(), true);
             }
-            System.out.println(perfect);
             this.itemHandler.setStackInSlot(slot, takeItem);
             updateBlock(ovenBlockEntity);
         }
@@ -352,5 +424,11 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
         for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
+    }
+    public enum State {
+        OPEN_PROCESS,
+        OPEN,
+        CLOSE_PROCESS,
+        CLOSE,
     }
 }

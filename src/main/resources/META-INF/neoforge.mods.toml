@@ -15,6 +15,10 @@ logoFile="logo.png"
 #credits="" #optional
 authors="Renyigesai,1-weibai-1"
 description="This is a Baker yummy mod"
+enumExtensions="META-INF/enumextensions.json"
+
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
 
 [[mixins]]
 config="bakeries.mixins.json"

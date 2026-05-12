@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " aa",
+    " bb",
+    " aa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:quartz_slab"
+    },
+    "b": {
+      "tag": "minecraft:logs_that_burn"
+    }
+  },
+  "result": {
+    "id": "bakeries:cupboard",
+    "count": 1
+  }
+}

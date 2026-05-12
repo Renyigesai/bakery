@@ -1,0 +1,12 @@
+{
+  "name": "block.bakeries.blender",
+  "icon": "bakeries:blender",
+  "category": "bakeries:baking_utensil",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:blender",
+      "text": "guide.bakeries.descr.blender"
+    }
+  ]
+}

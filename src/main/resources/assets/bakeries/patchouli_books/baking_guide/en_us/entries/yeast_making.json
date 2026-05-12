@@ -1,0 +1,26 @@
+{
+  "name": "guide.bakeries.entries.yeast_making",
+  "icon": "bakeries:bottle_yeast",
+  "category": "bakeries:bread_making_process",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:fermentation_tank",
+      "text": "guide.bakeries.descr.yeast_making"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "block.bakeries.yeast_tank",
+      "multiblock": {
+        "mapping": {
+          "G": "bakeries:yeast_tank"
+        },
+        "pattern":  [
+          ["G"],
+          ["0"]
+        ]
+      }
+
+    }
+  ]
+}

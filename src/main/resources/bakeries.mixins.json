@@ -5,9 +5,12 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "bakeries.refmap.json",
   "mixins": [
-
+    "FallingBlockEntityMixin",
+    "MaceMixin",
+    "SnifferMixin"
   ],
   "client": [
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

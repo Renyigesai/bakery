@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.common.items;
 
 import com.renyigesai.bakeries.common.init.BakeriesSounds;
-import com.renyigesai.bakeries.common.utils.ItemUtil;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -10,12 +10,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -53,24 +49,29 @@ public class ShakeItem extends Item {
 
     @Override
     public @NotNull InteractionResultHolder use(@NotNull Level world, Player entity, @NotNull InteractionHand hand) {
-            entity.startUsingItem(hand);
-            return new InteractionResultHolder(InteractionResult.PASS, entity.getItemInHand(hand));
+        /*物品装物品示例不要删除注册的时候记得加.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)*/
+//        ItemStack itemInHand = entity.getItemInHand(hand);
+//        List<ItemStack> stacks = new ArrayList<>();
+//        stacks.add(new ItemStack(Items.APPLE));
+//        stacks.add(new ItemStack(Items.DIAMOND));
+//        stacks.add(new ItemStack(Items.STONE));
+//        itemInHand.set(DataComponents.CONTAINER,ItemContainerContents.fromItems(stacks));
+        entity.startUsingItem(hand);
+        return new InteractionResultHolder(InteractionResult.PASS, entity.getItemInHand(hand));
     }
 
     @Override
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
         pStack.shrink(1);
         if (pLivingEntity instanceof Player player){
-            ItemUtil.givePlayerItem(player,this.getFinishItem());
-        }else {
-            ItemUtil.spawnItemEntity(pLevel,this.getFinishItem(),pLivingEntity.getX()+0.5,pLivingEntity.getY(),pLivingEntity.getZ()+0.5,new Vec3(0.0,0.0,0.0));
+            player.getCooldowns().addCooldown(this.getFinishItem().getItem(),10);
+            ItemUtils.givePlayerItem(player,this.getFinishItem());
         }
-
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("item.bakeries.tips.shake").withStyle(ChatFormatting.BLUE));
+        tooltipComponents.add(Component.translatable("tooltips.bakeries.shake").withStyle(ChatFormatting.BLUE));
     }
 }
