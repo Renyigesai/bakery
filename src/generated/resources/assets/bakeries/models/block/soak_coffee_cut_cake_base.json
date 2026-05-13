@@ -1,7 +1,0 @@
-{
-  "parent": "bakeries:custom/cut_cake_base",
-  "textures": {
-    "4": "bakeries:block/cake_base",
-    "particle": "bakeries:block/soak_coffee_cut_cake_base"
-  }
-}

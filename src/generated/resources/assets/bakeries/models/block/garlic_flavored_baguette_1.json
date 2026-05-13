@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/baguette_1",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/garlic_flavored_baguette",
-    "particle": "bakeries:block/garlic_flavored_baguette"
-  }
-}

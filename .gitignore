@@ -9,3 +9,6 @@
 /lombok.config/
 /src/generated/resources/.cache/
 /s.txt
+/.idea
+/bakeric
+/porting

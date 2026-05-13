@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=east": {"model": "bakeries:block/cake_box", "y": 270},
-    "facing=north": {"model": "bakeries:block/cake_box", "y": 180},
-    "facing=south": {"model": "bakeries:block/cake_box"},
-    "facing=west": {"model": "bakeries:block/cake_box", "y": 90}
-  }
-}

@@ -1,8 +1,0 @@
-{
-	"parent": "bakeries:custom/toast_2",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"1": "bakeries:block/cheese_cocoa_toast",
-		"particle": "bakeries:block/cheese_cocoa_toast"
-	}
-}

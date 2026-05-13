@@ -1,8 +1,0 @@
-{
-	"parent": "bakeries:block/mould_toast",
-	"textures": {
-		"0": "bakeries:block/mould",
-		"1": "bakeries:block/toast",
-		"particle": "bakeries:block/toast"
-	}
-}

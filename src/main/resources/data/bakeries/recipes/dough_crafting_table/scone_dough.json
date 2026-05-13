@@ -1,9 +1,0 @@
-{
-  "type": "bakeries:dough_crafting_table",
-  "count": 8,
-  "ingredient":
-  {
-    "item": "bakeries:crispy_dough"
-  },
-  "result": "bakeries:scone_dough"
-}
