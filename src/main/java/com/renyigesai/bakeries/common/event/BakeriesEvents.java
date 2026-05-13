@@ -7,6 +7,7 @@ import com.renyigesai.bakeries.api.event.SnifferDropSeedEvent;
 import com.renyigesai.bakeries.api.items.PileItem;
 import com.renyigesai.bakeries.common.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.common.init.BakeriesAttributes;
+import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.items.RepeatEatItem;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
@@ -44,6 +45,8 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
@@ -214,5 +217,29 @@ public class BakeriesEvents {
                 serverLevel.addFreshEntity(itemEntity);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        // Register Oven
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                BakeriesBlocks.Entities.OVEN_BLOCK_ENTITY.get(),
+                (blockEntity, side) -> blockEntity.getItemHandler()
+        );
+
+        // Register Blender
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
+                (blockEntity, side) -> blockEntity.getInventory()
+        );
+
+        // Register Toaster
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                BakeriesBlocks.Entities.TOASTER_ENTITY.get(),
+                (blockEntity, side) -> blockEntity.getItems()
+        );
     }
 }

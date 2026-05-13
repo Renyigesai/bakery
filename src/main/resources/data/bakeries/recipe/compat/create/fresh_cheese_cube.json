@@ -1,0 +1,32 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "id": "bakeries:fresh_cheese_cube"
+    }
+  ]
+}

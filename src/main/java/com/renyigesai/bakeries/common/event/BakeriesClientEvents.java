@@ -10,6 +10,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
@@ -39,5 +41,23 @@ public class BakeriesClientEvents {
                 }
             }
         }
+    }
+
+    // PonderPlugin
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        if (ModList.get().isLoaded("create") || ModList.get().isLoaded("ponder")) {
+            event.enqueueWork(() -> {
+                registerPonderPlugin();
+            });
+        }
+    }
+    // The registration logic *must* be extracted into a separate method
+    // This is to prevent the game from crashing (due to a ClassNotFoundException) if the JVM attempts to load the PonderIndex class when the player does not have Create installed.
+    private static void registerPonderPlugin() {
+        net.createmod.ponder.foundation.PonderIndex.addPlugin(
+                new com.renyigesai.bakeries.integration.ponder.BakeriesPonderPlugin()
+        );
+        System.out.println("Bakeries:Ponder Plugin Registered");
     }
 }
