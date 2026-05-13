@@ -1,0 +1,15 @@
+{
+  "name": "item.bakeries.bread_knife",
+  "icon": "bakeries:bread_knife",
+  "category": "bakeries:baking_utensil",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.bread_knife"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:bread_knife"
+    }
+  ]
+}

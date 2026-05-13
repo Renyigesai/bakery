@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "abc",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:round_bread_dough"
+    },
+    "b": {
+      "tag": "c:butter"
+    },
+    "c": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "result": {
+    "id": "bakeries:pineapple_bun_dough",
+    "count": 4
+  }
+}

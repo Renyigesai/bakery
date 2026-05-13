@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.renyigesai.bakeries.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "bakeries.refmap.json",
+  "mixins": [
+    "FallingBlockEntityMixin",
+    "SnifferMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/bread_rack",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/bread_rack",
+    "particle": "bakeries:block/bread_rack"
+  }
+}

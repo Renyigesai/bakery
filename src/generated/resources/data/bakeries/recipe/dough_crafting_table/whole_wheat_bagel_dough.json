@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "bakeries:config",
+      "config_key": "fermentationGameplay",
+      "expected": "false",
+      "value_type": "boolean"
+    }
+  ],
+  "type": "bakeries:dough_crafting_table",
+  "ingredient": {
+    "item": "bakeries:whole_wheat_dough"
+  },
+  "result": {
+    "count": 4,
+    "id": "bakeries:whole_wheat_bagel_dough"
+  }
+}

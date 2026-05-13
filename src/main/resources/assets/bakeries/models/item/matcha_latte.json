@@ -1,0 +1,18 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "bakeries:block/matcha_latte_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/matcha_latte_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/matcha_latte_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/matcha_latte_2d"
+    }
+  }
+}

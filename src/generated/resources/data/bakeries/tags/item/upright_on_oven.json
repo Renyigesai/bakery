@@ -1,0 +1,14 @@
+{
+  "values": [
+    "bakeries:mould_toast",
+    "bakeries:mould_toast_dough",
+    "bakeries:mould_cheese_cocoa_toast",
+    "bakeries:mould_cheese_cocoa_toast_dough",
+    "bakeries:ciabatta",
+    "bakeries:ciabatta_dough",
+    "bakeries:country_bread",
+    "bakeries:country_bread_dough",
+    "bakeries:baguette",
+    "bakeries:baguette_dough"
+  ]
+}

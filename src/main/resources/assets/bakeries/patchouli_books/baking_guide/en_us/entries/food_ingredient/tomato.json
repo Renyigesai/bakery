@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.tomato",
+  "icon": "bakeries:tomato",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:tomato",
+      "title": "block.bakeries.tomato",
+      "text": "guide.bakeries.descr.tomato"
+    }
+  ]
+}

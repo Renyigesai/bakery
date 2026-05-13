@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/mould_toast_pile",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/mould",
+    "1": "bakeries:block/toast",
+    "particle": "bakeries:block/mould"
+  }
+}

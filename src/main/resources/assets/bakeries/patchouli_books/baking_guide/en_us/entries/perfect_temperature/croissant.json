@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.croissant",
+  "icon": "bakeries:croissant",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/croissant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:croissant",
+      "title": "180°c"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "tag": "minecraft:leaves"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "id": "bakeries:matcha_powder",
+      "count": 2
+    }
+  ]
+}

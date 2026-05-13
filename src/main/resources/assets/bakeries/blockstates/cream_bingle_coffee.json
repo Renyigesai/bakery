@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "pile=1,facing=east": {"model": "bakeries:block/cream_bingle_coffee_1", "y": 270},
+    "pile=2,facing=east": {"model": "bakeries:block/cream_bingle_coffee_2", "y": 270},
+
+    "pile=1,facing=north": {"model": "bakeries:block/cream_bingle_coffee_1", "y": 180},
+    "pile=2,facing=north": {"model": "bakeries:block/cream_bingle_coffee_2", "y": 180},
+
+    "pile=1,facing=south": {"model": "bakeries:block/cream_bingle_coffee_1"},
+    "pile=2,facing=south": {"model": "bakeries:block/cream_bingle_coffee_2"},
+
+    "pile=1,facing=west": {"model": "bakeries:block/cream_bingle_coffee_1", "y": 90},
+    "pile=2,facing=west": {"model": "bakeries:block/cream_bingle_coffee_2", "y": 90}
+  }
+}

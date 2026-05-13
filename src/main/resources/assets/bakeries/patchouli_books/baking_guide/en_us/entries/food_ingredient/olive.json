@@ -1,0 +1,13 @@
+{
+  "name": "item.bakeries.olive",
+  "icon": "bakeries:olive",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:olive",
+      "title": "item.bakeries.olive",
+      "text": "guide.bakeries.descr.olive"
+    }
+  ]
+}

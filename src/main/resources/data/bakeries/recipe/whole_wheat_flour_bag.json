@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    },
+    {
+      "item": "bakeries:whole_wheat_flour"
+    }
+  ],
+  "result": {
+    "id": "bakeries:whole_wheat_flour_bag",
+    "count": 1
+  }
+}

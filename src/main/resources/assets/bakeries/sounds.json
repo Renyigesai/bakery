@@ -1,0 +1,71 @@
+{
+  "block.generic.oven_draw_slip": {
+    "subtitle":"block.generic.oven_draw_slip",
+    "sounds": [
+      "bakeries:oven_draw_slip"
+    ]
+  },
+  "block.generic.open_oven": {
+    "subtitle":"block.generic.open_oven",
+    "sounds": [
+      "bakeries:open_oven"
+    ]
+  },
+  "entity.generic.shake": {
+    "subtitle":"entity.generic.shake",
+    "sounds": [
+      "bakeries:shake"
+    ]
+  },
+  "block.generic.blender": {
+    "subtitle":"block.generic.blender",
+    "sounds": [
+      "bakeries:blender"
+    ]
+  },
+  "block.generic.put_on_ice": {
+    "subtitle":"block.generic.put_on_ice",
+    "sounds": [
+      "bakeries:put_on_ice"
+    ]
+  },
+  "block.generic.insert_straw": {
+    "subtitle":"block.generic.insert_straw",
+    "sounds": [
+      "bakeries:insert_straw"
+    ]
+  },
+  "item.generic.music_disc_baking_in_progress": {
+    "sounds": [
+      {
+        "name": "bakeries:music_disc_baking_in_progress",
+        "stream": true
+      }
+    ]
+  },
+  "block.generic.pastry_place": {
+    "subtitle":"block.generic.pastry_place",
+    "sounds": [
+      "bakeries:pastry_place1",
+      "bakeries:pastry_place2"
+    ]
+  },
+  "block.generic.steel_pipe": {
+    "subtitle":"block.generic.steel_pipe",
+    "sounds": [
+      "bakeries:steel_pipe"
+    ]
+  },
+  "block.generic.toaster_in": {
+    "subtitle":"block.generic.toaster_in",
+    "sounds": [
+      "bakeries:toaster_in"
+    ]
+  },
+  "block.generic.toaster_out": {
+    "subtitle":"block.generic.toaster_out",
+    "sounds": [
+      "bakeries:toaster_out"
+    ]
+  }
+}

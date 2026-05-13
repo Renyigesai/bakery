@@ -1,0 +1,12 @@
+{
+  "name": "guide.bakeries.entries.prepare_the_dough",
+  "icon": "bakeries:sweet_dough",
+  "category": "bakeries:bread_making_process",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.prepare_the_dough"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "bakeries:config",
+      "config_key": "fermentationGameplay",
+      "expected": "false",
+      "value_type": "boolean"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "bakeries:ciabatta_dough"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "bakeries:ciabatta_dough"
+    ]
+  }
+}

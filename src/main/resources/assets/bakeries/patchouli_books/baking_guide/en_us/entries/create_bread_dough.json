@@ -1,0 +1,16 @@
+{
+  "name": "guide.bakeries.entries.create_bread_dough",
+  "icon": "bakeries:bagel_dough",
+  "category": "bakeries:bread_making_process",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "guide.bakeries.descr.create_bread_dough"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:dough_crafting_table"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.baguette",
+  "icon": "bakeries:baguette",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/baguette",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:baguette",
+      "title": "240°c"
+    }
+  ]
+}

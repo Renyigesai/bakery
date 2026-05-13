@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/drink_2",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/drink_cup",
+    "1": "bakeries:block/iced_latte",
+    "particle": "minecraft:block/glass"
+  }
+}

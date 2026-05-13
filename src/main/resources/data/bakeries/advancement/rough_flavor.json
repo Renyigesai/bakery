@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:whole_wheat_flour"
+    },
+    "title": {
+      "translate": "advancements.bakeries.rough_flavor.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.rough_flavor.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:whole_wheat_flour"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:root"
+}

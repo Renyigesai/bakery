@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.egg_tart",
+  "icon": "bakeries:egg_tart",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/egg_tart",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:egg_tart",
+      "title": "180\\u00b0c"
+    }
+  ]
+}

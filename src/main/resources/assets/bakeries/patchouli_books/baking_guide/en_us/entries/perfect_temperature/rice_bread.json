@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.rice_bread",
+  "icon": "bakeries:rice_bread",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/rice_bread",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:rice_bread",
+      "title": "180\u00b0c"
+    }
+  ]
+}

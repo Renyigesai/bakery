@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "milk=3,salt=false": {
+      "model": "bakeries:block/milk_tank"
+    },
+    "milk=2,salt=false": {
+      "model": "bakeries:block/milk_tank_2"
+    },
+    "milk=1,salt=false": {
+      "model": "bakeries:block/milk_tank_3"
+    },
+    "milk=3,salt=true": {
+      "model": "bakeries:block/milk_tank"
+    }
+  }
+}

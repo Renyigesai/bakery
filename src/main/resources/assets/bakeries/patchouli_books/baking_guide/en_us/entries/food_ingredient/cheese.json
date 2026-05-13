@@ -1,0 +1,26 @@
+{
+  "name": "item.bakeries.cheese_cube",
+  "icon": "bakeries:cheese_cube",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:fermentation_tank",
+      "text": "guide.bakeries.descr.cheese"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "block.bakeries.cheese_tank",
+      "multiblock": {
+        "mapping": {
+          "G": "bakeries:cheese_tank"
+        },
+        "pattern":  [
+          ["G"],
+          ["0"]
+        ]
+      }
+
+    }
+  ]
+}

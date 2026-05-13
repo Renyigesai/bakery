@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.salt_croissant",
+  "icon": "bakeries:salt_croissant",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/salt_croissant",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:salt_croissant",
+      "title": "190°c"
+    }
+  ]
+}

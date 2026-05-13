@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/fermentation_tank_water",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "2": "bakeries:block/fermentation_tank",
+    "3": "bakeries:block/water",
+    "particle": "minecraft:block/glass"
+  }
+}

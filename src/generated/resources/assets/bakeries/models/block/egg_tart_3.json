@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/egg_tart_3",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/egg_tart",
+    "particle": "bakeries:block/egg_tart"
+  }
+}

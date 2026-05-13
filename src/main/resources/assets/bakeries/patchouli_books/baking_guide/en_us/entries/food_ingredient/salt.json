@@ -1,0 +1,58 @@
+{
+  "name": "item.bakeries.salt",
+  "icon": "bakeries:salt",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:multiblock",
+      "name": "guide.bakeries.entries.salt",
+      "multiblock": {
+        "mapping": {
+          "S": "minecraft:water",
+          "G": "minecraft:campfire[lit=true]"
+        },
+        "pattern":  [
+          ["S"],
+          ["G"],
+          ["0"]
+        ]
+      },
+      "text": "guide.bakeries.descr.salt",
+      "enable_visualize": "false"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "guide.bakeries.entries.salt_2",
+      "multiblock": {
+        "mapping": {
+          "S": "bakeries:raw_salt_block",
+          "G": "minecraft:campfire[lit=true]"
+        },
+        "pattern":  [
+          ["S"],
+          ["G"],
+          ["0"]
+        ]
+      },
+      "enable_visualize": "false"
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "guide.bakeries.entries.salt_3",
+      "multiblock": {
+        "mapping": {
+          "G": "bakeries:salt_ore"
+        },
+        "pattern":  [
+          ["G"],
+          ["0"]
+        ]
+      },
+      "enable_visualize": "false"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:salt"
+    }
+  ]
+}

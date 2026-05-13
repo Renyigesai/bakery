@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.berry_bread",
+  "icon": "bakeries:berry_bread",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/berry_bread",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:berry_bread",
+      "title": "200°c"
+    }
+  ]
+}

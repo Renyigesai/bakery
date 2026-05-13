@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/fermentation_tank_flour_2",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/fermentation_tank",
+    "1": "bakeries:block/whole_wheat_flour",
+    "particle": "bakeries:block/fermentation_tank"
+  }
+}

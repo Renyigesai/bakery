@@ -1,0 +1,7 @@
+{
+	"parent": "bakeries:custom/cinnamon_roll_1",
+	"textures": {
+		"0": "bakeries:item/cinnamon_roll_dough",
+		"particle": "bakeries:item/cinnamon_roll_dough"
+	}
+}

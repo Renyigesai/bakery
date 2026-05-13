@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/sofa_left",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/sofa_light_gray",
+    "particle": "bakeries:block/sofa_light_gray"
+  }
+}

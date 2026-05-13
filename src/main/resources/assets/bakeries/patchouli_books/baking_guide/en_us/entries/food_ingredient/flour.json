@@ -1,0 +1,17 @@
+{
+  "name": "item.bakeries.flour",
+  "icon": "bakeries:flour",
+  "category": "bakeries:food_ingredient",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bakeries:whole_wheat_flour"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:flour",
+      "title": "item.bakeries.flour",
+      "text": "guide.bakeries.descr.flour"
+    }
+  ]
+}

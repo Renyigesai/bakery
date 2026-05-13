@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/olive_oil_2",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/olive_oil",
+    "particle": "bakeries:block/olive_oil"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "id": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "tag": "c:foods/milk"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:bottle_cream"
+  }
+}
