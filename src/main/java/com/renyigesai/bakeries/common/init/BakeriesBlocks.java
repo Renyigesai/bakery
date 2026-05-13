@@ -164,6 +164,10 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> MATCHA_PARFAIT;
     public static final DeferredBlock<Block> TARO_MILK;
 
+    /**蛋黄酱酱*/
+    public static final DeferredBlock<Block> OLIVE_OIL;
+    public static final DeferredBlock<Block> BEARNAISE;
+
     public static final DeferredBlock<Block> BLENDER;
     public static final DeferredBlock<OvenBlock> OVEN;
     public static final DeferredBlock<DoughCraftingTableBlock> DOUGH_CRAFTING_TABLE;
@@ -220,6 +224,10 @@ public class BakeriesBlocks {
         MATCHA_LATTE = drinkBlock("matcha_latte");
         MATCHA_PARFAIT = drinkBlock("matcha_parfait");
         TARO_MILK = drinkBlock("taro_milk");
+
+        OLIVE_OIL = register("olive_oil",TanPieBlock::new);
+        BEARNAISE = register("bearnaise",TanPieBlock::new);
+
 
         /*作物*/
         TOMATO = REGISTER.register("tomato",() ->
@@ -304,12 +312,6 @@ public class BakeriesBlocks {
     }
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return state -> state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
-    }
-
-    private static void registerSofa(){
-        for (SofaBlock.Color color : SofaBlock.Color.values()){
-            REGISTER.register("sofa" + color.getColorKey(),()-> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS),color));
-        }
     }
 
     public static class Entities {

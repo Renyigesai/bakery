@@ -21,13 +21,17 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
@@ -58,7 +62,7 @@ public class BreadKnifeItem extends DiggerItem {
     public static final Set<ItemAbility> KNIFE_ACTIONS;
 
     public BreadKnifeItem(Tier tier, Properties properties) {
-        super(tier, BlockTags.MINEABLE_WITH_AXE, properties);
+        super(tier, BlockTags.MINEABLE_WITH_AXE, properties.attributes(createAttributes()));
     }
 
     @Override
@@ -191,6 +195,13 @@ public class BreadKnifeItem extends DiggerItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable(UtilTranslatable.setTooltips(BakeriesMod.MODID, "bread_knife")).withStyle(ChatFormatting.BLUE));
+    }
+
+    public static ItemAttributeModifiers createAttributes() {
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE,new AttributeModifier(BASE_ATTACK_DAMAGE_ID,2.5d,AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED,new AttributeModifier(BASE_ATTACK_SPEED_ID,-0.2d,AttributeModifier.Operation.ADD_VALUE),EquipmentSlotGroup.MAINHAND)
+                .build();
     }
 
     static {

@@ -84,11 +84,11 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
     protected void renderTemperatureTooltip(GuiGraphics gui, int mouseX, int mouseY, FermentationBoxBlockEntity box) {
         if (this.minecraft != null && this.minecraft.player != null && this.menu.getCarried().isEmpty()) {
             List<Component> tooltip = new ArrayList<>();
-            tooltip.add(Component.translatable("gui.bakeries.today_temperature",box.getTemperature() + "°c").withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.translatable("container.bakeries.today_temperature",box.getTemperature() + "°c").withStyle(ChatFormatting.BLUE));
             tooltip.add(Component.literal(box.getFermentationMaxTime() + "tick").withStyle(ChatFormatting.WHITE));
             int min = Math.max(box.getPerfectTime() - 200, 430);
-            tooltip.add(Component.translatable("gui.bakeries.suggested_time",min,box.getPerfectTime() + 200).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.add(Component.translatable("gui.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable("container.bakeries.suggested_time",min,box.getPerfectTime() + 200).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable("container.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY));
             gui.renderComponentTooltip(font, tooltip, mouseX,mouseY);
         }
     }

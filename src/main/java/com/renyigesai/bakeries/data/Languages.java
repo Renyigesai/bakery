@@ -57,13 +57,16 @@ public class Languages extends AbstractLanguageProvider {
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "row_item_temperature"), "Min %s °c", "Min %s °c");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven"), "Oven", "烤箱");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.temperature"), "Current temperature", "当前温度");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.rolling"), "Scroll the middle mouse to adjust the temperature.", "滚动鼠标中键调节温度");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "rolling"), "Scroll the middle mouse to adjust the temperature.", "滚动鼠标中键调节温度");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "blender"), "Blender", "搅拌机");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "dough_crafting_table"), "Dough Crafting Table", "面胚制作台");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "cupboard"), "Cupboard", "厨台");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "bread_knife"), "Bread Knife", "面包刀");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "flour_sieve"), "Flour Sieve", "面粉筛");
         add(UtilTranslatable.setContainer(BakeriesMod.MODID, "drink"), "Drink", "饮料");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "suggested_time"), "Today's recommended fermentation time %s-%s", "今日建议发酵时间 %s-%s");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "today_temperature"), "Today`s Temperature%s", "今日气温%s");
+        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "fermentation_box"), "Fermentation Box", "醒发箱");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "bread_knife"), "When using  cut the object pointed by the target.", "使用时切开准星所指的物品");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "wood_counter"), "Use Bowl to Change State", "使用碗右键方块以改变状态");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "flour_sieve_0"), "Sift the item in the main hand while holding it off hand", "拿在副手时过筛主手的物品");
@@ -80,6 +83,7 @@ public class Languages extends AbstractLanguageProvider {
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "shake"), "Right shake", "右键以摇晃");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "drink"), "The Enjoy effect can be enhanced to a %s", "可提升享受效果到 %s 级");
         add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "player_logged_in"), "§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book", "§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
+        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "perfect_fermentation"), "Perfect Fermentation", "完美发酵");
         add("bakeries.book.name","Baking Guide","烘焙教科书");
         add("key.bakeries.bakeries","Bakeries","烘焙坊");
         add("key.bakeries.auxiliary","Auxiliary","辅助按键");

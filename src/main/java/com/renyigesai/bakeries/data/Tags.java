@@ -60,6 +60,8 @@ public class Tags extends AbstractTagProvider {
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","enchantables")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge","cream")), BakeriesItems.FOAMED_CREAM);
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge","flour/wheat")), BakeriesItems.WHOLE_WHEAT_FLOUR);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","tools/enchantables")), BakeriesItems.ETERNAL_BAGUETTE,BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE);
+        addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","tools/tools")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE);
         /*∫Ê±∫∑ª±Í«©*/
         /*‘≠∞Ê±Í«©*/
         addToTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft","enchantable/vanishing")), BakeriesItems.BREAD_KNIFE,BakeriesItems.FLOUR_SIEVE,BakeriesItems.ETERNAL_BAGUETTE);

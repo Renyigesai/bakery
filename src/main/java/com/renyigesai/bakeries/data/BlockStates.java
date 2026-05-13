@@ -73,6 +73,8 @@ public class BlockStates extends BlockStateProvider {
         pileBlock(BakeriesBlocks.EGG_TART);
         pileBlock(BakeriesBlocks.FLAT_CROISSANT);
         pileBlock(BakeriesBlocks.TARO_SALT_YOLK_BREAD);
+        pileBlock(BakeriesBlocks.BEARNAISE);
+        pileBlock(BakeriesBlocks.OLIVE_OIL);
         bagelFilledSauce();
 
         drinkBlock(BakeriesBlocks.ICED_AMERICAN);

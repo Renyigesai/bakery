@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -54,13 +55,6 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             super.setStackInSlot(slot, stack);
         }
     };//9个过滤槽位
-//    private Lazy<IItemHandler> lazyItemHandler = null;
-//    private final Map<Direction, LazyOptional<WrappedHandler>> directionWrappedHandlerMap =
-//            Map.of(
-//                    Direction.DOWN, LazyOptional.of(
-//                            () -> new WrappedHandler(inventory, (i) -> getIntList(i,SLOTS_FOR_DOWN), (i, s) -> false)
-//                    )
-//            );
 
     public int cookingTotalTime;
     public int filtrationIndex;
@@ -445,6 +439,11 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean canTakeItem(Container target, int slot, ItemStack stack) {
+        return slot == OUTPUT_SLOT;
     }
 
     public enum State {

@@ -7,10 +7,12 @@ import com.renyigesai.bakeries.common.blocks.mix_block.MixBlock;
 import com.renyigesai.bakeries.common.blocks.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesDataComponents;
+import com.renyigesai.bakeries.common.init.BakeriesSounds;
 import com.renyigesai.bakeries.common.utils.TextUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,30 +36,23 @@ import java.util.List;
 
 public class PileItem extends BlockItem {
     public final boolean effectTooltip;
-    public int nameColor;
-    public boolean nameColorFlag;
+    private final SoundEvent placeSound;
     public PileItem(Block block, Properties properties, boolean effectTooltip) {
         super(block, properties);
         this.effectTooltip = effectTooltip;
+        this.placeSound = BakeriesSounds.PASTRY_PLACE.get();
     }
 
     public PileItem(Block block, Properties properties) {
         super(block, properties);
         this.effectTooltip = false;
+        this.placeSound = BakeriesSounds.PASTRY_PLACE.get();
     }
 
-    public PileItem(Block block, Properties properties, boolean effectTooltip,int nameColor) {
-        super(block, properties);
-        this.effectTooltip = effectTooltip;
-        this.nameColor = nameColor;
-        this.nameColorFlag = true;
-    }
-
-    public PileItem(Block block, Properties properties,int nameColor) {
-        super(block, properties);
-        this.effectTooltip = false;
-        this.nameColor = nameColor;
-        this.nameColorFlag = true;
+    public PileItem(Block block, PileItem.PileProperties pileProperties) {
+        super(block, pileProperties.itemProperties);
+        this.placeSound = pileProperties.placeSound;
+        this.effectTooltip = pileProperties.effectTooltip;
     }
 
     @Override
@@ -179,6 +175,33 @@ public class PileItem extends BlockItem {
         }
         if (effectTooltip) {
             TextUtils.addFoodEffectTooltip(stack, tooltipComponents::add, 1.0F,context.tickRate());
+        }
+    }
+
+    public static class PileProperties{
+        private SoundEvent placeSound;
+        private boolean effectTooltip;
+        private Item.Properties itemProperties;
+
+        public PileProperties() {
+            this.itemProperties = new Item.Properties();
+            this.placeSound = BakeriesSounds.PASTRY_PLACE.get();
+            this.effectTooltip = false;
+        }
+
+        public PileProperties itemProperties(Item.Properties properties){
+            this.itemProperties = properties;
+            return this;
+        }
+
+        public PileProperties effectTooltip(boolean effectTooltip){
+            this.effectTooltip = effectTooltip;
+            return this;
+        }
+
+        public PileProperties placeSound(SoundEvent placeSound){
+            this.placeSound = placeSound;
+            return this;
         }
     }
 }
