@@ -5,23 +5,28 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     protected final Container container;
     protected final int machineSlotCount;
+    protected final ContainerData data;
 
-    protected AbstractMachineMenu(MenuType<?> type, int syncId, Inventory playerInventory, int machineSlotCount) {
-        this(type, syncId, playerInventory, new SimpleContainer(machineSlotCount), machineSlotCount);
+    protected AbstractMachineMenu(MenuType<?> type, int syncId, Inventory playerInventory, int machineSlotCount, int dataCount) {
+        this(type, syncId, playerInventory, new SimpleContainer(machineSlotCount), machineSlotCount, new SimpleContainerData(dataCount));
     }
 
-    protected AbstractMachineMenu(MenuType<?> type, int syncId, Inventory playerInventory, Container container, int machineSlotCount) {
+    protected AbstractMachineMenu(MenuType<?> type, int syncId, Inventory playerInventory, Container container, int machineSlotCount, ContainerData data) {
         super(type, syncId);
         this.container = container;
         this.machineSlotCount = machineSlotCount;
+        this.data = data;
         container.startOpen(playerInventory.player);
+        this.addDataSlots(data);
     }
 
     @Override
@@ -70,5 +75,17 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
         for (int col = 0; col < 9; col++) {
             this.addSlot(new Slot(playerInventory, col, inventoryStartX + col * 18, hotbarY));
         }
+    }
+
+    public int getProgress() {
+        return data.get(0);
+    }
+
+    public int getMaxProgress() {
+        return data.get(1);
+    }
+
+    public boolean isCrafting() {
+        return getProgress() > 0 && getMaxProgress() > 0;
     }
 }

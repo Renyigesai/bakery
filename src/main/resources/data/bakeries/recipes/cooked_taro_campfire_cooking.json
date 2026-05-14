@@ -6,8 +6,5 @@
   "ingredient": {
     "item": "bakeries:taro"
   },
-  "result": {
-    "item": "bakeries:cooked_taro",
-    "count": 1
-  }
+  "result": "bakeries:cooked_taro"
 }

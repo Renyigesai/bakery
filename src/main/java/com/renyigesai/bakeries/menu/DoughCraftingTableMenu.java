@@ -5,6 +5,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -12,11 +14,15 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
     private static final int SLOT_COUNT = 2;
 
     public DoughCraftingTableMenu(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, null);
+        this(syncId, playerInventory, null, null);
     }
 
     public DoughCraftingTableMenu(int syncId, Inventory playerInventory, Container container) {
-        super(BakeriesMenuTypes.DOUGH_CRAFTING_TABLE, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT);
+        this(syncId, playerInventory, container, null);
+    }
+
+    public DoughCraftingTableMenu(int syncId, Inventory playerInventory, Container container, ContainerData data) {
+        super(BakeriesMenuTypes.DOUGH_CRAFTING_TABLE, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT, data == null ? new SimpleContainerData(2) : data);
         this.addSlot(new Slot(this.container, 0, 20, 33));
         this.addSlot(new Slot(this.container, 1, 143, 33) {
             @Override

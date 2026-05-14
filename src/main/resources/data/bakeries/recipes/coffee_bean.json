@@ -6,8 +6,5 @@
   "ingredient": {
     "item": "bakeries:raw_coffee_bean"
   },
-  "result":{
-    "count": 1,
-    "item": "bakeries:coffee_bean"
-  }
+  "result": "bakeries:coffee_bean"
 }

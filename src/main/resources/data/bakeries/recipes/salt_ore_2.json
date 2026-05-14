@@ -6,8 +6,5 @@
   "ingredient": {
     "item": "bakeries:deepslate_salt_ore"
   },
-  "result": {
-    "item": "bakeries:salt",
-    "count": 1
-  }
+  "result": "bakeries:salt"
 }

@@ -6,8 +6,5 @@
   "ingredient": {
     "item": "minecraft:sugar_cane"
   },
-  "result": {
-    "count": 1,
-    "item": "bakeries:brown_sugar_cube"
-  }
+  "result": "bakeries:brown_sugar_cube"
 }

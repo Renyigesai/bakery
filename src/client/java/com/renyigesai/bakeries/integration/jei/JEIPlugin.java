@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.integration.jei;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import com.renyigesai.bakeries.screen.BlenderScreen;
@@ -34,23 +35,42 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCategories(
                 new OvenRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
                 new BlenderRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new DoughCraftingRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+                new DoughCraftingRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new BreadKnifeRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new FlourSieveRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new DrinkRecipeCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        if (Minecraft.getInstance().level == null) {
+        Minecraft minecraft = Minecraft.getInstance();
+        RecipeManager manager = null;
+        if (minecraft.getConnection() != null) {
+            manager = minecraft.getConnection().getRecipeManager();
+        } else if (minecraft.level != null) {
+            manager = minecraft.level.getRecipeManager();
+        }
+
+        if (manager == null) {
+            BakeriesMod.LOGGER.warn("JEI recipe registration skipped: RecipeManager not available yet.");
             return;
         }
-        RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
 
         List<SimpleMachineRecipe> ovenRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.OVEN);
         List<SimpleMachineRecipe> blenderRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.BLENDER);
         List<SimpleMachineRecipe> doughRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING);
+        List<SimpleMachineRecipe> breadKnifeRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE);
+        List<SimpleMachineRecipe> flourSieveRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.FLOUR_SIEVE);
+        List<SimpleMachineRecipe> drinkRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.DRINK);
         registration.addRecipes(OvenRecipeCategory.TYPE, ovenRecipes);
         registration.addRecipes(BlenderRecipeCategory.TYPE, blenderRecipes);
         registration.addRecipes(DoughCraftingRecipeCategory.TYPE, doughRecipes);
+        registration.addRecipes(BreadKnifeRecipeCategory.TYPE, breadKnifeRecipes);
+        registration.addRecipes(FlourSieveRecipeCategory.TYPE, flourSieveRecipes);
+        registration.addRecipes(DrinkRecipeCategory.TYPE, drinkRecipes);
+        BakeriesMod.LOGGER.info("JEI recipes registered: oven={}, blender={}, dough={}, bread_knife={}, flour_sieve={}, drink={}",
+                ovenRecipes.size(), blenderRecipes.size(), doughRecipes.size(), breadKnifeRecipes.size(), flourSieveRecipes.size(), drinkRecipes.size());
     }
 
     @Override
@@ -58,6 +78,9 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.OVEN), OvenRecipeCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.BLENDER), BlenderRecipeCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.DOUGH_CRAFTING_TABLE), DoughCraftingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BREAD_KNIFE), BreadKnifeRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.FLOUR_SIEVE), FlourSieveRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.DRINK_CUP), DrinkRecipeCategory.TYPE);
     }
 
     @Override

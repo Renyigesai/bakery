@@ -5,6 +5,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -12,11 +14,15 @@ public class BlenderMenu extends AbstractMachineMenu {
     private static final int SLOT_COUNT = 11;
 
     public BlenderMenu(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, null);
+        this(syncId, playerInventory, null, null);
     }
 
     public BlenderMenu(int syncId, Inventory playerInventory, Container container) {
-        super(BakeriesMenuTypes.BLENDER, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT);
+        this(syncId, playerInventory, container, null);
+    }
+
+    public BlenderMenu(int syncId, Inventory playerInventory, Container container, ContainerData data) {
+        super(BakeriesMenuTypes.BLENDER, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT, data == null ? new SimpleContainerData(2) : data);
 
         this.addSlot(new Slot(this.container, 0, 55, 18));
         this.addSlot(new Slot(this.container, 1, 73, 18));

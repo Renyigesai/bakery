@@ -14,7 +14,7 @@ public class FermentationBoxMenu extends AbstractMachineMenu {
     }
 
     public FermentationBoxMenu(int syncId, Inventory playerInventory, Container container) {
-        super(BakeriesMenuTypes.FERMENTATION_BOX, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT);
+        super(BakeriesMenuTypes.FERMENTATION_BOX, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT, new net.minecraft.world.inventory.SimpleContainerData(2));
         this.addSlot(new Slot(this.container, 0, 52, 16) {
             @Override
             public int getMaxStackSize() {
