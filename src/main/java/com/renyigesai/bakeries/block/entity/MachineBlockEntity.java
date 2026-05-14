@@ -32,6 +32,9 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     private static final int OVEN_MAX_PROGRESS = 120;
     private static final int BLENDER_MAX_PROGRESS = 80;
     private static final int DOUGH_MAX_PROGRESS = 60;
+    private static final int BREAD_KNIFE_MAX_PROGRESS = 40;
+    private static final int FLOUR_SIEVE_MAX_PROGRESS = 50;
+    private static final int DRINK_MAX_PROGRESS = 70;
     private final NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
     private int progress;
     private int maxProgress = DEFAULT_MAX_PROGRESS;
@@ -92,6 +95,9 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         if (getBlockState().is(BakeriesBlocks.BLENDER)) return Component.translatable("container.bakeries.blender");
         if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) return Component.translatable("container.bakeries.fermentation_box");
         if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return Component.translatable("container.bakeries.dough_crafting_table");
+        if (getBlockState().is(BakeriesBlocks.CUPBOARD)) return Component.translatable("container.bakeries.bread_knife");
+        if (getBlockState().is(BakeriesBlocks.MIX_BLOCK)) return Component.translatable("container.bakeries.flour_sieve");
+        if (getBlockState().is(BakeriesBlocks.MOKA_POT)) return Component.translatable("container.bakeries.drink");
         return Component.translatable("container.bakeries.machine");
     }
 
@@ -101,6 +107,9 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         if (getBlockState().is(BakeriesBlocks.BLENDER)) return new BlenderMenu(syncId, playerInventory, this, menuData);
         if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) return new FermentationBoxMenu(syncId, playerInventory, this);
         if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
+        if (getBlockState().is(BakeriesBlocks.CUPBOARD)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
+        if (getBlockState().is(BakeriesBlocks.MIX_BLOCK)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
+        if (getBlockState().is(BakeriesBlocks.MOKA_POT)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
         return new OvenMenu(syncId, playerInventory, this, menuData);
     }
 
@@ -116,9 +125,15 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         if (state.is(BakeriesBlocks.OVEN)) {
             machine.tickRecipe(BakeriesRecipeTypes.OVEN, 0, 5, OVEN_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.BLENDER)) {
-            machine.tickRecipe(BakeriesRecipeTypes.BLENDER, 0, 10, BLENDER_MAX_PROGRESS);
+            machine.tickRecipeAcrossInputs(BakeriesRecipeTypes.BLENDER, 0, 8, 10, BLENDER_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) {
             machine.tickRecipe(BakeriesRecipeTypes.DOUGH_CRAFTING, 0, 1, DOUGH_MAX_PROGRESS);
+        } else if (state.is(BakeriesBlocks.CUPBOARD)) {
+            machine.tickRecipe(BakeriesRecipeTypes.BREAD_KNIFE, 0, 1, BREAD_KNIFE_MAX_PROGRESS);
+        } else if (state.is(BakeriesBlocks.MIX_BLOCK)) {
+            machine.tickRecipe(BakeriesRecipeTypes.FLOUR_SIEVE, 0, 1, FLOUR_SIEVE_MAX_PROGRESS);
+        } else if (state.is(BakeriesBlocks.MOKA_POT)) {
+            machine.tickRecipe(BakeriesRecipeTypes.DRINK, 0, 1, DRINK_MAX_PROGRESS);
         }
     }
 
@@ -138,6 +153,26 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return;
         }
         craftOnce(inputSlot, outputSlot, matched);
+        progress = 0;
+        setChanged();
+    }
+
+    private void tickRecipeAcrossInputs(RecipeType<SimpleMachineRecipe> recipeType, int inputStart, int inputEnd, int outputSlot, int craftTime) {
+        if (level == null) {
+            return;
+        }
+        maxProgress = craftTime;
+        Match matched = findRecipeAcrossInputs(recipeType, inputStart, inputEnd, outputSlot);
+        if (matched == null) {
+            resetProgressIfNeeded();
+            return;
+        }
+        progress++;
+        if (progress < maxProgress) {
+            setChanged();
+            return;
+        }
+        craftOnce(matched.inputSlot, outputSlot, matched.recipe);
         progress = 0;
         setChanged();
     }
@@ -193,5 +228,18 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return false;
         }
         return existing.getCount() + crafted.getCount() <= existing.getMaxStackSize();
+    }
+
+    private Match findRecipeAcrossInputs(RecipeType<SimpleMachineRecipe> recipeType, int inputStart, int inputEnd, int outputSlot) {
+        for (int slot = inputStart; slot <= inputEnd; slot++) {
+            SimpleMachineRecipe recipe = findRecipe(recipeType, slot, outputSlot);
+            if (recipe != null) {
+                return new Match(slot, recipe);
+            }
+        }
+        return null;
+    }
+
+    private record Match(int inputSlot, SimpleMachineRecipe recipe) {
     }
 }

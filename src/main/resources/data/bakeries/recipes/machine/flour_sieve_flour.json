@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:flour_sieve",
+  "ingredient": {
+    "item": "minecraft:wheat"
+  },
+  "result": {
+    "item": "bakeries:flour",
+    "count": 1
+  }
+}
