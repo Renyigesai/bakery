@@ -1,11 +1,11 @@
 # 项目排除路径
-/.gradle
-/build
-/.idea
-/run
-/run-data
-/.vscode
-/lombok.config
-/bakeric
-/porting
-/.jdks
+/.gradle/
+/build/
+/.idea/
+/run/
+/run-data/
+/.vscode/
+/lombok.config/
+/bakeric/
+/porting/
+/.jdks/
