@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "aaa",
+    "aca",
     "aba",
     "aaa"
   ],
@@ -12,6 +12,9 @@
     },
     "b": {
       "item": "minecraft:gray_wool"
+    },
+    "c": {
+      "item": "minecraft:white_dye"
     }
   },
   "result": {

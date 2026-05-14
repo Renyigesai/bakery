@@ -138,7 +138,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu>{
                 List<Component> tooltip = new ArrayList<>();
                 tooltip.add(Component.translatable(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.temperature")).withStyle(ChatFormatting.BLUE));
                 tooltip.add(Component.literal(this.getMenu().data.get(0) + "°C").withStyle(ChatFormatting.WHITE));
-                tooltip.add(Component.translatable(UtilTranslatable.setContainer(BakeriesMod.MODID, "rolling")).withStyle(ChatFormatting.DARK_GRAY));
+                tooltip.add(Component.translatable(UtilTranslatable.setContainer(BakeriesMod.MODID, "rolling")).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.ITALIC));
                 gui.renderComponentTooltip(font, tooltip, mouseX, mouseY);
             }
         }

@@ -86,6 +86,8 @@ public class BlockLootTables extends VanillaBlockLoot {
         this.dropSelf(BakeriesBlocks.WOOD_TRAY.get());
         this.dropSelf(BakeriesBlocks.BREAD_RACK.get());
         this.dropSelf(BakeriesBlocks.FERMENTATION_BOX.get());
+
+        this.dropSelf(BakeriesBlocks.GLASS_BREAD_RACK.get());
     }
     private void forAddAllBread(Block... blocks){
         List<Block> blockList = List.of(blocks);
