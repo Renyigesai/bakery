@@ -4,14 +4,6 @@
   "version": "${mod_version}",
   "name": "${mod_name}",
   "description": "${mod_description}",
-  "resourcepacks": [
-    {
-      "id": "b_16x",
-      "name": "Resource Pack b 16x",
-      "description": "Bakeries 16x Texture",
-      "alwaysEnabled": true
-    }
-  ],
   "authors": [
     "${mod_authors}"
   ],
