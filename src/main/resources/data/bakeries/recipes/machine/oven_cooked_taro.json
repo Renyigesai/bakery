@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:taro"
+  },
+  "result": {
+    "item": "bakeries:cooked_taro",
+    "count": 1
+  }
+}

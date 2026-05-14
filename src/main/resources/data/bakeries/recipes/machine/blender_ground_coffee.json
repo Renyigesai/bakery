@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:blender",
+  "ingredient": {
+    "item": "bakeries:coffee_bean"
+  },
+  "result": {
+    "item": "bakeries:ground_coffee",
+    "count": 1
+  }
+}
