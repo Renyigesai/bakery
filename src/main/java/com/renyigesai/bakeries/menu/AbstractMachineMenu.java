@@ -88,4 +88,8 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     public boolean isCrafting() {
         return getProgress() > 0 && getMaxProgress() > 0;
     }
+
+    public Container getContainer() {
+        return container;
+    }
 }

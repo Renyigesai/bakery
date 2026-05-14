@@ -240,6 +240,23 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         return null;
     }
 
+    public void resetMachineProgress() {
+        if (progress != 0) {
+            progress = 0;
+            setChanged();
+        }
+    }
+
+    public void clearOutputSlot(int outputSlot) {
+        if (outputSlot < 0 || outputSlot >= items.size()) {
+            return;
+        }
+        if (!items.get(outputSlot).isEmpty()) {
+            items.set(outputSlot, ItemStack.EMPTY);
+            setChanged();
+        }
+    }
+
     private record Match(int inputSlot, SimpleMachineRecipe recipe) {
     }
 }
