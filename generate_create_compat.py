@@ -34,6 +34,23 @@ def convert_to_create_cutting(data):
         "results": [data.get("result", {})]
     }
 
+def convert_to_create_deploying(data):
+    """Conversion: bakeries:flour_sieve -> create:deploying"""
+    # Deploying requires two ingredients: [0] item on belt, [1] item held by Deployer
+    base_ingredient = data.get("ingredient", {})
+    tool_ingredient = { "item": "bakeries:flour_sieve" }
+
+    return {
+        "neoforge:conditions": [CREATE_CONDITION],
+        "type": "create:deploying",
+        "ingredients": [
+            base_ingredient,
+            tool_ingredient
+        ],
+        "keep_held_item": True, # Prevents the deployer from consuming the sieve
+        "results": [data.get("output", {})]
+    }
+
 def main():
     if not os.path.exists(INPUT_DIR):
         print(f"Input directory not found: {INPUT_DIR}")
@@ -71,6 +88,8 @@ def main():
                 converted_data = convert_to_create_mixing(data)
             elif recipe_type == "bakeries:dough_crafting_table":
                 converted_data = convert_to_create_cutting(data)
+            elif recipe_type == "bakeries:flour_sieve":
+                converted_data = convert_to_create_deploying(data)
 
             # Write to a new file if successfully translated
             if converted_data:
