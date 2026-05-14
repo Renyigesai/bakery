@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.key;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.common.network.Messages;
+import com.renyigesai.bakeries.network.Messages;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

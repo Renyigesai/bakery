@@ -257,6 +257,14 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         }
     }
 
+    public int getOverlayProgress() {
+        return progress;
+    }
+
+    public int getOverlayMaxProgress() {
+        return maxProgress;
+    }
+
     private record Match(int inputSlot, SimpleMachineRecipe recipe) {
     }
 }

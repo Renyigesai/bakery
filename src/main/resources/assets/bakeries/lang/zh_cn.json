@@ -284,4 +284,13 @@
   "tooltips.bakeries.toaster_0": "空手右键以开始烤制",
   "tooltips.bakeries.toaster_1": "%s右键以取出物品",
   "tooltips.bakeries.wood_counter": "使用碗右键方块以改变状态"
+  ,"overlay.bakeries.aux_on": "AUX: 开"
+  ,"overlay.bakeries.progress": "进度: %s%%"
+  ,"overlay.bakeries.oven_hint": "按钮: 重置/清空输出"
+  ,"overlay.bakeries.blender_hint": "JEI: 对机器或物品按U"
+  ,"overlay.bakeries.fermentation_hint": "按钮: 重置进度"
+  ,"overlay.bakeries.dough_hint": "用于处理面胚配方"
+  ,"overlay.bakeries.bread_knife_hint": "面包刀机器"
+  ,"overlay.bakeries.flour_sieve_hint": "面粉筛机器"
+  ,"overlay.bakeries.drink_hint": "饮料机器"
 }

@@ -26,7 +26,11 @@
     ]
   },
   "mixins": [
-    "bakeries.mixins.json"
+    "bakeries.mixins.json",
+    {
+      "config": "bakeries_client.mixins.json",
+      "environment": "client"
+    }
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

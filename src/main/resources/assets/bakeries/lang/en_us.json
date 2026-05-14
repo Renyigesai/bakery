@@ -283,5 +283,14 @@
   "tooltips.bakeries.shake": "Right shake",
   "tooltips.bakeries.toaster_0": "Right-click with your left hand to start baking",
   "tooltips.bakeries.toaster_1": "%s and right-click to retrieve the item",
-  "tooltips.bakeries.wood_counter": "Use Bowl to Change State"
+  "tooltips.bakeries.wood_counter": "Use Bowl to Change State",
+  "overlay.bakeries.aux_on": "AUX: ON",
+  "overlay.bakeries.progress": "Progress: %s%%",
+  "overlay.bakeries.oven_hint": "Buttons: Reset/Clear output",
+  "overlay.bakeries.blender_hint": "JEI: press U on blender/item",
+  "overlay.bakeries.fermentation_hint": "Button: Reset progress",
+  "overlay.bakeries.dough_hint": "Use to process dough recipes",
+  "overlay.bakeries.bread_knife_hint": "Bread knife machine",
+  "overlay.bakeries.flour_sieve_hint": "Flour sieve machine",
+  "overlay.bakeries.drink_hint": "Drink machine"
 }

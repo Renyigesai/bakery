@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.screen;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.common.network.Messages;
+import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.menu.OvenMenu;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
