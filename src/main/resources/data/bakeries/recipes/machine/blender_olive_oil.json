@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:blender",
+  "ingredient": {
+    "item": "bakeries:olive"
+  },
+  "result": {
+    "item": "bakeries:olive_oil",
+    "count": 1
+  }
+}

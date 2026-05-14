@@ -20,6 +20,9 @@
     ],
     "client": [
       "com.renyigesai.bakeries.BakeriesClientMod"
+    ],
+    "jei_mod_plugin": [
+      "com.renyigesai.bakeries.integration.jei.JEIPlugin"
     ]
   },
   "mixins": [

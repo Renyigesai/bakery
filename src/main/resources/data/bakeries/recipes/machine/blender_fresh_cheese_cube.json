@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:blender",
+  "ingredient": {
+    "item": "bakeries:cheese_cube"
+  },
+  "result": {
+    "item": "bakeries:fresh_cheese_cube",
+    "count": 1
+  }
+}
