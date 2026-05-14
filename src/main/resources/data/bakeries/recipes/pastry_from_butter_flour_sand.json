@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:butter_flour_sand"
+    },
+    {
+      "item": "bakeries:bottle_milk"
+    },
+    {
+      "item": "bakeries:bottle_yeast"
+    }
+  ],
+  "result": {
+    "item": "bakeries:pastry",
+    "count": 1
+  }
+}

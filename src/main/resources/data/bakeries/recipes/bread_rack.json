@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "sss",
+    " a ",
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:stick"
+    },
+    "a": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "bakeries:bread_rack",
+    "count": 1
+  }
+}

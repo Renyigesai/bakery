@@ -17,6 +17,9 @@ public class WholeEggItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack hand = player.getItemInHand(usedHand);
+        if (level.isClientSide()) {
+            return InteractionResultHolder.success(hand);
+        }
         if (hand.is(BakeriesItems.WHOLE_EGG)) {
             if (!player.getAbilities().instabuild) {
                 hand.shrink(1);

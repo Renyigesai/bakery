@@ -38,6 +38,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     private final NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
     private int progress;
     private int maxProgress = DEFAULT_MAX_PROGRESS;
+    private int ovenTemperature;
     private final ContainerData menuData = new ContainerData() {
         @Override
         public int get(int index) {
@@ -79,6 +80,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         net.minecraft.world.ContainerHelper.saveAllItems(tag, items);
         tag.putInt("Progress", progress);
         tag.putInt("MaxProgress", maxProgress);
+        tag.putInt("OvenTemperature", ovenTemperature);
     }
 
     @Override
@@ -87,14 +89,15 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         net.minecraft.world.ContainerHelper.loadAllItems(tag, items);
         progress = tag.getInt("Progress");
         maxProgress = tag.contains("MaxProgress") ? tag.getInt("MaxProgress") : DEFAULT_MAX_PROGRESS;
+        ovenTemperature = tag.getInt("OvenTemperature");
     }
 
     @Override
     public Component getDisplayName() {
-        if (getBlockState().is(BakeriesBlocks.OVEN)) return Component.translatable("container.bakeries.oven");
+        if (getBlockState().is(BakeriesBlocks.OVEN)) return Component.translatable("block.bakeries.oven");
         if (getBlockState().is(BakeriesBlocks.BLENDER)) return Component.translatable("container.bakeries.blender");
         if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) return Component.translatable("container.bakeries.fermentation_box");
-        if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return Component.translatable("container.bakeries.dough_crafting_table");
+        if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return Component.translatable("block.bakeries.dough_crafting_table");
         if (getBlockState().is(BakeriesBlocks.CUPBOARD)) return Component.translatable("container.bakeries.bread_knife");
         if (getBlockState().is(BakeriesBlocks.MIX_BLOCK)) return Component.translatable("container.bakeries.flour_sieve");
         if (getBlockState().is(BakeriesBlocks.MOKA_POT)) return Component.translatable("container.bakeries.drink");
@@ -127,7 +130,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         } else if (state.is(BakeriesBlocks.BLENDER)) {
             machine.tickRecipeAcrossInputs(BakeriesRecipeTypes.BLENDER, 0, 8, 10, BLENDER_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) {
-            machine.tickRecipe(BakeriesRecipeTypes.DOUGH_CRAFTING, 0, 1, DOUGH_MAX_PROGRESS);
+            machine.resetProgressIfNeeded();
         } else if (state.is(BakeriesBlocks.CUPBOARD)) {
             machine.tickRecipe(BakeriesRecipeTypes.BREAD_KNIFE, 0, 1, BREAD_KNIFE_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.MIX_BLOCK)) {
@@ -263,6 +266,15 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
     public int getOverlayMaxProgress() {
         return maxProgress;
+    }
+
+    public int getOvenTemperature() {
+        return ovenTemperature;
+    }
+
+    public void addOvenTemperature(int value) {
+        ovenTemperature = Math.max(0, Math.min(500, ovenTemperature + value));
+        setChanged();
     }
 
     private record Match(int inputSlot, SimpleMachineRecipe recipe) {

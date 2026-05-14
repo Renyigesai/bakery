@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "bakeries:bottle_milk"
+    },
+    {
+      "item": "bakeries:bottle_yeast"
+    },
+    {
+      "tag": "c:salt"
+    },
+    {
+      "tag": "c:butter"
+    }
+  ],
+  "result": {
+    "item": "bakeries:sweet_dough",
+    "count": 1
+  }
+}

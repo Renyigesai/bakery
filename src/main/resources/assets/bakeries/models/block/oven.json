@@ -1,5 +1,7 @@
 {
+  "parent": "bakeries:custom/oven",
   "textures": {
-    "particle": "minecraft:block/iron_block"
+    "0": "bakeries:block/oven",
+    "particle": "bakeries:block/oven"
   }
 }

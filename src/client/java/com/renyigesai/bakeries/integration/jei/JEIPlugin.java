@@ -33,6 +33,7 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.network.chat.Component;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
@@ -98,6 +99,14 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(BreadKnifeRecipeCategory.TYPE, breadKnifeRecipes);
         registration.addRecipes(FlourSieveRecipeCategory.TYPE, flourSieveRecipes);
         registration.addRecipes(DrinkRecipeCategory.TYPE, drinkRecipes);
+        registration.addIngredientInfo(new ItemStack(BakeriesItems.BOTTLE_YEAST), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+                Component.translatable("bakeries.bottle_yeast.description"));
+        registration.addIngredientInfo(new ItemStack(BakeriesItems.CHEESE_CUBE), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+                Component.translatable("bakeries.cheese_cube.description"));
+        registration.addIngredientInfo(new ItemStack(BakeriesItems.OLIVE), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+                Component.translatable("bakeries.olive.description"));
+        registration.addIngredientInfo(new ItemStack(BakeriesItems.RAW_COFFEE_BEAN), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+                Component.translatable("bakeries.raw_coffee_bean.description"));
         BakeriesMod.LOGGER.info("[JEI] recipes registered: oven={}, blender={}, dough={}, bread_knife={}, flour_sieve={}, drink={}",
                 ovenRecipes.size(), blenderRecipes.size(), doughRecipes.size(), breadKnifeRecipes.size(), flourSieveRecipes.size(), drinkRecipes.size());
     }

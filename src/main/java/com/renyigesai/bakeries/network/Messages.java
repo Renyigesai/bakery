@@ -48,10 +48,9 @@ public final class Messages {
             return;
         }
         if (buttonId == 0) {
-            machine.resetMachineProgress();
-        } else if (buttonId == 1) {
-            machine.clearOutputSlot(5);
+            return;
         }
+        machine.addOvenTemperature(buttonId);
     }
 
     private static void handleFermentationAction(net.minecraft.server.level.ServerPlayer player, int action) {

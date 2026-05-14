@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:raw_egg_tart"
+  },
+  "result": {
+    "item": "bakeries:egg_tart",
+    "count": 1
+  }
+}

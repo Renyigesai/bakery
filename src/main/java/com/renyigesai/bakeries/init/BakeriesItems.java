@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.items.WholeEggItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
@@ -50,7 +51,7 @@ public final class BakeriesItems {
         CHEESE_CREAM = register("cheese_cream", food(1, 1.0F, true));
         BUTTER_FLOUR_SAND = register("butter_flour_sand");
         HONEY_BUTTER = register("honey_butter");
-        WHOLE_EGG = register("whole_egg");
+        WHOLE_EGG = register("whole_egg", new WholeEggItem());
         RAW_PROTEIN = register("raw_protein");
         RAW_EGG_YOLK = register("raw_egg_yolk");
         SALT_YOLK = register("salt_yolk");
@@ -226,8 +227,12 @@ public final class BakeriesItems {
     }
 
     private static Item register(String id, Item.Properties properties) {
+        return register(id, new Item(properties));
+    }
+
+    private static Item register(String id, Item item) {
         ResourceLocation key = new ResourceLocation(BakeriesMod.MODID, id);
-        return Registry.register(BuiltInRegistries.ITEM, key, new Item(properties));
+        return Registry.register(BuiltInRegistries.ITEM, key, item);
     }
 
     private static Item registerBlock(String id, Block block) {

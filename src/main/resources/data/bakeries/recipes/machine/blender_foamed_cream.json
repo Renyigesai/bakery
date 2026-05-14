@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:blender",
+  "ingredient": {
+    "item": "bakeries:bottle_cream"
+  },
+  "result": {
+    "item": "bakeries:foamed_cream",
+    "count": 2
+  }
+}

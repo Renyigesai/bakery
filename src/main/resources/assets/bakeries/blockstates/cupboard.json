@@ -1,19 +1,8 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "bakeries:block/cupboard",
-      "y": 270
-    },
-    "facing=north": {
-      "model": "bakeries:block/cupboard",
-      "y": 180
-    },
-    "facing=south": {
-      "model": "bakeries:block/cupboard"
-    },
-    "facing=west": {
-      "model": "bakeries:block/cupboard",
-      "y": 90
-    }
+    "facing=north": {"model": "bakeries:block/cupboard"},
+    "facing=south": {"model": "bakeries:block/cupboard", "y": 180},
+    "facing=west": {"model": "bakeries:block/cupboard", "y": 270},
+    "facing=east": {"model": "bakeries:block/cupboard", "y": 90}
   }
 }
