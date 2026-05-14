@@ -1,10 +1,13 @@
 package com.renyigesai.bakeries.integration.ponder;
 
+import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
 import com.renyigesai.bakeries.common.blocks.FermentationTankBlock;
 import com.renyigesai.bakeries.common.blocks.YeastTankBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
+import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
+import com.simibubi.create.foundation.ponder.element.BeltItemElement;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.element.ElementLink;
 import net.createmod.ponder.api.element.EntityElement;
@@ -15,6 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
@@ -33,6 +37,11 @@ public class BakeriesPonderScenes {
         Vec3 topNode = util.vector().topOf(center);
         Vec3 textNode = util.vector().blockSurface(center, Direction.WEST);
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                            ADD FLOUR PHASE                               |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(60)
                 .placeNearTarget()
                 .text("Add 3 scoops of Whole Wheat Flour")
@@ -49,6 +58,11 @@ public class BakeriesPonderScenes {
             scene.idle(40);
         }
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                            ADD WATER PHASE                               |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(40)
                 .placeNearTarget()
                 .text("Add water to begin fermentation")
@@ -61,6 +75,11 @@ public class BakeriesPonderScenes {
         scene.world().modifyBlock(center, state -> state.setValue(FermentationTankBlock.WATER, true), false);
         scene.idle(40);
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                           FERMENTATION PROCESS                           |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(60)
                 .independent(40)
                 .text("When full of flour and water, it will eventually ferment into yeast");
@@ -73,6 +92,11 @@ public class BakeriesPonderScenes {
         scene.world().setBlock(center, BakeriesBlocks.YEAST_TANK.get().defaultBlockState(), true);
         scene.idle(20);
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                           EXTRACT YEAST PHASE                            |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(80)
                 .placeNearTarget()
                 .text("Yeast can be extracted multiple times using glass bottles")
@@ -108,13 +132,18 @@ public class BakeriesPonderScenes {
         scene.showBasePlate();
         scene.idle(10);
 
-        BlockPos center = util.grid().at(1, 1, 1);
+        BlockPos center = util.grid().at(1, 2, 1);
         scene.world().showSection(util.select().layer(1), Direction.DOWN);
         scene.idle(20);
 
         Vec3 topNode = util.vector().topOf(center);
         Vec3 textNode = util.vector().blockSurface(center, Direction.WEST);
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                       MILK AND SALT ADDITION                             |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(60)
                 .placeNearTarget()
                 .text("If you add milk and salt instead...")
@@ -132,6 +161,11 @@ public class BakeriesPonderScenes {
                 .withItem(new ItemStack(BakeriesItems.SALT.get()));
         scene.idle(40);
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                         SOLIDIFY CHEESE PHASE                            |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(60)
                 .independent(40)
                 .text("The mixture will solidify into a batch of cheese");
@@ -144,6 +178,11 @@ public class BakeriesPonderScenes {
         scene.world().setBlock(center, BakeriesBlocks.CHEESE_TANK.get().defaultBlockState(), true);
         scene.idle(20);
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                        COLLECT FINISHED CHEESE                           |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(60)
                 .placeNearTarget()
                 .text("Simply use an empty hand to collect the finished cheese")
@@ -159,9 +198,17 @@ public class BakeriesPonderScenes {
         scene.markAsFinished();
     }
 
-    public static void autoBakingScene(SceneBuilder scene, SceneBuildingUtil util) {
+    public static void autoBakingScene(SceneBuilder builder, SceneBuildingUtil util) {
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                        CREATE SCENE INITIALIZATION                       |
+         * +--------------------------------------------------------------------------+
+         */
+        com.simibubi.create.foundation.ponder.CreateSceneBuilder scene = new com.simibubi.create.foundation.ponder.CreateSceneBuilder(builder);
+
         scene.title("auto_baking_line", "Automated Baking Production Line");
-        scene.configureBasePlate(0, 0, 7);
+        scene.configureBasePlate(0, -3, 7);
 
         scene.rotateCameraY(90);
         scene.showBasePlate();
@@ -180,6 +227,11 @@ public class BakeriesPonderScenes {
         Vec3 dropPos = util.vector().centerOf(basinPos.above(2));
         Vec3 downwardMotion = new Vec3(0, -0.15, 0);
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                          INGREDIENTS INSERTION                           |
+         * +--------------------------------------------------------------------------+
+         */
         scene.overlay().showText(50)
                 .placeNearTarget()
                 .text("Drop ingredients directly into the Basin")
@@ -215,6 +267,11 @@ public class BakeriesPonderScenes {
             }
         });
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                          MIXING PROCESSING STAGE                         |
+         * +--------------------------------------------------------------------------+
+         */
         BlockPos mixerPos = util.grid().at(6, 4, 2);
         scene.world().modifyBlockEntityNBT(util.select().position(mixerPos), net.minecraft.world.level.block.entity.BlockEntity.class, nbt -> {
             nbt.putBoolean("Running", true);
@@ -224,7 +281,7 @@ public class BakeriesPonderScenes {
                 .independent(40)
                 .text("The Mechanical Mixer processes the mixture using blender recipes");
 
-        scene.rotateCameraY(-90);
+        scene.rotateCameraY(-60);
         scene.idle(80);
 
         scene.world().modifyBlockEntity(basinPos, net.minecraft.world.level.block.entity.BlockEntity.class, be -> {
@@ -239,55 +296,65 @@ public class BakeriesPonderScenes {
             }
         });
 
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                      INCLINED BELT & FUNNEL FILTER                       |
+         * +--------------------------------------------------------------------------+
+         */
         scene.addKeyframe();
-        BlockPos beltStart = util.grid().at(5, 2, 1);
-        Vec3 outPos = util.vector().centerOf(beltStart).add(0, 0.2, 0);
+        BlockPos inclineStart = util.grid().at(6, 1, 1);
+        BlockPos funnelBeltPos = util.grid().at(5, 2, 1);
+        BlockPos brassFunnel = util.grid().at(5, 3, 1);
+
+        scene.world().createItemOnBelt(inclineStart, Direction.SOUTH, new ItemStack(Items.GLASS_BOTTLE));
 
         scene.overlay().showText(60)
                 .placeNearTarget()
                 .text("The Brass Funnel filters out byproducts like empty bottles")
-                .pointAt(outPos);
+                .pointAt(util.vector().topOf(brassFunnel));
 
-        ElementLink<EntityElement> movingDough = scene.world().createItemEntity(
-                util.vector().centerOf(basinPos),
-                new Vec3(-0.1, 0, -0.1),
-                new ItemStack(BakeriesItems.SALTED_DOUGH.get())
-        );
-        scene.idle(80);
+        scene.idle(15);
 
-        scene.world().modifyEntity(movingDough, e -> e.setPos(util.vector().centerOf(4, 2, 1).add(0, 0.15, 0)));
-        scene.idle(10);
+        scene.world().removeItemsFromBelt(funnelBeltPos);
+        scene.world().flapFunnel(brassFunnel, false);
 
+        ElementLink<com.simibubi.create.foundation.ponder.element.BeltItemElement> movingDough =
+                scene.world().createItemOnBelt(inclineStart, Direction.SOUTH, new ItemStack(BakeriesItems.SALTED_DOUGH.get()));
+
+        scene.idle(15);
+        scene.idle(25);
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                          MECHANICAL SAW CUTTING                          |
+         * +--------------------------------------------------------------------------+
+         */
         BlockPos sawPos = util.grid().at(4, 2, 1);
-        scene.world().modifyBlockEntityNBT(util.select().position(sawPos), BlockEntity.class, nbt -> {
-            nbt.putBoolean("Running", true);
-        });
+
+        scene.world().stallBeltItem(movingDough, true);
 
         scene.overlay().showText(40)
                 .placeNearTarget()
                 .text("The Mechanical Saw cuts the dough into embryos")
                 .pointAt(util.vector().topOf(sawPos));
 
-        scene.idle(60);
+        scene.idle(20);
 
-        scene.world().modifyEntity(movingDough, e -> e.discard());
-        ElementLink<EntityElement> shapedDough = scene.world().createItemEntity(
-                util.vector().centerOf(4, 2, 1).add(0, 0.15, 0),
-                Vec3.ZERO,
-                new ItemStack(BakeriesItems.COUNTRY_BREAD_DOUGH.get())
-        );
-
-        scene.world().modifyBlockEntityNBT(util.select().position(sawPos), BlockEntity.class, nbt -> {
-            nbt.putBoolean("Running", false);
-        });
+        scene.world().removeItemsFromBelt(sawPos);
+        scene.world().createItemOnBelt(sawPos, Direction.UP, new ItemStack(BakeriesItems.COUNTRY_BREAD_DOUGH.get()));
 
         scene.addKeyframe();
-        scene.world().modifyEntity(shapedDough, e -> e.setPos(util.vector().centerOf(2, 2, 1).add(0, 0.15, 0)));
-        scene.idle(10);
+        scene.idle(40);
 
-        scene.world().modifyEntity(shapedDough, e -> e.discard());
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                            OVEN BAKING STAGE                             |
+         * +--------------------------------------------------------------------------+
+         */
+        BlockPos beltEnd = util.grid().at(2, 2, 1);
+        scene.world().removeItemsFromBelt(beltEnd);
+
         BlockPos ovenPos = util.grid().at(1, 3, 1);
-
         scene.world().modifyBlock(ovenPos, state -> state.setValue(OvenBlock.LIT, true), false);
 
         scene.overlay().showText(60)
@@ -305,6 +372,131 @@ public class BakeriesPonderScenes {
         scene.effects().indicateSuccess(ovenPos);
 
         scene.idle(75);
+        scene.markAsFinished();
+    }
+
+    public static void breadKnifeScene(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.addKeyframe();
+        scene.title("bread_knife", "Using the Bread Knife");
+        scene.configureBasePlate(0, 0, 3);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos center = util.grid().at(1, 1, 1);
+        Vec3 floorNode = util.vector().topOf(center.below());
+        Vec3 controlOffset = new Vec3(0, 0.6, 0);
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                        PART 1: SLICING AN EGG                            |
+         * +--------------------------------------------------------------------------+
+         */
+        scene.overlay().showText(50)
+                .placeNearTarget()
+                .text("Use a Bread Knife to process certain items in world")
+                .pointAt(floorNode);
+
+        ElementLink<EntityElement> egg = scene.world().createItemEntity(floorNode, Vec3.ZERO, new ItemStack(Items.EGG));
+        scene.idle(20);
+
+        scene.overlay().showControls(floorNode.add(controlOffset), Pointing.DOWN, 30)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        scene.idle(15);
+
+        scene.world().modifyEntity(egg, Entity::discard);
+        ElementLink<EntityElement> wholeEgg = scene.world().createItemEntity(floorNode, Vec3.ZERO, new ItemStack(BakeriesItems.WHOLE_EGG.get()));
+        scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
+        scene.idle(20);
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                 PART 2: SEPARATING YOLK AND PROTEIN                      |
+         * +--------------------------------------------------------------------------+
+         */
+        scene.overlay().showText(50)
+                .placeNearTarget()
+                .text("Slice the whole egg to separate yolk and egg white")
+                .pointAt(floorNode);
+
+        scene.overlay().showControls(floorNode.add(controlOffset), Pointing.DOWN, 30)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        scene.idle(15);
+
+        scene.world().modifyEntity(wholeEgg, Entity::discard);
+        ElementLink<EntityElement> yolk = scene.world().createItemEntity(floorNode.add(0.1, 0, 0.1), Vec3.ZERO, new ItemStack(BakeriesItems.RAW_EGG_YOLK.get()));
+        ElementLink<EntityElement> white = scene.world().createItemEntity(floorNode.add(-0.1, 0, -0.1), Vec3.ZERO, new ItemStack(BakeriesItems.RAW_PROTEIN.get()));
+        scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
+        scene.idle(30);
+
+        scene.world().modifyEntity(yolk, Entity::discard);
+        scene.world().modifyEntity(white, Entity::discard);
+        scene.idle(10);
+
+        scene.addKeyframe();
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                      PART 3: SLICING TOAST BLOCK                         |
+         * +--------------------------------------------------------------------------+
+         */
+        scene.world().showSection(util.select().layer(1), Direction.DOWN);
+        scene.world().setBlock(center, BakeriesBlocks.TOAST.get().defaultBlockState(), true);
+        scene.idle(20);
+
+        Vec3 toastTop = util.vector().topOf(center);
+        scene.overlay().showText(60)
+                .placeNearTarget()
+                .text("It can also slice specific blocks like Toast")
+                .pointAt(toastTop);
+
+        scene.overlay().showControls(toastTop.add(controlOffset), Pointing.DOWN, 10)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        scene.idle(15);
+
+        scene.world().modifyBlock(center, state -> state.setValue(AKnifeCutBlock.SLICE, 2), false);
+
+        scene.world().createItemEntity(toastTop, new Vec3(0, 0.15, 0.1), new ItemStack(BakeriesItems.SLICED_TOAST.get()));
+        scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
+        scene.idle(10);
+
+        scene.overlay().showControls(toastTop.add(controlOffset), Pointing.DOWN, 10)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        scene.idle(15);
+
+        scene.world().modifyBlock(center, state -> state.setValue(AKnifeCutBlock.SLICE, 3), false);
+
+        scene.world().createItemEntity(toastTop, new Vec3(0, 0.15, 0.1), new ItemStack(BakeriesItems.SLICED_TOAST.get()));
+        scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
+        scene.idle(10);
+
+        scene.overlay().showControls(toastTop.add(controlOffset), Pointing.DOWN, 10)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        scene.idle(15);
+
+        scene.world().modifyBlock(center, state -> state.setValue(AKnifeCutBlock.SLICE, 4), false);
+
+        scene.world().createItemEntity(toastTop, new Vec3(0, 0.15, 0.1), new ItemStack(BakeriesItems.SLICED_TOAST.get()));
+        scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
+        scene.idle(10);
+
+        scene.overlay().showControls(toastTop.add(controlOffset), Pointing.DOWN, 10)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        scene.idle(15);
+
+        scene.world().setBlock(center, Blocks.AIR.defaultBlockState(), false);
+
+        scene.world().createItemEntity(toastTop, new Vec3(0, 0.15, 0.1), new ItemStack(BakeriesItems.SLICED_TOAST.get()));
+        scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
+        scene.idle(10);
+
+        scene.idle(20);
+
         scene.markAsFinished();
     }
 }
