@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "liquid_storage_pot_pot_flour_3",
+	"parent": "bakeries:custom/fermentation_tank_flour_3",
 	"textures": {
 		"0": "bakeries:block/fermentation_tank",
 		"1": "bakeries:block/whole_wheat_flour",
