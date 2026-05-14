@@ -56,7 +56,6 @@ public class BakeriesFoodProperties {
 
     /*模组联动食物属性*/
     public static final FoodProperties RICE_BREAD;
-    public static final FoodProperties RICE_BREAD_FARMERSDELIGHT;
 
     public static final FoodProperties ORANGE_AMERICAN;
 
@@ -192,10 +191,6 @@ public class BakeriesFoodProperties {
 
         /*模组联动食物属性*/
         RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationModifier(0.4f)
-                .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY,600),1f)
-                .build();
-        RICE_BREAD_FARMERSDELIGHT = new FoodProperties.Builder().nutrition(12).saturationModifier(0.4f)
-                .effect(()-> new MobEffectInstance(ModEffects.COMFORT,6000),1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY,600),1f)
                 .build();
 

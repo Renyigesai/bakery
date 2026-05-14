@@ -441,6 +441,9 @@ public class BakeriesItems {
     @ItemData(zhCn = "米面包面胚",model = ItemData.ModelType.CUSTOM,group = COMPAT_TAB)
     public static final DeferredItem<Item> RICE_BREAD_DOUGH;
 
+    @ItemData(zhCn = "鲑鱼三明治",model = ItemData.ModelType.BREAD,group = COMPAT_TAB)
+    public static final DeferredItem<Item> SALMON_SANDWICH;
+
 
 
 
@@ -586,6 +589,8 @@ public class BakeriesItems {
         /*联动物品*/
         RICE_BREAD = foodBreadBlock(BakeriesBlocks.RICE_BREAD,BakeriesRarity.getAdvanced(),BakeriesFoodProperties.RICE_BREAD,true);
         RICE_BREAD_DOUGH = rawItem("rice_bread_dough",155);
+
+        SALMON_SANDWICH = foodBreadBlock(BakeriesBlocks.SALMON_SANDWICH,BakeriesRarity.getAdvanced(),BakeriesFoodProperties.RICE_BREAD,true);
     }
 
     private static DeferredItem<Item> drinkItem(Holder<Block> block,FoodProperties foodProperties,int upEffect){

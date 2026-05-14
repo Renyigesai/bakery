@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -70,49 +71,43 @@ public class PileItem extends BlockItem {
         return InteractionResult.FAIL;
     }
 
-    public InteractionResult pileUseOn(UseOnContext pContext){
+    public InteractionResult pileUseOn(UseOnContext pContext) {
         Player player = pContext.getPlayer();
-        InteractionResult result = this.use(pContext.getLevel(), player, pContext.getHand()).getResult();
+        if (player == null) return InteractionResult.PASS;
+        Level level = pContext.getLevel();
+        Block thisBlock = this.getBlock();
+        BlockPos pos = pContext.getClickedPos();
+        BlockState state = level.getBlockState(pos);
         if (BakeriesMod.onAuxiliaryKey(player) && this.isExtra(pContext)) {
-            Level level = pContext.getLevel();
-            Block thisBlock = this.getBlock();
-            BlockPos pos = pContext.getClickedPos();
-            BlockState state = level.getBlockState(pos);
-            if (state.is(BakeriesBlocks.MIX_BLOCK.get())){
-                return addMixBlock(level,pos,thisBlock,player,pContext);
+            if (state.is(BakeriesBlocks.MIX_BLOCK.get())) {
+                addMixBlock(level, pos, thisBlock, player, pContext);
+                return InteractionResult.SUCCESS;
             }
-            if (!state.is(thisBlock)) {
-                    if (state.getBlock() instanceof AbstractPileBlock pileBlock &&  state.getValue(pileBlock.getPileProperty()) < pileBlock.getMaxPile() && thisBlock instanceof AbstractPileBlock) {
-                        return placeMixBlock(state,(AbstractPileBlock) thisBlock,pileBlock,level,pos,player,pContext);
-                    } else {
-                        this.place(new BlockPlaceContext(pContext));
-                        try {
-                            level.playSound(null, pos, ((AbstractPileBlock) thisBlock).getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
-                        }catch (ClassCastException e){
-                            BakeriesMod.LOGGER.error("PileItem pileUseOn",e);
-                        }
-                        return InteractionResult.SUCCESS;
-                    }
+            if (!state.is(thisBlock) &&
+                    state.getBlock() instanceof AbstractPileBlock pileBlock &&
+                    state.getValue(pileBlock.getPileProperty()) < pileBlock.getMaxPile() &&
+                    thisBlock instanceof AbstractPileBlock) {
+                placeMixBlock(state, thisBlock, level, pos, player, pContext);
+                return InteractionResult.SUCCESS;
             }
-            AbstractPileBlock pileBlock = (AbstractPileBlock) thisBlock;
-            Property<Integer> pileProperty = pileBlock.getPileProperty();
             if (state.is(thisBlock)) {
-                if (state.hasProperty(pileProperty)){
-                    int value = state.getValue(pileProperty);
-                    if (value < pileBlock.getMaxPile()) {
-                        level.setBlock(pos, state.setValue(pileProperty, value + 1), 3);
-                        level.playSound(null, pos, pileBlock.getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
-                        if (!player.getAbilities().instabuild) {
-                            pContext.getItemInHand().shrink(1);
-                        }
-                        result = InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
-                    }
-                }
+                return addPileBlock(state, thisBlock, level, pos, player, pContext);
             }
+            BlockPlaceContext placeContext = new BlockPlaceContext(pContext);
+            InteractionResult placeResult = this.place(placeContext);
+            if (placeResult.consumesAction()) {
+                player.awardStat(Stats.ITEM_USED.get(this));
+                level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
         }
-        return result;
+        return InteractionResult.PASS;
     }
 
+    public SoundEvent getPlaceSound(){
+        return placeSound;
+    }
 
     public boolean isExtra(UseOnContext pContext) {
         return true;
@@ -139,32 +134,54 @@ public class PileItem extends BlockItem {
                     level.playSound(null, pos, ((AbstractPileBlock)thisBlock).getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
                 }
             }
-            return InteractionResult.sidedSuccess(flag);
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
     }
 
-    private void fillMixBlock(BlockState state,AbstractPileBlock block,AbstractPileBlock pileBlock,Level level,BlockPos pos){
+    private void fillMixBlock(BlockState state, Block block, Level level, BlockPos pos) {
+        AbstractPileBlock pileBlock = (AbstractPileBlock) state.getBlock();
         int integerProperty = state.getValue(pileBlock.getPileProperty());
-        Item item = state.getBlock().asItem();
-        level.setBlock(pos, BakeriesBlocks.MIX_BLOCK.get().defaultBlockState().setValue(MixBlock.FACING,state.getValue(BreadBlock.FACING)),3);
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof MixBlockEntity mix){
-            for (int i = 0; i < integerProperty; i++) {
-                mix.addItem(new ItemStack(item));
-            }
-            mix.addItem(new ItemStack(block.asItem()));
-            mix.updateBlock();
+        level.setBlock(pos, BakeriesBlocks.MIX_BLOCK.get().defaultBlockState().setValue(MixBlock.FACING, state.getValue(AbstractPileBlock.FACING)), 3);
+        MixBlockEntity mix = (MixBlockEntity) level.getBlockEntity(pos);
+        if (mix == null){
+            return;
         }
+        Item item = state.getBlock().asItem();
+        for (int i = 0; i < integerProperty; i++) {
+            if (!mix.addItem(new ItemStack(item))) {
+
+            }
+        }
+        if (!mix.addItem(new ItemStack(block.asItem()))) {
+
+        }
+        mix.updateBlock();
     }
 
-    public InteractionResult placeMixBlock(BlockState state,AbstractPileBlock thisBlock,AbstractPileBlock pileBlock,Level level,BlockPos pos,Player player,UseOnContext pContext){
-        fillMixBlock(state, thisBlock,pileBlock ,level, pos);
+    public InteractionResult placeMixBlock(BlockState state,Block thisBlock,Level level,BlockPos pos,Player player,UseOnContext pContext){
+        fillMixBlock(state, thisBlock, level, pos);
         if (!player.getAbilities().instabuild) {
             pContext.getItemInHand().shrink(1);
         }
-        level.playSound(null, pos, pileBlock.getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
+        level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
         return InteractionResult.SUCCESS;
+    }
+
+    public InteractionResult addPileBlock(BlockState state, Block thisBlock, Level level, BlockPos pos, Player player, UseOnContext pContext) {
+        if (state.hasProperty(((AbstractPileBlock)state.getBlock()).getPileProperty())) {
+            int value = state.getValue(((AbstractPileBlock)state.getBlock()).getPileProperty());
+            AbstractPileBlock newBlock = (AbstractPileBlock) thisBlock;
+            if (value < newBlock.getMaxPile()) {
+                level.setBlock(pos, state.setValue(((AbstractPileBlock)state.getBlock()).getPileProperty(), value + 1), 3);
+                level.playSound(null, pos, getPlaceSound(state,level,pos,player), SoundSource.PLAYERS, 0.8F, 0.8F);
+                if (!player.getAbilities().instabuild) {
+                    pContext.getItemInHand().shrink(1);
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.PASS;
     }
 
     @Override

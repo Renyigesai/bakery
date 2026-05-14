@@ -190,20 +190,44 @@ public class BakeriesEvents {
         event.addPackFinders(ResourceLocation.fromNamespaceAndPath("bakeries","resourcepacks/b_16x"),PackType.CLIENT_RESOURCES,Component.literal("Bakeries 16x Texture"),PackSource.DEFAULT,false,Pack.Position.TOP);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onUseBlock(PlayerInteractEvent.RightClickBlock event){
-        Player entity = event.getEntity();
-        InteractionHand hand = entity.getMainHandItem().getItem() instanceof PileItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-        ItemStack handItem = entity.getItemInHand(hand);
-        if (BakeriesMod.onAuxiliaryKey(entity)){
-            if (handItem.getItem() instanceof PileItem pileItem){
-                event.setCanceled(true);
-                event.setCancellationResult(InteractionResult.SUCCESS);
-                if (entity instanceof ServerPlayer serverPlayer){
-                    pileItem.pileUseOn(new UseOnContext(serverPlayer,hand,event.getHitVec()));
-                    entity.swing(hand);
-                }
-            }
+//    @SubscribeEvent(priority = EventPriority.HIGHEST)
+//    public static void onUseBlock(PlayerInteractEvent.RightClickBlock event){
+//        Player entity = event.getEntity();
+//        InteractionHand hand = entity.getMainHandItem().getItem() instanceof PileItem ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+//        ItemStack handItem = entity.getItemInHand(hand);
+//        if (BakeriesMod.onAuxiliaryKey(entity)){
+//            if (handItem.getItem() instanceof PileItem pileItem){
+//                event.setCanceled(true);
+//                event.setCancellationResult(InteractionResult.SUCCESS);
+//                if (entity instanceof ServerPlayer serverPlayer){
+//                    pileItem.pileUseOn(new UseOnContext(serverPlayer,hand,event.getHitVec()));
+//                    entity.swing(hand);
+//                }
+//            }
+//        }
+//    }
+
+    @SubscribeEvent
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        ItemStack handItem = event.getItemStack();
+        InteractionHand hand = event.getHand();
+        if (level.isClientSide()){
+            return;
+        }
+        if (!BakeriesMod.onAuxiliaryKey(player)){
+            return;
+        }
+        if (!(handItem.getItem() instanceof PileItem pileItem)){
+            return;
+        }
+        event.setCanceled(true);
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        UseOnContext context = new UseOnContext(level, player, hand, handItem, event.getHitVec());
+        InteractionResult result = pileItem.pileUseOn(context);
+        if (result == InteractionResult.PASS) {
+
         }
     }
 

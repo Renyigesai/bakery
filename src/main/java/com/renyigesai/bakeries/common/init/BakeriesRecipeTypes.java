@@ -59,5 +59,6 @@ public class BakeriesRecipeTypes {
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<BlenderRecipe>> BLENDER = mezz.jei.api.recipe.RecipeType.createFromVanilla(BlenderRecipe.Type.INSTANCE);
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<FlourSieveRecipe>> FLOUR_SIEVE = mezz.jei.api.recipe.RecipeType.createFromVanilla(FlourSieveRecipe.Type.INSTANCE);
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<DrinkRecipe>> DRINK = mezz.jei.api.recipe.RecipeType.createFromVanilla(DrinkRecipe.Type.INSTANCE);
+        public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<FermentationBoxRecipe>> FERMENTATION_BOX = mezz.jei.api.recipe.RecipeType.createFromVanilla(FERMENTATION_BOX_TYPE.get());
     }
 }
