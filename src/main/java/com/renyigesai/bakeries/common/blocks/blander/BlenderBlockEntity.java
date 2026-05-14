@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
@@ -77,6 +78,8 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         }
     };//9个过滤槽位
 
+    private IItemHandler capabilitieHandler = new OutputItemHandler(inventory,filtrationinventory,OUTPUT_SLOT);
+
     public int cookingTotalTime;
     public int filtrationIndex;
 
@@ -97,6 +100,10 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
 
     public ItemStackHandler getFiltrationinventory() {
         return this.filtrationinventory;
+    }
+
+    public IItemHandler getCapabilitieHandler() {
+        return capabilitieHandler;
     }
 
     @Override
@@ -462,6 +469,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         return false;
     }
 
+    // FIX: Restrict vanilla hoppers from inserting full stacks into the blender.
+    @Override
+    public int getMaxStackSize() {
+        return 1;
+    }
+
     @Override
     public boolean canTakeItem(Container target, int slot, ItemStack stack) {
         return slot == OUTPUT_SLOT;
@@ -474,10 +487,70 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         CLOSE,
     }
 
-    // FIX: Restrict vanilla hoppers from inserting full stacks into the blender.
-    @Override
-    public int getMaxStackSize() {
-        return 1;
-    }
+
+    private record OutputItemHandler(IItemHandler delegate, IItemHandler filtrationinventory,
+                                     int outputSlot) implements IItemHandler {
+
+        @Override
+            public int getSlots() {
+                return delegate.getSlots();
+            }
+
+            @Override
+            public ItemStack getStackInSlot(int slot) {
+                return delegate.getStackInSlot(slot);
+            }
+
+        @Override
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (slot == OUTPUT_SLOT){
+                return stack;
+            }
+            if (slot <= 9) {
+                int targetSlot = -1;
+                for (int i = 0; i <= 9; i++) {
+                    ItemStack filter = filtrationinventory.getStackInSlot(i);
+                    if (!filter.isEmpty() && stack.is(filter.getItem()) && delegate.getStackInSlot(i).isEmpty()) {
+                        targetSlot = i;
+                        break;
+                    }
+                }
+                if (targetSlot == -1) {
+                    return stack;
+                }
+                return delegate.insertItem(targetSlot, stack, simulate);
+            }
+
+            return stack;
+        }
+
+            @Override
+            public ItemStack extractItem(int slot, int amount, boolean simulate) {
+                if (slot != outputSlot) {
+                    return ItemStack.EMPTY;
+                }
+                return delegate.extractItem(slot, amount, simulate);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return delegate.getSlotLimit(slot);
+            }
+
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                if (slot <= 9) {
+                    ItemStack filter = filtrationinventory.getStackInSlot(slot);
+                    if (filter.isEmpty()) {
+                        return false;
+                    }
+                    if (!stack.is(filter.getItem())) {
+                        return false;
+                    }
+                    return getStackInSlot(slot).isEmpty();
+                }
+                return false;
+            }
+        }
 
 }

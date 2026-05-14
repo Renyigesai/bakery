@@ -232,7 +232,7 @@ public class BakeriesEvents {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
-                (blockEntity, side) -> blockEntity.getInventory()
+                (blockEntity, side) -> blockEntity.getCapabilitieHandler()
         );
 
         // Register Toaster
@@ -240,6 +240,12 @@ public class BakeriesEvents {
                 Capabilities.ItemHandler.BLOCK,
                 BakeriesBlocks.Entities.TOASTER_ENTITY.get(),
                 (blockEntity, side) -> blockEntity.getItems()
+        );
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                BakeriesBlocks.Entities.FERMENTATION_BOX_ENTITY.get(),
+                (blockEntity, side) -> blockEntity.getHandlerItems()
         );
     }
 }
