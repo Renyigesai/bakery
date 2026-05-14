@@ -42,6 +42,13 @@ public class BakeriesPonderPlugin implements PonderPlugin {
                 BakeriesPonderScenes::autoBakingScene,
                 BAKERIES_TAG
         );
+        HELPER.forComponents(
+                BakeriesItems.BREAD_KNIFE
+        ).addStoryBoard(
+                "bread_knife",
+                BakeriesPonderScenes::breadKnifeScene,
+                BAKERIES_TAG
+        );
     }
 
     @Override
@@ -58,7 +65,9 @@ public class BakeriesPonderPlugin implements PonderPlugin {
                 .add(BakeriesBlocks.FERMENTATION_TANK)
                 .add(BakeriesBlocks.YEAST_TANK)
                 .add(BakeriesBlocks.CHEESE_TANK)
-                .add(BakeriesBlocks.OVEN);
+                .add(BakeriesBlocks.OVEN)
+                .add(BakeriesItems.BREAD_KNIFE)
+        ;
     }
 
 }

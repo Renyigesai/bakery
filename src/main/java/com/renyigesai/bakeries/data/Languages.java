@@ -358,5 +358,19 @@ public class Languages extends AbstractLanguageProvider {
         add("bakeries.ponder.auto_baking_line.text_5",
                 "Once the oven temperature is set, baking begins automatically",
                 "设定好烤箱温度，面包就会自动开烤");
+
+        // bread_knife
+        add("bakeries.ponder.bread_knife.header",
+                "Using the Bread Knife",
+                "使用面包刀");
+        add("bakeries.ponder.bread_knife.text_1",
+                "Use a Bread Knife to process certain items in world",
+                "使用面包刀可以处理世界中的特定物品");
+        add("bakeries.ponder.bread_knife.text_2",
+                "Slice the whole egg to separate yolk and egg white",
+                "切开全蛋，将其分离为蛋黄和蛋清");
+        add("bakeries.ponder.bread_knife.text_3",
+                "It can also slice specific blocks like Toast",
+                "它还可以切开特定的方块，比如吐司");
     }
 }
