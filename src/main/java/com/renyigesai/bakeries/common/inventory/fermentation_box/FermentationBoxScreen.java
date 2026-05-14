@@ -88,7 +88,7 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
             tooltip.add(Component.literal(box.getFermentationMaxTime() + "tick").withStyle(ChatFormatting.WHITE));
             int min = Math.max(box.getPerfectTime() - 200, 430);
             tooltip.add(Component.translatable("container.bakeries.suggested_time",min,box.getPerfectTime() + 200).withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.add(Component.translatable("container.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable("container.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.ITALIC));
             gui.renderComponentTooltip(font, tooltip, mouseX,mouseY);
         }
     }
