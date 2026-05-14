@@ -6,6 +6,7 @@ import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesDataComponents;
 import com.renyigesai.bakeries.common.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.common.inventory.fermentation_box.FermentationBoxMenu;
+import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.common.recipe.FermentationBoxRecipe;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -29,8 +30,11 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
@@ -52,6 +56,7 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
     public float progressOld;
     public State state = State.CLOSE;
 
+    private final RecipeManager.CachedCheck<SingleRecipeInput, FermentationBoxRecipe> CHECK = RecipeManager.createCheck(BakeriesRecipeTypes.FERMENTATION_BOX_TYPE.get());
     public FermentationBoxBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.Entities.FERMENTATION_BOX_ENTITY.get(), pPos, pBlockState);
         this.fermentationTime = new int[6];
@@ -69,13 +74,6 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
             }
         }
         return true;
-    }
-
-
-
-    @Override
-    protected void setItems(NonNullList<ItemStack> items) {
-
     }
 
     public ItemStack getItem(int slot){
@@ -220,18 +218,24 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable(  "container.fermentation_box");
+        return Component.translatable(  "container.bakeries.fermentation_box");
     }
 
     @Override
     public NonNullList<ItemStack> getItems() {
-        NonNullList<ItemStack> nonNullList = NonNullList.withSize(items.getSlots(),ItemStack.EMPTY);
+        NonNullList<ItemStack> nonNullList = NonNullList.withSize(items.getSlots(), ItemStack.EMPTY);
         for (int i = 0; i < items.getSlots(); i++) {
-            if (!items.getStackInSlot(i).isEmpty()) {
-                nonNullList.add(items.getStackInSlot(i));
-            }
+            nonNullList.set(i, items.getStackInSlot(i));
         }
         return nonNullList;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> items) {
+        for (int i = 0; i < items.size() && i < this.items.getSlots(); i++) {
+            this.items.setStackInSlot(i, items.get(i));
+        }
+        setChanged();
     }
 
 
@@ -318,20 +322,21 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
             if (stackInSlot.isEmpty()) {
                 continue;
             }
-            Optional<RecipeHolder<FermentationBoxRecipe>> currentRecipe = fermentation.getCurrentRecipe(stackInSlot);
+            Optional<RecipeHolder<FermentationBoxRecipe>> currentRecipe = fermentation.getCurrentRecipe(stackInSlot,pLevel);
             if (currentRecipe.isPresent()){
                 int time = fermentation.fermentationTime[i];
                 if (time < fermentation.fermentationMaxTime){
                     fermentation.fermentationTime[i] ++;
                 }else {
-                    ItemStack resultItem = currentRecipe.get().value().getResultItem(null);
+                    NonNullList<ItemStack> allResults = currentRecipe.get().value().getAllResults();
+                    ItemStack resultItem = allResults.getFirst();
                     boolean isPerfect = fermentation.isPerfectFermentation(fermentation);
                     boolean isFermentationItem = resultItem.getItem() instanceof IFermentationItem;
                     if (isPerfect && isFermentationItem){
                         //设置完美发酵组件
                         resultItem.set(BakeriesDataComponents.PERFECT_FERMENTATION.get(),true);
                     }
-                    fermentation.setItem(i,resultItem);
+                    fermentation.setItem(i,resultItem.copy());
                 }
                 update = true;
             }
@@ -391,8 +396,11 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
         return deviation <= 100;
     }
 
-    private Optional<RecipeHolder<FermentationBoxRecipe>> getCurrentRecipe(ItemStack stack) {
-        return RecipeManager.createCheck(BakeriesRecipeTypes.FERMENTATION_BOX_TYPE.get()).getRecipeFor(new SingleRecipeInput(stack),null);
+    private Optional<RecipeHolder<FermentationBoxRecipe>> getCurrentRecipe(ItemStack stack,Level level) {
+        if (this.level == null){
+            return Optional.empty();
+        }
+        return CHECK.getRecipeFor(new SingleRecipeInput(stack),level);
     }
 
     @Override

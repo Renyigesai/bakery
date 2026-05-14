@@ -1,4 +1,12 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "bakeries:config",
+      "config_key": "fermentationGameplay",
+      "expected": "false",
+      "value_type": "boolean"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {

@@ -10,6 +10,7 @@ import com.renyigesai.bakeries.common.items.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -502,8 +503,8 @@ public class BakeriesItems {
         RAW_COFFEE_BEAN = REGISTER.register("raw_coffee_bean",()-> new BlockItem(BakeriesBlocks.COFFEE_PLANT.get(),new Item.Properties()));
         COFFEE_BEAN = item("coffee_bean");
         GROUND_COFFEE = item("ground_coffee");
-        BEARNAISE = registerItem("bearnaise",()->new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.BOWL)));
-        OLIVE_OIL = registerItem("olive_oil",()-> new OliveOilItem(new Item.Properties().durability(6)));
+        BEARNAISE = registerItem("bearnaise",()->new PileItem(BakeriesBlocks.BEARNAISE.get(),new PileItem.PileProperties().placeSound(SoundEvents.GLASS_PLACE).itemProperties(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16))));
+        OLIVE_OIL = registerItem("olive_oil", OliveOilItem::new);
         MEAT_FLOSS = foodItem("meat_floss",BakeriesFoodProperties.MEAT_FLOSS);
         ICE_CUBES = item("ice_cubes");
         SCONE = foodItem("scone",BakeriesFoodProperties.SCONE);
@@ -593,10 +594,6 @@ public class BakeriesItems {
 
     private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, Rarity rarity, FoodProperties foodProperties) {
         return REGISTER.register(block.unwrapKey().orElseThrow().location().getPath(),()-> new PileItem(block.value(),new Item.Properties().component(BakeriesDataComponents.PERFECT.get(),false).food(foodProperties).rarity(rarity)));
-    }
-
-    private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, int color, FoodProperties foodProperties) {
-        return REGISTER.register(block.unwrapKey().orElseThrow().location().getPath(),()-> new PileItem(block.value(),new Item.Properties().food(foodProperties),true,color));
     }
 
     private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, Rarity rarity, FoodProperties foodProperties,boolean effectTool) {

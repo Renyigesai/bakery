@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.common.event;
 
+import com.renyigesai.bakeries.BakeriesConfig;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
@@ -9,6 +10,7 @@ import com.renyigesai.bakeries.common.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.common.init.BakeriesAttributes;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
+import com.renyigesai.bakeries.common.init.BakeriesMobEffects;
 import com.renyigesai.bakeries.common.items.RepeatEatItem;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
 import com.renyigesai.bakeries.common.utils.WorldUtils;
@@ -50,6 +52,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -215,6 +218,23 @@ public class BakeriesEvents {
             if (biomeHolder.is(BiomeTags.IS_JUNGLE)) {
                 ItemEntity itemEntity = new ItemEntity(event.getLevel(), pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BakeriesItems.RAW_COFFEE_BEAN.get()));
                 serverLevel.addFreshEntity(itemEntity);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEternalBaguetteDamageUp(LivingDamageEvent.Pre event){
+        Entity source = event.getSource().getEntity();
+        if (source instanceof LivingEntity entity  && entity.getItemInHand(InteractionHand.MAIN_HAND).is(BakeriesItems.ETERNAL_BAGUETTE)){
+            if (entity.hasEffect(BakeriesMobEffects.ENJOY)){
+                int amplifier = entity.getEffect(BakeriesMobEffects.ENJOY).getAmplifier();
+                float originalDamage = event.getOriginalDamage();
+                double eternalBaguetteDamageUp = BakeriesConfig.eternalBaguetteDamageUp;//Ĭ��Ϊ2.0;
+                float newDamage = (float) (originalDamage + ((amplifier + 1) * eternalBaguetteDamageUp));
+                if (!entity.onGround() && entity.getDeltaMovement().y < 0.0D){
+                    newDamage = newDamage * 1.5f;
+                }
+                event.setNewDamage(newDamage);
             }
         }
     }

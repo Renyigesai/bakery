@@ -36,7 +36,7 @@ public class DoughItem extends Item implements IFermentationItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (isPerfectFermentation(stack)){
-//            pTooltipComponents.add(Component.translatable("item.bakeries.tips.perfect_fermentation").withStyle(ChatFormatting.GOLD));
+            tooltipComponents.add(Component.translatable("tooltips.bakeries.perfect_fermentation").withStyle(ChatFormatting.GOLD));
         }
     }
 }

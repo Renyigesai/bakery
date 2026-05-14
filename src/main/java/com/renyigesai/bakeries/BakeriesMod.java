@@ -18,8 +18,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
@@ -52,19 +55,20 @@ public class BakeriesMod {
         BakeriesEntityTypes.ENTITY.register(modEventBus);
         BakeriesVillagers.register(modEventBus);
         BakeriesAttributes.ATTRIBUTES.register(modEventBus);
+        BakeriesCondition.CONDITION_CODECS.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(BakeriesCapabilities::registerFluidCapabilities);
-
-//        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, BakeriesConfig.SPEC,"bakeries-common.toml");
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
 //        event.enqueueWork(this::registerOverlays);
 //        Messages.register();
-//        if (BakeriesConfig.aprilFoolsDayEffect){
+        BakeriesConfig.ConfigMapping.init();
+        if (BakeriesConfig.aprilFoolsDayEffect){
             Calendar calendar = Calendar.getInstance();
             aprilFoolsDay = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
-//        }
+        }
         refreshFloatingTemperature();
     }
 

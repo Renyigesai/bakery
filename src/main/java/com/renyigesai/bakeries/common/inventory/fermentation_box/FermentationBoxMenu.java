@@ -128,5 +128,10 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
         public int getMaxStackSize() {
             return 1;
         }
+
+        @Override
+        public int getMaxStackSize(ItemStack stack) {
+            return 1;
+        }
     }
 }

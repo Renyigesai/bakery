@@ -81,6 +81,16 @@ public class EternalBaguetteItem extends Item{
         return BAGUETTE_ACTIONS.contains(toolAction);
     }
 
+    @Override
+    public int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
+        return 15;
+    }
+
+    @Override
+    public int getEnchantmentValue(ItemStack stack) {
+        return 15;
+    }
+
     static {
         BAGUETTE_ACTIONS = Set.of(ItemAbilities.SHEARS_CARVE, ItemAbilities.SWORD_DIG);
     }

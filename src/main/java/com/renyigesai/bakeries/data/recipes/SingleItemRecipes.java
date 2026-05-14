@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.data.recipes;
 
+import com.renyigesai.bakeries.api.conditions.ConfigCondition;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.tag.CommonTags;
 import com.renyigesai.bakeries.data.builder.BreadKnifeBuilder;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.conditions.ICondition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,13 +27,17 @@ public class SingleItemRecipes extends Recipes{
     }
 
     private static void onDoughCrafting(RecipeOutput output){
-        addDoughCrafting(Ingredient.of(BakeriesItems.SWEET_DOUGH),BakeriesItems.BAGEL_DOUGH,4,output);
-        addDoughCrafting(Ingredient.of(BakeriesItems.WHOLE_WHEAT_DOUGH),BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH,4,output);
-        addDoughCrafting(Ingredient.of(BakeriesItems.SWEET_DOUGH),BakeriesItems.ROUND_BREAD_DOUGH,6,output);
+//        List<ICondition> conditions = List.of(
+//                new ConfigCondition("","","")
+//        );
+//        ConfigCondition configCondition = new ConfigCondition("fermentationGameplay", "boolean", "false");
+        addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SWEET_DOUGH),Ingredient.of(BakeriesItems.SWEET_DOUGH_FERMENTATION),BakeriesItems.BAGEL_DOUGH,4,output);
+        addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.WHOLE_WHEAT_DOUGH),Ingredient.of(BakeriesItems.WHOLE_WHEAT_DOUGH_FERMENTATION),BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH,4,output);
+        addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SWEET_DOUGH),Ingredient.of(BakeriesItems.SWEET_DOUGH_FERMENTATION),BakeriesItems.ROUND_BREAD_DOUGH,6,output);
         addDoughCrafting(Ingredient.of(BakeriesItems.PASTRY),BakeriesItems.CROISSANT_DOUGH,2,output);
-        addDoughCrafting(Ingredient.of(BakeriesItems.SALTED_DOUGH),BakeriesItems.BAGUETTE_DOUGH,2,output);
-        addDoughCrafting(Ingredient.of(BakeriesItems.SALTED_DOUGH),BakeriesItems.CIABATTA_DOUGH,4,output);
-        addDoughCrafting(Ingredient.of(BakeriesItems.SALTED_DOUGH),BakeriesItems.COUNTRY_BREAD_DOUGH,1,output);
+        addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SALTED_DOUGH),Ingredient.of(BakeriesItems.SALTED_DOUGH_FERMENTATION),BakeriesItems.BAGUETTE_DOUGH,2,output);
+        addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SALTED_DOUGH),Ingredient.of(BakeriesItems.SALTED_DOUGH_FERMENTATION),BakeriesItems.CIABATTA_DOUGH,4,output);
+        addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SALTED_DOUGH),Ingredient.of(BakeriesItems.SALTED_DOUGH_FERMENTATION),BakeriesItems.COUNTRY_BREAD_DOUGH,1,output);
         addDoughCrafting(Ingredient.of(BakeriesItems.PASTRY),BakeriesItems.EGG_TART_SHELL,3,output);
     }
 
@@ -61,6 +67,13 @@ public class SingleItemRecipes extends Recipes{
 
     private static  void addDoughCrafting(Ingredient recipeItems, ItemLike output, int count, RecipeOutput recipeOutput){
         DoughCraftingBuilder.doughCrafting(recipeItems,output,count).save(recipeOutput,name(output.asItem()));
+    }
+
+    private static  void addDoughCraftingFermentationGameplay(Ingredient recipeItems, Ingredient recipeItemsFG,ItemLike output, int count, RecipeOutput recipeOutput){
+        ConfigCondition configConditionFalse = new ConfigCondition("fermentationGameplay", "boolean", "false");
+        DoughCraftingBuilder.doughCrafting(recipeItems,output,count).save(recipeOutput.withConditions(configConditionFalse),name(output.asItem()));
+        ConfigCondition configConditionTrue = new ConfigCondition("fermentationGameplay", "boolean", "true");
+        DoughCraftingBuilder.doughCrafting(recipeItemsFG,output,count).save(recipeOutput.withConditions(configConditionTrue),name(output.asItem(),"_fermentation_gameplay"));
     }
 
     private static  void addFlourSieve(Ingredient recipeItems, ItemLike output, int count, RecipeOutput recipeOutput){
