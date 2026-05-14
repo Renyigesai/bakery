@@ -1,0 +1,9 @@
+package com.renyigesai.bakeries.common.items;
+
+import net.minecraft.world.item.Item;
+
+public class BreadKnifeItem extends Item {
+    public BreadKnifeItem(Properties properties) {
+        super(properties);
+    }
+}
