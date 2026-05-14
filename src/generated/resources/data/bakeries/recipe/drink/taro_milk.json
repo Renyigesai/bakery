@@ -1,0 +1,18 @@
+{
+  "type": "bakeries:drink",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "c:foods/milk"
+    },
+    {
+      "item": "bakeries:mashed_taro"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:taro_milk"
+  }
+}

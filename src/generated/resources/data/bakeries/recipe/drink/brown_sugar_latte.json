@@ -1,0 +1,21 @@
+{
+  "type": "bakeries:drink",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "c:foods/milk"
+    },
+    {
+      "item": "bakeries:brown_sugar_cube"
+    },
+    {
+      "item": "bakeries:moka_pot_fill"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:brown_sugar_latte"
+  }
+}

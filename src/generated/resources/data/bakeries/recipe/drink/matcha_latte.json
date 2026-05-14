@@ -1,0 +1,18 @@
+{
+  "type": "bakeries:drink",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "c:foods/milk"
+    },
+    {
+      "tag": "c:matcha"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:matcha_latte"
+  }
+}
