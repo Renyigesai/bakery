@@ -9,8 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Mixin(targets = "net.minecraft.world.item.MaceItem")
 public abstract class MaceMixin {
 
-    @Inject(method = "knockback", at = @At("TAIL"))
+    @Inject(method = "knockback", at = @At("TAIL"), remap = false)
     private static void bakeries$knockback(Level level, Player player, Entity entity, CallbackInfo ci) {
         level.getEntitiesOfClass(ItemEntity.class, entity.getBoundingBox().inflate(3.5)).forEach(itemEntity -> {
             Item mapped = bakeries$getItems().get(itemEntity.getItem().getItem());

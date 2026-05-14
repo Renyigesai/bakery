@@ -8,6 +8,10 @@ group = project.mod_group
 
 loom {
     splitEnvironmentSourceSets()
+    mixin {
+        defaultRefmapName = "bakeries.refmap.json"
+        useLegacyMixinAp = true
+    }
 
     mods {
         "bakeries" {

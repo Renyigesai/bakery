@@ -7,16 +7,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.function.Predicate;
-
-@Mixin(FallingBlockEntity.class)
+@Mixin(value = FallingBlockEntity.class)
 public abstract class FallingBlockEntityMixin extends Entity {
     public FallingBlockEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
@@ -24,23 +20,14 @@ public abstract class FallingBlockEntityMixin extends Entity {
 
     @Inject(
             method = "causeFallDamage",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;)Ljava/util/List;",
-                    shift = At.Shift.BEFORE
-            ),
-            locals = LocalCapture.CAPTURE_FAILSOFT
+            require = 0,
+            at = @At("HEAD")
     )
     private void causeFallDamage(
             float fallDistance,
             float multiplier,
             DamageSource source,
-            CallbackInfoReturnable<Boolean> cir,
-            int i,
-            Predicate<?> predicate,
-            DamageSource damageSource,
-            float f,
-            Block block
+            CallbackInfoReturnable<Boolean> cir
     ) {
         BakeriesEventHooks.fireAnvilLanding(new AnvilLandingEvent(this, this.level()));
     }
