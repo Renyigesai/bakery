@@ -23,12 +23,45 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec2;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class ToasterBlockEntity extends BlockEntity {
-    private final ItemStackHandler items = new ItemStackHandler(2);
+    private final ItemStackHandler items = new ItemStackHandler(2) {
+        // FIX: Limit slots to 1 item to prevent voiding excess stack items on craft.
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+
+        @Override
+        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+            return 1;
+        }
+
+        // FIX: Sync data and safely initialize cooking times for items inserted by pipes.
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if (level != null && !level.isClientSide) {
+                ItemStack stack = getStackInSlot(slot);
+                // If a pipe inserted a raw item, initialize its cooking time dynamically
+                if (!stack.isEmpty() && cookingTime[slot] <= 0) {
+                    getSmokerRecipe(stack).ifPresent(recipe -> {
+                        cookingTime[slot] = recipe.value().getCookingTime() / 3;
+                        cookingProgress[slot] = 0;
+                    });
+                } else if (stack.isEmpty()) {
+                    // Reset if a pipe extracted the item
+                    cookingTime[slot] = 0;
+                    cookingProgress[slot] = 0;
+                }
+                updateBlock();
+            }
+        }
+    };
     private Optional<IItemHandler> optionalIItemHandler;
     private final int[] cookingProgress;
     private final int[] cookingTime;

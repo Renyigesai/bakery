@@ -50,6 +50,9 @@ public class Languages extends AbstractLanguageProvider {
         addEntity();
         addAdvancements();
         addPatchoulis();
+
+        // PonderPlugin
+        addPonders();
     }
 
 
@@ -293,5 +296,67 @@ public class Languages extends AbstractLanguageProvider {
         text.add(en_us);
         text.add(zh_cn);
         return text;
+    }
+
+    private void addPonders() {
+        // Tag
+        add("bakeries.ponder.tag.bakeries_equipment",
+                "Bakeries Equipment",
+                "烘焙坊设备");
+        add("bakeries.ponder.tag.bakeries_equipment.description",
+                "Professional equipment used for processing flour, fermenting, and making cheese.",
+                "用于加工面粉、发酵以及制作奶酪的专业设备。");
+
+        // Scenes
+        // fermentation_tank_interaction
+        add("bakeries.ponder.fermentation_tank_interaction.header",
+                "Using the Fermentation Tank",
+                "使用发酵罐");
+        add("bakeries.ponder.fermentation_tank_interaction.text_1",
+                "Add 3 scoops of Whole Wheat Flour",
+                "加入全麦面粉");
+        add("bakeries.ponder.fermentation_tank_interaction.text_2",
+                "Add water to begin fermentation",
+                "用水瓶加入水");
+        add("bakeries.ponder.fermentation_tank_interaction.text_3",
+                "When full of flour and water, it will eventually ferment into yeast",
+                "等待一段时间...");
+        add("bakeries.ponder.fermentation_tank_interaction.text_4",
+                "Yeast can be extracted multiple times using glass bottles",
+                "发酵完成，使用玻璃瓶可以多次获取酵母");
+
+        // cheese_tank_interaction
+        add("bakeries.ponder.cheese_tank_interaction.header",
+                "Making Cheese in the Fermentation Tank",
+                "发酵奶酪");
+        add("bakeries.ponder.cheese_tank_interaction.text_1",
+                "If you add milk and salt instead...",
+                "如果加入奶和盐");
+        add("bakeries.ponder.cheese_tank_interaction.text_2",
+                "The mixture will solidify into a batch of cheese",
+                "就会发酵得到奶酪");
+        add("bakeries.ponder.cheese_tank_interaction.text_3",
+                "Simply use an empty hand to collect the finished cheese",
+                "空手即可获取");
+
+        // auto_baking_line
+        add("bakeries.ponder.auto_baking_line.header",
+                "Automated Baking Production Line",
+                "自动化烘焙生产线");
+        add("bakeries.ponder.auto_baking_line.text_1",
+                "Drop ingredients directly into the Basin",
+                "将原料直接投入工作盆");
+        add("bakeries.ponder.auto_baking_line.text_2",
+                "The Mechanical Mixer processes the mixture using blender recipes",
+                "动力搅拌器会运行搅拌机的配方");
+        add("bakeries.ponder.auto_baking_line.text_3",
+                "The Brass Funnel filters out byproducts like empty bottles",
+                "黄铜漏斗会筛选并取出生产过程中的副产物（如空瓶）");
+        add("bakeries.ponder.auto_baking_line.text_4",
+                "The Mechanical Saw cuts the dough into embryos",
+                "用动力锯将传送带上的面团切割为面包胚");
+        add("bakeries.ponder.auto_baking_line.text_5",
+                "Once the oven temperature is set, baking begins automatically",
+                "设定好烤箱温度，面包就会自动开烤");
     }
 }

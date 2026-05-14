@@ -405,13 +405,29 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
     public static ItemStack takeItem(ItemStackHandler itemHandler, int pSlot) {
         return pSlot >= 0 && pSlot < itemHandler.getSlots() ? itemHandler.insertItem(pSlot, ItemStack.EMPTY, false) : ItemStack.EMPTY;
     }
-    // 替换 OvenBlockEntity.java 中的 setItem 方法为以下实现
     @Override
     public void setItem(int pSlot, ItemStack pStack) {
-        // 限制槽位只能放置1个物品
-        ItemStack stackToSet = pStack.copyWithCount(Math.min(pStack.getCount(), 1));
-        this.itemHandler.setStackInSlot(pSlot, stackToSet);
+        // FIX: Removed the forced item count truncation (Math.min(..., 1)).
+        // Reason: With getMaxStackSize() and canPlaceItem() overridden, vanilla hoppers and compliant external logistics will naturally only insert 1 item at a time.
+        // Truncating the stack size here would cause excess items to be permanently voided/deleted if a non-compliant external pipe forces a whole stack into the slot.
+        this.itemHandler.setStackInSlot(pSlot, pStack);
         this.setChanged();
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        // FIX: Overrode the getMaxStackSize method from the Container interface.
+        // Reason: The vanilla Container defaults to a max stack size of 64. Without this override, vanilla hoppers and external logistics would assume the slot can hold a full stack, extracting multiple items at once.
+        // Limiting this to 1 restricts external insertions at the source, ensuring only one item is transferred per operation.
+        return 1;
+    }
+
+    @Override
+    public boolean canPlaceItem(int pIndex, @NotNull ItemStack pStack) {
+        // FIX: Overrode the canPlaceItem method from the Container interface.
+        // Reason: Vanilla defaults to allowing item placement in any slot. This restricts insertion to empty slots only.
+        // This prevents external pipes from forcing new inputs into a slot that is currently baking or already holds a finished product, avoiding item stacking or overwriting.
+        return this.getItem(pIndex).isEmpty();
     }
 
     @Override

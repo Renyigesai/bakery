@@ -42,7 +42,28 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
     private static final int OUTPUT_SLOT = 10;
     private static final int[] SLOTS_FOR_DOWN = new int[]{10};
 
-    protected final ItemStackHandler inventory = new ItemStackHandler(11);//11个槽位
+    protected final ItemStackHandler inventory = new ItemStackHandler(11) {
+        // FIX: Limit input slots (0-8) to 1 item to prevent external insertion issues,
+        // while allowing container (9) and output (10) slots to hold up to 64.
+        @Override
+        public int getSlotLimit(int slot) {
+            return (slot < 9) ? 1 : 64;
+        }
+
+        @Override
+        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+            return (slot < 9) ? 1 : 64;
+        }
+
+        // FIX: Sync data and trigger updates when pipes insert/extract items.
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if (level != null && !level.isClientSide) {
+                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+            }
+        }
+    };
 
     protected final ItemStackHandler filtrationinventory = new ItemStackHandler(10){
         @Override
@@ -451,6 +472,12 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity {
         OPEN,
         CLOSE_PROCESS,
         CLOSE,
+    }
+
+    // FIX: Restrict vanilla hoppers from inserting full stacks into the blender.
+    @Override
+    public int getMaxStackSize() {
+        return 1;
     }
 
 }

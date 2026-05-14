@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:foamed_cream"
+    },
+    {
+      "item": "bakeries:fresh_cheese_cube"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "id": "bakeries:cheese_cream"
+    }
+  ]
+}
