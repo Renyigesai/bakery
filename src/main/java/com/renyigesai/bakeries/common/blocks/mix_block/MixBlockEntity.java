@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class MixBlockEntity extends BlockEntity {
 
     private final ItemStackHandler inventory = new ItemStackHandler(4){
@@ -32,8 +34,29 @@ public class MixBlockEntity extends BlockEntity {
         }
     };
 
+    private String text;
+    private int color = 16777215;
+
     public MixBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.Entities.MIX_BLOCK_ENTITY.get(), pPos, pBlockState);
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+        updateBlock();
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+        updateBlock();
     }
 
     public ItemStackHandler getInventory() {
@@ -77,6 +100,8 @@ public class MixBlockEntity extends BlockEntity {
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         CompoundTag tag = new CompoundTag();
         tag.put("Inventory",inventory.serializeNBT(registries));
+        tag.putString("Text", Objects.requireNonNullElse(text, ""));
+        tag.putInt("Color",color);
         return tag;
     }
 
@@ -91,12 +116,18 @@ public class MixBlockEntity extends BlockEntity {
         if (tag.contains("Inventory")) {
             inventory.deserializeNBT(registries,tag.getCompound("Inventory"));
         }
+        if (tag.contains("Text")) {
+            text = tag.getString("Text");
+        }
+        color = tag.getInt("Color");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.put("Inventory", inventory.serializeNBT(registries));
+        tag.putString("Text", Objects.requireNonNullElse(text, ""));
+        tag.putInt("Color",color);
     }
 
     public boolean addItem(ItemStack stack){

@@ -3,20 +3,24 @@ package com.renyigesai.bakeries.common.blocks.mix_block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.font.glyphs.BakedGlyph;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -33,8 +37,11 @@ public class MixBlockRender implements BlockEntityRenderer<MixBlockEntity> {
             new Vec2[]{new Vec2(0.5f - ADD_SIZE, 0.5f - ADD_SIZE), new Vec2(0.5f + ADD_SIZE, 0.5f - ADD_SIZE), new Vec2(0.5f, 0.5f + ADD_SIZE)},
             new Vec2[]{new Vec2(0.5f - ADD_SIZE, 0.5f - ADD_SIZE), new Vec2(0.5f + ADD_SIZE, 0.5f - ADD_SIZE),new Vec2(0.5f - ADD_SIZE, 0.5f + ADD_SIZE), new Vec2(0.5f + ADD_SIZE, 0.5f + ADD_SIZE)}
     };
+    public static final float textScale = 0.01f;
+    private final Font font;
 
     public MixBlockRender(BlockEntityRendererProvider.Context context) {
+        this.font = context.getFont();
     }
 
     @Override
@@ -66,6 +73,11 @@ public class MixBlockRender implements BlockEntityRenderer<MixBlockEntity> {
         }
         if (isTray){
             renderTray(entity,direction,poseStack,pBuffer,pPackedOverlay);
+        }
+        if (entity.getText() != null && !entity.getText().isEmpty()){
+            poseStack.pushPose();
+            renderText(entity,poseStack,pBuffer,pPackedLight,direction);
+            poseStack.popPose();
         }
     }
 
@@ -99,6 +111,39 @@ public class MixBlockRender implements BlockEntityRenderer<MixBlockEntity> {
         poseStack.scale(1f,1f,1f);
         Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state,poseStack,pBuffer,LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()),pPackedOverlay);
         poseStack.popPose();
+    }
+
+    private void renderText(MixBlockEntity entity, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, Direction direction){
+        poseStack.translate(0.5, 0.25, 0.5);
+
+        poseStack.scale(textScale, -textScale, textScale);
+        float yRot = 0;
+        Direction newDirection = direction.getOpposite();
+        if (newDirection == Direction.NORTH){
+            yRot = 180;
+        }
+        if (newDirection == Direction.SOUTH){
+            yRot = -180;
+        }
+        String text = entity.getText();
+        if (text == null){
+            return;
+        }
+        int textWidth = font.width(text);
+        int color = entity.getColor();
+        poseStack.mulPose(Axis.YP.rotationDegrees(newDirection.toYRot() + yRot));
+        poseStack.translate(0, 0, 0.5f/textScale);
+        poseStack.mulPose(Axis.XP.rotationDegrees(45.0f));
+        startRenderText(text,textWidth,color,poseStack,pBuffer);
+    }
+
+    private void startRenderText(String text, int textWidth, int color, PoseStack poseStack, MultiBufferSource pBuffer){
+        float x = 0.5f / textScale - textWidth;
+        font.drawInBatch(Component.literal(text).withStyle(ChatFormatting.BOLD), x, 1, color, false, poseStack.last().pose(), pBuffer, Font.DisplayMode.NORMAL, 0, 15728880);
+        if (pBuffer instanceof MultiBufferSource.BufferSource) {
+            BakedGlyph texturedglyph = font.getFontSet(Style.DEFAULT_FONT).whiteGlyph();
+            ((MultiBufferSource.BufferSource)pBuffer).endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));
+        }
     }
 
     private Vec2 transformPositionByDirection(Vec2 position, Direction direction) {
