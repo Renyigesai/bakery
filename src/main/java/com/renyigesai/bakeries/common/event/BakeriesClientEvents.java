@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.common.event;
 
 import com.renyigesai.bakeries.common.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.common.overlay.ILookOverlay;
+import com.renyigesai.bakeries.integration.ponder.BakeriesPonderIntegration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -47,17 +48,7 @@ public class BakeriesClientEvents {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         if (ModList.get().isLoaded("create") || ModList.get().isLoaded("ponder")) {
-            event.enqueueWork(() -> {
-                registerPonderPlugin();
-            });
+            event.enqueueWork(BakeriesPonderIntegration::register);
         }
-    }
-    // The registration logic *must* be extracted into a separate method
-    // This is to prevent the game from crashing (due to a ClassNotFoundException) if the JVM attempts to load the PonderIndex class when the player does not have Create installed.
-    private static void registerPonderPlugin() {
-        net.createmod.ponder.foundation.PonderIndex.addPlugin(
-                new com.renyigesai.bakeries.integration.ponder.BakeriesPonderPlugin()
-        );
-        System.out.println("Bakeries:Ponder Plugin Registered");
     }
 }
