@@ -16,7 +16,7 @@ public final class StateBlocks {
     private StateBlocks() {
     }
 
-    public static class ToasterBlock extends FacingBlock {
+    public static class ToasterBlock extends MachineBlocks.FacingMachineBlock {
         public static final EnumProperty<ToasterState> STATE = EnumProperty.create("state", ToasterState.class);
 
         public ToasterBlock(BlockBehaviour.Properties properties) {

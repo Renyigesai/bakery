@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:honey_butter"
+    },
+    {
+      "item": "bakeries:bake_sliced_toast"
+    },
+    {
+      "item": "bakeries:bake_sliced_toast"
+    },
+    {
+      "item": "bakeries:bake_sliced_toast"
+    },
+    {
+      "item": "bakeries:bake_sliced_toast"
+    }
+  ],
+  "result": {
+    "item": "bakeries:honey_butter_spread_toast",
+    "count": 4
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "experience": 1,
+  "cookingtime": 100,
+  "ingredient": {
+    "item": "bakeries:raw_coffee_bean"
+  },
+  "result":{
+    "count": 1,
+    "item": "bakeries:coffee_bean"
+  }
+}

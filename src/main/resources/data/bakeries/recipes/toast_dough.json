@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aa",
+    "ab"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:round_bread_dough"
+    },
+    "b": {
+      "item": "bakeries:mould"
+    }
+  },
+  "result": {
+    "item": "bakeries:mould_toast_dough",
+    "count": 1
+  }
+}

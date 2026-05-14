@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "experience": 1,
+  "cookingtime": 200,
+  "ingredient": {
+    "item": "minecraft:sugar_cane"
+  },
+  "result": {
+    "count": 1,
+    "item": "bakeries:brown_sugar_cube"
+  }
+}

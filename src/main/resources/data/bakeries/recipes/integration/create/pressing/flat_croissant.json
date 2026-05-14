@@ -1,0 +1,20 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "bakeries:croissant"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:flat_croissant",
+      "count": 1
+    }
+  ]
+}

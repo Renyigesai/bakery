@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.resources.ResourceKey;
 
@@ -40,39 +41,39 @@ public final class BakeriesItems {
         COCOA_POWDER = register("cocoa_powder");
         MATCHA_POWDER = register("matcha_powder");
         SALT = register("salt");
-        BOTTLE_YEAST = register("bottle_yeast");
-        BOTTLE_MILK = register("bottle_milk");
-        BOTTLE_CREAM = register("bottle_cream");
-        BOTTLE_BUTTER = register("bottle_butter");
+        BOTTLE_YEAST = register("bottle_yeast", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
+        BOTTLE_MILK = register("bottle_milk", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
+        BOTTLE_CREAM = register("bottle_cream", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
+        BOTTLE_BUTTER = register("bottle_butter", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
         BUTTER_CUBE = register("butter_cube");
-        FOAMED_CREAM = register("foamed_cream");
-        CHEESE_CREAM = register("cheese_cream");
+        FOAMED_CREAM = register("foamed_cream", food(1, 1.0F, true));
+        CHEESE_CREAM = register("cheese_cream", food(1, 1.0F, true));
         BUTTER_FLOUR_SAND = register("butter_flour_sand");
         HONEY_BUTTER = register("honey_butter");
         WHOLE_EGG = register("whole_egg");
         RAW_PROTEIN = register("raw_protein");
         RAW_EGG_YOLK = register("raw_egg_yolk");
         SALT_YOLK = register("salt_yolk");
-        CHEESE_CUBE = register("cheese_cube");
-        FRESH_CHEESE_CUBE = register("fresh_cheese_cube");
+        CHEESE_CUBE = register("cheese_cube", food(1, 1.0F, false));
+        FRESH_CHEESE_CUBE = register("fresh_cheese_cube", food(1, 1.0F, false));
         BROWN_SUGAR_CUBE = register("brown_sugar_cube");
         COFFEE_BEAN = register("coffee_bean");
         GROUND_COFFEE = register("ground_coffee");
         BEARNAISE = register("bearnaise");
         OLIVE_OIL = register("olive_oil");
-        MEAT_FLOSS = register("meat_floss");
+        MEAT_FLOSS = register("meat_floss", food(2, 0.8F, false));
         ICE_CUBES = register("ice_cubes");
-        SCONE = register("scone");
-        OLIVE = register("olive");
+        SCONE = register("scone", food(4, 0.5F, true));
+        OLIVE = register("olive", food(2, 0.5F, false));
         TARO = registerBlock("taro", BakeriesBlocks.TARO);
-        COOKED_TARO = register("cooked_taro");
-        MASHED_TARO = register("mashed_taro");
-        SLICED_TOAST = register("sliced_toast");
-        BAKE_SLICED_TOAST = register("bake_sliced_toast");
-        HONEY_BUTTER_SPREAD_TOAST = register("honey_butter_spread_toast");
-        SLICED_CHEESE_COCOA_TOAST = register("sliced_cheese_cocoa_toast");
-        COUNTRY_BREAD_SLICE = register("country_bread_slice");
-        HONEY_BUTTER_SPREAD_COUNTRY_BREAD = register("honey_butter_spread_country_bread");
+        COOKED_TARO = register("cooked_taro", food(6, 0.6F, false));
+        MASHED_TARO = register("mashed_taro", food(1, 0.5F, false));
+        SLICED_TOAST = register("sliced_toast", food(4, 0.4F, true));
+        BAKE_SLICED_TOAST = register("bake_sliced_toast", food(4, 0.4F, true));
+        HONEY_BUTTER_SPREAD_TOAST = register("honey_butter_spread_toast", food(8, 0.5F, true));
+        SLICED_CHEESE_COCOA_TOAST = register("sliced_cheese_cocoa_toast", food(4, 0.8F, true));
+        COUNTRY_BREAD_SLICE = register("country_bread_slice", food(4, 0.4F, false));
+        HONEY_BUTTER_SPREAD_COUNTRY_BREAD = register("honey_butter_spread_country_bread", food(6, 0.65F, true));
         SWEET_DOUGH = register("sweet_dough");
         COCOA_DOUGH = register("cocoa_dough");
         SALTED_DOUGH = register("salted_dough");
@@ -113,25 +114,25 @@ public final class BakeriesItems {
         GLASS_CABINET_DOOR = registerBlock("glass_cabinet_door", BakeriesBlocks.GLASS_CABINET_DOOR);
         MENU = registerBlock("menu", BakeriesBlocks.MENU);
         MOULD = registerBlock("mould", BakeriesBlocks.MOULD);
-        DRINK_CUP = registerBlock("drink_cup", BakeriesBlocks.DRINK_CUP);
+        DRINK_CUP = registerBlock("drink_cup", BakeriesBlocks.DRINK_CUP, new Item.Properties().stacksTo(1));
         TOAST = registerBlock("toast", BakeriesBlocks.TOAST);
         CHEESE_COCOA_TOAST = registerBlock("cheese_cocoa_toast", BakeriesBlocks.CHEESE_COCOA_TOAST);
-        BAGEL = registerBlock("bagel", BakeriesBlocks.BAGEL);
-        BAGUETTE = registerBlock("baguette", BakeriesBlocks.BAGUETTE);
-        CROISSANT = registerBlock("croissant", BakeriesBlocks.CROISSANT);
-        ROUND_BREAD = registerBlock("round_bread", BakeriesBlocks.ROUND_BREAD);
-        RICE_BREAD = registerBlock("rice_bread", BakeriesBlocks.RICE_BREAD);
-        WHOLE_WHEAT_BAGEL = registerBlock("whole_wheat_bagel", BakeriesBlocks.WHOLE_WHEAT_BAGEL);
-        PINEAPPLE_BUN = registerBlock("pineapple_bun", BakeriesBlocks.PINEAPPLE_BUN);
-        FOCACCIA = registerBlock("focaccia", BakeriesBlocks.FOCACCIA);
-        CIABATTA = registerBlock("ciabatta", BakeriesBlocks.CIABATTA);
-        EGG_TART = registerBlock("egg_tart", BakeriesBlocks.EGG_TART);
-        SALT_CROISSANT = registerBlock("salt_croissant", BakeriesBlocks.SALT_CROISSANT);
-        COUNTRY_BREAD = registerBlock("country_bread", BakeriesBlocks.COUNTRY_BREAD);
-        CREAM_BINGLE_COFFEE = registerBlock("cream_bingle_coffee", BakeriesBlocks.CREAM_BINGLE_COFFEE);
-        MATCHA_PARFAIT = registerBlock("matcha_parfait", BakeriesBlocks.MATCHA_PARFAIT);
+        BAGEL = registerBlock("bagel", BakeriesBlocks.BAGEL, food(6, 0.5F, false));
+        BAGUETTE = registerBlock("baguette", BakeriesBlocks.BAGUETTE, food(8, 0.25F, false));
+        CROISSANT = registerBlock("croissant", BakeriesBlocks.CROISSANT, food(6, 1.0F, false));
+        ROUND_BREAD = registerBlock("round_bread", BakeriesBlocks.ROUND_BREAD, food(3, 0.6F, false));
+        RICE_BREAD = registerBlock("rice_bread", BakeriesBlocks.RICE_BREAD, food(12, 0.4F, false));
+        WHOLE_WHEAT_BAGEL = registerBlock("whole_wheat_bagel", BakeriesBlocks.WHOLE_WHEAT_BAGEL, food(8, 0.35F, false));
+        PINEAPPLE_BUN = registerBlock("pineapple_bun", BakeriesBlocks.PINEAPPLE_BUN, food(6, 1.5F, false));
+        FOCACCIA = registerBlock("focaccia", BakeriesBlocks.FOCACCIA, food(8, 1.0F, false));
+        CIABATTA = registerBlock("ciabatta", BakeriesBlocks.CIABATTA, food(4, 0.4F, false));
+        EGG_TART = registerBlock("egg_tart", BakeriesBlocks.EGG_TART, food(8, 0.5F, false));
+        SALT_CROISSANT = registerBlock("salt_croissant", BakeriesBlocks.SALT_CROISSANT, food(6, 1.0F, false));
+        COUNTRY_BREAD = registerBlock("country_bread", BakeriesBlocks.COUNTRY_BREAD, food(4, 0.4F, false));
+        CREAM_BINGLE_COFFEE = registerBlock("cream_bingle_coffee", BakeriesBlocks.CREAM_BINGLE_COFFEE, food(1, 0.5F, true));
+        MATCHA_PARFAIT = registerBlock("matcha_parfait", BakeriesBlocks.MATCHA_PARFAIT, food(9, 0.5F, true));
         COFFEE_PLANT = registerBlock("coffee_plant", BakeriesBlocks.COFFEE_PLANT);
-        TOMATO = registerBlock("tomato", BakeriesBlocks.TOMATO);
+        TOMATO = registerBlock("tomato", BakeriesBlocks.TOMATO, food(2, 0.5F, false));
         MIX_BLOCK = registerBlock("mix_block", BakeriesBlocks.MIX_BLOCK);
     }
 
@@ -191,13 +192,21 @@ public final class BakeriesItems {
     }
 
     private static Item register(String id) {
+        return register(id, new Item.Properties());
+    }
+
+    private static Item register(String id, Item.Properties properties) {
         ResourceLocation key = new ResourceLocation(BakeriesMod.MODID, id);
-        return Registry.register(BuiltInRegistries.ITEM, key, new Item(new Item.Properties()));
+        return Registry.register(BuiltInRegistries.ITEM, key, new Item(properties));
     }
 
     private static Item registerBlock(String id, Block block) {
+        return registerBlock(id, block, new Item.Properties());
+    }
+
+    private static Item registerBlock(String id, Block block, Item.Properties properties) {
         ResourceLocation key = new ResourceLocation(BakeriesMod.MODID, id);
-        return Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, new Item.Properties()));
+        return Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, properties));
     }
 
     private static void registerTabEntries(ResourceKey<CreativeModeTab> tab, Item... items) {
@@ -206,5 +215,13 @@ public final class BakeriesItems {
                 entries.accept(item);
             }
         });
+    }
+
+    private static Item.Properties food(int nutrition, float saturation, boolean alwaysEdible) {
+        FoodProperties.Builder builder = new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturation);
+        if (alwaysEdible) {
+            builder.alwaysEat();
+        }
+        return new Item.Properties().food(builder.build());
     }
 }

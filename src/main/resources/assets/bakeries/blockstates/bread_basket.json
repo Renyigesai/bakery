@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "bakeries:block/bread_basket"
+      }
+    }
+  ]
+}

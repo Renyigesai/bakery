@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "bab"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:quartz_block"
+    },
+    "b": {
+      "tag": "minecraft:wooden_fences"
+    }
+  },
+  "result": {
+    "item": "bakeries:coffee_table",
+    "count": 2
+  }
+}

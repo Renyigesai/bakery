@@ -1,0 +1,37 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "tag": "c:salt"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:butter_flour_sand"
+    }
+  ]
+}

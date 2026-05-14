@@ -1,0 +1,22 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:butter_cube"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ]
+}

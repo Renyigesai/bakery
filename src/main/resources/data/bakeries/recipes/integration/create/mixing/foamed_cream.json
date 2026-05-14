@@ -1,0 +1,30 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "item": "bakeries:foamed_cream"
+    },
+    {
+      "count": 2,
+      "item": "minecraft:glass_bottle"
+    }   
+  ]
+}

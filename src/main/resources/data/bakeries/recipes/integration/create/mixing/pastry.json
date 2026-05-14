@@ -1,0 +1,30 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:butter_flour_sand"
+    },
+    {
+      "type": "fluid_tag",
+      "amount": 250,
+      "fluid_tag": "c:milk"
+    },
+    {
+      "item": "bakeries:bottle_yeast"
+    }
+  ],
+  "results": [
+    {
+      "item": "bakeries:pastry"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ]
+}

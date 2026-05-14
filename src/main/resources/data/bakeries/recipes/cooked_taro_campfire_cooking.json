@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "misc",
+  "experience": 1,
+  "cookingtime": 600,
+  "ingredient": {
+    "item": "bakeries:taro"
+  },
+  "result": {
+    "item": "bakeries:cooked_taro",
+    "count": 1
+  }
+}

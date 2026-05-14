@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "com.renyigesai.bakeries.BakeriesMod"
+    ],
+    "client": [
+      "com.renyigesai.bakeries.BakeriesClientMod"
     ]
   },
   "mixins": [
