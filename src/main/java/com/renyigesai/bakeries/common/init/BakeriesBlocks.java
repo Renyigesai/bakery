@@ -183,6 +183,7 @@ public class BakeriesBlocks {
 
     /**联动方块*/
     public static final DeferredBlock<Block> RICE_BREAD;
+    public static final DeferredBlock<Block> SALMON_SANDWICH;
 
     static {
         /*面包方块*/
@@ -294,6 +295,7 @@ public class BakeriesBlocks {
 
         /**联动方块*/
         RICE_BREAD = register("rice_bread", BreadBlock::new);
+        SALMON_SANDWICH = register("salmon_sandwich", BreadBlock::new);
     }
 
 

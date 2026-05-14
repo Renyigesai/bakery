@@ -58,7 +58,7 @@ public class BlenderMenu extends AbstractContainerMenu {
                 addSlot(new FiltrationSlot(blockEntity.getFiltrationinventory(), slotIndex, fx + x * 8, fy + y * 17));
             }
         }
-        addSlot(new SlotItemHandler(blockEntity.getFiltrationinventory(), 9, 32, 51));
+        addSlot(new FiltrationSlot(blockEntity.getFiltrationinventory(), 9, 32, 51));
         // 添加玩家物品栏
         addPlayerSlots(8,84);
         this.blockEntity.getLevel().blockEvent(this.blockEntity.getBlockPos(),this.blockEntity.getBlockState().getBlock(),0,0);

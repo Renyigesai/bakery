@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.common.inventory.blender.BlenderScreen;
+import com.renyigesai.bakeries.common.inventory.fermentation_box.FermentationBoxScreen;
 import com.renyigesai.bakeries.common.inventory.oven.OvenScreen;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
@@ -41,6 +42,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new BreadKnifeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FlourSieveRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DrinkRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new FermentationBoxCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
 
@@ -53,6 +55,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(BakeriesRecipeTypes.JEI.BREAD_KNIFE, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE_TYPE.get()));
         registration.addRecipes(BakeriesRecipeTypes.JEI.FLOUR_SIEVE, recipeManager.getAllRecipesFor(FlourSieveRecipe.Type.INSTANCE));
         registration.addRecipes(BakeriesRecipeTypes.JEI.DRINK, recipeManager.getAllRecipesFor(DrinkRecipe.Type.INSTANCE));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.FERMENTATION_BOX, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.FERMENTATION_BOX_TYPE.get()));
     }
 
 
@@ -64,12 +67,14 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.BREAD_KNIFE.get()), BakeriesRecipeTypes.JEI.BREAD_KNIFE);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.FLOUR_SIEVE.get()), BakeriesRecipeTypes.JEI.FLOUR_SIEVE);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DRINK_CUP.get()), BakeriesRecipeTypes.JEI.DRINK);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.FERMENTATION_BOX.get()), BakeriesRecipeTypes.JEI.FERMENTATION_BOX);
     }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration){
         registration.addRecipeClickArea(OvenScreen.class, 110, 16, 8, 54, BakeriesRecipeTypes.JEI.OVEN);
         registration.addRecipeClickArea(BlenderScreen.class, 136, 38, 20, 20, BakeriesRecipeTypes.JEI.BLENDER);
+        registration.addRecipeClickArea(FermentationBoxScreen.class, 121, 49, 25, 16, BakeriesRecipeTypes.JEI.FERMENTATION_BOX);
     }
 
 
