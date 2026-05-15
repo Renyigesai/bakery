@@ -2,6 +2,7 @@ package com.renyigesai.bakeries;
 
 import com.renyigesai.bakeries.init.*;
 import com.renyigesai.bakeries.capabilities.BakeriesCapabilities;
+import com.renyigesai.bakeries.common.loot.BakeriesLootHooks;
 import com.renyigesai.bakeries.network.Messages;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ public final class BakeriesMod implements ModInitializer {
         BakeriesMobEffects.init();
         BakeriesTags.init();
         BakeriesVillagerInit.init();
+        BakeriesLootHooks.init();
         Messages.init();
         LOGGER.info("Bakeries Fabric bootstrap initialized.");
     }

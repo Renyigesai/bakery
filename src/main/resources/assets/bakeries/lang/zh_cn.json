@@ -42,6 +42,8 @@
   "bakeries.cheese_cube.description": "可通过右击满装干酪罐获得 4 个干酪块。",
   "bakeries.olive.description": "与新手农民或流浪商人交易获得。",
   "bakeries.raw_coffee_bean.description": "通过嗅探兽在丛林生物群系挖掘获得。",
+  "bakeries.ice.description": "挖掉 %s （的方块形态）时掉落1~9个冰块。如果使用精准采集时将会掉落对应的冰。使用时运挖掘时翻倍。",
+  "bakeries.ice.source.frosted_ice": "%s（冰霜行者附魔产出）",
   "block.bakeries.bagel": "贝果",
   "block.bakeries.bagel_filled_sauce": "填酱贝果",
   "block.bakeries.baguette": "法棍",

@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.menu.MenuBlock;
+import com.renyigesai.bakeries.common.blocks.sofa.SofaBlock;
 import com.renyigesai.bakeries.init.blocks.FacingBlock;
 import com.renyigesai.bakeries.init.blocks.MachineBlocks;
 import com.renyigesai.bakeries.init.blocks.StateBlocks;
@@ -32,17 +33,17 @@ public final class BakeriesBlocks {
     public static final Block WOOD_TRAY;
     public static final Block PINEAPPLE_OIL;
     static {
-        PINEAPPLE_OIL = register("pineapple_oil", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
-        SOFA_LIGHT_GRAY = register("sofa_light_gray", new StateBlocks.RackBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
-        SOFA_RED = register("sofa_red", new StateBlocks.RackBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
-        SOFA_WHITE = register("sofa_white", new StateBlocks.RackBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
+        PINEAPPLE_OIL = register("pineapple_oil", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
+        SOFA_LIGHT_GRAY = register("sofa_light_gray", new SofaBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
+        SOFA_RED = register("sofa_red", new SofaBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
+        SOFA_WHITE = register("sofa_white", new SofaBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         TARO_SALT_YOLK_BREAD = register("taro_salt_yolk_bread", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         TOMATO_CHEESE_CROISSANT_SANDWICH = register("tomato_cheese_croissant_sandwich", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         WHOLE_WHEAT_FLOUR_BAG = register("whole_wheat_flour_bag", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         WOOD_TRAY = register("wood_tray", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
-        MEAT_FLOSS_BREAD_ROLL = register("meat_floss_bread_roll", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
+        MEAT_FLOSS_BREAD_ROLL = register("meat_floss_bread_roll", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         FLOUR_BAG = register("flour_bag", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
-        DIRTY_CHOCO_CROISSANT = register("dirty_choco_croissant", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
+        DIRTY_CHOCO_CROISSANT = register("dirty_choco_croissant", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         CHEESE_CREAM_BREAD = register("cheese_cream_bread", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         CASH_REGISTER_COMPUTER = register("cash_register_computer", new StateBlocks.LitFacingBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         RAW_SALT_BLOCK = register("raw_salt_block", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));

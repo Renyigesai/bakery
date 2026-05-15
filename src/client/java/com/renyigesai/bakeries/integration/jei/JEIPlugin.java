@@ -25,19 +25,25 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.util.GsonHelper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonArray;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Objects;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
     private static final ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "jei_plugin");
+    private static final ResourceLocation ICE_DROP_SOURCES = new ResourceLocation(BakeriesMod.MODID, "loot_sources/ice_drop_sources.json");
 
     @Override
     public @NotNull ResourceLocation getPluginUid() {
@@ -105,6 +111,8 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("bakeries.olive.description"));
         registration.addItemStackInfo(new ItemStack(BakeriesItems.RAW_COFFEE_BEAN),
                 Component.translatable("bakeries.raw_coffee_bean.description"));
+        registration.addItemStackInfo(new ItemStack(BakeriesItems.ICE_CUBES),
+                Component.translatable("bakeries.ice.description", buildIceSourceNames(minecraft.getResourceManager())));
         BakeriesMod.LOGGER.info("[JEI] recipes registered: oven={}, blender={}, dough={}, bread_knife={}, flour_sieve={}, drink={}",
                 ovenRecipes.size(), blenderRecipes.size(), doughRecipes.size(), breadKnifeRecipes.size(), flourSieveRecipes.size(), drinkRecipes.size());
     }
@@ -229,5 +237,52 @@ public class JEIPlugin implements IModPlugin {
             }
         }
         return list;
+    }
+
+    private static Component buildIceSourceNames(ResourceManager resourceManager) {
+        Set<Component> names = new LinkedHashSet<>();
+        try {
+            var stream = JEIPlugin.class.getClassLoader()
+                    .getResourceAsStream("data/bakeries/loot_sources/ice_drop_sources.json");
+            if (stream == null) {
+                return Component.literal("minecraft:ice");
+            }
+            try (stream; var reader = new java.io.InputStreamReader(stream, java.nio.charset.StandardCharsets.UTF_8)) {
+                JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
+                JsonArray blocks = root.getAsJsonArray("blocks");
+                if (blocks == null) {
+                    return Component.literal("minecraft:ice");
+                }
+                for (var entry : blocks) {
+                    if (!entry.isJsonPrimitive()) {
+                        continue;
+                    }
+                    ResourceLocation blockId = new ResourceLocation(entry.getAsString());
+                    if (!BuiltInRegistries.BLOCK.containsKey(blockId)) {
+                        continue;
+                    }
+                    Block block = BuiltInRegistries.BLOCK.get(blockId);
+                    Component displayName = block.getName().copy();
+                    if (blockId.equals(new ResourceLocation("minecraft", "frosted_ice"))) {
+                        displayName = Component.translatable(
+                                "bakeries.ice.source.frosted_ice",
+                                block.getName().copy()
+                        );
+                    }
+                    names.add(displayName);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        if (names.isEmpty()) {
+            return Component.literal("minecraft:ice");
+        }
+        return Component.literal(
+                names.stream()
+                        .map(Component::getString)
+                        .filter(Objects::nonNull)
+                        .reduce((a, b) -> a + ", " + b)
+                        .orElse("minecraft:ice")
+        );
     }
 }

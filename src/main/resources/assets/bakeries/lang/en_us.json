@@ -42,6 +42,7 @@
   "bakeries.cheese_cube.description": "Can be obtained by right-clicking a full cheese tank for 4 cheese cubes.",
   "bakeries.olive.description": "Obtained by trading with novice farmers or wandering traders.",
   "bakeries.raw_coffee_bean.description": "Obtained by sniffers digging in jungle biomes.",
+  "bakeries.ice.source.frosted_ice": "%s (from Frost Walker enchantment)",
   "block.bakeries.bagel": "Bagel",
   "block.bakeries.bagel_filled_sauce": "Bagel Filled Sauce",
   "block.bakeries.baguette": "Baguette",
