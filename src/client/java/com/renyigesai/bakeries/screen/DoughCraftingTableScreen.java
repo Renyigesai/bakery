@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DoughCraftingTableScreen extends net.minecraft.client.gui.screens.inventory.AbstractContainerScreen<DoughCraftingTableMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/container/dough_crafting_table_gui.png");
@@ -66,7 +67,7 @@ public class DoughCraftingTableScreen extends net.minecraft.client.gui.screens.i
             int bx = rx + idx % 4 * 16;
             int by = ry + idx / 4 * 18 + 2;
             if (x >= bx && x < bx + 16 && y >= by && y < by + 18) {
-                guiGraphics.renderTooltip(this.font, list.get(i).getResultItem(this.minecraft.level.registryAccess()), x, y);
+                guiGraphics.renderTooltip(this.font, list.get(i).getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), x, y);
             }
         }
     }
@@ -92,7 +93,7 @@ public class DoughCraftingTableScreen extends net.minecraft.client.gui.screens.i
             int idx = i - this.startIndex;
             int bx = x + idx % 4 * 16;
             int by = y + idx / 4 * 18 + 2;
-            guiGraphics.renderItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), bx, by);
+            guiGraphics.renderItem(list.get(i).getResultItem(Objects.requireNonNull(Objects.requireNonNull(this.minecraft).level).registryAccess()), bx, by);
         }
     }
 
@@ -107,9 +108,9 @@ public class DoughCraftingTableScreen extends net.minecraft.client.gui.screens.i
                 int idx = i - this.startIndex;
                 double dx = mouseX - (double) (x + idx % 4 * 16);
                 double dy = mouseY - (double) (y + idx / 4 * 18);
-                if (dx >= 0.0D && dy >= 0.0D && dx < 16.0D && dy < 18.0D && this.menu.clickMenuButton(this.minecraft.player, i)) {
+                if (dx >= 0.0D && dy >= 0.0D && dx < 16.0D && dy < 18.0D && this.menu.clickMenuButton(Objects.requireNonNull(this.minecraft).player, i)) {
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-                    this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, i);
+                    Objects.requireNonNull(this.minecraft.gameMode).handleInventoryButtonClick(this.menu.containerId, i);
                     return true;
                 }
             }

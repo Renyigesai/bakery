@@ -32,7 +32,7 @@ public class OvenScreen extends BaseMachineScreen<OvenMenu> {
         int progressH = (int) (38 * (temperature / 500.0f));
         guiGraphics.blit(TEXTURE, leftPos + 128, topPos + (57 - progressH), 14, 166, 2, progressH, 256, 256);
         guiGraphics.blit(TEXTURE, leftPos + 128, topPos + 19, 16, 166, 2, 38, 256, 256);
-        renderProgressBar(guiGraphics, leftPos, topPos, 108, 35, 44, 8, 0xE0FF9F1A);
+        renderProgressBar(guiGraphics, leftPos, topPos, 108, 44, 0xE0FF9F1A);
     }
 
     @Override

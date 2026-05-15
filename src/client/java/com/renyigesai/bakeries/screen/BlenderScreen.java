@@ -19,6 +19,6 @@ public class BlenderScreen extends BaseMachineScreen<BlenderMenu> {
         super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
         int leftPos = (this.width - this.imageWidth) / 2;
         int topPos = (this.height - this.imageHeight) / 2;
-        renderProgressBar(guiGraphics, leftPos, topPos, 128, 35, 22, 8, 0xE05EB3FF);
+        renderProgressBar(guiGraphics, leftPos, topPos, 128, 22, 0xE05EB3FF);
     }
 }

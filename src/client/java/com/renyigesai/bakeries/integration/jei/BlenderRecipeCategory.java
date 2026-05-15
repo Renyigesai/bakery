@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class BlenderRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> {
     public static final RecipeType<SimpleMachineRecipe> TYPE =
             RecipeType.create(BakeriesMod.MODID, "blender", SimpleMachineRecipe.class);

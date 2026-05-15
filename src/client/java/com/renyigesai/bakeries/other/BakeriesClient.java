@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+@SuppressWarnings("unused")
 public class BakeriesClient implements ClientModInitializer {
 
     @Override

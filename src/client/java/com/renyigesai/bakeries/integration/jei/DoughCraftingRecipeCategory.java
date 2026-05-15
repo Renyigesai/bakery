@@ -15,7 +15,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class DoughCraftingRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> {
     public static final RecipeType<SimpleMachineRecipe> TYPE =
             RecipeType.create(BakeriesMod.MODID, "dough_crafting", SimpleMachineRecipe.class);
@@ -30,12 +32,12 @@ public class DoughCraftingRecipeCategory implements IRecipeCategory<SimpleMachin
     }
 
     @Override
-    public RecipeType<SimpleMachineRecipe> getRecipeType() {
+    public @NotNull RecipeType<SimpleMachineRecipe> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return Component.translatable("container.bakeries.dough_crafting_table");
     }
 

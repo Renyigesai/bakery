@@ -17,6 +17,7 @@ import mezz.jei.api.registration.IAdvancedRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -36,7 +37,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Objects;
+
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,12 +76,12 @@ public class JEIPlugin implements IModPlugin {
             manager = minecraft.level.getRecipeManager();
         }
 
-        List<SimpleMachineRecipe> ovenRecipes = List.of();
-        List<SimpleMachineRecipe> blenderRecipes = List.of();
-        List<SimpleMachineRecipe> doughRecipes = List.of();
-        List<SimpleMachineRecipe> breadKnifeRecipes = List.of();
-        List<SimpleMachineRecipe> flourSieveRecipes = List.of();
-        List<SimpleMachineRecipe> drinkRecipes = List.of();
+        List<SimpleMachineRecipe> ovenRecipes;
+        List<SimpleMachineRecipe> blenderRecipes;
+        List<SimpleMachineRecipe> doughRecipes;
+        List<SimpleMachineRecipe> breadKnifeRecipes;
+        List<SimpleMachineRecipe> flourSieveRecipes;
+        List<SimpleMachineRecipe> drinkRecipes;
 
         if (manager != null) {
             ovenRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.OVEN);
@@ -146,68 +147,64 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeClickArea(DoughCraftingTableScreen.class, 118, 30, 22, 18, DoughCraftingRecipeCategory.TYPE);
     }
 
-    private static class DynamicSimpleMachineRecipePlugin implements ISimpleRecipeManagerPlugin<SimpleMachineRecipe> {
-        private final RecipeType<SimpleMachineRecipe> type;
-
-        private DynamicSimpleMachineRecipePlugin(RecipeType<SimpleMachineRecipe> type) {
-            this.type = type;
-        }
+    private record DynamicSimpleMachineRecipePlugin(
+            RecipeType<SimpleMachineRecipe> type) implements ISimpleRecipeManagerPlugin<SimpleMachineRecipe> {
 
         @Override
-        public boolean isHandledInput(ITypedIngredient<?> input) {
-            return input.getIngredient() instanceof ItemStack;
-        }
-
-        @Override
-        public boolean isHandledOutput(ITypedIngredient<?> output) {
-            return output.getIngredient() instanceof ItemStack;
-        }
-
-        @Override
-        public List<SimpleMachineRecipe> getRecipesForInput(ITypedIngredient<?> input) {
-            if (!(input.getIngredient() instanceof ItemStack stack)) {
-                return List.of();
+            public boolean isHandledInput(ITypedIngredient<?> input) {
+                return input.getIngredient() instanceof ItemStack;
             }
-            List<SimpleMachineRecipe> result = new ArrayList<>();
-            for (SimpleMachineRecipe recipe : getAllRecipes()) {
-                Ingredient ingredient = recipe.getIngredient();
-                if (ingredient.test(stack)) {
-                    result.add(recipe);
+
+            @Override
+            public boolean isHandledOutput(ITypedIngredient<?> output) {
+                return output.getIngredient() instanceof ItemStack;
+            }
+
+            @Override
+            public @NotNull List<SimpleMachineRecipe> getRecipesForInput(ITypedIngredient<?> input) {
+                if (!(input.getIngredient() instanceof ItemStack stack)) {
+                    return List.of();
                 }
-            }
-            return result;
-        }
-
-        @Override
-        public List<SimpleMachineRecipe> getRecipesForOutput(ITypedIngredient<?> output) {
-            if (!(output.getIngredient() instanceof ItemStack stack)) {
-                return List.of();
-            }
-            List<SimpleMachineRecipe> result = new ArrayList<>();
-            for (SimpleMachineRecipe recipe : getAllRecipes()) {
-                ItemStack out = recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY);
-                if (ItemStack.isSameItemSameTags(out, stack)) {
-                    result.add(recipe);
+                List<SimpleMachineRecipe> result = new ArrayList<>();
+                for (SimpleMachineRecipe recipe : getAllRecipes()) {
+                    Ingredient ingredient = recipe.getIngredient();
+                    if (ingredient.test(stack)) {
+                        result.add(recipe);
+                    }
                 }
+                return result;
             }
-            return result;
-        }
 
-        @Override
-        public List<SimpleMachineRecipe> getAllRecipes() {
-            Minecraft minecraft = Minecraft.getInstance();
-            RecipeManager manager = null;
-            if (minecraft.getConnection() != null) {
-                manager = minecraft.getConnection().getRecipeManager();
-            } else if (minecraft.level != null) {
-                manager = minecraft.level.getRecipeManager();
+            @Override
+            public @NotNull List<SimpleMachineRecipe> getRecipesForOutput(ITypedIngredient<?> output) {
+                if (!(output.getIngredient() instanceof ItemStack stack)) {
+                    return List.of();
+                }
+                List<SimpleMachineRecipe> result = new ArrayList<>();
+                for (SimpleMachineRecipe recipe : getAllRecipes()) {
+                    ItemStack out = recipe.getResultItem(RegistryAccess.EMPTY);
+                    if (ItemStack.isSameItemSameTags(out, stack)) {
+                        result.add(recipe);
+                    }
+                }
+                return result;
             }
-            if (manager == null) {
-                return List.of();
+
+            @Override
+            public @NotNull List<SimpleMachineRecipe> getAllRecipes() {
+                Minecraft minecraft = Minecraft.getInstance();
+                RecipeManager manager = null;
+                if (minecraft.getConnection() != null) {
+                    manager = minecraft.getConnection().getRecipeManager();
+                } else if (minecraft.level != null) {
+                    manager = minecraft.level.getRecipeManager();
+                }
+                if (manager == null) {
+                    return List.of();
+                }
+                return manager.getAllRecipesFor(type);
             }
-            return manager.getAllRecipesFor(type);
         }
-    }
 
     private static List<SimpleMachineRecipe> loadSimpleRecipesFromResources(ResourceManager resourceManager, String typePath) {
         List<SimpleMachineRecipe> list = new ArrayList<>();
@@ -281,7 +278,6 @@ public class JEIPlugin implements IModPlugin {
         return Component.literal(
                 names.stream()
                         .map(Component::getString)
-                        .filter(Objects::nonNull)
                         .reduce((a, b) -> a + ", " + b)
                         .orElse("minecraft:ice")
         );

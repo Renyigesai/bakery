@@ -54,9 +54,7 @@ public final class ToasterOverlay implements ILookOverlay {
         int x = 8;
         int y = height - 34;
         graphics.drawString(mc.font, line1, x, y, 0xFFF0E6C8, true);
-        if (line2 != null) {
-            graphics.drawString(mc.font, line2, x, y + 11, 0xFFB8D9FF, true);
-        }
+        graphics.drawString(mc.font, line2, x, y + 11, 0xFFB8D9FF, true);
 
         var be = mc.level.getBlockEntity(hit.getBlockPos());
         if (be instanceof MachineBlockEntity machine) {

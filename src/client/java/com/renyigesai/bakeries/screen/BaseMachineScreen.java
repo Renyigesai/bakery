@@ -24,7 +24,7 @@ public abstract class BaseMachineScreen<T extends AbstractMachineMenu> extends A
         guiGraphics.blit(texture, x, y, 0, 0, this.imageWidth, this.imageHeight);
     }
 
-    protected void renderProgressBar(GuiGraphics guiGraphics, int leftPos, int topPos, int x, int y, int width, int height, int color) {
+    protected void renderProgressBar(GuiGraphics guiGraphics, int leftPos, int topPos, int x, int width, int color) {
         if (!this.menu.isCrafting()) {
             return;
         }
@@ -34,7 +34,7 @@ public abstract class BaseMachineScreen<T extends AbstractMachineMenu> extends A
         }
         int filled = Math.max(0, Math.min(width, this.menu.getProgress() * width / max));
         if (filled > 0) {
-            guiGraphics.fill(leftPos + x, topPos + y, leftPos + x + filled, topPos + y + height, color);
+            guiGraphics.fill(leftPos + x, topPos + 35, leftPos + x + filled, topPos + 35 + 8, color);
         }
     }
 

@@ -14,6 +14,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
 
+@SuppressWarnings("unused")
 public final class BakeriesClientMod implements ClientModInitializer {
     private final ToasterOverlay toasterOverlay = new ToasterOverlay();
 
