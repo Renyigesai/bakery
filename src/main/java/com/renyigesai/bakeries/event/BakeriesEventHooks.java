@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public final class BakeriesEventHooks {
     private static final List<Consumer<AnvilLandingEvent>> ANVIL_LANDING_LISTENERS = new ArrayList<>();
     private static final List<Consumer<SnifferDropSeedEvent>> SNIFFER_DROP_SEED_LISTENERS = new ArrayList<>();

@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class MultiOutputSingleItemRecipe extends SimpleMachineRecipe {
     private final NonNullList<ItemStack> allResults;
 

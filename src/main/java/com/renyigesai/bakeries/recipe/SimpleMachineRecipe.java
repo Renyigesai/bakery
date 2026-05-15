@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class SimpleMachineRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final Ingredient ingredient;

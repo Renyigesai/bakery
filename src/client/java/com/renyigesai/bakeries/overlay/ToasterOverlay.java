@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
+@SuppressWarnings("unused")
 public final class ToasterOverlay implements ILookOverlay {
     @Override
     public void render(GuiGraphics graphics, int width, int height) {

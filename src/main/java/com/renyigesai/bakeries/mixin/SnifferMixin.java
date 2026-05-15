@@ -18,6 +18,7 @@ public abstract class SnifferMixin extends Animal {
     @Shadow
     protected abstract BlockPos getHeadBlock();
 
+    @SuppressWarnings("unused") // Required synthetic constructor for Mixin target class.
     protected SnifferMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }

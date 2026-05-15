@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public final class BakeriesConfig {
     public enum TemperatureUnit {
         CELSIUS,

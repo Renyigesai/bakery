@@ -27,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class MachineBlockEntity extends BlockEntity implements ImplementedInventory, MenuProvider {
     private static final int SIZE = 27;
     private static final int DEFAULT_MAX_PROGRESS = 100;

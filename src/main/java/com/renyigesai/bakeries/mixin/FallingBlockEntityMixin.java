@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = FallingBlockEntity.class)
 public abstract class FallingBlockEntityMixin extends Entity {
+    @SuppressWarnings("unused") // Required synthetic constructor for Mixin target class.
     public FallingBlockEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+@SuppressWarnings("unused")
 public final class PlayerKeyAuxiliary {
     private static final Map<UUID, PlayerKeyAuxiliary> STATES = new ConcurrentHashMap<>();
     private boolean keyDown;

@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 
+@SuppressWarnings("unused")
 public final class BakeriesRecipeTypes {
     private static final ResourceLocation OVEN_ID = new ResourceLocation(BakeriesMod.MODID, "oven");
     private static final ResourceLocation BLENDER_ID = new ResourceLocation(BakeriesMod.MODID, "blender");
