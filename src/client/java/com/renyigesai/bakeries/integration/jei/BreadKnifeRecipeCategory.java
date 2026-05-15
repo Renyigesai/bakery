@@ -13,17 +13,20 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class BreadKnifeRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> {
     public static final RecipeType<SimpleMachineRecipe> TYPE =
             RecipeType.create(BakeriesMod.MODID, "bread_knife", SimpleMachineRecipe.class);
 
+    private static final ResourceLocation TEXTURE =
+            new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_single_recipe.png");
     private final IDrawable background;
     private final IDrawable icon;
 
     public BreadKnifeRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(116, 54);
+        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 109, 21);
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BakeriesItems.BREAD_KNIFE));
     }
 
@@ -59,7 +62,8 @@ public class BreadKnifeRecipeCategory implements IRecipeCategory<SimpleMachineRe
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 16, 19).addIngredients(recipe.getIngredient());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 19).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        builder.addSlot(RecipeIngredientRole.INPUT, 26, 2).addIngredients(recipe.getIngredient());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 2).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 3, 3).addItemStack(new ItemStack(BakeriesItems.BREAD_KNIFE));
     }
 }

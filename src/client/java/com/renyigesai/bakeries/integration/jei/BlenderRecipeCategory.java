@@ -21,12 +21,12 @@ public class BlenderRecipeCategory implements IRecipeCategory<SimpleMachineRecip
     public static final RecipeType<SimpleMachineRecipe> TYPE =
             RecipeType.create(BakeriesMod.MODID, "blender", SimpleMachineRecipe.class);
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/blender/blender_gui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_blender_gui.png");
     private final IDrawable background;
     private final IDrawable icon;
 
     public BlenderRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createDrawable(TEXTURE, 38, 16, 116, 54);
+        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 90, 69);
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BakeriesBlocks.BLENDER));
     }
 
@@ -62,7 +62,8 @@ public class BlenderRecipeCategory implements IRecipeCategory<SimpleMachineRecip
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 16, 19).addIngredients(recipe.getIngredient());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 19).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        builder.addSlot(RecipeIngredientRole.INPUT, 5, 8).addIngredients(recipe.getIngredient());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 67, 43).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 67, 8).addItemStack(new ItemStack(BakeriesBlocks.BLENDER));
     }
 }

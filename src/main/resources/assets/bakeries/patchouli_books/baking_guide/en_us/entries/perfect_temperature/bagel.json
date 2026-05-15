@@ -7,12 +7,12 @@
     {
       "type": "patchouli:spotlight",
       "item": "bakeries:bagel",
-      "title": "225°c"
+      "title": "225\u00B0c"
     },
     {
       "type": "patchouli:spotlight",
       "item": "bakeries:whole_wheat_bagel",
-      "title": "225°c"
+      "title": "225\u00B0c"
     }
   ]
 }

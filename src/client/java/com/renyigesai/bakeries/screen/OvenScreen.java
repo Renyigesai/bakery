@@ -1,15 +1,16 @@
 package com.renyigesai.bakeries.screen;
 
+import com.renyigesai.bakeries.BakeriesConfig;
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.menu.OvenMenu;
+import com.renyigesai.bakeries.network.Messages;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Inventory;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class OvenScreen extends BaseMachineScreen<OvenMenu> {
         if (mouseX >= leftPos + 125 && mouseX <= leftPos + 132 && mouseY >= topPos + 16 && mouseY <= topPos + 62) {
             List<Component> tooltip = new ArrayList<>();
             tooltip.add(Component.translatable("container.bakeries.oven.temperature").withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.literal(this.menu.getOvenTemperature() + "°C").withStyle(ChatFormatting.WHITE));
+            tooltip.add(Component.literal(BakeriesConfig.formatFromCelsius(this.menu.getOvenTemperature())).withStyle(ChatFormatting.WHITE));
             tooltip.add(Component.translatable("container.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY));
             guiGraphics.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
         }

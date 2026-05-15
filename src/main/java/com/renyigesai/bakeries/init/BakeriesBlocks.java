@@ -40,7 +40,7 @@ public final class BakeriesBlocks {
         TARO_SALT_YOLK_BREAD = register("taro_salt_yolk_bread", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         TOMATO_CHEESE_CROISSANT_SANDWICH = register("tomato_cheese_croissant_sandwich", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         WHOLE_WHEAT_FLOUR_BAG = register("whole_wheat_flour_bag", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
-        WOOD_TRAY = register("wood_tray", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
+        WOOD_TRAY = register("wood_tray", new StateBlocks.WoodTrayBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         MEAT_FLOSS_BREAD_ROLL = register("meat_floss_bread_roll", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         FLOUR_BAG = register("flour_bag", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         DIRTY_CHOCO_CROISSANT = register("dirty_choco_croissant", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));

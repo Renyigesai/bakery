@@ -30,6 +30,7 @@ public final class StateBlocks {
 
     public static class ToasterBlock extends MachineBlocks.FacingMachineBlock {
         public static final EnumProperty<ToasterState> STATE = EnumProperty.create("state", ToasterState.class);
+        private static final VoxelShape SHAPE = Block.box(0, 0, 4, 16, 12, 16);
 
         public ToasterBlock(BlockBehaviour.Properties properties) {
             super(properties);
@@ -45,6 +46,38 @@ public final class StateBlocks {
         @Override
         public @NotNull InteractionResult use(BlockState state, Level level, net.minecraft.core.BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
             return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+    }
+
+    public static class WoodTrayBlock extends FacingBlock {
+        private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 1, 15);
+
+        public WoodTrayBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
         }
     }
 

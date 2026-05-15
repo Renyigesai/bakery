@@ -20,12 +20,12 @@ public class OvenRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> 
     public static final RecipeType<SimpleMachineRecipe> TYPE =
             RecipeType.create(BakeriesMod.MODID, "oven", SimpleMachineRecipe.class);
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/oven_gui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_oven_gui.png");
     private final IDrawable background;
     private final IDrawable icon;
 
     public OvenRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createDrawable(TEXTURE, 30, 16, 116, 54);
+        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 58, 63);
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BakeriesBlocks.OVEN));
     }
 
@@ -61,7 +61,7 @@ public class OvenRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> 
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 22, 19).addIngredients(recipe.getIngredient());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 80, 19).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        builder.addSlot(RecipeIngredientRole.INPUT, 15, 8).addIngredients(recipe.getIngredient());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 15, 38).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
     }
 }

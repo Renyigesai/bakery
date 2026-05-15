@@ -14,6 +14,7 @@ public final class BakeriesMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        BakeriesConfig.init();
         BakeriesBlocks.init();
         BakeriesBlockEntities.init();
         BakeriesMenuTypes.init();

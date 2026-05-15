@@ -312,7 +312,7 @@
   "tooltips.bakeries.player_logged_in": "§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book",
   "tooltips.bakeries.repeat_eat_item_drink": "Drink",
   "tooltips.bakeries.repeat_eat_item_eat": "Eat",
-  "tooltips.bakeries.row_item_temperature": "Min %s °c",
+  "tooltips.bakeries.row_item_temperature": "Min %s \u00B0c",
   "tooltips.bakeries.shake": "Right shake",
   "tooltips.bakeries.toaster_0": "Right-click with your left hand to start baking",
   "tooltips.bakeries.toaster_1": "%s and right-click to retrieve the item",

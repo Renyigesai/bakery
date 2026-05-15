@@ -20,12 +20,12 @@ public class DoughCraftingRecipeCategory implements IRecipeCategory<SimpleMachin
     public static final RecipeType<SimpleMachineRecipe> TYPE =
             RecipeType.create(BakeriesMod.MODID, "dough_crafting", SimpleMachineRecipe.class);
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/container/dough_crafting_table_gui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_dough_crafting_table_gui.png");
     private final IDrawable background;
     private final IDrawable icon;
 
     public DoughCraftingRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createDrawable(TEXTURE, 10, 14, 156, 60);
+        this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 98, 46);
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BakeriesBlocks.DOUGH_CRAFTING_TABLE));
     }
 
@@ -61,7 +61,7 @@ public class DoughCraftingRecipeCategory implements IRecipeCategory<SimpleMachin
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 12, 22).addIngredients(recipe.getIngredient());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 135, 22).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        builder.addSlot(RecipeIngredientRole.INPUT, 12, 15).addIngredients(recipe.getIngredient());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 66, 15).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
     }
 }

@@ -102,4 +102,22 @@ public class SofaBlock extends FacingBlock {
         }
         return InteractionResult.PASS;
     }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            String posTag = SOFA_SEAT_POS_TAG_PREFIX + pos.getX() + "," + pos.getY() + "," + pos.getZ();
+            AABB seatArea = new AABB(
+                    pos.getX() + 0.35D, pos.getY() - 1.6D, pos.getZ() + 0.35D,
+                    pos.getX() + 0.65D, pos.getY() + 0.4D, pos.getZ() + 0.65D
+            );
+            for (ArmorStand seat : level.getEntitiesOfClass(ArmorStand.class, seatArea, entity ->
+                    entity.getTags().contains(SOFA_SEAT_TAG) && entity.getTags().contains(posTag)
+            )) {
+                seat.discard();
+            }
+        }
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
 }
