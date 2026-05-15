@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     protected final Container container;
@@ -35,7 +36,7 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int slotIndex) {
+    public @NotNull ItemStack quickMoveStack(Player player, int slotIndex) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(slotIndex);
         if (slot.hasItem()) {
@@ -65,15 +66,15 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
         this.container.stopOpen(player);
     }
 
-    protected void addPlayerInventorySlots(Inventory playerInventory, int inventoryStartX, int inventoryStartY, int hotbarY) {
+    protected void addPlayerInventorySlots(Inventory playerInventory) {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, inventoryStartX + col * 18, inventoryStartY + row * 18));
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
             }
         }
 
         for (int col = 0; col < 9; col++) {
-            this.addSlot(new Slot(playerInventory, col, inventoryStartX + col * 18, hotbarY));
+            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 142));
         }
     }
 

@@ -20,7 +20,7 @@ public class BakeriesClient implements ClientModInitializer {
                 new ResourceLocation("bakeries", "b_16x"),
                 modContainer,
                 Component.literal("Bakeries Dark"),
-                ResourcePackActivationType.ALWAYS_ENABLED
+                ResourcePackActivationType.NORMAL
         );
     }
 }

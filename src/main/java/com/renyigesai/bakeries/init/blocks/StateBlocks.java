@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
 public final class StateBlocks {
     private StateBlocks() {
@@ -36,7 +36,7 @@ public final class StateBlocks {
         }
 
         @Override
-        public InteractionResult use(BlockState state, Level level, net.minecraft.core.BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        public @NotNull InteractionResult use(BlockState state, Level level, net.minecraft.core.BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
     }
@@ -178,12 +178,14 @@ public final class StateBlocks {
         }
 
         @Override
-        public BlockState getStateForPlacement(BlockPlaceContext context) {
-            return super.getStateForPlacement(context).setValue(PILE, 1);
+        public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
+            BlockState state = super.getStateForPlacement(context);
+            return (state == null ? this.defaultBlockState() : state).setValue(PILE, 1);
         }
 
         @Override
-        public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, net.minecraft.world.level.LevelAccessor level, net.minecraft.core.BlockPos currentPos, net.minecraft.core.BlockPos facingPos) {
+        @SuppressWarnings("deprecation")
+        public @NotNull BlockState updateShape(BlockState state, Direction facing, BlockState facingState, net.minecraft.world.level.LevelAccessor level, net.minecraft.core.BlockPos currentPos, net.minecraft.core.BlockPos facingPos) {
             int pile = state.getValue(PILE);
             if (pile > maxPile) {
                 return state.setValue(PILE, maxPile);
@@ -203,7 +205,7 @@ public final class StateBlocks {
         }
 
         @Override
-        public BlockState getStateForPlacement(BlockPlaceContext context) {
+        public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
             return this.defaultBlockState();
         }
 
@@ -213,7 +215,8 @@ public final class StateBlocks {
         }
 
         @Override
-        public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, net.minecraft.world.level.LevelAccessor level, net.minecraft.core.BlockPos currentPos, net.minecraft.core.BlockPos facingPos) {
+        @SuppressWarnings("deprecation")
+        public @NotNull BlockState updateShape(BlockState state, Direction facing, BlockState facingState, net.minecraft.world.level.LevelAccessor level, net.minecraft.core.BlockPos currentPos, net.minecraft.core.BlockPos facingPos) {
             int age = state.getValue(AGE);
             if (age > maxAge) {
                 return state.setValue(AGE, maxAge);

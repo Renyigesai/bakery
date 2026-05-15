@@ -4,6 +4,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.Container;
+import org.jetbrains.annotations.NotNull;
 
 public interface ImplementedInventory extends Container {
     NonNullList<ItemStack> getItems();
@@ -24,12 +25,12 @@ public interface ImplementedInventory extends Container {
     }
 
     @Override
-    default ItemStack getItem(int slot) {
+    default @NotNull ItemStack getItem(int slot) {
         return getItems().get(slot);
     }
 
     @Override
-    default ItemStack removeItem(int slot, int amount) {
+    default @NotNull ItemStack removeItem(int slot, int amount) {
         ItemStack result = net.minecraft.world.ContainerHelper.removeItem(getItems(), slot, amount);
         if (!result.isEmpty()) {
             setChanged();
@@ -38,7 +39,7 @@ public interface ImplementedInventory extends Container {
     }
 
     @Override
-    default ItemStack removeItemNoUpdate(int slot) {
+    default @NotNull ItemStack removeItemNoUpdate(int slot) {
         return net.minecraft.world.ContainerHelper.takeItem(getItems(), slot);
     }
 

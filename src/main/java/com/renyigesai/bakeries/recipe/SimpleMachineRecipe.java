@@ -14,6 +14,9 @@ import net.minecraft.world.level.Level;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.registries.BuiltInRegistries;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class SimpleMachineRecipe implements Recipe<Container> {
     private final ResourceLocation id;
@@ -38,7 +41,7 @@ public class SimpleMachineRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
+    public @NotNull ItemStack assemble(Container container, RegistryAccess registryAccess) {
         ItemStack out = result.copy();
         out.setCount(count);
         return out;
@@ -50,25 +53,25 @@ public class SimpleMachineRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public @NotNull ItemStack getResultItem(RegistryAccess registryAccess) {
         ItemStack out = result.copy();
         out.setCount(count);
         return out;
     }
 
     @Override
-    public ResourceLocation getId() {
+    public @NotNull ResourceLocation getId() {
         return id;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return BuiltInRegistries.RECIPE_SERIALIZER.get(serializerId);
+    public @NotNull RecipeSerializer<?> getSerializer() {
+        return Objects.requireNonNull(BuiltInRegistries.RECIPE_SERIALIZER.get(serializerId));
     }
 
     @Override
-    public RecipeType<?> getType() {
-        return BuiltInRegistries.RECIPE_TYPE.get(typeId);
+    public @NotNull RecipeType<?> getType() {
+        return Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.get(typeId));
     }
 
     @Override
@@ -92,7 +95,7 @@ public class SimpleMachineRecipe implements Recipe<Container> {
         }
 
         @Override
-        public SimpleMachineRecipe fromJson(ResourceLocation id, JsonObject json) {
+        public @NotNull SimpleMachineRecipe fromJson(ResourceLocation id, JsonObject json) {
             Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "ingredient"));
             JsonObject resultJson = GsonHelper.getAsJsonObject(json, "result");
             ItemStack result = net.minecraft.world.item.crafting.ShapedRecipe.itemStackFromJson(resultJson);
@@ -101,7 +104,7 @@ public class SimpleMachineRecipe implements Recipe<Container> {
         }
 
         @Override
-        public SimpleMachineRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+        public @NotNull SimpleMachineRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             Ingredient ingredient = Ingredient.fromNetwork(buf);
             ItemStack result = buf.readItem();
             int count = buf.readVarInt();

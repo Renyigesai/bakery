@@ -46,7 +46,7 @@ sourceSets {
     }
     main {
         resources {
-            srcDirs = ["src/generated/resources", "build/generated/datagen", "src/main/resources"]
+            srcDirs = ["src/main/resources"]
         }
     }
 }
@@ -143,6 +143,23 @@ processResources {
                 minecraft_version: project.minecraft_version,
                 displayURL: project.displayURL
         )
+    }
+
+    // Merge generated datapack data.
+    from("build/generated/datagen") {
+        include "data/**"
+    }
+
+    // Also merge generated item models to fill missing jsons.
+    // Handwritten models in src/main/resources stay preferred because duplicatesStrategy=EXCLUDE
+    // and src/main/resources is the main sourceSet resource dir.
+    from("build/generated/datagen") {
+        include "assets/bakeries/models/item/**"
+    }
+
+    // Legacy generated item models still live here in this project.
+    from("src/generated/resources") {
+        include "assets/bakeries/models/item/**"
     }
 }
 

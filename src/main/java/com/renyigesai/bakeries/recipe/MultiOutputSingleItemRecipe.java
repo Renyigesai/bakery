@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 public class MultiOutputSingleItemRecipe extends SimpleMachineRecipe {
     private final NonNullList<ItemStack> allResults;
@@ -20,7 +21,7 @@ public class MultiOutputSingleItemRecipe extends SimpleMachineRecipe {
     }
 
     @Override
-    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
+    public @NotNull ItemStack assemble(Container container, RegistryAccess registryAccess) {
         return allResults.isEmpty() ? ItemStack.EMPTY : allResults.get(0).copy();
     }
 }

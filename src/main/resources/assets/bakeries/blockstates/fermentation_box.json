@@ -1,8 +1,7 @@
 {
   "variants": {
-    "facing=north": {"model": "bakeries:block/fermentation_box"},
-    "facing=south": {"model": "bakeries:block/fermentation_box", "y": 180},
-    "facing=west": {"model": "bakeries:block/fermentation_box", "y": 270},
-    "facing=east": {"model": "bakeries:block/fermentation_box", "y": 90}
+    "": {
+      "model": "bakeries:block/fermentation_box"
+    }
   }
 }

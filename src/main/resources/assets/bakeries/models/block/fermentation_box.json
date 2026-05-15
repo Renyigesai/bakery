@@ -1,7 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "bakeries:block/fermentation_box",
-    "particle": "bakeries:block/fermentation_box"
-  }
+  "parent": "bakeries:item/fermentation_box"
 }

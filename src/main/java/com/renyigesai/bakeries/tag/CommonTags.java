@@ -7,12 +7,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public final class CommonTags {
-    public static final TagKey<Item> BREAD_KNIFE_INGREDIENTS = item("bread_knife_ingredients");
+    public static final TagKey<Item> BREAD_KNIFE_INGREDIENTS = item();
 
     private CommonTags() {
     }
 
-    private static TagKey<Item> item(String path) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(BakeriesMod.MODID, path));
+    private static TagKey<Item> item() {
+        return TagKey.create(Registries.ITEM, new ResourceLocation(BakeriesMod.MODID, "bread_knife_ingredients"));
     }
 }

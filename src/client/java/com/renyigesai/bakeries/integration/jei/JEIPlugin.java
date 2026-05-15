@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.integration.jei;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
@@ -34,13 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
     private static final ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "jei_plugin");
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public @NotNull ResourceLocation getPluginUid() {
         return UID;
     }
 
@@ -75,7 +75,15 @@ public class JEIPlugin implements IModPlugin {
         List<SimpleMachineRecipe> flourSieveRecipes = List.of();
         List<SimpleMachineRecipe> drinkRecipes = List.of();
 
-        if (minecraft.getResourceManager() != null) {
+        if (manager != null) {
+            ovenRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.OVEN);
+            blenderRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.BLENDER);
+            doughRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING);
+            breadKnifeRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE);
+            flourSieveRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.FLOUR_SIEVE);
+            drinkRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.DRINK);
+        } else {
+            minecraft.getResourceManager();
             ovenRecipes = loadSimpleRecipesFromResources(minecraft.getResourceManager(), "oven");
             blenderRecipes = loadSimpleRecipesFromResources(minecraft.getResourceManager(), "blender");
             doughRecipes = loadSimpleRecipesFromResources(minecraft.getResourceManager(), "dough_crafting");
@@ -83,29 +91,19 @@ public class JEIPlugin implements IModPlugin {
             flourSieveRecipes = loadSimpleRecipesFromResources(minecraft.getResourceManager(), "flour_sieve");
             drinkRecipes = loadSimpleRecipesFromResources(minecraft.getResourceManager(), "drink");
         }
-
-        if (manager != null) {
-            // Merge runtime recipes if available (keeps datapack reload compatibility)
-            if (ovenRecipes.isEmpty()) ovenRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.OVEN);
-            if (blenderRecipes.isEmpty()) blenderRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.BLENDER);
-            if (doughRecipes.isEmpty()) doughRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING);
-            if (breadKnifeRecipes.isEmpty()) breadKnifeRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE);
-            if (flourSieveRecipes.isEmpty()) flourSieveRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.FLOUR_SIEVE);
-            if (drinkRecipes.isEmpty()) drinkRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.DRINK);
-        }
         registration.addRecipes(OvenRecipeCategory.TYPE, ovenRecipes);
         registration.addRecipes(BlenderRecipeCategory.TYPE, blenderRecipes);
         registration.addRecipes(DoughCraftingRecipeCategory.TYPE, doughRecipes);
         registration.addRecipes(BreadKnifeRecipeCategory.TYPE, breadKnifeRecipes);
         registration.addRecipes(FlourSieveRecipeCategory.TYPE, flourSieveRecipes);
         registration.addRecipes(DrinkRecipeCategory.TYPE, drinkRecipes);
-        registration.addIngredientInfo(new ItemStack(BakeriesItems.BOTTLE_YEAST), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+        registration.addItemStackInfo(new ItemStack(BakeriesItems.BOTTLE_YEAST),
                 Component.translatable("bakeries.bottle_yeast.description"));
-        registration.addIngredientInfo(new ItemStack(BakeriesItems.CHEESE_CUBE), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+        registration.addItemStackInfo(new ItemStack(BakeriesItems.CHEESE_CUBE),
                 Component.translatable("bakeries.cheese_cube.description"));
-        registration.addIngredientInfo(new ItemStack(BakeriesItems.OLIVE), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+        registration.addItemStackInfo(new ItemStack(BakeriesItems.OLIVE),
                 Component.translatable("bakeries.olive.description"));
-        registration.addIngredientInfo(new ItemStack(BakeriesItems.RAW_COFFEE_BEAN), mezz.jei.api.constants.VanillaTypes.ITEM_STACK,
+        registration.addItemStackInfo(new ItemStack(BakeriesItems.RAW_COFFEE_BEAN),
                 Component.translatable("bakeries.raw_coffee_bean.description"));
         BakeriesMod.LOGGER.info("[JEI] recipes registered: oven={}, blender={}, dough={}, bread_knife={}, flour_sieve={}, drink={}",
                 ovenRecipes.size(), blenderRecipes.size(), doughRecipes.size(), breadKnifeRecipes.size(), flourSieveRecipes.size(), drinkRecipes.size());

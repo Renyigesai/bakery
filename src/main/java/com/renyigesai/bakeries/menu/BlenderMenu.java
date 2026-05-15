@@ -9,6 +9,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class BlenderMenu extends AbstractMachineMenu {
     private static final int SLOT_COUNT = 11;
@@ -40,11 +41,11 @@ public class BlenderMenu extends AbstractMachineMenu {
                 return false;
             }
         });
-        this.addPlayerInventorySlots(playerInventory, 8, 84, 142);
+        this.addPlayerInventorySlots(playerInventory);
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int slotIndex) {
+    public @NotNull ItemStack quickMoveStack(Player player, int slotIndex) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(slotIndex);
         if (slot.hasItem()) {

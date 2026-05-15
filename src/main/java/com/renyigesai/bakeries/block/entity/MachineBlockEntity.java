@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.MenuProvider;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return switch (index) {
                 case 0 -> MachineBlockEntity.this.progress;
                 case 1 -> MachineBlockEntity.this.maxProgress;
+                case 2 -> MachineBlockEntity.this.ovenTemperature;
                 default -> 0;
             };
         }
@@ -54,6 +56,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             switch (index) {
                 case 0 -> MachineBlockEntity.this.progress = value;
                 case 1 -> MachineBlockEntity.this.maxProgress = value;
+                case 2 -> MachineBlockEntity.this.ovenTemperature = value;
                 default -> {
                 }
             }
@@ -61,7 +64,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     };
 
@@ -93,7 +96,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     }
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         if (getBlockState().is(BakeriesBlocks.OVEN)) return Component.translatable("block.bakeries.oven");
         if (getBlockState().is(BakeriesBlocks.BLENDER)) return Component.translatable("container.bakeries.blender");
         if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) return Component.translatable("container.bakeries.fermentation_box");
@@ -126,26 +129,26 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, MachineBlockEntity machine) {
         if (state.is(BakeriesBlocks.OVEN)) {
-            machine.tickRecipe(BakeriesRecipeTypes.OVEN, 0, 5, OVEN_MAX_PROGRESS);
+            machine.tickRecipe(BakeriesRecipeTypes.OVEN, 5, OVEN_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.BLENDER)) {
-            machine.tickRecipeAcrossInputs(BakeriesRecipeTypes.BLENDER, 0, 8, 10, BLENDER_MAX_PROGRESS);
+            machine.tickRecipeAcrossInputs();
         } else if (state.is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) {
             machine.resetProgressIfNeeded();
         } else if (state.is(BakeriesBlocks.CUPBOARD)) {
-            machine.tickRecipe(BakeriesRecipeTypes.BREAD_KNIFE, 0, 1, BREAD_KNIFE_MAX_PROGRESS);
+            machine.tickRecipe(BakeriesRecipeTypes.BREAD_KNIFE, 1, BREAD_KNIFE_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.MIX_BLOCK)) {
-            machine.tickRecipe(BakeriesRecipeTypes.FLOUR_SIEVE, 0, 1, FLOUR_SIEVE_MAX_PROGRESS);
+            machine.tickRecipe(BakeriesRecipeTypes.FLOUR_SIEVE, 1, FLOUR_SIEVE_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.MOKA_POT)) {
-            machine.tickRecipe(BakeriesRecipeTypes.DRINK, 0, 1, DRINK_MAX_PROGRESS);
+            machine.tickRecipe(BakeriesRecipeTypes.DRINK, 1, DRINK_MAX_PROGRESS);
         }
     }
 
-    private void tickRecipe(RecipeType<SimpleMachineRecipe> recipeType, int inputSlot, int outputSlot, int craftTime) {
+    private void tickRecipe(RecipeType<SimpleMachineRecipe> recipeType, int outputSlot, int craftTime) {
         if (level == null) {
             return;
         }
         maxProgress = craftTime;
-        SimpleMachineRecipe matched = findRecipe(recipeType, inputSlot, outputSlot);
+        SimpleMachineRecipe matched = findRecipe(recipeType, 0, outputSlot);
         if (matched == null) {
             resetProgressIfNeeded();
             return;
@@ -155,17 +158,17 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             setChanged();
             return;
         }
-        craftOnce(inputSlot, outputSlot, matched);
+        craftOnce(0, outputSlot, matched);
         progress = 0;
         setChanged();
     }
 
-    private void tickRecipeAcrossInputs(RecipeType<SimpleMachineRecipe> recipeType, int inputStart, int inputEnd, int outputSlot, int craftTime) {
+    private void tickRecipeAcrossInputs() {
         if (level == null) {
             return;
         }
-        maxProgress = craftTime;
-        Match matched = findRecipeAcrossInputs(recipeType, inputStart, inputEnd, outputSlot);
+        maxProgress = MachineBlockEntity.BLENDER_MAX_PROGRESS;
+        Match matched = findRecipeAcrossInputs(BakeriesRecipeTypes.BLENDER, 0, 8, 10);
         if (matched == null) {
             resetProgressIfNeeded();
             return;
@@ -175,24 +178,28 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             setChanged();
             return;
         }
-        craftOnce(matched.inputSlot, outputSlot, matched.recipe);
+        craftOnce(matched.inputSlot, 10, matched.recipe);
         progress = 0;
         setChanged();
     }
 
     private SimpleMachineRecipe findRecipe(RecipeType<SimpleMachineRecipe> recipeType, int inputSlot, int outputSlot) {
+        Level currentLevel = level;
+        if (currentLevel == null) {
+            return null;
+        }
         ItemStack input = this.getItem(inputSlot);
         if (input.isEmpty()) {
             return null;
         }
-        List<SimpleMachineRecipe> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
+        List<SimpleMachineRecipe> recipes = currentLevel.getRecipeManager().getAllRecipesFor(recipeType);
         for (SimpleMachineRecipe recipe : recipes) {
             Ingredient ingredient = recipe.getIngredient();
             if (!ingredient.test(input)) {
                 continue;
             }
             ItemStack output = this.getItem(outputSlot);
-            ItemStack crafted = recipe.getResultItem(level.registryAccess());
+            ItemStack crafted = recipe.getResultItem(currentLevel.registryAccess());
             if (canOutput(output, crafted)) {
                 return recipe;
             }
@@ -201,9 +208,13 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     }
 
     private void craftOnce(int inputSlot, int outputSlot, SimpleMachineRecipe recipe) {
+        Level currentLevel = level;
+        if (currentLevel == null) {
+            return;
+        }
         ItemStack input = this.getItem(inputSlot);
         ItemStack output = this.getItem(outputSlot);
-        ItemStack crafted = recipe.getResultItem(level.registryAccess());
+        ItemStack crafted = recipe.getResultItem(currentLevel.registryAccess());
         if (!canOutput(output, crafted)) {
             return;
         }

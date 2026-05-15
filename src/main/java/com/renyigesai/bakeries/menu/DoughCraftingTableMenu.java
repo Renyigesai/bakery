@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
             }
         });
 
-        this.addPlayerInventorySlots(playerInventory, 8, 84, 142);
+        this.addPlayerInventorySlots(playerInventory);
         this.addDataSlot(this.selectedRecipeIndex);
         this.slotsChanged(this.container);
     }
@@ -94,7 +95,7 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
     }
 
     public boolean hasInputItem() {
-        return this.container.getItem(INPUT_SLOT).isEmpty() ? false : !this.recipes.isEmpty();
+        return !this.container.getItem(INPUT_SLOT).isEmpty() && !this.recipes.isEmpty();
     }
 
     public void registerUpdateListener(Runnable listener) {
@@ -105,7 +106,7 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
     public void slotsChanged(Container changedContainer) {
         super.slotsChanged(changedContainer);
         ItemStack input = this.container.getItem(INPUT_SLOT);
-        if (!ItemStack.isSameItemSameTags(input, this.lastInput) || input.getCount() != this.lastInput.getCount()) {
+        if (!input.is(this.lastInput.getItem())) {
             this.lastInput = input.copy();
             this.refreshRecipeList();
         }
@@ -131,10 +132,10 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int slotIndex) {
+    public @NotNull ItemStack quickMoveStack(Player player, int slotIndex) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(slotIndex);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack stackInSlot = slot.getItem();
             Item item = stackInSlot.getItem();
             itemstack = stackInSlot.copy();

@@ -51,6 +51,6 @@ public class FermentationBoxMenu extends AbstractMachineMenu {
                 return 1;
             }
         });
-        this.addPlayerInventorySlots(playerInventory, 8, 84, 142);
+        this.addPlayerInventorySlots(playerInventory);
     }
 }

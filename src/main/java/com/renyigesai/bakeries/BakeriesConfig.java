@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public final class BakeriesConfig {
-    public static boolean aprilFoolsDayEffect = true;
-    public static double eternalBaguetteDamageUp = 2.0D;
-    public static boolean fermentationGameplay = true;
+    public static final boolean aprilFoolsDayEffect = true;
+    public static final double eternalBaguetteDamageUp = 2.0D;
+    public static final boolean fermentationGameplay = true;
 
     private BakeriesConfig() {
     }

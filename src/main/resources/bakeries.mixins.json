@@ -6,7 +6,6 @@
   "refmap": "bakeries.refmap.json",
   "mixins": [
     "FallingBlockEntityMixin",
-    "MaceMixin",
     "SnifferMixin"
   ],
   "injectors": {

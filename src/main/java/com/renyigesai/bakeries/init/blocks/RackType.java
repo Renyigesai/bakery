@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.init.blocks;
 
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum RackType implements StringRepresentable {
     SINGLE("single"),
@@ -15,7 +16,7 @@ public enum RackType implements StringRepresentable {
     }
 
     @Override
-    public String getSerializedName() {
+    public @NotNull String getSerializedName() {
         return name;
     }
 }

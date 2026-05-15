@@ -9,7 +9,11 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Inventory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OvenScreen extends BaseMachineScreen<OvenMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/oven_gui.png");
@@ -23,7 +27,25 @@ public class OvenScreen extends BaseMachineScreen<OvenMenu> {
         super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
         int leftPos = (this.width - this.imageWidth) / 2;
         int topPos = (this.height - this.imageHeight) / 2;
+        int temperature = this.menu.getOvenTemperature();
+        int progressH = (int) (38 * (temperature / 500.0f));
+        guiGraphics.blit(TEXTURE, leftPos + 128, topPos + (57 - progressH), 14, 166, 2, progressH, 256, 256);
+        guiGraphics.blit(TEXTURE, leftPos + 128, topPos + 19, 16, 166, 2, 38, 256, 256);
         renderProgressBar(guiGraphics, leftPos, topPos, 108, 35, 44, 8, 0xE0FF9F1A);
+    }
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        int leftPos = (this.width - this.imageWidth) / 2;
+        int topPos = (this.height - this.imageHeight) / 2;
+        if (mouseX >= leftPos + 125 && mouseX <= leftPos + 132 && mouseY >= topPos + 16 && mouseY <= topPos + 62) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.translatable("container.bakeries.oven.temperature").withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.literal(this.menu.getOvenTemperature() + "°C").withStyle(ChatFormatting.WHITE));
+            tooltip.add(Component.translatable("container.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY));
+            guiGraphics.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
+        }
     }
 
     @Override

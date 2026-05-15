@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.items.DescriptionItem;
 import com.renyigesai.bakeries.items.WholeEggItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -42,7 +43,7 @@ public final class BakeriesItems {
         COCOA_POWDER = register("cocoa_powder");
         MATCHA_POWDER = register("matcha_powder");
         SALT = register("salt");
-        BOTTLE_YEAST = register("bottle_yeast", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
+        BOTTLE_YEAST = register("bottle_yeast", new DescriptionItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE), "bakeries.bottle_yeast.description"));
         BOTTLE_MILK = register("bottle_milk", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
         BOTTLE_CREAM = register("bottle_cream", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
         BOTTLE_BUTTER = register("bottle_butter", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
@@ -55,7 +56,7 @@ public final class BakeriesItems {
         RAW_PROTEIN = register("raw_protein");
         RAW_EGG_YOLK = register("raw_egg_yolk");
         SALT_YOLK = register("salt_yolk");
-        CHEESE_CUBE = register("cheese_cube", food(1, 1.0F, false));
+        CHEESE_CUBE = register("cheese_cube", new DescriptionItem(food(1, 1.0F, false), "bakeries.cheese_cube.description"));
         FRESH_CHEESE_CUBE = register("fresh_cheese_cube", food(1, 1.0F, false));
         BROWN_SUGAR_CUBE = register("brown_sugar_cube");
         COFFEE_BEAN = register("coffee_bean");
@@ -65,7 +66,7 @@ public final class BakeriesItems {
         MEAT_FLOSS = register("meat_floss", food(2, 0.8F, false));
         ICE_CUBES = register("ice_cubes");
         SCONE = register("scone", food(4, 0.5F, true));
-        OLIVE = register("olive", food(2, 0.5F, false));
+        OLIVE = register("olive", new DescriptionItem(food(2, 0.5F, false), "bakeries.olive.description"));
         TARO = registerBlock("taro", BakeriesBlocks.TARO);
         COOKED_TARO = register("cooked_taro", food(6, 0.6F, false));
         MASHED_TARO = register("mashed_taro", food(1, 0.5F, false));
@@ -150,7 +151,7 @@ public final class BakeriesItems {
         FLOUR_SIEVE = register("flour_sieve");
         MEAT_FLOSS_BREAD_ROLL = register("meat_floss_bread_roll", food(10, 0.7F, false));
         PINEAPPLE_OIL = register("pineapple_oil");
-        RAW_COFFEE_BEAN = register("raw_coffee_bean");
+        RAW_COFFEE_BEAN = register("raw_coffee_bean", new DescriptionItem(new Item.Properties(), "bakeries.raw_coffee_bean.description"));
         RAW_SALT_BLOCK = register("raw_salt_block");
         SALT_ORE = register("salt_ore");
         SOFA_LIGHT_GRAY = register("sofa_light_gray");

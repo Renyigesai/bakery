@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class MachineBlocks {
@@ -34,7 +35,7 @@ public final class MachineBlocks {
         }
 
         @Override
-        public RenderShape getRenderShape(BlockState state) {
+        public @NotNull RenderShape getRenderShape(BlockState state) {
             return RenderShape.MODEL;
         }
 
@@ -53,7 +54,8 @@ public final class MachineBlocks {
         }
 
         @Override
-        public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        @SuppressWarnings("deprecation")
+        public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
             if (level.isClientSide) {
                 return InteractionResult.SUCCESS;
             }
