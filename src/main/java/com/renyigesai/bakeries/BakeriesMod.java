@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries;
 
 import com.renyigesai.bakeries.init.*;
-import com.renyigesai.bakeries.capabilities.BakeriesCapabilities;
 import com.renyigesai.bakeries.common.loot.BakeriesLootHooks;
 import com.renyigesai.bakeries.network.Messages;
 import net.fabricmc.api.ModInitializer;
@@ -20,11 +19,6 @@ public final class BakeriesMod implements ModInitializer {
         BakeriesMenuTypes.init();
         BakeriesRecipeTypes.init();
         BakeriesItems.init();
-        BakeriesCapabilities.init();
-        BakeriesCondition.init();
-        BakeriesMobEffects.init();
-        BakeriesTags.init();
-        BakeriesVillagerInit.init();
         BakeriesLootHooks.init();
         Messages.init();
         LOGGER.info("Bakeries Fabric bootstrap initialized.");

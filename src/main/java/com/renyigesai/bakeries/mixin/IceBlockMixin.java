@@ -17,6 +17,7 @@ public abstract class IceBlockMixin {
                     target = "Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
             )
     )
+    @SuppressWarnings("unused") // Called by Mixin redirect target.
     private boolean bakeries$preventIceWater(Level level, BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
         // Only prevent normal ice from turning into water when broken.
         if (state.is(Blocks.WATER)) {

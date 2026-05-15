@@ -3,7 +3,6 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.menu.MenuBlock;
 import com.renyigesai.bakeries.common.blocks.sofa.SofaBlock;
-import com.renyigesai.bakeries.init.blocks.FacingBlock;
 import com.renyigesai.bakeries.init.blocks.MachineBlocks;
 import com.renyigesai.bakeries.init.blocks.StateBlocks;
 import net.minecraft.core.Registry;

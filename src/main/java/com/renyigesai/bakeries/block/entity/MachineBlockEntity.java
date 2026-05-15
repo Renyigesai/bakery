@@ -194,7 +194,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return;
         }
         maxProgress = MachineBlockEntity.BLENDER_MAX_PROGRESS;
-        Match matched = findRecipeAcrossInputs(BakeriesRecipeTypes.BLENDER, 0, 8, 10);
+        Match matched = findRecipeAcrossInputs();
         if (matched == null) {
             resetProgressIfNeeded();
             return;
@@ -270,9 +270,9 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         return existing.getCount() + crafted.getCount() <= existing.getMaxStackSize();
     }
 
-    private Match findRecipeAcrossInputs(RecipeType<SimpleMachineRecipe> recipeType, int inputStart, int inputEnd, int outputSlot) {
-        for (int slot = inputStart; slot <= inputEnd; slot++) {
-            SimpleMachineRecipe recipe = findRecipe(recipeType, slot, outputSlot);
+    private Match findRecipeAcrossInputs() {
+        for (int slot = 0; slot <= 8; slot++) {
+            SimpleMachineRecipe recipe = findRecipe(BakeriesRecipeTypes.BLENDER, slot, 10);
             if (recipe != null) {
                 return new Match(slot, recipe);
             }

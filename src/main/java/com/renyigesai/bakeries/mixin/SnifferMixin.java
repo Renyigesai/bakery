@@ -30,6 +30,7 @@ public abstract class SnifferMixin extends Animal {
                     shift = At.Shift.AFTER
             )
     )
+    @SuppressWarnings("unused") // Called by Mixin injection target.
     private void dropSeed(CallbackInfo ci) {
         BakeriesEventHooks.fireSnifferDropSeed(new SnifferDropSeedEvent(this.level(), this.getHeadBlock()));
     }

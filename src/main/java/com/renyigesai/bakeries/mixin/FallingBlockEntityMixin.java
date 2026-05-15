@@ -23,6 +23,7 @@ public abstract class FallingBlockEntityMixin extends Entity {
             require = 0,
             at = @At("HEAD")
     )
+    @SuppressWarnings("unused") // Called by Mixin injection target.
     private void causeFallDamage(
             float fallDistance,
             float multiplier,

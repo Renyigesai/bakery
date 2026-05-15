@@ -24,6 +24,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public final class StateBlocks {
     private StateBlocks() {
     }
@@ -188,7 +190,7 @@ public final class StateBlocks {
             if (pos.getY() >= level.getMaxBuildHeight() - 1 || !level.getBlockState(pos.above()).canBeReplaced(context)) {
                 return null;
             }
-            return super.getStateForPlacement(context)
+            return Objects.requireNonNull(super.getStateForPlacement(context))
                     .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
                     .setValue(BlockStateProperties.OPEN, false);
         }
@@ -344,7 +346,6 @@ public final class StateBlocks {
         @SuppressWarnings("deprecation")
         public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
             return switch (state.getValue(FACING)) {
-                case NORTH -> SHAPE_NORTH;
                 case SOUTH -> SHAPE_SOUTH;
                 case EAST -> SHAPE_EAST;
                 case WEST -> SHAPE_WEST;
@@ -356,7 +357,6 @@ public final class StateBlocks {
         @SuppressWarnings("deprecation")
         public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
             return switch (state.getValue(FACING)) {
-                case NORTH -> SHAPE_NORTH;
                 case SOUTH -> SHAPE_SOUTH;
                 case EAST -> SHAPE_EAST;
                 case WEST -> SHAPE_WEST;

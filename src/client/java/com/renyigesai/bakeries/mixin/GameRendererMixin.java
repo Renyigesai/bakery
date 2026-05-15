@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
     @Inject(method = "pick(F)V", at = @At("TAIL"))
+    @SuppressWarnings("unused") // Called by Mixin injection target.
     private void bakeries$pick(float partialTicks, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         HitResult hitResult = mc.hitResult;
