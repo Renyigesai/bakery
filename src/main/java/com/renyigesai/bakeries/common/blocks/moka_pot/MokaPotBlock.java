@@ -78,10 +78,20 @@ public class MokaPotBlock extends BaseEntityBlock {
                     return ItemInteractionResult.SUCCESS;
                 }
             } else {
-                pLevel.removeBlock(pPos, false);
-                ItemUtils.givePlayerItem(pPlayer, new ItemStack(getMokaPotItem(mokaPotBlockEntity).getItem()));
-                pLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
-                return ItemInteractionResult.SUCCESS;
+                // Check if something inside
+                if (!mokaPotBlockEntity.isEmpty()) {
+                    ItemStack extracted = mokaPotBlockEntity.extractGroundCoffee();
+                    ItemUtils.givePlayerItem(pPlayer, extracted);
+                    pLevel.playSound(null, pPos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.8F, 0.8F);
+                    return ItemInteractionResult.SUCCESS;
+                }
+                // Return pot ONLY when empty
+                else {
+                    pLevel.removeBlock(pPos, false);
+                    ItemUtils.givePlayerItem(pPlayer, new ItemStack(getMokaPotItem(mokaPotBlockEntity).getItem()));
+                    pLevel.playSound(null, pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
+                    return ItemInteractionResult.SUCCESS;
+                }
             }
         }
         return super.useItemOn(stack, state, pLevel, pPos, pPlayer, pHand, hitResult);
