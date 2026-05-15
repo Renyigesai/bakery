@@ -6,6 +6,8 @@ import com.renyigesai.bakeries.common.blocks.*;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.bread_basket.BreadBasketBlock;
 import com.renyigesai.bakeries.common.blocks.bread_rack.BreadRackBlock;
+import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlock;
+import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.blocks.sofa.SofaBlock;
 import com.renyigesai.bakeries.common.blocks.toaster.ToasterBlock;
@@ -102,6 +104,7 @@ public class BlockStates extends BlockStateProvider {
         sofaBlock(BakeriesBlocks.SOFA_WHITE);
         sofaBlock(BakeriesBlocks.SOFA_RED);
         sofaBlock(BakeriesBlocks.SOFA_LIGHT_GRAY);
+        luminousLightSignBlock(BakeriesBlocks.LUMINOUS_LIGHT_SIGN);
         cashRegisterComputerBlock(BakeriesBlocks.CASH_REGISTER_COMPUTER);
         directionBlock(BakeriesBlocks.DRINK_CUP);
         directionBlock(BakeriesBlocks.MENU);
@@ -397,6 +400,26 @@ public class BlockStates extends BlockStateProvider {
                         .partialState()
                         .with(BlockStateProperties.HORIZONTAL_FACING, direction)
                         .with(CoffeeTableBlock.TYPE, type)
+                        .modelForState()
+                        .rotationY((int) direction.toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
+    }
+
+    public void luminousLightSignBlock(Supplier<Block> block){
+        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
+            for (HorizontalConnectBlock.Type type : LuminousLightSignBlock.TYPE.getPossibleValues()) {
+                String state = "_" + type.getSerializedName();
+                if ("_single".equals(state)){
+                    state = "";
+                }
+                ModelFile modelFile = this.models().withExistingParent("luminous_light_sign" + state, this.modLoc("custom/luminous_light_sign" + state)).texture("0", "bakeries:block/luminous_light_sign").texture("particle", "bakeries:block/luminous_light_sign").renderType(TRANSLUCENT);
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                        .with(LuminousLightSignBlock.TYPE, type)
                         .modelForState()
                         .rotationY((int) direction.toYRot())
                         .modelFile(modelFile)

@@ -18,6 +18,8 @@ import com.renyigesai.bakeries.common.blocks.fermentation_box.FermentationBoxBlo
 import com.renyigesai.bakeries.common.blocks.fluid.SaltWaterFluidsBlock;
 import com.renyigesai.bakeries.common.blocks.glass_drink_cup.GlassDrinkCupBlock;
 import com.renyigesai.bakeries.common.blocks.glass_drink_cup.GlassDrinkCupBlockEntity;
+import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlock;
+import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.common.blocks.menu.MenuBlock;
 import com.renyigesai.bakeries.common.blocks.menu.MenuBlockEntity;
 import com.renyigesai.bakeries.common.blocks.mix_block.MixBlock;
@@ -154,6 +156,8 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> CASH_REGISTER_COMPUTER;
 
     public static DeferredBlock<Block> FERMENTATION_BOX;
+    public static DeferredBlock<Block> LUMINOUS_LIGHT_SIGN;
+
 
     /**饮料方块*/
     public static final DeferredBlock<Block> ICED_AMERICAN;
@@ -291,6 +295,7 @@ public class BakeriesBlocks {
 
         FERMENTATION_BOX = REGISTER.register("fermentation_box",()-> new FermentationBoxBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
                 .sound(SoundType.NETHERITE_BLOCK).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
+        LUMINOUS_LIGHT_SIGN = REGISTER.register("luminous_light_sign", LuminousLightSignBlock::new);
 
 
         /**联动方块*/
@@ -330,5 +335,6 @@ public class BakeriesBlocks {
         public static final Supplier<BlockEntityType<MenuBlockEntity>> MENU_ENTITY = REGISTER.register("menu", () -> BlockEntityType.Builder.of(MenuBlockEntity::new, MENU.get()).build(null));
         public static final Supplier<BlockEntityType<BreadRackBlockEntity>> BREAD_RACK_ENTITY = REGISTER.register("bread_rack", () -> BlockEntityType.Builder.of(BreadRackBlockEntity::new, BREAD_RACK.get(),GLASS_BREAD_RACK.get()).build(null));
         public static final Supplier<BlockEntityType<FermentationBoxBlockEntity>> FERMENTATION_BOX_ENTITY = REGISTER.register("fermentation_box", () -> BlockEntityType.Builder.of(FermentationBoxBlockEntity::new, FERMENTATION_BOX.get()).build(null));
+        public static Supplier<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY = REGISTER.register("luminous_light_sign_", () -> BlockEntityType.Builder.of(LuminousLightSignBlockEntity::new, LUMINOUS_LIGHT_SIGN.get()).build(null));;
     }
 }

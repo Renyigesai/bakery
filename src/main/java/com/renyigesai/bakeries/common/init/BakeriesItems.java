@@ -103,6 +103,9 @@ public class BakeriesItems {
     @ItemData(zhCn = "收银电脑",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> CASH_REGISTER_COMPUTER;
 
+    @ItemData(zhCn = "发光灯牌",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> LUMINOUS_LIGHT_SIGN;
+
     @ItemData(zhCn = "玻璃橱柜门",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> GLASS_CABINET_DOOR;
 
@@ -469,6 +472,7 @@ public class BakeriesItems {
         SOFA_RED = block(BakeriesBlocks.SOFA_RED);
         SOFA_LIGHT_GRAY = block(BakeriesBlocks.SOFA_LIGHT_GRAY);
         CASH_REGISTER_COMPUTER = block(BakeriesBlocks.CASH_REGISTER_COMPUTER);
+        LUMINOUS_LIGHT_SIGN = block(BakeriesBlocks.LUMINOUS_LIGHT_SIGN);
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);

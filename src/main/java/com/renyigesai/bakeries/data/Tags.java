@@ -89,7 +89,8 @@ public class Tags extends AbstractTagProvider {
                 BakeriesBlocks.MOKA_POT,
                 BakeriesBlocks.DRINK_CUP,
                 BakeriesBlocks.TOASTER,
-                BakeriesBlocks.FERMENTATION_BOX
+                BakeriesBlocks.FERMENTATION_BOX,
+                BakeriesBlocks.LUMINOUS_LIGHT_SIGN
         );
         addToHarvestTag(BlockTags.MINEABLE_WITH_AXE,
                 BakeriesBlocks.CUPBOARD,

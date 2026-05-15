@@ -12,6 +12,7 @@
     "bakeries:moka_pot",
     "bakeries:drink_cup",
     "bakeries:toaster",
-    "bakeries:fermentation_box"
+    "bakeries:fermentation_box",
+    "bakeries:luminous_light_sign"
   ]
 }
