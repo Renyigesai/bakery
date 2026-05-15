@@ -17,10 +17,6 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     protected final int machineSlotCount;
     protected final ContainerData data;
 
-    protected AbstractMachineMenu(MenuType<?> type, int syncId, Inventory playerInventory, int machineSlotCount, int dataCount) {
-        this(type, syncId, playerInventory, new SimpleContainer(machineSlotCount), machineSlotCount, new SimpleContainerData(dataCount));
-    }
-
     protected AbstractMachineMenu(MenuType<?> type, int syncId, Inventory playerInventory, Container container, int machineSlotCount, ContainerData data) {
         super(type, syncId);
         this.container = container;

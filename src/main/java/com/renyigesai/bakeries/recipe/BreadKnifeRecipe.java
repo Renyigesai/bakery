@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
+@SuppressWarnings("unused")
 public class BreadKnifeRecipe extends MultiOutputSingleItemRecipe {
     public BreadKnifeRecipe(ResourceLocation id, Ingredient ingredient, NonNullList<ItemStack> results) {
         super(id, ingredient, results,

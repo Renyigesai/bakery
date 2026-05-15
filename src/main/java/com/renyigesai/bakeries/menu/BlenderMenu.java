@@ -11,6 +11,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class BlenderMenu extends AbstractMachineMenu {
     private static final int SLOT_COUNT = 11;
 

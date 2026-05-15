@@ -8,6 +8,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 
+@SuppressWarnings("unused")
 public class OvenMenu extends AbstractMachineMenu {
     private static final int SLOT_COUNT = 6;
 

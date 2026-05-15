@@ -41,6 +41,7 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 @JeiPlugin
+@SuppressWarnings("unused")
 public class JEIPlugin implements IModPlugin {
     private static final ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "jei_plugin");
     private static final ResourceLocation ICE_DROP_SOURCES = new ResourceLocation(BakeriesMod.MODID, "loot_sources/ice_drop_sources.json");
