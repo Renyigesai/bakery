@@ -372,5 +372,25 @@ public class Languages extends AbstractLanguageProvider {
         add("bakeries.ponder.bread_knife.text_3",
                 "It can also slice specific blocks like Toast",
                 "它还可以切开特定的方块，比如吐司");
+
+        // moka_pot_brewing
+        add("bakeries.ponder.moka_pot_brewing.header",
+                "Brewing Coffee with a Moka Pot",
+                "使用摩卡壶煮咖啡");
+        add("bakeries.ponder.moka_pot_brewing.text_1",
+                "First, place the Moka Pot on a heat source (like a Campfire or lit Furnace)",
+                "首先，将摩卡壶放置在热源上（如营火或点燃的熔炉）");
+        add("bakeries.ponder.moka_pot_brewing.text_2",
+                "Right-click with Ground Coffee to add it",
+                "手持咖啡粉右击摩卡壶将其加入");
+        add("bakeries.ponder.moka_pot_brewing.text_3",
+                "Wait for the coffee to brew...",
+                "等待一段时间，让咖啡慢慢煮沸……");
+        add("bakeries.ponder.moka_pot_brewing.text_4",
+                "Pick up the filled Moka Pot with an empty hand",
+                "空手右击以取下装满了的摩卡壶");
+        add("bakeries.ponder.moka_pot_brewing.text_5",
+                "Use the filled Moka Pot with other ingredients to make coffee",
+                "使用装满的摩卡壶加上其他材料来制成咖啡");
     }
 }

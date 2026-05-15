@@ -113,4 +113,9 @@ public class MokaPotBlockEntity extends BlockEntity {
             }
         }
     }
+
+    public ItemStack extractGroundCoffee(){
+        // Extract item from slot 0
+        return inventory.extractItem(0, 64, false);
+    }
 }

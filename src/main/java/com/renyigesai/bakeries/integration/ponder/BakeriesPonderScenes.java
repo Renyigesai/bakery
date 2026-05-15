@@ -499,4 +499,121 @@ public class BakeriesPonderScenes {
 
         scene.markAsFinished();
     }
+
+    public static void mokaPotScene(SceneBuilder scene, SceneBuildingUtil util) {
+        scene.title("moka_pot_brewing", "Brewing Coffee with a Moka Pot");
+        scene.configureBasePlate(0, 0, 3);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos campfirePos = util.grid().at(1, 1, 1);
+        BlockPos mokaPotPos = util.grid().at(1, 2, 1);
+        Vec3 controlNode = util.vector().topOf(mokaPotPos);
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                        PART 1: PLACEMENT & HEAT                          |
+         * +--------------------------------------------------------------------------+
+         */
+        scene.world().showSection(util.select().position(campfirePos), Direction.DOWN);
+        scene.idle(10);
+        scene.world().showSection(util.select().position(mokaPotPos), Direction.DOWN);
+        scene.idle(20);
+
+        scene.overlay().showText(60)
+                .placeNearTarget()
+                .text("First, place the Moka Pot on a heat source (like a Campfire or lit Furnace)")
+                .pointAt(util.vector().blockSurface(mokaPotPos, Direction.WEST));
+        scene.idle(70);
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                        PART 2: ADDING COFFEE GROUNDS                     |
+         * +--------------------------------------------------------------------------+
+         */
+        scene.overlay().showText(50)
+                .placeNearTarget()
+                .text("Right-click with Ground Coffee to add it")
+                .pointAt(controlNode);
+
+        scene.overlay().showControls(controlNode, Pointing.DOWN, 30)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.GROUND_COFFEE.get()));
+        scene.idle(15);
+
+        // Add ground coffee internally
+        scene.world().modifyBlockEntity(mokaPotPos, com.renyigesai.bakeries.common.blocks.moka_pot.MokaPotBlockEntity.class, be -> {
+            be.addGroundCoffee(new ItemStack(BakeriesItems.GROUND_COFFEE.get()));
+        });
+        scene.effects().indicateSuccess(mokaPotPos);
+        scene.idle(40);
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                        PART 3: BREWING PROCESS                           |
+         * +--------------------------------------------------------------------------+
+         */
+        scene.overlay().showText(60)
+                .independent(40)
+                .text("Wait for the coffee to brew...");
+
+        // Simulate brewing time and wobble effect
+        for(int i = 0; i < 40; i++) {
+            if (i % 5 == 0) {
+                scene.effects().emitParticles(util.vector().centerOf(mokaPotPos).add(0, 0.2, 0),
+                        scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.SMOKE, Vec3.ZERO), 1, 1);
+            }
+            scene.idle(2);
+        }
+
+        // Complete brewing: Set block state to filled Moka Pot (or update NBT if it's handled via NBT in rendering)
+        scene.world().modifyBlockEntityNBT(util.select().position(mokaPotPos), com.renyigesai.bakeries.common.blocks.moka_pot.MokaPotBlockEntity.class, nbt -> {
+            nbt.putBoolean("Fill", true);
+            nbt.putInt("CookingTotalTime", 0);
+            nbt.getCompound("Inventory").remove("Items"); // Clear grounds
+        });
+
+        // Show particles to indicate completion
+        scene.effects().emitParticles(controlNode, scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CLOUD, new Vec3(0, 0.1, 0)), 5, 1);
+        scene.idle(30);
+
+        /*
+         * +--------------------------------------------------------------------------+
+         * |                        PART 4: POURING COFFEE                            |
+         * +--------------------------------------------------------------------------+
+         */
+        scene.overlay().showText(60)
+                .placeNearTarget()
+                .text("Pick up the filled Moka Pot with an empty hand")
+                .pointAt(controlNode);
+
+        scene.overlay().showControls(controlNode, Pointing.DOWN, 30).rightClick();
+        scene.idle(15);
+        scene.world().setBlock(mokaPotPos, Blocks.AIR.defaultBlockState(), false);
+        scene.idle(30);
+
+        // Place a drink cup down
+        BlockPos cupPos = util.grid().at(1, 1, 1); // Replacing campfire for demonstration
+        scene.world().setBlock(cupPos, BakeriesBlocks.DRINK_CUP.get().defaultBlockState(), true);
+        scene.world().showSection(util.select().position(cupPos), Direction.DOWN);
+        scene.idle(20);
+
+        Vec3 cupNode = util.vector().topOf(cupPos);
+        scene.overlay().showText(60)
+                .placeNearTarget()
+                .text("Use the filled Moka Pot on an empty Drink Cup to pour coffee")
+                .pointAt(cupNode);
+
+        scene.overlay().showControls(cupNode, Pointing.DOWN, 30)
+                .rightClick()
+                .withItem(new ItemStack(BakeriesItems.MOKA_POT_FILL.get()));
+        scene.idle(15);
+
+        // Convert the cup to a filled coffee cup
+        scene.world().setBlock(cupPos, BakeriesBlocks.ICED_AMERICAN.get().defaultBlockState(), false); // Replace with appropriate filled cup block state if different
+        scene.effects().indicateSuccess(cupPos);
+        scene.idle(40);
+
+        scene.markAsFinished();
+    }
 }

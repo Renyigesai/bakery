@@ -49,6 +49,13 @@ public class BakeriesPonderPlugin implements PonderPlugin {
                 BakeriesPonderScenes::breadKnifeScene,
                 BAKERIES_TAG
         );
+        HELPER.forComponents(
+                BakeriesItems.MOKA_POT
+        ).addStoryBoard(
+                "moka_pot",
+                BakeriesPonderScenes::mokaPotScene,
+                BAKERIES_TAG
+        );
     }
 
     @Override
@@ -65,8 +72,9 @@ public class BakeriesPonderPlugin implements PonderPlugin {
                 .add(BakeriesBlocks.FERMENTATION_TANK)
                 .add(BakeriesBlocks.YEAST_TANK)
                 .add(BakeriesBlocks.CHEESE_TANK)
-                .add(BakeriesBlocks.OVEN)
                 .add(BakeriesItems.BREAD_KNIFE)
+                .add(BakeriesItems.MOKA_POT)
+                .add(BakeriesBlocks.OVEN)
         ;
     }
 
