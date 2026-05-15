@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/bagel_filled_sauce_3",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/bagel",
+    "1": "bakeries:block/sauce",
+    "particle": "bakeries:block/sauce"
+  }
+}

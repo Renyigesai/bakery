@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "bakeries:block/fermentation_box"
-    }
+    "": {"model": "bakeries:block/fermentation_box"}
   }
 }

@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bakeries:block/flour_bag_top"
-  }
+  "parent": "bakeries:block/flour_bag"
 }

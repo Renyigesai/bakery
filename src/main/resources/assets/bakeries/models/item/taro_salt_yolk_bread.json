@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bakeries:block/taro_salt_yolk_bread"
-  }
+  "parent": "bakeries:block/taro_salt_yolk_bread_1"
 }

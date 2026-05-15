@@ -40,7 +40,32 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     private int progress;
     private int maxProgress = DEFAULT_MAX_PROGRESS;
     private int ovenTemperature;
-    private final ContainerData menuData = new ContainerData() {
+    private final ContainerData machineMenuData = new ContainerData() {
+        @Override
+        public int get(int index) {
+            return switch (index) {
+                case 0 -> MachineBlockEntity.this.progress;
+                case 1 -> MachineBlockEntity.this.maxProgress;
+                default -> 0;
+            };
+        }
+
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0 -> MachineBlockEntity.this.progress = value;
+                case 1 -> MachineBlockEntity.this.maxProgress = value;
+                default -> {
+                }
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    };
+    private final ContainerData ovenMenuData = new ContainerData() {
         @Override
         public int get(int index) {
             return switch (index) {
@@ -109,14 +134,14 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, net.minecraft.world.entity.player.Player player) {
-        if (getBlockState().is(BakeriesBlocks.OVEN)) return new OvenMenu(syncId, playerInventory, this, menuData);
-        if (getBlockState().is(BakeriesBlocks.BLENDER)) return new BlenderMenu(syncId, playerInventory, this, menuData);
+        if (getBlockState().is(BakeriesBlocks.OVEN)) return new OvenMenu(syncId, playerInventory, this, ovenMenuData);
+        if (getBlockState().is(BakeriesBlocks.BLENDER)) return new BlenderMenu(syncId, playerInventory, this, machineMenuData);
         if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) return new FermentationBoxMenu(syncId, playerInventory, this);
-        if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
-        if (getBlockState().is(BakeriesBlocks.CUPBOARD)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
-        if (getBlockState().is(BakeriesBlocks.MIX_BLOCK)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
-        if (getBlockState().is(BakeriesBlocks.MOKA_POT)) return new DoughCraftingTableMenu(syncId, playerInventory, this, menuData);
-        return new OvenMenu(syncId, playerInventory, this, menuData);
+        if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
+        if (getBlockState().is(BakeriesBlocks.CUPBOARD)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
+        if (getBlockState().is(BakeriesBlocks.MIX_BLOCK)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
+        if (getBlockState().is(BakeriesBlocks.MOKA_POT)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
+        return new OvenMenu(syncId, playerInventory, this, ovenMenuData);
     }
 
     @Override

@@ -1,8 +1,5 @@
 {
   "variants": {
-    "facing=north": {"model": "bakeries:block/blender"},
-    "facing=south": {"model": "bakeries:block/blender", "y": 180},
-    "facing=west": {"model": "bakeries:block/blender", "y": 270},
-    "facing=east": {"model": "bakeries:block/blender", "y": 90}
+    "": {"model": "bakeries:block/blender"}
   }
 }

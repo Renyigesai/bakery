@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bakeries:block/cheese_cream_bread"
-  }
+  "parent": "bakeries:block/cheese_cream_bread_1"
 }

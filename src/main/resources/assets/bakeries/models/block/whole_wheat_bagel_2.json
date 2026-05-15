@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/bagel_2",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/whole_wheat_bagel",
+    "particle": "bakeries:block/whole_wheat_bagel"
+  }
+}

@@ -1,3 +1,6 @@
 {
-  "parent": "bakeries:block/dough_crafting_table"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bakeries:block/dough_crafting_table"
+  }
 }

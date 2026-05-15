@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "glass_cabinet_door_top",
 	"textures": {
 		"0": "bakeries:block/glass_cabinet_door",
 		"1": "bakeries:block/glass_cabinet_door_side",

@@ -1,3 +1,5 @@
 {
-  "parent": "bakeries:item/fermentation_box"
+  "textures": {
+    "particle": "minecraft:block/iron_block"
+  }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "bakeries:block/rice_bread_1",
+  "textures": {
+    "0": "bakeries:item/rice_bread_dough"
+  }
+}

@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bakeries:block/bagel"
-  }
+  "parent": "bakeries:block/bagel_filled_sauce_1"
 }

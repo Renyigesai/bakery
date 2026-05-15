@@ -1,5 +1,4 @@
 {
-	"parent": "bakeries:custom/blender",
 	"textures": {
 		"particle": "minecraft:block/iron_block"
 	}

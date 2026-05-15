@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "bakeries:block/mix_block"
+      "model": "bakeries:block/round_bread_1"
     }
   }
 }

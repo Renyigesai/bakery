@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "bakeries:block/flour_bag_bottom",
+    "side": "bakeries:block/flour_bag_side",
+    "top": "bakeries:block/flour_bag_top"
+  }
+}

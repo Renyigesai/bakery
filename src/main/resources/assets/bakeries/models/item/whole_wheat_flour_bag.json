@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bakeries:block/whole_wheat_flour_bag_top"
-  }
+  "parent": "bakeries:block/whole_wheat_flour_bag"
 }

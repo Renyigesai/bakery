@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/berry_bread_2",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/berry_bread",
+    "particle": "bakeries:block/berry_bread"
+  }
+}

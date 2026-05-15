@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "bakeries:block/dirty_choco_croissant"
-  }
+  "parent": "bakeries:block/dirty_choco_croissant_1"
 }

@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/coffee_table_left",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "minecraft:block/stripped_oak_log",
+    "1": "minecraft:block/quartz_block_top",
+    "particle": "minecraft:block/quartz_block_top"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "bakeries:block/pineapple_bun_1",
+  "textures": {
+    "0": "bakeries:item/pineapple_bun_dough"
+  }
+}

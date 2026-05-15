@@ -32,7 +32,6 @@ loom {
     }
 }
 tasks.withType(JavaCompile).configureEach {
-    // Legacy sources under bakeric contain mixed historical encodings.
     options.encoding = 'GB18030'
     options.compilerArgs += ["-Xdiags:verbose","-Xlint:deprecation","-Xdiags:verbose",
                              "-Xmaxerrs", "1000",
@@ -102,26 +101,6 @@ dependencies {
     modCompileOnlyApi "mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}"
     modCompileOnlyApi "mezz.jei:jei-${project.minecraft_version}-fabric-api:${project.jei_version}"
     modRuntimeOnly "mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}"
-    // WorldEdit 依赖
-    //implementation fg.deobf("curse.maven:worldedit-225608:4586218")
-
-    //compileOnly fg.deobf("curse.maven:jade-324717:5876199")
-    //runtimeOnly fg.deobf("curse.maven:jade-324717:5876199")
-
-    // CraftTweaker 依赖
-    //compileOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.17')
-    //runtimeOnly fg.deobf('com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.17')
-
-    // JEI 依赖
-    //compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.20.0.105")
-    //compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.20.0.105")
-    //runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.20.0.105")
-    //Apple_skin 依赖
-    //compileOnly fg.deobf("squeek.appleskin:appleskin-forge:mc1.20.1-2.5.1:api")
-    //runtimeOnly fg.deobf("squeek.appleskin:appleskin-forge:mc1.20.1-2.5.1")
-    //Patchouli 依赖
-    //compileOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]:api")
-    //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]")
 }
 
 processResources {
