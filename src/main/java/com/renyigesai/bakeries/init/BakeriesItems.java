@@ -65,6 +65,7 @@ public final class BakeriesItems {
         OLIVE_OIL = register("olive_oil");
         MEAT_FLOSS = register("meat_floss", food(2, 0.8F, false));
         ICE_CUBES = register("ice_cubes");
+        BAKING_GUIDE = register("baking_guide");
         SCONE = register("scone", food(4, 0.5F, true));
         OLIVE = register("olive", new DescriptionItem(food(2, 0.5F, false), "bakeries.olive.description"));
         TARO = registerBlock("taro", BakeriesBlocks.TARO);
@@ -136,31 +137,30 @@ public final class BakeriesItems {
         COFFEE_PLANT = registerBlock("coffee_plant", BakeriesBlocks.COFFEE_PLANT);
         TOMATO = registerBlock("tomato", BakeriesBlocks.TOMATO, food(2, 0.5F, false));
         MIX_BLOCK = registerBlock("mix_block", BakeriesBlocks.MIX_BLOCK);
-        BAGEL_FILLED_SAUCE = register("bagel_filled_sauce", food(8, 0.6F, false));
-        BAGUETTE_WITH_FILLING = register("baguette_with_filling", food(10, 0.6F, false));
-        BAKING_GUIDE = register("baking_guide");
-        BERRY_BAGEL = register("berry_bagel", food(8, 0.6F, false));
+        BAGEL_FILLED_SAUCE = registerBlock("bagel_filled_sauce", BakeriesBlocks.BAGEL_FILLED_SAUCE, food(8, 0.6F, false));
+        BAGUETTE_WITH_FILLING = registerBlock("baguette_with_filling", BakeriesBlocks.BAGUETTE_WITH_FILLING, food(10, 0.6F, false));
+        BERRY_BAGEL = registerBlock("berry_bagel", BakeriesBlocks.BERRY_BAGEL, food(8, 0.6F, false));
         BREAD_KNIFE = register("bread_knife");
-        CASH_REGISTER_COMPUTER = register("cash_register_computer");
-        CHEESE_CREAM_BREAD = register("cheese_cream_bread", food(8, 0.6F, false));
+        CASH_REGISTER_COMPUTER = registerBlock("cash_register_computer",BakeriesBlocks.CASH_REGISTER_COMPUTER);
+        CHEESE_CREAM_BREAD = registerBlock("cheese_cream_bread", BakeriesBlocks.CHEESE_CREAM_BREAD, food(8, 0.6F, false));
         DEEPSLATE_SALT_ORE = register("deepslate_salt_ore");
-        DIRTY_CHOCO_CROISSANT = register("dirty_choco_croissant", food(8, 0.6F, false));
+        DIRTY_CHOCO_CROISSANT = registerBlock("dirty_choco_croissant", BakeriesBlocks.DIRTY_CHOCO_CROISSANT, food(8, 0.6F, false));
         DOUGH_CRAFTING = register("dough_crafting");
         FLAT_CROISSANT = register("flat_croissant", food(6, 0.6F, false));
-        FLOUR_BAG = register("flour_bag");
+        FLOUR_BAG = registerBlock("flour_bag", BakeriesBlocks.FLOUR_BAG);
         FLOUR_SIEVE = register("flour_sieve");
-        MEAT_FLOSS_BREAD_ROLL = register("meat_floss_bread_roll", food(10, 0.7F, false));
-        PINEAPPLE_OIL = register("pineapple_oil");
+        MEAT_FLOSS_BREAD_ROLL = registerBlock("meat_floss_bread_roll", BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL, food(10, 0.7F, false));
+        PINEAPPLE_OIL = registerBlock("pineapple_oil",BakeriesBlocks.PINEAPPLE_OIL);
         RAW_COFFEE_BEAN = register("raw_coffee_bean", new DescriptionItem(new Item.Properties(), "bakeries.raw_coffee_bean.description"));
-        RAW_SALT_BLOCK = register("raw_salt_block");
-        SALT_ORE = register("salt_ore");
-        SOFA_LIGHT_GRAY = register("sofa_light_gray");
-        SOFA_RED = register("sofa_red");
-        SOFA_WHITE = register("sofa_white");
-        TARO_SALT_YOLK_BREAD = register("taro_salt_yolk_bread", food(10, 0.7F, false));
-        TOMATO_CHEESE_CROISSANT_SANDWICH = register("tomato_cheese_croissant_sandwich", food(10, 0.7F, false));
-        WHOLE_WHEAT_FLOUR_BAG = register("whole_wheat_flour_bag");
-        WOOD_TRAY = register("wood_tray");
+        RAW_SALT_BLOCK = registerBlock("raw_salt_block",BakeriesBlocks.RAW_SALT_BLOCK);
+        SALT_ORE = registerBlock("salt_ore",BakeriesBlocks.SALT_ORE);
+        SOFA_LIGHT_GRAY = registerBlock("sofa_light_gray",BakeriesBlocks.SOFA_LIGHT_GRAY);
+        SOFA_RED = registerBlock("sofa_red",BakeriesBlocks.SOFA_RED);
+        SOFA_WHITE = registerBlock("sofa_white",BakeriesBlocks.SOFA_WHITE);
+        TARO_SALT_YOLK_BREAD = registerBlock("taro_salt_yolk_bread",BakeriesBlocks.TARO_SALT_YOLK_BREAD);
+        TOMATO_CHEESE_CROISSANT_SANDWICH = registerBlock("tomato_cheese_croissant_sandwich",BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH);
+        WHOLE_WHEAT_FLOUR_BAG = registerBlock("whole_wheat_flour_bag",BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);
+        WOOD_TRAY = registerBlock("wood_tray",BakeriesBlocks.WOOD_TRAY);
     }
 
     private BakeriesItems() {

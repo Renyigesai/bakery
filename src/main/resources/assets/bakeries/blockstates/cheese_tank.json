@@ -1,7 +1,7 @@
 {
   "variants": {
-    "": {
-      "model": "bakeries:block/cheese_tank"
-    }
+    "cheese=1": {"model": "bakeries:block/cheese_tank"},
+    "cheese=2": {"model": "bakeries:block/cheese_tank"},
+    "cheese=3": {"model": "bakeries:block/cheese_tank"}
   }
 }

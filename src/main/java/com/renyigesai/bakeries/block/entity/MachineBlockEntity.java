@@ -137,10 +137,11 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         if (getBlockState().is(BakeriesBlocks.OVEN)) return new OvenMenu(syncId, playerInventory, this, ovenMenuData);
         if (getBlockState().is(BakeriesBlocks.BLENDER)) return new BlenderMenu(syncId, playerInventory, this, machineMenuData);
         if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) return new FermentationBoxMenu(syncId, playerInventory, this);
+        if (getBlockState().is(BakeriesBlocks.MENU)) return null;
+        if (getBlockState().is(BakeriesBlocks.MOKA_POT)) return null;
         if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
         if (getBlockState().is(BakeriesBlocks.CUPBOARD)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
         if (getBlockState().is(BakeriesBlocks.MIX_BLOCK)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
-        if (getBlockState().is(BakeriesBlocks.MOKA_POT)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
         return new OvenMenu(syncId, playerInventory, this, ovenMenuData);
     }
 

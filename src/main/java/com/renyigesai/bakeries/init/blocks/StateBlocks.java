@@ -6,15 +6,22 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import org.jetbrains.annotations.NotNull;
 
 public final class StateBlocks {
@@ -131,11 +138,77 @@ public final class StateBlocks {
     }
 
     public static class GlassCabinetDoorBlock extends FacingBlock {
+        private static final VoxelShape SHAPE_CLOSED = Block.box(0, 0, 15, 16, 16, 16);
+        private static final VoxelShape SHAPE_OPEN = Block.box(0, 0, 13, 16, 16, 16);
+
         public GlassCabinetDoorBlock(BlockBehaviour.Properties properties) {
             super(properties);
             this.registerDefaultState(this.defaultBlockState()
-                    .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER)
+                    .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
                     .setValue(BlockStateProperties.OPEN, false));
+        }
+
+        @Override
+        public BlockState getStateForPlacement(BlockPlaceContext context) {
+            BlockPos pos = context.getClickedPos();
+            Level level = context.getLevel();
+            if (pos.getY() >= level.getMaxBuildHeight() - 1 || !level.getBlockState(pos.above()).canBeReplaced(context)) {
+                return null;
+            }
+            return super.getStateForPlacement(context)
+                    .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
+                    .setValue(BlockStateProperties.OPEN, false);
+        }
+
+        @Override
+        public void setPlacedBy(Level level, BlockPos pos, BlockState state, net.minecraft.world.entity.LivingEntity placer, net.minecraft.world.item.ItemStack stack) {
+            super.setPlacedBy(level, pos, state, placer, stack);
+            level.setBlock(pos.above(),
+                    state.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER),
+                    3);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+            boolean open = !state.getValue(BlockStateProperties.OPEN);
+            DoubleBlockHalf half = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
+            BlockPos lowerPos = half == DoubleBlockHalf.LOWER ? pos : pos.below();
+            BlockPos upperPos = lowerPos.above();
+            BlockState lower = level.getBlockState(lowerPos);
+            BlockState upper = level.getBlockState(upperPos);
+            if (lower.is(this)) {
+                level.setBlock(lowerPos, lower.setValue(BlockStateProperties.OPEN, open), 10);
+            }
+            if (upper.is(this)) {
+                level.setBlock(upperPos, upper.setValue(BlockStateProperties.OPEN, open), 10);
+            }
+            level.levelEvent(player, open ? 1005 : 1011, pos, 0);
+            return InteractionResult.CONSUME;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return state.getValue(BlockStateProperties.OPEN) ? SHAPE_OPEN : SHAPE_CLOSED;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
+            DoubleBlockHalf half = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
+            if (facing.getAxis() == Direction.Axis.Y) {
+                if (half == DoubleBlockHalf.LOWER && facing == Direction.UP && !facingState.is(this)) {
+                    return net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+                }
+                if (half == DoubleBlockHalf.UPPER && facing == Direction.DOWN && !facingState.is(this)) {
+                    return net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+                }
+            }
+            return super.updateShape(state, facing, facingState, level, pos, facingPos);
         }
 
         @Override
@@ -145,9 +218,60 @@ public final class StateBlocks {
         }
     }
 
+    public static class CheeseTankBlock extends Block {
+        public static final IntegerProperty CHEESE = IntegerProperty.create("cheese", 1, 3);
+
+        public CheeseTankBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+            this.registerDefaultState(this.stateDefinition.any().setValue(CHEESE, 1));
+        }
+
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            builder.add(CHEESE);
+        }
+    }
+
+    public static class DrinkCupBlock extends FacingBlock {
+        private static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 9, 11);
+
+        public DrinkCupBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+    }
+
+    public static class LitFacingBlock extends FacingBlock {
+        public static final BooleanProperty LIT = BlockStateProperties.LIT;
+
+        public LitFacingBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+            this.registerDefaultState(this.defaultBlockState().setValue(LIT, false));
+        }
+
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            super.createBlockStateDefinition(builder);
+            builder.add(LIT);
+        }
+    }
+
     public static class ToastBlock extends FacingBlock {
         public static final IntegerProperty PILE = IntegerProperty.create("pile", 1, 2);
         public static final IntegerProperty SLICE = IntegerProperty.create("slice", 1, 4);
+        private static final VoxelShape SHAPE_SINGLE = Block.box(1, 0, 1, 15, 3, 15);
+        private static final VoxelShape SHAPE_PILE = Block.box(1, 0, 1, 15, 6, 15);
 
         public ToastBlock(BlockBehaviour.Properties properties) {
             super(properties);
@@ -159,11 +283,62 @@ public final class StateBlocks {
             super.createBlockStateDefinition(builder);
             builder.add(PILE, SLICE);
         }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return state.getValue(PILE) >= 2 ? SHAPE_PILE : SHAPE_SINGLE;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return state.getValue(PILE) >= 2 ? SHAPE_PILE : SHAPE_SINGLE;
+        }
+    }
+
+    public static class MouldBlock extends FacingBlock {
+        private static final VoxelShape SHAPE_NORTH = Block.box(1, 0, 1, 15, 3, 15);
+        private static final VoxelShape SHAPE_SOUTH = Block.box(1, 0, 1, 15, 3, 15);
+        private static final VoxelShape SHAPE_EAST = Block.box(1, 0, 1, 15, 3, 15);
+        private static final VoxelShape SHAPE_WEST = Block.box(1, 0, 1, 15, 3, 15);
+
+        public MouldBlock(BlockBehaviour.Properties properties) {
+            super(properties.sound(SoundType.METAL));
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return switch (state.getValue(FACING)) {
+                case NORTH -> SHAPE_NORTH;
+                case SOUTH -> SHAPE_SOUTH;
+                case EAST -> SHAPE_EAST;
+                case WEST -> SHAPE_WEST;
+                default -> SHAPE_NORTH;
+            };
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return switch (state.getValue(FACING)) {
+                case NORTH -> SHAPE_NORTH;
+                case SOUTH -> SHAPE_SOUTH;
+                case EAST -> SHAPE_EAST;
+                case WEST -> SHAPE_WEST;
+                default -> SHAPE_NORTH;
+            };
+        }
     }
 
     public static class FacingPileBlock extends FacingBlock {
         public static final IntegerProperty PILE = IntegerProperty.create("pile", 1, 4);
         private final int maxPile;
+        private static final VoxelShape PILE_1 = Block.box(1, 0, 1, 15, 4, 15);
+        private static final VoxelShape PILE_2 = Block.box(1, 0, 1, 15, 6, 15);
+        private static final VoxelShape PILE_3 = Block.box(1, 0, 1, 15, 8, 15);
+        private static final VoxelShape PILE_4 = Block.box(1, 0, 1, 15, 10, 15);
 
         public FacingPileBlock(BlockBehaviour.Properties properties, int maxPile) {
             super(properties);
@@ -181,6 +356,28 @@ public final class StateBlocks {
         public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
             BlockState state = super.getStateForPlacement(context);
             return (state == null ? this.defaultBlockState() : state).setValue(PILE, 1);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return switch (state.getValue(PILE)) {
+                case 2 -> PILE_2;
+                case 3 -> PILE_3;
+                case 4 -> PILE_4;
+                default -> PILE_1;
+            };
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return switch (state.getValue(PILE)) {
+                case 2 -> PILE_2;
+                case 3 -> PILE_3;
+                case 4 -> PILE_4;
+                default -> PILE_1;
+            };
         }
 
         @Override
