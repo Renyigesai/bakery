@@ -2,11 +2,14 @@ package com.renyigesai.bakeries.init.blocks;
 
 import com.renyigesai.bakeries.block.entity.MachineBlockEntity;
 import com.renyigesai.bakeries.capabilities.PlayerKeyAuxiliary;
+import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -132,6 +135,50 @@ public final class StateBlocks {
         @Override
         protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
             builder.add(FLOUR, WATER);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+            ItemStack held = player.getItemInHand(hand);
+            if (held.isEmpty()) {
+                return InteractionResult.PASS;
+            }
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+            if (held.is(BakeriesItems.WHOLE_WHEAT_FLOUR)) {
+                int flour = state.getValue(FLOUR);
+                if (flour >= 3) {
+                    return InteractionResult.FAIL;
+                }
+                level.setBlock(pos, state.setValue(FLOUR, flour + 1), 3);
+                if (!player.getAbilities().instabuild) {
+                    held.shrink(1);
+                }
+                return InteractionResult.CONSUME;
+            }
+            if (held.is(BakeriesItems.BOTTLE_MILK) || held.is(Items.MILK_BUCKET)) {
+                if (state.getValue(WATER)) {
+                    return InteractionResult.FAIL;
+                }
+                level.setBlock(pos, state.setValue(WATER, true), 3);
+                if (!player.getAbilities().instabuild) {
+                    if (held.is(Items.MILK_BUCKET)) {
+                        held.shrink(1);
+                        if (!player.getInventory().add(new ItemStack(Items.BUCKET))) {
+                            player.drop(new ItemStack(Items.BUCKET), false);
+                        }
+                    } else {
+                        held.shrink(1);
+                        if (!player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE))) {
+                            player.drop(new ItemStack(Items.GLASS_BOTTLE), false);
+                        }
+                    }
+                }
+                return InteractionResult.CONSUME;
+            }
+            return InteractionResult.PASS;
         }
     }
 

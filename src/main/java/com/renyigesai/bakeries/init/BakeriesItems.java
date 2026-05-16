@@ -1,7 +1,9 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.items.BreadKnifeItem;
 import com.renyigesai.bakeries.items.DescriptionItem;
+import com.renyigesai.bakeries.items.FlourSieveItem;
 import com.renyigesai.bakeries.items.WholeEggItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -152,7 +154,7 @@ public final class BakeriesItems {
         BAGEL_FILLED_SAUCE = registerBlock("bagel_filled_sauce", BakeriesBlocks.BAGEL_FILLED_SAUCE, food(8, 0.6F, false));
         BAGUETTE_WITH_FILLING = registerBlock("baguette_with_filling", BakeriesBlocks.BAGUETTE_WITH_FILLING, food(10, 0.6F, false));
         BERRY_BAGEL = registerBlock("berry_bagel", BakeriesBlocks.BERRY_BAGEL, food(8, 0.6F, false));
-        BREAD_KNIFE = register("bread_knife");
+        BREAD_KNIFE = register("bread_knife", new BreadKnifeItem(new Item.Properties().durability(250)));
         CASH_REGISTER_COMPUTER = registerBlock("cash_register_computer",BakeriesBlocks.CASH_REGISTER_COMPUTER);
         CHEESE_CREAM_BREAD = registerBlock("cheese_cream_bread", BakeriesBlocks.CHEESE_CREAM_BREAD, food(8, 0.6F, false));
         DEEPSLATE_SALT_ORE = register("deepslate_salt_ore");
@@ -160,7 +162,7 @@ public final class BakeriesItems {
         DOUGH_CRAFTING = register("dough_crafting");
         FLAT_CROISSANT = register("flat_croissant", food(6, 0.6F, false));
         FLOUR_BAG = registerBlock("flour_bag", BakeriesBlocks.FLOUR_BAG);
-        FLOUR_SIEVE = register("flour_sieve");
+        FLOUR_SIEVE = register("flour_sieve", new FlourSieveItem(new Item.Properties().durability(128)));
         MEAT_FLOSS_BREAD_ROLL = registerBlock("meat_floss_bread_roll", BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL, food(10, 0.7F, false));
         PINEAPPLE_OIL = registerBlock("pineapple_oil",BakeriesBlocks.PINEAPPLE_OIL);
         RAW_COFFEE_BEAN = register("raw_coffee_bean", new DescriptionItem(new Item.Properties(), "bakeries.raw_coffee_bean.description"));

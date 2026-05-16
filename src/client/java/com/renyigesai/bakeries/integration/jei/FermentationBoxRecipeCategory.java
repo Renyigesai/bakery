@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.integration.jei;
 
 import com.renyigesai.bakeries.BakeriesConfig;
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.block.entity.MachineBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -12,6 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -59,9 +61,20 @@ public class FermentationBoxRecipeCategory implements IRecipeCategory<SimpleMach
     @Override
     public void draw(SimpleMachineRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics, 0, 0);
-        guiGraphics.drawString(net.minecraft.client.Minecraft.getInstance().font,
-                Component.literal(BakeriesConfig.formatTicks(430) + "-" + BakeriesConfig.formatTicks(1200)),
-                4, 52, 0xFFFFFF, false);
+        Minecraft minecraft = Minecraft.getInstance();
+        int perfectTime = MachineBlockEntity.getNowPerfectTime(getLocalTodayTemperature(minecraft));
+        int maxPerfectTime = perfectTime + 100;
+        Component text = maxPerfectTime < 430
+                ? Component.translatable("container.bakeries.temperature_too_low")
+                : Component.literal(BakeriesConfig.formatTickRangeCompact(Math.max(perfectTime - 100, 430), maxPerfectTime));
+        guiGraphics.drawString(minecraft.font, text, 4, 52, 0xFFFFFF, false);
+    }
+
+    private static int getLocalTodayTemperature(Minecraft minecraft) {
+        if (minecraft.level == null || minecraft.player == null) {
+            return 23 + BakeriesMod.floatingTemperature;
+        }
+        return MachineBlockEntity.calculateFermentationTemperature(minecraft.level, minecraft.player.blockPosition());
     }
 
     @Override

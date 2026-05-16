@@ -152,7 +152,7 @@ public class SimpleMachineRecipe implements Recipe<Container> {
         @Override
         public @NotNull SimpleMachineRecipe fromJson(ResourceLocation id, JsonObject json) {
             JsonObject ingredientJson = GsonHelper.getAsJsonObject(json, "ingredient");
-            JsonObject resultJson = GsonHelper.getAsJsonObject(json, "result");
+            JsonObject resultJson = GsonHelper.getAsJsonObject(json, json.has("result") ? "result" : "output");
             if (!isValidIngredient(ingredientJson) || !isValidItemStack(resultJson)) {
                 return factory.create(id, Ingredient.of(Items.BARRIER), new ItemStack(Items.BARRIER), 1).markInvalid();
             }

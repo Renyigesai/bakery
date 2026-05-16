@@ -69,6 +69,13 @@ public final class BakeriesConfig {
         };
     }
 
+    public static String formatTickRangeCompact(int minTicks, int maxTicks) {
+        return switch (timeUnit) {
+            case TICK -> minTicks + "-" + maxTicks + "tick";
+            case S -> formatSeconds(minTicks / 20.0D) + "-" + formatSeconds(maxTicks / 20.0D) + "s";
+        };
+    }
+
     private static String formatSeconds(double seconds) {
         if (Math.abs(seconds - Math.rint(seconds)) < 0.0001D) {
             return String.format(Locale.ROOT, "%.0f", seconds);

@@ -432,7 +432,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         return 23 + floatingTemperature;
     }
 
-    private static int getNowPerfectTime(double currentTemperature) {
+    public static int getNowPerfectTime(double currentTemperature) {
         double temperature = Math.max(-5.0D, Math.min(40.0D, currentTemperature));
         int ticks;
         if (temperature > 23.0D) {

@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:egg"
   },
-  "output": {
+  "result": {
     "item": "bakeries:whole_egg",
     "count": 1
   }

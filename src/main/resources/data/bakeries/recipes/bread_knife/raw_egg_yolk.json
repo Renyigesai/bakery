@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "bakeries:whole_egg"
   },
-  "output": [
+  "result": [
     {
       "count": 1,
       "item": "bakeries:raw_egg_yolk"

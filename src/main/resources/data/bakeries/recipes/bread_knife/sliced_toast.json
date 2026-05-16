@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "bakeries:toast"
   },
-  "output": [
+  "result": [
     {
       "count": 4,
       "item": "bakeries:sliced_toast"

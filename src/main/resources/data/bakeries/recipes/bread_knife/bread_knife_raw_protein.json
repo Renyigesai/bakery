@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "bakeries:whole_egg"
   },
-  "output": {
+  "result": {
     "item": "bakeries:raw_protein",
     "count": 1
   }

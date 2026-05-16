@@ -47,7 +47,7 @@ public class MultiOutputSingleItemRecipe extends SimpleMachineRecipe {
         @Override
         public @NotNull T fromJson(ResourceLocation id, JsonObject json) {
             Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "ingredient"));
-            NonNullList<ItemStack> results = readResults(GsonHelper.getNonNull(json, "result"));
+            NonNullList<ItemStack> results = readResults(GsonHelper.getNonNull(json, json.has("result") ? "result" : "output"));
             return factory.create(id, ingredient, results);
         }
 
