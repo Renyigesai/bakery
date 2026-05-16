@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/flat_croissant_1",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/flat_croissant",
-    "particle": "bakeries:block/flat_croissant"
-  }
-}

@@ -37,8 +37,8 @@ public final class ToasterOverlay implements ILookOverlay {
             line1 = Component.translatable("container.bakeries.dough_crafting_table");
             line2 = Component.translatable("overlay.bakeries.dough_hint");
         } else if (state.is(BakeriesBlocks.CUPBOARD)) {
-            line1 = Component.translatable("container.bakeries.bread_knife");
-            line2 = Component.translatable("overlay.bakeries.bread_knife_hint");
+            line1 = Component.translatable("container.bakeries.cupboard");
+            line2 = Component.translatable("overlay.bakeries.cupboard_hint");
         } else if (state.is(BakeriesBlocks.MIX_BLOCK)) {
             line1 = Component.translatable("container.bakeries.flour_sieve");
             line2 = Component.translatable("overlay.bakeries.flour_sieve_hint");

@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/cash_register_computer",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/cash_register_computer",
-    "particle": "bakeries:block/cash_register_computer"
-  }
-}

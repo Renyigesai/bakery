@@ -1,18 +1,6 @@
 {
   "parent": "item/generated",
-  "loader": "neoforge:separate_transforms",
-  "base": {
-    "parent": "bakeries:block/iced_american_1"
-  },
-  "perspectives":{
-    "gui": {
-      "parent": "bakeries:item/iced_american_2d"
-    },
-    "ground": {
-      "parent": "bakeries:item/iced_american_2d"
-    },
-    "fixed": {
-      "parent": "bakeries:item/iced_american_2d"
-    }
+  "textures": {
+    "layer0": "bakeries:item/iced_american"
   }
 }

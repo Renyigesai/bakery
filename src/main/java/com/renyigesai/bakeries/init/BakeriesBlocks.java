@@ -60,7 +60,7 @@ public final class BakeriesBlocks {
         CHEESE_TANK = register("cheese_tank", new StateBlocks.CheeseTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         MILK_TANK = register("milk_tank", new StateBlocks.MilkTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         YEAST_TANK = register("yeast_tank", new StateBlocks.YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
-        MOKA_POT = register("moka_pot", new MachineBlocks.MachineBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+        MOKA_POT = register("moka_pot", new StateBlocks.MokaPotBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
         BREAD_RACK = register("bread_rack", new StateBlocks.RackBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion()));
         GLASS_BREAD_RACK = register("glass_bread_rack", new StateBlocks.RackBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).noOcclusion()));
         BREAD_BASKET = register("bread_basket", new StateBlocks.BreadBasketBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.0F, 0.0F).noOcclusion()));

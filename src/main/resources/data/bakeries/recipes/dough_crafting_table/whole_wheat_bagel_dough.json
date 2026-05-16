@@ -1,0 +1,10 @@
+﻿{
+    "type":  "bakeries:dough_crafting",
+    "ingredient":  {
+                       "item":  "bakeries:whole_wheat_dough"
+                   },
+    "result":  {
+                   "count":  4,
+                   "item":  "bakeries:whole_wheat_bagel_dough"
+               }
+}

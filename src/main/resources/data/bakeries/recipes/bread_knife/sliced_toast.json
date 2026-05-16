@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredient": {
+    "item": "bakeries:toast"
+  },
+  "output": [
+    {
+      "count": 4,
+      "item": "bakeries:sliced_toast"
+    }
+  ]
+}

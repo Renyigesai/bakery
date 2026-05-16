@@ -18,6 +18,7 @@
   "item.bakeries.baguette_dough": "芳司棍饢胚",
   "item.bakeries.bottle_yeast": "瓶裝鮮酵母",
   "item.bakeries.brown_sugar_cube": "赤糖塊",
+  "item.bakeries.brown_sugar_latte": "黑糖乳玄",
   "item.bakeries.butter_cube": "黃油塊",
   "item.bakeries.brown_sugar_roll": "赤糖卷",
   "item.bakeries.brown_sugar_roll_dough": "赤糖卷胚",
@@ -85,9 +86,9 @@
   "item.bakeries.ground_coffee": "玄茶末",
   "item.bakeries.iced_american": "寒美玄",
   "item.bakeries.iced_latte": "寒乳玄",
-  "item.bakeries.brown_sugar_latte": "黑糖乳玄",
   "item.bakeries.cream_bingle_coffee": "乳油冰膏",
   "item.bakeries.matcha_latte": "抹茶乳玄",
+  "item.bakeries.taro_milk": "芋乳",
   "item.bakeries.moka_pot_fill": "模咖壺玄茶裝者",
   "item.bakeries.bread_knife.tips": "用則切所指",
   "item.bakeries.dirty_choco_croissant": "可可朔月饢",
@@ -330,5 +331,7 @@
   "container.drink": "飲",
   "tip.bakeries.player_logged_in": "§6[焙馫園]]§f措置拔楸歷以得改囊教章",
   "gui.bakeries.oven.temperature": "時溫",
+  "container.bakeries.toaster.time": "%s 刻",
+  "tooltips.bakeries.pile_item_perfect_unlock": "食之一度乃得",
   "gui.bakeries.oven.rolling": "§o輪調"
 }

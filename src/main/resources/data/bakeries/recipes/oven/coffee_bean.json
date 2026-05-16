@@ -1,0 +1,14 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:raw_coffee_bean"
+  },
+  "max": 250,
+  "min": 200,
+  "perfect": 0,
+  "result": {
+    "count": 1,
+    "item": "bakeries:coffee_bean"
+  },
+  "time": 300
+}

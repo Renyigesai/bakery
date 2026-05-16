@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:coffee",
+  "ingredients": [
+    { "item": "bakeries:ice_cubes" },
+    { "tag": "c:orange" },
+    { "item": "bakeries:moka_pot_fill" }
+  ],
+  "result": {
+    "item": "bakeries:orange_american",
+    "count": 1
+  }
+}

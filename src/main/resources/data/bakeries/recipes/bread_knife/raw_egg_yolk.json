@@ -1,0 +1,16 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredient": {
+    "item": "bakeries:whole_egg"
+  },
+  "output": [
+    {
+      "count": 1,
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "count": 1,
+      "item": "bakeries:raw_protein"
+    }
+  ]
+}

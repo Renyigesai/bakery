@@ -1,6 +1,8 @@
 package com.renyigesai.bakeries.init.blocks;
 
 import com.renyigesai.bakeries.block.entity.MachineBlockEntity;
+import com.renyigesai.bakeries.capabilities.PlayerKeyAuxiliary;
+import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -8,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -60,6 +63,39 @@ public final class MachineBlocks {
                 return InteractionResult.SUCCESS;
             }
             BlockEntity be = level.getBlockEntity(pos);
+            if (state.is(BakeriesBlocks.DRINK_CUP) && be instanceof MachineBlockEntity machine) {
+                ItemStack output = machine.getItem(4);
+                if (!output.isEmpty()) {
+                    if (!player.getInventory().add(output.copy())) {
+                        player.drop(output.copy(), false);
+                    }
+                    machine.setItem(4, ItemStack.EMPTY);
+                    machine.setChanged();
+                    return InteractionResult.CONSUME;
+                }
+                ItemStack held = player.getItemInHand(hand);
+                if (!held.isEmpty()) {
+                    for (int i = 0; i < 4; i++) {
+                        ItemStack input = machine.getItem(i);
+                        if (input.isEmpty()) {
+                            ItemStack copy = held.copy();
+                            copy.setCount(1);
+                            machine.setItem(i, copy);
+                            held.shrink(1);
+                            machine.setChanged();
+                            return InteractionResult.CONSUME;
+                        }
+                    }
+                }
+                if (PlayerKeyAuxiliary.isKeyDown(player.getUUID())) {
+                    for (int i = 0; i < 5; i++) {
+                        machine.setItem(i, ItemStack.EMPTY);
+                    }
+                    machine.resetMachineProgress();
+                    machine.setChanged();
+                    return InteractionResult.CONSUME;
+                }
+            }
             if (be instanceof MenuProvider provider && player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.openMenu(provider);
             }

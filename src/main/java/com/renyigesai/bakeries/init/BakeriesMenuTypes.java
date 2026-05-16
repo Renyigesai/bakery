@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.menu.BlenderMenu;
+import com.renyigesai.bakeries.menu.CupboardMenu;
 import com.renyigesai.bakeries.menu.DoughCraftingTableMenu;
 import com.renyigesai.bakeries.menu.FermentationBoxMenu;
 import com.renyigesai.bakeries.menu.OvenMenu;
@@ -31,6 +32,11 @@ public final class BakeriesMenuTypes {
             BuiltInRegistries.MENU,
             new ResourceLocation(BakeriesMod.MODID, "dough_crafting_table"),
             new MenuType<>(DoughCraftingTableMenu::new, FeatureFlags.DEFAULT_FLAGS)
+    );
+    public static final MenuType<CupboardMenu> CUPBOARD = Registry.register(
+            BuiltInRegistries.MENU,
+            new ResourceLocation(BakeriesMod.MODID, "cupboard"),
+            new MenuType<>(CupboardMenu::new, FeatureFlags.DEFAULT_FLAGS)
     );
 
     private BakeriesMenuTypes() {

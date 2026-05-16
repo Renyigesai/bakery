@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/bearnaise_1",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/bearnaise",
-    "particle": "bakeries:block/bearnaise"
-  }
-}

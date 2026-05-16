@@ -1,5 +1,7 @@
 package com.renyigesai.bakeries.init.blocks;
 
+import com.renyigesai.bakeries.block.entity.MachineBlockEntity;
+import com.renyigesai.bakeries.capabilities.PlayerKeyAuxiliary;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -9,6 +11,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -48,7 +53,38 @@ public final class StateBlocks {
 
         @Override
         public @NotNull InteractionResult use(BlockState state, Level level, net.minecraft.core.BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+            if (!(level.getBlockEntity(pos) instanceof MachineBlockEntity machine)) {
+                return InteractionResult.PASS;
+            }
+            net.minecraft.world.item.ItemStack itemInHand = player.getItemInHand(hand);
+            if (!itemInHand.isEmpty()) {
+                CampfireCookingRecipe recipe = level.getRecipeManager()
+                        .getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SimpleContainer(itemInHand), level)
+                        .orElse(null);
+                if (recipe == null || !machine.addToasterItem(itemInHand, recipe.getCookingTime())) {
+                    return InteractionResult.FAIL;
+                }
+                itemInHand.shrink(1);
+                return InteractionResult.CONSUME;
+            }
+            if (state.getValue(STATE) == ToasterState.FINISH) {
+                machine.popToasterItems(player);
+                machine.changeToasterState(ToasterState.IDLE);
+                return InteractionResult.CONSUME;
+            }
+            if (PlayerKeyAuxiliary.isKeyDown(player.getUUID())) {
+                machine.popToasterItems(player);
+                machine.changeToasterState(ToasterState.IDLE);
+                return InteractionResult.CONSUME;
+            }
+            if (state.getValue(STATE) == ToasterState.IDLE && !machine.isToasterIdle()) {
+                machine.changeToasterState(ToasterState.LIT);
+                return InteractionResult.CONSUME;
+            }
+            return InteractionResult.SUCCESS;
         }
 
         @Override
@@ -268,10 +304,30 @@ public final class StateBlocks {
         }
     }
 
-    public static class DrinkCupBlock extends FacingBlock {
+    public static class DrinkCupBlock extends MachineBlocks.FacingMachineBlock {
         private static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 9, 11);
 
         public DrinkCupBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+    }
+
+    public static class MokaPotBlock extends FacingBlock {
+        private static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 6.5, 10.0);
+
+        public MokaPotBlock(BlockBehaviour.Properties properties) {
             super(properties);
         }
 

@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries;
 
 import com.renyigesai.bakeries.screen.BlenderScreen;
+import com.renyigesai.bakeries.screen.CupboardScreen;
 import com.renyigesai.bakeries.screen.DoughCraftingTableScreen;
 import com.renyigesai.bakeries.screen.FermentationBoxScreen;
 import com.renyigesai.bakeries.screen.OvenScreen;
@@ -25,6 +26,7 @@ public final class BakeriesClientMod implements ClientModInitializer {
         MenuScreens.register(BakeriesMenuTypes.BLENDER, BlenderScreen::new);
         MenuScreens.register(BakeriesMenuTypes.FERMENTATION_BOX, FermentationBoxScreen::new);
         MenuScreens.register(BakeriesMenuTypes.DOUGH_CRAFTING_TABLE, DoughCraftingTableScreen::new);
+        MenuScreens.register(BakeriesMenuTypes.CUPBOARD, CupboardScreen::new);
         BakeriesKeyMapping.init();
         HudRenderCallback.EVENT.register((graphics, tickDelta) -> {
             int width = net.minecraft.client.Minecraft.getInstance().getWindow().getGuiScaledWidth();

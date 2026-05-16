@@ -1,0 +1,14 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:mould_toast_dough"
+  },
+  "max": 185,
+  "min": 135,
+  "perfect": 0,
+  "result": {
+    "count": 1,
+    "item": "bakeries:mould_toast"
+  },
+  "time": 400
+}

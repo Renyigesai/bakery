@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/wood_tray",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/wood_tray",
-    "particle": "bakeries:block/wood_tray"
-  }
-}

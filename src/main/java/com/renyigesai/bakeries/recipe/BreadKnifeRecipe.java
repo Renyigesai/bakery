@@ -13,4 +13,10 @@ public class BreadKnifeRecipe extends MultiOutputSingleItemRecipe {
                 new ResourceLocation(BakeriesMod.MODID, "bread_knife"),
                 new ResourceLocation(BakeriesMod.MODID, "bread_knife"));
     }
+
+    public static class Serializer extends MultiOutputSingleItemRecipe.Serializer<BreadKnifeRecipe> {
+        public Serializer() {
+            super(BreadKnifeRecipe::new);
+        }
+    }
 }

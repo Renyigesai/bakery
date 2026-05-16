@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "bakeries:butter_cube"
+  }
+}

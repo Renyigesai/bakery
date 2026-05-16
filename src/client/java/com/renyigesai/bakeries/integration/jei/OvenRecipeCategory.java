@@ -11,6 +11,8 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -59,6 +61,32 @@ public class OvenRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> 
     @Override
     public void draw(SimpleMachineRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics, 0, 0);
+        if (mouseX >= 44 && mouseX <= 53 && mouseY >= 7 && mouseY <= 55) {
+            renderTemperatureTooltip(guiGraphics, mouseX, mouseY, recipe);
+        }
+    }
+
+    private void renderTemperatureTooltip(GuiGraphics guiGraphics, double mouseX, double mouseY, SimpleMachineRecipe recipe) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.player == null) {
+            return;
+        }
+        String min = recipe.getMinTemperature() >= 0 ? String.valueOf(recipe.getMinTemperature()) : "--";
+        String max = recipe.getMaxTemperature() >= 0 ? String.valueOf(recipe.getMaxTemperature()) : "--";
+        java.util.List<Component> tooltip = new java.util.ArrayList<>();
+        tooltip.add(Component.literal("Min " + min + "\u00B0C").withStyle(ChatFormatting.BLUE));
+        tooltip.add(Component.literal("Max " + max + "\u00B0C").withStyle(ChatFormatting.BLUE));
+        if (recipe.getPerfectTemperature() >= 0) {
+            tooltip.add(Component.translatable("tooltips.bakeries.pile_item_perfect")
+                    .append(Component.literal(" " + recipe.getPerfectTemperature() + "\u00B0C"))
+                    .withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("tooltips.bakeries.pile_item_perfect_unlock")
+                    .withStyle(ChatFormatting.GRAY));
+        }
+        if (recipe.getCraftTime() > 0) {
+            tooltip.add(Component.literal(recipe.getCraftTime() + " tick").withStyle(ChatFormatting.GRAY));
+        }
+        guiGraphics.renderComponentTooltip(minecraft.font, tooltip, (int) mouseX, (int) mouseY);
     }
 
     @Override

@@ -1,0 +1,14 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:bagel_dough"
+  },
+  "max": 250,
+  "min": 200,
+  "perfect": 225,
+  "result": {
+    "count": 1,
+    "item": "bakeries:bagel"
+  },
+  "time": 200
+}

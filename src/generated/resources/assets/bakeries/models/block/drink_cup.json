@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/drink_cup",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/drink_cup",
-    "particle": "bakeries:block/drink_cup"
-  }
-}

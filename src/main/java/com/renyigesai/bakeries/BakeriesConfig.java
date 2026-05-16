@@ -46,8 +46,8 @@ public final class BakeriesConfig {
 
     public static String formatFromCelsius(int celsius) {
         return switch (temperatureUnit) {
-            case CELSIUS -> celsius + "°C";
-            case FAHRENHEIT -> String.format(Locale.ROOT, "%.1f°F", celsius * 9.0D / 5.0D + 32.0D);
+            case CELSIUS -> celsius + "\u00B0C";
+            case FAHRENHEIT -> String.format(Locale.ROOT, "%.1f\u00B0F", celsius * 9.0D / 5.0D + 32.0D);
             case KELVIN -> String.format(Locale.ROOT, "%.2fK", celsius + 273.15D);
         };
     }

@@ -62,6 +62,8 @@ public final class Messages {
         }
         if (action == 0) {
             machine.resetMachineProgress();
+            return;
         }
+        machine.setFermentationTime(action);
     }
 }

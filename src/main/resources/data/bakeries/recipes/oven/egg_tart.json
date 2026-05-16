@@ -1,0 +1,14 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:raw_egg_tart"
+  },
+  "max": 220,
+  "min": 180,
+  "perfect": 200,
+  "result": {
+    "count": 1,
+    "item": "bakeries:egg_tart"
+  },
+  "time": 300
+}

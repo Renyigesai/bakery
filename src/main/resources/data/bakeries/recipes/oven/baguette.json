@@ -1,0 +1,14 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:baguette_dough"
+  },
+  "max": 250,
+  "min": 230,
+  "perfect": 240,
+  "result": {
+    "count": 1,
+    "item": "bakeries:baguette"
+  },
+  "time": 300
+}

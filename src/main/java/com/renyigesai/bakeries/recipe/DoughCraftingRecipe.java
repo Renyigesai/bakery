@@ -12,4 +12,10 @@ public class DoughCraftingRecipe extends SimpleMachineRecipe {
                 new ResourceLocation(BakeriesMod.MODID, "dough_crafting"),
                 new ResourceLocation(BakeriesMod.MODID, "dough_crafting"));
     }
+
+    public static class Serializer extends SimpleMachineRecipe.Serializer {
+        public Serializer() {
+            super(DoughCraftingRecipe::new);
+        }
+    }
 }

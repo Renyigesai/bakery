@@ -21,6 +21,7 @@ public final class BakeriesBlockEntities {
                     BakeriesBlocks.CUPBOARD,
                     BakeriesBlocks.MENU,
                     BakeriesBlocks.MOKA_POT,
+                    BakeriesBlocks.DRINK_CUP,
                     BakeriesBlocks.MIX_BLOCK
             ).build(null)
     );

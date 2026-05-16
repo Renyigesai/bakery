@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/ciabatta_1",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/ciabatta",
-    "particle": "bakeries:block/ciabatta"
-  }
-}

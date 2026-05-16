@@ -12,4 +12,10 @@ public class FermentationBoxRecipe extends SimpleMachineRecipe {
                 new ResourceLocation(BakeriesMod.MODID, "fermentation_box"),
                 new ResourceLocation(BakeriesMod.MODID, "fermentation_box"));
     }
+
+    public static class Serializer extends SimpleMachineRecipe.Serializer {
+        public Serializer() {
+            super(FermentationBoxRecipe::new);
+        }
+    }
 }

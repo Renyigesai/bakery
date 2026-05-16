@@ -1,0 +1,10 @@
+﻿{
+    "type":  "bakeries:dough_crafting",
+    "ingredient":  {
+                       "item":  "bakeries:salted_dough"
+                   },
+    "result":  {
+                   "count":  1,
+                   "item":  "bakeries:country_bread_dough"
+               }
+}

@@ -1,0 +1,10 @@
+﻿{
+    "type":  "bakeries:dough_crafting",
+    "ingredient":  {
+                       "item":  "bakeries:sweet_dough"
+                   },
+    "result":  {
+                   "count":  4,
+                   "item":  "bakeries:bagel_dough"
+               }
+}

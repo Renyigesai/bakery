@@ -1,0 +1,14 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:focaccia_dough"
+  },
+  "max": 250,
+  "min": 230,
+  "perfect": 240,
+  "result": {
+    "count": 1,
+    "item": "bakeries:focaccia"
+  },
+  "time": 300
+}

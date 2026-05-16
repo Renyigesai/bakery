@@ -1,8 +1,8 @@
 package com.renyigesai.bakeries.integration.jei;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.init.BakeriesBlocks;
-import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
+import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.recipe.CoffeeRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -18,9 +18,9 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
-public class DrinkRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> {
-    public static final RecipeType<SimpleMachineRecipe> TYPE =
-            RecipeType.create(BakeriesMod.MODID, "drink", SimpleMachineRecipe.class);
+public class DrinkRecipeCategory implements IRecipeCategory<CoffeeRecipe> {
+    public static final RecipeType<CoffeeRecipe> TYPE =
+            RecipeType.create(BakeriesMod.MODID, "coffee", CoffeeRecipe.class);
 
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei_drink_gui.png");
@@ -29,11 +29,11 @@ public class DrinkRecipeCategory implements IRecipeCategory<SimpleMachineRecipe>
 
     public DrinkRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createDrawable(TEXTURE, 0, 0, 116, 18);
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BakeriesBlocks.DRINK_CUP));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BakeriesItems.DRINK_CUP));
     }
 
     @Override
-    public @NotNull RecipeType<SimpleMachineRecipe> getRecipeType() {
+    public @NotNull RecipeType<CoffeeRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -58,13 +58,25 @@ public class DrinkRecipeCategory implements IRecipeCategory<SimpleMachineRecipe>
     }
 
     @Override
-    public void draw(SimpleMachineRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(CoffeeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics, 0, 0);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 3, 2).addIngredients(recipe.getIngredient());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 99, 1).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+    public void setRecipe(IRecipeLayoutBuilder builder, CoffeeRecipe recipe, IFocusGroup focuses) {
+        int[][] positions = new int[][]{{3, 2}, {21, 2}, {39, 2}, {57, 2}};
+        int idx = 0;
+
+        for (var ingredient : recipe.getIngredients()) {
+            if (idx >= positions.length) break;
+            if (!ingredient.isEmpty()) {
+                builder.addSlot(RecipeIngredientRole.INPUT, positions[idx][0], positions[idx][1])
+                        .addIngredients(ingredient);
+                idx++;
+            }
+        }
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 99, 1)
+                .addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
     }
 }

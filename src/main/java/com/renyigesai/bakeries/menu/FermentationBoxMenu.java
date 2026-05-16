@@ -4,17 +4,22 @@ import com.renyigesai.bakeries.init.BakeriesMenuTypes;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 
 public class FermentationBoxMenu extends AbstractMachineMenu {
     private static final int SLOT_COUNT = 6;
 
     public FermentationBoxMenu(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, null);
+        this(syncId, playerInventory, null, new net.minecraft.world.inventory.SimpleContainerData(2));
     }
 
     public FermentationBoxMenu(int syncId, Inventory playerInventory, Container container) {
-        super(BakeriesMenuTypes.FERMENTATION_BOX, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT, new net.minecraft.world.inventory.SimpleContainerData(2));
+        this(syncId, playerInventory, container, new net.minecraft.world.inventory.SimpleContainerData(2));
+    }
+
+    public FermentationBoxMenu(int syncId, Inventory playerInventory, Container container, ContainerData data) {
+        super(BakeriesMenuTypes.FERMENTATION_BOX, syncId, playerInventory, container == null ? new SimpleContainer(SLOT_COUNT) : container, SLOT_COUNT, data);
         this.addSlot(new Slot(this.container, 0, 52, 16) {
             @Override
             public int getMaxStackSize() {

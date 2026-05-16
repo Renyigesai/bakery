@@ -12,4 +12,10 @@ public class FlourSieveRecipe extends SimpleMachineRecipe {
                 new ResourceLocation(BakeriesMod.MODID, "flour_sieve"),
                 new ResourceLocation(BakeriesMod.MODID, "flour_sieve"));
     }
+
+    public static class Serializer extends SimpleMachineRecipe.Serializer {
+        public Serializer() {
+            super(FlourSieveRecipe::new);
+        }
+    }
 }

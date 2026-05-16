@@ -37,18 +37,6 @@ tasks.withType(JavaCompile).configureEach {
                              "-Xmaxerrs", "1000",
                              "-Xmaxwarns", "1000"]
 }
-sourceSets {
-    client {
-        java {
-            srcDirs += ['src/client/java']
-        }
-    }
-    main {
-        resources {
-            srcDirs = ["src/main/resources"]
-        }
-    }
-}
 repositories {
     maven { url "https://cursemaven.com/" }
     maven {
@@ -102,7 +90,18 @@ dependencies {
     modCompileOnlyApi "mezz.jei:jei-${project.minecraft_version}-fabric-api:${project.jei_version}"
     modRuntimeOnly "mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}"
 }
-
+sourceSets {
+    client {
+        java {
+            srcDirs += ['src/client/java']
+        }
+    }
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     inputs.property "mod_version", project.mod_version
@@ -122,23 +121,6 @@ processResources {
                 minecraft_version: project.minecraft_version,
                 displayURL: project.displayURL
         )
-    }
-
-    // Merge generated datapack data.
-    from("build/generated/datagen") {
-        include "data/**"
-    }
-
-    // Also merge generated item models to fill missing jsons.
-    // Handwritten models in src/main/resources stay preferred because duplicatesStrategy=EXCLUDE
-    // and src/main/resources is the main sourceSet resource dir.
-    from("build/generated/datagen") {
-        include "assets/bakeries/models/item/**"
-    }
-
-    // Legacy generated item models still live here in this project.
-    from("src/generated/resources") {
-        include "assets/bakeries/models/item/**"
     }
 }
 

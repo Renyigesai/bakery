@@ -1,0 +1,18 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:cooked_taro"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "bakeries:mashed_taro"
+  }
+}

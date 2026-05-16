@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:bread_knife",
+  "ingredient": {
+    "item": "bakeries:cheese_cocoa_toast"
+  },
+  "output": {
+    "item": "bakeries:sliced_cheese_cocoa_toast",
+    "count": 4
+  }
+}

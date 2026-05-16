@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.integration.jei;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -65,6 +66,8 @@ public class BlenderRecipeCategory implements IRecipeCategory<SimpleMachineRecip
     public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 5, 8).addIngredients(recipe.getIngredient());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 67, 43).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
-        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 67, 8).addItemStack(new ItemStack(BakeriesBlocks.BLENDER));
+        if (recipe instanceof BlenderRecipe blenderRecipe && blenderRecipe.hasContainer()) {
+            builder.addSlot(RecipeIngredientRole.INPUT, 67, 8).addIngredients(blenderRecipe.getContainerIngredient());
+        }
     }
 }
