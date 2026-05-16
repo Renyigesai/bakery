@@ -47,9 +47,7 @@ public class BreadKnifeItem extends DiggerItem {
         }
         if (!level.isClientSide) {
             ItemStack input = target.getItem();
-            SimpleMachineRecipe recipe = level.getRecipeManager()
-                    .getRecipeFor(BakeriesRecipeTypes.BREAD_KNIFE, new SimpleContainer(input), level)
-                    .orElse(null);
+            SimpleMachineRecipe recipe = findCuttingRecipe(level, input);
             if (recipe == null || !recipe.isValid()) {
                 return net.minecraft.world.InteractionResultHolder.pass(knife);
             }
@@ -71,6 +69,21 @@ public class BreadKnifeItem extends DiggerItem {
             }
         }
         return net.minecraft.world.InteractionResultHolder.sidedSuccess(knife, level.isClientSide);
+    }
+
+    private static SimpleMachineRecipe findCuttingRecipe(Level level, ItemStack input) {
+        return level.getRecipeManager().getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE).stream()
+                .filter(SimpleMachineRecipe::isValid)
+                .filter(recipe -> recipe.getIngredient().test(input))
+                .max(Comparator.comparingInt(BreadKnifeItem::resultCount))
+                .orElse(null);
+    }
+
+    private static int resultCount(SimpleMachineRecipe recipe) {
+        if (recipe instanceof MultiOutputSingleItemRecipe multiOutputRecipe) {
+            return multiOutputRecipe.getAllResults().size();
+        }
+        return 1;
     }
 
     private static ItemEntity findTargetItem(Level level, Player player) {

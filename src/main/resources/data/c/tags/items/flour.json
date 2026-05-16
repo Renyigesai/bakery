@@ -2,8 +2,17 @@
   "replace": false,
   "values": [
     "bakeries:flour",
-    "create:wheat_flour",
-    "appliedenergistics2:material",
-    "bountifulfares:flour"
+    {
+      "id": "create:wheat_flour",
+      "required": false
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "required": false
+    },
+    {
+      "id": "bountifulfares:flour",
+      "required": false
+    }
   ]
 }

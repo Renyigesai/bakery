@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.recipe.BlenderRecipe;
+import com.renyigesai.bakeries.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.recipe.CoffeeRecipe;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import net.minecraft.core.Registry;
@@ -39,9 +40,8 @@ public final class BakeriesRecipeTypes {
             new SimpleMachineRecipe.Serializer((id, ingredient, result, count) ->
                     new SimpleMachineRecipe(id, ingredient, result, count, DOUGH_ID, DOUGH_ID)));
 
-    public static final RecipeSerializer<SimpleMachineRecipe> BREAD_KNIFE_SERIALIZER = registerSerializer("bread_knife",
-            new SimpleMachineRecipe.Serializer((id, ingredient, result, count) ->
-                    new SimpleMachineRecipe(id, ingredient, result, count, BREAD_KNIFE_ID, BREAD_KNIFE_ID)));
+    public static final RecipeSerializer<BreadKnifeRecipe> BREAD_KNIFE_SERIALIZER = registerSerializer("bread_knife",
+            new BreadKnifeRecipe.Serializer());
 
     public static final RecipeSerializer<SimpleMachineRecipe> FLOUR_SIEVE_SERIALIZER = registerSerializer("flour_sieve",
             new SimpleMachineRecipe.Serializer((id, ingredient, result, count) ->

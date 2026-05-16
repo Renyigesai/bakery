@@ -5,6 +5,7 @@ import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.recipe.CoffeeRecipe;
+import com.renyigesai.bakeries.recipe.MultiOutputSingleItemRecipe;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import com.renyigesai.bakeries.screen.BlenderScreen;
 import com.renyigesai.bakeries.screen.DoughCraftingTableScreen;
@@ -98,7 +99,7 @@ public class JEIPlugin implements IModPlugin {
             breadKnifeRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.BREAD_KNIFE);
             flourSieveRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.FLOUR_SIEVE);
             drinkRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.COFFEE).stream()
-                    .filter(CoffeeRecipe::isValid)
+                    .filter(JEIPlugin::isDisplayableCoffeeRecipe)
                     .toList();
             fermentationRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.FERMENTATION_BOX);
             toasterRecipes = manager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CAMPFIRE_COOKING);
@@ -201,8 +202,7 @@ public class JEIPlugin implements IModPlugin {
                 }
                 List<SimpleMachineRecipe> result = new ArrayList<>();
                 for (SimpleMachineRecipe recipe : getAllRecipes()) {
-                    ItemStack out = recipe.getResultItem(RegistryAccess.EMPTY);
-                    if (ItemStack.isSameItem(out, stack)) {
+                    if (recipeHasOutput(recipe, stack)) {
                         result.add(recipe);
                     }
                 }
@@ -236,6 +236,19 @@ public class JEIPlugin implements IModPlugin {
                     return blenderRecipe.hasContainer() && blenderRecipe.getContainerIngredient().test(stack);
                 }
                 return recipe.getIngredient().test(stack);
+            }
+
+            private static boolean recipeHasOutput(SimpleMachineRecipe recipe, ItemStack stack) {
+                if (recipe instanceof MultiOutputSingleItemRecipe multiOutputRecipe) {
+                    for (ItemStack result : multiOutputRecipe.getAllResults()) {
+                        if (ItemStack.isSameItem(result, stack)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                ItemStack out = recipe.getResultItem(RegistryAccess.EMPTY);
+                return ItemStack.isSameItem(out, stack);
             }
         }
 
@@ -344,9 +357,21 @@ public class JEIPlugin implements IModPlugin {
                 return List.of();
             }
             return manager.getAllRecipesFor(BakeriesRecipeTypes.COFFEE).stream()
-                    .filter(CoffeeRecipe::isValid)
+                    .filter(JEIPlugin::isDisplayableCoffeeRecipe)
                     .toList();
         }
+    }
+
+    private static boolean isDisplayableCoffeeRecipe(CoffeeRecipe recipe) {
+        if (!recipe.isValid() || recipe.getResultItem(RegistryAccess.EMPTY).isEmpty()) {
+            return false;
+        }
+        for (Ingredient ingredient : recipe.getIngredientsList()) {
+            if (ingredient.isEmpty() || ingredient.getItems().length == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static List<CoffeeRecipe> loadCoffeeRecipesFromResources(ResourceManager resourceManager) {
@@ -364,7 +389,7 @@ public class JEIPlugin implements IModPlugin {
                 String recipePath = recipeFile.getPath().substring("recipes/".length(), recipeFile.getPath().length() - ".json".length());
                 ResourceLocation recipeId = new ResourceLocation(recipeFile.getNamespace(), recipePath);
                 CoffeeRecipe recipe = ((CoffeeRecipe.Serializer) BakeriesRecipeTypes.COFFEE_SERIALIZER).fromJson(recipeId, json);
-                if (recipe.isValid()) {
+                if (isDisplayableCoffeeRecipe(recipe)) {
                     list.add(recipe);
                 }
             } catch (Exception ignored) {

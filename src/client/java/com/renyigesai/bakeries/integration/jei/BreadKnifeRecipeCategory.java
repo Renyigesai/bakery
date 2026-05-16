@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.integration.jei;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.recipe.MultiOutputSingleItemRecipe;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -65,7 +66,22 @@ public class BreadKnifeRecipeCategory implements IRecipeCategory<SimpleMachineRe
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 26, 2).addIngredients(recipe.getIngredient());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 2).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        if (recipe instanceof MultiOutputSingleItemRecipe multiOutputRecipe) {
+            int[][] outputPositions = new int[][] { {74, 2}, {92, 2} };
+            int index = 0;
+            for (ItemStack result : multiOutputRecipe.getAllResults()) {
+                if (index >= outputPositions.length) {
+                    break;
+                }
+                if (!result.isEmpty()) {
+                    builder.addSlot(RecipeIngredientRole.OUTPUT, outputPositions[index][0], outputPositions[index][1])
+                            .addItemStack(result);
+                    index++;
+                }
+            }
+        } else {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 2).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
+        }
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 3, 3).addItemStack(new ItemStack(BakeriesItems.BREAD_KNIFE));
     }
 }

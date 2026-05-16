@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "bakeries:country_bread"
   },
-  "results": [
+  "result": [
     {
       "count": 6,
       "item": "bakeries:country_bread_slice"
