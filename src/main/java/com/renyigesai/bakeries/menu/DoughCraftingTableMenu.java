@@ -2,11 +2,15 @@ package com.renyigesai.bakeries.menu;
 
 import com.renyigesai.bakeries.init.BakeriesMenuTypes;
 import com.renyigesai.bakeries.init.BakeriesRecipeTypes;
+import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
@@ -30,12 +34,14 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
     private final DataSlot selectedRecipeIndex = DataSlot.standalone();
     private final ResultContainer resultContainer = new ResultContainer();
     private final Inventory playerInventory;
+    private ContainerLevelAccess access = ContainerLevelAccess.NULL;
     private List<SimpleMachineRecipe> recipes = new ArrayList<>();
     private ItemStack lastInput = ItemStack.EMPTY;
+    private long lastSoundTime;
     private Runnable slotUpdateListener = () -> {};
 
     public DoughCraftingTableMenu(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, null);
+        this(syncId, playerInventory, (Container) null);
     }
 
     public DoughCraftingTableMenu(int syncId, Inventory playerInventory, Container container) {
@@ -43,7 +49,14 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
         this.playerInventory = playerInventory;
 
         this.container.setChanged();
-        this.addSlot(new Slot(this.container, INPUT_SLOT, 20, 33));
+        this.addSlot(new Slot(this.container, INPUT_SLOT, 20, 33) {
+            @Override
+            public void setChanged() {
+                super.setChanged();
+                DoughCraftingTableMenu.this.slotsChanged(DoughCraftingTableMenu.this.container);
+                DoughCraftingTableMenu.this.slotUpdateListener.run();
+            }
+        });
         this.addSlot(new Slot(this.resultContainer, RESULT_CONTAINER_SLOT, 143, 33) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -53,12 +66,20 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
             @Override
             public void onTake(Player player, ItemStack craftedStack) {
                 craftedStack.onCraftedBy(player.level(), player, craftedStack.getCount());
+                DoughCraftingTableMenu.this.resultContainer.awardUsedRecipes(player, List.of(DoughCraftingTableMenu.this.container.getItem(INPUT_SLOT)));
                 ItemStack input = DoughCraftingTableMenu.this.container.getItem(INPUT_SLOT);
                 if (!input.isEmpty()) {
                     input.shrink(1);
                     DoughCraftingTableMenu.this.container.setChanged();
                 }
                 DoughCraftingTableMenu.this.setupResultSlot();
+                DoughCraftingTableMenu.this.access.execute((level, pos) -> {
+                    long gameTime = level.getGameTime();
+                    if (DoughCraftingTableMenu.this.lastSoundTime != gameTime) {
+                        level.playSound(null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        DoughCraftingTableMenu.this.lastSoundTime = gameTime;
+                    }
+                });
                 super.onTake(player, craftedStack);
             }
         });
@@ -66,6 +87,11 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
         this.addPlayerInventorySlots(playerInventory);
         this.addDataSlot(this.selectedRecipeIndex);
         this.slotsChanged(this.container);
+    }
+
+    public DoughCraftingTableMenu(int syncId, Inventory playerInventory, ContainerLevelAccess access) {
+        this(syncId, playerInventory);
+        this.access = access;
     }
 
     public DoughCraftingTableMenu(int syncId, Inventory playerInventory, Container container, net.minecraft.world.inventory.ContainerData ignoredData) {
@@ -113,6 +139,15 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
     }
 
     private void refreshRecipeList() {
+        ItemStack input = this.container.getItem(INPUT_SLOT);
+        if (input.isEmpty()) {
+            this.recipes = new ArrayList<>();
+            this.selectedRecipeIndex.set(-1);
+            this.resultContainer.setItem(RESULT_CONTAINER_SLOT, ItemStack.EMPTY);
+            this.broadcastChanges();
+            this.slotUpdateListener.run();
+            return;
+        }
         this.recipes = this.playerInventory.player.level().getRecipeManager().getRecipesFor(BakeriesRecipeTypes.DOUGH_CRAFTING, this.container, this.playerInventory.player.level());
         this.selectedRecipeIndex.set(this.recipes.isEmpty() ? -1 : 0);
         this.setupResultSlot();
@@ -124,11 +159,28 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
         if (selected >= 0 && selected < this.recipes.size()) {
             SimpleMachineRecipe recipe = this.recipes.get(selected);
             ItemStack result = recipe.assemble(this.container, this.playerInventory.player.level().registryAccess());
-            this.resultContainer.setItem(RESULT_CONTAINER_SLOT, result);
+            if (result.isItemEnabled(this.playerInventory.player.level().enabledFeatures())) {
+                this.resultContainer.setRecipeUsed(recipe);
+                this.resultContainer.setItem(RESULT_CONTAINER_SLOT, result);
+            } else {
+                this.resultContainer.setItem(RESULT_CONTAINER_SLOT, ItemStack.EMPTY);
+            }
         } else {
             this.resultContainer.setItem(RESULT_CONTAINER_SLOT, ItemStack.EMPTY);
         }
         this.broadcastChanges();
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return this.access == ContainerLevelAccess.NULL
+                ? super.stillValid(player)
+                : stillValid(this.access, player, BakeriesBlocks.DOUGH_CRAFTING_TABLE);
+    }
+
+    @Override
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+        return slot.container != this.resultContainer && super.canTakeItemForPickAll(stack, slot);
     }
 
     @Override
@@ -177,5 +229,12 @@ public class DoughCraftingTableMenu extends AbstractMachineMenu {
             this.broadcastChanges();
         }
         return itemstack;
+    }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        this.resultContainer.removeItemNoUpdate(RESULT_CONTAINER_SLOT);
+        this.access.execute((level, pos) -> this.clearContainer(player, this.container));
     }
 }

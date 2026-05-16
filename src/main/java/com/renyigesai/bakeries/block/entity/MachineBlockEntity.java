@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block.entity;
 
 import com.renyigesai.bakeries.init.BakeriesBlockEntities;
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.init.blocks.StateBlocks;
@@ -16,11 +17,16 @@ import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
@@ -49,6 +55,10 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     private int progress;
     private int maxProgress = DEFAULT_MAX_PROGRESS;
     private int ovenTemperature;
+    private int fermentationTemperature = 23;
+    private int fermentationPerfectTime = 600;
+    private long fermentationTemperatureDay = Long.MIN_VALUE;
+    private int fermentationTemperatureRevision = -1;
     private final int[] toasterCookingProgress = new int[2];
     private final int[] toasterCookingTime = new int[2];
     private final ContainerData machineMenuData = new ContainerData() {
@@ -57,6 +67,8 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return switch (index) {
                 case 0 -> MachineBlockEntity.this.progress;
                 case 1 -> MachineBlockEntity.this.maxProgress;
+                case 2 -> MachineBlockEntity.this.fermentationTemperature;
+                case 3 -> MachineBlockEntity.this.fermentationPerfectTime;
                 default -> 0;
             };
         }
@@ -66,6 +78,8 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             switch (index) {
                 case 0 -> MachineBlockEntity.this.progress = value;
                 case 1 -> MachineBlockEntity.this.maxProgress = value;
+                case 2 -> MachineBlockEntity.this.fermentationTemperature = value;
+                case 3 -> MachineBlockEntity.this.fermentationPerfectTime = value;
                 default -> {
                 }
             }
@@ -73,7 +87,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
         @Override
         public int getCount() {
-            return 2;
+            return 4;
         }
     };
     private final ContainerData ovenMenuData = new ContainerData() {
@@ -109,6 +123,8 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return switch (index) {
                 case 0 -> MachineBlockEntity.this.progress;
                 case 1 -> MachineBlockEntity.this.maxProgress;
+                case 2 -> MachineBlockEntity.this.fermentationTemperature;
+                case 3 -> MachineBlockEntity.this.fermentationPerfectTime;
                 default -> 0;
             };
         }
@@ -118,6 +134,8 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             switch (index) {
                 case 0 -> MachineBlockEntity.this.progress = value;
                 case 1 -> MachineBlockEntity.this.maxProgress = value;
+                case 2 -> MachineBlockEntity.this.fermentationTemperature = value;
+                case 3 -> MachineBlockEntity.this.fermentationPerfectTime = value;
                 default -> {
                 }
             }
@@ -125,7 +143,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
         @Override
         public int getCount() {
-            return 2;
+            return 4;
         }
     };
 
@@ -145,6 +163,9 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         tag.putInt("Progress", progress);
         tag.putInt("MaxProgress", maxProgress);
         tag.putInt("OvenTemperature", ovenTemperature);
+        tag.putInt("FermentationTemperature", fermentationTemperature);
+        tag.putInt("FermentationPerfectTime", fermentationPerfectTime);
+        tag.putLong("FermentationTemperatureDay", fermentationTemperatureDay);
         tag.putIntArray("ToasterProgress", toasterCookingProgress);
         tag.putIntArray("ToasterTime", toasterCookingTime);
     }
@@ -156,6 +177,9 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         progress = tag.getInt("Progress");
         maxProgress = tag.contains("MaxProgress") ? tag.getInt("MaxProgress") : DEFAULT_MAX_PROGRESS;
         ovenTemperature = tag.getInt("OvenTemperature");
+        fermentationTemperature = tag.contains("FermentationTemperature") ? tag.getInt("FermentationTemperature") : 23;
+        fermentationPerfectTime = tag.contains("FermentationPerfectTime") ? tag.getInt("FermentationPerfectTime") : getNowPerfectTime(fermentationTemperature);
+        fermentationTemperatureDay = Long.MIN_VALUE;
         if (tag.contains("ToasterProgress")) {
             int[] values = tag.getIntArray("ToasterProgress");
             System.arraycopy(values, 0, toasterCookingProgress, 0, Math.min(values.length, toasterCookingProgress.length));
@@ -182,10 +206,13 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     public @Nullable AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, net.minecraft.world.entity.player.Player player) {
         if (getBlockState().is(BakeriesBlocks.OVEN)) return new OvenMenu(syncId, playerInventory, this, ovenMenuData);
         if (getBlockState().is(BakeriesBlocks.BLENDER)) return new BlenderMenu(syncId, playerInventory, this, machineMenuData);
-        if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) return new FermentationBoxMenu(syncId, playerInventory, this, fermentationMenuData);
+        if (getBlockState().is(BakeriesBlocks.FERMENTATION_BOX)) {
+            forceRefreshFermentationTemperature();
+            return new FermentationBoxMenu(syncId, playerInventory, this, fermentationMenuData);
+        }
         if (getBlockState().is(BakeriesBlocks.MENU)) return null;
         if (getBlockState().is(BakeriesBlocks.DRINK_CUP)) return null;
-        if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
+        if (getBlockState().is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) return ChestMenu.threeRows(syncId, playerInventory, this);
         if (getBlockState().is(BakeriesBlocks.CUPBOARD)) return new CupboardMenu(syncId, playerInventory, this);
         if (getBlockState().is(BakeriesBlocks.MIX_BLOCK)) return new DoughCraftingTableMenu(syncId, playerInventory, this, machineMenuData);
         return new OvenMenu(syncId, playerInventory, this, ovenMenuData);
@@ -201,7 +228,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, MachineBlockEntity machine) {
         if (state.is(BakeriesBlocks.OVEN)) {
-            machine.tickRecipe(BakeriesRecipeTypes.OVEN, 5, OVEN_MAX_PROGRESS);
+            machine.tickOvenRecipe();
         } else if (state.is(BakeriesBlocks.BLENDER)) {
             machine.tickRecipeAcrossInputs();
         } else if (state.is(BakeriesBlocks.TOASTER)) {
@@ -303,6 +330,30 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         setChanged();
     }
 
+    private void tickOvenRecipe() {
+        if (level == null) {
+            return;
+        }
+        OvenMatch matched = findOvenRecipe();
+        if (matched == null) {
+            resetProgressIfNeeded();
+            return;
+        }
+        maxProgress = matched.recipe.getCraftTime() > 0 ? matched.recipe.getCraftTime() : OVEN_MAX_PROGRESS;
+        progress++;
+        if (progress < maxProgress) {
+            setChanged();
+            return;
+        }
+        if (matched.burnt) {
+            craftOvenCharcoal(matched.recipe);
+        } else {
+            craftOnce(0, 5, matched.recipe);
+        }
+        progress = 0;
+        setChanged();
+    }
+
     private void tickRecipeAcrossInputs() {
         if (level == null) {
             return;
@@ -327,8 +378,10 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         if (level == null) {
             return;
         }
-        if (maxProgress <= 0) {
-            maxProgress = FERMENTATION_MAX_PROGRESS;
+        refreshFermentationTemperature();
+        if (maxProgress < 430) {
+            resetProgressIfNeeded();
+            return;
         }
         Match matched = findFermentationRecipeAcrossInputs();
         if (matched == null) {
@@ -340,9 +393,54 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             setChanged();
             return;
         }
-        craftReplaceInput(matched.inputSlot, matched.recipe);
+        craftReplaceInput(matched.inputSlot, matched.recipe, isPerfectFermentationTime());
         progress = 0;
         setChanged();
+    }
+
+    private void refreshFermentationTemperature() {
+        if (level == null) {
+            return;
+        }
+        long currentDay = level.getDayTime() / 24000L;
+        BakeriesMod.refreshFloatingTemperature(currentDay);
+        if (currentDay == fermentationTemperatureDay && fermentationTemperatureRevision == BakeriesMod.floatingTemperatureRevision) {
+            return;
+        }
+        fermentationTemperatureDay = currentDay;
+        fermentationTemperatureRevision = BakeriesMod.floatingTemperatureRevision;
+        fermentationTemperature = calculateFermentationTemperature(level, worldPosition);
+        fermentationPerfectTime = getNowPerfectTime(fermentationTemperature);
+        setChanged();
+    }
+
+    public void forceRefreshFermentationTemperature() {
+        fermentationTemperatureDay = Long.MIN_VALUE;
+        fermentationTemperatureRevision = -1;
+        refreshFermentationTemperature();
+    }
+
+    public static int calculateFermentationTemperature(Level level, BlockPos pos) {
+        int floatingTemperature = BakeriesMod.floatingTemperature;
+        float biomeTemperature = level.getBiome(pos).value().getBaseTemperature();
+        if (biomeTemperature <= 0.2F) {
+            return floatingTemperature;
+        }
+        if (biomeTemperature >= 2.0F) {
+            return 30 + floatingTemperature;
+        }
+        return 23 + floatingTemperature;
+    }
+
+    private static int getNowPerfectTime(double currentTemperature) {
+        double temperature = Math.max(-5.0D, Math.min(40.0D, currentTemperature));
+        int ticks;
+        if (temperature > 23.0D) {
+            ticks = (int) (600 - (temperature - 23.0D) * 10);
+        } else {
+            ticks = (int) (600 + (23.0D - temperature) * 20);
+        }
+        return Math.min(1200, Math.max(100, ticks));
     }
 
     private Match findFermentationRecipeAcrossInputs() {
@@ -372,7 +470,11 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         return null;
     }
 
-    private void craftReplaceInput(int inputSlot, SimpleMachineRecipe recipe) {
+    private boolean isPerfectFermentationTime() {
+        return Math.abs(maxProgress - fermentationPerfectTime) <= 100;
+    }
+
+    private void craftReplaceInput(int inputSlot, SimpleMachineRecipe recipe, boolean perfectFermentation) {
         if (level == null) {
             return;
         }
@@ -385,7 +487,23 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return;
         }
         result.setCount(Math.max(1, result.getCount()));
+        if (perfectFermentation) {
+            addPerfectFermentationLore(result);
+        }
         setItem(inputSlot, result);
+    }
+
+    private static void addPerfectFermentationLore(ItemStack stack) {
+        CompoundTag display = stack.getOrCreateTagElement("display");
+        ListTag lore = display.getList("Lore", net.minecraft.nbt.Tag.TAG_STRING);
+        String tooltip = Component.Serializer.toJson(
+                Component.translatable("tooltips.bakeries.perfect_fermentation").withStyle(ChatFormatting.LIGHT_PURPLE)
+        );
+        StringTag tooltipTag = StringTag.valueOf(tooltip);
+        if (!lore.contains(tooltipTag)) {
+            lore.add(tooltipTag);
+        }
+        display.put("Lore", lore);
     }
 
     private void tickToaster() {
@@ -462,6 +580,33 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         return null;
     }
 
+    private OvenMatch findOvenRecipe() {
+        Level currentLevel = level;
+        if (currentLevel == null) {
+            return null;
+        }
+        ItemStack input = getItem(0);
+        if (input.isEmpty()) {
+            return null;
+        }
+        for (SimpleMachineRecipe recipe : currentLevel.getRecipeManager().getAllRecipesFor(BakeriesRecipeTypes.OVEN)) {
+            if (!recipe.getIngredient().test(input)) {
+                continue;
+            }
+            int min = recipe.getMinTemperature();
+            int max = recipe.getMaxTemperature();
+            if (min >= 0 && ovenTemperature < min) {
+                continue;
+            }
+            boolean burnt = max >= 0 && ovenTemperature > max;
+            ItemStack crafted = burnt ? new ItemStack(Items.CHARCOAL) : recipe.getResultItem(currentLevel.registryAccess());
+            if (canOutput(getItem(5), crafted)) {
+                return new OvenMatch(recipe, burnt);
+            }
+        }
+        return null;
+    }
+
     private void craftOnce(int inputSlot, int outputSlot, SimpleMachineRecipe recipe) {
         Level currentLevel = level;
         if (currentLevel == null) {
@@ -479,6 +624,22 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         } else {
             output.grow(crafted.getCount());
             this.setItem(outputSlot, output);
+        }
+    }
+
+    private void craftOvenCharcoal(SimpleMachineRecipe recipe) {
+        ItemStack input = getItem(0);
+        ItemStack output = getItem(5);
+        ItemStack crafted = new ItemStack(Items.CHARCOAL);
+        if (input.isEmpty() || !recipe.getIngredient().test(input) || !canOutput(output, crafted)) {
+            return;
+        }
+        input.shrink(1);
+        if (output.isEmpty()) {
+            setItem(5, crafted);
+        } else {
+            output.grow(crafted.getCount());
+            setItem(5, output);
         }
     }
 
@@ -618,7 +779,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     }
 
     public void setFermentationTime(int value) {
-        maxProgress = Math.max(20, Math.min(1200, value));
+        maxProgress = Math.max(0, Math.min(1200, value));
         setChanged();
     }
 
@@ -685,5 +846,8 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     }
 
     private record BlenderMatch(List<Integer> inputSlots, SimpleMachineRecipe recipe) {
+    }
+
+    private record OvenMatch(SimpleMachineRecipe recipe, boolean burnt) {
     }
 }

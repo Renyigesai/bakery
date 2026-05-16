@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "bakeries:flour"
+    "bakeries:flour",
+    "create:wheat_flour",
+    "appliedenergistics2:material",
+    "bountifulfares:flour"
   ]
 }

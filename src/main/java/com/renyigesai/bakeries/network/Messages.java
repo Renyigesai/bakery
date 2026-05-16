@@ -60,10 +60,6 @@ public final class Messages {
         if (!(menu.getContainer() instanceof MachineBlockEntity machine)) {
             return;
         }
-        if (action == 0) {
-            machine.resetMachineProgress();
-            return;
-        }
         machine.setFermentationTime(action);
     }
 }

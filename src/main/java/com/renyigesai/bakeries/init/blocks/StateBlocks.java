@@ -196,6 +196,7 @@ public final class StateBlocks {
 
     public static class BreadBasketBlock extends FacingBlock {
         public static final BooleanProperty FILL = BooleanProperty.create("fill");
+        private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 7, 14);
 
         public BreadBasketBlock(BlockBehaviour.Properties properties) {
             super(properties);
@@ -206,6 +207,18 @@ public final class StateBlocks {
         protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
             super.createBlockStateDefinition(builder);
             builder.add(FILL);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return SHAPE;
         }
     }
 

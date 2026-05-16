@@ -6,10 +6,13 @@ import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -27,6 +30,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import com.renyigesai.bakeries.menu.DoughCraftingTableMenu;
 
 public final class MachineBlocks {
     private MachineBlocks() {
@@ -97,6 +102,19 @@ public final class MachineBlocks {
                 }
             }
             if (be instanceof MenuProvider provider && player instanceof ServerPlayer serverPlayer) {
+                if (state.is(BakeriesBlocks.DOUGH_CRAFTING_TABLE)) {
+                    if (hit.getDirection() == Direction.UP) {
+                        serverPlayer.openMenu(new SimpleMenuProvider(
+                                (syncId, inventory, p) -> new DoughCraftingTableMenu(syncId, inventory, ContainerLevelAccess.create(level, pos)),
+                                state.getBlock().getName()
+                        ));
+                        player.awardStat(Stats.INTERACT_WITH_LOOM);
+                    } else {
+                        serverPlayer.openMenu(provider);
+                        player.awardStat(Stats.OPEN_BARREL);
+                    }
+                    return InteractionResult.CONSUME;
+                }
                 serverPlayer.openMenu(provider);
             }
             return InteractionResult.CONSUME;

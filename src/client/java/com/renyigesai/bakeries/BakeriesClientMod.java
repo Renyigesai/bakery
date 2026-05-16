@@ -6,10 +6,8 @@ import com.renyigesai.bakeries.screen.DoughCraftingTableScreen;
 import com.renyigesai.bakeries.screen.FermentationBoxScreen;
 import com.renyigesai.bakeries.screen.OvenScreen;
 import com.renyigesai.bakeries.key.BakeriesKeyMapping;
-import com.renyigesai.bakeries.overlay.ToasterOverlay;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesMenuTypes;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -17,8 +15,6 @@ import net.minecraft.client.renderer.RenderType;
 
 @SuppressWarnings("unused")
 public final class BakeriesClientMod implements ClientModInitializer {
-    private final ToasterOverlay toasterOverlay = new ToasterOverlay();
-
     @Override
     public void onInitializeClient() {
         registerRenderLayers();
@@ -28,11 +24,6 @@ public final class BakeriesClientMod implements ClientModInitializer {
         MenuScreens.register(BakeriesMenuTypes.DOUGH_CRAFTING_TABLE, DoughCraftingTableScreen::new);
         MenuScreens.register(BakeriesMenuTypes.CUPBOARD, CupboardScreen::new);
         BakeriesKeyMapping.init();
-        HudRenderCallback.EVENT.register((graphics, tickDelta) -> {
-            int width = net.minecraft.client.Minecraft.getInstance().getWindow().getGuiScaledWidth();
-            int height = net.minecraft.client.Minecraft.getInstance().getWindow().getGuiScaledHeight();
-            toasterOverlay.render(graphics, width, height);
-        });
     }
 
     private static void registerRenderLayers() {

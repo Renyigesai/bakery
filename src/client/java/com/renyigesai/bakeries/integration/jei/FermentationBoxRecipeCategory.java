@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.integration.jei;
 
+import com.renyigesai.bakeries.BakeriesConfig;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
@@ -58,7 +59,9 @@ public class FermentationBoxRecipeCategory implements IRecipeCategory<SimpleMach
     @Override
     public void draw(SimpleMachineRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics, 0, 0);
-        guiGraphics.drawString(net.minecraft.client.Minecraft.getInstance().font, Component.literal("20-1200 tick"), 4, 52, 0xFFFFFF, false);
+        guiGraphics.drawString(net.minecraft.client.Minecraft.getInstance().font,
+                Component.literal(BakeriesConfig.formatTicks(430) + "-" + BakeriesConfig.formatTicks(1200)),
+                4, 52, 0xFFFFFF, false);
     }
 
     @Override

@@ -11,11 +11,11 @@ public class FermentationBoxMenu extends AbstractMachineMenu {
     private static final int SLOT_COUNT = 6;
 
     public FermentationBoxMenu(int syncId, Inventory playerInventory) {
-        this(syncId, playerInventory, null, new net.minecraft.world.inventory.SimpleContainerData(2));
+        this(syncId, playerInventory, null, new net.minecraft.world.inventory.SimpleContainerData(4));
     }
 
     public FermentationBoxMenu(int syncId, Inventory playerInventory, Container container) {
-        this(syncId, playerInventory, container, new net.minecraft.world.inventory.SimpleContainerData(2));
+        this(syncId, playerInventory, container, new net.minecraft.world.inventory.SimpleContainerData(4));
     }
 
     public FermentationBoxMenu(int syncId, Inventory playerInventory, Container container, ContainerData data) {
@@ -57,5 +57,13 @@ public class FermentationBoxMenu extends AbstractMachineMenu {
             }
         });
         this.addPlayerInventorySlots(playerInventory);
+    }
+
+    public int getTemperature() {
+        return this.data.get(2);
+    }
+
+    public int getPerfectTime() {
+        return this.data.get(3);
     }
 }
