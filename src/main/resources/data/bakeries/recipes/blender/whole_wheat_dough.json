@@ -2,16 +2,16 @@
   "type": "bakeries:blender",
   "ingredients": [
     {
-      "tag": "c:flours/wheat"
+      "tag": "c:flour"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "c:flour"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "c:flour"
     },
     {
-      "tag": "c:flours/wheat"
+      "tag": "c:flour"
     },
     {
       "item": "bakeries:bottle_yeast"

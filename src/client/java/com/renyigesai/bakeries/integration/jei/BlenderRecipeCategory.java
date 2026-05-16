@@ -64,7 +64,23 @@ public class BlenderRecipeCategory implements IRecipeCategory<SimpleMachineRecip
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SimpleMachineRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 5, 8).addIngredients(recipe.getIngredient());
+        int[][] positions = new int[][] {
+                {5, 8}, {23, 8}, {41, 8},
+                {5, 26}, {23, 26}, {41, 26},
+                {5, 44}, {23, 44}, {41, 44}
+        };
+        if (recipe instanceof BlenderRecipe blenderRecipe) {
+            int idx = 0;
+            for (var ingredient : blenderRecipe.getInputIngredients()) {
+                if (idx >= positions.length) {
+                    break;
+                }
+                builder.addSlot(RecipeIngredientRole.INPUT, positions[idx][0], positions[idx][1]).addIngredients(ingredient);
+                idx++;
+            }
+        } else {
+            builder.addSlot(RecipeIngredientRole.INPUT, 5, 8).addIngredients(recipe.getIngredient());
+        }
         builder.addSlot(RecipeIngredientRole.OUTPUT, 67, 43).addItemStack(recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY));
         if (recipe instanceof BlenderRecipe blenderRecipe && blenderRecipe.hasContainer()) {
             builder.addSlot(RecipeIngredientRole.INPUT, 67, 8).addIngredients(blenderRecipe.getContainerIngredient());

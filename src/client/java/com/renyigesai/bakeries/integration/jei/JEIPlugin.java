@@ -187,8 +187,7 @@ public class JEIPlugin implements IModPlugin {
                 }
                 List<SimpleMachineRecipe> result = new ArrayList<>();
                 for (SimpleMachineRecipe recipe : getAllRecipes()) {
-                    Ingredient ingredient = recipe.getIngredient();
-                    if (ingredient.test(stack)) {
+                    if (recipeUsesInput(recipe, stack)) {
                         result.add(recipe);
                     }
                 }
@@ -225,6 +224,18 @@ public class JEIPlugin implements IModPlugin {
                 return manager.getAllRecipesFor(type).stream()
                         .filter(SimpleMachineRecipe::isValid)
                         .toList();
+            }
+
+            private static boolean recipeUsesInput(SimpleMachineRecipe recipe, ItemStack stack) {
+                if (recipe instanceof BlenderRecipe blenderRecipe) {
+                    for (Ingredient ingredient : blenderRecipe.getInputIngredients()) {
+                        if (ingredient.test(stack)) {
+                            return true;
+                        }
+                    }
+                    return blenderRecipe.hasContainer() && blenderRecipe.getContainerIngredient().test(stack);
+                }
+                return recipe.getIngredient().test(stack);
             }
         }
 

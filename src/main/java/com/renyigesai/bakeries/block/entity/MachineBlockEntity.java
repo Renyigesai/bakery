@@ -10,6 +10,7 @@ import com.renyigesai.bakeries.menu.CupboardMenu;
 import com.renyigesai.bakeries.menu.DoughCraftingTableMenu;
 import com.renyigesai.bakeries.menu.FermentationBoxMenu;
 import com.renyigesai.bakeries.menu.OvenMenu;
+import com.renyigesai.bakeries.recipe.BlenderRecipe;
 import com.renyigesai.bakeries.recipe.CoffeeRecipe;
 import com.renyigesai.bakeries.recipe.SimpleMachineRecipe;
 import net.minecraft.core.BlockPos;
@@ -307,7 +308,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return;
         }
         maxProgress = MachineBlockEntity.BLENDER_MAX_PROGRESS;
-        Match matched = findRecipeAcrossInputs();
+        BlenderMatch matched = findBlenderRecipe();
         if (matched == null) {
             resetProgressIfNeeded();
             return;
@@ -317,7 +318,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             setChanged();
             return;
         }
-        craftOnce(matched.inputSlot, 10, matched.recipe);
+        craftBlenderOnce(matched);
         progress = 0;
         setChanged();
     }
@@ -508,6 +509,80 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         return null;
     }
 
+    private BlenderMatch findBlenderRecipe() {
+        Level currentLevel = level;
+        if (currentLevel == null) {
+            return null;
+        }
+        List<SimpleMachineRecipe> recipes = currentLevel.getRecipeManager().getAllRecipesFor(BakeriesRecipeTypes.BLENDER);
+        for (SimpleMachineRecipe recipe : recipes) {
+            ItemStack crafted = recipe.getResultItem(currentLevel.registryAccess());
+            if (!canOutput(getItem(10), crafted)) {
+                continue;
+            }
+            if (recipe instanceof BlenderRecipe blenderRecipe) {
+                int[] plannedUse = new int[9];
+                List<Integer> inputSlots = new java.util.ArrayList<>();
+                boolean matched = true;
+                for (Ingredient ingredient : blenderRecipe.getInputIngredients()) {
+                    int slot = findMatchingBlenderInputSlot(ingredient, plannedUse);
+                    if (slot < 0) {
+                        matched = false;
+                        break;
+                    }
+                    plannedUse[slot]++;
+                    inputSlots.add(slot);
+                }
+                if (!matched) {
+                    continue;
+                }
+                if (blenderRecipe.hasContainer() && !blenderRecipe.getContainerIngredient().test(getItem(9))) {
+                    continue;
+                }
+                return new BlenderMatch(inputSlots, blenderRecipe);
+            }
+            Match single = findRecipeAcrossInputs();
+            if (single != null) {
+                return new BlenderMatch(List.of(single.inputSlot), single.recipe);
+            }
+        }
+        return null;
+    }
+
+    private int findMatchingBlenderInputSlot(Ingredient ingredient, int[] plannedUse) {
+        for (int slot = 0; slot <= 8; slot++) {
+            ItemStack stack = getItem(slot);
+            if (!stack.isEmpty() && stack.getCount() > plannedUse[slot] && ingredient.test(stack)) {
+                return slot;
+            }
+        }
+        return -1;
+    }
+
+    private void craftBlenderOnce(BlenderMatch matched) {
+        Level currentLevel = level;
+        if (currentLevel == null) {
+            return;
+        }
+        ItemStack crafted = matched.recipe.getResultItem(currentLevel.registryAccess());
+        if (!canOutput(getItem(10), crafted)) {
+            return;
+        }
+        for (int slot : matched.inputSlots) {
+            getItem(slot).shrink(1);
+        }
+        if (matched.recipe instanceof BlenderRecipe blenderRecipe && blenderRecipe.hasContainer()) {
+            getItem(9).shrink(1);
+        }
+        ItemStack output = getItem(10);
+        if (output.isEmpty()) {
+            setItem(10, crafted.copy());
+        } else {
+            output.grow(crafted.getCount());
+            setItem(10, output);
+        }
+    }
+
     public void resetMachineProgress() {
         if (progress != 0) {
             progress = 0;
@@ -607,5 +682,8 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     }
 
     private record Match(int inputSlot, SimpleMachineRecipe recipe) {
+    }
+
+    private record BlenderMatch(List<Integer> inputSlots, SimpleMachineRecipe recipe) {
     }
 }
