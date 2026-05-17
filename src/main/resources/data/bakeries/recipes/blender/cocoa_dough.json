@@ -17,20 +17,20 @@
       "item": "minecraft:sugar"
     },
     {
+      "tag": "c:milk"
+    },
+    {
       "item": "bakeries:bottle_yeast"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:salt"
     },
     {
-      "tag": "forge:salt"
-    },
-    {
-      "tag": "forge:butter"
+      "tag": "c:butter"
     }
   ],
-  "output": {
-    "item": "bakeries:cocoa_dough",
-    "count": 1
+  "result": {
+    "count": 1,
+    "item": "bakeries:cocoa_dough"
   }
 }

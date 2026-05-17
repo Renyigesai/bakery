@@ -1,8 +1,8 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "create"
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
     }
   ],
   "type": "create:mixing",
@@ -16,8 +16,8 @@
   ],
   "results": [
     {
-      "item": "bakeries:cheese_cream",
-      "count": 2
+      "count": 2,
+      "item": "bakeries:cheese_cream"
     }
   ]
 }

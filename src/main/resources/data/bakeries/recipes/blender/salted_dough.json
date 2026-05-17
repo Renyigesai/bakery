@@ -14,17 +14,17 @@
       "item": "bakeries:flour"
     },
     {
+      "item": "minecraft:water_bucket"
+    },
+    {
       "item": "bakeries:bottle_yeast"
     },
     {
-      "tag": "forge:salt"
-    },
-    {
-      "item": "minecraft:water_bucket"
+      "tag": "c:salt"
     }
   ],
-  "output": {
-    "item": "bakeries:salted_dough",
-    "count": 1
+  "result": {
+    "count": 1,
+    "item": "bakeries:salted_dough"
   }
 }

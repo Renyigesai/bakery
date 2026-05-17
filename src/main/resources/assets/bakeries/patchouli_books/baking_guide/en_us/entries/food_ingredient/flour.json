@@ -1,5 +1,5 @@
 {
-  "name": "guide.bakeries.entries.flour",
+  "name": "item.bakeries.flour",
   "icon": "bakeries:flour",
   "category": "bakeries:food_ingredient",
   "pages": [

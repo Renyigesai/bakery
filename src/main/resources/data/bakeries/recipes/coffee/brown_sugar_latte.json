@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:coffee",
+  "ingredients": [
+    { "item": "bakeries:ice_cubes" },
+    { "tag": "c:milk" },
+    { "item": "bakeries:brown_sugar_cube" },
+    { "item": "bakeries:moka_pot_fill" }
+  ],
+  "result": {
+    "item": "bakeries:brown_sugar_latte",
+    "count": 1
+  }
+}

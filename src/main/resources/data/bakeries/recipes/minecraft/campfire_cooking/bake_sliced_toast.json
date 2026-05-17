@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "bakeries:sliced_toast"
+  },
+  "result": "bakeries:bake_sliced_toast"
+}

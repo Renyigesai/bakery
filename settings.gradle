@@ -1,14 +1,23 @@
 pluginManagement {
     repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        mavenCentral()
         gradlePluginPortal()
         maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net/'
+            // location of the maven that hosts JEI files since January 2023
+            name = "Jared's maven"
+            url = "https://maven.blamejared.com/"
         }
-        maven { url = 'https://maven.parchmentmc.org' } // Add this lin
+        maven {
+            // location of a maven mirror for JEI files, as a fallback
+            name = "ModMaven"
+            url = "https://modmaven.dev"
+        }
+        maven { url "https://cursemaven.com/" }
     }
 }
 
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
-}
+rootProject.name = 'bakery'

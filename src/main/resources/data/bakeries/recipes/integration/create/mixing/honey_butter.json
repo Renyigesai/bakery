@@ -1,26 +1,28 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "create"
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
     }
   ],
   "type": "create:mixing",
   "ingredients": [
     {
-      "item": "minecraft:honey_bottle"
+      "type": "fluid_tag",
+      "amount": 250,
+      "fluid_tag": "c:honey"
     },
     {
-      "item": "bakeries:butter_cube"
+      "tag": "c:butter"
     },
     {
-      "item": "bakeries:butter_cube"
+      "tag": "c:butter"
     }
   ],
   "results": [
     {
-      "item": "bakeries:honey_butter",
-      "count": 4
+      "count": 4,
+      "item": "bakeries:honey_butter"
     }
   ]
 }

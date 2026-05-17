@@ -2,35 +2,29 @@
   "type": "bakeries:blender",
   "ingredients": [
     {
-      "tag": "forge:flour/wheat"
+      "tag": "c:flour"
     },
     {
-      "tag": "forge:flour/wheat"
+      "tag": "c:flour"
     },
     {
-      "tag": "forge:flour/wheat"
+      "tag": "c:flour"
     },
     {
-      "tag": "forge:flour/wheat"
-    },
-    {
-      "item": "minecraft:sugar"
+      "tag": "c:flour"
     },
     {
       "item": "bakeries:bottle_yeast"
     },
     {
-      "tag": "forge:milk"
+      "tag": "c:salt"
     },
     {
-      "tag": "forge:salt"
-    },
-    {
-      "tag": "forge:butter"
+      "item": "minecraft:water_bucket"
     }
   ],
-  "output": {
-    "item": "bakeries:whole_wheat_dough",
-    "count": 1
+  "result": {
+    "count": 1,
+    "item": "bakeries:whole_wheat_dough"
   }
 }

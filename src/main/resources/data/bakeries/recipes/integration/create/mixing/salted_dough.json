@@ -1,8 +1,8 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "create"
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
     }
   ],
   "type": "create:mixing",
@@ -20,22 +20,23 @@
       "item": "bakeries:flour"
     },
     {
-      "tag": "forge:salt"
-    },
-    {
-      "tag": "forge:salt"
+      "type": "fluid_stack",
+      "amount": 250,
+      "fluid": "minecraft:water"
     },
     {
       "item": "bakeries:bottle_yeast"
     },
     {
-      "amount": 1000,
-      "fluid": "minecraft:water"
+      "tag": "c:salt"
     }
   ],
   "results": [
     {
       "item": "bakeries:salted_dough"
-    }
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }    
   ]
 }

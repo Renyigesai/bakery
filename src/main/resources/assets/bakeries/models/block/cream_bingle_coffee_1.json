@@ -1,0 +1,10 @@
+{
+  "parent": "bakeries:custom/bingle_coffee_1",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/drink_cup",
+    "1": "bakeries:block/bingle_coffee",
+    "2": "bakeries:block/cream_top",
+    "particle": "minecraft:block/glass"
+  }
+}

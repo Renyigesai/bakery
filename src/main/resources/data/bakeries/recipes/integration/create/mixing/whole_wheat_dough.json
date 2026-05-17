@@ -1,44 +1,42 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "create"
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
     }
   ],
   "type": "create:mixing",
   "ingredients": [
     {
-      "tag": "forge:flour/wheat"
+      "tag": "c:flours/wheat"
     },
     {
-      "tag": "forge:flour/wheat"
+      "tag": "c:flours/wheat"
     },
     {
-      "tag": "forge:flour/wheat"
+      "tag": "c:flours/wheat"
     },
     {
-      "tag": "forge:flour/wheat"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "tag": "forge:salt"
-    },
-    {
-      "tag": "forge:butter"
+      "tag": "c:flours/wheat"
     },
     {
       "item": "bakeries:bottle_yeast"
     },
     {
+      "tag": "c:salt"
+    },
+    {
+      "type": "fluid_stack",
       "amount": 250,
-      "fluidTag": "forge:milk"
+      "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
       "item": "bakeries:whole_wheat_dough"
+    },
+    {
+      "item": "minecraft:glass_bottle"
     }
   ]
 }

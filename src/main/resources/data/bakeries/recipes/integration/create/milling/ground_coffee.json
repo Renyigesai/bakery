@@ -1,0 +1,20 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "bakeries:coffee_bean"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "bakeries:ground_coffee"
+    }
+  ]
+}

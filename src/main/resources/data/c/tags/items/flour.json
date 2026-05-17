@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "bakeries:flour",
+    {
+      "id": "create:wheat_flour",
+      "required": false
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "required": false
+    },
+    {
+      "id": "bountifulfares:flour",
+      "required": false
+    }
+  ]
+}

@@ -1,144 +1,167 @@
 package com.renyigesai.bakeries.recipe;
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.renyigesai.bakeries.BakeriesMod;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlenderRecipe implements Recipe<SimpleContainer> {
-    private final NonNullList<Ingredient> inputItems;
-    private final ItemStack output;
-    private final ResourceLocation id;
-    private final ItemStack container;
+@SuppressWarnings("unused")
+public class BlenderRecipe extends SimpleMachineRecipe {
+    private final List<Ingredient> inputIngredients;
+    private final Ingredient containerIngredient;
+    private final boolean hasContainer;
 
-    public BlenderRecipe(NonNullList<Ingredient> ingredient, ItemStack output,ItemStack container, ResourceLocation id) {
-        this.inputItems = ingredient;
-        this.output = output;
-        this.id = id;
-        if (container.isEmpty()){
-            this.container = ItemStack.EMPTY;
-        }else {
-            this.container = container;
-        }
+    public BlenderRecipe(ResourceLocation id, Ingredient ingredient, ItemStack result, int count) {
+        this(id, List.of(ingredient), result, count, Ingredient.EMPTY, false);
     }
 
-    @Override
-    public boolean matches(SimpleContainer inv, Level pLevel) {
-        java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
-        int i = 0;
-
-        for (int j = 0; j < 9; ++j) {
-            ItemStack itemstack = inv.getItem(j);
-            if (!itemstack.isEmpty()) {
-                ++i;
-                inputs.add(itemstack);
-            }
-        }
-        return i == this.inputItems.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.inputItems) != null;
+    public BlenderRecipe(ResourceLocation id, Ingredient ingredient, ItemStack result, int count, Ingredient containerIngredient, boolean hasContainer) {
+        this(id, List.of(ingredient), result, count, containerIngredient, hasContainer);
     }
 
-    @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
-        return output.copy();
+    public BlenderRecipe(ResourceLocation id, List<Ingredient> inputIngredients, ItemStack result, int count, Ingredient containerIngredient, boolean hasContainer) {
+        super(id, inputIngredients.isEmpty() ? Ingredient.of(Items.BARRIER) : inputIngredients.get(0), result, count,
+                new ResourceLocation(BakeriesMod.MODID, "blender"),
+                new ResourceLocation(BakeriesMod.MODID, "blender"));
+        this.inputIngredients = List.copyOf(inputIngredients);
+        this.containerIngredient = containerIngredient;
+        this.hasContainer = hasContainer;
     }
 
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public List<Ingredient> getInputIngredients() {
+        return inputIngredients;
     }
 
-    public ItemStack getContainer() {
-        return container.copy();
+    public Ingredient getContainerIngredient() {
+        return containerIngredient;
     }
 
-    @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-        return output.copy();
+    public boolean hasContainer() {
+        return hasContainer;
     }
 
-    @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
-
-    public static class Type implements RecipeType<BlenderRecipe> {
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "blender";
-    }
-
-    public static class Serializer implements RecipeSerializer<BlenderRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(BakeriesMod.MODID, "blender");
-
+    public static class Serializer implements net.minecraft.world.item.crafting.RecipeSerializer<SimpleMachineRecipe> {
         @Override
-        public BlenderRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.create();
-            if (ingredients.size() > 9){
-                throw new JsonParseException("Too many ingredients for blender recipe! The max is 9");
-            }else {
-                for (int i = 0; i < ingredients.size(); i++) {
-                    inputs.add(Ingredient.fromJson(ingredients.get(i)));
-                }
-                ItemStack container = GsonHelper.isValidNode(pSerializedRecipe, "container") ? CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pSerializedRecipe, "container"), true) : ItemStack.EMPTY;
-
-                return new BlenderRecipe(inputs, output, container, pRecipeId);
+        public @NotNull SimpleMachineRecipe fromJson(ResourceLocation id, JsonObject json) {
+            JsonElement ingredientJson = json.has("ingredient") ? json.get("ingredient") : json.get("ingredients");
+            JsonObject resultJson = GsonHelper.getAsJsonObject(json, "result");
+            JsonElement containerJson = json.get("container");
+            boolean hasContainer = containerJson != null && !containerJson.isJsonNull();
+            if (!isValidIngredient(ingredientJson)
+                    || !isValidItemStack(resultJson)
+                    || (hasContainer && !isValidIngredient(containerJson))) {
+                return new BlenderRecipe(id, Ingredient.of(Items.BARRIER), new ItemStack(Items.BARRIER), 1).markInvalid();
             }
+            List<Ingredient> ingredients = readIngredients(ingredientJson);
+            ItemStack result = net.minecraft.world.item.crafting.ShapedRecipe.itemStackFromJson(resultJson);
+            int count = GsonHelper.getAsInt(resultJson, "count", Math.max(1, result.getCount()));
+            Ingredient container = hasContainer ? Ingredient.fromJson(containerJson) : Ingredient.EMPTY;
+            int min = GsonHelper.getAsInt(json, "min", -1);
+            int max = GsonHelper.getAsInt(json, "max", -1);
+            int perfect = GsonHelper.getAsInt(json, "perfect", -1);
+            int time = GsonHelper.getAsInt(json, "time", -1);
+            return new BlenderRecipe(id, ingredients, result, count, container, hasContainer)
+                    .setRecipeData(min, max, perfect, time);
         }
 
         @Override
-        public @Nullable BlenderRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            int ingredientCount = pBuffer.readInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
-
+        public @NotNull SimpleMachineRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+            int ingredientCount = buf.readVarInt();
+            List<Ingredient> ingredients = new ArrayList<>();
             for (int i = 0; i < ingredientCount; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
+                ingredients.add(Ingredient.fromNetwork(buf));
             }
-            ItemStack container = pBuffer.readItem();
-            ItemStack output = pBuffer.readItem();
-            return new BlenderRecipe(inputs, output,container,pRecipeId);
+            ItemStack result = buf.readItem();
+            int count = buf.readVarInt();
+            int min = buf.readVarInt();
+            int max = buf.readVarInt();
+            int perfect = buf.readVarInt();
+            int time = buf.readVarInt();
+            boolean valid = buf.readBoolean();
+            boolean hasContainer = buf.readBoolean();
+            Ingredient container = hasContainer ? Ingredient.fromNetwork(buf) : Ingredient.EMPTY;
+            BlenderRecipe recipe = (BlenderRecipe) new BlenderRecipe(id, ingredients, result, count, container, hasContainer)
+                    .setRecipeData(min, max, perfect, time);
+            return valid ? recipe : recipe.markInvalid();
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, BlenderRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
+        public void toNetwork(FriendlyByteBuf buf, SimpleMachineRecipe recipe) {
+            List<Ingredient> ingredients = recipe instanceof BlenderRecipe blenderRecipe
+                    ? blenderRecipe.getInputIngredients()
+                    : List.of(recipe.getIngredient());
+            buf.writeVarInt(ingredients.size());
+            for (Ingredient ingredient : ingredients) {
+                ingredient.toNetwork(buf);
             }
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
-            pBuffer.writeItem(pRecipe.container);
+            ItemStack result = recipe.getResultItem(net.minecraft.core.RegistryAccess.EMPTY);
+            buf.writeItem(result);
+            buf.writeVarInt(Math.max(1, result.getCount()));
+            buf.writeVarInt(recipe.getMinTemperature());
+            buf.writeVarInt(recipe.getMaxTemperature());
+            buf.writeVarInt(recipe.getPerfectTemperature());
+            buf.writeVarInt(recipe.getCraftTime());
+            buf.writeBoolean(recipe.isValid());
+            boolean hasContainer = recipe instanceof BlenderRecipe blenderRecipe && blenderRecipe.hasContainer();
+            buf.writeBoolean(hasContainer);
+            if (hasContainer) {
+                ((BlenderRecipe) recipe).getContainerIngredient().toNetwork(buf);
+            }
         }
-    }
 
-    @Override
-    public @NotNull NonNullList<Ingredient> getIngredients() {
-        return inputItems;
+        private static List<Ingredient> readIngredients(JsonElement json) {
+            if (json.isJsonArray()) {
+                List<Ingredient> ingredients = new ArrayList<>();
+                for (JsonElement element : json.getAsJsonArray()) {
+                    ingredients.add(Ingredient.fromJson(element));
+                }
+                return ingredients;
+            }
+            return List.of(Ingredient.fromJson(json));
+        }
+
+        private static boolean isValidIngredient(JsonElement json) {
+            if (json == null || json.isJsonNull()) {
+                return false;
+            }
+            if (json.isJsonArray()) {
+                var array = json.getAsJsonArray();
+                if (array.isEmpty()) {
+                    return false;
+                }
+                for (JsonElement element : array) {
+                    if (!isValidIngredient(element)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            if (!json.isJsonObject()) {
+                return false;
+            }
+            JsonObject object = json.getAsJsonObject();
+            if (object.has("item")) {
+                return BuiltInRegistries.ITEM.containsKey(new ResourceLocation(GsonHelper.getAsString(object, "item")));
+            }
+            if (object.has("tag")) {
+                return ResourceLocation.isValidResourceLocation(GsonHelper.getAsString(object, "tag"));
+            }
+            return false;
+        }
+
+        private static boolean isValidItemStack(JsonObject json) {
+            return json.has("item")
+                    && BuiltInRegistries.ITEM.containsKey(new ResourceLocation(GsonHelper.getAsString(json, "item")));
+        }
     }
 }

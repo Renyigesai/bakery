@@ -1,0 +1,69 @@
+package com.renyigesai.bakeries.block.entity;
+
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Container;
+import org.jetbrains.annotations.NotNull;
+
+public interface ImplementedInventory extends Container {
+    NonNullList<ItemStack> getItems();
+
+    @Override
+    default int getContainerSize() {
+        return getItems().size();
+    }
+
+    @Override
+    default boolean isEmpty() {
+        for (ItemStack stack : getItems()) {
+            if (!stack.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    default @NotNull ItemStack getItem(int slot) {
+        return getItems().get(slot);
+    }
+
+    @Override
+    default @NotNull ItemStack removeItem(int slot, int amount) {
+        ItemStack result = net.minecraft.world.ContainerHelper.removeItem(getItems(), slot, amount);
+        if (!result.isEmpty()) {
+            setChanged();
+        }
+        return result;
+    }
+
+    @Override
+    default @NotNull ItemStack removeItemNoUpdate(int slot) {
+        return net.minecraft.world.ContainerHelper.takeItem(getItems(), slot);
+    }
+
+    @Override
+    default void setItem(int slot, ItemStack stack) {
+        getItems().set(slot, stack);
+        if (stack.getCount() > getMaxStackSize()) {
+            stack.setCount(getMaxStackSize());
+        }
+        setChanged();
+    }
+
+    @Override
+    default void setChanged() {
+    }
+
+    @Override
+    default boolean stillValid(Player player) {
+        return true;
+    }
+
+    @Override
+    default void clearContent() {
+        getItems().clear();
+    }
+
+}

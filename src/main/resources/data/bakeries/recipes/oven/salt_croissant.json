@@ -1,17 +1,14 @@
 {
   "type": "bakeries:oven",
-  "ingredient":  [
-    {
-      "item": "bakeries:salt_croissant_dough"
-    }
-  ],
-  "output": {
-    "item": "bakeries:salt_croissant",
-    "count": 1
+  "ingredient": {
+    "item": "bakeries:salt_croissant_dough"
   },
-  "time": 200,
-  "min_temperature": 180,
-  "max_temperature": 200,
-  "perfect_temperature": 190
+  "max": 190,
+  "min": 180,
+  "perfect": 180,
+  "result": {
+    "count": 1,
+    "item": "bakeries:salt_croissant"
+  },
+  "time": 200
 }
-   

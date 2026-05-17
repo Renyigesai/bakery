@@ -1,17 +1,14 @@
 {
   "type": "bakeries:oven",
-  "ingredient":  [
-    {
-      "item": "bakeries:mould_toast_dough"
-    }
-  ],
-  "output": {
-    "item": "bakeries:mould_toast",
-    "count": 1
+  "ingredient": {
+    "item": "bakeries:mould_toast_dough"
   },
-  "time": 400,
-  "min_temperature": 135,
-  "max_temperature": 185,
-  "perfect_temperature": 160
+  "max": 185,
+  "min": 135,
+  "perfect": 0,
+  "result": {
+    "count": 1,
+    "item": "bakeries:mould_toast"
+  },
+  "time": 400
 }
-   

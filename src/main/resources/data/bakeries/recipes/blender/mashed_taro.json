@@ -11,8 +11,8 @@
       "item": "bakeries:bottle_cream"
     }
   ],
-  "output": {
-    "item": "bakeries:mashed_taro",
-    "count": 4
+  "result": {
+    "count": 4,
+    "item": "bakeries:mashed_taro"
   }
 }

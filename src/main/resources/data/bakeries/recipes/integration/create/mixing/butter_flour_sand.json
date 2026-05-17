@@ -1,8 +1,8 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "create"
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
     }
   ],
   "type": "create:mixing",
@@ -14,16 +14,24 @@
       "item": "bakeries:flour"
     },
     {
+      "item": "bakeries:flour"
+    },
+    {
       "item": "minecraft:sugar"
     },
     {
-      "item": "bakeries:butter_cube"
+      "tag": "c:butter"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "tag": "c:salt"
     }
   ],
   "results": [
     {
-      "item": "bakeries:butter_flour_sand",
-      "count": 4
+      "item": "bakeries:butter_flour_sand"
     }
   ]
 }

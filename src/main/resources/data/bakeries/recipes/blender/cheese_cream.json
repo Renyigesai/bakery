@@ -8,8 +8,8 @@
       "item": "bakeries:fresh_cheese_cube"
     }
   ],
-  "output": {
-    "item": "bakeries:cheese_cream",
-    "count": 2
+  "result": {
+    "count": 2,
+    "item": "bakeries:cheese_cream"
   }
 }

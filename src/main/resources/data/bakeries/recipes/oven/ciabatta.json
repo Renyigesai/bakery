@@ -1,16 +1,14 @@
 {
   "type": "bakeries:oven",
-  "ingredient":  [
-    {
-      "item": "bakeries:ciabatta_dough"
-    }
-  ],
-  "output": {
-    "item": "bakeries:ciabatta",
-    "count": 1
+  "ingredient": {
+    "item": "bakeries:ciabatta_dough"
   },
-  "time": 200,
-  "min_temperature": 210,
-  "max_temperature": 230,
-  "perfect_temperature": 220
+  "max": 230,
+  "min": 210,
+  "perfect": 220,
+  "result": {
+    "count": 1,
+    "item": "bakeries:ciabatta"
+  },
+  "time": 200
 }

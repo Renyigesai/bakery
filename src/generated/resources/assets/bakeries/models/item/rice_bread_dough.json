@@ -1,7 +1,0 @@
-{
-  "parent": "bakeries:block/rice_bread_1",
-  "textures": {
-    "5": "bakeries:item/rice_bread_dough",
-    "particle": "bakeries:item/rice_bread_dough"
-  }
-}

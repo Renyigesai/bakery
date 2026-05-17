@@ -5,8 +5,8 @@
       "item": "minecraft:cooked_porkchop"
     }
   ],
-  "output": {
-    "item": "bakeries:meat_floss",
-    "count": 4
+  "result": {
+    "count": 4,
+    "item": "bakeries:meat_floss"
   }
 }

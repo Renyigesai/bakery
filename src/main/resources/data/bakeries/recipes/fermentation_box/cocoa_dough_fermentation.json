@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:fermentation_box",
+  "ingredient": {
+    "item": "bakeries:cocoa_dough"
+  },
+  "result": {
+    "item": "bakeries:cocoa_dough_fermentation",
+    "count": 1
+  }
+}

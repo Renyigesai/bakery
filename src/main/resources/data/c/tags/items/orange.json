@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "pamhc2trees:orangeitem",
+      "required": false
+    },
+    {
+      "id": "croptopia:orange",
+      "required": false
+    },
+    {
+      "id": "enhancedfarming:orange",
+      "required": false
+    },
+    {
+      "id": "changed:orange",
+      "required": false
+    }
+  ]
+}

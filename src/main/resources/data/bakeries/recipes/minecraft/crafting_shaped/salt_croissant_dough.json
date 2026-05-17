@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ab ",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:croissant_dough"
+    },
+    "b": {
+      "tag": "c:salt"
+    }
+  },
+  "result": {
+    "item": "bakeries:salt_croissant_dough",
+    "count": 4
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "bakeries:cocoa_powder"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "minecraft:brown_dye",
+      "count": 2 
+    },
+    {
+      "item": "minecraft:brown_dye",
+      "chance": 0.1 
+    }
+  ]
+}

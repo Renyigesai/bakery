@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "tag": "c:salt"
+    }
+  ],
+  "result": {
+    "item": "bakeries:salt_yolk",
+    "count": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/country_bread",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/country_bread",
+    "particle": "bakeries:block/country_bread"
+  }
+}

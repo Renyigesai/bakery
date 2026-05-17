@@ -1,0 +1,6 @@
+{
+  "parent": "bakeries:block/baguette_1",
+  "textures": {
+    "0": "bakeries:item/baguette_dough"
+  }
+}

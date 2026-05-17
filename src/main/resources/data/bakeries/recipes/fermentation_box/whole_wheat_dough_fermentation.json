@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:fermentation_box",
+  "ingredient": {
+    "item": "bakeries:whole_wheat_dough"
+  },
+  "result": {
+    "item": "bakeries:whole_wheat_dough_fermentation",
+    "count": 1
+  }
+}

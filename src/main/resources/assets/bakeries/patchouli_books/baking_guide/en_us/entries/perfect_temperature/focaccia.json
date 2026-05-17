@@ -1,5 +1,5 @@
 {
-  "name": "item.bakeries.focaccia",
+  "name": "block.bakeries.focaccia",
   "icon": "bakeries:focaccia",
   "category": "bakeries:perfect_temperature",
   "advancement": "bakeries:perfect_temperature/focaccia",
@@ -7,7 +7,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "bakeries:focaccia",
-      "title": "240°c"
+      "title": "240\u00B0c"
     }
   ]
 }

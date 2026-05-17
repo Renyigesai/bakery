@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bakery.iml" filepath="$PROJECT_DIR$/.idea/modules/bakery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bakery.client.iml" filepath="$PROJECT_DIR$/.idea/modules/bakery.client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bakery.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bakery.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bakery.test.iml" filepath="$PROJECT_DIR$/.idea/modules/bakery.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.renyigesai.bakery.bakery.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.renyigesai.bakery.bakery.test.iml" />

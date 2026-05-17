@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:dough_crafting",
+  "ingredient": {
+    "item": "bakeries:flour"
+  },
+  "result": {
+    "item": "bakeries:sweet_dough",
+    "count": 1
+  }
+}

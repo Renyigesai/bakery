@@ -1,9 +1,10 @@
-{
-  "type": "bakeries:dough_crafting_table",
-  "count": 4,
-  "ingredient":
-  {
-    "item": "bakeries:salted_dough"
-  },
-  "result": "bakeries:ciabatta_dough"
+﻿{
+    "type":  "bakeries:dough_crafting",
+    "ingredient":  {
+                       "item":  "bakeries:salted_dough"
+                   },
+    "result":  {
+                   "count":  4,
+                   "item":  "bakeries:ciabatta_dough"
+               }
 }

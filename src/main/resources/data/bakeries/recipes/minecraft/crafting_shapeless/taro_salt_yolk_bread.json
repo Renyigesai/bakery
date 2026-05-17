@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:round_bread"
+    },
+    {
+      "item": "bakeries:round_bread"
+    },
+    {
+      "item": "bakeries:mashed_taro"
+    },
+    {
+      "item": "bakeries:mashed_taro"
+    },
+    {
+      "item": "bakeries:salt_yolk"
+    }
+  ],
+  "result": {
+    "item": "bakeries:taro_salt_yolk_bread",
+    "count": 2
+  }
+}

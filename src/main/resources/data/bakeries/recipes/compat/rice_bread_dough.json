@@ -1,8 +1,8 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "farmersdelight"
+      "condition": "fabric:all_mods_loaded",
+      "values": ["farmersdelight"]
     }
   ],
   "type": "minecraft:crafting_shapeless",
@@ -15,7 +15,7 @@
       "item": "farmersdelight:rice"
     }
   ],
-  "result": {
+  "output": {
     "item": "bakeries:rice_bread_dough",
     "count": 1
   }

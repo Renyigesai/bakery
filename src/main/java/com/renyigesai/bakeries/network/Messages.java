@@ -1,86 +1,65 @@
 package com.renyigesai.bakeries.network;
 
-
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.capabilities.PlayerKeyAuxiliary;
+import com.renyigesai.bakeries.block.entity.MachineBlockEntity;
+import com.renyigesai.bakeries.menu.FermentationBoxMenu;
+import com.renyigesai.bakeries.menu.OvenMenu;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
 
-public class Messages {
+public final class Messages {
+    public static final ResourceLocation KEY_DOWN = id("key_down");
+    public static final ResourceLocation OVEN_BUTTON = id("oven_button");
+    public static final ResourceLocation FERMENTATION_BOX = id("fermentation_box");
 
-    private static SimpleChannel INSTANCE;
-
-    private static int packetId = 0;
-
-    private static int id() {
-        return packetId++;
+    private Messages() {
     }
 
-    public static void register() {
-        SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(BakeriesMod.MODID, "messages"))
-                .networkProtocolVersion(() -> "1.0")
-                .clientAcceptedVersions(s -> true)
-                .serverAcceptedVersions(s -> true)
-                .simpleChannel();
-        INSTANCE = net;
-//        net.messageBuilder(ClientboundUpdateCastingState.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-//                .decoder(ClientboundUpdateCastingState::new)
-//                .encoder(ClientboundUpdateCastingState::toBytes)
-//                .consumerMainThread(ClientboundUpdateCastingState::handle)
-//                .add();
-//
-//        net.registerMessage(id(),
-//                ImmortalButtonMessage.class,
-//                ImmortalButtonMessage::toBytes,
-//                ImmortalButtonMessage::new,
-//                ImmortalButtonMessage::handle);
-
-        net.messageBuilder(OvenButtonMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(OvenButtonMessage::new)
-                .encoder(OvenButtonMessage::toBytes)
-                .consumerMainThread(OvenButtonMessage::handle)
-                .add();
-        net.messageBuilder(SwitchButtonMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SwitchButtonMessage::new)
-                .encoder(SwitchButtonMessage::toBytes)
-                .consumerMainThread(SwitchButtonMessage::handle)
-                .add();
-        net.messageBuilder(KeyAuxiliaryMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(KeyAuxiliaryMessage::new)
-                .encoder(KeyAuxiliaryMessage::toBytes)
-                .consumerMainThread(KeyAuxiliaryMessage::handle)
-                .add();
-        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(FluidSyncS2CPacket::new)
-                .encoder(FluidSyncS2CPacket::toBytes)
-                .consumerMainThread(FluidSyncS2CPacket::handle)
-                .add();
+    public static void init() {
+        ServerPlayNetworking.registerGlobalReceiver(KEY_DOWN, (server, player, handler, buf, responseSender) -> {
+            boolean down = readKeyDown(buf);
+            server.execute(() -> PlayerKeyAuxiliary.of(player.getUUID()).setKeyDown(down));
+        });
+        ServerPlayNetworking.registerGlobalReceiver(OVEN_BUTTON, (server, player, handler, buf, responseSender) -> {
+            int buttonId = buf.readInt();
+            server.execute(() -> handleOvenButton(player, buttonId));
+        });
+        ServerPlayNetworking.registerGlobalReceiver(FERMENTATION_BOX, (server, player, handler, buf, responseSender) -> {
+            int action = buf.readInt();
+            server.execute(() -> handleFermentationAction(player, action));
+        });
     }
 
-    public static <MSG> void sendToServer(MSG message) {
-        INSTANCE.sendToServer(message);
+    private static ResourceLocation id(String path) {
+        return new ResourceLocation(BakeriesMod.MODID, path);
     }
 
-    public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
-
-    }
-    public static <MSG> void sendToClients(MSG message) {
-        INSTANCE.send(PacketDistributor.ALL.noArg(), message);
+    private static boolean readKeyDown(FriendlyByteBuf buf) {
+        return buf.readBoolean();
     }
 
-    public static <MSG> void sendToPlayersTrackingEntity(MSG message, Entity entity) {
-        sendToPlayersTrackingEntity(message, entity, false);
+    private static void handleOvenButton(net.minecraft.server.level.ServerPlayer player, int buttonId) {
+        if (!(player.containerMenu instanceof OvenMenu ovenMenu)) {
+            return;
+        }
+        if (!(ovenMenu.getContainer() instanceof MachineBlockEntity machine)) {
+            return;
+        }
+        if (buttonId == 0) {
+            return;
+        }
+        machine.addOvenTemperature(buttonId);
     }
 
-    public static <MSG> void sendToPlayersTrackingEntity(MSG message, Entity entity, boolean sendToSource) {
-        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
-        if (sendToSource && entity instanceof ServerPlayer serverPlayer)
-            sendToPlayer(message, serverPlayer);
+    private static void handleFermentationAction(net.minecraft.server.level.ServerPlayer player, int action) {
+        if (!(player.containerMenu instanceof FermentationBoxMenu menu)) {
+            return;
+        }
+        if (!(menu.getContainer() instanceof MachineBlockEntity machine)) {
+            return;
+        }
+        machine.setFermentationTime(action);
     }
 }

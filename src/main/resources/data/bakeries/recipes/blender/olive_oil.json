@@ -1,5 +1,9 @@
 {
   "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "item": "minecraft:glass_bottle"
+  },
   "ingredients": [
     {
       "item": "bakeries:olive"
@@ -14,11 +18,8 @@
       "item": "bakeries:olive"
     }
   ],
-  "container": {
-    "item": "minecraft:glass_bottle"
-  },
-  "output": {
-    "item": "bakeries:olive_oil",
-    "count": 1
+  "result": {
+    "count": 1,
+    "item": "bakeries:olive_oil"
   }
 }

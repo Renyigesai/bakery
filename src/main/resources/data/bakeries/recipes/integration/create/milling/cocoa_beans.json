@@ -1,0 +1,20 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:cocoa_beans"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "bakeries:cocoa_powder"
+    }
+  ]
+}

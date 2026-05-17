@@ -1,28 +1,31 @@
 package com.renyigesai.bakeries.capabilities;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class PlayerKeyAuxiliary implements INBTSerializable<CompoundTag> {
-    public boolean key = false;
+@SuppressWarnings("unused")
+public final class PlayerKeyAuxiliary {
+    private static final Map<UUID, PlayerKeyAuxiliary> STATES = new ConcurrentHashMap<>();
+    private boolean keyDown;
 
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putBoolean("key",this.key);
-        return compoundTag;
+    public boolean isKeyDown() {
+        return keyDown;
     }
 
-    @Override
-    public void deserializeNBT(CompoundTag tag) {
-        this.key = tag.getBoolean("key");
+    public void setKeyDown(boolean keyDown) {
+        this.keyDown = keyDown;
     }
 
-    public void setKey(boolean key) {
-        this.key = key;
+    public static PlayerKeyAuxiliary of(UUID playerId) {
+        return STATES.computeIfAbsent(playerId, id -> new PlayerKeyAuxiliary());
     }
 
-    public boolean isKey() {
-        return key;
+    public static boolean isKeyDown(UUID playerId) {
+        return of(playerId).isKeyDown();
+    }
+
+    public static void clear(UUID playerId) {
+        STATES.remove(playerId);
     }
 }

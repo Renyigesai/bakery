@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:olive_oil"
+    },
+    "title": {
+      "translate": "advancements.bakeries.glossy_green.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.glossy_green.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:olive_oil"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:root"
+}

@@ -1,5 +1,5 @@
 {
-  "name": "item.bakeries.brown_sugar_roll",
+  "name": "block.bakeries.brown_sugar_roll",
   "icon": "bakeries:brown_sugar_roll",
   "category": "bakeries:perfect_temperature",
   "advancement": "bakeries:perfect_temperature/cinnamon_roll",
@@ -7,7 +7,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "bakeries:brown_sugar_roll",
-      "title": "170°c"
+      "title": "170\u00B0c"
     }
   ]
 }

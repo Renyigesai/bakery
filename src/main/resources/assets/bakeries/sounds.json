@@ -43,18 +43,6 @@
       }
     ]
   },
-  "block.generic.toaster_in": {
-    "subtitle":"block.generic.toaster_in",
-    "sounds": [
-      "bakeries:toaster_in"
-    ]
-  },
-  "block.generic.toaster_out": {
-    "subtitle":"block.generic.toaster_out",
-    "sounds": [
-      "bakeries:toaster_out"
-    ]
-  },
   "block.generic.pastry_place": {
     "subtitle":"block.generic.pastry_place",
     "sounds": [
@@ -66,6 +54,18 @@
     "subtitle":"block.generic.steel_pipe",
     "sounds": [
       "bakeries:steel_pipe"
+    ]
+  },
+  "block.generic.toaster_in": {
+    "subtitle":"block.generic.toaster_in",
+    "sounds": [
+      "bakeries:toaster_in"
+    ]
+  },
+  "block.generic.toaster_out": {
+    "subtitle":"block.generic.toaster_out",
+    "sounds": [
+      "bakeries:toaster_out"
     ]
   }
 }

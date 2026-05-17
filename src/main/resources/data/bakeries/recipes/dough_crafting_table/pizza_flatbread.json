@@ -1,9 +1,0 @@
-{
-  "type": "bakeries:dough_crafting_table",
-  "ingredient":
-  {
-    "item": "bakeries:salted_dough"
-  },
-  "result": "bakeries:pizza_flatbread",
-  "count": 2
-}

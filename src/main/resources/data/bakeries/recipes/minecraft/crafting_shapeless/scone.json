@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:flour"
+    },
+    {
+      "item": "bakeries:bottle_butter"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "bakeries:bottle_milk"
+    }
+  ],
+  "result": {
+    "item": "bakeries:scone",
+    "count": 2
+  }
+}

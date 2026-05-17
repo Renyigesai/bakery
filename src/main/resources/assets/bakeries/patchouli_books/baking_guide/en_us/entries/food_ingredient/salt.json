@@ -8,7 +8,7 @@
       "name": "guide.bakeries.entries.salt",
       "multiblock": {
         "mapping": {
-          "S": "bakeries:salt_water_block",
+          "S": "minecraft:water",
           "G": "minecraft:campfire[lit=true]"
         },
         "pattern":  [

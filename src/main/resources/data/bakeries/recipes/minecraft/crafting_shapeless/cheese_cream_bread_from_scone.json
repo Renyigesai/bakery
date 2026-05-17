@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:scone"
+    },
+    {
+      "item": "bakeries:scone"
+    },
+    {
+      "item": "bakeries:cheese_cream"
+    }
+  ],
+  "result": {
+    "item": "bakeries:cheese_cream_bread",
+    "count": 2
+  }
+}

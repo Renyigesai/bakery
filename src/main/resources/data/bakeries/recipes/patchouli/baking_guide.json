@@ -1,0 +1,31 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["patchouli"]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "minecraft:ink_sac"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "result": {
+    "components": {
+      "patchouli:book": "bakeries:baking_guide"
+    },
+    "count": 1,
+    "item": "patchouli:guide_book"
+  }
+}

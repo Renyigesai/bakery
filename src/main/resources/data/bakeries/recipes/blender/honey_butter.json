@@ -5,14 +5,14 @@
       "item": "minecraft:honey_bottle"
     },
     {
-      "tag": "forge:butter"
+      "tag": "c:butter"
     },
     {
-      "tag": "forge:butter"
+      "tag": "c:butter"
     }
   ],
-  "output": {
-    "item": "bakeries:honey_butter",
-    "count": 4
+  "result": {
+    "count": 4,
+    "item": "bakeries:honey_butter"
   }
 }

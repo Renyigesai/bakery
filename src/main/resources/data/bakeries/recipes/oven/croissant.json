@@ -1,17 +1,14 @@
 {
   "type": "bakeries:oven",
-  "ingredient":  [
-    {
-      "item": "bakeries:croissant_dough"
-    }
-  ],
-  "output": {
-    "item": "bakeries:croissant",
-    "count": 1
+  "ingredient": {
+    "item": "bakeries:croissant_dough"
   },
-  "time": 200,
-  "min_temperature": 175,
-  "max_temperature": 185,
-  "perfect_temperature": 180
+  "max": 185,
+  "min": 175,
+  "perfect": 180,
+  "result": {
+    "count": 1,
+    "item": "bakeries:croissant"
+  },
+  "time": 200
 }
-   

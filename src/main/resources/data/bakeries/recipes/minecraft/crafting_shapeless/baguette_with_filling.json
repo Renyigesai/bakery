@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:baguette"
+    },
+    {
+      "tag": "c:crops/tomato"
+    },
+    {
+      "tag": "c:foods/cooked_pork"
+    }
+  ],
+  "result": {
+    "item": "bakeries:baguette_with_filling",
+    "count": 2
+  }
+}

@@ -3,9 +3,9 @@
 	"ambientocclusion": false,
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "liquid_storage_pot",
-		"1": "cheese",
-		"particle": "minecraft:glass"
+		"0": "bakeries:block/fermentation_tank",
+		"1": "bakeries:block/cheese",
+		"particle": "minecraft:block/glass"
 	},
 	"elements": [
 		{

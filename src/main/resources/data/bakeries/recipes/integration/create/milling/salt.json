@@ -1,0 +1,21 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "bakeries:raw_salt_block"
+    }
+  ],
+  "processingTime": 50,
+  "results": [
+    {
+      "item": "bakeries:salt",
+      "count": 9 
+    }
+  ]
+}

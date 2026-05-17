@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "bakeries:block/coffee_plant"
+    },
+    "age=1": {
+      "model": "bakeries:block/coffee_plant"
+    },
+    "age=2": {
+      "model": "bakeries:block/coffee_plant_fruit"
+    },
+    "age=3": {
+      "model": "bakeries:block/coffee_plant_fruit"
+    },
+    "age=4": {
+      "model": "bakeries:block/coffee_plant_fruit"
+    },
+    "age=5": {
+      "model": "bakeries:block/coffee_plant_fruit"
+    },
+    "age=6": {
+      "model": "bakeries:block/coffee_plant_fruit"
+    },
+    "age=7": {
+      "model": "bakeries:block/coffee_plant_fruit"
+    }
+  }
+}

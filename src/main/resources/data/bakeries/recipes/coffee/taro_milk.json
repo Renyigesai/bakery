@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:coffee",
+  "ingredients": [
+    { "item": "bakeries:ice_cubes" },
+    { "tag": "c:milk" },
+    { "item": "bakeries:mashed_taro" }
+  ],
+  "result": {
+    "item": "bakeries:taro_milk",
+    "count": 1
+  }
+}

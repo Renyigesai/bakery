@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:blender",
+  "ingredient": {
+    "item": "bakeries:butter_cube"
+  },
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "result": {
+    "item": "bakeries:bottle_butter",
+    "count": 1
+  }
+}

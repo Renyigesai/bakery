@@ -1,5 +1,5 @@
 {
-  "name": "item.bakeries.ciabatta",
+  "name": "block.bakeries.ciabatta",
   "icon": "bakeries:ciabatta",
   "category": "bakeries:perfect_temperature",
   "advancement": "bakeries:perfect_temperature/ciabatta",
@@ -7,7 +7,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "bakeries:ciabatta",
-      "title": "220°c"
+      "title": "220\u00B0c"
     }
   ]
 }

@@ -1,0 +1,30 @@
+{
+"type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aea"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_ingot"
+    },
+    "b": {
+      "item": "minecraft:redstone"
+    },
+    "c": {
+      "item": "minecraft:quartz"
+    },
+    "d": {
+      "item": "minecraft:glass_pane"
+    },
+    "e": {
+      "item": "minecraft:daylight_detector"
+    }
+  },
+  "result": {
+    "item": "bakeries:fermentation_box",
+    "count": 1
+  }
+}

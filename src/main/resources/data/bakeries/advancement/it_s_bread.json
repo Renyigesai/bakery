@@ -1,0 +1,157 @@
+{
+  "parent": "bakeries:root",
+  "criteria": {
+    "bagel": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:bagel"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "whole_wheat_bagel": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:whole_wheat_bagel"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "baguette": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:baguette"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "croissant": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:croissant"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "brown_sugar_roll": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:brown_sugar_roll"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "round_bread": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:round_bread"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "salt_croissant": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:round_bread"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "sliced_toast": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:sliced_toast"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "country_bread_slice": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:sliced_toast"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "pineapple_bun": {
+      "conditions": {
+        "item": {
+          "items": [
+            "bakeries:pineapple_bun"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.bakeries.it.s.bread.descr"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "count": 1,
+      "id": "bakeries:croissant"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.bakeries.it.s.bread.title"
+    }
+  },
+  "requirements": [
+    [
+      "bagel"
+    ],
+    [
+      "whole_wheat_bagel"
+    ],
+    [
+      "baguette"
+    ],
+    [
+      "croissant"
+    ],
+    [
+      "brown_sugar_roll"
+    ],
+    [
+      "round_bread"
+    ],
+    [
+      "salt_croissant"
+    ],
+    [
+      "country_bread_slice"
+    ],
+    [
+      "sliced_toast"
+    ],
+    [
+      "pineapple_bun"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

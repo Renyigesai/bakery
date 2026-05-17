@@ -1,0 +1,71 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "bakeries:mould"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "item": "bakeries:mould_toast_dough"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "bakeries:mould"
+        },
+        {
+          "item": "bakeries:round_bread_dough"
+        }
+      ],
+      "results": [
+        {
+          "item": "bakeries:mould"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "bakeries:mould"
+        },
+        {
+          "item": "bakeries:round_bread_dough"
+        }
+      ],
+      "results": [
+        {
+          "item": "bakeries:mould"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "bakeries:mould"
+        },
+        {
+          "item": "bakeries:round_bread_dough"
+        }
+      ],
+      "results": [
+        {
+          "item": "bakeries:mould"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "item": "bakeries:mould"
+  }  
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "bakeries:block/salt_croissant_1",
+  "textures": {
+    "0": "bakeries:item/salt_croissant_dough"
+  }
+}

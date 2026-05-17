@@ -1,17 +1,14 @@
 {
   "type": "bakeries:oven",
-  "ingredient":  [
-    {
-      "item": "bakeries:baguette_dough"
-    }
-  ],
-  "output": {
-    "item": "bakeries:baguette",
-    "count": 1
+  "ingredient": {
+    "item": "bakeries:baguette_dough"
   },
-  "time": 300,
-  "min_temperature": 230,
-  "max_temperature": 250,
-  "perfect_temperature": 240
+  "max": 250,
+  "min": 230,
+  "perfect": 240,
+  "result": {
+    "count": 1,
+    "item": "bakeries:baguette"
+  },
+  "time": 300
 }
-   

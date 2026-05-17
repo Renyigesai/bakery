@@ -5,8 +5,8 @@
       "item": "bakeries:bottle_cream"
     }
   ],
-  "output": {
-    "item": "bakeries:butter_cube",
-    "count": 2
+  "result": {
+    "count": 1,
+    "item": "bakeries:butter_cube"
   }
 }

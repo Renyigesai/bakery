@@ -1,5 +1,5 @@
 {
-  "name": "item.bakeries.egg_tart",
+  "name": "block.bakeries.egg_tart",
   "icon": "bakeries:egg_tart",
   "category": "bakeries:perfect_temperature",
   "advancement": "bakeries:perfect_temperature/egg_tart",

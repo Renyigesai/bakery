@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/bread_basket_fill",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/bread_basket",
+    "1": "bakeries:block/baguette_16x",
+    "particle": "bakeries:block/bread_basket"
+  }
+}

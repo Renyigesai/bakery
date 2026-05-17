@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "count": 1,
+      "id": "bakeries:flour_sieve"
+    },
+    "title": {
+      "translate": "advancements.bakeries.sieving.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.sieving.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:flour_sieve"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:rough_flavor"
+}

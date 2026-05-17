@@ -6,7 +6,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "bakeries:fermentation_tank",
-      "text": "guide.bakeries.entries.yeast_making.descr"
+      "text": "guide.bakeries.descr.yeast_making"
     },
     {
       "type": "patchouli:multiblock",

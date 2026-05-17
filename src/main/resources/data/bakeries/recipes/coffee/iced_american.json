@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:coffee",
+  "ingredients": [
+    { "item": "bakeries:ice_cubes" },
+    { "item": "minecraft:water_bucket" },
+    { "item": "bakeries:moka_pot_fill" }
+  ],
+  "result": {
+    "item": "bakeries:iced_american",
+    "count": 1
+  }
+}

@@ -1,10 +1,10 @@
-
-{
-  "type": "bakeries:dough_crafting_table",
-  "count": 2,
-  "ingredient":
-  {
-    "item": "bakeries:pastry"
-  },
-  "result": "bakeries:croissant_dough"
+﻿{
+    "type":  "bakeries:dough_crafting",
+    "ingredient":  {
+                       "item":  "bakeries:pastry"
+                   },
+    "result":  {
+                   "count":  2,
+                   "item":  "bakeries:croissant_dough"
+               }
 }

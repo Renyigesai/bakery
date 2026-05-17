@@ -1,8 +1,8 @@
 {
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "create"
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
     }
   ],
   "type": "create:mixing",
@@ -19,8 +19,12 @@
   ],
   "results": [
     {
-      "item": "bakeries:foamed_cream",
-      "count": 4
-    }
+      "count": 4,
+      "item": "bakeries:foamed_cream"
+    },
+    {
+      "count": 2,
+      "item": "minecraft:glass_bottle"
+    }   
   ]
 }
