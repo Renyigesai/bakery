@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.block.entity;
 import com.renyigesai.bakeries.init.BakeriesBlockEntities;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesRecipeTypes;
 import com.renyigesai.bakeries.init.blocks.StateBlocks;
 import com.renyigesai.bakeries.init.blocks.ToasterState;
@@ -31,7 +32,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.MenuProvider;
@@ -51,6 +56,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     private static final int FLOUR_SIEVE_MAX_PROGRESS = 50;
     private static final int DRINK_MAX_PROGRESS = 70;
     private static final int FERMENTATION_MAX_PROGRESS = 200;
+    private static final int MOKA_POT_MAX_PROGRESS = 200;
     private final NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
     private int progress;
     private int maxProgress = DEFAULT_MAX_PROGRESS;
@@ -241,7 +247,46 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             machine.tickRecipe(BakeriesRecipeTypes.FLOUR_SIEVE, 1, FLOUR_SIEVE_MAX_PROGRESS);
         } else if (state.is(BakeriesBlocks.DRINK_CUP)) {
             machine.tickCoffeeRecipe();
+        } else if (state.is(BakeriesBlocks.MOKA_POT)) {
+            machine.tickMokaPot();
         }
+    }
+
+    private void tickMokaPot() {
+        if (level == null) {
+            return;
+        }
+        maxProgress = MOKA_POT_MAX_PROGRESS;
+        if (!getItem(0).is(BakeriesItems.GROUND_COFFEE) || !hasMokaPotHeatSource()) {
+            resetProgressIfNeeded();
+            return;
+        }
+        progress++;
+        if (progress < maxProgress) {
+            setChanged();
+            return;
+        }
+        setItem(0, ItemStack.EMPTY);
+        progress = 0;
+        BlockState filledState = BakeriesBlocks.MOKA_POT_FILL.defaultBlockState();
+        if (filledState.hasProperty(BlockStateProperties.HORIZONTAL_FACING) && getBlockState().hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
+            filledState = filledState.setValue(BlockStateProperties.HORIZONTAL_FACING, getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING));
+        }
+        level.setBlock(worldPosition, filledState, 3);
+    }
+
+    private boolean hasMokaPotHeatSource() {
+        if (level == null) {
+            return false;
+        }
+        BlockState below = level.getBlockState(worldPosition.below());
+        if (below.getBlock() instanceof CampfireBlock) {
+            return below.hasProperty(BlockStateProperties.LIT) && below.getValue(BlockStateProperties.LIT);
+        }
+        if (below.getBlock() instanceof AbstractFurnaceBlock) {
+            return below.hasProperty(BlockStateProperties.LIT) && below.getValue(BlockStateProperties.LIT);
+        }
+        return false;
     }
 
     private void tickCoffeeRecipe() {
@@ -767,6 +812,10 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
     public int getOverlayMaxProgress() {
         return maxProgress;
+    }
+
+    public boolean isMokaPotBrewing() {
+        return getBlockState().is(BakeriesBlocks.MOKA_POT) && progress > 0;
     }
 
     public int getOvenTemperature() {

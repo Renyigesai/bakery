@@ -32,6 +32,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.util.GsonHelper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -68,7 +69,8 @@ public class JEIPlugin implements IModPlugin {
                 new BreadKnifeRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
                 new FlourSieveRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
                 new DrinkRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new ToasterRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+                new ToasterRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new MokaPotBrewingRecipeCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
@@ -90,7 +92,7 @@ public class JEIPlugin implements IModPlugin {
         List<SimpleMachineRecipe> flourSieveRecipes;
         List<CoffeeRecipe> drinkRecipes;
         List<SimpleMachineRecipe> fermentationRecipes;
-        List<CampfireCookingRecipe> toasterRecipes;
+        List<ToasterRecipeCategory.Recipe> toasterRecipes;
 
         if (manager != null) {
             ovenRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.OVEN);
@@ -102,7 +104,9 @@ public class JEIPlugin implements IModPlugin {
                     .filter(JEIPlugin::isDisplayableCoffeeRecipe)
                     .toList();
             fermentationRecipes = manager.getAllRecipesFor(BakeriesRecipeTypes.FERMENTATION_BOX);
-            toasterRecipes = manager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CAMPFIRE_COOKING);
+            toasterRecipes = manager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CAMPFIRE_COOKING).stream()
+                    .map(ToasterRecipeCategory.Recipe::fromCampfireRecipe)
+                    .toList();
         } else {
             minecraft.getResourceManager();
             ovenRecipes = loadSimpleRecipesFromResources(minecraft.getResourceManager(), "oven");
@@ -122,6 +126,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(DrinkRecipeCategory.TYPE, drinkRecipes);
         registration.addRecipes(FermentationBoxRecipeCategory.TYPE, fermentationRecipes.stream().filter(SimpleMachineRecipe::isValid).toList());
         registration.addRecipes(ToasterRecipeCategory.TYPE, toasterRecipes);
+        registration.addRecipes(MokaPotBrewingRecipeCategory.TYPE, List.of(MokaPotBrewingRecipeCategory.INSTANCE));
         registration.addItemStackInfo(new ItemStack(BakeriesItems.BOTTLE_YEAST),
                 Component.translatable("bakeries.bottle_yeast.description"));
         registration.addItemStackInfo(new ItemStack(BakeriesItems.CHEESE_CUBE),
@@ -130,6 +135,10 @@ public class JEIPlugin implements IModPlugin {
                 Component.translatable("bakeries.olive.description"));
         registration.addItemStackInfo(new ItemStack(BakeriesItems.RAW_COFFEE_BEAN),
                 Component.translatable("bakeries.raw_coffee_bean.description"));
+        registration.addItemStackInfo(new ItemStack(BakeriesItems.MOKA_POT_FILL),
+                Component.translatable("bakeries.moka_pot_fill.description"));
+        registration.addItemStackInfo(new ItemStack(BakeriesItems.MOKA_POT),
+                Component.translatable("bakeries.moka_pot_fill.description"));
         registration.addItemStackInfo(new ItemStack(BakeriesItems.ICE_CUBES),
                 Component.translatable("bakeries.ice.description", buildIceSourceNames(minecraft.getResourceManager())));
         BakeriesMod.LOGGER.info("[JEI] recipes registered: oven={}, blender={}, dough={}, bread_knife={}, flour_sieve={}, coffee={}",
@@ -145,6 +154,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addTypedRecipeManagerPlugin(FlourSieveRecipeCategory.TYPE, new DynamicSimpleMachineRecipePlugin(BakeriesRecipeTypes.FLOUR_SIEVE));
         registration.addTypedRecipeManagerPlugin(DrinkRecipeCategory.TYPE, new DynamicCoffeeRecipePlugin());
         registration.addTypedRecipeManagerPlugin(FermentationBoxRecipeCategory.TYPE, new DynamicSimpleMachineRecipePlugin(BakeriesRecipeTypes.FERMENTATION_BOX));
+        registration.addTypedRecipeManagerPlugin(ToasterRecipeCategory.TYPE, new DynamicToasterRecipePlugin());
     }
 
     @Override
@@ -158,7 +168,17 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DRINK_CUP), DrinkRecipeCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.FERMENTATION_BOX), FermentationBoxRecipeCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.TOASTER), ToasterRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.MOKA_POT), MokaPotBrewingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(Blocks.CAMPFIRE), MokaPotBrewingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(Blocks.SOUL_CAMPFIRE), MokaPotBrewingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(Blocks.FURNACE), MokaPotBrewingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(Blocks.SMOKER), MokaPotBrewingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(Blocks.BLAST_FURNACE), MokaPotBrewingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.MOKA_POT_FILL), MokaPotBrewingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(BakeriesItems.GROUND_COFFEE), MokaPotBrewingRecipeCategory.TYPE);
+
     }
+
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
@@ -358,6 +378,63 @@ public class JEIPlugin implements IModPlugin {
             }
             return manager.getAllRecipesFor(BakeriesRecipeTypes.COFFEE).stream()
                     .filter(JEIPlugin::isDisplayableCoffeeRecipe)
+                    .toList();
+        }
+    }
+
+    private static final class DynamicToasterRecipePlugin implements ISimpleRecipeManagerPlugin<ToasterRecipeCategory.Recipe> {
+        @Override
+        public boolean isHandledInput(ITypedIngredient<?> input) {
+            return input.getIngredient() instanceof ItemStack;
+        }
+
+        @Override
+        public boolean isHandledOutput(ITypedIngredient<?> output) {
+            return output.getIngredient() instanceof ItemStack;
+        }
+
+        @Override
+        public @NotNull List<ToasterRecipeCategory.Recipe> getRecipesForInput(ITypedIngredient<?> input) {
+            if (!(input.getIngredient() instanceof ItemStack stack)) {
+                return List.of();
+            }
+            List<ToasterRecipeCategory.Recipe> result = new ArrayList<>();
+            for (ToasterRecipeCategory.Recipe recipe : getAllRecipes()) {
+                if (recipe.input().test(stack)) {
+                    result.add(recipe);
+                }
+            }
+            return result;
+        }
+
+        @Override
+        public @NotNull List<ToasterRecipeCategory.Recipe> getRecipesForOutput(ITypedIngredient<?> output) {
+            if (!(output.getIngredient() instanceof ItemStack stack)) {
+                return List.of();
+            }
+            List<ToasterRecipeCategory.Recipe> result = new ArrayList<>();
+            for (ToasterRecipeCategory.Recipe recipe : getAllRecipes()) {
+                if (ItemStack.isSameItem(recipe.output(), stack)) {
+                    result.add(recipe);
+                }
+            }
+            return result;
+        }
+
+        @Override
+        public @NotNull List<ToasterRecipeCategory.Recipe> getAllRecipes() {
+            Minecraft minecraft = Minecraft.getInstance();
+            RecipeManager manager = null;
+            if (minecraft.getConnection() != null) {
+                manager = minecraft.getConnection().getRecipeManager();
+            } else if (minecraft.level != null) {
+                manager = minecraft.level.getRecipeManager();
+            }
+            if (manager == null) {
+                return List.of();
+            }
+            return manager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CAMPFIRE_COOKING).stream()
+                    .map(ToasterRecipeCategory.Recipe::fromCampfireRecipe)
                     .toList();
         }
     }

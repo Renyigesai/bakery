@@ -6,6 +6,7 @@ import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.ItemStack;
@@ -13,10 +14,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -30,6 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -323,6 +328,34 @@ public final class StateBlocks {
         }
 
         @Override
+        public @NotNull RenderShape getRenderShape(BlockState state) {
+            return RenderShape.ENTITYBLOCK_ANIMATED;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+            if (!(level.getBlockEntity(pos) instanceof MachineBlockEntity machine) || !machine.isMokaPotBrewing()) {
+                return;
+            }
+            if (random.nextFloat() > 0.55F) {
+                return;
+            }
+            double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.12D;
+            double y = pos.getY() + 0.58D;
+            double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.12D;
+            level.addParticle(
+                    random.nextBoolean() ? ParticleTypes.SMOKE : ParticleTypes.LARGE_SMOKE,
+                    x,
+                    y,
+                    z,
+                    (random.nextDouble() - 0.5D) * 0.01D,
+                    0.035D + random.nextDouble() * 0.02D,
+                    (random.nextDouble() - 0.5D) * 0.01D
+            );
+        }
+
+        @Override
         @SuppressWarnings("deprecation")
         public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
             return state.getValue(BlockStateProperties.OPEN) ? SHAPE_OPEN : SHAPE_CLOSED;
@@ -384,11 +417,47 @@ public final class StateBlocks {
         }
     }
 
-    public static class MokaPotBlock extends FacingBlock {
-        private static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 6.5, 10.0);
+    public static class MokaPotBlock extends MachineBlocks.FacingMachineBlock {
+        protected static final VoxelShape SHAPE = Block.box(6.0, 0.0, 6.0, 10.0, 6.5, 10.0);
 
         public MokaPotBlock(BlockBehaviour.Properties properties) {
             super(properties);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+            ItemStack held = player.getItemInHand(hand);
+            if (held.isEmpty() || !held.is(BakeriesItems.GROUND_COFFEE)) {
+                return InteractionResult.PASS;
+            }
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+            if (!(level.getBlockEntity(pos) instanceof MachineBlockEntity machine)) {
+                return InteractionResult.PASS;
+            }
+            if (!machine.getItem(0).isEmpty()) {
+                return InteractionResult.FAIL;
+            }
+            machine.setItem(0, new ItemStack(BakeriesItems.GROUND_COFFEE));
+            if (!player.getAbilities().instabuild) {
+                held.shrink(1);
+            }
+            return InteractionResult.CONSUME;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+            if (!state.is(newState.getBlock())) {
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if (blockEntity instanceof MachineBlockEntity machine && !machine.getItem(0).isEmpty()) {
+                    Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 0.25D, pos.getZ() + 0.5D, machine.getItem(0).copy());
+                    machine.setItem(0, ItemStack.EMPTY);
+                }
+            }
+            super.onRemove(state, level, pos, newState, movedByPiston);
         }
 
         @Override
@@ -401,6 +470,38 @@ public final class StateBlocks {
         @SuppressWarnings("deprecation")
         public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
             return SHAPE;
+        }
+    }
+
+    public static class FilledMokaPotBlock extends FacingBlock {
+        public FilledMokaPotBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+            if (level.isClientSide) {
+                return InteractionResult.SUCCESS;
+            }
+            ItemStack stack = new ItemStack(BakeriesItems.MOKA_POT_FILL);
+            if (!player.getInventory().add(stack)) {
+                player.drop(stack, false);
+            }
+            level.removeBlock(pos, false);
+            return InteractionResult.CONSUME;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return MokaPotBlock.SHAPE;
+        }
+
+        @Override
+        @SuppressWarnings("deprecation")
+        public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+            return MokaPotBlock.SHAPE;
         }
     }
 

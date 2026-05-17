@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -76,17 +77,23 @@ public class OvenRecipeCategory implements IRecipeCategory<SimpleMachineRecipe> 
         java.util.List<Component> tooltip = new java.util.ArrayList<>();
         tooltip.add(Component.literal("Min " + min + "\u00B0C").withStyle(ChatFormatting.BLUE));
         tooltip.add(Component.literal("Max " + max + "\u00B0C").withStyle(ChatFormatting.BLUE));
-        if (recipe.getPerfectTemperature() >= 0) {
+        if (recipe.getPerfectTemperature() >= 0 && hasEatenResult(minecraft, recipe)) {
             tooltip.add(Component.translatable("tooltips.bakeries.pile_item_perfect")
                     .append(Component.literal(" " + recipe.getPerfectTemperature() + "\u00B0C"))
                     .withStyle(ChatFormatting.GOLD));
-            tooltip.add(Component.translatable("tooltips.bakeries.pile_item_perfect_unlock")
-                    .withStyle(ChatFormatting.GRAY));
         }
         if (recipe.getCraftTime() > 0) {
             tooltip.add(Component.literal(recipe.getCraftTime() + " tick").withStyle(ChatFormatting.GRAY));
         }
         guiGraphics.renderComponentTooltip(minecraft.font, tooltip, (int) mouseX, (int) mouseY);
+    }
+
+    private static boolean hasEatenResult(Minecraft minecraft, SimpleMachineRecipe recipe) {
+        if (minecraft.player == null || minecraft.level == null) {
+            return false;
+        }
+        ItemStack result = recipe.getResultItem(minecraft.level.registryAccess());
+        return !result.isEmpty() && minecraft.player.getStats().getValue(Stats.ITEM_USED.get(result.getItem())) > 0;
     }
 
     @Override
