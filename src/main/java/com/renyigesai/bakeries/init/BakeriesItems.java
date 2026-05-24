@@ -3,6 +3,9 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.items.BreadKnifeItem;
 import com.renyigesai.bakeries.items.DescriptionItem;
+import com.renyigesai.bakeries.items.FoodEffectBlockItem;
+import com.renyigesai.bakeries.items.FoodEffectItem;
+import com.renyigesai.bakeries.items.FoodEffectTooltip;
 import com.renyigesai.bakeries.items.FlourSieveItem;
 import com.renyigesai.bakeries.items.WholeEggItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -11,6 +14,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -64,12 +69,12 @@ public final class BakeriesItems {
         COOKED_TARO = register("cooked_taro", food(6, 0.6F, false));
         MASHED_TARO = register("mashed_taro", food(1, 0.5F, false));
         MOKA_POT_FILL = registerBlock("moka_pot_fill", BakeriesBlocks.MOKA_POT_FILL);
-        BROWN_SUGAR_LATTE = register("brown_sugar_latte", food(1, 0.5F, true));
-        ICED_AMERICAN = register("iced_american", food(1, 0.5F, true));
-        ICED_LATTE = register("iced_latte", food(1, 0.5F, true));
-        MATCHA_LATTE = register("matcha_latte", food(1, 0.5F, true));
+        BROWN_SUGAR_LATTE = register("brown_sugar_latte", foodEffectItem(food(1, 0.5F, true, effect(MobEffects.MOVEMENT_SPEED, 30, 0)), effect(MobEffects.MOVEMENT_SPEED, 30, 0)));
+        ICED_AMERICAN = register("iced_american", foodEffectItem(food(1, 0.5F, true, effect(MobEffects.MOVEMENT_SPEED, 30, 0)), effect(MobEffects.MOVEMENT_SPEED, 30, 0)));
+        ICED_LATTE = register("iced_latte", foodEffectItem(food(1, 0.5F, true, effect(MobEffects.MOVEMENT_SPEED, 30, 0)), effect(MobEffects.MOVEMENT_SPEED, 30, 0)));
+        MATCHA_LATTE = register("matcha_latte", foodEffectItem(food(1, 0.5F, true, effect(MobEffects.MOVEMENT_SPEED, 30, 0), effect(MobEffects.DIG_SPEED, 30, 0)), effect(MobEffects.MOVEMENT_SPEED, 30, 0), effect(MobEffects.DIG_SPEED, 30, 0)));
         ORANGE_AMERICAN = register("orange_american", food(1, 0.5F, true));
-        TARO_MILK = register("taro_milk", food(1, 0.5F, true));
+        TARO_MILK = register("taro_milk", foodEffectItem(food(1, 0.5F, true, effect(MobEffects.MOVEMENT_SPEED, 30, 0), effect(MobEffects.DIG_SPEED, 30, 0)), effect(MobEffects.MOVEMENT_SPEED, 30, 0), effect(MobEffects.DIG_SPEED, 30, 0)));
         SWEET_DOUGH = register("sweet_dough");
         COCOA_DOUGH = register("cocoa_dough");
         SALTED_DOUGH = register("salted_dough");
@@ -128,29 +133,29 @@ public final class BakeriesItems {
         CHEESE_COCOA_TOAST = registerBlock("cheese_cocoa_toast", BakeriesBlocks.CHEESE_COCOA_TOAST);
         BAGEL = registerBlock("bagel", BakeriesBlocks.BAGEL, food(6, 0.5F, false));
         BAGUETTE = registerBlock("baguette", BakeriesBlocks.BAGUETTE, food(8, 0.25F, false));
-        CROISSANT = registerBlock("croissant", BakeriesBlocks.CROISSANT, food(6, 1.0F, false));
+        CROISSANT = registerBlockWithEffects("croissant", BakeriesBlocks.CROISSANT, food(6, 1.0F, false, effect(BakeriesMobEffects.ENJOY, 60, 0)), effect(BakeriesMobEffects.ENJOY, 60, 0));
         ROUND_BREAD = registerBlock("round_bread", BakeriesBlocks.ROUND_BREAD, food(3, 0.6F, false));
         RICE_BREAD = registerBlock("rice_bread", BakeriesBlocks.RICE_BREAD, food(12, 0.4F, false));
-        WHOLE_WHEAT_BAGEL = registerBlock("whole_wheat_bagel", BakeriesBlocks.WHOLE_WHEAT_BAGEL, food(8, 0.35F, false));
-        PINEAPPLE_BUN = registerBlock("pineapple_bun", BakeriesBlocks.PINEAPPLE_BUN, food(6, 1.5F, false));
-        FOCACCIA = registerBlock("focaccia", BakeriesBlocks.FOCACCIA, food(8, 1.0F, false));
+        WHOLE_WHEAT_BAGEL = registerBlockWithEffects("whole_wheat_bagel", BakeriesBlocks.WHOLE_WHEAT_BAGEL, food(8, 0.35F, false, effect(MobEffects.SATURATION, 1, 0)), effect(MobEffects.SATURATION, 1, 0));
+        PINEAPPLE_BUN = registerBlockWithEffects("pineapple_bun", BakeriesBlocks.PINEAPPLE_BUN, food(6, 1.5F, false, effect(BakeriesMobEffects.ENJOY, 60, 1)), effect(BakeriesMobEffects.ENJOY, 60, 1));
+        FOCACCIA = registerBlockWithEffects("focaccia", BakeriesBlocks.FOCACCIA, food(8, 1.0F, false, effect(BakeriesMobEffects.ENJOY, 30, 1)), effect(BakeriesMobEffects.ENJOY, 30, 1));
         CIABATTA = registerBlock("ciabatta", BakeriesBlocks.CIABATTA, food(4, 0.4F, false));
         EGG_TART = registerBlock("egg_tart", BakeriesBlocks.EGG_TART, food(8, 0.5F, false));
-        SALT_CROISSANT = registerBlock("salt_croissant", BakeriesBlocks.SALT_CROISSANT, food(6, 1.0F, false));
+        SALT_CROISSANT = registerBlockWithEffects("salt_croissant", BakeriesBlocks.SALT_CROISSANT, food(6, 1.0F, false, effect(BakeriesMobEffects.ENJOY, 30, 0), effect(MobEffects.DAMAGE_BOOST, 30, 0)), effect(BakeriesMobEffects.ENJOY, 30, 0), effect(MobEffects.DAMAGE_BOOST, 30, 0));
         COUNTRY_BREAD = registerBlock("country_bread", BakeriesBlocks.COUNTRY_BREAD, food(4, 0.4F, false));
-        BROWN_SUGAR_ROLL = registerBlock("brown_sugar_roll", BakeriesBlocks.BROWN_SUGAR_ROLL, food(7, 0.7F, false));
+        BROWN_SUGAR_ROLL = registerBlockWithEffects("brown_sugar_roll", BakeriesBlocks.BROWN_SUGAR_ROLL, food(7, 0.7F, false, effect(BakeriesMobEffects.ENJOY, 30, 0)), effect(BakeriesMobEffects.ENJOY, 30, 0));
         BAGEL_FILLED_SAUCE = registerBlock("bagel_filled_sauce", BakeriesBlocks.BAGEL_FILLED_SAUCE, food(8, 0.6F, false));
         BAGUETTE_WITH_FILLING = registerBlock("baguette_with_filling", BakeriesBlocks.BAGUETTE_WITH_FILLING, food(10, 0.6F, false));
         BERRY_BAGEL = registerBlock("berry_bagel", BakeriesBlocks.BERRY_BAGEL, food(8, 0.6F, false));
-        CHEESE_CREAM_BREAD = registerBlock("cheese_cream_bread", BakeriesBlocks.CHEESE_CREAM_BREAD, food(8, 0.6F, false));
-        DIRTY_CHOCO_CROISSANT = registerBlock("dirty_choco_croissant", BakeriesBlocks.DIRTY_CHOCO_CROISSANT, food(8, 0.6F, false));
-        FLAT_CROISSANT = register("flat_croissant", food(6, 0.6F, false));
+        CHEESE_CREAM_BREAD = registerBlockWithEffects("cheese_cream_bread", BakeriesBlocks.CHEESE_CREAM_BREAD, food(8, 0.6F, false, effect(BakeriesMobEffects.CHEESE_POWER, 30, 0)), effect(BakeriesMobEffects.CHEESE_POWER, 30, 0));
+        DIRTY_CHOCO_CROISSANT = registerBlockWithEffects("dirty_choco_croissant", BakeriesBlocks.DIRTY_CHOCO_CROISSANT, food(8, 0.6F, false, effect(BakeriesMobEffects.ENJOY, 60, 0), effect(BakeriesMobEffects.COCOA_MANIA, 60, 0)), effect(BakeriesMobEffects.ENJOY, 60, 0), effect(BakeriesMobEffects.COCOA_MANIA, 60, 0));
+        FLAT_CROISSANT = register("flat_croissant", foodEffectItem(food(6, 0.6F, false, effect(BakeriesMobEffects.ENJOY, 30, 0), effect(MobEffects.DAMAGE_RESISTANCE, 30, 0)), effect(BakeriesMobEffects.ENJOY, 30, 0), effect(MobEffects.DAMAGE_RESISTANCE, 30, 0)));
         MEAT_FLOSS_BREAD_ROLL = registerBlock("meat_floss_bread_roll", BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL, food(10, 0.7F, false));
-        PINEAPPLE_OIL = registerBlock("pineapple_oil", BakeriesBlocks.PINEAPPLE_OIL);
-        TARO_SALT_YOLK_BREAD = registerBlock("taro_salt_yolk_bread", BakeriesBlocks.TARO_SALT_YOLK_BREAD);
-        TOMATO_CHEESE_CROISSANT_SANDWICH = registerBlock("tomato_cheese_croissant_sandwich", BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH);
-        CREAM_BINGLE_COFFEE = registerBlock("cream_bingle_coffee", BakeriesBlocks.CREAM_BINGLE_COFFEE, food(1, 0.5F, true));
-        MATCHA_PARFAIT = registerBlock("matcha_parfait", BakeriesBlocks.MATCHA_PARFAIT, food(9, 0.5F, true));
+        PINEAPPLE_OIL = registerBlockWithEffects("pineapple_oil", BakeriesBlocks.PINEAPPLE_OIL, food(10, 0.8F, false, effect(BakeriesMobEffects.ENJOY, 90, 1)), effect(BakeriesMobEffects.ENJOY, 90, 1));
+        TARO_SALT_YOLK_BREAD = registerBlockWithEffects("taro_salt_yolk_bread", BakeriesBlocks.TARO_SALT_YOLK_BREAD, food(10, 0.7F, false, effect(BakeriesMobEffects.ENJOY, 90, 0)), effect(BakeriesMobEffects.ENJOY, 90, 0));
+        TOMATO_CHEESE_CROISSANT_SANDWICH = registerBlockWithEffects("tomato_cheese_croissant_sandwich", BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH, food(10, 0.8F, false, effect(BakeriesMobEffects.ENJOY, 300, 2)), effect(BakeriesMobEffects.ENJOY, 300, 2));
+        CREAM_BINGLE_COFFEE = registerBlockWithEffects("cream_bingle_coffee", BakeriesBlocks.CREAM_BINGLE_COFFEE, food(1, 0.5F, true, effect(MobEffects.MOVEMENT_SPEED, 30, 0)), effect(MobEffects.MOVEMENT_SPEED, 30, 0));
+        MATCHA_PARFAIT = registerBlockWithEffects("matcha_parfait", BakeriesBlocks.MATCHA_PARFAIT, food(9, 0.5F, true, effect(MobEffects.MOVEMENT_SPEED, 30, 0), effect(MobEffects.DIG_SPEED, 30, 0)), effect(MobEffects.MOVEMENT_SPEED, 30, 0), effect(MobEffects.DIG_SPEED, 30, 0));
         SCONE = register("scone", food(4, 0.5F, true));
         SLICED_TOAST = register("sliced_toast", food(4, 0.4F, true));
         BAKE_SLICED_TOAST = register("bake_sliced_toast", food(4, 0.4F, true));
@@ -311,6 +316,19 @@ public final class BakeriesItems {
         return Registry.register(BuiltInRegistries.ITEM, key, new BlockItem(block, properties));
     }
 
+    private static Item registerBlockWithEffects(String id, Block block, Item.Properties properties, FoodEffectTooltip.Entry... effects) {
+        ResourceLocation key = new ResourceLocation(BakeriesMod.MODID, id);
+        return Registry.register(BuiltInRegistries.ITEM, key, new FoodEffectBlockItem(block, properties, effects));
+    }
+
+    private static Item foodEffectItem(Item.Properties properties, FoodEffectTooltip.Entry... effects) {
+        return new FoodEffectItem(properties, effects);
+    }
+
+    private static FoodEffectTooltip.Entry effect(MobEffect effect, int seconds, int amplifier) {
+        return new FoodEffectTooltip.Entry(effect, seconds * 20, amplifier);
+    }
+
     private static void registerTabEntries(ResourceKey<CreativeModeTab> tab, Item... items) {
         ItemGroupEvents.modifyEntriesEvent(tab).register(entries -> {
             for (Item item : items) {
@@ -319,10 +337,13 @@ public final class BakeriesItems {
         });
     }
 
-    private static Item.Properties food(int nutrition, float saturation, boolean alwaysEdible) {
+    private static Item.Properties food(int nutrition, float saturation, boolean alwaysEdible, FoodEffectTooltip.Entry... effects) {
         FoodProperties.Builder builder = new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturation);
         if (alwaysEdible) {
             builder.alwaysEat();
+        }
+        for (FoodEffectTooltip.Entry effect : effects) {
+            builder.effect(effect.createInstance(), 1.0F);
         }
         return new Item.Properties().food(builder.build());
     }

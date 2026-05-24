@@ -4,14 +4,17 @@ import com.renyigesai.bakeries.init.blocks.FacingBlock;
 import com.renyigesai.bakeries.init.blocks.RackType;
 import com.renyigesai.bakeries.init.blocks.StateBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -37,6 +40,21 @@ public class SofaBlock extends FacingBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(StateBlocks.RackBlock.TYPE);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState state = super.getStateForPlacement(context);
+        return updateConnectionType(context.getLevel(), context.getClickedPos(), state == null ? this.defaultBlockState() : state);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public @NotNull BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
+        if (facing.getAxis().isHorizontal()) {
+            return updateConnectionType(level, pos, state);
+        }
+        return super.updateShape(state, facing, facingState, level, pos, facingPos);
     }
 
     @Override
@@ -119,5 +137,27 @@ public class SofaBlock extends FacingBlock {
             }
         }
         super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    private BlockState updateConnectionType(LevelAccessor level, BlockPos pos, BlockState state) {
+        Direction facing = state.getValue(FACING);
+        boolean connectedLeft = connectsTo(level, pos.relative(facing.getCounterClockWise()), state);
+        boolean connectedRight = connectsTo(level, pos.relative(facing.getClockWise()), state);
+        RackType type;
+        if (connectedLeft && connectedRight) {
+            type = RackType.ALL;
+        } else if (connectedLeft) {
+            type = RackType.LEFT;
+        } else if (connectedRight) {
+            type = RackType.RIGHT;
+        } else {
+            type = RackType.SINGLE;
+        }
+        return state.setValue(StateBlocks.RackBlock.TYPE, type);
+    }
+
+    private boolean connectsTo(LevelAccessor level, BlockPos pos, BlockState state) {
+        BlockState other = level.getBlockState(pos);
+        return other.is(this) && other.getValue(FACING) == state.getValue(FACING);
     }
 }

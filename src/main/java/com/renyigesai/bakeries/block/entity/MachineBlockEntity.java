@@ -73,8 +73,6 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             return switch (index) {
                 case 0 -> MachineBlockEntity.this.progress;
                 case 1 -> MachineBlockEntity.this.maxProgress;
-                case 2 -> MachineBlockEntity.this.fermentationTemperature;
-                case 3 -> MachineBlockEntity.this.fermentationPerfectTime;
                 default -> 0;
             };
         }
@@ -84,8 +82,6 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             switch (index) {
                 case 0 -> MachineBlockEntity.this.progress = value;
                 case 1 -> MachineBlockEntity.this.maxProgress = value;
-                case 2 -> MachineBlockEntity.this.fermentationTemperature = value;
-                case 3 -> MachineBlockEntity.this.fermentationPerfectTime = value;
                 default -> {
                 }
             }
@@ -93,7 +89,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
 
         @Override
         public int getCount() {
-            return 4;
+            return 2;
         }
     };
     private final ContainerData ovenMenuData = new ContainerData() {
@@ -409,6 +405,7 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
             resetProgressIfNeeded();
             return;
         }
+        setBlenderPowered(true);
         progress++;
         if (progress < maxProgress) {
             setChanged();
@@ -416,6 +413,9 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
         }
         craftBlenderOnce(matched);
         progress = 0;
+        if (findBlenderRecipe() == null) {
+            setBlenderPowered(false);
+        }
         setChanged();
     }
 
@@ -689,9 +689,20 @@ public class MachineBlockEntity extends BlockEntity implements ImplementedInvent
     }
 
     private void resetProgressIfNeeded() {
+        setBlenderPowered(false);
         if (progress != 0) {
             progress = 0;
             setChanged();
+        }
+    }
+
+    private void setBlenderPowered(boolean powered) {
+        if (level == null || !getBlockState().is(BakeriesBlocks.BLENDER) || !getBlockState().hasProperty(BlockStateProperties.POWERED)) {
+            return;
+        }
+        BlockState state = getBlockState();
+        if (state.getValue(BlockStateProperties.POWERED) != powered) {
+            level.setBlock(worldPosition, state.setValue(BlockStateProperties.POWERED, powered), 3);
         }
     }
 

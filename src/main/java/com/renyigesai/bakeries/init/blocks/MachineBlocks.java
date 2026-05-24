@@ -139,4 +139,17 @@ public final class MachineBlocks {
             return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
         }
     }
+
+    public static class BlenderBlock extends FacingMachineBlock {
+        public BlenderBlock(BlockBehaviour.Properties properties) {
+            super(properties);
+            this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.POWERED, false));
+        }
+
+        @Override
+        protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+            super.createBlockStateDefinition(builder);
+            builder.add(BlockStateProperties.POWERED);
+        }
+    }
 }

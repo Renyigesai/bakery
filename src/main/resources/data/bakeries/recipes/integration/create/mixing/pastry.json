@@ -11,9 +11,8 @@
       "item": "bakeries:butter_flour_sand"
     },
     {
-      "type": "fluid_tag",
       "amount": 250,
-      "fluid_tag": "c:milk"
+      "fluidTag": "c:milk"
     },
     {
       "item": "bakeries:bottle_yeast"

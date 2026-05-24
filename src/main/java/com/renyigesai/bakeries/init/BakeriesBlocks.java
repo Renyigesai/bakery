@@ -52,7 +52,7 @@ public final class BakeriesBlocks {
         SALT_ORE = register("salt_ore", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         OVEN = register("oven", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         TOASTER = register("toaster", new StateBlocks.ToasterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
-        BLENDER = register("blender", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((state, level, pos) -> false)));
+        BLENDER = register("blender", new MachineBlocks.BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((state, level, pos) -> false)));
         FERMENTATION_BOX = register("fermentation_box", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).noOcclusion().isRedstoneConductor((state, level, pos) -> false)));
         FERMENTATION_TANK = register("fermentation_tank", new StateBlocks.FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         DOUGH_CRAFTING_TABLE = register("dough_crafting_table", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
