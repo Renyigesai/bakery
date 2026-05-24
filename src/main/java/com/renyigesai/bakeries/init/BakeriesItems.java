@@ -24,26 +24,13 @@ import net.minecraft.resources.ResourceKey;
 @SuppressWarnings("unused")
 public final class BakeriesItems {
     public static final CreativeModeTab BAKERIES_TAB;
+    public static final CreativeModeTab SEMI_FINISHED_PRODUCT_TAB;
     public static final Item FLOUR, WHOLE_WHEAT_FLOUR, COCOA_POWDER, MATCHA_POWDER, SALT, BOTTLE_YEAST, BOTTLE_MILK, BOTTLE_CREAM, BOTTLE_BUTTER, BUTTER_CUBE, FOAMED_CREAM, CHEESE_CREAM, BUTTER_FLOUR_SAND, HONEY_BUTTER, WHOLE_EGG, RAW_PROTEIN, RAW_EGG_YOLK, SALT_YOLK, CHEESE_CUBE, FRESH_CHEESE_CUBE, BROWN_SUGAR_CUBE, COFFEE_BEAN, GROUND_COFFEE, MOKA_POT_FILL, BEARNAISE, OLIVE_OIL, MEAT_FLOSS, ICE_CUBES, SCONE, OLIVE, TARO, COOKED_TARO, MASHED_TARO, SLICED_TOAST, BAKE_SLICED_TOAST, HONEY_BUTTER_SPREAD_TOAST, SLICED_CHEESE_COCOA_TOAST, COUNTRY_BREAD_SLICE, HONEY_BUTTER_SPREAD_COUNTRY_BREAD, BROWN_SUGAR_LATTE, ICED_AMERICAN, ICED_LATTE, MATCHA_LATTE, ORANGE_AMERICAN, TARO_MILK, SWEET_DOUGH, COCOA_DOUGH, SALTED_DOUGH, WHOLE_WHEAT_DOUGH, COCOA_DOUGH_FERMENTATION, SALTED_DOUGH_FERMENTATION, SWEET_DOUGH_FERMENTATION, WHOLE_WHEAT_DOUGH_FERMENTATION, PASTRY, EGG_TART_SHELL, RAW_EGG_TART, BAGEL_DOUGH, WHOLE_WHEAT_BAGEL_DOUGH, ROUND_BREAD_DOUGH, BROWN_SUGAR_ROLL_DOUGH, PINEAPPLE_BUN_DOUGH, CROISSANT_DOUGH, SALT_CROISSANT_DOUGH, BAGUETTE_DOUGH, CIABATTA_DOUGH, FOCACCIA_DOUGH, COUNTRY_BREAD_DOUGH, MOULD_TOAST_DOUGH, MOULD_CHEESE_COCOA_TOAST_DOUGH, RICE_BREAD_DOUGH, OVEN, TOASTER, BLENDER, FERMENTATION_BOX, FERMENTATION_TANK, DOUGH_CRAFTING_TABLE, CUPBOARD, WOOD_COUNTER, COFFEE_TABLE, CHEESE_TANK, MILK_TANK, YEAST_TANK, MOKA_POT, BREAD_RACK, GLASS_BREAD_RACK, BREAD_BASKET, GLASS_CABINET_DOOR, MENU, MOULD, DRINK_CUP, TOAST, CHEESE_COCOA_TOAST, BAGEL, BAGUETTE, CROISSANT, ROUND_BREAD, RICE_BREAD, WHOLE_WHEAT_BAGEL, PINEAPPLE_BUN, FOCACCIA, CIABATTA, EGG_TART, SALT_CROISSANT, COUNTRY_BREAD, CREAM_BINGLE_COFFEE, MATCHA_PARFAIT, COFFEE_PLANT, TOMATO, MIX_BLOCK, BAGEL_FILLED_SAUCE, BAGUETTE_WITH_FILLING, BAKING_GUIDE, BERRY_BAGEL, BREAD_KNIFE, CASH_REGISTER_COMPUTER, CHEESE_CREAM_BREAD, DEEPSLATE_SALT_ORE, DIRTY_CHOCO_CROISSANT, DOUGH_CRAFTING, FLAT_CROISSANT, FLOUR_BAG, FLOUR_SIEVE, MEAT_FLOSS_BREAD_ROLL, PINEAPPLE_OIL, RAW_COFFEE_BEAN, RAW_SALT_BLOCK, SALT_ORE, SOFA_LIGHT_GRAY, SOFA_RED, SOFA_WHITE, TARO_SALT_YOLK_BREAD, TOMATO_CHEESE_CROISSANT_SANDWICH, WHOLE_WHEAT_FLOUR_BAG, WOOD_TRAY;
     public static final Item BROWN_SUGAR_ROLL;
     static {
-        BAKERIES_TAB = Registry.register(
-                BuiltInRegistries.CREATIVE_MODE_TAB,
-                new ResourceLocation(BakeriesMod.MODID, "main"),
-                FabricItemGroup.builder()
-                        .title(Component.translatable("item_group.bakeries.bakeries_tab"))
-                        .icon(() -> new ItemStack(Items.BREAD))
-                        .displayItems((parameters, entries) -> {
-                            for (Item item : allItems()) {
-                                entries.accept(item);
-                            }
-                        })
-                        .build()
-        );
-        BAKING_GUIDE = register("baking_guide");
         BREAD_KNIFE = register("bread_knife", new BreadKnifeItem(new Item.Properties().durability(250)));
+        BAKING_GUIDE = register("baking_guide", new BreadKnifeItem(new Item.Properties().durability(250)));
         FLOUR_SIEVE = register("flour_sieve", new FlourSieveItem(new Item.Properties().durability(128)));
-
         FLOUR = register("flour");
         WHOLE_WHEAT_FLOUR = register("whole_wheat_flour");
         COCOA_POWDER = register("cocoa_powder");
@@ -56,7 +43,6 @@ public final class BakeriesItems {
         GROUND_COFFEE = register("ground_coffee");
         OLIVE = register("olive", new DescriptionItem(food(2, 0.5F, false), "bakeries.olive.description"));
         MEAT_FLOSS = register("meat_floss", food(2, 0.8F, false));
-
         BOTTLE_YEAST = register("bottle_yeast", new DescriptionItem(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE), "bakeries.bottle_yeast.description"));
         BOTTLE_MILK = register("bottle_milk", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
         BOTTLE_CREAM = register("bottle_cream", new Item.Properties().craftRemainder(Items.GLASS_BOTTLE));
@@ -66,21 +52,17 @@ public final class BakeriesItems {
         CHEESE_CREAM = register("cheese_cream", food(1, 1.0F, true));
         CHEESE_CUBE = register("cheese_cube", new DescriptionItem(food(1, 1.0F, false), "bakeries.cheese_cube.description"));
         FRESH_CHEESE_CUBE = register("fresh_cheese_cube", food(1, 1.0F, false));
-
         WHOLE_EGG = register("whole_egg", new WholeEggItem());
         RAW_PROTEIN = register("raw_protein");
         RAW_EGG_YOLK = register("raw_egg_yolk");
         SALT_YOLK = register("salt_yolk");
-
         BUTTER_FLOUR_SAND = register("butter_flour_sand");
         HONEY_BUTTER = register("honey_butter");
         BEARNAISE = register("bearnaise");
         OLIVE_OIL = register("olive_oil");
-
         TARO = registerBlock("taro", BakeriesBlocks.TARO);
         COOKED_TARO = register("cooked_taro", food(6, 0.6F, false));
         MASHED_TARO = register("mashed_taro", food(1, 0.5F, false));
-
         MOKA_POT_FILL = registerBlock("moka_pot_fill", BakeriesBlocks.MOKA_POT_FILL);
         BROWN_SUGAR_LATTE = register("brown_sugar_latte", food(1, 0.5F, true));
         ICED_AMERICAN = register("iced_american", food(1, 0.5F, true));
@@ -88,7 +70,6 @@ public final class BakeriesItems {
         MATCHA_LATTE = register("matcha_latte", food(1, 0.5F, true));
         ORANGE_AMERICAN = register("orange_american", food(1, 0.5F, true));
         TARO_MILK = register("taro_milk", food(1, 0.5F, true));
-
         SWEET_DOUGH = register("sweet_dough");
         COCOA_DOUGH = register("cocoa_dough");
         SALTED_DOUGH = register("salted_dough");
@@ -115,7 +96,6 @@ public final class BakeriesItems {
         MOULD_CHEESE_COCOA_TOAST_DOUGH = register("mould_cheese_cocoa_toast_dough");
         RICE_BREAD_DOUGH = register("rice_bread_dough");
         DOUGH_CRAFTING = register("dough_crafting");
-
         OVEN = registerBlock("oven", BakeriesBlocks.OVEN);
         TOASTER = registerBlock("toaster", BakeriesBlocks.TOASTER);
         BLENDER = registerBlock("blender", BakeriesBlocks.BLENDER);
@@ -132,7 +112,6 @@ public final class BakeriesItems {
         MIX_BLOCK = registerBlock("mix_block", BakeriesBlocks.MIX_BLOCK);
         MOULD = registerBlock("mould", BakeriesBlocks.MOULD);
         DRINK_CUP = registerBlock("drink_cup", BakeriesBlocks.DRINK_CUP, new Item.Properties().stacksTo(1));
-
         BREAD_RACK = registerBlock("bread_rack", BakeriesBlocks.BREAD_RACK);
         GLASS_BREAD_RACK = registerBlock("glass_bread_rack", BakeriesBlocks.GLASS_BREAD_RACK);
         BREAD_BASKET = registerBlock("bread_basket", BakeriesBlocks.BREAD_BASKET);
@@ -145,7 +124,6 @@ public final class BakeriesItems {
         SOFA_LIGHT_GRAY = registerBlock("sofa_light_gray", BakeriesBlocks.SOFA_LIGHT_GRAY);
         SOFA_RED = registerBlock("sofa_red", BakeriesBlocks.SOFA_RED);
         SOFA_WHITE = registerBlock("sofa_white", BakeriesBlocks.SOFA_WHITE);
-
         TOAST = registerBlock("toast", BakeriesBlocks.TOAST);
         CHEESE_COCOA_TOAST = registerBlock("cheese_cocoa_toast", BakeriesBlocks.CHEESE_COCOA_TOAST);
         BAGEL = registerBlock("bagel", BakeriesBlocks.BAGEL, food(6, 0.5F, false));
@@ -180,13 +158,53 @@ public final class BakeriesItems {
         SLICED_CHEESE_COCOA_TOAST = register("sliced_cheese_cocoa_toast", food(4, 0.8F, true));
         COUNTRY_BREAD_SLICE = register("country_bread_slice", food(4, 0.4F, false));
         HONEY_BUTTER_SPREAD_COUNTRY_BREAD = register("honey_butter_spread_country_bread", food(6, 0.65F, true));
-
         COFFEE_PLANT = registerBlock("coffee_plant", BakeriesBlocks.COFFEE_PLANT);
         TOMATO = registerBlock("tomato", BakeriesBlocks.TOMATO, food(2, 0.5F, false));
-
         RAW_SALT_BLOCK = registerBlock("raw_salt_block", BakeriesBlocks.RAW_SALT_BLOCK);
         SALT_ORE = registerBlock("salt_ore", BakeriesBlocks.SALT_ORE);
         DEEPSLATE_SALT_ORE = register("deepslate_salt_ore");
+        BAKERIES_TAB = Registry.register(
+                BuiltInRegistries.CREATIVE_MODE_TAB,
+                new ResourceLocation(BakeriesMod.MODID, "main"),
+                FabricItemGroup.builder()
+                        .title(Component.translatable("item_group.bakeries.bakeries_tab"))
+                        .icon(() -> new ItemStack(OVEN))
+                        .displayItems((parameters, entries) -> {
+                            for (Item item : allItems()) {
+                                entries.accept(item);
+                            }
+                        })
+                        .build()
+        );
+        SEMI_FINISHED_PRODUCT_TAB = Registry.register(
+                BuiltInRegistries.CREATIVE_MODE_TAB,
+                new ResourceLocation(BakeriesMod.MODID, "semi_finished_product"),
+                FabricItemGroup.builder()
+                        .title(Component.translatable("item_group.bakeries.bakeries_sfp_tab"))
+                        .icon(() -> new ItemStack(SWEET_DOUGH))
+                        .displayItems((parameters, entries) -> {
+                                    entries.accept(SWEET_DOUGH);
+                                    entries.accept(COCOA_DOUGH);
+                                    entries.accept(SALTED_DOUGH);
+                                    entries.accept(WHOLE_WHEAT_DOUGH);
+                                    entries.accept(BAGEL_DOUGH);
+                                    entries.accept(WHOLE_WHEAT_BAGEL_DOUGH);
+                                    entries.accept(ROUND_BREAD_DOUGH);
+                                    entries.accept(BROWN_SUGAR_ROLL_DOUGH);
+                                    entries.accept(PINEAPPLE_BUN_DOUGH);
+                                    entries.accept(CROISSANT_DOUGH);
+                                    entries.accept(SALT_CROISSANT_DOUGH);
+                                    entries.accept(BAGUETTE_DOUGH);
+                                    entries.accept(CIABATTA_DOUGH);
+                                    entries.accept(FOCACCIA_DOUGH);
+                                    entries.accept(COUNTRY_BREAD_DOUGH);
+                                    entries.accept(MOULD_TOAST_DOUGH);
+                                    entries.accept(MOULD_CHEESE_COCOA_TOAST_DOUGH);
+                                    entries.accept(RICE_BREAD_DOUGH);
+                                }
+                        )
+                        .build()
+        );
     }
 
     private BakeriesItems() {
@@ -207,7 +225,7 @@ public final class BakeriesItems {
                 EGG_TART_SHELL, RAW_EGG_TART, BAGEL_DOUGH, WHOLE_WHEAT_BAGEL_DOUGH,
                 ROUND_BREAD_DOUGH, BROWN_SUGAR_ROLL_DOUGH, PINEAPPLE_BUN_DOUGH,
                 CROISSANT_DOUGH, SALT_CROISSANT_DOUGH, BAGUETTE_DOUGH, CIABATTA_DOUGH,
-                FOCACCIA_DOUGH, COUNTRY_BREAD_DOUGH, MOULD_TOAST_DOUGH,
+                FOCACCIA_DOUGH, COUNTRY_BREAD_DOUGH,
                 MOULD_CHEESE_COCOA_TOAST_DOUGH, RICE_BREAD_DOUGH
         );
         registerTabEntries(
@@ -242,14 +260,10 @@ public final class BakeriesItems {
                 MOKA_POT_FILL,
                 BROWN_SUGAR_LATTE, ICED_AMERICAN, ICED_LATTE, MATCHA_LATTE, ORANGE_AMERICAN, TARO_MILK,
 
-                SWEET_DOUGH, COCOA_DOUGH, SALTED_DOUGH, WHOLE_WHEAT_DOUGH,
                 COCOA_DOUGH_FERMENTATION, SALTED_DOUGH_FERMENTATION,
                 SWEET_DOUGH_FERMENTATION, WHOLE_WHEAT_DOUGH_FERMENTATION,
                 PASTRY, EGG_TART_SHELL, RAW_EGG_TART,
-                BAGEL_DOUGH, WHOLE_WHEAT_BAGEL_DOUGH, ROUND_BREAD_DOUGH, BROWN_SUGAR_ROLL_DOUGH,
-                PINEAPPLE_BUN_DOUGH, CROISSANT_DOUGH, SALT_CROISSANT_DOUGH, BAGUETTE_DOUGH,
-                CIABATTA_DOUGH, FOCACCIA_DOUGH, COUNTRY_BREAD_DOUGH, MOULD_TOAST_DOUGH,
-                MOULD_CHEESE_COCOA_TOAST_DOUGH, RICE_BREAD_DOUGH, DOUGH_CRAFTING,
+                DOUGH_CRAFTING,
 
                 OVEN, TOASTER, BLENDER, FERMENTATION_BOX, FERMENTATION_TANK,
                 DOUGH_CRAFTING_TABLE, CUPBOARD, WOOD_COUNTER, COFFEE_TABLE,
