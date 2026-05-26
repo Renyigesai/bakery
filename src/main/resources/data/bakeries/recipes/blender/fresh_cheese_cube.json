@@ -1,0 +1,24 @@
+{
+  "type": "bakeries:blender",
+  "ingredients": [
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:cheese_cube"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "bakeries:fresh_cheese_cube"
+  }
+}

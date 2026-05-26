@@ -87,4 +87,20 @@ public abstract class AbstractMachineMenu extends AbstractContainerMenu {
     public Container getContainer() {
         return container;
     }
+
+    protected static class SingleItemSlot extends Slot {
+        public SingleItemSlot(Container container, int slot, int x, int y) {
+            super(container, slot, x, y);
+        }
+
+        @Override
+        public int getMaxStackSize() {
+            return 1;
+        }
+
+        @Override
+        public int getMaxStackSize(ItemStack stack) {
+            return 1;
+        }
+    }
 }

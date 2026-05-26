@@ -94,7 +94,7 @@ public class SimpleMachineRecipe implements Recipe<Container> {
 
     @Override
     public boolean isSpecial() {
-        return false;
+        return true;
     }
 
     public Ingredient getIngredient() {
@@ -113,9 +113,19 @@ public class SimpleMachineRecipe implements Recipe<Container> {
     public SimpleMachineRecipe setRecipeData(int minTemperature, int maxTemperature, int perfectTemperature, int craftTime) {
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
-        this.perfectTemperature = perfectTemperature;
+        this.perfectTemperature = isPerfectTemperatureInRange(minTemperature, maxTemperature, perfectTemperature)
+                ? perfectTemperature
+                : -1;
         this.craftTime = craftTime;
         return this;
+    }
+
+    private static boolean isPerfectTemperatureInRange(int minTemperature, int maxTemperature, int perfectTemperature) {
+        return perfectTemperature >= 0
+                && minTemperature >= 0
+                && maxTemperature >= minTemperature
+                && perfectTemperature >= minTemperature
+                && perfectTemperature <= maxTemperature;
     }
 
     public int getMinTemperature() {

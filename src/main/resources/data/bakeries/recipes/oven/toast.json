@@ -5,10 +5,10 @@
   },
   "max": 185,
   "min": 135,
-  "perfect": 0,
+  "perfect": 160,
   "result": {
     "count": 1,
-    "item": "bakeries:mould_toast"
+    "item": "bakeries:toast"
   },
   "time": 400
 }

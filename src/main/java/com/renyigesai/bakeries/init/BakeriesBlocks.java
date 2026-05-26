@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 @SuppressWarnings("unused")
 public final class BakeriesBlocks {
-    public static final Block OVEN, TOASTER, BLENDER, FERMENTATION_BOX, FERMENTATION_TANK, DOUGH_CRAFTING_TABLE, CUPBOARD, WOOD_COUNTER, COFFEE_TABLE, CHEESE_TANK, MILK_TANK, YEAST_TANK, MOKA_POT, BREAD_RACK, GLASS_BREAD_RACK, BREAD_BASKET, GLASS_CABINET_DOOR, MENU, MOULD, DRINK_CUP, TOAST, CHEESE_COCOA_TOAST, BAGEL, BAGUETTE, CROISSANT, ROUND_BREAD, RICE_BREAD, WHOLE_WHEAT_BAGEL, PINEAPPLE_BUN, FOCACCIA, CIABATTA, EGG_TART, SALT_CROISSANT, COUNTRY_BREAD, CREAM_BINGLE_COFFEE, MATCHA_PARFAIT, COFFEE_PLANT, TARO, TOMATO, MIX_BLOCK,BAGEL_FILLED_SAUCE,BAGUETTE_WITH_FILLING,BERRY_BAGEL;
+    public static final Block OVEN, TOASTER, BLENDER, FERMENTATION_BOX, FERMENTATION_TANK, DOUGH_CRAFTING_TABLE, CUPBOARD, WOOD_COUNTER, COFFEE_TABLE, CHEESE_TANK, MILK_TANK, YEAST_TANK, MOKA_POT, MOKA_POT_FILL, BREAD_RACK, GLASS_BREAD_RACK, BREAD_BASKET, GLASS_CABINET_DOOR, MENU, MOULD, DRINK_CUP, TOAST, CHEESE_COCOA_TOAST, BAGEL, BAGUETTE, CROISSANT, ROUND_BREAD, RICE_BREAD, WHOLE_WHEAT_BAGEL, PINEAPPLE_BUN, FOCACCIA, CIABATTA, EGG_TART, SALT_CROISSANT, COUNTRY_BREAD, CREAM_BINGLE_COFFEE, MATCHA_PARFAIT, COFFEE_PLANT, TARO, TOMATO, MIX_BLOCK,BAGEL_FILLED_SAUCE,BAGUETTE_WITH_FILLING,BERRY_BAGEL;
     public static final Block CASH_REGISTER_COMPUTER;
     public static final Block CHEESE_CREAM_BREAD;
     public static final Block RAW_SALT_BLOCK;
@@ -32,7 +32,9 @@ public final class BakeriesBlocks {
     public static final Block WHOLE_WHEAT_FLOUR_BAG;
     public static final Block WOOD_TRAY;
     public static final Block PINEAPPLE_OIL;
+    public static final Block BROWN_SUGAR_ROLL;
     static {
+        BROWN_SUGAR_ROLL = register("brown_sugar_roll", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         PINEAPPLE_OIL = register("pineapple_oil", new StateBlocks.FacingPileBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion(), 4));
         SOFA_LIGHT_GRAY = register("sofa_light_gray", new SofaBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         SOFA_RED = register("sofa_red", new SofaBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
@@ -50,7 +52,7 @@ public final class BakeriesBlocks {
         SALT_ORE = register("salt_ore", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         OVEN = register("oven", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion()));
         TOASTER = register("toaster", new StateBlocks.ToasterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
-        BLENDER = register("blender", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((state, level, pos) -> false)));
+        BLENDER = register("blender", new MachineBlocks.BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((state, level, pos) -> false)));
         FERMENTATION_BOX = register("fermentation_box", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).noOcclusion().isRedstoneConductor((state, level, pos) -> false)));
         FERMENTATION_TANK = register("fermentation_tank", new StateBlocks.FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         DOUGH_CRAFTING_TABLE = register("dough_crafting_table", new MachineBlocks.FacingMachineBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE)));
@@ -61,6 +63,7 @@ public final class BakeriesBlocks {
         MILK_TANK = register("milk_tank", new StateBlocks.MilkTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
         YEAST_TANK = register("yeast_tank", new StateBlocks.YeastTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         MOKA_POT = register("moka_pot", new StateBlocks.MokaPotBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+        MOKA_POT_FILL = register("moka_pot_fill", new StateBlocks.FilledMokaPotBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
         BREAD_RACK = register("bread_rack", new StateBlocks.RackBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion()));
         GLASS_BREAD_RACK = register("glass_bread_rack", new StateBlocks.RackBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).noOcclusion()));
         BREAD_BASKET = register("bread_basket", new StateBlocks.BreadBasketBlock(BlockBehaviour.Properties.copy(Blocks.BAMBOO_PLANKS).strength(0.0F, 0.0F).noOcclusion()));

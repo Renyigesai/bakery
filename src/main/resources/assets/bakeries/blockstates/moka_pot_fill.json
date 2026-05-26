@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "bakeries:block/moka_pot_fill"
+    },
+    "facing=east": {
+      "model": "bakeries:block/moka_pot_fill",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "bakeries:block/moka_pot_fill",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "bakeries:block/moka_pot_fill",
+      "y": 270
+    }
+  }
+}

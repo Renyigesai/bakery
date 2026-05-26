@@ -105,6 +105,11 @@ public class CoffeeRecipe implements Recipe<Container> {
         return Objects.requireNonNull(BuiltInRegistries.RECIPE_TYPE.get(typeId));
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
     public NonNullList<Ingredient> getIngredientsList() {
         return ingredients;
     }

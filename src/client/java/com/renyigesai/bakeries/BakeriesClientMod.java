@@ -7,11 +7,14 @@ import com.renyigesai.bakeries.screen.FermentationBoxScreen;
 import com.renyigesai.bakeries.screen.OvenScreen;
 import com.renyigesai.bakeries.key.BakeriesKeyMapping;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesBlockEntities;
 import com.renyigesai.bakeries.init.BakeriesMenuTypes;
+import com.renyigesai.bakeries.renderer.MokaPotBlockEntityRenderer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 
 @SuppressWarnings("unused")
 public final class BakeriesClientMod implements ClientModInitializer {
@@ -23,6 +26,7 @@ public final class BakeriesClientMod implements ClientModInitializer {
         MenuScreens.register(BakeriesMenuTypes.FERMENTATION_BOX, FermentationBoxScreen::new);
         MenuScreens.register(BakeriesMenuTypes.DOUGH_CRAFTING_TABLE, DoughCraftingTableScreen::new);
         MenuScreens.register(BakeriesMenuTypes.CUPBOARD, CupboardScreen::new);
+        BlockEntityRenderers.register(BakeriesBlockEntities.MACHINE, MokaPotBlockEntityRenderer::new);
         BakeriesKeyMapping.init();
     }
 

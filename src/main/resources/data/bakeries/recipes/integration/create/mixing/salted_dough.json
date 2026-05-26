@@ -20,7 +20,6 @@
       "item": "bakeries:flour"
     },
     {
-      "type": "fluid_stack",
       "amount": 250,
       "fluid": "minecraft:water"
     },
