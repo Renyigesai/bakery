@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.common.items;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.items.PileItem;
 import com.renyigesai.bakeries.common.init.BakeriesDataComponents;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
@@ -123,6 +124,13 @@ public class RepeatEatItem extends PileItem {
             int eatCount = stack.getOrDefault(BakeriesDataComponents.EAT_COUNT,-1);
             ItemStack cache = ItemStack.EMPTY;
             eat(level, living, stack);
+            try {
+                if (stack.getFoodProperties(living) != null){
+                    addAllEffect(stack.getFoodProperties(living),living,level);
+                }
+            }catch (NullPointerException exception){
+                BakeriesMod.LOGGER.error(String.valueOf(exception));
+            }
             if (eatCount - 1 == 0){
                 cache = stack.copy();
                 stack.consume(1,living);
@@ -138,18 +146,10 @@ public class RepeatEatItem extends PileItem {
 
     }
 
-    public ItemStack residue(ItemStack stack){
-        return stack.getCraftingRemainingItem();
-    }
-
-    public void rEat(Level level,ItemStack food,LivingEntity living){
-
-    }
-
-    private void addAllEffect(FoodProperties foodProperties,Player player,Level level){
+    private void addAllEffect(FoodProperties foodProperties,LivingEntity living,Level level){
         for (FoodProperties.PossibleEffect next : foodProperties.effects()) {
             if (!level.isClientSide && next != null && level.random.nextFloat() < next.probability()) {
-                player.addEffect(next.effect());
+                living.addEffect(next.effect());
             }
         }
     }
