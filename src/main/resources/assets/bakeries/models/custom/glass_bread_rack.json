@@ -1,9 +1,4 @@
 {
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"0": "bakeries:block/glass_bread_rack",
-		"particle": "bakeries:block/glass_bread_rack"
-	},
 	"elements": [
 		{
 			"from": [0, 1, 15],
@@ -160,19 +155,6 @@
 			}
 		},
 		{
-			"from": [1, 14.8613, 5.73032],
-			"to": [15, 14.8613, 15.98032],
-			"rotation": {"angle": 0, "axis": "y", "origin": [1, -0.1387, -0.26968]},
-			"faces": {
-				"north": {"uv": [0, 0.5, 3.5, 0.5], "texture": "#0"},
-				"east": {"uv": [0.25, 0.5, 2.75, 0.5], "texture": "#0"},
-				"south": {"uv": [0, 0.5, 3.5, 0.5], "texture": "#0"},
-				"west": {"uv": [0, 0.5, 2.5, 0.5], "texture": "#0"},
-				"up": {"uv": [9.25, 11.5, 12.75, 14], "texture": "#0"},
-				"down": {"uv": [9.25, 14, 12.75, 11.5], "texture": "#0"}
-			}
-		},
-		{
 			"from": [15.5, 12.85819, 5.74025],
 			"to": [15.5, 13.85819, 15.74025],
 			"rotation": {"angle": 0, "axis": "y", "origin": [15, -0.14181, 14.74025]},
@@ -221,6 +203,19 @@
 				"west": {"uv": [12.5, 11, 8.75, 11.25], "texture": "#0"},
 				"up": {"uv": [4, 4, 0, 0], "texture": "#0"},
 				"down": {"uv": [4, 0, 0, 4], "texture": "#0"}
+			}
+		},
+		{
+			"from": [1, 14.859, 5.75],
+			"to": [15, 14.859, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 12.859, 14]},
+			"faces": {
+				"north": {"uv": [0, 0, 14, 0], "texture": "#0"},
+				"east": {"uv": [0, 0, 10.25, 0], "texture": "#0"},
+				"south": {"uv": [1, 0, 15, 0], "texture": "#0"},
+				"west": {"uv": [0, 0, 10.25, 0], "texture": "#0"},
+				"up": {"uv": [9.25, 11.5, 12.75, 14], "texture": "#0"},
+				"down": {"uv": [9.25, 14, 12.75, 11.5], "texture": "#0"}
 			}
 		}
 	],

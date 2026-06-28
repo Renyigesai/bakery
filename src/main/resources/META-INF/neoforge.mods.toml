@@ -1,10 +1,10 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
-license="All Rights Reserved / CC BY-NC-ND 4.0"
+license="BSD-3-Clause + CC BY-NC-SA 4.0"
 
 [[mods]]
 modId = "bakeries"
-version="1.21.1-NeoForge-1.0.0-beta"
+version="1.21.1-NeoForge-1.0.1"
 displayName="Bakeries"
 # A URL to query for updates for this mod. See the JSON update specification https://docs.neoforged.net/docs/misc/updatechecker/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional

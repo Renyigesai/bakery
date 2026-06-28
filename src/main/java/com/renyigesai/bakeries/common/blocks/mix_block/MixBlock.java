@@ -150,7 +150,7 @@ public class MixBlock extends BaseEntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof MixBlockEntity mix) {
                 Component hoverName = itemInHand.getHoverName();
-                int length = TextUtils.getLength(hoverName.getString(),90);
+                int length = BakeriesMod.clientUtilsMeasurer.getLength(hoverName.getString(),90);
                 String string = hoverName.getString(length);
                 mix.setText(string);
                 return true;

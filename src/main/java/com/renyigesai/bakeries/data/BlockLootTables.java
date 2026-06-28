@@ -89,6 +89,8 @@ public class BlockLootTables extends VanillaBlockLoot {
 
         this.dropSelf(BakeriesBlocks.GLASS_BREAD_RACK.get());
         this.dropSelf(BakeriesBlocks.LUMINOUS_LIGHT_SIGN.get());
+        this.dropSelf(BakeriesBlocks.BLACK_WHITE_CONCRETE.get());
+        this.dropSelf(BakeriesBlocks.BREAD_HOLDERS.get());
     }
     private void forAddAllBread(Block... blocks){
         List<Block> blockList = List.of(blocks);

@@ -138,6 +138,9 @@ public class BakeriesBlocks {
     /**玻璃面包架*/
     public static final DeferredBlock<Block> GLASS_BREAD_RACK;
 
+    /**黑白混凝土*/
+    public static final DeferredBlock<Block> BLACK_WHITE_CONCRETE;
+
     /**木制柜台*/
     public static final DeferredBlock<Block> WOOD_COUNTER;
     /**咖啡桌*/
@@ -157,6 +160,7 @@ public class BakeriesBlocks {
 
     public static DeferredBlock<Block> FERMENTATION_BOX;
     public static DeferredBlock<Block> LUMINOUS_LIGHT_SIGN;
+    public static DeferredBlock<Block> BREAD_HOLDERS;
 
 
     /**饮料方块*/
@@ -264,6 +268,7 @@ public class BakeriesBlocks {
 
         BREAD_RACK = REGISTER.register("bread_rack",()-> new BreadRackBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
         GLASS_BREAD_RACK = REGISTER.register("glass_bread_rack",()-> new GlassBreadRackBlock(BlockBehaviour.Properties.ofFullCopy(BREAD_RACK.get())));
+        BLACK_WHITE_CONCRETE = REGISTER.register("black_white_concrete",() -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE)));
 
         WOOD_COUNTER = REGISTER.register("wood_counter",()-> new WoodCounterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
         COFFEE_TABLE = REGISTER.register("coffee_table",()-> new CoffeeTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
@@ -296,6 +301,7 @@ public class BakeriesBlocks {
         FERMENTATION_BOX = REGISTER.register("fermentation_box",()-> new FermentationBoxBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops()
                 .sound(SoundType.NETHERITE_BLOCK).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         LUMINOUS_LIGHT_SIGN = REGISTER.register("luminous_light_sign", LuminousLightSignBlock::new);
+        BREAD_HOLDERS = REGISTER.register("bread_holders",()->new BreadHoldersBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
 
         /**联动方块*/

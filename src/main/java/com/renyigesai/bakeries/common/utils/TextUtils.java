@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.BakeriesMod;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -21,10 +20,8 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
-//By Farmer's Delight
 
 public class TextUtils {
     private static final MutableComponent NO_EFFECTS = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
@@ -33,7 +30,7 @@ public class TextUtils {
         return Component.translatable(BakeriesMod.MODID + "." + key, args);
     }
 
-    //By Farmersdelight
+    //By Farmer's Delight
     public static void addFoodEffectTooltip(ItemStack stack, Consumer<Component> tooltipAdder, float durationFactor, float tickRate) {
         FoodProperties foodStats = stack.getFoodProperties((LivingEntity)null);
         if (foodStats != null) {
@@ -89,37 +86,6 @@ public class TextUtils {
             }
 
         }
-    }
-
-    public static int getLength(String string,int maxLength){
-        if (string == null || maxLength == 0){
-            throw new IllegalArgumentException("Text cannot be null or Max width must be positive");
-        }
-        int width = 0;
-        int length = 0;
-        Minecraft mc = Minecraft.getInstance();
-        for (int i = 0; i < string.length(); i++) {
-            char _char = string.charAt(i);
-            width += mc.font.width(String.valueOf(_char));
-            length ++;
-            if (width > maxLength){
-                return length - 1;
-            }
-        }
-        return maxLength;
-    }
-
-    public static int getLength(String string){
-        if (string == null){
-            throw new IllegalArgumentException("Text cannot be null or Max width must be positive");
-        }
-        int width = 0;
-        Minecraft mc = Minecraft.getInstance();
-        for (int i = 0; i < string.length(); i++) {
-            char _char = string.charAt(i);
-            width += mc.font.width(String.valueOf(_char));
-        }
-        return width;
     }
 
 }

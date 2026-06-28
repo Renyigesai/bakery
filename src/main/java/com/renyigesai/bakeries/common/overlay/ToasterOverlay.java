@@ -30,13 +30,8 @@ public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
             text = Component.translatable("tooltips.bakeries.toaster_1", BakeriesMod.getAuxiliaryKeyName()).getString();
         }
         if (!text.isEmpty()){
-            int length = TextUtils.getLength(text);
-//            RenderSystem.enableBlend();
-//            RenderSystem.defaultBlendFunc();
-//            RenderSystem.setShaderColor(1, 1, 1, 0.75f);
+            int length = BakeriesMod.clientUtilsMeasurer.getLength(text);
             guiGraphics.renderTooltip(mc.font,Component.literal(text),w - length / 2 - 8,h + 64);
-//            RenderSystem.setShaderColor(1, 1, 1, 1f);
-//            RenderSystem.disableBlend();
         }
     }
 

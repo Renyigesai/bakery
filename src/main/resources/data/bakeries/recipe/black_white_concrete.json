@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ab",
+    "ba"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:white_concrete"
+    },
+    "b": {
+      "item": "minecraft:black_concrete"
+    }
+  },
+  "result": {
+    "id": "bakeries:black_white_concrete",
+    "count": 4
+  }
+}

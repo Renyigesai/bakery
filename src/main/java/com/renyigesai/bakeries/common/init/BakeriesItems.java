@@ -7,6 +7,7 @@ import com.renyigesai.bakeries.api.items.PileItem;
 import com.renyigesai.bakeries.api.items.RawItem;
 import com.renyigesai.bakeries.common.blocks.fluid.BakeriesFluids;
 import com.renyigesai.bakeries.common.items.*;
+import com.renyigesai.bakeries.common.utils.ModIsLoaded;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
@@ -106,6 +107,9 @@ public class BakeriesItems {
     @ItemData(zhCn = "发光灯牌",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> LUMINOUS_LIGHT_SIGN;
 
+    @ItemData(zhCn = "面包夹架",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> BREAD_HOLDERS;
+
     @ItemData(zhCn = "玻璃橱柜门",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> GLASS_CABINET_DOOR;
 
@@ -117,6 +121,9 @@ public class BakeriesItems {
 
     @ItemData(zhCn = "玻璃面包架",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> GLASS_BREAD_RACK;
+
+    @ItemData(zhCn = "黑白混凝土",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> BLACK_WHITE_CONCRETE;
 
     @ItemData(zhCn = "面包刀",model = ItemData.ModelType.TOOL)
     public static final DeferredItem<Item> BREAD_KNIFE;
@@ -468,11 +475,13 @@ public class BakeriesItems {
         COFFEE_TABLE = block(BakeriesBlocks.COFFEE_TABLE);
         BREAD_RACK = block(BakeriesBlocks.BREAD_RACK);
         GLASS_BREAD_RACK = block(BakeriesBlocks.GLASS_BREAD_RACK);
+        BLACK_WHITE_CONCRETE = block(BakeriesBlocks.BLACK_WHITE_CONCRETE);
         SOFA_WHITE = block(BakeriesBlocks.SOFA_WHITE);
         SOFA_RED = block(BakeriesBlocks.SOFA_RED);
         SOFA_LIGHT_GRAY = block(BakeriesBlocks.SOFA_LIGHT_GRAY);
         CASH_REGISTER_COMPUTER = block(BakeriesBlocks.CASH_REGISTER_COMPUTER);
         LUMINOUS_LIGHT_SIGN = block(BakeriesBlocks.LUMINOUS_LIGHT_SIGN);
+        BREAD_HOLDERS = block(BakeriesBlocks.BREAD_HOLDERS);
         GLASS_CABINET_DOOR = block(BakeriesBlocks.GLASS_CABINET_DOOR);
         BREAD_BASKET = block(BakeriesBlocks.BREAD_BASKET);
         WHOLE_WHEAT_FLOUR_BAG = block(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG);
@@ -546,7 +555,7 @@ public class BakeriesItems {
         BAGEL_FILLED_SAUCE = foodBreadBlock(BakeriesBlocks.BAGEL_FILLED_SAUCE, BakeriesRarity.getAdvanced(), BakeriesFoodProperties.BAGEL_FILLED_SAUCE);
         BAGUETTE_WITH_FILLING = foodBreadBlock(BakeriesBlocks.BAGUETTE_WITH_FILLING, BakeriesRarity.getAdvanced(), BakeriesFoodProperties.BAGUETTE_WITH_FILLING);
         TOMATO_CHEESE_CROISSANT_SANDWICH = foodBreadBlock(BakeriesBlocks.TOMATO_CHEESE_CROISSANT_SANDWICH, BakeriesRarity.getAdvanced(), BakeriesFoodProperties.TOMATO_CHEESE_CROISSANT_SANDWICH,true);
-        BAGUETTE = REGISTER.register("baguette",()-> new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().durability(4).food(BakeriesFoodProperties.BAGUETTE).attributes(BaguetteItem.createAttributes())));
+        BAGUETTE = REGISTER.register("baguette",()-> new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().food(BakeriesFoodProperties.BAGUETTE).attributes(BaguetteItem.createAttributes()),4));
         COUNTRY_BREAD = block(BakeriesBlocks.COUNTRY_BREAD);
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
         HONEY_BUTTER_SPREAD_COUNTRY_BREAD = registerItem("honey_butter_spread_country_bread",()-> new Item(new Item.Properties().food(BakeriesFoodProperties.HONEY_BUTTER_SPREAD_COUNTRY_BREAD)));
@@ -561,7 +570,7 @@ public class BakeriesItems {
         CREAM_BINGLE_COFFEE = drinkItem(BakeriesBlocks.CREAM_BINGLE_COFFEE,BakeriesFoodProperties.CREAM_BINGLE_COFFEE,4);
         MATCHA_LATTE = drinkItem(BakeriesBlocks.MATCHA_LATTE,BakeriesFoodProperties.MATCHA_LATTE,3);
         MATCHA_PARFAIT = drinkItem(BakeriesBlocks.MATCHA_PARFAIT,BakeriesFoodProperties.MATCHA_PARFAIT,4);
-        TARO_MILK = REGISTER.register("taro_milk",()-> new DrinkItem(BakeriesBlocks.TARO_MILK.get(),new Item.Properties().food(BakeriesFoodProperties.TARO_MILK).durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).rarity(BakeriesRarity.getTaro()),true,4));
+        TARO_MILK = REGISTER.register("taro_milk",()-> new DrinkItem(BakeriesBlocks.TARO_MILK.get(),new Item.Properties().food(BakeriesFoodProperties.TARO_MILK).craftRemainder(BakeriesItems.DRINK_CUP.get()).rarity(BakeriesRarity.getTaro()),6,true,5));
 
         SWEET_DOUGH = item("sweet_dough");
         SWEET_DOUGH_FERMENTATION = REGISTER.register("sweet_dough_fermentation",()-> new DoughItem(2));
@@ -591,14 +600,14 @@ public class BakeriesItems {
         ETERNAL_BAGUETTE = REGISTER.register("eternal_baguette", EternalBaguetteItem::new);
 
         /*联动物品*/
-        RICE_BREAD = foodBreadBlock(BakeriesBlocks.RICE_BREAD,BakeriesRarity.getAdvanced(),BakeriesFoodProperties.RICE_BREAD,true);
+        RICE_BREAD = foodBreadBlock(BakeriesBlocks.RICE_BREAD,BakeriesRarity.getAdvanced(), ModIsLoaded.isFarmerSDelight() ? BakeriesFoodProperties.RICE_BREAD_FARMERSDELIGHT : BakeriesFoodProperties.RICE_BREAD,true);
         RICE_BREAD_DOUGH = rawItem("rice_bread_dough",155);
 
         SALMON_SANDWICH = foodBreadBlock(BakeriesBlocks.SALMON_SANDWICH,BakeriesRarity.getAdvanced(),BakeriesFoodProperties.RICE_BREAD,true);
     }
 
     private static DeferredItem<Item> drinkItem(Holder<Block> block,FoodProperties foodProperties,int upEffect){
-        return REGISTER.register(block.unwrapKey().orElseThrow().location().getPath(),()-> new DrinkItem(block.value(),new Item.Properties().food(foodProperties).durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()),true,upEffect));
+        return REGISTER.register(block.unwrapKey().orElseThrow().location().getPath(),()-> new DrinkItem(block.value(),new Item.Properties().food(foodProperties).craftRemainder(BakeriesItems.DRINK_CUP.get()),6,true,upEffect));
     }
 
     private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, Rarity rarity, FoodProperties foodProperties) {

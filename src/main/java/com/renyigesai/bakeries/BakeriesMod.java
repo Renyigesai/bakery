@@ -3,31 +3,25 @@ package com.renyigesai.bakeries;
 import com.mojang.logging.LogUtils;
 import com.renyigesai.bakeries.common.blocks.fluid.BakeriesFluidTypes;
 import com.renyigesai.bakeries.common.blocks.fluid.BakeriesFluids;
-import com.renyigesai.bakeries.common.blocks.glass_drink_cup.GlassDrinkCupBlockEntity;
-import com.renyigesai.bakeries.common.blocks.toaster.ToasterBlockEntity;
 import com.renyigesai.bakeries.common.capabilities.BakeriesCapabilities;
-import com.renyigesai.bakeries.common.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.common.init.*;
 import com.renyigesai.bakeries.common.key.BakeriesKeyMapping;
-import com.renyigesai.bakeries.common.network.Messages;
-import com.renyigesai.bakeries.common.overlay.GlassDrinkCupOverlay;
-import com.renyigesai.bakeries.common.overlay.ToasterOverlay;
+import com.renyigesai.bakeries.common.utils.measurer.ClientUtilsMeasurer;
+import com.renyigesai.bakeries.common.utils.measurer.IClientUtilsMeasurer;
+import com.renyigesai.bakeries.common.utils.measurer.ServerUtilsMeasurer;
 import com.renyigesai.bakeries.common.villager.BakeriesVillagers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
-import java.lang.reflect.Constructor;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Random;
@@ -38,6 +32,7 @@ public class BakeriesMod {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static boolean aprilFoolsDay;
     public static int floatingTemperature;
+    public static IClientUtilsMeasurer clientUtilsMeasurer;
 
     public BakeriesMod(IEventBus modEventBus, ModContainer modContainer) {
         BakeriesCreativeModeTabs.REGISTER.register(modEventBus);
@@ -51,25 +46,32 @@ public class BakeriesMod {
         BakeriesMenuType.MENU.register(modEventBus);
         BakeriesSounds.REGISTRY.register(modEventBus);
         BakeriesMobEffects.EFFECTS.register(modEventBus);
-        BakeriesDataComponents.REGISTER.register(modEventBus);
+        BakeriesDataComponents.DATA_COMPONENT_TYPE.register(modEventBus);
         BakeriesEntityTypes.ENTITY.register(modEventBus);
         BakeriesVillagers.register(modEventBus);
         BakeriesAttributes.ATTRIBUTES.register(modEventBus);
         BakeriesCondition.CONDITION_CODECS.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(BakeriesCapabilities::registerFluidCapabilities);
+        initClientUtilsMeasurer();
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, BakeriesConfig.SPEC,"bakeries-common.toml");
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-//        event.enqueueWork(this::registerOverlays);
-//        Messages.register();
         BakeriesConfig.ConfigMapping.init();
         if (BakeriesConfig.aprilFoolsDayEffect){
             Calendar calendar = Calendar.getInstance();
             aprilFoolsDay = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
         }
         refreshFloatingTemperature();
+    }
+
+    public void initClientUtilsMeasurer(){
+        if (FMLEnvironment.dist.isClient()) {
+            clientUtilsMeasurer = new ClientUtilsMeasurer();
+        } else {
+            clientUtilsMeasurer = new ServerUtilsMeasurer();
+        }
     }
 
     public static void refreshFloatingTemperature(){

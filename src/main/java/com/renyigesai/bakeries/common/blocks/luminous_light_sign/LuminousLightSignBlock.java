@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.common.blocks.luminous_light_sign;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.HorizontalConnectBlock;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
 import com.renyigesai.bakeries.common.utils.TextUtils;
@@ -28,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class LuminousLightSignBlock extends HorizontalConnectBlock implements EntityBlock {
     public LuminousLightSignBlock() {
-        super(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).lightLevel((BlockState) -> 5).hasPostProcess((bs, br, bp) -> true));
+        super(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS));
     }
 
     @Override
@@ -53,7 +54,7 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
         if (itemInHand.getItem() instanceof NameTagItem){
             if (blockEntity instanceof LuminousLightSignBlockEntity sign){
                 Component hoverName = itemInHand.getHoverName();
-                int length = TextUtils.getLength(hoverName.getString(), 45);
+                int length = BakeriesMod.clientUtilsMeasurer.getLength(hoverName.getString(), 45);
                 String string = hoverName.getString(length);
                 sign.setText(string);
                 return ItemInteractionResult.SUCCESS;

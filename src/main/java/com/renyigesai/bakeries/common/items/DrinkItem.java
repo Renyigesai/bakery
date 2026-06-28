@@ -17,8 +17,8 @@ public class DrinkItem extends RepeatEatItem{
     private final int upEffect;
 
 
-    public DrinkItem(Block block, Properties properties, boolean effectTooltip, int upEffect) {
-        super(block, properties, effectTooltip, true);
+    public DrinkItem(Block block, Properties properties, int eatCount,boolean effectTooltip, int upEffect) {
+        super(block, properties, eatCount,effectTooltip,true);
         this.upEffect = upEffect;
     }
 
@@ -28,8 +28,8 @@ public class DrinkItem extends RepeatEatItem{
     }
 
     @Override
-    public void rEat(Level level, ItemStack food, LivingEntity living) {
-        super.rEat(level, food, living);
+    public void eat(Level level, LivingEntity living, ItemStack stack) {
+        super.eat(level, living, stack);
         if (this.upEffect > 0){
             if (!level.isClientSide()) {
                 try {
@@ -47,9 +47,9 @@ public class DrinkItem extends RepeatEatItem{
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltip, tooltipFlag);
         if (this.upEffect > 0) {
             tooltip.add(Component.translatable("tooltips.bakeries.drink", Component.translatable("potion.potency." + this.upEffect)).withStyle(ChatFormatting.DARK_GRAY));
         }
-        super.appendHoverText(stack, context, tooltip, tooltipFlag);
     }
 }

@@ -42,7 +42,7 @@ public class GlassBreadRackBlock extends BreadRackBlock {
         boolean open = pState.getValue(OPEN);
         ItemStack itemInHand = pPlayer.getItemInHand(hand);
         if (open && pPlayer.isShiftKeyDown()){
-            return super.take(rackBlock,pState,pLevel,pPos,pPlayer);
+            return super.take(rackBlock,pState,pLevel,pPos,pPlayer,hitResult);
         }
         if (rackBlock.getItemsCount() == 4){
             pLevel.blockEvent(pPos,pState.getBlock(), 0,open ? 1 : 0);

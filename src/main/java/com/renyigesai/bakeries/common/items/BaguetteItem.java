@@ -20,8 +20,8 @@ public class BaguetteItem extends RepeatEatItem {
         super(block, properties, effectTooltip,false);
     }
 
-    public BaguetteItem(Block block, Properties properties) {
-        super(block, properties, false);
+    public BaguetteItem(Block block, Properties properties,int eatCount) {
+        super(block, properties, eatCount,false);
     }
 
     @Override
