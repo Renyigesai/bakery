@@ -2,47 +2,36 @@ package com.renyigesai.bakeries.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.mojang.datafixers.util.Pair;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
-import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
 
 public class BaguetteItem extends RepeatEatItem {
     public BaguetteItem(Block block, IntegerProperty integerProperty, Properties pProperties, boolean effectTooltip, boolean customField) {
-        super(block, integerProperty, pProperties, effectTooltip, customField);
+        super(block, integerProperty, pProperties, 4,effectTooltip, customField);
     }
 
     public BaguetteItem(Block pBlock, Properties properties) {
-        super(pBlock, PileBlock.integerProperty, properties);
+        super(pBlock, PileBlock.integerProperty, properties,4,false,false);
     }
     @Override
     public float getDestroySpeed(ItemStack itemstack, BlockState blockstate) {

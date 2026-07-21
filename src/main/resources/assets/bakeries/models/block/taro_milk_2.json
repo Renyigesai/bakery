@@ -1,9 +1,8 @@
 {
-  "parent": "bakeries:custom/iced_latte_2",
+  "parent": "bakeries:custom/drink_2",
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakeries:block/glass",
-    "2": "bakeries:block/taro_milk",
+    "0": "bakeries:block/taro_milk",
     "particle": "minecraft:block/glass"
   }
 }

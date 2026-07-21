@@ -1,0 +1,11 @@
+{
+  "type": "bakeries:cake_base",
+  "model": "bakeries:cake_part/red_velvet_cake_base",
+  "ingredient": [
+    {
+      "item": "bakeries:red_velvet_cake_base"
+    }
+  ],
+  "hunger": 1,
+  "saturation": 0.2
+}

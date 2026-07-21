@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.fermentation_box;
 
-import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -102,5 +101,24 @@ public class FermentationBoxBlock extends BaseEntityBlock {
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING,POWERED);
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {
+        if (pLevel.getBlockEntity(pPos) instanceof FermentationBoxBlockEntity fermentationBoxBlock){
+            int size = 0;
+            for (int i = 0; i < fermentationBoxBlock.getItems().getSlots(); i++) {
+                if (!fermentationBoxBlock.getItems().getStackInSlot(i).isEmpty()){
+                    size ++;
+                }
+            }
+            return size;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
     }
 }

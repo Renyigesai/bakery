@@ -1,0 +1,11 @@
+{
+  "type": "bakeries:cake_base",
+  "model": "bakeries:cake_part/cake_base",
+  "ingredient": [
+    {
+      "item": "bakeries:cake_base"
+    }
+  ],
+  "hunger": 1,
+  "saturation": 0.2
+}

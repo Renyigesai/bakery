@@ -1,9 +1,12 @@
 package com.renyigesai.bakeries.block.luminous_light_sign;
 
+import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.HorizontalConnectBlock;
 import com.renyigesai.bakeries.block.sofa.SofaBlock;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.TextUtils;
+import com.renyigesai.bakeries.util.measurer.ClientUtilsMeasurer;
+import com.renyigesai.bakeries.util.measurer.IUtilsMeasurer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,12 +36,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class LuminousLightSignBlock extends HorizontalConnectBlock implements EntityBlock {
-//    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty LEFT = BooleanProperty.create("left");
-    public static final BooleanProperty RIGHT = BooleanProperty.create("right");
     public LuminousLightSignBlock() {
-        super(BlockBehaviour.Properties.copy(Blocks.GLASS).lightLevel((BlockState) -> 5).hasPostProcess((bs, br, bp) -> true));
-//        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LEFT,false).setValue(RIGHT,false));
+        super(BlockBehaviour.Properties.copy(Blocks.GLASS));
     }
 
     @Override
@@ -50,7 +49,6 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
             case WEST -> box(6, 10, 0, 10, 14, 16);
         };
     }
-
 
     @Override
     public RenderShape getRenderShape(BlockState pState) {
@@ -64,10 +62,13 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
         if (itemInHand.getItem() instanceof NameTagItem){
             if (blockEntity instanceof LuminousLightSignBlockEntity sign){
                 Component hoverName = itemInHand.getHoverName();
-                int length = TextUtils.getLength(hoverName.getString(), 45);
-                String string = hoverName.getString(length);
-                sign.setText(string);
-                return InteractionResult.SUCCESS;
+                IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
+                if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
+                    int length = clientUtilsMeasurer.getLength(hoverName.getString(), 45);
+                    String string = hoverName.getString(length);
+                    sign.setText(string);
+                    return InteractionResult.SUCCESS;
+                }
             }
         }else {
             if (itemInHand.getItem() instanceof DyeItem dye){
@@ -80,42 +81,6 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
-
-//    public BlockState getStateForPlacement(BlockPlaceContext context) {
-//        return super.getStateForPlacement(context).setValue(FACING, context.getHorizontalDirection());
-//    }
-//
-//    public BlockState rotate(BlockState pState, Rotation pRot) {
-//        return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
-//    }
-//
-//    public BlockState mirror(BlockState pState, Mirror pMirror) {
-//        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
-//    }
-//
-//    @Override
-//    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos) {
-//        Direction facing = state.getValue(FACING);
-//        boolean shouldConnect1 = canConnectTo(level, currentPos, facing,state,false);
-//        boolean shouldConnect2 = canConnectTo(level, currentPos, facing,state,true);
-//        return state.setValue(LEFT, shouldConnect1).setValue(RIGHT,shouldConnect2);
-//    }
-//
-//    protected boolean canConnectTo(BlockGetter level, BlockPos pos, Direction facing, BlockState oleState, boolean isRight) {
-//        Direction direction = getLeft(facing);
-//        BlockPos directionPos = pos.relative(isRight?direction.getOpposite():direction);
-//        BlockState state = level.getBlockState(directionPos);
-//        return state.is(this) && state.getValue(SofaBlock.FACING) == oleState.getValue(FACING);
-//    }
-//
-//    protected Direction getLeft(Direction direction){
-//        return direction.getCounterClockWise();
-//    }
-//
-//    @Override
-//    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-//        pBuilder.add(FACING,LEFT,RIGHT);
-//    }
 
     public boolean propagatesSkylightDown(BlockState p_154824_, BlockGetter p_154825_, BlockPos p_154826_) {
         return true;

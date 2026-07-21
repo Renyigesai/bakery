@@ -1,1 +1,6 @@
-{"parent": "bakeries:block/paper_cup_1"}
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "bakeries:item/paper_cup"
+  }
+}

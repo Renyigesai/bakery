@@ -96,7 +96,8 @@ public class TextUtils {
 
     }
 
-    /**»ñÈ¡µ±Ç°×Ö·û´®µÄ³¤¶È,¿ÉÖ¸¶¨×î´óÖµ*/
+    /**è·å–å½“å‰å­—ç¬¦ä¸²çš„é•¿åº¦,å¯æŒ‡å®šæœ€å¤§å€¼*/
+    @Deprecated
     public static int getLength(String string,int maxLength){
         if (string == null || maxLength == 0 || maxLength > MAX_LENGTH){
             throw new IllegalArgumentException("The text cannot be empty and its length must be greater than 0 and less than 1024.");
@@ -115,7 +116,8 @@ public class TextUtils {
         return maxLength;
     }
 
-    /**»ñÈ¡µ±Ç°×Ö·û´®µÄÏñËØ³¤¶È*/
+    /**è·å–å½“å‰å­—ç¬¦ä¸²çš„åƒç´ é•¿åº¦*/
+    @Deprecated
     public static int getPixelLength(String string){
         if (string == null){
             throw new IllegalArgumentException("The text cannot be empty and its length must be greater than 0 and less than 1024.");
@@ -129,7 +131,8 @@ public class TextUtils {
         return width;
     }
 
-    /**ÊäÈë×ÊÔ´µØÖ··µ»ØÒ»¸ö×Ô¶¨Òå×ÖÌå*/
+    /**è¾“å…¥èµ„æºåœ°å€è¿”å›ä¸€ä¸ªè‡ªå®šä¹‰å­—ä½“*/
+    @Deprecated
     public static Font getCustomFont(ResourceLocation fontLocation,boolean filterFishyGlyphs){
         FontSet fontSet = Minecraft.getInstance().font.getFontSet(fontLocation);
         Function<ResourceLocation, FontSet> function = location -> fontSet;

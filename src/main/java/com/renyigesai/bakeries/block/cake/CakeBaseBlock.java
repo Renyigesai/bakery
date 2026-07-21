@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.cake;
 
-import com.renyigesai.bakeries.api.block.BCakeBlock;
 import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
@@ -13,9 +12,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BrushableBlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
@@ -31,7 +27,7 @@ public class CakeBaseBlock extends InstanceCakeBlock implements IKnifeCutBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return box(3.0, 0.0, 3.0, 13.0, 6.0, 13.0);
+        return box(3.0, 0.0, 3.0, 13.0, 8.0, 13.0);
     }
 
     @Override

@@ -1,5 +1,5 @@
 {
-	"parent": "bakeries:custom/cheese_cocoa_toast_pile",
+	"parent": "bakeries:custom/toast_pile",
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "bakeries:block/cheese_cocoa_toast",

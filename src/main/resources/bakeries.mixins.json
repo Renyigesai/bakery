@@ -6,6 +6,7 @@
   "refmap": "bakeries.refmap.json",
   "mixins": [
     "FallingBlockEntityMixin",
+    "LivingEntityMixin",
     "SnifferMixin"
   ],
   "client": [

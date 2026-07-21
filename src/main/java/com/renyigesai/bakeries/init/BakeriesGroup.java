@@ -48,6 +48,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SOFA_RED.get());//紅色沙发
                         output.accept(BakeriesItems.CASH_REGISTER_COMPUTER.get());//收银电脑
                         output.accept(BakeriesItems.LUMINOUS_LIGHT_SIGN.get());//发光灯牌
+                        output.accept(BakeriesItems.MAGNETIC_PLATE.get());
                         output.accept(BakeriesItems.BREAD_HOLDERS.get());//面包夹架
                         output.accept(BakeriesItems.BREAD_BASKET.get());//面包筐
                         output.accept(BakeriesItems.BREAD_RACK.get());//面包架

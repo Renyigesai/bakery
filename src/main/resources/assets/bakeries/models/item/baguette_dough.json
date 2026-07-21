@@ -1,7 +1,7 @@
 {
 	"parent": "bakeries:custom/baguette_1",
 	"textures": {
-		"0": "bakeries:item/baguette_dough",
+		"1": "bakeries:item/baguette_dough",
 		"particle": "bakeries:item/baguette_dough"
 	}
 }

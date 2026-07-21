@@ -1,0 +1,11 @@
+{
+  "type": "bakeries:cake_topping",
+  "model": "bakeries:cake_part/glow_berries",
+  "ingredient": [
+    {
+      "item": "minecraft:glow_berries"
+    }
+  ],
+  "hunger": 1,
+  "saturation": 0.2
+}

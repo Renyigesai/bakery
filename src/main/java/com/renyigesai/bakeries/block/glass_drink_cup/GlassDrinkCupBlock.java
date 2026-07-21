@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 public class GlassDrinkCupBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    private static final VoxelShape SHAPE = box(6.0, 0, 6.0, 10, 7.5, 10);
+    private static final VoxelShape BOX = box(6.0, 0, 6.0, 10, 9.5, 10);
 
     public GlassDrinkCupBlock(Properties pProperties) {
         super(pProperties);
@@ -47,7 +47,7 @@ public class GlassDrinkCupBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPE;
+        return BOX;
     }
 
     @Override

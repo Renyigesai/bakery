@@ -191,6 +191,7 @@ dependencies {
     implementation fg.deobf("curse.maven:jei-238222:7361881")
     implementation fg.deobf("curse.maven:jade-324717:6291330")
     implementation fg.deobf("curse.maven:farmers-delight-398521:8007609")
+//    implementation fg.deobf("curse.maven:farmersdelight-398521:6154802")
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     implementation fg.deobf("curse.maven:mekalus-oculus-fork-with-fixed-mekanism-mekasuit-1130957:6994299")
     implementation fg.deobf("curse.maven:patchouli-306770:7731017")

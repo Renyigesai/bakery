@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/focaccia"
+  },
+  "base": {
+    "parent": "bakeries:block/focaccia_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/focaccia_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/focaccia_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/focaccia_2d"
+    }
+  }
+}

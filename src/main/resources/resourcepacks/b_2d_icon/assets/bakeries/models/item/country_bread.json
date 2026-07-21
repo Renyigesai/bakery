@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/country_bread"
+  },
+  "base": {
+    "parent": "bakeries:block/country_bread_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/country_bread_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/country_bread_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/country_bread_2d"
+    }
+  }
+}

@@ -2,14 +2,18 @@ package com.renyigesai.bakeries.event;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
+import com.renyigesai.bakeries.api.event.CakeEffectRulesRegistrationEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
 import com.renyigesai.bakeries.api.item.PileItem;
 import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.item.RepeatEatItem;
+import com.renyigesai.bakeries.item.BaguetteItem;
+import com.renyigesai.bakeries.item.ColdDrinkItem;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.WorldUtil;
+import com.renyigesai.bakeries.util.measurer.CakeEffectRules;
+import com.renyigesai.bakeries.util.measurer.CakePartMeasurer;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -32,8 +36,11 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -47,7 +54,7 @@ public class BakeriesEvents {
     public static void onUseCreeper(PlayerInteractEvent.EntityInteract event){
         Player entity = event.getEntity();
         Entity target = event.getTarget();
-        if (entity != null && entity.getItemInHand(InteractionHand.MAIN_HAND).is(BakeriesItems.BAGUETTE.get()) && target instanceof Creeper){
+        if (entity != null && entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof BaguetteItem baguetteItem && target instanceof Creeper){
             Level level = event.getEntity().level();
             double x = target.getX();
             double y = target.getY();
@@ -56,7 +63,7 @@ public class BakeriesEvents {
             if (((Creeper) target).getRandom().nextInt(3) == 0) {
                 target.spawnAtLocation(new ItemStack(BakeriesItems.MUSIC_DISC_BAKING_IN_PROGRESS.get()));
             }
-            RepeatEatItem.rHurt(hand);
+            baguetteItem.consume(hand,null);
             level.addParticle(new ItemParticleOption(ParticleTypes.ITEM,new ItemStack(Items.BREAD)),x,y+target.getBbHeight()/2,z,((double)level.random.nextFloat() - 0.5D) * 0.08D, ((double)level.random.nextFloat() - 0.5D) * 0.08D, ((double)level.random.nextFloat() - 0.5D) * 0.08D);
             level.playSound(null,new BlockPos((int) x,(int)y,(int)z),SoundEvents.GENERIC_EAT, SoundSource.PLAYERS);
         }
@@ -69,13 +76,13 @@ public class BakeriesEvents {
             return;
         ItemStack hand = entity.getItemInHand(InteractionHand.MAIN_HAND);
         Entity target = event.getTarget();
-        if (hand.is(BakeriesItems.ICED_LATTE.get()) && target instanceof Villager villager){
+        if (hand.getItem() instanceof ColdDrinkItem drinkItem && target instanceof Villager villager){
             if (event.isCancelable()) {
                 event.setCanceled(true);
             }
             villager.restock();
             villager.numberOfRestocksToday = 0;
-            RepeatEatItem.rHurt(entity,hand,new ItemStack(BakeriesItems.DRINK_CUP.get()));
+            ItemUtils.givePlayerItem(entity,drinkItem.consume(hand,null));
             villager.level().playSound(null, BlockPos.containing(villager.getX(),villager.getY(),villager.getZ()), SoundEvents.GENERIC_DRINK, SoundSource.BLOCKS);
         }
     }
@@ -197,4 +204,21 @@ public class BakeriesEvents {
 
         }
     }
+
+    @SubscribeEvent
+    public static void onServerStarted(ServerStartedEvent event) {
+        CakePartMeasurer.cakePartMeasurerServerBuilder();
+        initCakeEffectRules();
+    }
+
+    private static void initCakeEffectRules(){
+        CakeEffectRules.registerRule(CakeEffectRules::tooDisgusting);
+
+        CakeEffectRulesRegistrationEvent event = new CakeEffectRulesRegistrationEvent(CakeEffectRules.getRules());
+        MinecraftForge.EVENT_BUS.post(event);
+
+        CakeEffectRules.getRules().clear();
+        CakeEffectRules.getRules().addAll(event.getRules());
+    }
+
 }

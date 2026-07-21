@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("all")
 public class FermentationBoxCategory implements IRecipeCategory<FermentationBoxRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(BakeriesMod.MODID, "fermentation_box");
     public final static ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID, "textures/gui/jei/jei_fermentation_box_gui.png");

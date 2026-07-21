@@ -5,10 +5,14 @@ import com.renyigesai.bakeries.api.LazyMobEffectInstance;
 import com.renyigesai.bakeries.block.bread_rack.BreadRackBlock;
 import com.renyigesai.bakeries.block.bread_rack.BreadRackBlockEntity;
 import com.renyigesai.bakeries.block.bread_rack.GlassBreadRackBlock;
+import com.renyigesai.bakeries.block.custom_cake.CustomCakeBlock;
+import com.renyigesai.bakeries.block.custom_cake.CustomCakeBlockEntity;
 import com.renyigesai.bakeries.block.fermentation_box.FermentationBoxBlock;
 import com.renyigesai.bakeries.block.fermentation_box.FermentationBoxBlockEntity;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlock;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
+import com.renyigesai.bakeries.block.magnetic_plate.MagneticPlateBlock;
+import com.renyigesai.bakeries.block.magnetic_plate.MagneticPlateBlockEntity;
 import com.renyigesai.bakeries.block.mix_block.MixBlock;
 import com.renyigesai.bakeries.block.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.block.CreamPumpkinPieBlock;
@@ -205,25 +209,31 @@ public class BakeriesBlocks {
     public static final RegistryObject<BlockEntityType<WoodenTrayBlockEntity>> WOOD_TRAY_ENTITY;
     public static final RegistryObject<Block> FERMENTATION_BARREL;
     public static final RegistryObject<BlockEntityType<FermentationBarrelBlockEntity>> FERMENTATION_BARREL_ENTITY;
-    public static RegistryObject<Block> CAKE_BOX;
+    public static final RegistryObject<Block> CAKE_BOX;
     public static final RegistryObject<BlockEntityType<CakeBoxBlockEntity>> CAKE_BOX_ENTITY;
-    public static RegistryObject<Block> CAKE_ROLL_PROCESSING;
+    public static final RegistryObject<Block> CAKE_ROLL_PROCESSING;
     public static final RegistryObject<BlockEntityType<CakeRollProcessingBlockEntity>> CAKE_ROLL_PROCESSING_ENTITY;
-    public static RegistryObject<Block> STONE_KILN;
+    public static final RegistryObject<Block> STONE_KILN;
     public static final RegistryObject<BlockEntityType<StoneKilnBlockEntity>> STONE_KILN_ENTITY;
-    public static RegistryObject<Block> PIZZA_FLATBREAD;
-    public static RegistryObject<BlockEntityType<PizzaFlatbreadBlockEntity>> PIZZA_FLATBREAD_ENTITY;
-    public static RegistryObject<Block> CUSTOM_PIZZA;
-    public static RegistryObject<BlockEntityType<CustomPizzaBlockEntity>> CUSTOM_PIZZA_ENTITY;
-    public static RegistryObject<Block> MIX_BREAD_BLOCK;
-    public static RegistryObject<BlockEntityType<MixBlockEntity>> MIX_BLOCK_ENTITY;
-    public static RegistryObject<Block> LUMINOUS_LIGHT_SIGN;
-    public static RegistryObject<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY;
-    public static RegistryObject<Block> FERMENTATION_BOX;
-    public static RegistryObject<BlockEntityType<FermentationBoxBlockEntity>> FERMENTATION_BOX_ENTITY;
-    public static RegistryObject<Block> BREAD_RACK;
-    public static RegistryObject<Block> GLASS_BREAD_RACK;
-    public static RegistryObject<BlockEntityType<BreadRackBlockEntity>> BREAD_RACK_ENTITY;
+    public static final RegistryObject<Block> PIZZA_FLATBREAD;
+    public static final RegistryObject<BlockEntityType<PizzaFlatbreadBlockEntity>> PIZZA_FLATBREAD_ENTITY;
+    public static final RegistryObject<Block> CUSTOM_PIZZA;
+    public static final RegistryObject<BlockEntityType<CustomPizzaBlockEntity>> CUSTOM_PIZZA_ENTITY;
+    public static final RegistryObject<Block> MIX_BREAD_BLOCK;
+    public static final RegistryObject<BlockEntityType<MixBlockEntity>> MIX_BLOCK_ENTITY;
+    public static final RegistryObject<Block> LUMINOUS_LIGHT_SIGN;
+    public static final RegistryObject<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY;
+    public static final RegistryObject<Block> FERMENTATION_BOX;
+    public static final RegistryObject<BlockEntityType<FermentationBoxBlockEntity>> FERMENTATION_BOX_ENTITY;
+    public static final RegistryObject<Block> BREAD_RACK;
+    public static final RegistryObject<Block> GLASS_BREAD_RACK;
+    public static final RegistryObject<BlockEntityType<BreadRackBlockEntity>> BREAD_RACK_ENTITY;
+
+    public static final RegistryObject<Block> MAGNETIC_PLATE;
+    public static final RegistryObject<BlockEntityType<MagneticPlateBlockEntity>> MAGNETIC_PLATE_ENTITY;
+
+    public static final RegistryObject<Block> CUSTOM_CAKE;
+    public static final RegistryObject<BlockEntityType<CustomCakeBlockEntity>> CUSTOM_CAKE_ENTITY;
 
     static {
         /*面包方块*/
@@ -452,6 +462,12 @@ public class BakeriesBlocks {
         BREAD_RACK = BLOCK_REGISTRY.register("bread_rack",()-> new BreadRackBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         GLASS_BREAD_RACK = BLOCK_REGISTRY.register("glass_bread_rack",()-> new GlassBreadRackBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         BREAD_RACK_ENTITY = BLOCK_ENTITY_REGISTRY.register("bread_rack",()-> BlockEntityType.Builder.of(BreadRackBlockEntity::new,BREAD_RACK.get(),GLASS_BREAD_RACK.get()).build(null));
+
+        MAGNETIC_PLATE = BLOCK_REGISTRY.register("magnetic_plate", ()-> new MagneticPlateBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+        MAGNETIC_PLATE_ENTITY = BLOCK_ENTITY_REGISTRY.register("magnetic_plate",()-> BlockEntityType.Builder.of(MagneticPlateBlockEntity::new,MAGNETIC_PLATE.get()).build(null));
+
+        CUSTOM_CAKE = BLOCK_REGISTRY.register("custom_cake", ()-> new CustomCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
+        CUSTOM_CAKE_ENTITY = BLOCK_ENTITY_REGISTRY.register("custom_cake",()-> BlockEntityType.Builder.of(CustomCakeBlockEntity::new,CUSTOM_CAKE.get()).build(null));
 
     }
 

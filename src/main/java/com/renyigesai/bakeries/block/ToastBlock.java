@@ -119,11 +119,10 @@ public class ToastBlock extends AKnifeCutBlock {
 
     @Override
     public int getAnalogOutputSignal(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
-        return getOutputSignal(pState.getValue(SLICE));
-    }
-
-    public static int getOutputSignal(int pEaten) {
-        return (-4 - pEaten) * 2;
+        if (pState.getValue(PILE) == 2){
+            return 8;
+        }
+        return pState.getValue(SLICE);
     }
 
     @Override

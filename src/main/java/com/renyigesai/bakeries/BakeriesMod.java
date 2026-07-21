@@ -1,7 +1,5 @@
 package com.renyigesai.bakeries;
 
-import com.renyigesai.bakeries.api.conditions.AbstractConfigCondition;
-import com.renyigesai.bakeries.api.conditions.AbstractConfigConditionSerializer;
 import com.renyigesai.bakeries.capabilities.PlayerKeyAuxiliary;
 import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
 import com.renyigesai.bakeries.conditions.ConfigCondition;
@@ -11,8 +9,15 @@ import com.renyigesai.bakeries.fluid.BakeriesFluids;
 import com.renyigesai.bakeries.init.*;
 import com.renyigesai.bakeries.key.BakeriesKeyMapping;
 import com.renyigesai.bakeries.network.Messages;
+import com.renyigesai.bakeries.util.measurer.ClientUtilsMeasurer;
+import com.renyigesai.bakeries.util.measurer.CakeEffectRules;
+import com.renyigesai.bakeries.util.measurer.IUtilsMeasurer;
+import com.renyigesai.bakeries.util.measurer.ServerUtilsMeasurer;
 import com.renyigesai.bakeries.villager.BakeriesVillagers;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -23,9 +28,11 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 @Mod(BakeriesMod.MODID)
@@ -35,6 +42,10 @@ public class BakeriesMod {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static boolean aprilFoolsDay;
     public static int floatingTemperature;
+
+    @Nullable
+    public static IUtilsMeasurer utilsMeasurer;
+
     @SuppressWarnings("removal")
     public BakeriesMod() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -56,6 +67,8 @@ public class BakeriesMod {
         BakeriesVillagers.register(bus);
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
+        initUtilsMeasurer();
+        initCakeEffectRules();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BakeriesConfig.SPEC, "bakeries-common.toml");
     }
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -67,6 +80,18 @@ public class BakeriesMod {
             aprilFoolsDay = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
         }
         refreshFloatingTemperature();
+    }
+
+    public void initUtilsMeasurer(){
+        if (FMLEnvironment.dist.isClient()) {
+            utilsMeasurer = new ClientUtilsMeasurer();
+        }else {
+            utilsMeasurer = new ServerUtilsMeasurer();
+        }
+    }
+
+    public void initCakeEffectRules(){
+        CakeEffectRules.registerRule(CakeEffectRules::tooDisgusting);
     }
 
     public static void refreshFloatingTemperature(){

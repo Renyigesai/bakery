@@ -1,0 +1,11 @@
+{
+  "type": "bakeries:cake_base",
+  "model": "bakeries:cake_part/basque_cake",
+  "ingredient": [
+    {
+      "item": "bakeries:basque_cake"
+    }
+  ],
+  "hunger": 1,
+  "saturation": 0.2
+}

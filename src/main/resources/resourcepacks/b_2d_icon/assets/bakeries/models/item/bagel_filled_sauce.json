@@ -1,6 +1,21 @@
 {
   "parent": "item/generated",
+  "loader": "forge:separate_transforms",
   "textures": {
-    "layer0": "bakeries:item/bagel_filled_sauce"
+    "particle": "bakeries:block/bagel_filled_sauce"
+  },
+  "base": {
+    "parent": "bakeries:block/bagel_filled_sauce_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/bagel_filled_sauce_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/bagel_filled_sauce_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/bagel_filled_sauce_2d"
+    }
   }
 }

@@ -339,7 +339,7 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
                     boolean isPerfect = fermentation.isPerfectFermentation(fermentation);
                     boolean isFermentationItem = resultItem.getItem() instanceof IFermentationItem;
                     if (isPerfect && isFermentationItem){
-                        //ÉèÖÃÍêÃÀ·¢½Ínbt
+                        //è®¾ç½®å®Œç¾å‘é…µnbt
                         resultItem.getOrCreateTag().putBoolean("PerfectFermentation",true);
                     }
                     fermentation.setItem(i,resultItem);
@@ -368,8 +368,8 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
     public int getNowTemperature(Level pLevel, BlockPos pPos){
         Holder<Biome> biome = pLevel.getBiome(pPos);
         float biomeTemperature = biome.value().getTemperature(pPos);
-        //Ğ¡ÓÚµÈÓÚ0.2º®Àä£¬µÈÓÚ2Ñ×ÈÈ£¬ÆäÓàÕı³£ÆøÎÂ
-        //¸¡¶¯ÎÂ¶È
+        //å°äºç­‰äº0.2å¯’å†·ï¼Œç­‰äº2ç‚çƒ­ï¼Œå…¶ä½™æ­£å¸¸æ°”æ¸©
+        //æµ®åŠ¨æ¸©åº¦
         int temperature;
         if (biomeTemperature <= 0.2){
             temperature = BakeriesMod.floatingTemperature;
@@ -396,7 +396,7 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    /*Í¨¹ıÊ±¼ä¼ì²âÊÇ·ñÎªÍêÃÀ·¢½Í*/
+    /*é€šè¿‡æ—¶é—´æ£€æµ‹æ˜¯å¦ä¸ºå®Œç¾å‘é…µ*/
     private boolean isPerfectFermentation(FermentationBoxBlockEntity box) {
         int deviation = Math.abs(box.fermentationMaxTime - perfectTime);
         return deviation <= 100;
@@ -412,10 +412,15 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
             this.items.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
-//
+
     @Override
     public boolean canPlaceItem(int pIndex, @NotNull ItemStack pStack) {
         return items.getStackInSlot(pIndex).isEmpty();
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
     }
 
     public enum State {

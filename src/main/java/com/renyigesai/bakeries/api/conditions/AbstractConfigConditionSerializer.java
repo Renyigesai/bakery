@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
 /**
- * ³éÏóÅäÖÃÌõ¼şĞòÁĞ»¯Æ÷Àà£¬ÊµÏÖÁËÌõ¼şĞòÁĞ»¯Æ÷½Ó¿Ú£¬ÓÃÓÚ´¦Àí³éÏóÅäÖÃÌõ¼şµÄĞòÁĞ»¯ºÍ·´ĞòÁĞ»¯²Ù×÷
+ * æŠ½è±¡é…ç½®æ¡ä»¶åºåˆ—åŒ–å™¨ç±»ï¼Œå®ç°äº†æ¡ä»¶åºåˆ—åŒ–å™¨æ¥å£ï¼Œç”¨äºå¤„ç†æŠ½è±¡é…ç½®æ¡ä»¶çš„åºåˆ—åŒ–å’Œååºåˆ—åŒ–æ“ä½œ
  */
 public abstract class AbstractConfigConditionSerializer implements IConditionSerializer<AbstractConfigCondition> {
 
@@ -45,11 +45,11 @@ public abstract class AbstractConfigConditionSerializer implements IConditionSer
     }
 
     /**
-     * ´´½¨Ò»¸ö³éÏóÅäÖÃÌõ¼ş¶ÔÏóµÄ¹¤³§·½·¨
-     * @param key ÅäÖÃÏîµÄ¼üÃû
-     * @param type Ìõ¼şÀàĞÍ£¬ÓÃÓÚÖ¸¶¨ÅĞ¶ÏÌõ¼şµÄÀàĞÍ
-     * @param expected ÆÚÍûµÄÖµ£¬ÓÃÓÚÓëÊµ¼ÊÅäÖÃÖµ½øĞĞ±È½Ï
-     * @return ·µ»ØÒ»¸öAbstractConfigConditionÀàĞÍµÄÊµÀı£¬¸ÃÊµÀı¿ÉÒÔ¸ù¾İÖ¸¶¨µÄ¼ü¡¢ÀàĞÍºÍÆÚÍûÖµ½øĞĞÅäÖÃÌõ¼şµÄÅĞ¶Ï
+     * åˆ›å»ºä¸€ä¸ªæŠ½è±¡é…ç½®æ¡ä»¶å¯¹è±¡çš„å·¥å‚æ–¹æ³•
+     * @param key é…ç½®é¡¹çš„é”®å
+     * @param type æ¡ä»¶ç±»å‹ï¼Œç”¨äºæŒ‡å®šåˆ¤æ–­æ¡ä»¶çš„ç±»å‹
+     * @param expected æœŸæœ›çš„å€¼ï¼Œç”¨äºä¸å®é™…é…ç½®å€¼è¿›è¡Œæ¯”è¾ƒ
+     * @return è¿”å›ä¸€ä¸ªAbstractConfigConditionç±»å‹çš„å®ä¾‹ï¼Œè¯¥å®ä¾‹å¯ä»¥æ ¹æ®æŒ‡å®šçš„é”®ã€ç±»å‹å’ŒæœŸæœ›å€¼è¿›è¡Œé…ç½®æ¡ä»¶çš„åˆ¤æ–­
      */
     public abstract AbstractConfigCondition create(String key,String type,Object expected);
 }

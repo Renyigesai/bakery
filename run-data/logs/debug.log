@@ -662,7 +662,7 @@
 [075月2025 18:14:48.050] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.renyigesai.bakeries.init.BakeriesClientHandler to MOD
 [075月2025 18:14:48.050] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing vectorwing.farmersdelight.common.item.KnifeItem$KnifeEvents to FORGE
 [075月2025 18:14:48.054] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.renyigesai.bakeries.init.BakeriesMenuType to MOD
-[075月2025 18:14:48.054] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.renyigesai.bakeries.jei_recipes.BakeryRecipeTypes to MOD
+[075月2025 18:14:48.054] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.renyigesai.bakeries.init.BakeryRecipeTypes to MOD
 [075月2025 18:14:48.055] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing vectorwing.farmersdelight.common.item.HorseFeedItem$HorseFeedEvent to FORGE
 [075月2025 18:14:48.056] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing com.renyigesai.bakeries.overlay.GlassDrinkCupOverlay to FORGE
 [075月2025 18:14:48.057] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing vectorwing.farmersdelight.common.item.enchantment.BackstabbingEnchantment$BackstabbingEvent to FORGE

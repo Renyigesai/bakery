@@ -95,6 +95,16 @@ public abstract class AbstractOvenRecipe implements Recipe<Container> {
         return min_temperature;
     }
 
+    @Deprecated
+    public int getMin_temperature(){
+        return min_temperature;
+    }
+
+    @Deprecated
+    public int getMax_temperature(){
+        return max_temperature;
+    }
+
     public int getPerfectTemperature() {
         return perfect_temperature;
     }

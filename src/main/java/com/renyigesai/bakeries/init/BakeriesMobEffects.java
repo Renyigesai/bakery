@@ -22,4 +22,10 @@ public class BakeriesMobEffects {
     public static final RegistryObject<MobEffect> ENJOY = REGISTRY.register("enjoy", EnjoyMobEffect::new);
 
     public static final RegistryObject<MobEffect> SOFT = REGISTRY.register("soft", ()-> new SoftMobEffect().addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE,"e561bed7-8068-42e6-a010-d25e2ac47f71",0.5,AttributeModifier.Operation.ADDITION).addAttributeModifier(Attributes.ARMOR,"8a296c1d-b2e2-41e9-96df-b49e4f6370cf",5,AttributeModifier.Operation.ADDITION));
+
+    public static final RegistryObject<MobEffect> BERRY_SOUR = REGISTRY.register("berry_sour", BerrySourMobEffect::new);
+
+    public static final RegistryObject<MobEffect> TEA_ASTRINGENT = REGISTRY.register("tea_astringent", TeaAstringentMobEffect::new);
+
+
 }

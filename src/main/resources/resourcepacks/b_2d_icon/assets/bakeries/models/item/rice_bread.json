@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/rice_bread"
+  },
+  "base": {
+    "parent": "bakeries:block/rice_bread_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/rice_bread_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/rice_bread_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/rice_bread_2d"
+    }
+  }
+}

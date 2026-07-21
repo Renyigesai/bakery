@@ -41,12 +41,11 @@ public class DoughCraftingRecipe implements  Recipe<Container> {
     }
     @Override
     public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
-        System.out.println("Yes assemble");
         ItemStack input = pContainer.getItem(0);
         if (!input.isEmpty()) {
             if (input.getItem() instanceof IFermentationItem fermentationItem) {
                 int multiplication = fermentationItem.fermentationCraftingCount(input);
-                // ¸´ÖÆÔ­Ê¼Ä£°å£¬±ÜÃâÎÛÈ¾
+                // å¤åˆ¶åŸå§‹æ¨¡æ¿ï¼Œé¿å…æ±¡æŸ“
                 ItemStack resultOut = this.result.copy();
                 resultOut.setCount(resultOut.getCount() * multiplication);
                 return resultOut;

@@ -109,12 +109,12 @@ public class CountryBreadBlock extends AKnifeCutBlock {
         builder.add(FACING, PILE);
     }
 
-    public int getAnalogOutputSignal(BlockState pBlockState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
-        return getOutputSignal(pBlockState.getValue(PILE));
-    }
-
-    public static int getOutputSignal(int pPile) {
-        return pPile * 2;
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
+        if (pState.getValue(PILE) == 2){
+            return 8;
+        }
+        return pState.getValue(SLICE);
     }
 
     @Override

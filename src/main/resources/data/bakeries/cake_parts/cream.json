@@ -1,0 +1,11 @@
+{
+  "type": "bakeries:cake_cream",
+  "model": "bakeries:cake_part/cake_cream",
+  "ingredient": [
+    {
+      "item": "bakeries:foamed_cream"
+    }
+  ],
+  "hunger": 1,
+  "saturation": 0.2
+}

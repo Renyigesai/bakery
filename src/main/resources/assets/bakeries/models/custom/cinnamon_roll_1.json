@@ -54,8 +54,8 @@
 			"scale": [2, 2, 2]
 		},
 		"fixed": {
-			"translation": [-0.25, 10, 0.75],
-			"scale": [1.75, 1.75, 1.75]
+			"translation": [-0.25, 12, 0.75],
+			"scale": [2, 2, 2]
 		}
 	},
 	"groups": [

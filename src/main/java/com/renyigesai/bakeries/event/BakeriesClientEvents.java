@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.event;
 
 import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
-import com.renyigesai.bakeries.overlay.ILookOverlay;
+import com.renyigesai.bakeries.client.overlay.ILookOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -40,7 +40,5 @@ public class BakeriesClientEvents {
             }
         }
     }
-//    @SubscribeEvent
-//    public static void onComputeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
-//    }
+
 }

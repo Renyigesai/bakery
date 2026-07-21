@@ -17,10 +17,10 @@ public abstract class AbstractConfigCondition implements ICondition {
     }
 
     /**
-     * »ñÈ¡ÅäÖÃÓ³ÉäµÄ·½·¨
-     * ¸Ã·½·¨ÖØĞ´ÁË¸¸ÀàµÄ getConfigMapping ·½·¨£¬·µ»ØÒ»¸ö°üº¬ËùÓĞÅäÖÃÏîµÄÓ³Éä±í
+     * mè·å–é…ç½®æ˜ å°„çš„æ–¹æ³•
+     * è¯¥æ–¹æ³•é‡å†™äº†çˆ¶ç±»çš„ getConfigMapping æ–¹æ³•ï¼Œè¿”å›ä¸€ä¸ªåŒ…å«æ‰€æœ‰é…ç½®é¡¹çš„æ˜ å°„è¡¨
      *
-     * @return ·µ»ØÒ»¸öMap¼¯ºÏ£¬¼üÎªÅäÖÃÏîµÄÃû³Æ(StringÀàĞÍ)£¬ÖµÎª¶ÔÓ¦ÅäÖÃÏîµÄÌá¹©Õß(Supplier<?>ÀàĞÍ)
+     * @return è¿”å›ä¸€ä¸ªMapé›†åˆï¼Œé”®ä¸ºé…ç½®é¡¹çš„åç§°(Stringç±»å‹)ï¼Œå€¼ä¸ºå¯¹åº”é…ç½®é¡¹çš„æä¾›è€…(Supplier<?>ç±»å‹)
      */
     public abstract Map<String,Supplier<?>> getConfigMapping();
 

@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.block.toaster;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.block.fermentation_box.FermentationBoxBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.util.ItemUtils;
@@ -158,6 +159,25 @@ public class ToasterBlock extends BaseEntityBlock {
 
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new ToasterBlockEntity(pPos, pState);
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {
+        if (pLevel.getBlockEntity(pPos) instanceof ToasterBlockEntity toasterBlock){
+            int size = 0;
+            for (int i = 0; i < toasterBlock.getItems().getSlots(); i++) {
+                if (!toasterBlock.getItems().getStackInSlot(i).isEmpty()){
+                    size ++;
+                }
+            }
+            return size;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
     }
 
     public enum State implements StringRepresentable {

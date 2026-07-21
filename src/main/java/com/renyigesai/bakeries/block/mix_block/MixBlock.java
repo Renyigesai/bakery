@@ -3,9 +3,12 @@ package com.renyigesai.bakeries.block.mix_block;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.PileBlock;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
+import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.TextUtils;
+import com.renyigesai.bakeries.util.measurer.ClientUtilsMeasurer;
+import com.renyigesai.bakeries.util.measurer.IUtilsMeasurer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -148,10 +151,13 @@ public class MixBlock extends BaseEntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof MixBlockEntity mix) {
                 Component hoverName = itemInHand.getHoverName();
-                int length = TextUtils.getLength(hoverName.getString(),90);
-                String string = hoverName.getString(length);
-                mix.setText(string);
-                return true;
+                IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
+                if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
+                    int length = clientUtilsMeasurer.getLength(hoverName.getString(),90);
+                    String string = hoverName.getString(length);
+                    mix.setText(string);
+                    return true;
+                }
             }
         }
         return false;
@@ -194,5 +200,24 @@ public class MixBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new MixBlockEntity(pPos,pState);
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {
+        if (pLevel.getBlockEntity(pPos) instanceof MixBlockEntity mixBlock){
+            int size = 0;
+            for (int i = 0; i < mixBlock.getInventory().getSlots(); i++) {
+                if (!mixBlock.getInventory().getStackInSlot(i).isEmpty()){
+                    size ++;
+                }
+            }
+            return size;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState pState) {
+        return true;
     }
 }

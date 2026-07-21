@@ -165,6 +165,8 @@ public class BakeriesItems {
     public static final RegistryObject<Item> RED_VELVET_CAKE;
     public static final RegistryObject<Item> TARO_CAKE;
 
+    public static final RegistryObject<Item> CUSTOM_CAKE;
+
     /*
     其他烘焙食物物品
     */
@@ -237,6 +239,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> SWEET_BERRIES_JAM;
     public static final RegistryObject<Item> BREAD_RACK;
     public static final RegistryObject<Item> GLASS_BREAD_RACK;
+    public static final RegistryObject<Item> MAGNETIC_PLATE;
 
     /*
     饮料物品
@@ -394,13 +397,14 @@ public class BakeriesItems {
         SWEET_BERRIES_JAM = REGISTER.register("sweet_berries_jam",()-> new PileItem(BakeriesBlocks.SWEET_BERRIES_JAM.get(),new PileItem.PileProperties().placeSound(SoundEvents.GLASS_PLACE).itemProperties(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16))));
         BREAD_RACK = block(BakeriesBlocks.BREAD_RACK);
         GLASS_BREAD_RACK = block(BakeriesBlocks.GLASS_BREAD_RACK);
+        MAGNETIC_PLATE = block(BakeriesBlocks.MAGNETIC_PLATE);
 
         /*
         面包物品
         */
         BAGEL = foodBlockItem(BakeriesBlocks.BAGEL, BakeriesFoodProperties.BAGEL);
         WHOLE_WHEAT_BAGEL = foodBlockItem(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL,true,false);
-        BAGUETTE = REGISTER.register("baguette",()->new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().durability(4).food(BakeriesFoodProperties.BAGUETTE)));
+        BAGUETTE = REGISTER.register("baguette",()-> new BaguetteItem(BakeriesBlocks.BAGUETTE.get(),new Item.Properties().food(BakeriesFoodProperties.BAGUETTE)));
         BROWN_SUGAR_ROLL = foodBlockItem(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true,false);
         COUNTRY_BREAD = block(BakeriesBlocks.COUNTRY_BREAD);
         COUNTRY_BREAD_SLICE = foodItem("country_bread_slice",BakeriesFoodProperties.COUNTRY_BREAD_SLICE);
@@ -457,6 +461,8 @@ public class BakeriesItems {
         RED_VELVET_CAKE = block(BakeriesBlocks.RED_VELVET_CAKE,16);
         TARO_CAKE = foodBlockItem(BakeriesBlocks.TARO_CAKE,BakeriesFoodProperties.TARO_CAKE,true,false,ItemUtils.TARO);
 
+        CUSTOM_CAKE = REGISTER.register("custom_cake",()-> new CustomCakeItem(BakeriesBlocks.CUSTOM_CAKE.get(),new Item.Properties().stacksTo(1).rarity(ItemUtils.ADVANCED)));
+
         /*
         其他烘焙食物物品
         */
@@ -473,7 +479,7 @@ public class BakeriesItems {
         CREAM_BINGLE_COFFEE = coldDrinkItem(BakeriesBlocks.CREAM_BINGLE_COFFEE,BakeriesFoodProperties.CREAM_BINGLE_COFFEE,true,2,2,true,4);
         MATCHA_LATTE = coldDrinkItem(BakeriesBlocks.MATCHA_LATTE,BakeriesFoodProperties.MATCHA_LATTE,true,2,2,true,3);
         MATCHA_PARFAIT = coldDrinkItem(BakeriesBlocks.MATCHA_PARFAIT,BakeriesFoodProperties.MATCHA_PARFAIT,true,4);
-        TARO_MILK = REGISTER.register("taro_milk", () -> new ColdDrinkItem(BakeriesBlocks.TARO_MILK.get(),new Item.Properties().durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).food(BakeriesFoodProperties.TARO_MILK).rarity(ItemUtils.TARO),true,false,4));
+        TARO_MILK = REGISTER.register("taro_milk", () -> new ColdDrinkItem(BakeriesBlocks.TARO_MILK.get(),new Item.Properties().craftRemainder(BakeriesItems.DRINK_CUP.get()).food(BakeriesFoodProperties.TARO_MILK).rarity(ItemUtils.TARO),true,false,4));
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {
@@ -525,11 +531,11 @@ public class BakeriesItems {
     }
 
     private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block,FoodProperties foodProperties,boolean toolTips,int upEffect) {
-        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),toolTips,false,upEffect));
+        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),toolTips,false,upEffect));
     }
 
     private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block,FoodProperties foodProperties,boolean is_thirst,int thirst,int quenched,boolean toolTips,int upEffect) {
-        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),is_thirst,thirst,quenched,toolTips,false,upEffect));
+        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),is_thirst,thirst,quenched,toolTips,false,upEffect));
     }
 
 

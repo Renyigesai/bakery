@@ -36,7 +36,7 @@ public class BakeriesCompatItems {
         RICE_BREAD = foodBlockItem(BakeriesBlocks.RICE_BREAD, conditionReturn(CompatMod.FARMER_S_DELIGHT,BakeriesFoodProperties.RICE_BREAD_FARMERSDELIGHT,BakeriesFoodProperties.RICE_BREAD),true,false);
         SALMON_SANDWICH = foodBlockItem(BakeriesBlocks.SALMON_SANDWICH,BakeriesFoodProperties.SALMON_SANDWICH,true,false, ItemUtils.ADVANCED);
         ORANGE_AMERICAN = coldDrinkItem(BakeriesBlocks.ORANGE_AMERICAN,BakeriesFoodProperties.ORANGE_AMERICAN,true,3,3,true,4);
-        GARLIC_FLAVORED_BAGUETTE = REGISTER.register("garlic_flavored_baguette",()->new GarlicFlavoredBaguetteItem(BakeriesBlocks.GARLIC_FLAVORED_BAGUETTE.get(),PileBlock.integerProperty,new Item.Properties().durability(4).food(BakeriesFoodProperties.GARLIC_FLAVORED_BAGUETTE).rarity(ItemUtils.ADVANCED),true,false));
+        GARLIC_FLAVORED_BAGUETTE = REGISTER.register("garlic_flavored_baguette",()->new GarlicFlavoredBaguetteItem(BakeriesBlocks.GARLIC_FLAVORED_BAGUETTE.get(),PileBlock.integerProperty,new Item.Properties().food(BakeriesFoodProperties.GARLIC_FLAVORED_BAGUETTE).rarity(ItemUtils.ADVANCED),true,false));
         YUNTUI_MOONCAKE = REGISTER.register("yuntui_mooncake",()-> new Item(new Item.Properties().food(BakeriesFoodProperties.YUNTUI_MOONCAKE)));
         TRAY_YUNTUI_MOONCAKE = block(BakeriesBlocks.TRAY_YUNTUI_MOONCAKE);
         CREAM_MUSHROOM_SOUP_WITH_BAGUETTE = REGISTER.register("cream_mushroom_soup_with_baguette",()-> new EffectTooltipBlockItem(BakeriesBlocks.CREAM_MUSHROOM_SOUP_WITH_BAGUETTE.get(),new Item.Properties().food(conditionReturn(CompatMod.KALEIDOSCOPE_COOKERY,BakeriesFoodProperties.CREAM_MUSHROOM_SOUP_WITH_BAGUETTE_KALEIDOSCOPE_COOKERY,BakeriesFoodProperties.CREAM_MUSHROOM_SOUP_WITH_BAGUETTE)).stacksTo(16).craftRemainder(Items.FLOWER_POT),true));
@@ -68,7 +68,7 @@ public class BakeriesCompatItems {
     }
 
     private static RegistryObject<Item> coldDrinkItem(RegistryObject<Block> block,FoodProperties foodProperties,boolean is_thirst,int thirst,int quenched,boolean toolTips,int upEffect) {
-        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().durability(6).craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),is_thirst,thirst,quenched,toolTips,false,quenched));
+        return REGISTER.register(block.getId().getPath(), () -> new ColdDrinkItem(block.get(),new Item.Properties().craftRemainder(BakeriesItems.DRINK_CUP.get()).food(foodProperties),is_thirst,thirst,quenched,toolTips,false,quenched));
     }
 
     private static RegistryObject<Item> block(RegistryObject<Block> block) {

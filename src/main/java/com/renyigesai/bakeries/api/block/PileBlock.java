@@ -82,6 +82,12 @@ public class PileBlock extends HorizontalDirectionalBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, integerProperty);
     }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+        return pState.getValue(integerProperty);
+    }
+
     @Override
     public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
         return true;

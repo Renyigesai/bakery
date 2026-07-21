@@ -2,7 +2,7 @@
   "parent": "bakeries:custom/baguette_4",
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakeries:block/baguette",
+    "1": "bakeries:block/baguette",
     "particle": "bakeries:block/baguette"
   }
 }

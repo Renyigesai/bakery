@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/meat_floss_bread_roll"
+  },
+  "base": {
+    "parent": "bakeries:block/meat_floss_bread_roll_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/meat_floss_bread_roll_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/meat_floss_bread_roll_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/meat_floss_bread_roll_2d"
+    }
+  }
+}

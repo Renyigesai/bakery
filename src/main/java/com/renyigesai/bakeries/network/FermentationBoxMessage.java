@@ -56,11 +56,6 @@ public class FermentationBoxMessage {
         BlockPos containing = BlockPos.containing(x, y, z);
         BlockEntity blockEntity = entity.level().getBlockEntity(containing);
         if (blockEntity instanceof FermentationBoxBlockEntity box){
-//            if (type == 0){
-//                box.addHumidity(box,amount);
-//            }else {
-//                box.subHumidity(box,amount);
-//            }
             if (type == 0){
                 box.addFermentationMaxTime(box,amount);
             }else {

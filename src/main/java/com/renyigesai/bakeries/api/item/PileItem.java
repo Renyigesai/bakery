@@ -64,7 +64,7 @@ public class PileItem extends ItemNameBlockItem {
         return placeSound;
     }
 
-    /*≤ª π”√‘≠∞Ê∑≈÷√∑Ω∑®*/
+    /*‰∏ç‰ΩøÁî®ÂéüÁâàÊîæÁΩÆÊñπÊ≥ï*/
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
         return InteractionResult.FAIL;
@@ -93,11 +93,6 @@ public class PileItem extends ItemNameBlockItem {
                 addPileBlock(state, thisBlock, level, pos, player, pContext);
                 return InteractionResult.SUCCESS;
             }
-//            InteractionResult placeResult = this.place(new BlockPlaceContext(pContext));
-//            if (placeResult.consumesAction()) {
-//                player.awardStat(Stats.ITEM_USED.get(this));
-//                level.playSound(null, pos, getPlaceSound(), SoundSource.PLAYERS, 0.8F, 0.8F);
-//            }
             BlockPlaceContext placeContext = new BlockPlaceContext(pContext);
             InteractionResult placeResult = this.place(placeContext);
             if (placeResult.consumesAction()) {

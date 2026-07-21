@@ -1,11 +1,11 @@
 {
   "variants": {
-    "facing=east": {"model": "bakeries:block/glass_drink_cup_stage1", "y": 270},
+    "facing=east": {"model": "bakeries:block/drink_cup", "y": 270},
 
-    "facing=north": {"model": "bakeries:block/glass_drink_cup_stage1", "y": 180},
+    "facing=north": {"model": "bakeries:block/drink_cup", "y": 180},
 
-    "facing=south": {"model": "bakeries:block/glass_drink_cup_stage1"},
+    "facing=south": {"model": "bakeries:block/drink_cup"},
 
-    "facing=west": {"model": "bakeries:block/glass_drink_cup_stage1", "y": 90}
+    "facing=west": {"model": "bakeries:block/drink_cup", "y": 90}
   }
 }

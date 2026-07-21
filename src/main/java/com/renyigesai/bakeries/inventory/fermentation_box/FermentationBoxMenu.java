@@ -14,6 +14,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 
 public class FermentationBoxMenu extends AbstractContainerMenu {
     private FermentationBoxBlockEntity blockEntity;
@@ -33,7 +34,7 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
         this.x = pos.getX();
         this.y = pos.getY();
         this.z = pos.getZ();
-        // Ìí¼ÓÊäÈë²Û (0-5)
+        // æ·»åŠ è¾“å…¥æ§½ (0-5)
         ItemStackHandler items = blockEntity.getItems();
         addSlot(new FermentationBoxSlot(items,0,52, 16));
         addSlot(new FermentationBoxSlot(items,1, 70, 16));
@@ -72,7 +73,7 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
             ItemStack stackInSlot = slot.getItem();
             originalStack = stackInSlot.copy();
             if (slotIndex < 6) {
-                if (!this.moveItemStackTo(stackInSlot, 6, 39, false)) { // ³¢ÊÔÒÆµ½Íæ¼Ò±³°ü£¨36²Û£©
+                if (!this.moveItemStackTo(stackInSlot, 6, 39, false)) { // å°è¯•ç§»åˆ°çŽ©å®¶èƒŒåŒ…ï¼ˆ36æ§½ï¼‰
                     return ItemStack.EMPTY;
                 }
             }
@@ -118,6 +119,11 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
 
         @Override
         public int getMaxStackSize() {
+            return 1;
+        }
+
+        @Override
+        public int getMaxStackSize(@NotNull ItemStack stack) {
             return 1;
         }
     }

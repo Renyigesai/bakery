@@ -1,5 +1,9 @@
 {
-	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"1": "bakeries:block/country_bread",
+		"particle": "bakeries:block/country_bread"
+	},
 	"elements": [
 		{
 			"from": [4, 0, 5],

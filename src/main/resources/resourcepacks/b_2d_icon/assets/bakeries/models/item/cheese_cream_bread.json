@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/cheese_cream_bread"
+  },
+  "base": {
+    "parent": "bakeries:block/cheese_cream_bread_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/cheese_cream_bread_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/cheese_cream_bread_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/cheese_cream_bread_2d"
+    }
+  }
+}

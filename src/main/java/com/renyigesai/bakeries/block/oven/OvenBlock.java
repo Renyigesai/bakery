@@ -93,11 +93,6 @@ public class OvenBlock extends BaseEntityBlock{
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(BlockState state) {
-        return true;
-    }
-
-    @Override
     public boolean triggerEvent(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, int eventID, int eventParam) {
         super.triggerEvent(state, world, pos, eventID, eventParam);
         BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -163,5 +158,25 @@ public class OvenBlock extends BaseEntityBlock{
             }
         }
     }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {
+        if (pLevel.getBlockEntity(pPos) instanceof OvenBlockEntity ovenBlock){
+            int size = 0;
+            for (int i = 0; i < ovenBlock.getItemHandler().getSlots(); i++) {
+                if (!ovenBlock.getItemHandler().getStackInSlot(i).isEmpty()){
+                    size ++;
+                }
+            }
+            return size;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
 
 }

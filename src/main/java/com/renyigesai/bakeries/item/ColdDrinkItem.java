@@ -27,7 +27,7 @@ public class ColdDrinkItem extends RepeatEatItem{
     private final int upEffect;
 
     public ColdDrinkItem(Block block, Properties pProperties, boolean effectTooltip, boolean customField, int upEffect) {
-        super(block, ColdDrinkBlock.integerProperty, pProperties, effectTooltip, customField);
+        super(block, ColdDrinkBlock.integerProperty, pProperties, 6,effectTooltip, customField);
         this.upEffect = upEffect;
         this.is_thirst = false;
         this.thirst = 0;
@@ -35,7 +35,7 @@ public class ColdDrinkItem extends RepeatEatItem{
     }
 
     public ColdDrinkItem(Block block, Properties pProperties, boolean is_thirst, int thirst, int quenched, boolean effectTooltip, boolean customField, int upEffect) {
-        super(block, ColdDrinkBlock.integerProperty, pProperties, effectTooltip, customField);
+        super(block, ColdDrinkBlock.integerProperty, pProperties, 6,effectTooltip, customField);
         this.is_thirst = is_thirst;
         this.thirst = thirst;
         this.quenched = quenched;
@@ -99,10 +99,10 @@ public class ColdDrinkItem extends RepeatEatItem{
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, level, tooltip, isAdvanced);
         tooltip.add(Component.translatable("item.bakeries.tips.cold_drink").withStyle(ChatFormatting.BLUE));
         if (this.upEffect > 0) {
             tooltip.add(Component.translatable("item.bakeries.tips.cold_drink_2", Component.translatable("potion.potency." + this.upEffect)).withStyle(ChatFormatting.DARK_GRAY));
         }
-        super.appendHoverText(stack, level, tooltip, isAdvanced);
     }
 }

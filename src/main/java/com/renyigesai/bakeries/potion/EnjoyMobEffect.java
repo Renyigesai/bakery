@@ -51,7 +51,7 @@ public class EnjoyMobEffect extends MobEffect {
         }
         ItemStack itemStack = pLivingEntity.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() ? pLivingEntity.getItemInHand(InteractionHand.OFF_HAND) : pLivingEntity.getItemInHand(InteractionHand.MAIN_HAND);
         if (itemStack.getItem() instanceof EternalBaguetteItem){
-            double eternalBaguetteDamageUp = BakeriesConfig.eternalBaguetteDamageUp;/*Ĭ��Ϊ2.0*/
+            double eternalBaguetteDamageUp = BakeriesConfig.eternalBaguetteDamageUp;/*默认为2.0*/
             itemStack.getOrCreateTag().putFloat("AddDamage",(float)(eternalBaguetteDamageUp * (pAmplifier + 1)));
         }
     }

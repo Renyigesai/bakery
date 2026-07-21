@@ -1,0 +1,11 @@
+{
+  "type": "bakeries:cake_topping",
+  "model": "bakeries:cake_part/coffee",
+  "ingredient": [
+    {
+      "item": "bakeries:moka_pot_fill"
+    }
+  ],
+  "hunger": 0,
+  "saturation": 0
+}

@@ -1,8 +1,85 @@
 {
-  "parent": "bakeries:custom/focaccia_1",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/focaccia",
-    "particle": "bakeries:block/focaccia"
-  }
+	"textures": {
+		"0": "bakeries:block/focaccia",
+		"particle": "bakeries:block/focaccia"
+	},
+	"elements": [
+		{
+			"from": [6.5, 1.5, 8.25],
+			"to": [8, 3, 9.75],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [7.25, 1.75, 9]},
+			"faces": {
+				"north": {"uv": [4, 2, 5, 3], "texture": "#0"},
+				"east": {"uv": [4, 3, 5, 4], "texture": "#0"},
+				"south": {"uv": [4, 4, 5, 5], "texture": "#0"},
+				"west": {"uv": [5, 2, 6, 3], "texture": "#0"},
+				"up": {"uv": [6, 4, 5, 3], "texture": "#0"},
+				"down": {"uv": [5, 5, 4, 6], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 0, 6],
+			"to": [10, 2, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 0, 6]},
+			"faces": {
+				"north": {"uv": [4, 0, 8, 2], "texture": "#0"},
+				"east": {"uv": [4, 0, 8, 2], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 2], "texture": "#0"},
+				"west": {"uv": [4, 0, 8, 2], "texture": "#0"},
+				"up": {"uv": [4, 4, 0, 0], "texture": "#0"},
+				"down": {"uv": [4, 4, 0, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [8.5, 1.5, 6.75],
+			"to": [9.5, 2.5, 7.75],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [9, 1.5, 7.25]},
+			"faces": {
+				"north": {"uv": [5, 4, 6, 5], "texture": "#0"},
+				"east": {"uv": [5, 5, 6, 6], "texture": "#0"},
+				"south": {"uv": [6, 2, 7, 3], "texture": "#0"},
+				"west": {"uv": [6, 3, 7, 4], "texture": "#0"},
+				"up": {"uv": [5, 7, 4, 6], "texture": "#0"},
+				"down": {"uv": [7, 4, 6, 5], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [45, 0, -90],
+			"translation": [6.75, -1.25, 0]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [45, 0, -90],
+			"translation": [6.75, -1.25, 0]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"translation": [0, 7.5, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 45, 0],
+			"translation": [0, 7.5, 0]
+		},
+		"ground": {
+			"translation": [0.25, 3.5, 1]
+		},
+		"gui": {
+			"rotation": [45, -135, 0],
+			"translation": [0, 8.25, 0],
+			"scale": [2, 2, 2]
+		},
+		"fixed": {
+			"translation": [-0.25, 12, 1],
+			"scale": [2, 2, 2]
+		}
+	},
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8.25, 1.75, 3],
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
 }

@@ -118,8 +118,8 @@ public class BlenderRecipe implements Recipe<SimpleContainer> {
             for (int i = 0; i < ingredientCount; i++) {
                 inputs.set(i, Ingredient.fromNetwork(pBuffer));
             }
-            ItemStack output = pBuffer.readItem();      // 先读 output
-            ItemStack container = pBuffer.readItem();   // 再读 container
+            ItemStack output = pBuffer.readItem();      // 鍏堣 output
+            ItemStack container = pBuffer.readItem();   // 鍐嶈 container
             return new BlenderRecipe(inputs, output, container, pRecipeId);
         }
 
@@ -128,7 +128,7 @@ public class BlenderRecipe implements Recipe<SimpleContainer> {
             for (Ingredient ingredient : pRecipe.getIngredients()) {
                 ingredient.toNetwork(pBuffer);
             }
-            pBuffer.writeItem(pRecipe.getResultItem(null));   // 自动写入完整数据
+            pBuffer.writeItem(pRecipe.getResultItem(null));   // 鑷姩鍐欏叆瀹屾暣鏁版嵁
             pBuffer.writeItem(pRecipe.container);
         }
     }
