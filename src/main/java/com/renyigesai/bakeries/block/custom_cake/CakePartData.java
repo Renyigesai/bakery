@@ -10,17 +10,22 @@ public class CakePartData {
     private String id;
     private final String type;
     private final Ingredient ingredient;
-    private final ResourceLocation potionEffect; // 可为空
+    private final ResourceLocation potionEffect;
+    private final int effectAmplifier;
+    private final int effectDuration;
     private final int hunger;
     private final float saturation;
     private final float modelY;
     private final String loadId;
 
     public CakePartData(String type, Ingredient ingredient,
-                        ResourceLocation potionEffect, int hunger, float saturation, float modelY, String loadId) {
+                        ResourceLocation potionEffect, int effectAmplifier, int effectDuration,
+                        int hunger, float saturation, float modelY, String loadId) {
         this.type = type;
         this.ingredient = ingredient;
         this.potionEffect = potionEffect;
+        this.effectAmplifier = effectAmplifier;
+        this.effectDuration = effectDuration;
         this.hunger = hunger;
         this.saturation = saturation;
         this.modelY = modelY;
@@ -30,26 +35,14 @@ public class CakePartData {
     public String getType() { return type; }
     public Ingredient getIngredient() { return ingredient; }
     public ResourceLocation getPotionEffect() { return potionEffect; }
+    public int getEffectAmplifier() { return effectAmplifier; }
+    public int getEffectDuration() { return effectDuration; }
     public int getHunger() { return hunger; }
     public float getSaturation() { return saturation; }
-
-    public float getModelY() {
-        return modelY;
-    }
-
-    public String getLoadId() {
-        return loadId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
+    public float getModelY() { return modelY; }
+    public String getLoadId() { return loadId; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public static class Deserializer implements JsonDeserializer<CakePartData> {
         @Override
@@ -75,6 +68,18 @@ public class CakePartData {
                 }
             }
 
+            int effectAmplifier = 0;
+            if (obj.has("effect_amplifier") && !obj.get("effect_amplifier").isJsonNull()) {
+                effectAmplifier = obj.get("effect_amplifier").getAsInt();
+            }
+
+            int effectDuration = 0;
+            if (obj.has("effect_duration") && !obj.get("effect_duration").isJsonNull()) {
+                effectDuration = obj.get("effect_duration").getAsInt();
+            } else if (potionEffect != null) {
+                throw new JsonParseException("When potion_effect is specified, effect_duration must also be provided");
+            }
+
             int hunger = obj.get("hunger").getAsInt();
             float saturation = obj.get("saturation").getAsFloat();
 
@@ -88,7 +93,7 @@ public class CakePartData {
                 loadId = obj.get("load_id").getAsString();
             }
 
-            return new CakePartData(type, ingredient, potionEffect, hunger, saturation,modelY,loadId);
+            return new CakePartData(type, ingredient, potionEffect, effectAmplifier, effectDuration, hunger, saturation, modelY, loadId);
         }
     }
 }

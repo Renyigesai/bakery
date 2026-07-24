@@ -1,8 +1,8 @@
 {
 	"render_type": "translucent",
 	"textures": {
-		"0": "bakeries:block/luminous_light_sign",
-		"particle": "bakeries:block/luminous_light_sign"
+		"0": "bakeries:block/luminous_light_sign_lit",
+		"particle": "bakeries:block/luminous_light_sign_lit"
 	},
 	"elements": [
 		{

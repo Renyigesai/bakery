@@ -31,11 +31,6 @@ public class CreamCakeBlock extends InstanceCakeBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return box(3, 0, 3, 13, 7, 13);
-    }
-
-    @Override
     public void addEffect(LivingEntity entity) {
         entity.addEffect(new MobEffectInstance(BakeriesMobEffects.SOFT.get(),1200));
         entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION,1200));

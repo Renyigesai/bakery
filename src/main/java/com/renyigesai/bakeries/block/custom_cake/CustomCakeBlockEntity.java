@@ -43,7 +43,7 @@ public class CustomCakeBlockEntity extends BlockEntity {
             intArray0[i] = Float.floatToRawIntBits(yRot[i]);
         }
         pTag.putIntArray("YRot",intArray0);
-        pTag.putByteArray("partUse",this.partUse);
+        pTag.putByteArray("PartUse",this.partUse);
         pTag.putInt("Hunger",this.hunger);
         pTag.putFloat("Saturation",this.saturation);
 
@@ -67,7 +67,7 @@ public class CustomCakeBlockEntity extends BlockEntity {
             this.yRot[i] = Float.intBitsToFloat(intArray0[i]);
         }
 
-        this.partUse = pTag.getByteArray("partUse");
+        this.partUse = pTag.getByteArray("PartUse");
 
         this.hunger = pTag.getInt("Hunger");
         this.saturation = pTag.getInt("Saturation");
@@ -116,6 +116,10 @@ public class CustomCakeBlockEntity extends BlockEntity {
         return partId;
     }
 
+    public byte[] getPartUse() {
+        return partUse;
+    }
+
     public List<String> getPartIds() {
         if (partId.isEmpty()) {
             return Collections.emptyList();
@@ -147,6 +151,10 @@ public class CustomCakeBlockEntity extends BlockEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPartUse(byte[] partUse) {
+        this.partUse = partUse;
     }
 
     public void addPartId(CakePartData cakePartData) {
@@ -197,7 +205,9 @@ public class CustomCakeBlockEntity extends BlockEntity {
         this.saturation += cakePartData.getSaturation();
         MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(cakePartData.getPotionEffect());
         if (effect != null){
-            this.effects.add(new MobEffectInstance(effect,600,0));
+            int effectAmplifier = cakePartData.getEffectAmplifier();
+            int effectDuration = cakePartData.getEffectDuration();
+            this.effects.add(new MobEffectInstance(effect,effectDuration,effectAmplifier));
         }
         setChanged();
         if (this.level != null) {

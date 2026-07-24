@@ -52,12 +52,7 @@ public class FermentationBoxRender implements BlockEntityRenderer<FermentationBo
     @Override
     public void render(FermentationBoxBlockEntity box, float pPartialTicks, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
         renderBlock(box, pPartialTicks, poseStack, multiBufferSource, i, i1);
-        try {
-            renderItem(box,pPartialTicks,poseStack,multiBufferSource,i1);
-        }catch (Exception exception){
-
-        }
-
+        renderItem(box,pPartialTicks,poseStack,multiBufferSource,i1);
     }
 
     private void renderItem(FermentationBoxBlockEntity box, float pPartialTicks,PoseStack poseStack, MultiBufferSource multiBufferSource, int i1){
@@ -78,11 +73,8 @@ public class FermentationBoxRender implements BlockEntityRenderer<FermentationBo
                 poseStack.translate(vec2[solt].x + LEFT_MOVE,y,vec2[solt].y + LEFT_MOVE);
                 poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot() - 180));
                 poseStack.scale(0.35f,0.35f,0.35f);
-                try {
-                    renderModel(item,box,poseStack,multiBufferSource,i1,posLong);
-                }finally {
-                    poseStack.popPose();
-                }
+                renderModel(item,box,poseStack,multiBufferSource,i1,posLong);
+                poseStack.popPose();
             }
         }
     }

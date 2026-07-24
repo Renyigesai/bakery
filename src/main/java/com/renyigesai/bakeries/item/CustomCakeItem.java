@@ -10,6 +10,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +33,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomCakeItem extends BlockItem {
+
+    private final int eatCountMax = 4;
 
 
     public CustomCakeItem(Block pBlock, Properties pProperties) {
@@ -60,8 +64,39 @@ public class CustomCakeItem extends BlockItem {
     }
 
     public ItemStack onConsume(Level level, LivingEntity living, ItemStack food){
+        eat(level, living, food);
+        return consume(food,living);
+    }
+
+    public ItemStack consume(ItemStack stack, @Nullable LivingEntity living){
+
+        if (living instanceof Player player && player.getAbilities().instabuild){
+            return stack;
+        }
+
+        ItemStack cache = ItemStack.EMPTY;
+        stack.getOrCreateTag().putInt("EatCountMax",this.eatCountMax);
+        if (stack.getOrCreateTag().contains("EatCount")){
+            int oleEatCount = stack.getOrCreateTag().getInt("EatCount");
+            if (oleEatCount - 1 == 0){
+                cache = stack.copy();
+                stack.shrink(1);
+            }else {
+                stack.getOrCreateTag().putInt("EatCount",oleEatCount - 1);
+            }
+        }else {
+            stack.getOrCreateTag().putInt("EatCount",this.eatCountMax - 1);
+        }
+        if (stack.getOrCreateTag().contains("EatCount")){
+            int eatCount = stack.getOrCreateTag().getInt("EatCount");
+            return (eatCount - 1 == 0 && cache.hasCraftingRemainingItem()) ? cache.getCraftingRemainingItem() : stack;
+        }
+        return stack;
+    }
+
+    public void eat(Level level, LivingEntity living, ItemStack food){
         if (living instanceof Player player){
-            player.getFoodData().eat(getHunger(food),getSaturation(food));
+            player.getFoodData().eat(getHunger(food) / this.eatCountMax,getSaturation(food) / this.eatCountMax);
             player.awardStat(Stats.ITEM_USED.get(this));
             if (player instanceof ServerPlayer) {
                 CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, food);
@@ -69,12 +104,13 @@ public class CustomCakeItem extends BlockItem {
         }
         List<MobEffectInstance> effects = getEffects(food);
         if (!effects.isEmpty()){
-            List<MobEffectInstance> mobEffectInstances = CakeEffectRules.effectIteration(effects);
-            for (MobEffectInstance mobEffectInstance : mobEffectInstances) {
-                living.addEffect(mobEffectInstance);
+            if (!level.isClientSide){
+                List<MobEffectInstance> mobEffectInstances = CakeEffectRules.effectIteration(effects);
+                for (MobEffectInstance mobEffectInstance : mobEffectInstances) {
+                    living.addEffect(mobEffectInstance);
+                }
             }
         }
-        return food;
     }
 
     @Override
@@ -91,6 +127,9 @@ public class CustomCakeItem extends BlockItem {
         if (blockEntity instanceof CustomCakeBlockEntity cc) {
             if (tag.contains("PartId")){
                 cc.setPartId(tag.getString("PartId"));
+            }
+            if (tag.contains("PartUse")){
+                cc.setPartUse(tag.getByteArray("PartUse"));
             }
             if (tag.contains("Hunger")){
                 cc.setHunger(tag.getInt("Hunger"));
@@ -122,6 +161,8 @@ public class CustomCakeItem extends BlockItem {
         CompoundTag tag = stack.getOrCreateTag();
 
         tag.putString("PartId",cc.getPartId());
+
+        tag.putByteArray("PartUse",cc.getPartUse());
         tag.putInt("Hunger",cc.getHunger());
         tag.putFloat("Saturation",cc.getSaturation());
 
@@ -177,5 +218,29 @@ public class CustomCakeItem extends BlockItem {
             }
         }
         return super.getName(pStack);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        return 15574564;
+    }
+
+    public int getBarWidth(ItemStack stack) {
+        if (stack.getOrCreateTag().contains("EatCountMax")) {
+            int eatCount = stack.getOrCreateTag().getInt("EatCount");
+            int eatCountMax = stack.getOrCreateTag().getInt("EatCountMax");
+            return Mth.clamp(Math.round(13.0F * eatCount / eatCountMax), 0, 13);
+        }
+        return super.getBarWidth(stack);
+    }
+
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        if (!stack.getOrCreateTag().contains("EatCountMax")){
+            return false;
+        }
+        int eatCount = stack.getOrCreateTag().getInt("EatCount");
+        int eatCountMax = stack.getOrCreateTag().getInt("EatCountMax");
+        return eatCount < eatCountMax;
     }
 }

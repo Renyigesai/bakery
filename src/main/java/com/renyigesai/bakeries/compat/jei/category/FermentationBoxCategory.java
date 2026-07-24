@@ -55,4 +55,5 @@ public class FermentationBoxCategory implements IRecipeCategory<FermentationBoxR
         builder.addSlot(RecipeIngredientRole.INPUT,15, 8).addIngredients(recipe.getIngredients().get(0));
         builder.addSlot(RecipeIngredientRole.OUTPUT,15, 38).addItemStack(recipe.getResultItem(null));
     }
+
 }

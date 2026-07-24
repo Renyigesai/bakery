@@ -1,8 +1,0 @@
-{
-  "parent": "bakeries:custom/drink_1",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "0": "bakeries:block/taro_milk",
-    "particle": "minecraft:block/glass"
-  }
-}

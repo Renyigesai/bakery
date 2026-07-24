@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.block.custom_cake;
 import com.renyigesai.bakeries.block.cake_box.CakeBoxBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.CustomCakeItem;
+import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.measurer.CakePartMeasurer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -37,6 +39,11 @@ public class CustomCakeBlock extends HorizontalDirectionalBlock implements Entit
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return box(3.0, 0.0, 3.0, 13.0, 6.0, 13.0);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
     }
 
     @Override
@@ -62,6 +69,7 @@ public class CustomCakeBlock extends HorizontalDirectionalBlock implements Entit
                 return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
             }
             cc.addCakePart(cakePartData);
+            ItemUtils.shrinkAndReturn(itemInHand,1,pPlayer);
             return InteractionResult.SUCCESS;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

@@ -57,6 +57,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties MASHED_TARO;
     public static final FoodProperties TARO_SALT_YOLK_BREAD;
     public static final FoodProperties TARO_CAKE;
+    public static final FoodProperties COCOA_CREAM;
 
     /**模组联动食物属性*/
     public static final FoodProperties RICE_BREAD;
@@ -187,8 +188,10 @@ public class BakeriesFoodProperties {
 
         TARO_CAKE = new FoodProperties.Builder().nutrition(8).saturationMod(1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.SOFT.get(),1800),1F).alwaysEat().build();
 
+        COCOA_CREAM = new FoodProperties.Builder().nutrition(1).saturationMod(1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),400),1F).alwaysEat().build();
+
         /*模组联动食物属性*/
-        RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1f).build();
+        RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),600),1f).build();
         RICE_BREAD_FARMERSDELIGHT = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(ModEffects.COMFORT.get(),6000),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),600),1f).build();
 
         SALMON_SANDWICH = new FoodProperties.Builder().nutrition(10).saturationMod(0.85f).effect(new MobEffectInstance(MobEffects.REGENERATION,600),1f).alwaysEat().build();

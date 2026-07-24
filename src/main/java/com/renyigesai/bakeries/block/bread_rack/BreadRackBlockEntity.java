@@ -53,6 +53,15 @@ public class BreadRackBlockEntity extends BlockEntity {
         return true;
     }
 
+    public boolean putItem(int slot , ItemStack stack){
+        if (items.getStackInSlot(slot).isEmpty()){
+            items.setStackInSlot(slot,stack);
+            updateBlock();
+            return true;
+        }
+        return false;
+    }
+
     public ItemStackHandler getItems() {
         return items;
     }

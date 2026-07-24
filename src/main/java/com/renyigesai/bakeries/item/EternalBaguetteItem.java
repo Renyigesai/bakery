@@ -4,7 +4,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesMobEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -18,7 +17,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -27,17 +25,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class EternalBaguetteItem extends BaguetteItem implements Vanishable {
+public class EternalBaguetteItem extends Item implements Vanishable {
 
     public static final float baseDamage = 7f;
 
     public EternalBaguetteItem() {
-        super(BakeriesBlocks.BAGUETTE.get(), new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
-    }
-
-    @Override
-    public boolean isExtra(UseOnContext pContext) {
-        return false;
+        super(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     }
 
     @Override

@@ -1,6 +1,5 @@
 {
   "type": "bakeries:cake_topping",
-  "model": "bakeries:cake_part/caterpillar",
   "ingredient": [
     {
       "item": "kaleidoscope_cookery:caterpillar"

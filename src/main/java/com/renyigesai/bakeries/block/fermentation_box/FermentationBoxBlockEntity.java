@@ -139,6 +139,11 @@ public class FermentationBoxBlockEntity extends BaseContainerBlockEntity {
         box.fermentationMaxTime = Math.min(Math.max(fermentationMaxTime - amount, 0),1200);
     }
 
+    public void setFermentationMaxTime(FermentationBoxBlockEntity box,int fermentationMaxTime) {
+        updateBlock();
+        box.fermentationMaxTime = fermentationMaxTime;
+    }
+
     public int getPerfectTime() {
         return perfectTime;
     }

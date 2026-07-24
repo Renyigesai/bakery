@@ -5,7 +5,7 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.client.render.block.BlenderRenderer;
 import com.renyigesai.bakeries.client.render.block.BreadRackRender;
 import com.renyigesai.bakeries.block.cake.CakeRollProcessingBlockEntityRender;
-import com.renyigesai.bakeries.block.custom_cake.CustomCakeRenderer;
+import com.renyigesai.bakeries.client.render.block.CustomCakeRenderer;
 import com.renyigesai.bakeries.client.render.block.CakeBoxBlockEntityRender;
 import com.renyigesai.bakeries.client.render.block.FermentationBoxRender;
 import com.renyigesai.bakeries.client.render.block.LuminousLightSignBlockEntityRender;

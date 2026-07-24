@@ -5,7 +5,7 @@
     "particle": "bakeries:block/cheese_cocoa_toast"
   },
   "base": {
-    "parent": "bakeries:block/cheese_cocoa_toast_1"
+    "parent": "bakeries:block/cheese_cocoa_toast"
   },
   "perspectives":{
     "gui": {

@@ -5,7 +5,7 @@
     "particle": "bakeries:block/toast"
   },
   "base": {
-    "parent": "bakeries:block/toast_1"
+    "parent": "bakeries:block/toast"
   },
   "perspectives":{
     "gui": {

@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "papercraft_magic_decoration:truffle_chocolate"
+    }
+  ],
+  "potion_effect": "papercraft_magic_decoration:silky_feel",
+  "effect_duration": 3600,
+  "hunger": 4,
+  "saturation": 0.75,
+  "load_id": "papercraft_magic_decoration"
+}

@@ -106,12 +106,10 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> CUP_CAKE;
     public static final RegistryObject<Block> CAKE_BASE;
     public static final RegistryObject<Block> CREAM_CAKE;
-    public static final RegistryObject<Block> CUT_CAKE_BASE;
-    public static final RegistryObject<Block> CREAM_CAKE_PROCESSING;
     public static final RegistryObject<Block> TIRAMISU;
-    public static final RegistryObject<Block> SOAK_COFFEE_CUT_CAKE_BASE;
     public static final RegistryObject<Block> POUND_CAKE;
     public static final RegistryObject<Block> CARROT_CAKE;
+    public static final RegistryObject<Block> MATCHA_CAKE;
     public static final RegistryObject<Block> BASQUE_CAKE;
     public static final RegistryObject<Block> MULTI_LAYER_CREAM_CAKE;
     public static final RegistryObject<Block> CHEESE_CREAM_BREAD;
@@ -171,6 +169,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> MOULD_CAKE_BASE;
     public static final RegistryObject<Block> MOULD_CARROT_CAKE;
     public static final RegistryObject<Block> MOULD_BASQUE_CAKE;
+    public static final RegistryObject<Block> MOULD_MATCHA_CAKE;
     public static final RegistryObject<Block> COFFEE_TABLE;
     public static final RegistryObject<Block> SOFA;
     public static final RegistryObject<Block> SOFA_RED;
@@ -286,28 +285,31 @@ public class BakeriesBlocks {
                 new LazyMobEffectInstance(()-> MobEffects.REGENERATION,1200),
                 new LazyMobEffectInstance(BakeriesMobEffects.SOFT,1200)),10,0.25f));
 
-        CUT_CAKE_BASE = BLOCK_REGISTRY.register("cut_cake_base", CakeProcessingInitialBlock::new);
-
-        CREAM_CAKE_PROCESSING = BLOCK_REGISTRY.register("cream_cake_processing",()-> new CakeProcessingBlock(BakeriesItems.CUT_CAKE_BASE,BakeriesItems.FOAMED_CREAM,()-> Items.SWEET_BERRIES,()-> Items.SWEET_BERRIES,CREAM_CAKE,2));
+//        CUT_CAKE_BASE = BLOCK_REGISTRY.register("cut_cake_base", CakeProcessingInitialBlock::new);
+//
+//        CREAM_CAKE_PROCESSING = BLOCK_REGISTRY.register("cream_cake_processing",()-> new CakeProcessingBlock(BakeriesItems.CUT_CAKE_BASE,BakeriesItems.FOAMED_CREAM,()-> Items.SWEET_BERRIES,()-> Items.SWEET_BERRIES,CREAM_CAKE,2));
 
         TIRAMISU = BLOCK_REGISTRY.register("tiramisu", ()-> new InstanceCakeBlock(ItemUtils.addEffects(
                 new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200),
                 new LazyMobEffectInstance(BakeriesMobEffects.COCOA_MANIA,1200),
                 new LazyMobEffectInstance(()-> MobEffects.NIGHT_VISION,1200)),4,0.5f));
 
-        SOAK_COFFEE_CUT_CAKE_BASE = BLOCK_REGISTRY.register("soak_coffee_cut_cake_base", ()-> new CakeProcessingBlock(BakeriesItems.CHEESE_CREAM,BakeriesItems.SOAK_COFFEE_CUT_CAKE_BASE,BakeriesItems.CHEESE_CREAM,BakeriesItems.COCOA_POWDER,TIRAMISU));
+//        SOAK_COFFEE_CUT_CAKE_BASE = BLOCK_REGISTRY.register("soak_coffee_cut_cake_base", ()-> new CakeProcessingBlock(BakeriesItems.CHEESE_CREAM,BakeriesItems.SOAK_COFFEE_CUT_CAKE_BASE,BakeriesItems.CHEESE_CREAM,BakeriesItems.COCOA_POWDER,TIRAMISU));
 
         POUND_CAKE = BLOCK_REGISTRY.register("pound_cake",()-> new ToastBlock(BlockBehaviour.Properties.of().sound(PileBlock.PASTRY).strength(0.5F,0.5F),BakeriesItems.SLICED_POUND_CAKE));
 
         CARROT_CAKE = BLOCK_REGISTRY.register("carrot_cake",()-> new InstanceCakeBlock(ItemUtils.addEffects(
                 new LazyMobEffectInstance(()-> MobEffects.NIGHT_VISION,1200)),10,0.25f));
 
+        MATCHA_CAKE = BLOCK_REGISTRY.register("matcha_cake",()-> new InstanceCakeBlock(ItemUtils.addEffects(
+                new LazyMobEffectInstance(()-> BakeriesMobEffects.TEA_ASTRINGENT.get(),1200)),10,0.25f));
+
         BASQUE_CAKE = BLOCK_REGISTRY.register("basque_cake", ()-> new InstanceCakeBlock(ItemUtils.addEffects(
                 new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200)),6,0.5f));
 
         MULTI_LAYER_CREAM_CAKE = BLOCK_REGISTRY.register("multi_layer_cream_cake",MultiLayerCreamCakeBlock::new);
 
-        RED_VELVET_CAKE_BASE = BLOCK_REGISTRY.register("red_velvet_cake_base", RedVelvetCakeBaseBlock::new);
+        RED_VELVET_CAKE_BASE = BLOCK_REGISTRY.register("red_velvet_cake_base", CakeBaseBlock::new);
 
         RED_VELVET_CAKE = BLOCK_REGISTRY.register("red_velvet_cake", ()-> new InstanceCakeBlock(5,0.25f));
 
@@ -372,6 +374,7 @@ public class BakeriesBlocks {
         MOULD_CAKE_BASE = BLOCK_REGISTRY.register("mould_cake_base",()->new MouldCakeBlock(BakeriesItems.CAKE_BASE));
         MOULD_CARROT_CAKE = BLOCK_REGISTRY.register("mould_carrot_cake",()->new MouldCakeBlock(BakeriesItems.CARROT_CAKE));
         MOULD_BASQUE_CAKE = BLOCK_REGISTRY.register("mould_basque_cake",()->new MouldCakeBlock(BakeriesItems.BASQUE_CAKE));
+        MOULD_MATCHA_CAKE = BLOCK_REGISTRY.register("mould_matcha_cake",()->new MouldCakeBlock(BakeriesItems.MATCHA_CAKE));
         MOULD_RED_VELVET_CAKE = BLOCK_REGISTRY.register("mould_red_velvet_cake", ()->new MouldCakeBlock(BakeriesItems.RED_VELVET_CAKE_BASE));
         COFFEE_TABLE = BLOCK_REGISTRY.register("coffee_table",()-> new CoffeeTableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         SOFA = BLOCK_REGISTRY.register("sofa",()-> new SofaBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));

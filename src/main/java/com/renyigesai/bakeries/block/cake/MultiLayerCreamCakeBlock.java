@@ -36,7 +36,7 @@ public class MultiLayerCreamCakeBlock extends HorizontalDirectionalBlock impleme
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
+        return box(3.0, 0.0, 3.0, 13.0, 13.0, 13.0);
     }
 
     @Override

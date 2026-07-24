@@ -25,6 +25,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -46,6 +47,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.*;
+import java.util.function.Function;
 
 @Mod.EventBusSubscriber
 public class BakeriesEvents {
@@ -116,13 +118,14 @@ public class BakeriesEvents {
         BlockPos blockPos = event.getBlockPos();
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity != null){
-            LookBlockEntityRegistries.setBlocks(player,blockEntity);
-            return;
+            LookBlockEntityRegistries.setBlocks(player,blockPos);
+        }else {
+            LookBlockEntityRegistries.removeBlocks(player);
         }
-        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
-        if (blocks.get(player.getUUID()) != null){
-            blocks.remove(player.getUUID());
-        }
+//        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
+//        if (blocks.get(player.getUUID()) != null){
+//            blocks.remove(player.getUUID());
+//        }
     }
 
     @SubscribeEvent
@@ -182,43 +185,20 @@ public class BakeriesEvents {
     }
 
     @SubscribeEvent
-    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        Player player = event.getEntity();
-        Level level = event.getLevel();
-        ItemStack handItem = event.getItemStack();
-        InteractionHand hand = event.getHand();
-        if (level.isClientSide){
-            return;
-        }
-        if (!BakeriesMod.onAuxiliaryKey(player)){
-            return;
-        }
-        if (!(handItem.getItem() instanceof PileItem pileItem)){
-            return;
-        }
-        event.setCanceled(true);
-        event.setCancellationResult(InteractionResult.SUCCESS);
-        UseOnContext context = new UseOnContext(level, player, hand, handItem, event.getHitVec());
-        InteractionResult result = pileItem.pileUseOn(context);
-        if (result == InteractionResult.PASS) {
-
-        }
-    }
-
-    @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
         CakePartMeasurer.cakePartMeasurerServerBuilder();
         initCakeEffectRules();
     }
 
     private static void initCakeEffectRules(){
-        CakeEffectRules.registerRule(CakeEffectRules::tooDisgusting);
 
-        CakeEffectRulesRegistrationEvent event = new CakeEffectRulesRegistrationEvent(CakeEffectRules.getRules());
+        CakeEffectRulesRegistrationEvent event = new CakeEffectRulesRegistrationEvent();
+        event.registerRule(CakeEffectRules::tooDisgusting);
         MinecraftForge.EVENT_BUS.post(event);
 
-        CakeEffectRules.getRules().clear();
-        CakeEffectRules.getRules().addAll(event.getRules());
+        for (Function<List<MobEffectInstance>, List<MobEffectInstance>> rule : event.getRules()) {
+            CakeEffectRules.registerRule(rule);
+        }
     }
 
 }

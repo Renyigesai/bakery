@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "papercraft_magic_decoration:milk_chocolate"
+    }
+  ],
+  "potion_effect": "minecraft:regeneration",
+  "effect_duration": 600,
+  "hunger": 4,
+  "saturation": 0.75,
+  "load_id": "papercraft_magic_decoration"
+}

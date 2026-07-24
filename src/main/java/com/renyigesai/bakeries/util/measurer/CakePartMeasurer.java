@@ -2,6 +2,8 @@ package com.renyigesai.bakeries.util.measurer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.custom_cake.CakePartData;
 import net.minecraft.resources.ResourceLocation;
@@ -59,7 +61,7 @@ public class CakePartMeasurer {
             String path = fullPath.getPath();
             String namespace = fullPath.getNamespace();
             String prefix = "cake_parts/";
-            if (!path.startsWith(prefix) || !path.endsWith(".json")){
+            if (!path.startsWith(prefix) || !path.endsWith(".json")) {
                 continue;
             }
             String relative = path.substring(prefix.length(), path.length() - 5);
@@ -67,15 +69,27 @@ public class CakePartMeasurer {
 
             try (InputStream stream = entry.getValue().open();
                  Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-                 CakePartData data = GSON.fromJson(reader, CakePartData.class);
-                 if ("".equals(data.getLoadId()) || ModList.get().isLoaded(data.getLoadId())){
-                     data.setId(partId.toString());
-                     SERVER_PARTS.put(partId.toString(), data);
-                 }else {
 
-                 }
+                // 先解析为通用的 JsonObject，只读取 load_id
+                JsonObject obj = JsonParser.parseReader(reader).getAsJsonObject();
+                String loadId = "";
+                if (obj.has("load_id") && !obj.get("load_id").isJsonNull()) {
+                    loadId = obj.get("load_id").getAsString();
+                }
+
+                // 如果 load_id 不为空，且对应模组未加载，则跳过该部件
+                if (!"".equals(loadId) && !ModList.get().isLoaded(loadId)) {
+                    continue;
+                }
+
+                // 需要加载，再完整反序列化（此时使用同一个 JsonObject）
+                CakePartData data = GSON.fromJson(obj, CakePartData.class);
+                data.setId(partId.toString());
+                SERVER_PARTS.put(partId.toString(), data);
+
             } catch (Exception e) {
-                 BakeriesMod.LOGGER.error("Failed to parse cake part: {}", partId, e);
+                // 若文件本身语法错误，连 JsonObject 都解析不了，仍会报错，可调整日志级别
+                BakeriesMod.LOGGER.error("Failed to parse cake part: {}", partId, e);
             }
         }
         BakeriesMod.LOGGER.info("Loaded {} cake parts via listResources", SERVER_PARTS.size());

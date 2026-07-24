@@ -72,6 +72,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SALT_ORE.get());//盐矿石
                         output.accept(BakeriesItems.DEEPSLATE_SALT_ORE.get());//深层盐矿石
                         output.accept(BakeriesItems.SALT_WATER_BUCKET.get());//盐水桶
+                        output.accept(BakeriesItems.SALT_BUCKET.get());//盐桶
                         output.accept(BakeriesItems.RAW_SALT_BLOCK.get());//粗盐块
                         output.accept(BakeriesItems.SALT.get());//盐
                         output.accept(Items.SUGAR);//糖
@@ -81,6 +82,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BOTTLE_BUTTER.get());//瓶装黄油
                         output.accept(BakeriesItems.BUTTER_CUBE.get());//黄油块
                         output.accept(BakeriesItems.FOAMED_CREAM.get());//奶油
+                        output.accept(BakeriesItems.COCOA_CREAM.get());//可可奶油
                         output.accept(BakeriesItems.CHEESE_CREAM.get());//奶酪奶油
                         output.accept(BakeriesItems.BUTTER_FLOUR_SAND.get());//黄油面砂
                         output.accept(BakeriesItems.HONEY_BUTTER.get());//蜂蜜黄油
@@ -142,6 +144,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CUT_CAKE_BASE.get());//蛋糕胚切片
                         output.accept(BakeriesItems.RED_VELVET_CAKE_BASE.get());//红丝绒蛋糕胚
                         output.accept(BakeriesItems.SOAK_COFFEE_CUT_CAKE_BASE.get());//咖啡蛋糕胚切片
+                        output.accept(BakeriesItems.MATCHA_CAKE.get());//抹茶蛋糕
                         output.accept(BakeriesItems.CUP_CAKE.get());//纸杯蛋糕
                         output.accept(BakeriesItems.CAKE_ROLL.get());//蛋糕卷
                         output.accept(BakeriesItems.POUND_CAKE.get());//磅蛋糕
@@ -196,6 +199,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.MOULD_CARROT_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_BASQUE_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE.get());
+                        output.accept(BakeriesItems.MOULD_MATCHA_CAKE_PASTE.get());
                         output.accept(BakeriesItems.PAPER_CUP_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_POUND_CAKE_PASTE.get());
                         output.accept(BakeriesItems.BAGEL_DOUGH.get());

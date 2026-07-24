@@ -33,12 +33,12 @@ public class MenuBlockEntityRender implements BlockEntityRenderer<MenuBlockEntit
         ItemStack stackInSlot = inventory.getStackInSlot(0);
         if (!stackInSlot.isEmpty()){
             Vec2 vec2 = transformPositionByDirection(direction);
+            float f1 = -direction.toYRot() - 180f;
             poseStack.pushPose();
-            poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
             poseStack.translate(vec2.x,0.3125,vec2.y);
             float scale = 0.55f;
             poseStack.scale(scale,scale,scale);
-            ;
+            poseStack.mulPose(Axis.YP.rotationDegrees(f1));
             if (entity.getLevel() != null) {
                 Minecraft.getInstance().getItemRenderer().renderStatic(stackInSlot, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()), packedOverlay, poseStack, buffer, entity.getLevel(), (int) (posLong + 1));
             }

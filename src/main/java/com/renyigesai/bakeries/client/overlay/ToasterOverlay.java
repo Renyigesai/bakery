@@ -29,26 +29,22 @@ public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
         if (localPlayer == null) {
             return;
         }
-        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
-        BlockEntity blockEntity = blocks.get(localPlayer.getUUID());
-        if (blockEntity instanceof ToasterBlockEntity toaster) {
-            String text = "";
-            ToasterBlock.State state = toaster.getBlockState().getValue(ToasterBlock.STATE);
-            if (!toaster.getItems().getStackInSlot(0).isEmpty() && state == ToasterBlock.State.IDLE){
-                text = Component.translatable("tip.bakeries.toaster_1").getString();
-            }else if (state == ToasterBlock.State.FINISH){
-                text = Component.translatable("tip.bakeries.toaster_2",BakeriesMod.getAuxiliaryKeyName()).getString();
-            }
-
-            if (!text.isEmpty()){
-                IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
-                if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
-                    int length = clientUtilsMeasurer.getPixelLength(text);
-                    guiGraphics.renderTooltip(mc.font,Component.literal(text),w - length / 2 - 8,h + 64);
-                }
-
-            }
+        String text = "";
+        ToasterBlock.State state = entity.getBlockState().getValue(ToasterBlock.STATE);
+        if (!entity.getItems().getStackInSlot(0).isEmpty() && state == ToasterBlock.State.IDLE){
+            text = Component.translatable("tip.bakeries.toaster_1").getString();
+        }else if (state == ToasterBlock.State.FINISH){
+            text = Component.translatable("tip.bakeries.toaster_2",BakeriesMod.getAuxiliaryKeyName()).getString();
         }
+        if (!text.isEmpty()){
+            IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
+            if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
+                int length = clientUtilsMeasurer.getPixelLength(text);
+                guiGraphics.renderTooltip(mc.font,Component.literal(text),w - length / 2 - 8,h + 64);
+            }
+
+        }
+
     }
 
     @Override

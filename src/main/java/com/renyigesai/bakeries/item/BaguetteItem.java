@@ -16,6 +16,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,9 +42,6 @@ public class BaguetteItem extends RepeatEatItem {
 
     @Override
     public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
-        if (itemstack.getMaxDamage() > 0){
-            itemstack.hurtAndBreak(1, entity, i -> i.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        }
         if (BakeriesMod.aprilFoolsDay){
             if (sourceentity.level() instanceof ServerLevel serverLevel){
                 serverLevel.playSound(null,sourceentity.getX(),sourceentity.getY(),sourceentity.getZ(), BakeriesSounds.STEEL_PIPE.get(), SoundSource.PLAYERS,1,1);
@@ -61,6 +60,11 @@ public class BaguetteItem extends RepeatEatItem {
             return builder.build();
         }
         return super.getDefaultAttributeModifiers(equipmentSlot);
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return enchantment == Enchantments.UNBREAKING;
     }
 
     @Override

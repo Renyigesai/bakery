@@ -1,5 +1,5 @@
 {
   "textures": {
-    "particle": "minecraft:block/cake"
+    "particle": "bakeries:block/cake_base"
   }
 }

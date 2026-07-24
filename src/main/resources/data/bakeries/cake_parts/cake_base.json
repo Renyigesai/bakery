@@ -1,11 +1,12 @@
 {
   "type": "bakeries:cake_base",
-  "model": "bakeries:cake_part/cake_base",
   "ingredient": [
     {
       "item": "bakeries:cake_base"
     }
   ],
-  "hunger": 1,
-  "saturation": 0.2
+  "potion_effect": "bakeries:soft",
+  "effect_duration": 600,
+  "hunger": 5,
+  "saturation": 0.4
 }

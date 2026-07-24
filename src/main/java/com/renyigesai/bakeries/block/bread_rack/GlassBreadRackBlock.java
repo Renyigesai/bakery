@@ -45,7 +45,7 @@ public class GlassBreadRackBlock extends BreadRackBlock {
         boolean open = pState.getValue(OPEN);
         ItemStack itemInHand = pPlayer.getItemInHand(pHand);
         if (open && pPlayer.isShiftKeyDown()){
-            return super.take(rackBlock,pState,pLevel,pPos,pPlayer);
+            return super.take(rackBlock,pState,pLevel,pPos,pPlayer,pHit);
         }
         if (rackBlock.getItemsCount() == 4){
             pLevel.blockEvent(pPos,pState.getBlock(), 0,open ? 1 : 0);
@@ -64,6 +64,7 @@ public class GlassBreadRackBlock extends BreadRackBlock {
                 pLevel.blockEvent(pPos,pState.getBlock(), 0,0);
                 pLevel.setBlock(pPos,pState.setValue(OPEN,true),3);
                 pLevel.playSound(null,pPos, SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
+                return InteractionResult.SUCCESS;
             }
         }
         return InteractionResult.FAIL;

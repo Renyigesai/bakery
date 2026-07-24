@@ -68,7 +68,6 @@ public class BakeriesMod {
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         initUtilsMeasurer();
-        initCakeEffectRules();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BakeriesConfig.SPEC, "bakeries-common.toml");
     }
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -88,10 +87,6 @@ public class BakeriesMod {
         }else {
             utilsMeasurer = new ServerUtilsMeasurer();
         }
-    }
-
-    public void initCakeEffectRules(){
-        CakeEffectRules.registerRule(CakeEffectRules::tooDisgusting);
     }
 
     public static void refreshFloatingTemperature(){

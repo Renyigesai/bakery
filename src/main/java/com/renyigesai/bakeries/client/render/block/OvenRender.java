@@ -83,11 +83,8 @@ public class OvenRender implements BlockEntityRenderer<OvenBlockEntity> {
                 poseStack.translate(vec2[solt].x + LEFT_MOVE,y,vec2[solt].y + LEFT_MOVE);
                 poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot() - 180 + yp));
                 poseStack.scale(0.35f,0.35f,0.35f);
-                try {
-                    renderModel(item,oven,poseStack,multiBufferSource,i1,posLong);
-                }finally {
-                    poseStack.popPose();
-                }
+                renderModel(item,oven,poseStack,multiBufferSource,i1,posLong);
+                poseStack.popPose();
             }
         }
     }

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " c ",
+    "aba",
+    " c "
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:cut_cake_base"
+    },
+    "b": {
+      "item": "minecraft:sweet_berries"
+    },
+    "c": {
+      "tag": "forge:cream"
+    }
+  },
+  "result": {
+    "item": "bakeries:cream_cake",
+    "count": 1
+  }
+}

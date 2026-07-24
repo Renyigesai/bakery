@@ -43,8 +43,6 @@ public class CakeBaseBlock extends InstanceCakeBlock implements IKnifeCutBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.isClientSide) {
-//            BrushableBlockEntity brushableBlockEntity = new BrushableBlockEntity();
-//            brushableBlockEntity.type
             return cutOrEat(pState, pLevel, pPos, pPlayer, pHand);
         }
 

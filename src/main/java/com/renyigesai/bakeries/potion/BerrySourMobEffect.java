@@ -30,17 +30,19 @@ public class BerrySourMobEffect extends MobEffect {
             Entity attacker = event.getSource().getEntity();
             Entity entity = event.getEntity();
             if (attacker instanceof LivingEntity livingEntity && livingEntity.hasEffect(BakeriesMobEffects.BERRY_SOUR.get())){
+                int amplifier = livingEntity.getEffect((BakeriesMobEffects.BERRY_SOUR.get())).getAmplifier();
+                int realAmplifier = amplifier == 0 ? 1 : amplifier + 1;
 
                 float modifying;
                 /*如果生物在水中或者雨天，造成1.5倍伤害*/
-                modifying = entity.isInWater() || entity.level().isRainingAt(entity.blockPosition()) ? 1.5f : 0f;
+                modifying = entity.isInWater() || entity.level().isRainingAt(entity.blockPosition()) ? 1.5f * realAmplifier: 0f;
 
                 Random random = new Random();
                 boolean flag = false;
 
                 /*始终有百分之二十的概率触发二倍伤害，同时生成闪电束*/
-                if (random.nextDouble() <= 0.2){
-                    modifying = 2f;
+                if (random.nextDouble() <= 0.2 * realAmplifier){
+                    modifying = 2f * realAmplifier;
                     flag = true;
                 }
                 if (modifying > 0){

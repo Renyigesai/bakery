@@ -27,37 +27,34 @@ public class  StoneKilnOverlay implements ILookOverlay<StoneKilnBlockEntity>{
         if (localPlayer == null) {
             return;
         }
-        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
-        BlockEntity blockEntity = blocks.get(localPlayer.getUUID());
-        if (blockEntity instanceof StoneKilnBlockEntity stoneKilnBlockEntity) {
-            /*
-             * pX 纹理显示的Y位置
-             * pY 纹理显示的X位置
-             * pUOffset 选定纹理X位置
-             * pVOffset 选定纹理的Y位置
-             * 组合起来为选定纹理的左上角位置
-             * pWidth 选定纹理的裁剪显示宽度
-             * pHeight 选定纹理的裁剪显示高度
-             * 最后两个是纹理的宽和高
-             * 主要是写给自己看的,老是记不住这个几个b参数
-             * */
-            float scale = 1.5f;
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(w, h, 0); // 调整平移坐标
-            guiGraphics.pose().scale(scale, scale, scale);
-            guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/stone_kiln_progress_bar.png"), 0, 0, 0, 0, 103, 40, 103, 46);
-            int progressWidth = getProgressWidth(stoneKilnBlockEntity);
-            guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/stone_kiln_progress_bar.png"), 13, 19, 0, 40, progressWidth, 6, 103, 46);
-            int maxTurnOver = stoneKilnBlockEntity.getMaxTurnOver();
-            if (maxTurnOver != 0){
-                String string = maxTurnOver + "/" + stoneKilnBlockEntity.getTurnOver();
-                guiGraphics.drawString(mc.font, Component.nullToEmpty(string),44,9,16777215);
-            }
-            if (stoneKilnBlockEntity.isTurnOver()){
-                guiGraphics.drawString(mc.font, Component.translatable("tip.bakeries.stone_kiln_stone_kiln_shovel"),25,35,16777215);
-            }
-            guiGraphics.pose().popPose();
+        /*
+         * pX 纹理显示的Y位置
+         * pY 纹理显示的X位置
+         * pUOffset 选定纹理X位置
+         * pVOffset 选定纹理的Y位置
+         * 组合起来为选定纹理的左上角位置
+         * pWidth 选定纹理的裁剪显示宽度
+         * pHeight 选定纹理的裁剪显示高度
+         * 最后两个是纹理的宽和高
+         * 主要是写给自己看的,老是记不住这个几个b参数
+         * */
+
+        float scale = 1.5f;
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(w, h, 0); // 调整平移坐标
+        guiGraphics.pose().scale(scale, scale, scale);
+        guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/stone_kiln_progress_bar.png"), 0, 0, 0, 0, 103, 40, 103, 46);
+        int progressWidth = getProgressWidth(entity);
+        guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/stone_kiln_progress_bar.png"), 13, 19, 0, 40, progressWidth, 6, 103, 46);
+        int maxTurnOver = entity.getMaxTurnOver();
+        if (maxTurnOver != 0){
+            String string = maxTurnOver + "/" + entity.getTurnOver();
+            guiGraphics.drawString(mc.font, Component.nullToEmpty(string),44,9,16777215);
         }
+        if (entity.isTurnOver()){
+            guiGraphics.drawString(mc.font, Component.translatable("tip.bakeries.stone_kiln_stone_kiln_shovel"),25,35,16777215);
+        }
+        guiGraphics.pose().popPose();
         RenderSystem.depthMask(true);
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();

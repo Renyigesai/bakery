@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.client.overlay.ILookOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,12 +31,15 @@ public class BakeriesClientEvents {
         if (localPlayer == null){
             return;
         }
-        BlockEntity blockEntity = LookBlockEntityRegistries.getBlocks().get(localPlayer.getUUID());
-        if (blockEntity != null){
-            ILookOverlay iLookOverlay = LookBlockEntityRegistries.getRegister().get(blockEntity.getClass());
-            if (iLookOverlay != null) {
-                if (iLookOverlay.isOverlay(blockEntity,localPlayer,mc)) {
-                    iLookOverlay.create(event, blockEntity, localPlayer, mc);
+        BlockPos blockPos = LookBlockEntityRegistries.getBlocks().get(localPlayer.getUUID());
+        if (blockPos != null){
+            BlockEntity blockEntity = localPlayer.level().getBlockEntity(blockPos);
+            if (blockEntity != null){
+                ILookOverlay iLookOverlay = LookBlockEntityRegistries.getRegister().get(blockEntity.getClass());
+                if (iLookOverlay != null) {
+                    if (iLookOverlay.isOverlay(blockEntity,localPlayer,mc)) {
+                        iLookOverlay.create(event, blockEntity, localPlayer, mc);
+                    }
                 }
             }
         }

@@ -31,6 +31,7 @@ public class CakeEffectRules {
         for (MobEffectInstance mobEffectInstance : rule) {
             effects.add(mobEffectInstance.getEffect());
         }
+
         if (effects.contains(BakeriesMobEffects.BERRY_SOUR.get()) && effects.contains(BakeriesMobEffects.TEA_ASTRINGENT.get()) && effects.contains(BakeriesMobEffects.COCOA_MANIA.get())){
             int end = rule.size() - 1;
 
@@ -40,9 +41,13 @@ public class CakeEffectRules {
             amplifier ++;
 
             int duration = rule.get(end).getDuration() * 2;
-
+            System.out.println(duration + " " + amplifier);
             rule.set(end,new MobEffectInstance(effect,duration,amplifier));
         }
         return rule;
     }
+
+//    public static List<MobEffectInstance> amplification(List<MobEffectInstance> rule){
+//
+//    }
 }

@@ -25,17 +25,14 @@ public class GlassDrinkCupOverlay implements ILookOverlay<GlassDrinkCupBlockEnti
         if (localPlayer == null) {
             return;
         }
-        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
-        BlockEntity blockEntity = blocks.get(localPlayer.getUUID());
-        if (blockEntity instanceof GlassDrinkCupBlockEntity glassDrinkCupBlockEntity) {
-            guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/glass_drink_cup_overlay.png"), w, h, 0, 0, 142, 22, 142, 22);
-            int x = w + 3;
-            int y = h + 3;
-            for (int i = 0; i < 4; ++i) {
-                guiGraphics.renderItem(glassDrinkCupBlockEntity.getInventory().getStackInSlot(i),x + (i * 24),y, -1);
-            }
-            guiGraphics.renderItem(glassDrinkCupBlockEntity.getInventory().getStackInSlot(4),x + (5 * 24),y, -1);
+        guiGraphics.blit(new ResourceLocation("bakeries","textures/gui/glass_drink_cup_overlay.png"), w, h, 0, 0, 142, 22, 142, 22);
+        int x = w + 3;
+        int y = h + 3;
+        for (int i = 0; i < 4; ++i) {
+            guiGraphics.renderItem(entity.getInventory().getStackInSlot(i),x + (i * 24),y, -1);
         }
+        guiGraphics.renderItem(entity.getInventory().getStackInSlot(4),x + (5 * 24),y, -1);
+
         RenderSystem.depthMask(true);
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();

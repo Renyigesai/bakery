@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:salt_bucket"
+    }
+  ],
+  "result": {
+    "item": "bakeries:raw_salt_block",
+    "count": 1
+  }
+}

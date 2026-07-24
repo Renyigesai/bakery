@@ -8,6 +8,7 @@ import com.renyigesai.bakeries.client.overlay.GlassDrinkCupOverlay;
 import com.renyigesai.bakeries.client.overlay.ILookOverlay;
 import com.renyigesai.bakeries.client.overlay.StoneKilnOverlay;
 import com.renyigesai.bakeries.client.overlay.ToasterOverlay;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -20,17 +21,21 @@ import java.util.Map;
 import java.util.UUID;
 
 public class LookBlockEntityRegistries {
-    public static final Map<UUID, BlockEntity> blocks = new HashMap<>();
+    public static final Map<UUID, BlockPos> blocks = new HashMap<>();
     private static final Map<Class<? extends BlockEntity>, ILookOverlay<? extends BlockEntity>> REGISTER = new HashMap<>();
 
-    public static Map<UUID, BlockEntity> getBlocks() {
+    public static Map<UUID, BlockPos> getBlocks() {
         return blocks;
     }
 
-    public static void setBlocks(Player player, BlockEntity entity) {
+    public static void setBlocks(Player player, BlockPos pos) {
         if (player.level().isClientSide) {
-            blocks.put(player.getUUID(), entity);
+            blocks.put(player.getUUID(), pos);
         }
+    }
+
+    public static void removeBlocks(Player player) {
+        blocks.remove(player.getUUID());
     }
 
     public static Map<Class<? extends BlockEntity>, ILookOverlay<? extends BlockEntity>> getRegister() {

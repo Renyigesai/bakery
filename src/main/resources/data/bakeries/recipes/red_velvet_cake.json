@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    " b "
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:cheese_cream"
+    },
+    "b": {
+      "item": "bakeries:red_velvet_cake_base"
+    }
+  },
+  "result": {
+    "item": "bakeries:red_velvet_cake",
+    "count": 1
+  }
+}
