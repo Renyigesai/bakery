@@ -99,6 +99,7 @@ public class BakeriesItems {
     功能物品
     */
     public static final RegistryObject<Item> BREAD_KNIFE;
+    public static final RegistryObject<Item> NETHERITE_BREAD_KNIFE;
     public static final RegistryObject<Item> FLOUR_SIEVE;
     public static final RegistryObject<Item> STONE_KILN_SHOVEL;
     public static final RegistryObject<Item> BAYSALT_FRAME;
@@ -350,6 +351,7 @@ public class BakeriesItems {
         功能物品
         */
         BREAD_KNIFE = REGISTER.register("bread_knife",()-> new BreadKnifeItem(0.5F,-0.2F,Tiers.IRON,new Item.Properties()));
+        NETHERITE_BREAD_KNIFE = REGISTER.register("netherite_bread_knife",()-> new BreadKnifeItem(0.5F,-0.2F,Tiers.NETHERITE,new Item.Properties()));
         FLOUR_SIEVE = REGISTER.register("flour_sieve",()->new FlourSieveItem(new Item.Properties().stacksTo(1).defaultDurability(250)));
         STONE_KILN_SHOVEL = REGISTER.register("stone_kiln_shovel", StoneKilnShovelItem::new);
         ETERNAL_BAGUETTE = REGISTER.register("eternal_baguette", EternalBaguetteItem::new);

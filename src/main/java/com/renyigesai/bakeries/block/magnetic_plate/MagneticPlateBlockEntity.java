@@ -1,6 +1,5 @@
 package com.renyigesai.bakeries.block.magnetic_plate;
 
-import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +19,7 @@ public class MagneticPlateBlockEntity extends BlockEntity {
     private String blockId = "minecraft:air";
     private final ItemStackHandler items = new ItemStackHandler(2);
     private float[] xyo = new float[]{0,0,0,0};
+    private int rotationFlag = 1;
 
     public MagneticPlateBlockEntity( BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.MAGNETIC_PLATE_ENTITY.get(), pPos, pBlockState);
@@ -36,6 +36,7 @@ public class MagneticPlateBlockEntity extends BlockEntity {
             intArray0[i] = Float.floatToRawIntBits(xyo[i]);
         }
         pTag.putIntArray("Xyo",intArray0);
+        pTag.putInt("RotationFlag",this.rotationFlag);
 
     }
 
@@ -52,6 +53,8 @@ public class MagneticPlateBlockEntity extends BlockEntity {
         for (int i = 0; i < intArray0.length; i++) {
             xyo[i] = Float.intBitsToFloat(intArray0[i]);
         }
+
+        this.rotationFlag = pTag.getInt("RotationFlag");
     }
 
     public void drops(MagneticPlateBlockEntity blockEntity) {
@@ -109,4 +112,19 @@ public class MagneticPlateBlockEntity extends BlockEntity {
         return xyo;
     }
 
+    public int getRotationFlag() {
+        return rotationFlag;
+    }
+
+    public void setRotationFlag(int rotationFlag) {
+        this.rotationFlag = rotationFlag;
+    }
+
+    public void addRotationFlag(){
+        if (this.rotationFlag == 3){
+            this.rotationFlag = 0;
+            return;
+        }
+        this.rotationFlag ++;
+    }
 }

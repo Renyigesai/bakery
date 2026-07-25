@@ -12,7 +12,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class Messages {
 
-    private static SimpleChannel INSTANCE;
+    public static SimpleChannel INSTANCE;
 
     private static int packetId = 0;
 
@@ -28,18 +28,6 @@ public class Messages {
                 .serverAcceptedVersions(s -> true)
                 .simpleChannel();
         INSTANCE = net;
-//        net.messageBuilder(ClientboundUpdateCastingState.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-//                .decoder(ClientboundUpdateCastingState::new)
-//                .encoder(ClientboundUpdateCastingState::toBytes)
-//                .consumerMainThread(ClientboundUpdateCastingState::handle)
-//                .add();
-//
-//        net.registerMessage(id(),
-//                ImmortalButtonMessage.class,
-//                ImmortalButtonMessage::toBytes,
-//                ImmortalButtonMessage::new,
-//                ImmortalButtonMessage::handle);
-
         net.messageBuilder(OvenButtonMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(OvenButtonMessage::new)
                 .encoder(OvenButtonMessage::toBytes)
@@ -64,6 +52,11 @@ public class Messages {
                 .decoder(FluidSyncS2CPacket::new)
                 .encoder(FluidSyncS2CPacket::toBytes)
                 .consumerMainThread(FluidSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(CakePartTypeSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CakePartTypeSyncS2CPacket::new)
+                .encoder(CakePartTypeSyncS2CPacket::toBytes)
+                .consumerMainThread(CakePartTypeSyncS2CPacket::handle)
                 .add();
     }
 

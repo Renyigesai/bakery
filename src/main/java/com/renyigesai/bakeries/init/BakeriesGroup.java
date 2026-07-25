@@ -59,6 +59,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());//黑白混凝土
                         output.accept(BakeriesItems.FLOUR_SIEVE.get());//面粉筛
                         output.accept(BakeriesItems.BREAD_KNIFE.get());//面包刀
+                        output.accept(BakeriesItems.NETHERITE_BREAD_KNIFE.get());//下界合金面包刀
                         output.accept(BakeriesItems.STONE_KILN_SHOVEL.get());//炉铲
                         output.accept(BakeriesItems.MOULD.get());//模具
                         output.accept(BakeriesItems.MOULD_TWO.get());//模具

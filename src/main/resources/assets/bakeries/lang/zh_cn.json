@@ -223,6 +223,7 @@
   "item.bakeries.cocoa_cream": "可可奶油",
   "item.bakeries.soak_coffee_cut_cake_base": "浸润咖啡液的蛋糕胚切片",
   "item.bakeries.cut_cake_base": "蛋糕胚切片",
+  "item.bakeries.netherite_bread_knife": "下界合金面包刀",
   "item.bakeries.salt_bucket": "盐桶",
   "block.bakeries.raw_pizza": "生披萨",
   "block.bakeries.custom_pizza": "披萨",
@@ -403,6 +404,7 @@
   "tip.bakeries.stone_kiln_stone_kiln_shovel": "使用炉铲以翻面",
   "tip.bakeries.toaster_1": "空手右键以开始烤制",
   "tip.bakeries.toaster_2": "%s加右键以取出物品",
+  "tooltip.bakeries.cake_part": "可用于蛋糕：%s",
   "gui.bakeries.oven.temperature": "当前温度",
   "gui.bakeries.rolling": "§o滚动调整",
   "gui.bakeries.fermentation_box.humidity": "当前湿度",
@@ -412,5 +414,9 @@
   "key.bakeries.auxiliary": "辅助按键",
   "rarity.advanced.name": "加强",
   "rarity.taro.name": "香芋紫",
-  "pack.bakeries.2d_icon": "【烘焙坊】2D图标材质包"
+  "pack.bakeries.2d_icon": "【烘焙坊】2D图标材质包",
+  "cake_part.bakeries.bakeries:cake_base": "蛋糕胚",
+  "cake_part.bakeries.bakeries:cake_filling": "内馅",
+  "cake_part.bakeries.bakeries:cake_cream": "奶油层",
+  "cake_part.bakeries.bakeries:cake_topping": "顶部"
 }

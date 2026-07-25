@@ -150,6 +150,7 @@
   "item.bakeries.cocoa_cream": "Cocoa Cream",
   "item.bakeries.soak_coffee_cut_cake_base": "Soak Coffee Cut Cake Base",
   "item.bakeries.cut_cake_base": "Cut Cake Base",
+  "item.bakeries.netherite_bread_knife": "Netherite Bread Knife",
   "block.bakeries.raw_pizza": "Raw Pizza",
   "block.bakeries.mix_bread_block": "Mix Block",
   "block.bakeries.mould_red_velvet_cake": "Red Velvet Cake Base",
@@ -414,5 +415,10 @@
   "key.bakeries.auxiliary": "Auxiliary",
   "rarity.advanced.name": "Advanced",
   "rarity.taro.name": "Taro",
-  "pack.bakeries.2d_icon": "[Bakeries]2D Icon"
+  "pack.bakeries.2d_icon": "[Bakeries]2D Icon",
+  "tooltip.bakeries.cake_part": "Can be used for cakes:%s",
+  "cake_part.bakeries.bakeries:cake_base": "Cake Base",
+  "cake_part.bakeries.bakeries:cake_filling": "Cake Filling",
+  "cake_part.bakeries.bakeries:cake_cream": "Cake Cream",
+  "cake_part.bakeries.bakeries:cake_topping": "Cake Topping"
 }

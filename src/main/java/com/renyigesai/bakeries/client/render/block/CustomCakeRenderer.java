@@ -42,6 +42,9 @@ public class CustomCakeRenderer implements BlockEntityRenderer<CustomCakeBlockEn
             poseStack.pushPose();
             poseStack.translate(0.5, 0.0, 0.5);
             poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
+            if (direction == Direction.WEST || direction == Direction.EAST){
+                poseStack.mulPose(Axis.YP.rotationDegrees(180));
+            }
             poseStack.translate(-0.5, 0.0, -0.5);
             poseStack.scale(1, 1, 1);
             renderModel(model, poseStack, multiBufferSource, i, i1);

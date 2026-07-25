@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "bakeries:item/netherite_bread_knife"
+  }
+}

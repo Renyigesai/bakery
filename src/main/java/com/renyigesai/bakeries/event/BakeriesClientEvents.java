@@ -2,14 +2,20 @@ package com.renyigesai.bakeries.event;
 
 import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.client.overlay.ILookOverlay;
+import com.renyigesai.bakeries.util.measurer.CakePartMeasurer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RenderGuiEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -43,6 +49,16 @@ public class BakeriesClientEvents {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onItemTooltip(ItemTooltipEvent event){
+        CakePartMeasurer.getClientPartsType().forEach((key, value) -> {
+            Item item = BuiltInRegistries.ITEM.get(key);
+            if (event.getItemStack().is(item)){
+                event.getToolTip().add(Component.translatable("tooltip.bakeries.cake_part",CakePartMeasurer.getPartTypeName(value)).withStyle(ChatFormatting.DARK_GRAY));
+            }
+        });
     }
 
 }

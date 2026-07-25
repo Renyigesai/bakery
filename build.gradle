@@ -197,7 +197,7 @@ dependencies {
     implementation fg.deobf("curse.maven:patchouli-306770:7731017")
     runtimeOnly fg.deobf("curse.maven:create-328085:6323270")
     runtimeOnly fg.deobf("curse.maven:architectury-api-419699:5137936")
-    implementation fg.deobf("curse.maven:kaleidoscope-cookery-1309203:7966280")
+    implementation fg.deobf("curse.maven:kaleidoscope-cookery-1309203:8266769")
     implementation fg.deobf("curse.maven:appleskin-248787:4770828")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

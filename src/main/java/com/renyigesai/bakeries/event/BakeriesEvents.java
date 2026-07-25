@@ -1,15 +1,17 @@
 package com.renyigesai.bakeries.event;
 
-import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.CakeEffectRulesRegistrationEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
-import com.renyigesai.bakeries.api.item.PileItem;
+import com.renyigesai.bakeries.block.custom_cake.CakePartData;
 import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.BaguetteItem;
+import com.renyigesai.bakeries.item.BreadKnifeItem;
 import com.renyigesai.bakeries.item.ColdDrinkItem;
+import com.renyigesai.bakeries.network.CakePartTypeSyncS2CPacket;
+import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.WorldUtil;
 import com.renyigesai.bakeries.util.measurer.CakeEffectRules;
@@ -24,7 +26,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -33,18 +34,19 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.function.Function;
@@ -98,7 +100,7 @@ public class BakeriesEvents {
         }
             ItemStack mainHandItem = entity.getMainHandItem();
             ItemStack offhandItem = entity.getOffhandItem();
-            if (offhandItem.is(BakeriesItems.BREAD_KNIFE.get()) && mainHandItem.is(Items.EGG)) {
+            if (offhandItem.getItem() instanceof BreadKnifeItem && mainHandItem.is(Items.EGG)) {
                 if (!level.isClientSide()) {
                     event.setCanceled(true);
                     mainHandItem.shrink(1);
@@ -122,10 +124,6 @@ public class BakeriesEvents {
         }else {
             LookBlockEntityRegistries.removeBlocks(player);
         }
-//        Map<UUID, BlockEntity> blocks = LookBlockEntityRegistries.getBlocks();
-//        if (blocks.get(player.getUUID()) != null){
-//            blocks.remove(player.getUUID());
-//        }
     }
 
     @SubscribeEvent
@@ -133,6 +131,7 @@ public class BakeriesEvents {
         if (!BakeriesConfig.provideTutorialBooks){
             return;
         }
+
         Player entity = event.getEntity();
         if (!ModList.get().isLoaded("patchouli")){
             if (!entity.level().isClientSide){
@@ -140,8 +139,8 @@ public class BakeriesEvents {
                 return;
             }
         }
-        boolean b1 = WorldUtil.isDoneAdvancement(entity,entity.level(),new ResourceLocation("bakeries","root"));
-        if (!b1){
+        boolean root = WorldUtil.isDoneAdvancement(entity,entity.level(),new ResourceLocation("bakeries","root"));
+        if (!root){
             LootTable lootTables = WorldUtil.getLootTables("grant_patchi_book", entity.level(),"bakeries");
             List<ItemStack> fromLootTableItemStack = WorldUtil.getFromLootTableItemStack(lootTables, entity.level(), entity.getOnPos());
             for (ItemStack itemStack : fromLootTableItemStack) {
@@ -186,7 +185,7 @@ public class BakeriesEvents {
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
-        CakePartMeasurer.cakePartMeasurerServerBuilder();
+        CakePartMeasurer.cakePartMeasurerBuilder();
         initCakeEffectRules();
     }
 
@@ -194,11 +193,17 @@ public class BakeriesEvents {
 
         CakeEffectRulesRegistrationEvent event = new CakeEffectRulesRegistrationEvent();
         event.registerRule(CakeEffectRules::tooDisgusting);
+        event.registerRule(CakeEffectRules::amplification);
         MinecraftForge.EVENT_BUS.post(event);
 
         for (Function<List<MobEffectInstance>, List<MobEffectInstance>> rule : event.getRules()) {
             CakeEffectRules.registerRule(rule);
         }
+    }
+
+    @SubscribeEvent
+    public static void onDatapackSync(OnDatapackSyncEvent event){
+        CakePartMeasurer.loadAllClientPartsType(event);
     }
 
 }

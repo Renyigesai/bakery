@@ -22,6 +22,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
+import vectorwing.farmersdelight.data.BlockStates;
 
 public class MagneticPlateRenderer implements BlockEntityRenderer<MagneticPlateBlockEntity> {
 
@@ -55,35 +57,10 @@ public class MagneticPlateRenderer implements BlockEntityRenderer<MagneticPlateB
         Direction facing = tile.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
         int posLong = (int) tile.getBlockPos().asLong();
         poseStack.pushPose();
-        switch (facing){
-            case SOUTH -> {
-                poseStack.mulPose(Axis.YP.rotationDegrees(180));
-                poseStack.translate(-u,v,-0.9375);
-            }
-            case NORTH -> {
-                poseStack.translate(1 - u,v,0.0625);
-            }
-            case WEST -> {
-                poseStack.mulPose(Axis.YP.rotationDegrees(90));
-                poseStack.translate(-u,v,0.0625);
-            }
-            case EAST -> {
-                poseStack.mulPose(Axis.YP.rotationDegrees(-90));
-                poseStack.translate(1 - u,v,-0.9375);
-            }
-        }
+        applyMagneticPlateTransform(poseStack,facing,u,v);
         poseStack.scale(0.5f,0.5f,0.5f);
         if (tile.getLevel() != null) {
-            Minecraft.getInstance().getItemRenderer().renderStatic(
-                    stack,
-                    ItemDisplayContext.NONE,
-                    LevelRenderer.getLightColor(tile.getLevel(), tile.getBlockPos()),
-                    packedOverlay,
-                    poseStack,
-                    buffer,
-                    tile.getLevel(),
-                    (int) (posLong + 1)
-            );
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(tile.getLevel(), tile.getBlockPos()), packedOverlay, poseStack, buffer, tile.getLevel(), (int) (posLong + 1));
         }
         poseStack.popPose();
     }
@@ -106,8 +83,6 @@ public class MagneticPlateRenderer implements BlockEntityRenderer<MagneticPlateB
         Direction direction = tile.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
         poseStack.pushPose();
 
-
-        // 1. 移动到方块中心
         poseStack.translate(0.5, 0.5, 0.5);
         poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
         poseStack.translate(0, 0.5, -0.5);
@@ -119,15 +94,15 @@ public class MagneticPlateRenderer implements BlockEntityRenderer<MagneticPlateB
             if (rm.getResource(textureName).isEmpty()){
                 textureName = DEFAULT_TEXTURE;
             }
-            VertexConsumer original = buffer.getBuffer(RenderType.entityCutoutNoCull(textureName));;
-            VertexConsumer flipped = getVertexConsumer(original);
+            VertexConsumer original = buffer.getBuffer(RenderType.entityCutoutNoCull(textureName));
+            VertexConsumer flipped = getVertexConsumer(original,tile.getRotationFlag());
             model.renderToBuffer(poseStack,flipped,packedLight,packedOverlay,1.0F, 1.0F, 1.0F, 1.0F);
         }
 
         poseStack.popPose();
     }
 
-    private @NotNull VertexConsumer getVertexConsumer(VertexConsumer original) {
+    private @NotNull VertexConsumer getVertexConsumer(VertexConsumer original, int rotation) {
         return new VertexConsumer() {
             @Override
             public VertexConsumer vertex(double x, double y, double z) { original.vertex(x,y,z); return this; }
@@ -135,7 +110,13 @@ public class MagneticPlateRenderer implements BlockEntityRenderer<MagneticPlateB
             public VertexConsumer color(int r, int g, int b, int a) { original.color(r,g,b,a); return this; }
             @Override
             public VertexConsumer uv(float u, float v) {
-                return original.uv(1.0f - v, u);
+                return switch (rotation & 3) {
+                    case 0 -> original.uv(u, v);
+                    case 1 -> original.uv(1.0f - v, u);
+                    case 2 -> original.uv(1.0f - u, 1.0f - v);
+                    case 3 -> original.uv(v, 1.0f - u);
+                    default -> original.uv(u, v);
+                };
             }
             @Override
             public VertexConsumer overlayCoords(int u, int v) { original.overlayCoords(u,v); return this; }
@@ -152,6 +133,26 @@ public class MagneticPlateRenderer implements BlockEntityRenderer<MagneticPlateB
         };
     }
 
-
+    private void applyMagneticPlateTransform(PoseStack poseStack, Direction displayDir, float u, float v) {
+        switch (displayDir){
+            case SOUTH -> {
+                poseStack.mulPose(Axis.YP.rotationDegrees(180));
+                poseStack.translate(-u,v,-0.9375);
+            }
+            case NORTH -> {
+                poseStack.translate(1 - u,v,0.0625);
+            }
+            case WEST -> {
+                poseStack.mulPose(Axis.YP.rotationDegrees(90));
+                poseStack.translate(-u,v,0.0625);
+            }
+            case EAST -> {
+                poseStack.mulPose(Axis.YP.rotationDegrees(-90));
+                poseStack.translate(1 - u,v,-0.9375);
+            }
+        }
+        poseStack.mulPose(Axis.YP.rotationDegrees(-180));
+        poseStack.translate(0,0,-0.03125);
+    }
 
 }

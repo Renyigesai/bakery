@@ -150,7 +150,7 @@ public class BakeriesFoodProperties {
 
         TOMATO_CHEESE_CROISSANT_SANDWICH = new FoodProperties.Builder().nutrition(10).saturationMod(0.9f).effect(()->new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),6000,2),1F).alwaysEat().build();
 
-        BERRY_BAGEL = new FoodProperties.Builder().nutrition(8).saturationMod(0.625f).effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F).alwaysEat().build();
+        BERRY_BAGEL = new FoodProperties.Builder().nutrition(8).saturationMod(0.625f).effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F).effect(()-> new MobEffectInstance(BakeriesMobEffects.BERRY_SOUR.get(),600),1F).alwaysEat().build();
 
         HONEY_BUTTER_SPREAD_TOAST = new FoodProperties.Builder().nutrition(8).saturationMod(0.5f).alwaysEat().build();
 

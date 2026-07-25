@@ -6,13 +6,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.custom_cake.CakePartData;
+import com.renyigesai.bakeries.network.CakePartTypeSyncS2CPacket;
+import com.renyigesai.bakeries.network.Messages;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.io.*;
@@ -29,16 +34,17 @@ public class CakePartMeasurer {
     public static final String CAKE_CREAM = "bakeries:cake_cream";
     public static final String CAKE_TOPPING = "bakeries:cake_topping";
     private static final Map<String,CakePartData> SERVER_PARTS = new HashMap<>();
+    private static final Map<ResourceLocation,String> CLIENT_PARTS_TYPE = new HashMap<>();
 
     private CakePartMeasurer() {
-        GSON = new GsonBuilder().registerTypeAdapter(CakePartData.class, new CakePartData.Deserializer()).create();;
+        GSON = new GsonBuilder().registerTypeAdapter(CakePartData.class, new CakePartData.Deserializer()).create();
     }
 
-    public static void cakePartMeasurerServerBuilder(){
-        new CakePartMeasurer().loadServerAllParts();
+    public static void cakePartMeasurerBuilder(){
+        new CakePartMeasurer().loadAllParts();
     }
 
-    private void loadServerAllParts() {
+    private void loadAllParts() {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server == null) {
             BakeriesMod.LOGGER.warn("Cannot load cake parts: server not available");
@@ -95,8 +101,28 @@ public class CakePartMeasurer {
         BakeriesMod.LOGGER.info("Loaded {} cake parts via listResources", SERVER_PARTS.size());
     }
 
+    public static void loadAllClientPartsType(OnDatapackSyncEvent event){
+        HashMap<ResourceLocation, String> map = new HashMap<>();
+        List<CakePartData> allParts = CakePartMeasurer.getAllParts();
+        for (CakePartData data : allParts) {
+            for (int slot = 0; slot < data.getIngredient().getItems().length; slot++) {
+                map.put(ForgeRegistries.ITEMS.getKey(data.getIngredient().getItems()[slot].getItem()), data.getType());
+            }
+        }
+        CakePartTypeSyncS2CPacket packet = new CakePartTypeSyncS2CPacket(map);
+        if (event.getPlayer() != null){
+            Messages.INSTANCE.send(PacketDistributor.PLAYER.with(event::getPlayer), packet);
+        }else {
+            Messages.INSTANCE.send(PacketDistributor.ALL.noArg(), packet);
+        }
+    }
+
     public static Map<String, CakePartData> getParts() {
         return SERVER_PARTS;
+    }
+
+    public static Map<ResourceLocation,String> getClientPartsType(){
+        return CLIENT_PARTS_TYPE;
     }
 
     public static List<CakePartData> getAllParts() {
@@ -111,5 +137,9 @@ public class CakePartMeasurer {
             }
         }
         return Optional.empty();
+    }
+
+    public static Component getPartTypeName(String type){
+        return Component.translatable("cake_part.bakeries." + type);
     }
 }
