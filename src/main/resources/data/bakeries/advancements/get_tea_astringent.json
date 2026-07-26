@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "bakeries:matcha_powder"
+    },
+    "title": {
+      "translate": "advancements.bakeries.get_tea_astringent.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.get_tea_astringent.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "on": {
+      "trigger": "minecraft:tick",
+      "conditions": {
+        "player": {
+          "effects": {
+            "bakeries:tea_astringent": {
+              
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "on"
+    ]
+  ],
+  "parent": "bakeries:root"
+}
