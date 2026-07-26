@@ -29,6 +29,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties ICED_AMERICAN;
     public static final FoodProperties ICED_LATTE;
     public static final FoodProperties BROWN_SUGAR_LATTE;
+    public static final FoodProperties BUTTER_LATTE;
     public static final FoodProperties FOCACCIA;
     public static final FoodProperties DIRTY_CHOCO_CROISSANT;
     public static final FoodProperties BAGUETTE_WITH_FILLING;
@@ -134,6 +135,7 @@ public class BakeriesFoodProperties {
         ICED_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
 
         BROWN_SUGAR_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).alwaysEat().build();
+        BUTTER_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.SATURATION,5),1f).alwaysEat().build();
 
         CREAM_BINGLE_COFFEE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).nutrition(1).saturationMod(0.5f).alwaysEat().build();
 

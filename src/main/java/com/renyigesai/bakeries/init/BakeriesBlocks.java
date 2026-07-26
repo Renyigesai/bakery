@@ -156,6 +156,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> MEAT_FLOSS_BREAD_ROLL;
     public static final RegistryObject<Block> ICED_LATTE;
     public static final RegistryObject<Block> BROWN_SUGAR_LATTE;
+    public static final RegistryObject<Block> BUTTER_LATTE;
     public static final RegistryObject<Block> ICED_AMERICAN;
     public static final RegistryObject<Block> ORANGE_AMERICAN;
     public static final RegistryObject<Block> COFFEE_PLANT;
@@ -357,6 +358,7 @@ public class BakeriesBlocks {
                 new Block(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL)));
         ICED_LATTE = coldDrinkBlock("iced_latte");
         BROWN_SUGAR_LATTE = coldDrinkBlock("brown_sugar_latte");
+        BUTTER_LATTE = coldDrinkBlock("butter_latte");
         ICED_AMERICAN = coldDrinkBlock("iced_american");
         ORANGE_AMERICAN = coldDrinkBlock("orange_american");
         CREAM_BINGLE_COFFEE = coldDrinkBlock("cream_bingle_coffee");

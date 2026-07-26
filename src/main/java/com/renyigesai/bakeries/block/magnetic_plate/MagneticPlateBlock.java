@@ -206,9 +206,4 @@ public class MagneticPlateBlock extends HorizontalDirectionalBlock implements En
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new MagneticPlateBlockEntity(blockPos,blockState);
     }
-
-    @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-       pTooltip.add(Component.translatable("").withStyle(ChatFormatting.BLUE));
-    }
 }

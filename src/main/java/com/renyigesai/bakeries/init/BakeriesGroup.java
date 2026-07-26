@@ -165,6 +165,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.ICED_AMERICAN.get());//冰美式
                         output.accept(BakeriesItems.ICED_LATTE.get());//冰拿铁
                         output.accept(BakeriesItems.BROWN_SUGAR_LATTE.get());//黑铁拿铁
+                        output.accept(BakeriesItems.BUTTER_LATTE.get());//黄油拿铁
                         output.accept(BakeriesItems.CREAM_BINGLE_COFFEE.get());//奶油冰冰乐
                         output.accept(BakeriesItems.MATCHA_LATTE.get());//抹茶拿铁
                         output.accept(BakeriesItems.MATCHA_PARFAIT.get());//抹茶巴菲

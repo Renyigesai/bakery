@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_azalea",
+  "parent": "bakeries:block/template_azalea",
   "render_type": "minecraft:cutout",
   "textures": {
     "plant": "bakeries:block/coffee_plant",

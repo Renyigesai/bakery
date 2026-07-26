@@ -1,0 +1,21 @@
+{
+  "type": "bakeries:coffee",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "tag": "forge:butter"
+    },
+    {
+      "item": "bakeries:moka_pot_fill"
+    }
+  ],
+  "output": {
+    "item": "bakeries:butter_latte",
+    "count": 1
+  }
+}

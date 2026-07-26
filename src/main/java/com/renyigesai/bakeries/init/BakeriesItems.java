@@ -252,6 +252,7 @@ public class BakeriesItems {
     */
     public static final RegistryObject<Item> ICED_LATTE;
     public static final RegistryObject<Item> BROWN_SUGAR_LATTE;
+    public static final RegistryObject<Item> BUTTER_LATTE;
     public static final RegistryObject<Item> ICED_AMERICAN;
     public static final RegistryObject<Item> CREAM_BINGLE_COFFEE;
     public static final RegistryObject<Item> MATCHA_LATTE;
@@ -487,6 +488,7 @@ public class BakeriesItems {
         /*饮料物品*/
         ICED_LATTE = coldDrinkItem(BakeriesBlocks.ICED_LATTE,BakeriesFoodProperties.ICED_LATTE,true,2,2,true,4);
         BROWN_SUGAR_LATTE = coldDrinkItem(BakeriesBlocks.BROWN_SUGAR_LATTE,BakeriesFoodProperties.BROWN_SUGAR_LATTE,true,2,2,true,2);
+        BUTTER_LATTE = coldDrinkItem(BakeriesBlocks.BUTTER_LATTE,BakeriesFoodProperties.BUTTER_LATTE,true,2,2,true,4);
         ICED_AMERICAN = coldDrinkItem(BakeriesBlocks.ICED_AMERICAN,BakeriesFoodProperties.ICED_AMERICAN,true,3,3,true,1);
         CREAM_BINGLE_COFFEE = coldDrinkItem(BakeriesBlocks.CREAM_BINGLE_COFFEE,BakeriesFoodProperties.CREAM_BINGLE_COFFEE,true,2,2,true,4);
         MATCHA_LATTE = coldDrinkItem(BakeriesBlocks.MATCHA_LATTE,BakeriesFoodProperties.MATCHA_LATTE,true,2,2,true,3);

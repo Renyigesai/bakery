@@ -56,7 +56,7 @@ public class BakeriesClientEvents {
         CakePartMeasurer.getClientPartsType().forEach((key, value) -> {
             Item item = BuiltInRegistries.ITEM.get(key);
             if (event.getItemStack().is(item)){
-                event.getToolTip().add(Component.translatable("tooltip.bakeries.cake_part",CakePartMeasurer.getPartTypeName(value)).withStyle(ChatFormatting.DARK_GRAY));
+                event.getToolTip().add(Component.translatable("tooltip.bakeries.cake_part",CakePartMeasurer.getPartTypeName(value)).withStyle(ChatFormatting.BLUE));
             }
         });
     }

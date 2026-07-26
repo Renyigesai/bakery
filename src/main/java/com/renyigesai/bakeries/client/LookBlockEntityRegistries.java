@@ -2,12 +2,10 @@ package com.renyigesai.bakeries.client;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.glass_drink_cup.GlassDrinkCupBlockEntity;
+import com.renyigesai.bakeries.block.magnetic_plate.MagneticPlateBlockEntity;
 import com.renyigesai.bakeries.block.stone_kiln.StoneKilnBlockEntity;
 import com.renyigesai.bakeries.block.toaster.ToasterBlockEntity;
-import com.renyigesai.bakeries.client.overlay.GlassDrinkCupOverlay;
-import com.renyigesai.bakeries.client.overlay.ILookOverlay;
-import com.renyigesai.bakeries.client.overlay.StoneKilnOverlay;
-import com.renyigesai.bakeries.client.overlay.ToasterOverlay;
+import com.renyigesai.bakeries.client.overlay.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -53,6 +51,7 @@ public class LookBlockEntityRegistries {
             LookBlockEntityRegistries.put(GlassDrinkCupBlockEntity.class,new GlassDrinkCupOverlay());
             LookBlockEntityRegistries.put(ToasterBlockEntity.class,new ToasterOverlay());
             LookBlockEntityRegistries.put(StoneKilnBlockEntity.class,new StoneKilnOverlay());
+            LookBlockEntityRegistries.put(MagneticPlateBlockEntity.class,new MagneticPlateOverlay());
         }
     }
 }
