@@ -149,10 +149,7 @@ dependencies {
     runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
     implementation "maven.modrinth:jade:${jade_version}"
     implementation "curse.maven:farmersdelight-398521:6917256"
-    implementation files('libs/rcg_lib-1.21.1-NeoForge-1.0.2-beta.jar')
-    jarJar("project:rcg_lib-1.21.1-NeoForge-1.0.2-beta:1.0.2-beta")
     implementation "curse.maven:patchouli-306770:6164617"
-
     compileOnly("net.createmod.ponder:ponder-neoforge:1.0.82+mc1.21.1")
     compileOnly("curse.maven:create-328085:7963363")
     localRuntime("curse.maven:create-328085:7963363")
