@@ -20,10 +20,5 @@
     "root": {
       "trigger": "minecraft:tick"
     }
-  },
-  "rewards": {
-    "loot": [
-      "bakeries:game/grant_patchi_book"
-    ]
   }
 }

@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.common.event;
 
+import com.renyigesai.bakeries.BakeriesConfig;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
@@ -39,6 +40,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -150,12 +152,35 @@ public class BakeriesEvents {
         }
     }
 
+//    @SubscribeEvent
+//    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+//        Player entity = event.getEntity();
+//        if (!ModList.get().isLoaded("patchouli")){
+//            if (!entity.level().isClientSide){
+//                entity.displayClientMessage(Component.translatable("tooltips.bakeries.player_logged_in"), false);
+//            }
+//        }
+//    }
+
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!BakeriesConfig.provideTutorialBooks){
+            return;
+        }
+
         Player entity = event.getEntity();
         if (!ModList.get().isLoaded("patchouli")){
             if (!entity.level().isClientSide){
-                entity.displayClientMessage(Component.translatable("tooltips.bakeries.player_logged_in"), false);
+                entity.displayClientMessage(Component.translatable("tooltip.bakeries.player_logged_in"), false);
+                return;
+            }
+        }
+        boolean root = WorldUtils.isDoneAdvancement(entity,entity.level(),ResourceLocation.fromNamespaceAndPath("bakeries","root"));
+        if (!root){
+            LootTable lootTables = WorldUtils.getLootTables( ResourceLocation.fromNamespaceAndPath("bakeries","game/grant_patchi_book"), entity.level());
+            List<ItemStack> fromLootTableItemStack = WorldUtils.getFromLootTableItemStack(lootTables, entity.level(), entity.getOnPos());
+            for (ItemStack itemStack : fromLootTableItemStack) {
+                ItemUtils.givePlayerItem(entity, itemStack);
             }
         }
     }

@@ -86,6 +86,7 @@ public class Languages extends AbstractLanguageProvider {
         add(setTooltips(BakeriesMod.MODID, "player_logged_in"), "§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book", "§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
         add(setTooltips(BakeriesMod.MODID, "perfect_fermentation"), "Perfect Fermentation", "完美发酵");
         add(setTooltips(BakeriesMod.MODID, "pile_item_place"), "Place", "可放置");
+        add(setTooltips(BakeriesMod.MODID, "player_logged_in"), "§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book", "§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
         add("bakeries.book.name","Baking Guide","烘焙教科书");
         add("key.bakeries.bakeries","Bakeries","烘焙坊");
         add("key.bakeries.auxiliary","Auxiliary","辅助按键");
