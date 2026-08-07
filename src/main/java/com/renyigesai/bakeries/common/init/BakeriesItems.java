@@ -18,8 +18,6 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.weibai.rcglib.items.FoodWeaponItem;
-import net.weibai.rcglib.items.RepeatEatItem;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -458,6 +456,7 @@ public class BakeriesItems {
 
 
     static {
+
         OVEN = block(BakeriesBlocks.OVEN);
         TOASTER = block(BakeriesBlocks.TOASTER);
         BLENDER = block(BakeriesBlocks.BLENDER);
@@ -537,7 +536,7 @@ public class BakeriesItems {
         SLICED_CHEESE_COCOA_TOAST = foodItem("sliced_cheese_cocoa_toast",BakeriesFoodProperties.SLICED_CHEESE_COCOA_TOAST);
 
         BAGEL = foodBreadBlock(BakeriesBlocks.BAGEL,BakeriesFoodProperties.BAGEL);
-        WHOLE_WHEAT_BAGEL = foodBreadBlock(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL);
+        WHOLE_WHEAT_BAGEL = foodBreadBlock(BakeriesBlocks.WHOLE_WHEAT_BAGEL, BakeriesFoodProperties.WHOLE_WHEAT_BAGEL,true);
         ROUND_BREAD = foodBreadBlock(BakeriesBlocks.ROUND_BREAD, BakeriesFoodProperties.ROUND_BREAD);
         BERRY_BREAD = foodBreadBlock(BakeriesBlocks.BERRY_BREAD, BakeriesFoodProperties.BERRY_BREAD);
         CHEESE_CREAM_BREAD = foodBreadBlock(BakeriesBlocks.CHEESE_CREAM_BREAD, BakeriesRarity.getAdvanced(), BakeriesFoodProperties.CHEESE_CREAM_BREAD,true);
@@ -607,7 +606,7 @@ public class BakeriesItems {
     }
 
     private static DeferredItem<Item> drinkItem(Holder<Block> block,FoodProperties foodProperties,int upEffect){
-        return REGISTER.register(block.unwrapKey().orElseThrow().location().getPath(),()-> new DrinkItem(block.value(),new Item.Properties().food(foodProperties).craftRemainder(BakeriesItems.DRINK_CUP.get()),6,true,upEffect));
+        return REGISTER.register(block.unwrapKey().orElseThrow().location().getPath(),()-> new DrinkItem(block.value(),new PileItem.PileProperties().itemProperties(new Item.Properties().food(foodProperties).craftRemainder(BakeriesItems.DRINK_CUP.get()).stacksTo(1)).effectTooltip().placeSound(SoundEvents.GLASS_PLACE),6,upEffect));
     }
 
     private static DeferredItem<Item> foodBreadBlock(Holder<Block> block, Rarity rarity, FoodProperties foodProperties) {
@@ -628,24 +627,6 @@ public class BakeriesItems {
 
     private static DeferredItem<Item> mouldBlock(Holder<Block> block) {
         return REGISTER.register(block.unwrapKey().orElseThrow().location().getPath(), () -> new MouldBlockItem(block.value(), new Item.Properties()));
-    }
-
-    private static DeferredItem<Item> repeatEatfoodBreadBlock(Holder<Block> block, int maxEat, Rarity rarity, FoodProperties foodProperties) {
-        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new RepeatEatItem(block.value(), maxEat, rarity, foodProperties) {
-            @Override
-            public DataComponentType<Boolean> perfectComponent() {
-                return BakeriesDataComponents.PERFECT.get();
-            }
-        });
-    }
-
-    private static DeferredItem<Item> foodWeaponBreadBlock(Holder<Block> block, int maxEat, Rarity rarity, FoodProperties foodProperties, ItemAttributeModifiers itemAttributeModifiers) {
-        return registerItem(block.unwrapKey().orElseThrow().location().getPath(), () -> new FoodWeaponItem(block.value(), maxEat, rarity, itemAttributeModifiers, foodProperties) {
-            @Override
-            public DataComponentType<Boolean> perfectComponent() {
-                return BakeriesDataComponents.PERFECT.get();
-            }
-        });
     }
 
     private static DeferredItem<Item> item(String name) {

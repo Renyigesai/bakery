@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesMobEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -16,8 +17,12 @@ import java.util.List;
 public class DrinkItem extends RepeatEatItem{
     private final int upEffect;
 
+    public DrinkItem(Block block, PileProperties pileProperties, int eatCount, int upEffect) {
+        super(block, pileProperties, eatCount, true);
+        this.upEffect = upEffect;
+    }
 
-    public DrinkItem(Block block, Properties properties, int eatCount,boolean effectTooltip, int upEffect) {
+    public DrinkItem(Block block, Properties properties, int eatCount, boolean effectTooltip, int upEffect) {
         super(block, properties, eatCount,effectTooltip,true);
         this.upEffect = upEffect;
     }

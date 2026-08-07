@@ -68,7 +68,11 @@ public class PileItem extends BlockItem {
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
-        return InteractionResult.FAIL;
+        Player player = pContext.getPlayer();
+        if (player != null && BakeriesMod.onAuxiliaryKey(player)){
+            return pileUseOn(pContext);
+        }
+        return InteractionResult.PASS;
     }
 
     public InteractionResult pileUseOn(UseOnContext pContext) {
@@ -212,14 +216,18 @@ public class PileItem extends BlockItem {
             return this;
         }
 
-        public PileProperties effectTooltip(boolean effectTooltip){
-            this.effectTooltip = effectTooltip;
+        public PileProperties effectTooltip(){
+            this.effectTooltip = true;
             return this;
         }
 
         public PileProperties placeSound(SoundEvent placeSound){
             this.placeSound = placeSound;
             return this;
+        }
+
+        public Properties getItemProperties() {
+            return itemProperties;
         }
     }
 }

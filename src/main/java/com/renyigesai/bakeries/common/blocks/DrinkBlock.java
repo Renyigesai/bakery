@@ -52,7 +52,7 @@ public class DrinkBlock extends AbstractPileBlock {
     }
 
     static {
-        BOX = box(6.0, 0, 6.0, 10, 7.5, 10);
-        BOX_2 = box(4.0, 0, 4.0, 12, 7.5, 12);
+        BOX = box(6.0, 0, 6.0, 10, 9.25, 10);
+        BOX_2 = box(3.0, 0, 3.0, 13, 9.25, 13);
     }
 }

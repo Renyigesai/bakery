@@ -11,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
-import net.weibai.rcglib.utils.WidgetSpritesUtil;
 
 public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
     // GUI 纹理路径
@@ -68,7 +67,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
     @Override
     protected void init() {
         super.init();
-        ImageButton filtration = new ImageButton(this.leftPos + 15, this.topPos + 30, 24, 24, WidgetSpritesUtil.create(BakeriesMod.MODID,"blender/blender_filtration_button_0","blender/blender_filtration_button_1"), e -> {
+        ImageButton filtration = new ImageButton(this.leftPos + 15, this.topPos + 30, 24, 24, new WidgetSprites(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "blender/blender_filtration_button_0"), ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "blender/blender_filtration_button_1")), e -> {
             this.isFiltration = !this.isFiltration;
         });
         this.addRenderableWidget(filtration);

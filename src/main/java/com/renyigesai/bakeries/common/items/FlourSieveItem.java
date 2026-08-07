@@ -25,14 +25,18 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+@EventBusSubscriber
 public class FlourSieveItem extends Item {
 
     public static final Set<ItemAbility> SIEVE_ACTIONS;
@@ -47,55 +51,74 @@ public class FlourSieveItem extends Item {
     public SoundEvent getDrinkingSound() {
         return SoundEvents.SAND_BREAK;
     }
+
+//    @Override
+//    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+//        ItemStack mainHandItem = pPlayer.getMainHandItem();
+//        if (mainHandItem.is(this)){
+//            return super.use(pLevel, pPlayer, pUsedHand);
+//        }
+//        Optional<RecipeHolder<FlourSieveRecipe>> recipeFor = CHECK.getRecipeFor(new SingleRecipeInput(mainHandItem), pLevel);
+//        if (recipeFor.isEmpty()){
+//            pPlayer.getCooldowns().addCooldown(this,20);
+//            pPlayer.displayClientMessage(Component.translatable(getFlourSieveRandomText()), true);
+//            return super.use(pLevel, pPlayer, pUsedHand);
+//        }
+//        pPlayer.startUsingItem(pUsedHand);
+//        return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
+//    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        ItemStack mainHandItem = pPlayer.getMainHandItem();
-        if (mainHandItem.is(this)){
-            return super.use(pLevel, pPlayer, pUsedHand);
+        ItemStack sieveStack = pPlayer.getItemInHand(pUsedHand);
+        if (!pLevel.isClientSide) {
+            if (!pPlayer.getMainHandItem().isEmpty()) {
+                pPlayer.startUsingItem(pUsedHand);
+                return InteractionResultHolder.consume(sieveStack);
+            }
         }
-        Optional<RecipeHolder<FlourSieveRecipe>> recipeFor = CHECK.getRecipeFor(new SingleRecipeInput(mainHandItem), pLevel);
-        if (recipeFor.isEmpty()){
-            pPlayer.getCooldowns().addCooldown(this,20);
-            pPlayer.displayClientMessage(Component.translatable(getFlourSieveRandomText()), true);
-            return super.use(pLevel, pPlayer, pUsedHand);
-        }
-        pPlayer.startUsingItem(pUsedHand);
-        return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
+        return InteractionResultHolder.pass(sieveStack);
     }
+
+//    @Override
+//    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
+//        Player player = (Player)pLivingEntity;
+//        ItemStack mainHandItem = player.getMainHandItem();
+//
+//        Optional<RecipeHolder<FlourSieveRecipe>> currentRecipe = getCurrentRecipe(pLevel, player.getMainHandItem());
+//        if (currentRecipe.isPresent()){
+//            SingleRecipeInput singleRecipeInput = new SingleRecipeInput(player.getMainHandItem());
+//            ItemStack resultItemStack = CHECK.getRecipeFor(singleRecipeInput, pLevel).map((p_344662_) -> p_344662_.value().assemble(singleRecipeInput, pLevel.registryAccess())).orElse(player.getMainHandItem());
+//            if (!player.getAbilities().instabuild) {
+//                mainHandItem.shrink(1);
+//                pStack.hurtAndBreak(1,player, EquipmentSlot.OFFHAND);
+//            }
+//            ItemUtils.givePlayerItem(player,resultItemStack);
+//        }
+//        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
+//    }
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        Player player = (Player)pLivingEntity;
-        ItemStack mainHandItem = player.getMainHandItem();
+        if (pLevel.isClientSide){
+            return pStack;
+        }
+        ItemStack mainHandItem = pLivingEntity.getMainHandItem();
+        Optional<RecipeHolder<FlourSieveRecipe>> recipe = getCurrentRecipe(pLevel,mainHandItem);
+        boolean success = recipe.isPresent();
 
-        Optional<RecipeHolder<FlourSieveRecipe>> currentRecipe = getCurrentRecipe(pLevel, player.getMainHandItem());
-        if (currentRecipe.isPresent()){
-            SingleRecipeInput singleRecipeInput = new SingleRecipeInput(player.getMainHandItem());
-            ItemStack resultItemStack = CHECK.getRecipeFor(singleRecipeInput, pLevel).map((p_344662_) -> p_344662_.value().assemble(singleRecipeInput, pLevel.registryAccess())).orElse(player.getMainHandItem());
-            if (!player.getAbilities().instabuild) {
+        if (pLivingEntity instanceof Player player) {
+            if (success) {
                 mainHandItem.shrink(1);
                 pStack.hurtAndBreak(1,player, EquipmentSlot.OFFHAND);
+                player.getInventory().placeItemBackInInventory(recipe.get().value().getResultItem(null));
+            } else {
+                player.getCooldowns().addCooldown(this, 20);
+                int randomInt = new Random().nextInt(1, 4);
+                player.displayClientMessage(Component.translatable("tooltips.bakeries.flour_sieve_" + randomInt), true);
             }
-            ItemUtils.givePlayerItem(player,resultItemStack);
         }
-        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
-    }
-
-    private String getFlourSieveRandomText(){
-        return "tooltips.bakeries.flour_sieve_" + getRandom();
-    }
-
-    public static int getRandom(){
-        return random(3,1);
-    }
-
-    public static Integer random(int max, int min) {
-        Random rand = new Random();
-        int value = 0;
-        for (int i = 0; i < max; i++) {
-            value = rand.nextInt(max - min + 1) + min;
-        }
-        return value;
+        return pStack;
     }
 
     private Optional<RecipeHolder<FlourSieveRecipe>> getCurrentRecipe(Level level, ItemStack stack) {
@@ -135,8 +158,27 @@ public class FlourSieveItem extends Item {
         return SIEVE_ACTIONS.contains(toolAction);
     }
 
+    @Override
+    public int getEnchantmentValue() {
+        return 14;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
+    }
+
     static {
         SIEVE_ACTIONS = Set.of(ItemAbilities.SHEARS_CARVE);
+    }
+
+    @SubscribeEvent
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
+        ItemStack offhand = player.getOffhandItem();
+        if (offhand.getItem() instanceof FlourSieveItem) {
+            event.setCanceled(true);
+        }
     }
 
 }

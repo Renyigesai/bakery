@@ -16,6 +16,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
@@ -29,7 +30,12 @@ import java.util.List;
 public class RepeatEatItem extends PileItem {
     private final boolean canDrink;
 
-    public RepeatEatItem(Block block, Properties properties, int eatCount,boolean canDrink) {
+    public RepeatEatItem(Block block, PileProperties pileProperties, int eatCount,boolean canDrink) {
+        super(block, pileProperties.itemProperties(pileProperties.getItemProperties().component(BakeriesDataComponents.EAT_COUNT_MAX,eatCount).component(BakeriesDataComponents.EAT_COUNT,eatCount)));
+        this.canDrink = canDrink;
+    }
+
+    public RepeatEatItem(Block block, Properties properties, int eatCount, boolean canDrink) {
         super(block, properties.component(BakeriesDataComponents.EAT_COUNT_MAX,eatCount).component(BakeriesDataComponents.EAT_COUNT,eatCount));
         this.canDrink = canDrink;
     }
@@ -135,7 +141,9 @@ public class RepeatEatItem extends PileItem {
                 cache = stack.copy();
                 stack.consume(1,living);
             }else {
-                stack.set(BakeriesDataComponents.EAT_COUNT,eatCount - 1);
+                if (!(living instanceof Player) || !(living instanceof Player player && player.getAbilities().instabuild)){
+                    stack.set(BakeriesDataComponents.EAT_COUNT,eatCount - 1);
+                }
             }
             return (eatCount - 1 == 0 && cache.hasCraftingRemainingItem()) ? cache.getCraftingRemainingItem() : stack;
         }

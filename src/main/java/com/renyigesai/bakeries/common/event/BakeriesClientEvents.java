@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.common.event;
 
 import com.google.common.collect.ImmutableList;
+import com.renyigesai.bakeries.api.block.ISpectatorInvisible;
 import com.renyigesai.bakeries.common.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.common.client.model.FullbrightBakedModel;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
@@ -11,9 +12,12 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,6 +27,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 
 @EventBusSubscriber({Dist.CLIENT})
 public class BakeriesClientEvents {
@@ -68,6 +73,18 @@ public class BakeriesClientEvents {
     public static void onClientSetup(FMLClientSetupEvent event) {
         if (ModList.get().isLoaded("create") || ModList.get().isLoaded("ponder")) {
             event.enqueueWork(BakeriesPonderIntegration::register);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRenderBlockHighlight(RenderHighlightEvent.Block event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null || !mc.player.isSpectator()) return;
+        if (mc.hitResult != null && mc.hitResult.getType() == HitResult.Type.BLOCK) {
+            BlockPos pos = ((BlockHitResult) mc.hitResult).getBlockPos();
+            if (mc.level != null && mc.level.getBlockState(pos).getBlock() instanceof ISpectatorInvisible) {
+                event.setCanceled(true);
+            }
         }
     }
 }

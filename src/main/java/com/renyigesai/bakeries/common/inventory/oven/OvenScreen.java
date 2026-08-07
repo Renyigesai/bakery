@@ -5,10 +5,12 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.common.network.to_server.OvenButtonMessage;
 import lombok.Getter;
+import net.createmod.catnip.platform.NeoForgeNetworkHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -18,9 +20,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.weibai.rcglib.network.NetWorkUtils;
-import net.weibai.rcglib.utils.UtilTranslatable;
-import net.weibai.rcglib.utils.WidgetSpritesUtil;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -88,10 +88,10 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu>{
             if (ovenBlockEntity != null) {
                 int count = Screen.hasShiftDown() ? 1 : 10;
                 if(scrollY > 0){
-                    NetWorkUtils.sendToServer(new OvenButtonMessage(OvenButtonMessage.ADD, ovenBlockEntity.getBlockPos(), (int) (scrollY * count)));
+                    PacketDistributor.sendToServer(new OvenButtonMessage(OvenButtonMessage.ADD, ovenBlockEntity.getBlockPos(), (int) (scrollY * count)));
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_HAT, 2.0F));
                 }else if(scrollY < 0){
-                    NetWorkUtils.sendToServer(new OvenButtonMessage(OvenButtonMessage.SUB, ovenBlockEntity.getBlockPos(),  (int) ((0-scrollY) * count)));
+                    PacketDistributor.sendToServer(new OvenButtonMessage(OvenButtonMessage.SUB, ovenBlockEntity.getBlockPos(),  (int) ((0-scrollY) * count)));
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_HAT, 2.0F));
                 }
             }
@@ -110,23 +110,16 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu>{
     public void init() {
         super.init();
         if (ovenBlockEntity != null) {
-            ImageButton addButton = new ImageButton(this.leftPos + 123, this.topPos + 65, 5, 6,
-                    WidgetSpritesUtil.create(BakeriesMod.MODID,
-                            "add/1add_0", "add/1add_1"),
-                    e -> {
-
-                        NetWorkUtils.sendToServer(new OvenButtonMessage(OvenButtonMessage.ADD, ovenBlockEntity.getBlockPos(), 1));
-
-                    });
-
+            ImageButton addButton = new ImageButton(this.leftPos + 123, this.topPos + 65, 5, 6, new WidgetSprites(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "add/1add_0"), ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "add/1add_1")),e ->{
+                PacketDistributor.sendToServer(new OvenButtonMessage(OvenButtonMessage.ADD, ovenBlockEntity.getBlockPos(), 1));
+            });
             this.addRenderableWidget(addButton);
 
-            ImageButton subButton = new ImageButton(this.leftPos + 130, this.topPos + 65, 5, 6,
-                    WidgetSpritesUtil.create(BakeriesMod.MODID,
-                            "sub/1sub_0", "sub/1sub_1"),
-                    e -> {
 
-                        NetWorkUtils.sendToServer(new OvenButtonMessage(OvenButtonMessage.SUB, ovenBlockEntity.getBlockPos(), 1));
+            ImageButton subButton = new ImageButton(this.leftPos + 130, this.topPos + 65, 5, 6,
+                    new WidgetSprites(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "sub/1sub_0"), ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "sub/1sub_1")),
+                    e -> {
+                        PacketDistributor.sendToServer(new OvenButtonMessage(OvenButtonMessage.SUB, ovenBlockEntity.getBlockPos(), 1));
                     });
             this.addRenderableWidget(subButton);
         }
@@ -136,9 +129,9 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu>{
         if(ovenBlockEntity != null){
             if (this.minecraft != null && this.minecraft.player != null && this.menu.getCarried().isEmpty()) {
                 List<Component> tooltip = new ArrayList<>();
-                tooltip.add(Component.translatable(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.temperature")).withStyle(ChatFormatting.BLUE));
+                tooltip.add(Component.translatable("container.bakeries.oven.temperature").withStyle(ChatFormatting.BLUE));
                 tooltip.add(Component.literal(this.getMenu().data.get(0) + "°C").withStyle(ChatFormatting.WHITE));
-                tooltip.add(Component.translatable(UtilTranslatable.setContainer(BakeriesMod.MODID, "rolling")).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.ITALIC));
+                tooltip.add(Component.translatable("container.bakeries.rolling").withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.ITALIC));
                 gui.renderComponentTooltip(font, tooltip, mouseX, mouseY);
             }
         }

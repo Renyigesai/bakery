@@ -231,7 +231,7 @@ public class BakeriesBlocks {
         BROWN_SUGAR_LATTE = drinkBlock("brown_sugar_latte");
         CREAM_BINGLE_COFFEE = drinkBlock("cream_bingle_coffee");
         MATCHA_LATTE = drinkBlock("matcha_latte");
-        MATCHA_PARFAIT = drinkBlock("matcha_parfait");
+        MATCHA_PARFAIT = REGISTER.register("matcha_parfait",MatchaParfaitBlock::new);
         TARO_MILK = drinkBlock("taro_milk");
 
         OLIVE_OIL = register("olive_oil",TanPieBlock::new);

@@ -2,7 +2,6 @@ package com.renyigesai.bakeries.data;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.annotation.ItemData;
-import com.renyigesai.bakeries.common.init.BakeriesCreativeModeTabs;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.init.BakeriesMobEffects;
 
@@ -10,7 +9,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
-import net.weibai.rcglib.utils.UtilTranslatable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Field;
@@ -57,37 +55,37 @@ public class Languages extends AbstractLanguageProvider {
 
 
     private void add() {
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "row_item_temperature"), "Min %s °c", "Min %s °c");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven"), "Oven", "烤箱");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven.temperature"), "Current temperature", "当前温度");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "rolling"), "Scroll the middle mouse to adjust the temperature.", "滚动鼠标中键调节温度");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "blender"), "Blender", "搅拌机");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "dough_crafting_table"), "Dough Crafting Table", "面胚制作台");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "cupboard"), "Cupboard", "厨台");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "bread_knife"), "Bread Knife", "面包刀");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "flour_sieve"), "Flour Sieve", "面粉筛");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "drink"), "Drink", "饮料");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "suggested_time"), "Today's recommended fermentation time %s-%s", "今日建议发酵时间 %s-%s");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "today_temperature"), "Today`s Temperature%s", "今日气温%s");
-        add(UtilTranslatable.setContainer(BakeriesMod.MODID, "fermentation_box"), "Fermentation Box", "醒发箱");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "bread_knife"), "When using  cut the object pointed by the target.", "使用时切开准星所指的物品");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "wood_counter"), "Use Bowl to Change State", "使用碗右键方块以改变状态");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "flour_sieve_0"), "Sift the item in the main hand while holding it off hand", "拿在副手时过筛主手的物品");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "flour_sieve_1"), "What are you doing?", "你在干什么?");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "flour_sieve_2"), "You can't sift it!", "筛不了的啦!");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "flour_sieve_3"), "I don't have the power, you know?", "我没这个能力知道吧?");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "pile_item_perfect"), "Perfect Temperature", "完美温度");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "repeat_eat_item_eat"), "Eat", "吃");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "repeat_eat_item_drink"), "Drink", "喝");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "eternal_baguette"), "Impose a forced knock back and slow effect on Entity", "对实体施加强制击退和缓慢效果");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "toaster_0"), "Right-click with your left hand to start baking", "空手右键以开始烤制");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "toaster_1"), "%s and right-click to retrieve the item", "%s右键以取出物品");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "mould"), "When the secondary weapon has a Knife long-pressing the right button can disengage it", "副手存在刀时长按右键可脱模");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "shake"), "Right shake", "右键以摇晃");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "drink"), "The Enjoy effect can be enhanced to a %s", "可提升享受效果到 %s 级");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "player_logged_in"), "§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book", "§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "perfect_fermentation"), "Perfect Fermentation", "完美发酵");
-        add(UtilTranslatable.setTooltips(BakeriesMod.MODID, "pile_item_place"), "Place", "可放置");
+        add(setTooltips(BakeriesMod.MODID, "row_item_temperature"), "Min %s °c", "Min %s °c");
+        add(setContainer(BakeriesMod.MODID, "oven"), "Oven", "烤箱");
+        add(setContainer(BakeriesMod.MODID, "oven.temperature"), "Current temperature", "当前温度");
+        add(setContainer(BakeriesMod.MODID, "rolling"), "Scroll the middle mouse to adjust the temperature.", "滚动鼠标中键调节温度");
+        add(setContainer(BakeriesMod.MODID, "blender"), "Blender", "搅拌机");
+        add(setContainer(BakeriesMod.MODID, "dough_crafting_table"), "Dough Crafting Table", "面胚制作台");
+        add(setContainer(BakeriesMod.MODID, "cupboard"), "Cupboard", "厨台");
+        add(setContainer(BakeriesMod.MODID, "bread_knife"), "Bread Knife", "面包刀");
+        add(setContainer(BakeriesMod.MODID, "flour_sieve"), "Flour Sieve", "面粉筛");
+        add(setContainer(BakeriesMod.MODID, "drink"), "Drink", "饮料");
+        add(setContainer(BakeriesMod.MODID, "suggested_time"), "Today's recommended fermentation time %s-%s", "今日建议发酵时间 %s-%s");
+        add(setContainer(BakeriesMod.MODID, "today_temperature"), "Today`s Temperature%s", "今日气温%s");
+        add(setContainer(BakeriesMod.MODID, "fermentation_box"), "Fermentation Box", "醒发箱");
+        add(setTooltips(BakeriesMod.MODID, "bread_knife"), "When using  cut the object pointed by the target.", "使用时切开准星所指的物品");
+        add(setTooltips(BakeriesMod.MODID, "wood_counter"), "Use Bowl to Change State", "使用碗右键方块以改变状态");
+        add(setTooltips(BakeriesMod.MODID, "flour_sieve_0"), "Sift the item in the main hand while holding it off hand", "拿在副手时过筛主手的物品");
+        add(setTooltips(BakeriesMod.MODID, "flour_sieve_1"), "What are you doing?", "你在干什么?");
+        add(setTooltips(BakeriesMod.MODID, "flour_sieve_2"), "You can't sift it!", "筛不了的啦!");
+        add(setTooltips(BakeriesMod.MODID, "flour_sieve_3"), "I don't have the power, you know?", "我没这个能力知道吧?");
+        add(setTooltips(BakeriesMod.MODID, "pile_item_perfect"), "Perfect Temperature", "完美温度");
+        add(setTooltips(BakeriesMod.MODID, "repeat_eat_item_eat"), "Eat", "吃");
+        add(setTooltips(BakeriesMod.MODID, "repeat_eat_item_drink"), "Drink", "喝");
+        add(setTooltips(BakeriesMod.MODID, "eternal_baguette"), "Impose a forced knock back and slow effect on Entity", "对实体施加强制击退和缓慢效果");
+        add(setTooltips(BakeriesMod.MODID, "toaster_0"), "Right-click with your left hand to start baking", "空手右键以开始烤制");
+        add(setTooltips(BakeriesMod.MODID, "toaster_1"), "%s and right-click to retrieve the item", "%s右键以取出物品");
+        add(setTooltips(BakeriesMod.MODID, "mould"), "When the secondary weapon has a Knife long-pressing the right button can disengage it", "副手存在刀时长按右键可脱模");
+        add(setTooltips(BakeriesMod.MODID, "shake"), "Right shake", "右键以摇晃");
+        add(setTooltips(BakeriesMod.MODID, "drink"), "The Enjoy effect can be enhanced to a %s", "可提升享受效果到 %s 级");
+        add(setTooltips(BakeriesMod.MODID, "player_logged_in"), "§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book", "§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
+        add(setTooltips(BakeriesMod.MODID, "perfect_fermentation"), "Perfect Fermentation", "完美发酵");
+        add(setTooltips(BakeriesMod.MODID, "pile_item_place"), "Place", "可放置");
         add("bakeries.book.name","Baking Guide","烘焙教科书");
         add("key.bakeries.bakeries","Bakeries","烘焙坊");
         add("key.bakeries.auxiliary","Auxiliary","辅助按键");
@@ -97,6 +95,7 @@ public class Languages extends AbstractLanguageProvider {
         add("item_group.bakeries.bakeries_tab","Bakeries","烘焙坊");
         add("item_group.bakeries.bakeries_sfp_tab","Bakeries Sfp","烘焙坊 半成品");
         add("item_group.bakeries.bakeries_compat_tab","Bakeries Compat","烘焙坊 联动物品");
+        add("item_group.bakeries.cushion_tab","Cushion","坐垫");
     }
 
     private void addElements() {
@@ -163,6 +162,7 @@ public class Languages extends AbstractLanguageProvider {
 
     private void addEntity(){
         add("entity.minecraft.villager.bakeries.pistrinamaster","Pistrina Master","面包师");
+        add("entity.bakeries.cushion","Cushion","坐垫");
     }
 
     private void addAdvancements(){
@@ -259,7 +259,7 @@ public class Languages extends AbstractLanguageProvider {
         addPatchouliDescr("sequence_assembly_4", "Red Velvet Cake Base→Cheese Cream", "红丝绒蛋糕胚→奶酪奶油");
         addPatchouliDescr("bread_making_process", "A nanny-level tutorial on bread making", "面包制作保姆级教程");
         addPatchouliDescr("cake_making_process", "A nanny-level tutorial on cake making", "蛋糕制作保姆级教程");
-        addPatchouliDescr("fresh_cheese_cube", "You can get four servings of fresh cheese cubes by putting one portion of milk and one portion of salt in the fermentation tank.", "你可以通过在发酵桶中放入一份牛奶和一份盐来得到4份鲜奶酪块。");
+        addPatchouliDescr("fresh_cheese_cube", "You can obtain fresh cheese blocks by putting one serving of bottled cream and four pieces of cheese in the blender.", "你可以通过在搅拌机中放入一份瓶装淡奶油和四份干酪块来得到鲜奶酪块。");
         addPatchouliDescr("cake_roll", "$(l:https://www.bilibili.com/video/BV1WcuAzQEMr)Nanny level tutorial on making cake rolls", "$(l:https://www.bilibili.com/video/BV1WcuAzQEMr)蛋糕卷制作保姆级教程");
         addPatchouliDescr("matcha_powder", "Use$(l:baking_utensil/flour_sieve)Flour Sieve/$Sift the leaves into matcha powder.", "使用$(l:baking_utensil/flour_sieve)面粉筛/$将树叶过筛为抹茶粉。");
         addPatchouliDescr("stone_kiln", "A very primitive oven. You can use it to bake pizza. You also need a Stone Kiln Shovel for putting in and taking out items.", "非常原始的烤炉，你可以用来烤披萨，你还需要一个炉铲，用来放入和取出物品。");

@@ -113,7 +113,6 @@ public class OvenBlock extends BaseEntityBlock {
     }
     protected InteractionResult openContainer(Level level, BlockPos pos, Player player){
         BlockEntity blockEntity = level.getBlockEntity(pos);
-
         if (blockEntity instanceof OvenBlockEntity ovenBlockEntity) {
             ((ServerPlayer) player).openMenu((MenuProvider)ovenBlockEntity, pos);
             return InteractionResult.CONSUME;

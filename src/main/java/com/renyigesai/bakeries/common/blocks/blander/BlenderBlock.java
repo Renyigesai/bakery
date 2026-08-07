@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.common.blocks.blander;
 
 import com.mojang.serialization.MapCodec;
+import com.renyigesai.bakeries.api.block.ISpectatorInvisible;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesSounds;
 import net.minecraft.core.BlockPos;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.GameMasterBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,10 +33,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class BlenderBlock extends BaseEntityBlock {
+public class BlenderBlock extends BaseEntityBlock implements GameMasterBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-//    public static final EnumProperty<BakeriesEnumProperty> SHAPE =  EnumProperty.create("shape", BakeriesEnumProperty.class);
     public static final VoxelShape X_BOX = box(4.0,0.0,0.0,12.0,16.0,16.0);
     public static final VoxelShape Z_BOX = box(0.0,0.0,4.0,16.0,16.0,12.0);
     public static final VoxelShape BOX = box(0.0,0.0,0.0,16.0,16.0,16.);
@@ -61,11 +61,6 @@ public class BlenderBlock extends BaseEntityBlock {
         return pLevel.isClientSide ? createTickerHelper(pBlockEntityType, BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
                 BlenderBlockEntity::clientTick) : createTickerHelper(pBlockEntityType, BakeriesBlocks.Entities.BLENDER_ENTITY.get(),
                 BlenderBlockEntity::craftTick);
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     @Override

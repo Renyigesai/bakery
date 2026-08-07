@@ -2,7 +2,7 @@ package com.renyigesai.bakeries.common.utils.measurer;
 
 import net.minecraft.client.Minecraft;
 
-public class ClientUtilsMeasurer implements IClientUtilsMeasurer{
+public class ClientUtilsMeasurer implements IUtilsMeasurer {
     public int getLength(String string,int maxLength){
         if (string == null || maxLength == 0){
             throw new IllegalArgumentException("Text cannot be null or Max width must be positive");

@@ -59,10 +59,12 @@ public class FermentationBoxBlock extends BaseEntityBlock {
     protected InteractionResult useWithoutItem(BlockState blockstate, Level world, BlockPos pos, Player entity, BlockHitResult hitResult) {
         super.useWithoutItem(blockstate, world, pos, entity, hitResult);
         if(!world.isClientSide()) {
+            if (entity.isSpectator()){
+                return InteractionResult.PASS;
+            }
             BlockEntity blockEntity = world.getBlockEntity(pos);
             super.useWithoutItem(blockstate, world, pos, entity, hitResult);
             if (blockEntity instanceof FermentationBoxBlockEntity box) {
-//                entity.openMenu(box, pos);
                 FermentationBoxBlockEntity.onOpenMenu(box,entity,pos);
                 return InteractionResult.CONSUME;
             }else {

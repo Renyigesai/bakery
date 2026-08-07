@@ -13,7 +13,7 @@ displayName="Bakeries"
 logoFile="logo.png"
 # A text field displayed in the mod UI
 #credits="" #optional
-authors="Renyigesai,1-weibai-1"
+authors="Renyigesai,1-weibai-1,NeptuneTADASHI,zhifan"
 description="This is a Baker yummy mod"
 enumExtensions="META-INF/enumextensions.json"
 
@@ -35,13 +35,6 @@ config="bakeries.mixins.json"
     type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
-    side="BOTH"
-
-[[dependencies.bakeries]]
-    modId="rcg_lib"
-    type="required"
-    versionRange="[1.21.1-NeoForge-1.0.0-beta,)"
-    ordering="AFTER"
     side="BOTH"
 
 [[dependencies.bakeries]]

@@ -5,18 +5,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import com.renyigesai.bakeries.BakeriesMod;
-import net.weibai.rcglib.utils.UtilTranslatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -72,9 +66,6 @@ public abstract class AbstractLanguageProvider extends LanguageProvider {
         String path = BuiltInRegistries.ITEM.getKey(key.get()).getPath();
         this.add(key.get().getDescriptionId(), this.getEnglishName(path), zh_cn);
     }
-//    protected void addElements(Supplier<? extends Element> key, String en_us, String zh_cn){
-//        this.add(key.get().getTranslation().getString(), en_us, zh_cn);
-//    }
 
     @Override
     public void addEntityType(Supplier<? extends EntityType<?>> key, String zh_cn) {
@@ -86,52 +77,16 @@ public abstract class AbstractLanguageProvider extends LanguageProvider {
         String path = BuiltInRegistries.MOB_EFFECT.getKey(key.get()).getPath();
         this.add(key.get().getDescriptionId(), this.getEnglishName(path), zh_cn);
     }
-    protected void addCreativeModeTab(Supplier<? extends CreativeModeTab> key, String zh_cn) {
-        String path = BuiltInRegistries.CREATIVE_MODE_TAB.getKey(key.get()).getPath();
-        this.add(key.get().getDisplayName().getString(), this.getEnglishName(path), zh_cn);
-    }
-    protected void addAttribute(Supplier<? extends Attribute> key, String zh_cn) {
-        String path = BuiltInRegistries.ATTRIBUTE.getKey(key.get()).getPath();
-        this.add(key.get().getDescriptionId(), this.getEnglishName(path), zh_cn);
-    }
+
     protected void addBlock(Supplier<? extends Block> key, String en_us, String zh_cn) {
         this.add(key.get().getDescriptionId(), en_us, zh_cn);
     }
     protected void addItem(Supplier<? extends Item> key, String en_us, String zh_cn) {
         this.add(key.get().getDescriptionId(), en_us, zh_cn);
     }
-    protected void addDamageType(DamageType key, String en_us, String zh_cn) {
-        this.add(key.deathMessageType().getSerializedName(), en_us, zh_cn);
-    }
-    protected void addEntityType(Supplier<? extends EntityType<?>> key, String en_us, String zh_cn) {
-        this.add(key.get().getDescriptionId(), en_us, zh_cn);
-    }
 
     protected void addEffect(Supplier<? extends MobEffect> key, String en_us, String zh_cn) {
         this.add(key.get().getDescriptionId(), en_us, zh_cn);
-    }
-    protected void addBiome(ResourceKey<Biome> biome, String en_us, String zh_cn) {
-        this.add("biome." + biome.location().toLanguageKey(), en_us, zh_cn);
-    }
-    protected void addTab(Supplier<CreativeModeTab> tab, String en_us, String zh_cn){
-        this.add(tab.get().getDisplayName().getString(), en_us, zh_cn);
-    }
-    protected void addTooltips(String key, String en_us, String zh_cn) {
-        this.add(UtilTranslatable.setTooltips(BakeriesMod.MODID, key), en_us, zh_cn);
-    }
-    protected void addRecipeContainer(String key, String en_us, String zh_cn) {
-        this.add(UtilTranslatable.setRecipeContainer(BakeriesMod.MODID, key), en_us, zh_cn);
-    }
-
-//    protected void addFulu(Supplier<? extends Element> key, String zh_cn){
-//        String path = Elements.FULU.get().getKey(key.get()).getPath();
-//        this.add(key.get().getDescriptionId(), this.getEnglishName(path), zh_cn);
-//    }
-    protected void addAttribute(Supplier<Attribute> attribute, String en_us, String zh_cn) {
-        this.add("attribute." + attribute.get().getDescriptionId(), en_us, zh_cn);
-    }
-    protected void addKeyMapping(String name, String en_us, String zh_cn){
-        this.add(UtilTranslatable.setKeyMapping(BakeriesMod.MODID, name), en_us, zh_cn);
     }
 
     protected void add(String key, String en_us, String zh_cn) {
@@ -140,5 +95,13 @@ public abstract class AbstractLanguageProvider extends LanguageProvider {
         } else if (this.locale.equals("zh_cn") && !this.cnData.containsKey(key)) {
             this.cnData.put(key, zh_cn);
         }
+    }
+
+    public static String setTooltips(String modid, String key) {
+        return "tooltips." + modid + "." + key;
+    }
+
+    public static String setContainer(String modid, String key) {
+        return "container." + modid + "." + key;
     }
 }

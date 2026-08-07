@@ -1,15 +1,14 @@
 package com.renyigesai.bakeries.common.overlay;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.toaster.ToasterBlock;
 import com.renyigesai.bakeries.common.blocks.toaster.ToasterBlockEntity;
-import com.renyigesai.bakeries.common.utils.TextUtils;
+import com.renyigesai.bakeries.common.utils.measurer.ClientUtilsMeasurer;
+import com.renyigesai.bakeries.common.utils.measurer.IUtilsMeasurer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
 public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
@@ -30,8 +29,11 @@ public class ToasterOverlay implements ILookOverlay<ToasterBlockEntity>{
             text = Component.translatable("tooltips.bakeries.toaster_1", BakeriesMod.getAuxiliaryKeyName()).getString();
         }
         if (!text.isEmpty()){
-            int length = BakeriesMod.clientUtilsMeasurer.getLength(text);
-            guiGraphics.renderTooltip(mc.font,Component.literal(text),w - length / 2 - 8,h + 64);
+            IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
+            if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
+                int length = clientUtilsMeasurer.getLength(text);
+                guiGraphics.renderTooltip(mc.font,Component.literal(text),w - length / 2 - 8,h + 64);
+            }
         }
     }
 

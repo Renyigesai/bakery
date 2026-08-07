@@ -17,23 +17,20 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.weibai.rcglib.registration.impl.DeferredMenuType;
-import net.weibai.rcglib.registration.impl.MenuTypeDeferredRegister;
-import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 
 import java.util.function.Supplier;
 
 
 @EventBusSubscriber(value = Dist.CLIENT)
 public class BakeriesMenuType {
-    public static final MenuTypeDeferredRegister REGISTRY = new MenuTypeDeferredRegister(BakeriesMod.MODID);
+    public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(Registries.MENU,BakeriesMod.MODID);
     public static final DeferredRegister<MenuType<?>> MENU = DeferredRegister.create(Registries.MENU,BakeriesMod.MODID);
 
-    public static final Supplier<MenuType<OvenMenu>> OVEN_MENU = REGISTRY.register("oven", OvenMenu::new);
+    public static final Supplier<MenuType<OvenMenu>> OVEN_MENU = REGISTRY.register("oven", () -> IMenuTypeExtension.create(OvenMenu::new));
 
-    public static final Supplier<MenuType<BlenderMenu>> BLENDER_MENU = REGISTRY.register("blender",BlenderMenu::new);
+    public static final Supplier<MenuType<BlenderMenu>> BLENDER_MENU = REGISTRY.register("blender",()-> IMenuTypeExtension.create(BlenderMenu::new));
 
-    public static final Supplier<MenuType<DoughCraftingTableMenu>> DOUGH_MENU = REGISTRY.register("dough", DoughCraftingTableMenu::new);
+    public static final Supplier<MenuType<DoughCraftingTableMenu>> DOUGH_MENU = REGISTRY.register("dough", ()-> IMenuTypeExtension.create(DoughCraftingTableMenu::new));
 
     public static final Supplier<MenuType<FermentationBoxMenu>> FERMENTATION_BOX_MENU = MENU.register("fermentation_box", () -> IMenuTypeExtension.create(FermentationBoxMenu::new));
 

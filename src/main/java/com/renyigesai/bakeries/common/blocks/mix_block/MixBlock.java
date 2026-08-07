@@ -5,7 +5,8 @@ import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.block.AbstractPileBlock;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
-import com.renyigesai.bakeries.common.utils.TextUtils;
+import com.renyigesai.bakeries.common.utils.measurer.ClientUtilsMeasurer;
+import com.renyigesai.bakeries.common.utils.measurer.IUtilsMeasurer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -14,7 +15,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -150,10 +150,13 @@ public class MixBlock extends BaseEntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof MixBlockEntity mix) {
                 Component hoverName = itemInHand.getHoverName();
-                int length = BakeriesMod.clientUtilsMeasurer.getLength(hoverName.getString(),90);
-                String string = hoverName.getString(length);
-                mix.setText(string);
-                return true;
+                IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
+                if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
+                    int length = clientUtilsMeasurer.getLength(hoverName.getString(),90);
+                    String string = hoverName.getString(length);
+                    mix.setText(string);
+                    return true;
+                }
             }
         }
         return false;

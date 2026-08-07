@@ -166,30 +166,6 @@ public class BakeriesEvents {
     }
 
     @SubscribeEvent
-    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        Player player = event.getEntity();
-        Level level = event.getLevel();
-        ItemStack handItem = event.getItemStack();
-        InteractionHand hand = event.getHand();
-        if (level.isClientSide()){
-            return;
-        }
-        if (!BakeriesMod.onAuxiliaryKey(player)){
-            return;
-        }
-        if (!(handItem.getItem() instanceof PileItem pileItem)){
-            return;
-        }
-        event.setCanceled(true);
-        event.setCancellationResult(InteractionResult.SUCCESS);
-        UseOnContext context = new UseOnContext(level, player, hand, handItem, event.getHitVec());
-        InteractionResult result = pileItem.pileUseOn(context);
-        if (result == InteractionResult.PASS) {
-
-        }
-    }
-
-    @SubscribeEvent
     public static void onDropSeed(SnifferDropSeedEvent event){
         if (event.getLevel() instanceof ServerLevel serverLevel){
             BlockPos pos = event.getBlockPos();

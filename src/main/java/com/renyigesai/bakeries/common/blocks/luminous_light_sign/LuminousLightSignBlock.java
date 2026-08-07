@@ -3,7 +3,8 @@ package com.renyigesai.bakeries.common.blocks.luminous_light_sign;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.HorizontalConnectBlock;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
-import com.renyigesai.bakeries.common.utils.TextUtils;
+import com.renyigesai.bakeries.common.utils.measurer.ClientUtilsMeasurer;
+import com.renyigesai.bakeries.common.utils.measurer.IUtilsMeasurer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -54,10 +55,13 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
         if (itemInHand.getItem() instanceof NameTagItem){
             if (blockEntity instanceof LuminousLightSignBlockEntity sign){
                 Component hoverName = itemInHand.getHoverName();
-                int length = BakeriesMod.clientUtilsMeasurer.getLength(hoverName.getString(), 45);
-                String string = hoverName.getString(length);
-                sign.setText(string);
-                return ItemInteractionResult.SUCCESS;
+                IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
+                if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
+                    int length = clientUtilsMeasurer.getLength(hoverName.getString(), 45);
+                    String string = hoverName.getString(length);
+                    sign.setText(string);
+                    return ItemInteractionResult.SUCCESS;
+                }
             }
         }else {
             if (itemInHand.getItem() instanceof DyeItem dye){

@@ -34,7 +34,6 @@ import com.renyigesai.bakeries.common.init.BakeriesDataComponents;
 import com.renyigesai.bakeries.common.inventory.oven.OvenMenu;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipeInput;
-import net.weibai.rcglib.utils.UtilTranslatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +51,7 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
             return 1;
         }
     };
-    public final Component name = Component.translatable(UtilTranslatable.setContainer(BakeriesMod.MODID, "oven"));
+    public final Component name = Component.translatable("container.bakeries.oven");
     @Getter
     private Optional<IItemHandler> optionalIItemHandler;
     public final int[] cooking_times = new int[6];
@@ -120,7 +119,7 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
     public @NotNull Component getDisplayName() {
         return name;
     }
-    //
+
     @Override
     public @Nullable AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, @NotNull Player player) {
         return new OvenMenu(pContainerId, pInventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition),this, this.dataAccess);
@@ -283,6 +282,10 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
     public void setTemperature(int temperature) {
         this.temperature = Math.clamp(temperature, 0, 500);
         updateBlock(this);
+    }
+
+    public int getTemperature() {
+        return temperature;
     }
 
     public void addTemperature(int temperature) {

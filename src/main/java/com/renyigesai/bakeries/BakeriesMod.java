@@ -7,7 +7,7 @@ import com.renyigesai.bakeries.common.capabilities.BakeriesCapabilities;
 import com.renyigesai.bakeries.common.init.*;
 import com.renyigesai.bakeries.common.key.BakeriesKeyMapping;
 import com.renyigesai.bakeries.common.utils.measurer.ClientUtilsMeasurer;
-import com.renyigesai.bakeries.common.utils.measurer.IClientUtilsMeasurer;
+import com.renyigesai.bakeries.common.utils.measurer.IUtilsMeasurer;
 import com.renyigesai.bakeries.common.utils.measurer.ServerUtilsMeasurer;
 import com.renyigesai.bakeries.common.villager.BakeriesVillagers;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +32,7 @@ public class BakeriesMod {
     public static final Logger LOGGER = LogUtils.getLogger();
     public static boolean aprilFoolsDay;
     public static int floatingTemperature;
-    public static IClientUtilsMeasurer clientUtilsMeasurer;
+    public static IUtilsMeasurer utilsMeasurer;
 
     public BakeriesMod(IEventBus modEventBus, ModContainer modContainer) {
         BakeriesCreativeModeTabs.REGISTER.register(modEventBus);
@@ -68,9 +68,9 @@ public class BakeriesMod {
 
     public void initClientUtilsMeasurer(){
         if (FMLEnvironment.dist.isClient()) {
-            clientUtilsMeasurer = new ClientUtilsMeasurer();
+            utilsMeasurer = new ClientUtilsMeasurer();
         } else {
-            clientUtilsMeasurer = new ServerUtilsMeasurer();
+            utilsMeasurer = new ServerUtilsMeasurer();
         }
     }
 

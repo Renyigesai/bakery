@@ -82,13 +82,13 @@ public class EternalBaguetteItem extends Item{
     }
 
     @Override
-    public int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
+    public int getEnchantmentValue(ItemStack stack) {
         return 15;
     }
 
     @Override
-    public int getEnchantmentValue(ItemStack stack) {
-        return 15;
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
     }
 
     static {

@@ -74,8 +74,6 @@ public class ItemModel extends ItemModelProvider {
                 BakeriesBlocks.BROWN_SUGAR_ROLL::get, "_1");
         rawBreadItem(BakeriesItems.PINEAPPLE_BUN_DOUGH,
                 BakeriesBlocks.PINEAPPLE_BUN::get, "_1");
-        rawBreadItem(BakeriesItems.CROISSANT_DOUGH,
-                BakeriesBlocks.CROISSANT::get, "_1");
         rawBreadItem(BakeriesItems.SALT_CROISSANT_DOUGH,
                 BakeriesBlocks.SALT_CROISSANT::get, "_1");
         rawBreadItem(BakeriesItems.BAGUETTE_DOUGH,

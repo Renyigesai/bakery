@@ -3,6 +3,7 @@ package com.renyigesai.bakeries.common.inventory.fermentation_box;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.fermentation_box.FermentationBoxBlockEntity;
 import com.renyigesai.bakeries.common.network.to_server.FermentationBoxMessage;
+import net.createmod.catnip.platform.NeoForgeNetworkHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.weibai.rcglib.network.NetWorkUtils;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         int y = this.topPos;
         if (mouseX >= x + 121 && mouseX <= x + 145 && mouseY >= y + 33 && mouseY <= y + 48){
             boolean flag = scrollY == 1.0;
-            NetWorkUtils.sendToServer(new FermentationBoxMessage(flag ? "add" : "sub",blockEntity.getBlockPos(),Screen.hasShiftDown() ? 1 : 10));
+            PacketDistributor.sendToServer(new FermentationBoxMessage(flag ? "add" : "sub",blockEntity.getBlockPos(),Screen.hasShiftDown() ? 1 : 10));
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_HAT, 2.0F));
         }
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);

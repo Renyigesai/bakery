@@ -22,23 +22,15 @@ public class DataGenerator {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
 
-//        MSTagsProvider.Blocks blockTagsProvider = new MSTagsProvider.Blocks(output, provider, existingFileHelper);
-//        generator.addProvider(events.includeServer(), new MSTagsProvider.Blocks(output, provider, existingFileHelper));
-//        generator.addProvider(events.includeServer(), new MSTagsProvider.Items(
-//                output, provider, blockTagsProvider.contentsGetter(), existingFileHelper));
-
-
         generator.addProvider(event.includeClient(),  new RegistryDataGenerator(output, provider));
-        generator.addProvider(event.includeClient(), new MSSoundsProvider(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new BlockStates(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new ItemModel(output, existingFileHelper));
-        generator.addProvider(event.includeServer(), new MSLootTableProvider(output, provider));
         generator.addProvider(event.includeServer(), new Recipe(output, provider));
         generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
         generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
 
+        Tags.builder(generator,output,provider,existingFileHelper,event.includeClient());
 
-        generator.addProvider(event.includeServer(), new Tags(output, provider, existingFileHelper));
     }
 
 }

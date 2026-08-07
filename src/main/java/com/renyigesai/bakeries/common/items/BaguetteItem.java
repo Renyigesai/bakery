@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.common.items;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesSounds;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -47,5 +49,15 @@ public class BaguetteItem extends RepeatEatItem {
                 .add(Attributes.ATTACK_DAMAGE,new AttributeModifier(BASE_ATTACK_DAMAGE_ID,3d,AttributeModifier.Operation.ADD_VALUE),EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.ATTACK_SPEED,new AttributeModifier(BASE_ATTACK_SPEED_ID,-3d,AttributeModifier.Operation.ADD_VALUE),EquipmentSlotGroup.MAINHAND)
                 .build();
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return 14;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
     }
 }

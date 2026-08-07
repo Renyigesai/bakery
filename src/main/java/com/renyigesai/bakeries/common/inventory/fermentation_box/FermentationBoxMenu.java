@@ -32,7 +32,7 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
         this.player = playerInventory.player;
         this.playerInventory = new InvWrapper(playerInventory);
         blockEntity = fermentationBoxBlockEntity;
-        // Ìí¼ÓÊäÈë²Û (0-5)
+        // æ·»åŠ è¾“å…¥æ§½ (0-5)
         ItemStackHandler items = blockEntity.getHandlerItems();
         addSlot(new FermentationBoxSlot(items,0,52, 16));
         addSlot(new FermentationBoxSlot(items,1, 70, 16));
@@ -70,7 +70,7 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
             ItemStack stackInSlot = slot.getItem();
             originalStack = stackInSlot.copy();
             if (slotIndex < 6) {
-                if (!this.moveItemStackTo(stackInSlot, 6, 39, false)) { // ³¢ÊÔÒÆµ½Íæ¼Ò±³°ü£¨36²Û£©
+                if (!this.moveItemStackTo(stackInSlot, 6, 39, false)) { // å°è¯•ç§»åˆ°çŽ©å®¶èƒŒåŒ…ï¼ˆ36æ§½ï¼‰
                     return ItemStack.EMPTY;
                 }
             }

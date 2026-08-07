@@ -63,10 +63,10 @@ public class BlenderRecipeCategory implements IRecipeCategory<RecipeHolder<Blend
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<BlenderRecipe> recipe, IFocusGroup focuses) {
         NonNullList<Ingredient> recipeIngredients = recipe.value().getInputItems();
         int borderSlotSize = 18;
-        //xºÍyÖáµÄ³õÊ¼×ø±ê£¬È¡ÖµÎªguiÌùÍ¼µÄx,y³õÊ¼Î»ÖÃ¼õÒ»
+        //xå’Œyè½´çš„åˆå§‹åæ ‡ï¼Œå–å€¼ä¸ºguiè´´å›¾çš„x,yåˆå§‹ä½ç½®å‡ä¸€
         int x = 4;
         int y = 7;
-        //Ìí¼ÓÔ­ÁÏ²Û
+        //æ·»åŠ åŸæ–™æ§½
         for (int row = 0; row < 3; ++row) {
             for (int column = 0; column < 3; ++column) {
                 int inputIndex = row * 3 + column;
@@ -76,9 +76,9 @@ public class BlenderRecipeCategory implements IRecipeCategory<RecipeHolder<Blend
                 }
             }
         }
-        //Ìí¼ÓÈİÆ÷²Û
+        //æ·»åŠ å®¹å™¨æ§½
         builder.addSlot(RecipeIngredientRole.INPUT,67,8).addItemStack(recipe.value().getContainer());
-        //Ìí¼ÓÊä³ö²Û
+        //æ·»åŠ è¾“å‡ºæ§½
         builder.addSlot(RecipeIngredientRole.OUTPUT,67,43).addItemStack(recipe.value().getResultItem(null));
     }
 }
