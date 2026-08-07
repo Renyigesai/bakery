@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "bakeries:cream_bingle_coffee",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pile": "1"
+                  }
+                }
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "bakeries:cream_bingle_coffee",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "pile": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "bakeries:cream_bingle_coffee"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "bakeries:blocks/cream_bingle_coffee"
+}

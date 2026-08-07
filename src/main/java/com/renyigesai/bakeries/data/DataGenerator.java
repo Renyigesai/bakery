@@ -25,6 +25,7 @@ public class DataGenerator {
         generator.addProvider(event.includeClient(),  new RegistryDataGenerator(output, provider));
         generator.addProvider(event.includeServer(), new BlockStates(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new ItemModel(output, existingFileHelper));
+        generator.addProvider(event.includeServer(), new LootTable(output, provider));
         generator.addProvider(event.includeServer(), new Recipe(output, provider));
         generator.addProvider(event.includeClient(), new Languages(output, "en_us"));
         generator.addProvider(event.includeClient(), new Languages(output, "zh_cn"));
