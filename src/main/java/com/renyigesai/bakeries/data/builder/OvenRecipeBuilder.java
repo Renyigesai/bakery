@@ -39,8 +39,22 @@ public class OvenRecipeBuilder implements RecipeBuilder {
         this.recipeItems = recipeItems;
     }
 
+    public OvenRecipeBuilder(ItemStack result, int time, int minTemperature, int maxTemperature, Ingredient recipeItems) {
+        this.resultStack = result;
+        this.result = result.getItem();
+        this.time = time;
+        this.minTemperature = minTemperature;
+        this.maxTemperature = maxTemperature;
+        this.perfectTemperature = 0;
+        this.recipeItems = recipeItems;
+    }
+
     public static OvenRecipeBuilder oven(ItemLike result, int count, int time, int minTemperature, int maxTemperature, int perfectTemperature, Ingredient recipeItems) {
         return new OvenRecipeBuilder(new ItemStack(result, count), time, minTemperature, maxTemperature, perfectTemperature, recipeItems);
+    }
+
+    public static OvenRecipeBuilder oven(ItemLike result, int count, int time, int minTemperature, int maxTemperature, Ingredient recipeItems) {
+        return new OvenRecipeBuilder(new ItemStack(result, count), time, minTemperature, maxTemperature, recipeItems);
     }
 
     @Override

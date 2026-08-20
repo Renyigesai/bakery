@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:mould_cake_paste"
+  },
+  "max": 180,
+  "min": 170,
+  "result": {
+    "count": 1,
+    "id": "bakeries:mould_cake_base"
+  },
+  "time": 300
+}

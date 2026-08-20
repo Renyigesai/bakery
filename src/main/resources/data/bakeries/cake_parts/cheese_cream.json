@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:cake_cream",
+  "ingredient": [
+    {
+      "item": "bakeries:cheese_cream"
+    }
+  ],
+  "potion_effect": "bakeries:cheese_power",
+  "effect_duration": 400,
+  "hunger": 1,
+  "saturation": 0.2
+}

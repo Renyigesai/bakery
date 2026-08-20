@@ -56,7 +56,6 @@ public class BreadRackRender implements BlockEntityRenderer<BreadRackBlockEntity
         if (count <= 0 || count >= VEC2S.length) {
             return;
         }
-//        Vec2[] positions = VEC2S[count];
         List<ItemStack> itemsToRender = new ArrayList<>();
         for (int i = 0; i < entity.getItems().getSlots(); i++) {
             ItemStack stack = entity.getItems().getStackInSlot(i);
@@ -68,9 +67,6 @@ public class BreadRackRender implements BlockEntityRenderer<BreadRackBlockEntity
         }
         Vec2[] positions = VEC2S[4];
         for (int i = 0; i < itemsToRender.size(); i++) {
-//            if (i >= positions.length) {
-//                break;
-//            }
             ItemStack stack = itemsToRender.get(i);
             Vec2 position = positions[i];
             renderItem(stack, entity, direction, position, poseStack, pBuffer, pPackedLight, pPackedOverlay,i);

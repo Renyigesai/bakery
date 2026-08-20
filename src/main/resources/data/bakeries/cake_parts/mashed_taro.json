@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:cake_filling",
+  "ingredient": [
+    {
+      "item": "bakeries:mashed_taro"
+    }
+  ],
+  "hunger": 1,
+  "saturation": 0.2
+}

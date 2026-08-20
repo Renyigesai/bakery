@@ -1,0 +1,25 @@
+{
+  "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "id": "minecraft:bucket"
+  },
+  "ingredients": [
+    {
+      "item": "bakeries:raw_protein"
+    },
+    {
+      "item": "bakeries:raw_protein"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:foamed_protein_bucket"
+  }
+}

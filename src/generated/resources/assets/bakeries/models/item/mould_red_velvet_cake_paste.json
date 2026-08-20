@@ -1,0 +1,7 @@
+{
+  "parent": "bakeries:custom/mould_paste",
+  "textures": {
+    "layer0": "bakeries:block/mould_two",
+    "layer1": "bakeries:item/paste"
+  }
+}

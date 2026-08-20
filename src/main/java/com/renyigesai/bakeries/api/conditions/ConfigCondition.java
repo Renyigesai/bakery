@@ -44,13 +44,6 @@ public record ConfigCondition(String configKey,String valueType,String expected)
         return false;
     }
 
-    /**
-     * 获取配置映射的方法
-     * 该方法重写了父类的 getConfigMapping 方法，返回一个包含所有配置项的映射表
-     *
-     * @return 返回一个Map集合，键为配置项的名称(String类型)，值为对应配置项的提供者(Supplier<?>类型)
-     */
-
 
     @Override
     public MapCodec<? extends ICondition> codec() {

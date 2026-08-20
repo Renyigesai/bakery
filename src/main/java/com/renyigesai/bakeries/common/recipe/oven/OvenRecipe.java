@@ -16,6 +16,7 @@ public class OvenRecipe extends AbstractOvenRecipe{
 	public OvenRecipe(ItemStack output, int time, int minTemperature, int maxTemperature, int perfectTemperature, Ingredient recipeItems) {
 		super(Type.INSTANCE, Serializer.INSTANCE, output, time, minTemperature, maxTemperature, perfectTemperature, recipeItems);
 	}
+
 	public enum Type implements RecipeType<OvenRecipe> {
 		INSTANCE
 	}
@@ -31,7 +32,7 @@ public class OvenRecipe extends AbstractOvenRecipe{
 								Codec.INT.fieldOf("time").forGetter(recipe -> recipe.time),
 								Codec.INT.fieldOf("min").forGetter(recipe -> recipe.minTemperature),
 								Codec.INT.fieldOf("max").forGetter(recipe -> recipe.maxTemperature),
-								Codec.INT.fieldOf("perfect").forGetter(recipe -> recipe.perfectTemperature),
+								Codec.INT.optionalFieldOf("perfect",0).forGetter(recipe -> recipe.perfectTemperature),
 								Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(recipe -> recipe.recipeItems)
 						)
 						.apply(recipeInstance, factory::create)

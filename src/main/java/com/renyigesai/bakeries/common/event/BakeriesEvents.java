@@ -2,7 +2,9 @@ package com.renyigesai.bakeries.common.event;
 
 import com.renyigesai.bakeries.BakeriesConfig;
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
+import com.renyigesai.bakeries.api.event.CakeEffectRulesRegistrationEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
 import com.renyigesai.bakeries.api.event.SnifferDropSeedEvent;
 import com.renyigesai.bakeries.api.items.PileItem;
@@ -13,6 +15,8 @@ import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.items.RepeatEatItem;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
 import com.renyigesai.bakeries.common.utils.WorldUtils;
+import com.renyigesai.bakeries.common.utils.measurer.CakeEffectRules;
+import com.renyigesai.bakeries.common.utils.measurer.CakePartMeasurer;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -28,9 +32,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -39,21 +45,27 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 
 @EventBusSubscriber(modid = BakeriesMod.MODID)
 public class BakeriesEvents {
@@ -163,6 +175,23 @@ public class BakeriesEvents {
 //    }
 
     @SubscribeEvent
+    public static void onUseKnifeBlock(PlayerInteractEvent.RightClickBlock event){
+        Player player = event.getEntity();
+        ItemStack itemStack = event.getItemStack();
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+        BlockState blockState = level.getBlockState(pos);
+        Block block = blockState.getBlock();
+        if (block instanceof IKnifeCutBlock iKnifeCutBlock){
+            if (iKnifeCutBlock.isKnifeItem(itemStack) && iKnifeCutBlock.isCut(blockState)){
+                event.setCanceled(true);
+                iKnifeCutBlock.cut(level, blockState, pos,(LivingEntity) player,itemStack,event.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (!BakeriesConfig.provideTutorialBooks){
             return;
@@ -199,6 +228,23 @@ public class BakeriesEvents {
                 ItemEntity itemEntity = new ItemEntity(event.getLevel(), pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BakeriesItems.RAW_COFFEE_BEAN.get()));
                 serverLevel.addFreshEntity(itemEntity);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onServerStarted(ServerStartedEvent event) {
+        CakePartMeasurer.cakePartMeasurerBuilder();
+        initCakeEffectRules();
+    }
+
+    private static void initCakeEffectRules(){
+        CakeEffectRulesRegistrationEvent event = new CakeEffectRulesRegistrationEvent();
+        event.registerRule(CakeEffectRules::tooDisgusting);
+        event.registerRule(CakeEffectRules::amplification);
+        NeoForge.EVENT_BUS.post(event);
+
+        for (Function<List<MobEffectInstance>, List<MobEffectInstance>> rule : event.getRules()) {
+            CakeEffectRules.registerRule(rule);
         }
     }
 

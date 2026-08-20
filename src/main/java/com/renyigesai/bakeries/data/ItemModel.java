@@ -94,6 +94,18 @@ public class ItemModel extends ItemModelProvider {
         customModelItem(BakeriesItems.MOKA_POT_FILL,"custom/moka_pot");
         customModelItem(BakeriesItems.DRINK_CUP,"block/drink_cup");
         customModelItem(BakeriesItems.ETERNAL_BAGUETTE,"block/baguette_1");
+
+        mouldPasteItem(BakeriesItems.MOULD_CAKE_PASTE);
+        mouldPasteItem(BakeriesItems.MOULD_CARROT_CAKE_PASTE);
+        mouldPasteItem(BakeriesItems.MOULD_BASQUE_CAKE_PASTE);
+        mouldPasteItem(BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE);
+        mouldPasteItem(BakeriesItems.MOULD_MATCHA_CAKE_PASTE);
+
+        mouldCakeItem(BakeriesItems.MOULD_MATCHA_CAKE);
+        mouldCakeItem(BakeriesItems.MOULD_CAKE_BASE);
+        mouldCakeItem(BakeriesItems.MOULD_CARROT_CAKE);
+        mouldCakeItem(BakeriesItems.MOULD_RED_VELVET_CAKE_BASE);
+        mouldCakeItem(BakeriesItems.MOULD_BASQUE_CAKE);
     }
 
     private boolean isBlockItem(Item item){
@@ -102,12 +114,19 @@ public class ItemModel extends ItemModelProvider {
 
     private ItemModelBuilder rawBreadItem(Supplier<Item> bread, Supplier<Block> block, String index) {
         return this.getBuilder(this.name(bread.get()))
-                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index)))
-                .texture("0", this.modLoc("item/" + this.name(bread.get())));
+                .parent(new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block.get())+index))).texture("0", this.modLoc("item/" + this.name(bread.get())));
     }
 
     private ItemModelBuilder customModelItem(Supplier<Item> item, String path) {
         return this.getBuilder(this.name(item.get())).parent(new ModelFile.UncheckedModelFile(this.modLoc(path)));
+    }
+
+    private ItemModelBuilder mouldPasteItem(Supplier<Item> item){
+        return this.getBuilder(this.name(item.get())).parent(new ModelFile.UncheckedModelFile(this.modLoc("custom/mould_paste"))).texture("layer0",this.modLoc("block/mould_two")).texture("layer1",this.modLoc("item/paste"));
+    }
+
+    private ItemModelBuilder mouldCakeItem(Supplier<? extends Item> item){
+        return this.getBuilder(this.name(item.get())).parent(new ModelFile.UncheckedModelFile(this.modLoc("custom/mould_two"))).texture("0",this.modLoc("block/mould_two"));
     }
 
     private void usingItem(Item item) {

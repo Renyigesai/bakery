@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:cake_base",
+  "ingredient": [
+    {
+      "item": "bakeries:basque_cake"
+    }
+  ],
+  "potion_effect": "bakeries:cheese_power",
+  "effect_duration": 600,
+  "hunger": 1,
+  "saturation": 0.2
+}

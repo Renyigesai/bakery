@@ -28,5 +28,11 @@ public class OvenRecipes extends Recipes {
         OvenRecipeBuilder.oven(BakeriesItems.COUNTRY_BREAD, 1, 300, 225, 275,0, Ingredient.of(new ItemStack(BakeriesItems.COUNTRY_BREAD_DOUGH.get()))).save(output, name(BakeriesItems.COUNTRY_BREAD.get()));
         OvenRecipeBuilder.oven(BakeriesItems.RICE_BREAD, 1, 200, 155, 205,180, Ingredient.of(new ItemStack(BakeriesItems.RICE_BREAD_DOUGH.get()))).save(output, name(BakeriesItems.RICE_BREAD.get()));
         OvenRecipeBuilder.oven(BakeriesItems.EGG_TART, 1, 300, 180, 220,200, Ingredient.of(new ItemStack(BakeriesItems.RAW_EGG_TART.get()))).save(output, name(BakeriesItems.EGG_TART.get()));
+
+        OvenRecipeBuilder.oven(BakeriesItems.MOULD_CAKE_BASE, 1, 300, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_CAKE_BASE.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.MOULD_BASQUE_CAKE, 1, 300, 200, 230, Ingredient.of(new ItemStack(BakeriesItems.MOULD_BASQUE_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_BASQUE_CAKE.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.MOULD_RED_VELVET_CAKE_BASE, 1, 300, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_RED_VELVET_CAKE_BASE.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.MOULD_MATCHA_CAKE, 1, 300, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_MATCHA_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_MATCHA_CAKE.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.MOULD_CARROT_CAKE, 1, 300, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_CARROT_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_CARROT_CAKE.get()));
     }
 }

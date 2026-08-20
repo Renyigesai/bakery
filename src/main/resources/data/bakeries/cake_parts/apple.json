@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "minecraft:apple"
+    }
+  ],
+  "potion_effect": "minecraft:resistance",
+  "effect_duration": 600,
+  "hunger": 1,
+  "saturation": 0.2
+}

@@ -1,10 +1,7 @@
 package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.common.potion.BakeriesMobEffect;
-import com.renyigesai.bakeries.common.potion.CocoaManiaMobEffect;
-import com.renyigesai.bakeries.common.potion.EnjoyMobEffect;
-import com.renyigesai.bakeries.common.potion.SoftMobEffect;
+import com.renyigesai.bakeries.common.potion.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -27,5 +24,9 @@ public class BakeriesMobEffects {
     public static final Holder<MobEffect> ENJOY = EFFECTS.register("enjoy", EnjoyMobEffect::new);
 
     public static final Holder<MobEffect> SOFT = EFFECTS.register("soft", ()-> new SoftMobEffect().addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE,ResourceLocation.withDefaultNamespace("effect.cheese_power"),0.5,AttributeModifier.Operation.ADD_VALUE).addAttributeModifier(Attributes.ARMOR,ResourceLocation.withDefaultNamespace("effect.cheese_power"),5,AttributeModifier.Operation.ADD_VALUE));
+
+    public static final Holder<MobEffect> BERRY_SOUR = EFFECTS.register("berry_sour", BerrySourMobEffect::new);
+
+    public static final Holder<MobEffect> TEA_ASTRINGENT = EFFECTS.register("tea_astringent", TeaAstringentMobEffect::new);
 
 }

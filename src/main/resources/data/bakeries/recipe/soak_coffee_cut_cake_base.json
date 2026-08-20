@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "bakeries:cut_cake_base"
+    },
+    {
+      "item": "bakeries:cut_cake_base"
+    },
+    {
+      "item": "bakeries:moka_pot_fill"
+    }
+  ],
+  "result": {
+    "id": "bakeries:soak_coffee_cut_cake_base",
+    "count": 2
+  }
+}

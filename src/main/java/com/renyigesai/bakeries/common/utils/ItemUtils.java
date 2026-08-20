@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.common.utils;
 
+import com.renyigesai.bakeries.api.LazyMobEffectInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
@@ -60,5 +61,13 @@ public class ItemUtils {
             }
         }
         return flag;
+    }
+
+    public static List<LazyMobEffectInstance> addEffects(LazyMobEffectInstance... effects){
+        return List.of(effects);
+    }
+
+    public static List<LazyMobEffectInstance> ofEffects(){
+        return List.of(LazyMobEffectInstance.of());
     }
 }

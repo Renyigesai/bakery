@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " c ",
+    "aba",
+    " c "
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:soak_coffee_cut_cake_base"
+    },
+    "b": {
+      "item": "bakeries:cocoa_powder"
+    },
+    "c": {
+      "item": "bakeries:cheese_cream"
+    }
+  },
+  "result": {
+    "id": "bakeries:tiramisu",
+    "count": 1
+  }
+}

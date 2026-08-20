@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:cake_filling",
+  "ingredient": [
+    {
+      "item": "bakeries:bearnaise"
+    }
+  ],
+  "potion_effect": "minecraft:saturation",
+  "effect_duration": 20,
+  "hunger": 1,
+  "saturation": 0.2
+}

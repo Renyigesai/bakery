@@ -49,7 +49,7 @@ public class ShakeItem extends Item {
 
     @Override
     public @NotNull InteractionResultHolder use(@NotNull Level world, Player entity, @NotNull InteractionHand hand) {
-        /*物品装物品示例不要删除注册的时候记得加.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)*/
+        /*鐗╁搧瑁呯墿鍝佺ず渚嬩笉瑕佸垹闄ゆ敞鍐岀殑鏃跺�欒寰楀姞.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)*/
 //        ItemStack itemInHand = entity.getItemInHand(hand);
 //        List<ItemStack> stacks = new ArrayList<>();
 //        stacks.add(new ItemStack(Items.APPLE));

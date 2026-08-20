@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:mould_basque_cake_paste"
+  },
+  "max": 230,
+  "min": 200,
+  "result": {
+    "count": 1,
+    "id": "bakeries:mould_basque_cake"
+  },
+  "time": 300
+}

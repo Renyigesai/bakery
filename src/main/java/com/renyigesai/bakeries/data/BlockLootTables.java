@@ -7,7 +7,6 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -15,7 +14,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.weibai.rcglib.blocks.BreadBlock;
 
 import java.util.HashSet;
 import java.util.List;
@@ -70,6 +68,7 @@ public class BlockLootTables extends VanillaBlockLoot {
         this.dropSelf(BakeriesBlocks.OVEN.get());
         this.dropSelf(BakeriesBlocks.BLENDER.get());
         this.dropSelf(BakeriesBlocks.MOULD.get());
+        this.dropSelf(BakeriesBlocks.MOULD_TWO.get());
         this.dropSelf(BakeriesBlocks.WOOD_COUNTER.get());
         this.dropSelf(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG.get());
         this.dropSelf(BakeriesBlocks.FLOUR_BAG.get());

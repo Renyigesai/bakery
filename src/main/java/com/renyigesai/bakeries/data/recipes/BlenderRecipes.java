@@ -112,5 +112,25 @@ public class BlenderRecipes extends Recipes{
                 .addIngredient(BakeriesItems.CHEESE_CUBE)
                 .addIngredient(BakeriesItems.BOTTLE_CREAM)
                 .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.CAKE_PASTE_BUCKET,Items.BUCKET,1)
+                .addIngredient(BakeriesItems.FOAMED_PROTEIN_BUCKET)
+                .addIngredient(BakeriesItems.EGG_YOLK_PASTE_BUCKET)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.FOAMED_PROTEIN_BUCKET,Items.BUCKET,1)
+                .addIngredient(BakeriesItems.RAW_PROTEIN)
+                .addIngredient(BakeriesItems.RAW_PROTEIN)
+                .addIngredient(Items.SUGAR)
+                .addIngredient(Items.SUGAR)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.EGG_YOLK_PASTE_BUCKET,Items.BUCKET,1)
+                .addIngredient(BakeriesItems.RAW_EGG_YOLK)
+                .addIngredient(BakeriesItems.RAW_EGG_YOLK)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(CommonTags.MILK)
+                .build(output);
     }
 }

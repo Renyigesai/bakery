@@ -5,7 +5,6 @@
   },
   "max": 250,
   "min": 200,
-  "perfect": 0,
   "result": {
     "count": 1,
     "id": "bakeries:coffee_bean"

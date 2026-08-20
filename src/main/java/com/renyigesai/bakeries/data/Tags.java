@@ -12,8 +12,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class Tags {
@@ -65,6 +65,10 @@ public class Tags {
                             BakeriesItems.COUNTRY_BREAD_DOUGH.get(),
                             BakeriesItems.BAGUETTE.get(),
                             BakeriesItems.BAGUETTE_DOUGH.get());
+
+            tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("bakeries", "bread_knife")))
+                    .add(
+                            BakeriesItems.BREAD_KNIFE.get());
 
             /*附魔标签*/
             /*耐久*/

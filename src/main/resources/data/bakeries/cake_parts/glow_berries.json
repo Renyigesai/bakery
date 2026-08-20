@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "minecraft:glow_berries"
+    }
+  ],
+  "hunger": 2,
+  "saturation": 0.1
+}

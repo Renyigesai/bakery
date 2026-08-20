@@ -1,0 +1,6 @@
+{
+  "parent": "bakeries:custom/mould_two",
+  "textures": {
+    "0": "bakeries:block/mould_two"
+  }
+}

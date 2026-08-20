@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.common.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
+import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,9 +36,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class ToastBlock extends AKnifeCutBlock {
+public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
     /*由于吐司只是一个单纯的方块，他的物品不需要可食用*/
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
+//    public static final IntegerProperty SLICE = IntegerProperty.create("slice",1,4);
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
     protected static final VoxelShape Z_BOX = Block.box(4.0D, 0.0D, 6.0D, 12.0D, 5.0D, 10.0D);
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
@@ -64,12 +66,8 @@ public class ToastBlock extends AKnifeCutBlock {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level level, BlockPos pos, Player pPlayer, InteractionHand pHand, BlockHitResult hitResult) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         int pile = pState.getValue(PILE);
-        if (isKnifeItem(hand) && pile == 1){
-            cut(level,pState,pos,pPlayer,hand,pHand);
-            return ItemInteractionResult.SUCCESS;
-        }
         int slice = pState.getValue(SLICE);
-        if (hand.is(asItem()) && pile < 2 && slice == 1){
+        if (hand.is(asItem()) && pile < 2 && !isCut(pState)){
             if (!pPlayer.getAbilities().instabuild) {
                 hand.shrink(1);
             }
@@ -93,8 +91,14 @@ public class ToastBlock extends AKnifeCutBlock {
         return 1;
     }
 
+    @Override
     public Item getSliceItem() {
         return this.sliceItem.get();
+    }
+
+    @Override
+    public boolean isCut(BlockState state) {
+        return state.getValue(PILE) == 1;
     }
 
     protected ItemInteractionResult pileUp(Level level, BlockPos pos, BlockState state){

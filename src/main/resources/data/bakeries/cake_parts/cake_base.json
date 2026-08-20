@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:cake_base",
+  "ingredient": [
+    {
+      "item": "bakeries:cake_base"
+    }
+  ],
+  "potion_effect": "bakeries:soft",
+  "effect_duration": 600,
+  "hunger": 5,
+  "saturation": 0.4
+}

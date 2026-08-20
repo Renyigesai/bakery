@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.api.LazyMobEffectInstance;
 import com.renyigesai.bakeries.common.blocks.*;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlockEntity;
@@ -9,8 +10,12 @@ import com.renyigesai.bakeries.common.blocks.bread_basket.BreadBasketBlockEntity
 import com.renyigesai.bakeries.common.blocks.bread_rack.BreadRackBlock;
 import com.renyigesai.bakeries.common.blocks.bread_rack.BreadRackBlockEntity;
 import com.renyigesai.bakeries.common.blocks.bread_rack.GlassBreadRackBlock;
+import com.renyigesai.bakeries.common.blocks.cake.CakeBaseBlock;
+import com.renyigesai.bakeries.common.blocks.cake.CreamCakeBlock;
 import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlock;
 import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlockEntity;
+import com.renyigesai.bakeries.common.blocks.custom_cake.CustomCakeBlock;
+import com.renyigesai.bakeries.common.blocks.custom_cake.CustomCakeBlockEntity;
 import com.renyigesai.bakeries.common.blocks.dough_crafting_table.DoughCraftingTableBlock;
 import com.renyigesai.bakeries.common.blocks.dough_crafting_table.DoughCraftingTableBlockEntity;
 import com.renyigesai.bakeries.common.blocks.fermentation_box.FermentationBoxBlock;
@@ -26,12 +31,16 @@ import com.renyigesai.bakeries.common.blocks.mix_block.MixBlock;
 import com.renyigesai.bakeries.common.blocks.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.common.blocks.moka_pot.MokaPotBlock;
 import com.renyigesai.bakeries.common.blocks.moka_pot.MokaPotBlockEntity;
+import com.renyigesai.bakeries.common.blocks.mould_cake.MouldCakeBlock;
+import com.renyigesai.bakeries.common.blocks.mould_cake.MouldCakeBlockEntity;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.common.blocks.sofa.SofaBlock;
 import com.renyigesai.bakeries.common.blocks.toaster.ToasterBlock;
 import com.renyigesai.bakeries.common.blocks.toaster.ToasterBlockEntity;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -105,6 +114,17 @@ public class BakeriesBlocks {
     /**芋泥咸蛋黄面包*/
     public static final DeferredBlock<Block> TARO_SALT_YOLK_BREAD;
 
+    /**自定义蛋糕*/
+    public static final DeferredBlock<Block> CUSTOM_CAKE;
+    public static final DeferredBlock<Block> CAKE_BASE;
+    public static final DeferredBlock<Block> RED_VELVET_CAKE_BASE;
+    public static final DeferredBlock<Block> MATCHA_CAKE;
+    public static final DeferredBlock<Block> CREAM_CAKE;
+    public static final DeferredBlock<Block> RED_VELVET_CAKE;
+    public static final DeferredBlock<Block> TIRAMISU;
+    public static final DeferredBlock<Block> CARROT_CAKE;
+    public static final DeferredBlock<Block> BASQUE_CAKE;
+
     /**番茄*/
     public static final DeferredBlock<Block> TOMATO;
     /**咖啡丛*/
@@ -124,6 +144,7 @@ public class BakeriesBlocks {
 
     /**模具*/
     public static final DeferredBlock<Block> MOULD;
+    public static final DeferredBlock<Block> MOULD_TWO;
 
     /**面粉袋*/
     public static final DeferredBlock<Block> WHOLE_WHEAT_FLOUR_BAG;
@@ -161,6 +182,7 @@ public class BakeriesBlocks {
     public static DeferredBlock<Block> FERMENTATION_BOX;
     public static DeferredBlock<Block> LUMINOUS_LIGHT_SIGN;
     public static DeferredBlock<Block> BREAD_HOLDERS;
+    public static DeferredBlock<Block> SILICONE_PAPER;
 
 
     /**饮料方块*/
@@ -185,6 +207,7 @@ public class BakeriesBlocks {
     public static final DeferredBlock<MixBlock> MIX_BLOCK;
     public static final DeferredBlock<GlassDrinkCupBlock> DRINK_CUP;
     public static final DeferredBlock<ToasterBlock> TOASTER;
+    public static final DeferredBlock<Block> MOULD_CAKE;
 
     /**盐水*/
     public static final DeferredBlock<LiquidBlock> SALT_WATER_BLOCK;
@@ -224,6 +247,35 @@ public class BakeriesBlocks {
                 new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.CHEESE_COCOA_TOAST));
         EGG_TART = register("egg_tart",BreadBlock::new);
         TARO_SALT_YOLK_BREAD = register("taro_salt_yolk_bread",BreadBlock::new);
+
+        /*蛋糕*/
+        CUSTOM_CAKE = REGISTER.register("custom_cake",()-> new CustomCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
+
+        CAKE_BASE = REGISTER.register("cake_base",()-> new CakeBaseBlock(5,0.4f));
+        RED_VELVET_CAKE_BASE = REGISTER.register("red_velvet_cake_base",()-> new CakeBaseBlock(5,0.4f));
+        MATCHA_CAKE = REGISTER.register("matcha_cake",()-> new CakeBaseBlock(5,0.4f));
+
+        CREAM_CAKE = REGISTER.register("cream_cake",()-> new CreamCakeBlock(ItemUtils.addEffects(
+                new LazyMobEffectInstance(MobEffects.REGENERATION,1200),
+                new LazyMobEffectInstance(BakeriesMobEffects.SOFT,1200)),10,0.25f));
+
+        TIRAMISU = REGISTER.register("tiramisu",()-> new CakeBaseBlock(
+                ItemUtils.addEffects(
+                        new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200),
+                        new LazyMobEffectInstance(BakeriesMobEffects.COCOA_MANIA,1200),
+                        new LazyMobEffectInstance(MobEffects.NIGHT_VISION,1200)),
+                5,0.4f));
+
+        CARROT_CAKE = REGISTER.register("carrot_cake",()-> new CakeBaseBlock(
+                ItemUtils.addEffects(
+                        new LazyMobEffectInstance(MobEffects.NIGHT_VISION,1200)),
+                10,0.4f));
+
+        BASQUE_CAKE = REGISTER.register("basque_cake",()-> new CakeBaseBlock(ItemUtils.addEffects(
+                new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200)),
+                6,0.4f));
+
+        RED_VELVET_CAKE = REGISTER.register("red_velvet_cake",()-> new CakeBaseBlock(6,0.4f));
 
         /*饮料方块*/
         ICED_AMERICAN = drinkBlock("iced_american");
@@ -285,6 +337,7 @@ public class BakeriesBlocks {
         CASH_REGISTER_COMPUTER = REGISTER.register("cash_register_computer",()-> new CashRegisterComputerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(1.5F, 6.0F).lightLevel(litBlockEmission(10))));
 
         MOULD = register("mould", () -> new MouldBlock(BakeriesItems.MOULD));
+        MOULD_TWO = register("mould_two", () -> new MouldBlock(BakeriesItems.MOULD_TWO));
         RAW_SALT_BLOCK = REGISTER.register("raw_salt_block",()-> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
         BLENDER = REGISTER.register("blender",()-> new BlenderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.5F, 3.5F).requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         OVEN = registerBlock("oven", OvenBlock::new, BlockBehaviour.Properties.of().strength(3.5F));
@@ -295,6 +348,7 @@ public class BakeriesBlocks {
         MIX_BLOCK = REGISTER.register("mix_block",()->  new MixBlock());
         DRINK_CUP = REGISTER.register("drink_cup",()-> new GlassDrinkCupBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).strength(0.1F,0.1F)));
         TOASTER = REGISTER.register("toaster",()-> new ToasterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
+        MOULD_CAKE = REGISTER.register("mould_cake",()-> new MouldCakeBlock(BlockBehaviour.Properties.ofFullCopy(MOULD_TWO.get())));
 
         SALT_WATER_BLOCK = REGISTER.register("salt_water_block", SaltWaterFluidsBlock::new);
 
@@ -302,6 +356,8 @@ public class BakeriesBlocks {
                 .sound(SoundType.NETHERITE_BLOCK).noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
         LUMINOUS_LIGHT_SIGN = REGISTER.register("luminous_light_sign", LuminousLightSignBlock::new);
         BREAD_HOLDERS = REGISTER.register("bread_holders",()->new BreadHoldersBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+        SILICONE_PAPER = REGISTER.register("silicone_paper",()-> new SiliconePaperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).strength(0.1f)));
 
 
         /**联动方块*/
@@ -342,5 +398,7 @@ public class BakeriesBlocks {
         public static final Supplier<BlockEntityType<BreadRackBlockEntity>> BREAD_RACK_ENTITY = REGISTER.register("bread_rack", () -> BlockEntityType.Builder.of(BreadRackBlockEntity::new, BREAD_RACK.get(),GLASS_BREAD_RACK.get()).build(null));
         public static final Supplier<BlockEntityType<FermentationBoxBlockEntity>> FERMENTATION_BOX_ENTITY = REGISTER.register("fermentation_box", () -> BlockEntityType.Builder.of(FermentationBoxBlockEntity::new, FERMENTATION_BOX.get()).build(null));
         public static Supplier<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY = REGISTER.register("luminous_light_sign_", () -> BlockEntityType.Builder.of(LuminousLightSignBlockEntity::new, LUMINOUS_LIGHT_SIGN.get()).build(null));;
+        public static Supplier<BlockEntityType<CustomCakeBlockEntity>> CUSTOM_CAKE_ENTITY = REGISTER.register("custom_cake", () -> BlockEntityType.Builder.of(CustomCakeBlockEntity::new, CUSTOM_CAKE.get()).build(null));;
+        public static Supplier<BlockEntityType<MouldCakeBlockEntity>> MOULD_CAKE_ENTITY = REGISTER.register("mould_cake", () -> BlockEntityType.Builder.of(MouldCakeBlockEntity::new, MOULD_CAKE.get()).build(null));;
     }
 }

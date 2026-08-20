@@ -1,0 +1,10 @@
+{
+  "type": "bakeries:cake_cream",
+  "ingredient": [
+    {
+      "item": "bakeries:meat_floss"
+    }
+  ],
+  "hunger": 2,
+  "saturation": 1.5
+}

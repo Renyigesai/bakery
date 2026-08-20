@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/cake_base_2",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/red_velvet_cake_base",
+    "particle": "bakeries:block/red_velvet_cake_base"
+  }
+}

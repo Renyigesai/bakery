@@ -1,16 +1,16 @@
 package com.renyigesai.bakeries.data;
 
 
+import com.renyigesai.bakeries.api.block.AbstractBCakeBlock;
 import com.renyigesai.bakeries.api.block.AbstractPileBlock;
 import com.renyigesai.bakeries.common.blocks.*;
 import com.renyigesai.bakeries.common.blocks.blander.BlenderBlock;
 import com.renyigesai.bakeries.common.blocks.bread_basket.BreadBasketBlock;
 import com.renyigesai.bakeries.common.blocks.bread_rack.BreadRackBlock;
+import com.renyigesai.bakeries.common.blocks.cake.CakeBaseBlock;
 import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlock;
-import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlockEntity;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.blocks.sofa.SofaBlock;
-import com.renyigesai.bakeries.common.blocks.toaster.ToasterBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -18,16 +18,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
-import net.weibai.rcglib.blocks.BreadBlock;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -78,6 +75,18 @@ public class BlockStates extends BlockStateProvider {
         pileBlock(BakeriesBlocks.BEARNAISE);
         pileBlock(BakeriesBlocks.OLIVE_OIL);
         pileBlock(BakeriesBlocks.SALMON_SANDWICH);
+
+        /*蛋糕方块*/
+        cakeBaseBlock(BakeriesBlocks.CAKE_BASE);
+        cakeBaseBlock(BakeriesBlocks.RED_VELVET_CAKE_BASE);
+        cakeBaseBlock(BakeriesBlocks.MATCHA_CAKE);
+        cakeBaseBlock(BakeriesBlocks.CARROT_CAKE);
+        cakeBaseBlock(BakeriesBlocks.BASQUE_CAKE);
+        cakeBlock(BakeriesBlocks.CREAM_CAKE);
+        cakeBlock(BakeriesBlocks.TIRAMISU);
+        cakeBlock(BakeriesBlocks.RED_VELVET_CAKE);
+
+
         bagelFilledSauce();
 
         drinkBlock(BakeriesBlocks.ICED_AMERICAN);
@@ -92,6 +101,7 @@ public class BlockStates extends BlockStateProvider {
         mouldToastBlock(BakeriesBlocks.MOULD_TOAST,"toast");
         mouldToastBlock(BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST,"cheese_cocoa_toast");
         directionBlock(BakeriesBlocks.MOULD);
+        directionBlock(BakeriesBlocks.MOULD_TWO);
 
         bagBlock(BakeriesBlocks.WHOLE_WHEAT_FLOUR_BAG.get(),"whole_wheat_");
         bagBlock(BakeriesBlocks.FLOUR_BAG.get(),"");
@@ -335,37 +345,6 @@ public class BlockStates extends BlockStateProvider {
         }
     }
 
-//    public void sofaBlock(Supplier<SofaBlock> sofa){
-//        for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
-//            for (Boolean left : SofaBlock.LEFT.getPossibleValues()) {
-//                for (Boolean right : SofaBlock.RIGHT.getPossibleValues()) {
-//                    String state = "";
-//                    if (left && !right){
-//                        state = "_left";
-//                    }
-//                    if (right && !left){
-//                        state = "_right";
-//                    }
-//                    if (right && left){
-//                        state = "_all";
-//                    }
-//                    String color = sofa.get().getColor().getColorKey();
-//                    String texture = "block/sofa_" + color;
-//                    ModelFile modelFile = this.models().withExistingParent("sofa_" + color + state , this.modLoc("custom/sofa" + state)).texture("0", texture).texture("particle", texture).renderType(CUTOUT);
-//                    this.getVariantBuilder(sofa.get())
-//                            .partialState()
-//                            .with(SofaBlock.LEFT, left)
-//                            .with(SofaBlock.RIGHT, right)
-//                            .with(BlockStateProperties.HORIZONTAL_FACING, direction)
-//                            .modelForState()
-//                            .rotationY((int) direction.toYRot())
-//                            .modelFile(modelFile)
-//                            .addModel();
-//                }
-//            }
-//        }
-//    }
-
     public void sofaBlock(Supplier<SofaBlock> sofa){
         for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
             for (HorizontalConnectBlock.Type type : SofaBlock.TYPE.getPossibleValues()) {
@@ -514,6 +493,42 @@ public class BlockStates extends BlockStateProvider {
                     .rotationY((int) direction.toYRot())
                     .modelFile(modelFile)
                     .addModel();
+        }
+    }
+
+    public void cakeBaseBlock(Supplier<? extends Block> block){
+        for (Direction direction : AbstractBCakeBlock.FACING.getPossibleValues()) {
+            for (int size : AbstractBCakeBlock.BITES.getPossibleValues()){
+                String name = name(block.get());
+                String texture = "block/" + name;
+                ModelFile modelFile = this.models().withExistingParent(name + "_" + size, this.modLoc("custom/" + "cake_base" + "_" + size)).texture("0", texture).texture("particle", texture).renderType(CUTOUT);
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(AbstractBCakeBlock.FACING, direction)
+                        .with(AbstractBCakeBlock.BITES, size)
+                        .modelForState()
+                        .rotationY((int) direction.toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
+        }
+    }
+
+    public void cakeBlock(Supplier<? extends Block> block){
+        for (Direction direction : AbstractBCakeBlock.FACING.getPossibleValues()) {
+            for (int size : AbstractBCakeBlock.BITES.getPossibleValues()){
+                String name = name(block.get());
+                String texture = "block/" + name;
+                ModelFile modelFile = this.models().withExistingParent(name + "_" + size, this.modLoc("custom/" + name + "_" + size)).texture("0", texture).texture("particle", texture).renderType(CUTOUT);
+                this.getVariantBuilder(block.get())
+                        .partialState()
+                        .with(AbstractBCakeBlock.FACING, direction)
+                        .with(AbstractBCakeBlock.BITES, size)
+                        .modelForState()
+                        .rotationY((int) direction.toYRot())
+                        .modelFile(modelFile)
+                        .addModel();
+            }
         }
     }
 

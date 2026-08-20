@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.integration.ponder;
 
 import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
+import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.common.blocks.FermentationTankBlock;
 import com.renyigesai.bakeries.common.blocks.YeastTankBlock;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
@@ -456,7 +457,7 @@ public class BakeriesPonderScenes {
                 .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
         scene.idle(15);
 
-        scene.world().modifyBlock(center, state -> state.setValue(AKnifeCutBlock.SLICE, 2), false);
+        scene.world().modifyBlock(center, state -> state.setValue(IKnifeCutBlock.SLICE, 2), false);
 
         scene.world().createItemEntity(toastTop, new Vec3(0, 0.15, 0.1), new ItemStack(BakeriesItems.SLICED_TOAST.get()));
         scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
@@ -467,7 +468,7 @@ public class BakeriesPonderScenes {
                 .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
         scene.idle(15);
 
-        scene.world().modifyBlock(center, state -> state.setValue(AKnifeCutBlock.SLICE, 3), false);
+        scene.world().modifyBlock(center, state -> state.setValue(IKnifeCutBlock.SLICE, 3), false);
 
         scene.world().createItemEntity(toastTop, new Vec3(0, 0.15, 0.1), new ItemStack(BakeriesItems.SLICED_TOAST.get()));
         scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);
@@ -478,7 +479,7 @@ public class BakeriesPonderScenes {
                 .withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
         scene.idle(15);
 
-        scene.world().modifyBlock(center, state -> state.setValue(AKnifeCutBlock.SLICE, 4), false);
+        scene.world().modifyBlock(center, state -> state.setValue(IKnifeCutBlock.SLICE, 4), false);
 
         scene.world().createItemEntity(toastTop, new Vec3(0, 0.15, 0.1), new ItemStack(BakeriesItems.SLICED_TOAST.get()));
         scene.effects().simpleParticleEmitter(net.minecraft.core.particles.ParticleTypes.CRIT, Vec3.ZERO);

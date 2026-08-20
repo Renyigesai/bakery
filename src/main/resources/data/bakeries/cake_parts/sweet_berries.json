@@ -1,0 +1,12 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "potion_effect": "bakeries:berry_sour",
+  "effect_duration": 600,
+  "hunger": 2,
+  "saturation": 0.1
+}

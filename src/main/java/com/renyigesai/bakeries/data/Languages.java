@@ -90,6 +90,7 @@ public class Languages extends AbstractLanguageProvider {
         add("bakeries.book.name","Baking Guide","烘焙教科书");
         add("key.bakeries.bakeries","Bakeries","烘焙坊");
         add("key.bakeries.auxiliary","Auxiliary","辅助按键");
+        add("block.bakeries.custom_cake","Custom Cake","自定义蛋糕");
     }
 
     private void addCreativeModeTabs() {
@@ -107,10 +108,14 @@ public class Languages extends AbstractLanguageProvider {
         addEffect(BakeriesMobEffects.COCOA_MANIA::value, "Cocoa Mania", "可可狂热");
         addEffect(BakeriesMobEffects.SOFT::value, "Soft", "柔软");
         addEffect(BakeriesMobEffects.ENJOY::value, "Enjoy", "享受");
+        addEffect(BakeriesMobEffects.BERRY_SOUR::value, "Berry Sour", "莓酸");
+        addEffect(BakeriesMobEffects.TEA_ASTRINGENT::value, "Tea Astringent", "茶涩");
         add("effect.bakeries.enjoy.description","When you have this effect, you will be immune to all negative effects and increase the speed of blood recovery.","拥有此效果时，免疫所有负面效果，提升回血速度。");
         add("effect.bakeries.cocoa_mania.description","Ignore the damage caused by the entity's invincible time.","无视生物无敌帧造成伤害。");
         add("effect.bakeries.cheese_power.description","Enhance the basic attack power.","提升基础攻击力。");
         add("effect.bakeries.soft.description","Increase armor value and repel resistance, and bombard the attacker entity.","提升护甲值和击退抗性，弹飞攻击者实体。");
+        add("effect.bakeries.berry_sour.description","The damage dealt to creatures in rain or water is increased by 1.5 times, and there is a 20% chance of lightning being summoned.","攻击淋雨或水中的生物伤害提升至 1.5 倍，且有 20% 概率降下闪电。");
+        add("effect.bakeries.tea_astringent.description","Apply a mandatory deceleration effect to other entities within a 3.5-unit radius of itself.","对自身周围 3.5 格内的其他实体施加强制减速效果。");
     }
 
     private void addItems() throws IllegalAccessException {
