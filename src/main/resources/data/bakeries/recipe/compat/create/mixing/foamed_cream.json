@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "id": "bakeries:foamed_cream"
+    },
+    {
+      "count": 2,
+      "id": "minecraft:glass_bottle"
+    }   
+  ]
+}

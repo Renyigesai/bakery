@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "bakeries:cream_cake"
+    },
+    "title": {
+      "translate": "advancements.bakeries.get_cream_cake.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.get_cream_cake.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sieving": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bakeries:cream_cake"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "bakeries:root"
+}

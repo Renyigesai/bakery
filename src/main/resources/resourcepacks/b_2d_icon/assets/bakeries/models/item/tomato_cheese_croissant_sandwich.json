@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/tomato_cheese_croissant_sandwich"
+  },
+  "base": {
+    "parent": "bakeries:block/tomato_cheese_croissant_sandwich_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/tomato_cheese_croissant_sandwich_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/tomato_cheese_croissant_sandwich_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/tomato_cheese_croissant_sandwich_2d"
+    }
+  }
+}

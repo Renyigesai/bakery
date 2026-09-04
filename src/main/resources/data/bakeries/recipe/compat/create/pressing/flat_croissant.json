@@ -1,0 +1,20 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "bakeries:croissant"
+    }
+  ],
+  "results": [
+    {
+      "id": "bakeries:flat_croissant",
+      "count": 1
+    }
+  ]
+}

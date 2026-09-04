@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.*;
 
 public abstract class MultiOutputSingleItemRecipe implements Recipe<SingleRecipeInput> {
     protected final Ingredient ingredient;
-    protected final NonNullList<ItemStack> results;  // ¸ÄÎª¶à¸ö½á¹û
+    protected final NonNullList<ItemStack> results;  // æ”¹ä¸ºå¤šä¸ªç»“æœ
     private final RecipeType<?> type;
     private final RecipeSerializer<?> serializer;
     protected final String group;
@@ -40,12 +40,12 @@ public abstract class MultiOutputSingleItemRecipe implements Recipe<SingleRecipe
         return this.group;
     }
 
-    // ·µ»ØµÚÒ»¸ö½á¹ûÒÔ±£³Ö¼æÈİĞÔ
+    // è¿”å›ç¬¬ä¸€ä¸ªç»“æœä»¥ä¿æŒå…¼å®¹æ€§
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         return this.results.isEmpty() ? ItemStack.EMPTY : this.results.getFirst();
     }
 
-    // ĞÂÔö£º»ñÈ¡ËùÓĞ½á¹ûµÄ·½·¨
+    // æ–°å¢ï¼šè·å–æ‰€æœ‰ç»“æœçš„æ–¹æ³•
     public NonNullList<ItemStack> getAllResults() {
         return this.results;
     }
@@ -60,12 +60,12 @@ public abstract class MultiOutputSingleItemRecipe implements Recipe<SingleRecipe
         return true;
     }
 
-    // ·µ»ØµÚÒ»¸ö½á¹ûµÄ¸±±¾
+    // è¿”å›ç¬¬ä¸€ä¸ªç»“æœçš„å‰¯æœ¬
     public ItemStack assemble(SingleRecipeInput input, HolderLookup.Provider registries) {
         return this.results.isEmpty() ? ItemStack.EMPTY : this.results.getFirst().copy();
     }
 
-    // ĞÂÔö£º·µ»ØËùÓĞ½á¹ûµÄ·½·¨
+    // æ–°å¢ï¼šè¿”å›æ‰€æœ‰ç»“æœçš„æ–¹æ³•
     public NonNullList<ItemStack> assembleAll(SingleRecipeInput input, HolderLookup.Provider registries) {
         NonNullList<ItemStack> resultCopies = NonNullList.create();
         for (ItemStack stack : this.results) {
@@ -74,7 +74,7 @@ public abstract class MultiOutputSingleItemRecipe implements Recipe<SingleRecipe
         return resultCopies;
     }
 
-    // ĞòÁĞ»¯Æ÷Àà
+    // åºåˆ—åŒ–å™¨ç±»
     public static class Serializer<T extends MultiOutputSingleItemRecipe> implements RecipeSerializer<T> {
         private final Factory<T> factory;
         private final MapCodec<T> codec;
@@ -83,11 +83,11 @@ public abstract class MultiOutputSingleItemRecipe implements Recipe<SingleRecipe
         public Serializer(Factory<T> factory) {
             this.factory = factory;
 
-            // ´´½¨ Codec
+            // åˆ›å»º Codec
             this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                     Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                     Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
-                    // ´¦Àí½á¹ûÁĞ±í
+                    // å¤„ç†ç»“æœåˆ—è¡¨
                     ItemStack.STRICT_CODEC.listOf()
                             .fieldOf("results")
                             .xmap(
@@ -101,7 +101,7 @@ public abstract class MultiOutputSingleItemRecipe implements Recipe<SingleRecipe
                             .forGetter(recipe -> recipe.results)
             ).apply(instance, factory::create));
 
-            // ´´½¨ StreamCodec
+            // åˆ›å»º StreamCodec
             this.streamCodec = StreamCodec.composite(
                     ByteBufCodecs.STRING_UTF8,
                     recipe -> recipe.group,

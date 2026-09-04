@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "item": "bakeries:brown_sugar_cube"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "item": "bakeries:mould_two"
+    }
+  ],
+  "results": [
+    {
+      "id": "bakeries:mould_carrot_cake_paste"
+    }
+  ]
+}

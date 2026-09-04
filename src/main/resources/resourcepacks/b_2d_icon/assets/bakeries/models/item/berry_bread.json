@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/berry_bread"
+  },
+  "base": {
+    "parent": "bakeries:block/berry_bread_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/berry_bread_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/berry_bread_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/berry_bread_2d"
+    }
+  }
+}

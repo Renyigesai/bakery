@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+
+    {
+      "item": "bakeries:cooked_taro"
+    },
+    {
+      "item": "minecraft:sugar"
+    }, 
+    {
+      "item": "bakeries:bottle_cream"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "id": "bakeries:mashed_taro"
+    },
+    {
+      "id": "minecraft:glass_bottle"
+    }  
+  ]
+}

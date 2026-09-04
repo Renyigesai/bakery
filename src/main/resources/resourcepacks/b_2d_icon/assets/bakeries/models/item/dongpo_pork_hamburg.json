@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/dongpo_pork_hamburg"
+  },
+  "base": {
+    "parent": "bakeries:block/dongpo_pork_hamburg_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/dongpo_pork_hamburg_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/dongpo_pork_hamburg_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/dongpo_pork_hamburg_2d"
+    }
+  }
+}

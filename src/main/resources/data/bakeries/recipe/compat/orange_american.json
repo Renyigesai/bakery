@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:foods/fruits/orange"
+      }
+    }
+  ],
+  "type": "bakeries:drink",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "tag": "c:foods/fruits/orange"
+    },
+    {
+      "item": "bakeries:moka_pot_fill"
+    }
+  ],
+  "output": {
+    "id": "bakeries:orange_american",
+    "count": 1
+  }
+}

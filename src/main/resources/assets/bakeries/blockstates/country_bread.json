@@ -1,7 +1,7 @@
 {
   "variants": {
     "facing=east,pile=1": {
-      "model": "bakeries:block/country_bread",
+      "model": "bakeries:block/country_bread_1",
       "y": 270
     },
     "facing=east,pile=2": {
@@ -9,7 +9,7 @@
       "y": 270
     },
     "facing=north,pile=1": {
-      "model": "bakeries:block/country_bread",
+      "model": "bakeries:block/country_bread_1",
       "y": 180
     },
     "facing=north,pile=2": {
@@ -17,13 +17,13 @@
       "y": 180
     },
     "facing=south,pile=1": {
-      "model": "bakeries:block/country_bread"
+      "model": "bakeries:block/country_bread_1"
     },
     "facing=south,pile=2": {
       "model": "bakeries:block/country_bread_2"
     },
     "facing=west,pile=1": {
-      "model": "bakeries:block/country_bread",
+      "model": "bakeries:block/country_bread_1",
       "y": 90
     },
     "facing=west,pile=2": {

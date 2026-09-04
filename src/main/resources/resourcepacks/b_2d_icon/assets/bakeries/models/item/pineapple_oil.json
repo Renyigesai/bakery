@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/pineapple_oil"
+  },
+  "base": {
+    "parent": "bakeries:block/pineapple_oil_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/pineapple_oil_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/pineapple_oil_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/pineapple_oil_2d"
+    }
+  }
+}

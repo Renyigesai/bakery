@@ -2,27 +2,23 @@ package com.renyigesai.bakeries.common.init;
 
 import com.google.common.collect.ImmutableList;
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.common.blocks.blander.BlenderRenderer;
-import com.renyigesai.bakeries.common.blocks.bread_rack.BreadRackRender;
-import com.renyigesai.bakeries.common.blocks.custom_cake.CustomCakeRenderer;
-import com.renyigesai.bakeries.common.blocks.fermentation_box.FermentationBoxRender;
-import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlockEntityRender;
-import com.renyigesai.bakeries.common.blocks.menu.MenuRender;
-import com.renyigesai.bakeries.common.blocks.mix_block.MixBlockRender;
-import com.renyigesai.bakeries.common.blocks.moka_pot.MokaPotRender;
-import com.renyigesai.bakeries.common.blocks.mould_cake.MouldCakeRenderer;
-import com.renyigesai.bakeries.common.blocks.oven.OvenRender;
-import com.renyigesai.bakeries.common.blocks.toaster.ToasterRender;
+import com.renyigesai.bakeries.common.client.render.block.BlenderRenderer;
+import com.renyigesai.bakeries.common.client.render.block.BreadRackRender;
+import com.renyigesai.bakeries.common.client.render.block.CustomCakeRenderer;
+import com.renyigesai.bakeries.common.client.render.block.FermentationBoxRender;
+import com.renyigesai.bakeries.common.client.render.block.LuminousLightSignBlockEntityRender;
+import com.renyigesai.bakeries.common.client.render.block.MenuRender;
+import com.renyigesai.bakeries.common.client.render.block.MixBlockRender;
+import com.renyigesai.bakeries.common.client.render.block.MokaPotRender;
+import com.renyigesai.bakeries.common.client.render.block.MouldCakeRenderer;
+import com.renyigesai.bakeries.common.client.render.block.OvenRender;
+import com.renyigesai.bakeries.common.client.render.block.ToasterRender;
 import com.renyigesai.bakeries.common.client.model.*;
 import com.renyigesai.bakeries.common.items.MouldPasteItem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -60,6 +56,7 @@ public class BakeriesClientHandler {
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(BlenderModel.BLENDER, BlenderModel::createBodyLayer);
         event.registerLayerDefinition(OvenModel.OVEN, OvenModel::createBodyLayer);
+        event.registerLayerDefinition(OvenShelfModel.OVEN_SHELF, OvenShelfModel::createBodyLayer);
         event.registerLayerDefinition(MokaPotModel.LAYER_LOCATION, MokaPotModel::createBodyLayer);
         event.registerLayerDefinition(GlassBreadRackDoorModel.LAYER_LOCATION, GlassBreadRackDoorModel::createBodyLayer);
         event.registerLayerDefinition(FermentationBoxModel.FERMENTATION_BOX, FermentationBoxModel::createBodyLayer);
@@ -68,8 +65,8 @@ public class BakeriesClientHandler {
     @SubscribeEvent
     public static void onRegisterModifyModel(ModelEvent.ModifyBakingResult event) {
 
-//        registerItemModel(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "eternal_baguette"),event);
-//        renderBlockModel(BakeriesBlocks.LUMINOUS_LIGHT_SIGN.get(), event);
+        registerItemModel(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID, "eternal_baguette"),event);
+        renderBlockModel(BakeriesBlocks.LUMINOUS_LIGHT_SIGN.get(), event);
 
         Map<ModelResourceLocation, BakedModel> modelRegistry = event.getModels();
         ModelResourceLocation baseLocation0 = new ModelResourceLocation(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"custom_cake"), "inventory");
@@ -87,25 +84,6 @@ public class BakeriesClientHandler {
         });
 
 
-    }
-
-    @SubscribeEvent
-    public static void onItemColors(RegisterColorHandlersEvent.Item event) {
-        event.getItemColors().register((itemStack, tintIndex) -> {
-            Item item = itemStack.getItem();
-            if (item instanceof MouldPasteItem mp){
-                int color = mp.getColor();
-                if (tintIndex == 1){
-                    return color;
-                }
-            }
-            return -1;
-        },BakeriesItems.MOULD_CAKE_PASTE.get(),
-                BakeriesItems.MOULD_BASQUE_CAKE_PASTE.get(),
-                BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE.get(),
-                BakeriesItems.MOULD_MATCHA_CAKE_PASTE.get(),
-                BakeriesItems.MOULD_CARROT_CAKE_PASTE.get()
-        );
     }
 
     @SubscribeEvent
@@ -153,5 +131,24 @@ public class BakeriesClientHandler {
             FullbrightBakedModel fullbrightBakedModel = new FullbrightBakedModel(bakedModel);
             event.getModels().put(modelResourceLocation,fullbrightBakedModel);
         }
+    }
+
+    @SubscribeEvent
+    public static void onItemColors(RegisterColorHandlersEvent.Item event) {
+        event.getItemColors().register((itemStack, tintIndex) -> {
+                    Item item = itemStack.getItem();
+                    if (item instanceof MouldPasteItem mp){
+                        int color = mp.getColor();
+                        if (tintIndex == 1){
+                            return color;
+                        }
+                    }
+                    return -1;
+                },BakeriesItems.MOULD_CAKE_PASTE.get(),
+                BakeriesItems.MOULD_BASQUE_CAKE_PASTE.get(),
+                BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE.get(),
+                BakeriesItems.MOULD_MATCHA_CAKE_PASTE.get(),
+                BakeriesItems.MOULD_CARROT_CAKE_PASTE.get()
+        );
     }
 }

@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/taro_salt_yolk_bread"
+  },
+  "base": {
+    "parent": "bakeries:block/taro_salt_yolk_bread_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/taro_salt_yolk_bread_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/taro_salt_yolk_bread_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/taro_salt_yolk_bread_2d"
+    }
+  }
+}

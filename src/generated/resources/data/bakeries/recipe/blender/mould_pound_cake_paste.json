@@ -1,0 +1,31 @@
+{
+  "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "id": "bakeries:mould"
+  },
+  "ingredients": [
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:mould_pound_cake_paste"
+  }
+}

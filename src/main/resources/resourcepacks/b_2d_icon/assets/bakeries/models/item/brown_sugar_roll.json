@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/brown_sugar_roll"
+  },
+  "base": {
+    "parent": "bakeries:block/brown_sugar_roll_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/brown_sugar_roll_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/brown_sugar_roll_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/brown_sugar_roll_2d"
+    }
+  }
+}

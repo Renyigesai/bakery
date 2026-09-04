@@ -55,6 +55,8 @@ public class BakeriesMod {
         modEventBus.addListener(BakeriesCapabilities::registerFluidCapabilities);
         initClientUtilsMeasurer();
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, BakeriesConfig.SPEC,"bakeries-common.toml");
+
+
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

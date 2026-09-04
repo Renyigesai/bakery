@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/toast"
+  },
+  "base": {
+    "parent": "bakeries:block/toast"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/toast_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/toast_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/toast_2d"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "parent": "bakeries:custom/toast_3",
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakeries:block/cheese_cocoa_toast",
+    "1": "bakeries:block/cheese_cocoa_toast",
     "particle": "bakeries:block/cheese_cocoa_toast"
   }
 }

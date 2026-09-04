@@ -1,0 +1,46 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "item": "bakeries:cocoa_powder"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "item": "bakeries:mould_two"
+    }
+  ],
+  "results": [
+    {
+      "id": "bakeries:mould_red_velvet_cake_paste"
+    }
+  ]
+}

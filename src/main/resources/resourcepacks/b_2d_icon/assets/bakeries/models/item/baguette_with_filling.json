@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/baguette_with_filling"
+  },
+  "base": {
+    "parent": "bakeries:block/baguette_with_filling_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/baguette_with_filling_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/baguette_with_filling_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/baguette_with_filling_2d"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "bakeries:mould_pound_cake"
+    },
+    {
+      "item": "bakeries:bread_knife"
+    }
+  ],
+  "keep_held_item": true,
+  "results": [
+    {
+      "id": "bakeries:pound_cake"
+    },
+    {
+      "id": "bakeries:mould"
+    }
+  ]
+}

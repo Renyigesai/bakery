@@ -1,0 +1,11 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "kaleidoscope_cookery:caterpillar"
+    }
+  ],
+  "hunger": 18,
+  "saturation": 0.2,
+  "load_id": "kaleidoscope_cookery"
+}

@@ -14,6 +14,8 @@
     "bakeries:toaster",
     "bakeries:fermentation_box",
     "bakeries:luminous_light_sign",
-    "bakeries:black_white_concrete"
+    "bakeries:black_white_concrete",
+    "bakeries:mould_cake",
+    "bakeries:mould_pound_cake"
   ]
 }

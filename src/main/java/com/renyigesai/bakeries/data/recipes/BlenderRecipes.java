@@ -132,5 +132,53 @@ public class BlenderRecipes extends Recipes{
                 .addIngredient(CommonTags.FLOUR)
                 .addIngredient(CommonTags.MILK)
                 .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.MOULD_CARROT_CAKE_PASTE,BakeriesItems.MOULD_TWO,1)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(CommonTags.BUTTER)
+                .addIngredient(BakeriesItems.BROWN_SUGAR_CUBE)
+                .addIngredient(Items.CARROT)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE,BakeriesItems.MOULD_TWO,1)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(CommonTags.BUTTER)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(BakeriesItems.COCOA_POWDER)
+                .addIngredient(Items.SUGAR)
+                .addIngredient(Items.SUGAR)
+                .addIngredient(Items.RED_DYE)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.MOULD_BASQUE_CAKE_PASTE,BakeriesItems.MOULD_TWO,1)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(BakeriesItems.RAW_EGG_YOLK)
+                .addIngredient(BakeriesItems.BOTTLE_CREAM)
+                .addIngredient(BakeriesItems.FRESH_CHEESE_CUBE)
+                .addIngredient(BakeriesItems.FRESH_CHEESE_CUBE)
+                .addIngredient(Items.SUGAR)
+                .addIngredient(CommonTags.FLOUR)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.MOULD_MATCHA_CAKE_PASTE,BakeriesItems.MOULD_TWO,1)
+                .addIngredient(BakeriesItems.FOAMED_PROTEIN_BUCKET)
+                .addIngredient(BakeriesItems.EGG_YOLK_PASTE_BUCKET)
+                .addIngredient(BakeriesItems.MATCHA_POWDER)
+                .addIngredient(BakeriesItems.MATCHA_POWDER)
+                .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.MOULD_POUND_CAKE_PASTE,BakeriesItems.MOULD,1)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(CommonTags.BUTTER)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(CommonTags.FLOUR)
+                .addIngredient(Items.SUGAR)
+                .build(output);
     }
 }

@@ -24,7 +24,7 @@ public class DoughCraftingRecipe extends SingleItemRecipe {
         if (!input.isEmpty()) {
             if (input.getItem() instanceof IFermentationItem fermentationItem) {
                 int multiplication = fermentationItem.fermentationCraftingCount(input);
-                // ¸´ÖÆÔ­Ê¼Ä£°å£¬±ÜÃâÎÛÈ¾
+                // å¤åˆ¶åŸå§‹æ¨¡æ¿ï¼Œé¿å…æ±¡æŸ“
                 ItemStack resultOut = this.result.copy();
                 resultOut.setCount(resultOut.getCount() * multiplication);
                 return resultOut;

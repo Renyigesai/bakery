@@ -7,18 +7,14 @@ import com.renyigesai.bakeries.common.inventory.blender.BlenderScreen;
 import com.renyigesai.bakeries.common.inventory.fermentation_box.FermentationBoxScreen;
 import com.renyigesai.bakeries.common.inventory.oven.OvenScreen;
 import com.renyigesai.bakeries.common.recipe.BlenderRecipe;
-import com.renyigesai.bakeries.common.recipe.BreadKnifeRecipe;
 import com.renyigesai.bakeries.common.recipe.DrinkRecipe;
 import com.renyigesai.bakeries.common.recipe.FlourSieveRecipe;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
-import com.renyigesai.bakeries.data.builder.BreadKnifeBuilder;
 import com.renyigesai.bakeries.integration.jei.category.*;
+import com.renyigesai.bakeries.integration.jei.recipe.DisengageRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.*;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +39,7 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new FlourSieveRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DrinkRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FermentationBoxCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DisengageCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
 
@@ -56,8 +53,13 @@ public class JEIPlugin implements IModPlugin {
         registration.addRecipes(BakeriesRecipeTypes.JEI.FLOUR_SIEVE, recipeManager.getAllRecipesFor(FlourSieveRecipe.Type.INSTANCE));
         registration.addRecipes(BakeriesRecipeTypes.JEI.DRINK, recipeManager.getAllRecipesFor(DrinkRecipe.Type.INSTANCE));
         registration.addRecipes(BakeriesRecipeTypes.JEI.FERMENTATION_BOX, recipeManager.getAllRecipesFor(BakeriesRecipeTypes.FERMENTATION_BOX_TYPE.get()));
+        registration.addRecipes(BakeriesRecipeTypes.JEI.DISENGAGE, DisengageRecipe.getDisengageRecipes());
     }
 
+    @Override
+    public void registerIngredientAliases(IIngredientAliasRegistration registration) {
+        registration.addAlias(BakeriesItems.MOULD_CAKE_BASE.asItem().getDefaultInstance(),"cake");
+    }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {

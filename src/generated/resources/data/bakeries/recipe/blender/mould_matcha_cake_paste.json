@@ -1,0 +1,25 @@
+{
+  "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "id": "bakeries:mould_two"
+  },
+  "ingredients": [
+    {
+      "item": "bakeries:foamed_protein_bucket"
+    },
+    {
+      "item": "bakeries:egg_yolk_paste_bucket"
+    },
+    {
+      "item": "bakeries:matcha_powder"
+    },
+    {
+      "item": "bakeries:matcha_powder"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:mould_matcha_cake_paste"
+  }
+}

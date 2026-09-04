@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/cream_pumpkin_pie"
+  },
+  "base": {
+    "parent": "bakeries:block/cream_pumpkin_pie_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/cream_pumpkin_pie_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/cream_pumpkin_pie_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/cream_pumpkin_pie_2d"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "bakeries:foamed_protein_bucket"
+    },
+    {
+      "item": "bakeries:egg_yolk_paste_bucket"
+    },
+    {
+      "tag": "c:matcha"
+    },
+    {
+      "tag": "c:matcha"
+    },
+    {
+      "item": "bakeries:mould_two"
+    }
+  ],
+  "results": [
+    {
+      "id": "bakeries:mould_matcha_cake_paste"
+    }
+  ]
+}

@@ -2,9 +2,13 @@ package com.renyigesai.bakeries.common.init;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.annotation.ItemData;
+import com.renyigesai.bakeries.api.items.StackingCreativeModeTab;
+import com.renyigesai.bakeries.api.items.TabEntry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -55,4 +59,5 @@ public class BakeriesCreativeModeTabs {
             }
         }
     }
+
 }

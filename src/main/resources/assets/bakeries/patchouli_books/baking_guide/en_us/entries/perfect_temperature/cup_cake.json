@@ -1,0 +1,13 @@
+{
+  "name": "block.bakeries.cup_cake",
+  "icon": "bakeries:cup_cake",
+  "category": "bakeries:perfect_temperature",
+  "advancement": "bakeries:perfect_temperature/cup_cake",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "bakeries:cup_cake",
+      "title": "180°c"
+    }
+  ]
+}

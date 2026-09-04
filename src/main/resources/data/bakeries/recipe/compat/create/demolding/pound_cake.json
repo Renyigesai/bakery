@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ratatouille"
+    }
+  ],
+  "type": "ratatouille:demolding",
+  "ingredients": [
+    {
+      "item": "bakeries:mould_pound_cake"
+    }
+  ],
+  "results": [
+    {
+      "id": "bakeries:pound_cake"
+    },
+    {
+      "id": "bakeries:mould"
+    }
+  ]
+}

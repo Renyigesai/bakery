@@ -136,6 +136,9 @@ public class BakeriesItems {
     @ItemData(zhCn = "模具",itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> MOULD_TWO;
 
+    @ItemData(zhCn = "纸杯")
+    public static final DeferredItem<Item> PAPER_CUP;
+
     @ItemData(zhCn = "油纸")
     public static final DeferredItem<Item> SILICONE_PAPER;
 
@@ -314,7 +317,7 @@ public class BakeriesItems {
     @ItemData(zhCn = "圆面包",model = ItemData.ModelType.BREAD)
     public static final DeferredItem<Item> ROUND_BREAD;
 
-    @ItemData(zhCn = "莓果面包",model = ItemData.ModelType.BREAD)
+    @ItemData(zhCn = "莓果面包",model = ItemData.ModelType.BREAD,group = NOT)
     public static final DeferredItem<Item> BERRY_BREAD;
 
     @ItemData(zhCn = "乳酪面包",model = ItemData.ModelType.BREAD)
@@ -380,6 +383,76 @@ public class BakeriesItems {
     @ItemData(zhCn = "芋泥咸蛋黄面包",model = ItemData.ModelType.BREAD)
     public static final DeferredItem<Item> TARO_SALT_YOLK_BREAD;
 
+    @ItemData(zhCn = "奶油蘑菇汤配法棍",group = COMPAT_TAB)
+    public static final DeferredItem<Item> CREAM_MUSHROOM_SOUP_WITH_BAGUETTE;
+
+    @ItemData(zhCn = "东坡肉汉堡",group = COMPAT_TAB)
+    public static final DeferredItem<Item> DONGPO_PORK_HAMBURG;
+
+    /**蛋糕*/
+    @ItemData(zhCn = "自定义蛋糕",model = ItemData.ModelType.CUSTOM,group = NOT)
+    public static final DeferredItem<Item> CUSTOM_CAKE;
+
+    @ItemData(zhCn = "纸杯蛋糕")
+    public static final DeferredItem<Item> CUP_CAKE;
+
+    @ItemData(zhCn = "磅蛋糕")
+    public static final DeferredItem<Item> POUND_CAKE;
+
+    @ItemData(zhCn = "磅蛋糕切片")
+    public static final DeferredItem<Item> SLICED_POUND_CAKE;
+
+    @ItemData(zhCn = "蛋糕胚",model = ItemData.ModelType.CUSTOM,group = NOT)
+    public static final DeferredItem<MouldCakeBlockItem> MOULD_CAKE_BASE;
+
+    @ItemData(zhCn = "红丝绒蛋糕胚",model = ItemData.ModelType.CUSTOM,group = NOT)
+    public static final DeferredItem<MouldCakeBlockItem> MOULD_RED_VELVET_CAKE_BASE;
+
+    @ItemData(zhCn = "抹茶蛋糕",model = ItemData.ModelType.CUSTOM,group = NOT)
+    public static final DeferredItem<MouldCakeBlockItem> MOULD_MATCHA_CAKE;
+
+    @ItemData(zhCn = "巴斯克蛋糕",model = ItemData.ModelType.CUSTOM,group = NOT)
+    public static final DeferredItem<MouldCakeBlockItem> MOULD_BASQUE_CAKE;
+
+    @ItemData(zhCn = "胡萝卜蛋糕",model = ItemData.ModelType.CUSTOM,group = NOT)
+    public static final DeferredItem<MouldCakeBlockItem> MOULD_CARROT_CAKE;
+
+    @ItemData(zhCn = "蛋糕胚")
+    public static final DeferredItem<Item> CAKE_BASE;
+
+    @ItemData(zhCn = "蛋糕胚切片")
+    public static final DeferredItem<Item> CUT_CAKE_BASE;
+
+    @ItemData(zhCn = "浸润咖啡液的蛋糕胚切片")
+    public static final DeferredItem<Item> SOAK_COFFEE_CUT_CAKE_BASE;
+
+    @ItemData(zhCn = "红丝绒蛋糕胚")
+    public static final DeferredItem<Item> RED_VELVET_CAKE_BASE;
+
+    @ItemData(zhCn = "抹茶蛋糕")
+    public static final DeferredItem<Item> MATCHA_CAKE;
+
+    @ItemData(zhCn = "奶油蛋糕")
+    public static final DeferredItem<Item> CREAM_CAKE;
+
+    @ItemData(zhCn = "奶油蛋糕切块")
+    public static final DeferredItem<Item> CREAM_CAKE_CUBE;
+
+    @ItemData(zhCn = "提拉米苏")
+    public static final DeferredItem<Item> TIRAMISU;
+
+    @ItemData(zhCn = "胡萝卜蛋糕")
+    public static final DeferredItem<Item> CARROT_CAKE;
+
+    @ItemData(zhCn = "红丝绒蛋糕")
+    public static final DeferredItem<Item> RED_VELVET_CAKE;
+
+    @ItemData(zhCn = "巴斯克蛋糕")
+    public static final DeferredItem<Item> BASQUE_CAKE;
+
+    @ItemData(zhCn = "芋泥蛋糕")
+    public static final DeferredItem<Item> TARO_CAKE;
+
     /**饮料*/
     @ItemData(zhCn = "冰美式",model = ItemData.ModelType.CUSTOM)
     public static final DeferredItem<Item> ICED_AMERICAN;
@@ -402,55 +475,12 @@ public class BakeriesItems {
     @ItemData(zhCn = "芋泥牛乳",model = ItemData.ModelType.CUSTOM)
     public static final DeferredItem<Item> TARO_MILK;
 
-    /**蛋糕*/
+    @ItemData(zhCn = "橙子美式",model = ItemData.ModelType.CUSTOM,group = COMPAT_TAB)
+    public static final DeferredItem<Item> ORANGE_AMERICAN;
 
-    @ItemData(zhCn = "自定义蛋糕",model = ItemData.ModelType.CUSTOM,group = NOT)
-    public static final DeferredItem<Item> CUSTOM_CAKE;
 
-    @ItemData(zhCn = "蛋糕胚",model = ItemData.ModelType.CUSTOM)
-    public static final DeferredItem<MouldCakeBlockItem> MOULD_CAKE_BASE;
 
-    @ItemData(zhCn = "红丝绒蛋糕胚",model = ItemData.ModelType.CUSTOM)
-    public static final DeferredItem<MouldCakeBlockItem> MOULD_RED_VELVET_CAKE_BASE;
 
-    @ItemData(zhCn = "抹茶蛋糕",model = ItemData.ModelType.CUSTOM)
-    public static final DeferredItem<MouldCakeBlockItem> MOULD_MATCHA_CAKE;
-
-    @ItemData(zhCn = "巴斯克蛋糕",model = ItemData.ModelType.CUSTOM)
-    public static final DeferredItem<MouldCakeBlockItem> MOULD_BASQUE_CAKE;
-
-    @ItemData(zhCn = "胡萝卜蛋糕",model = ItemData.ModelType.CUSTOM)
-    public static final DeferredItem<MouldCakeBlockItem> MOULD_CARROT_CAKE;
-
-    @ItemData(zhCn = "蛋糕胚")
-    public static final DeferredItem<Item> CAKE_BASE;
-
-    @ItemData(zhCn = "红丝绒蛋糕胚")
-    public static final DeferredItem<Item> RED_VELVET_CAKE_BASE;
-
-    @ItemData(zhCn = "抹茶蛋糕")
-    public static final DeferredItem<Item> MATCHA_CAKE;
-
-    @ItemData(zhCn = "提拉米苏")
-    public static final DeferredItem<Item> CREAM_CAKE;
-
-    @ItemData(zhCn = "提拉米苏")
-    public static final DeferredItem<Item> TIRAMISU;
-
-    @ItemData(zhCn = "胡萝卜蛋糕")
-    public static final DeferredItem<Item> CARROT_CAKE;
-
-    @ItemData(zhCn = "巴斯克蛋糕")
-    public static final DeferredItem<Item> BASQUE_CAKE;
-
-    @ItemData(zhCn = "巴斯克蛋糕")
-    public static final DeferredItem<Item> RED_VELVET_CAKE;
-
-    @ItemData(zhCn = "蛋糕胚切片")
-    public static final DeferredItem<Item> CUT_CAKE_BASE;
-
-    @ItemData(zhCn = "浸润咖啡液的蛋糕胚切片")
-    public static final DeferredItem<Item> SOAK_COFFEE_CUT_CAKE_BASE;
 
     /*功能物品*/
     @ItemData(zhCn = "酥皮", group = SFP_TAB)
@@ -503,6 +533,9 @@ public class BakeriesItems {
     @ItemData(zhCn = "奶酪可可吐司面胚", group = SFP_TAB,model = ItemData.ModelType.CUSTOM)
     public static final DeferredItem<Item> MOULD_CHEESE_COCOA_TOAST_DOUGH;
 
+    @ItemData(zhCn = "磅蛋糕面糊",group = SFP_TAB,model = ItemData.ModelType.CUSTOM)
+    public static final DeferredItem<Item> MOULD_POUND_CAKE_PASTE;
+
     @ItemData(zhCn = "蛋糕胚面糊", group = SFP_TAB,model = ItemData.ModelType.CUSTOM)
     public static final DeferredItem<Item> MOULD_CAKE_PASTE;
 
@@ -518,8 +551,15 @@ public class BakeriesItems {
     @ItemData(zhCn = "胡萝卜蛋糕面糊", group = SFP_TAB,model = ItemData.ModelType.CUSTOM)
     public static final DeferredItem<Item> MOULD_CARROT_CAKE_PASTE;
 
+    @ItemData(zhCn = "装有蛋糕糊的纸杯",group = SFP_TAB)
+    public static final DeferredItem<Item> PAPER_CUP_CAKE_PASTE;
+
     @ItemData(zhCn = "奶酪可可吐司",group = NOT,itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
     public static final DeferredItem<Item> MOULD_CHEESE_COCOA_TOAST;
+
+    @ItemData(zhCn = "磅蛋糕",group = NOT,itemType = ItemData.ItemType.BLOCK,model = ItemData.ModelType.BLOCK)
+    public static final DeferredItem<Item> MOULD_POUND_CAKE;
+
 
     /**特殊物品*/
     @ItemData(zhCn = "永恒法棍",group = NOT,model = ItemData.ModelType.CUSTOM)
@@ -577,6 +617,7 @@ public class BakeriesItems {
         FLOUR_SIEVE = REGISTER.register("flour_sieve",()-> new FlourSieveItem(new Item.Properties().stacksTo(1).durability(250)));
         MOULD = block(BakeriesBlocks.MOULD);
         MOULD_TWO = block(BakeriesBlocks.MOULD_TWO);
+        PAPER_CUP = item("paper_cup");
         SILICONE_PAPER = block(BakeriesBlocks.SILICONE_PAPER);
         FLOUR = item("flour");
         WHOLE_WHEAT_FLOUR = item("whole_wheat_flour");
@@ -648,8 +689,11 @@ public class BakeriesItems {
         HONEY_BUTTER_SPREAD_COUNTRY_BREAD = registerItem("honey_butter_spread_country_bread",()-> new Item(new Item.Properties().food(BakeriesFoodProperties.HONEY_BUTTER_SPREAD_COUNTRY_BREAD)));
         MOULD_TOAST = mouldBlock(BakeriesBlocks.MOULD_TOAST);
         MOULD_CHEESE_COCOA_TOAST = mouldBlock(BakeriesBlocks.MOULD_CHEESE_COCOA_TOAST);
+        MOULD_POUND_CAKE = mouldBlock(BakeriesBlocks.MOULD_POUND_CAKE);
         EGG_TART = foodBreadBlock(BakeriesBlocks.EGG_TART,BakeriesFoodProperties.EGG_TART);
         TARO_SALT_YOLK_BREAD = REGISTER.register("taro_salt_yolk_bread",()-> new PileItem(BakeriesBlocks.TARO_SALT_YOLK_BREAD.get(), new Item.Properties().food(BakeriesFoodProperties.TARO_SALT_YOLK_BREAD).rarity(BakeriesRarity.getTaro()),true));
+        CREAM_MUSHROOM_SOUP_WITH_BAGUETTE = REGISTER.register("cream_mushroom_soup_with_baguette",()-> new BlockItem((BakeriesBlocks.CREAM_MUSHROOM_SOUP_WITH_BAGUETTE.get()),new Item.Properties().food(conditionReturnFood(ModIsLoaded.isKaleidoscopeCookery(),BakeriesFoodProperties.CREAM_MUSHROOM_SOUP_WITH_BAGUETTE_KALEIDOSCOPE_COOKERY,BakeriesFoodProperties.CREAM_MUSHROOM_SOUP_WITH_BAGUETTE)).stacksTo(16).craftRemainder(Items.FLOWER_POT)));
+        DONGPO_PORK_HAMBURG = foodBreadBlock(BakeriesBlocks.DONGPO_PORK_HAMBURG,conditionReturnFood(ModIsLoaded.isKaleidoscopeCookery(),BakeriesFoodProperties.DONGPO_PORK_HAMBURG_KALEIDOSCOPE_COOKERY,BakeriesFoodProperties.DONGPO_PORK_HAMBURG));
 
         ICED_AMERICAN = drinkItem(BakeriesBlocks.ICED_AMERICAN,BakeriesFoodProperties.ICED_AMERICAN,1);
         ICED_LATTE = drinkItem(BakeriesBlocks.ICED_LATTE,BakeriesFoodProperties.ICED_LATTE,4);
@@ -658,6 +702,7 @@ public class BakeriesItems {
         MATCHA_LATTE = drinkItem(BakeriesBlocks.MATCHA_LATTE,BakeriesFoodProperties.MATCHA_LATTE,3);
         MATCHA_PARFAIT = drinkItem(BakeriesBlocks.MATCHA_PARFAIT,BakeriesFoodProperties.MATCHA_PARFAIT,4);
         TARO_MILK = REGISTER.register("taro_milk",()-> new DrinkItem(BakeriesBlocks.TARO_MILK.get(),new Item.Properties().food(BakeriesFoodProperties.TARO_MILK).craftRemainder(BakeriesItems.DRINK_CUP.get()).rarity(BakeriesRarity.getTaro()),6,true,5));
+        ORANGE_AMERICAN = drinkItem(BakeriesBlocks.ORANGE_AMERICAN,BakeriesFoodProperties.ORANGE_AMERICAN,4);
 
         /**蛋糕*/
 
@@ -666,12 +711,17 @@ public class BakeriesItems {
         RED_VELVET_CAKE_BASE = block(BakeriesBlocks.RED_VELVET_CAKE_BASE);
         MATCHA_CAKE = block(BakeriesBlocks.MATCHA_CAKE);
         CREAM_CAKE = block(BakeriesBlocks.CREAM_CAKE);
+        CREAM_CAKE_CUBE = foodItem("cream_cake_cube",BakeriesFoodProperties.CREAM_CAKE_CUBE);
         TIRAMISU = block(BakeriesBlocks.TIRAMISU);
         CARROT_CAKE = block(BakeriesBlocks.CARROT_CAKE);
         BASQUE_CAKE = block(BakeriesBlocks.BASQUE_CAKE);
         RED_VELVET_CAKE = block(BakeriesBlocks.RED_VELVET_CAKE);
+        TARO_CAKE = REGISTER.register("taro_cake",()-> new PileItem(BakeriesBlocks.TARO_CAKE.get(),new Item.Properties().food(BakeriesFoodProperties.TARO_CAKE).rarity(BakeriesRarity.getTaro())));
         CUT_CAKE_BASE = item("cut_cake_base");
         SOAK_COFFEE_CUT_CAKE_BASE = item("soak_coffee_cut_cake_base");
+        CUP_CAKE = REGISTER.register("cup_cake",()-> new PileItem(BakeriesBlocks.CUP_CAKE.get(),new Item.Properties().food(BakeriesFoodProperties.CUP_CAKE).craftRemainder(PAPER_CUP.get()),true));
+        POUND_CAKE = block(BakeriesBlocks.POUND_CAKE);
+        SLICED_POUND_CAKE = foodItem("sliced_pound_cake",BakeriesFoodProperties.SLICED_POUND_CAKE);
 
         /**模具蛋糕*/
         MOULD_CAKE_BASE = mouldCakeItem("mould_cake_base", CAKE_BASE);
@@ -714,6 +764,10 @@ public class BakeriesItems {
         MOULD_MATCHA_CAKE_PASTE = REGISTER.register("mould_matcha_cake_paste",()-> new MouldPasteItem(170,0X6CB325));
         MOULD_BASQUE_CAKE_PASTE = REGISTER.register("mould_basque_cake_paste",()-> new MouldPasteItem(200,0XEDA840));
         MOULD_CARROT_CAKE_PASTE = REGISTER.register("mould_carrot_cake_paste",()-> new MouldPasteItem(170,0XBD6E30));
+
+        PAPER_CUP_CAKE_PASTE = rawItem("paper_cup_cake_paste",160);
+
+        MOULD_POUND_CAKE_PASTE = rawItem("mould_pound_cake_paste",170);
         /*功能物品*/
         ETERNAL_BAGUETTE = REGISTER.register("eternal_baguette", EternalBaguetteItem::new);
 
@@ -722,6 +776,13 @@ public class BakeriesItems {
         RICE_BREAD_DOUGH = rawItem("rice_bread_dough",155);
 
         SALMON_SANDWICH = foodBreadBlock(BakeriesBlocks.SALMON_SANDWICH,BakeriesRarity.getAdvanced(),BakeriesFoodProperties.RICE_BREAD,true);
+    }
+
+    private static FoodProperties conditionReturnFood(boolean condition,FoodProperties a,FoodProperties b){
+        if (condition){
+            return a;
+        }
+        return b;
     }
 
     private static DeferredItem<MouldCakeBlockItem> mouldCakeItem(String name,Supplier<Item> mouldContent){

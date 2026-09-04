@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "immortalers_delight:himekaido"
+    }
+  ],
+  "potion_effect": "immortalers_delight:relieve_poison",
+  "effect_duration": 20,
+  "hunger": 3,
+  "saturation": 0.6,
+  "load_id": "immortalers_delight"
+}

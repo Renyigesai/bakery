@@ -64,7 +64,10 @@ public class Tags {
                             BakeriesItems.COUNTRY_BREAD.get(),
                             BakeriesItems.COUNTRY_BREAD_DOUGH.get(),
                             BakeriesItems.BAGUETTE.get(),
-                            BakeriesItems.BAGUETTE_DOUGH.get());
+                            BakeriesItems.BAGUETTE_DOUGH.get(),
+                            BakeriesItems.MOULD_POUND_CAKE_PASTE.get(),
+                            BakeriesItems.MOULD_POUND_CAKE.get()
+                    );
 
             tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("bakeries", "bread_knife")))
                     .add(
@@ -143,7 +146,10 @@ public class Tags {
                             BakeriesBlocks.TOASTER.get(),
                             BakeriesBlocks.FERMENTATION_BOX.get(),
                             BakeriesBlocks.LUMINOUS_LIGHT_SIGN.get(),
-                            BakeriesBlocks.BLACK_WHITE_CONCRETE.get());
+                            BakeriesBlocks.BLACK_WHITE_CONCRETE.get(),
+                            BakeriesBlocks.MOULD_CAKE.get(),
+                            BakeriesBlocks.MOULD_POUND_CAKE.get()
+                    );
 
             /* Minecraft标签 - 斧子可挖掘 */
             tag(BlockTags.MINEABLE_WITH_AXE)

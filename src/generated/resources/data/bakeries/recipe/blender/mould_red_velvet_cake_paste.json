@@ -1,0 +1,40 @@
+{
+  "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "id": "bakeries:mould_two"
+  },
+  "ingredients": [
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "item": "bakeries:cocoa_powder"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:red_dye"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:mould_red_velvet_cake_paste"
+  }
+}

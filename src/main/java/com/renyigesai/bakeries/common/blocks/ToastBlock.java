@@ -66,8 +66,7 @@ public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutB
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level level, BlockPos pos, Player pPlayer, InteractionHand pHand, BlockHitResult hitResult) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         int pile = pState.getValue(PILE);
-        int slice = pState.getValue(SLICE);
-        if (hand.is(asItem()) && pile < 2 && !isCut(pState)){
+        if (hand.is(asItem()) && pile < 2){
             if (!pPlayer.getAbilities().instabuild) {
                 hand.shrink(1);
             }

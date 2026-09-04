@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/salmon_sandwich"
+  },
+  "base": {
+    "parent": "bakeries:block/salmon_sandwich_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/salmon_sandwich_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/salmon_sandwich_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/salmon_sandwich_2d"
+    }
+  }
+}

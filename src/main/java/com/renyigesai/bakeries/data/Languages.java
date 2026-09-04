@@ -91,6 +91,9 @@ public class Languages extends AbstractLanguageProvider {
         add("key.bakeries.bakeries","Bakeries","烘焙坊");
         add("key.bakeries.auxiliary","Auxiliary","辅助按键");
         add("block.bakeries.custom_cake","Custom Cake","自定义蛋糕");
+        add("pack.bakeries.2d_icon","[Bakeries]2D Icon","【烘焙坊】2D图标材质包");
+        add(setTooltips(BakeriesMod.MODID,"player_logged_in"),"§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book","§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
+        add("gui.jei.category.bakeries_disengage","Disengage","脱模");
     }
 
     private void addCreativeModeTabs() {
@@ -159,7 +162,7 @@ public class Languages extends AbstractLanguageProvider {
 
     private void addBlocks(){
         add("block.bakeries.salt_water_block","Salt Water","盐水");
-
+        add("block.bakeries.multi_layer_cream_cake","Multi Layer Cream Cake","多层奶油蛋糕");
     }
 
     private void addFluidTypes(){
@@ -192,6 +195,8 @@ public class Languages extends AbstractLanguageProvider {
         addAdvancement("get_pineapple_oil", translateText("“Ice and Fire”", "“冰火传说”"), translateText("Get Pineapple Oil.", "获得一个冰火菠萝油."));
         addAdvancement("get_flat_croissant",translateText("Don't！","压没得！"),translateText("Make flat croissants using a falling anvil.","使用下落的铁砧制作扁可颂。"));
         addAdvancement("get_taro",translateText("Meetion","芋见你"),translateText("Get Taro.","获得芋头。"));
+        addAdvancement("get_cream_cake",translateText("Cake! Eat Cake!","蛋糕！吃下蛋糕！"),translateText("Get Cream Cake.","获得一个奶油蛋糕。"));
+        addAdvancement("get_tea_astringent",translateText("No trespassing","不可侵"),translateText("Get tea astringent effect.","获得茶涩效果。"));
     }
 
     private void addPatchoulis(){
@@ -270,6 +275,8 @@ public class Languages extends AbstractLanguageProvider {
         addPatchouliDescr("matcha_powder", "Use$(l:baking_utensil/flour_sieve)Flour Sieve/$Sift the leaves into matcha powder.", "使用$(l:baking_utensil/flour_sieve)面粉筛/$将树叶过筛为抹茶粉。");
         addPatchouliDescr("stone_kiln", "A very primitive oven. You can use it to bake pizza. You also need a Stone Kiln Shovel for putting in and taking out items.", "非常原始的烤炉，你可以用来烤披萨，你还需要一个炉铲，用来放入和取出物品。");
         addPatchouliDescr("taro", "It can be obtained through transactions with villagers in the farming profession.", "可通过与农民村民交易获得。");
+        add("guide.bakeries.landing_text","Hello Bakeries,Certain achievements will unlock the locked categories.","Hello Bakeries，完成某些成就时会解锁被锁定的类别。");
+        add("guide.bakeries.categories.descr.cake_making_process","A nanny-level tutorial on cake making","蛋糕制作保姆级教程");
     }
 
     private void addCategories(String key,String en_us,String zh_cn){

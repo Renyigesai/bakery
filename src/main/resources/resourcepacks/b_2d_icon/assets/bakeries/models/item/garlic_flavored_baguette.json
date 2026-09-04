@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/garlic_flavored_baguette"
+  },
+  "base": {
+    "parent": "bakeries:block/garlic_flavored_baguette_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/garlic_flavored_baguette_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/garlic_flavored_baguette_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/garlic_flavored_baguette_2d"
+    }
+  }
+}

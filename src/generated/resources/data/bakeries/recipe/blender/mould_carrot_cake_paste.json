@@ -1,0 +1,34 @@
+{
+  "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "id": "bakeries:mould_two"
+  },
+  "ingredients": [
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:flours"
+    },
+    {
+      "tag": "c:butter"
+    },
+    {
+      "item": "bakeries:brown_sugar_cube"
+    },
+    {
+      "item": "minecraft:carrot"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:mould_carrot_cake_paste"
+  }
+}

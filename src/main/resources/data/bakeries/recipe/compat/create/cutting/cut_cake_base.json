@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "bakeries:cake_base"
+    }
+  ],
+  "processing_time": 10,
+  "results": [
+    {
+      "count": 2,
+      "id": "bakeries:cut_cake_base"
+    }
+  ]
+}

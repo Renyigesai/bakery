@@ -12,6 +12,7 @@ import com.renyigesai.bakeries.common.blocks.bread_rack.BreadRackBlockEntity;
 import com.renyigesai.bakeries.common.blocks.bread_rack.GlassBreadRackBlock;
 import com.renyigesai.bakeries.common.blocks.cake.CakeBaseBlock;
 import com.renyigesai.bakeries.common.blocks.cake.CreamCakeBlock;
+import com.renyigesai.bakeries.common.blocks.cake.MultiLayerCreamCakeBlock;
 import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlock;
 import com.renyigesai.bakeries.common.blocks.cupboard.CupboardBlockEntity;
 import com.renyigesai.bakeries.common.blocks.custom_cake.CustomCakeBlock;
@@ -113,9 +114,16 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> EGG_TART;
     /**芋泥咸蛋黄面包*/
     public static final DeferredBlock<Block> TARO_SALT_YOLK_BREAD;
+    /**纸杯蛋糕*/
+    public static final DeferredBlock<Block> CUP_CAKE;
+    /**东坡肉汉堡*/
+    public static final DeferredBlock<Block> DONGPO_PORK_HAMBURG;
+    /**奶油蘑菇法棍*/
+    public static final DeferredBlock<Block> CREAM_MUSHROOM_SOUP_WITH_BAGUETTE;
 
     /**自定义蛋糕*/
     public static final DeferredBlock<Block> CUSTOM_CAKE;
+
     public static final DeferredBlock<Block> CAKE_BASE;
     public static final DeferredBlock<Block> RED_VELVET_CAKE_BASE;
     public static final DeferredBlock<Block> MATCHA_CAKE;
@@ -124,6 +132,11 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> TIRAMISU;
     public static final DeferredBlock<Block> CARROT_CAKE;
     public static final DeferredBlock<Block> BASQUE_CAKE;
+    public static final DeferredBlock<Block> TARO_CAKE;
+    public static final DeferredBlock<Block> POUND_CAKE;
+    public static final DeferredBlock<Block> MOULD_POUND_CAKE;
+    public static final DeferredBlock<Block> MULTI_LAYER_CREAM_CAKE;
+
 
     /**番茄*/
     public static final DeferredBlock<Block> TOMATO;
@@ -193,6 +206,7 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> MATCHA_LATTE;
     public static final DeferredBlock<Block> MATCHA_PARFAIT;
     public static final DeferredBlock<Block> TARO_MILK;
+    public static final DeferredBlock<Block> ORANGE_AMERICAN;
 
     /**蛋黄酱酱*/
     public static final DeferredBlock<Block> OLIVE_OIL;
@@ -247,6 +261,9 @@ public class BakeriesBlocks {
                 new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.CHEESE_COCOA_TOAST));
         EGG_TART = register("egg_tart",BreadBlock::new);
         TARO_SALT_YOLK_BREAD = register("taro_salt_yolk_bread",BreadBlock::new);
+        CUP_CAKE = register("cup_cake",BreadBlock::new);
+        DONGPO_PORK_HAMBURG = register("dongpo_pork_hamburg",BreadBlock::new);
+        CREAM_MUSHROOM_SOUP_WITH_BAGUETTE = REGISTER.register("cream_mushroom_soup_with_baguette",()-> new CreamMushroomSoupWithBaguetteBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
         /*蛋糕*/
         CUSTOM_CAKE = REGISTER.register("custom_cake",()-> new CustomCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
@@ -275,7 +292,16 @@ public class BakeriesBlocks {
                 new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200)),
                 6,0.4f));
 
+        TARO_CAKE = register("taro_cake",BreadBlock::new);
+
+        POUND_CAKE = REGISTER.register("pound_cake",()-> new ToastBlock(BlockBehaviour.Properties.of().sound(BakeriesSoundType.PASTRY).strength(0.5F,0.5F),BakeriesItems.SLICED_POUND_CAKE));
+
         RED_VELVET_CAKE = REGISTER.register("red_velvet_cake",()-> new CakeBaseBlock(6,0.4f));
+
+        MOULD_POUND_CAKE = REGISTER.register("mould_pound_cake", () ->
+                new MouldToastBlock(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(0.5F,0.5F),BakeriesItems.POUND_CAKE));
+
+        MULTI_LAYER_CREAM_CAKE = register("multi_layer_cream_cake", MultiLayerCreamCakeBlock::new);
 
         /*饮料方块*/
         ICED_AMERICAN = drinkBlock("iced_american");
@@ -285,6 +311,7 @@ public class BakeriesBlocks {
         MATCHA_LATTE = drinkBlock("matcha_latte");
         MATCHA_PARFAIT = REGISTER.register("matcha_parfait",MatchaParfaitBlock::new);
         TARO_MILK = drinkBlock("taro_milk");
+        ORANGE_AMERICAN = drinkBlock("orange_american");
 
         OLIVE_OIL = register("olive_oil",TanPieBlock::new);
         BEARNAISE = register("bearnaise",TanPieBlock::new);

@@ -58,7 +58,11 @@ public class BlockLootTables extends VanillaBlockLoot {
                 BakeriesBlocks.FLAT_CROISSANT.get(),
                 BakeriesBlocks.TARO_SALT_YOLK_BREAD.get(),
                 BakeriesBlocks.TARO_MILK.get(),
-                BakeriesBlocks.SALMON_SANDWICH.get()
+                BakeriesBlocks.ORANGE_AMERICAN.get(),
+                BakeriesBlocks.SALMON_SANDWICH.get(),
+                BakeriesBlocks.CUP_CAKE.get(),
+                BakeriesBlocks.TARO_CAKE.get(),
+                BakeriesBlocks.DONGPO_PORK_HAMBURG.get()
         );
         this.dropSelf(BakeriesBlocks.SALT_ORE.get());
         this.dropSelf(BakeriesBlocks.DEEPSLATE_SALT_ORE.get());

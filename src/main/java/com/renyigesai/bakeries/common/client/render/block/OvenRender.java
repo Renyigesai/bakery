@@ -1,0 +1,156 @@
+package com.renyigesai.bakeries.common.client.render.block;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
+import com.renyigesai.bakeries.common.blocks.oven.OvenBlockEntity;
+import com.renyigesai.bakeries.common.client.model.OvenModel;
+import com.renyigesai.bakeries.common.client.model.OvenShelfModel;
+import com.renyigesai.bakeries.common.init.BakeriesBlocks;
+import com.renyigesai.bakeries.common.tag.CommonTags;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec2;
+
+public class OvenRender implements BlockEntityRenderer<OvenBlockEntity> {
+    private final OvenModel<?> model;
+    private final OvenModel<?> glow;
+    private final OvenShelfModel<?> shelfModel;
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("bakeries","textures/entity/oven/oven.png");
+    public static final ResourceLocation TEXTURE_LIT = ResourceLocation.fromNamespaceAndPath("bakeries","textures/entity/oven/oven_lit.png");
+    public static final ResourceLocation TEXTURE_GLOW =ResourceLocation.fromNamespaceAndPath("bakeries","textures/entity/oven/oven_glow.png");
+    public static final ResourceLocation TEXTURE_SHELF =ResourceLocation.fromNamespaceAndPath("bakeries","textures/entity/oven/oven_shelf.png");
+    private static final float ADD = 0.225f;
+    public static final Vec2[] VEC2S_1 = new Vec2[]{
+            new Vec2(0.5f - ADD,0.5f),
+            new Vec2(0.5f,0.5f),
+            new Vec2(0.5f + ADD,0.5f),
+            new Vec2(0.5f - ADD,0.5f),
+            new Vec2(0.5f,0.5f),
+            new Vec2(0.5f + ADD,0.5f)
+    };
+
+    public static final Vec2[] VEC2S_2 = new Vec2[]{
+            new Vec2(0.5f ,0.5f - ADD),
+            new Vec2(0.5f,0.5f),
+            new Vec2(0.5f,0.5f + ADD),
+            new Vec2(0.5f ,0.5f - ADD),
+            new Vec2(0.5f,0.5f),
+            new Vec2(0.5f,0.5f + ADD)
+    };
+
+    public OvenRender(BlockEntityRendererProvider.Context pContext) {
+        this.model = new OvenModel<>(pContext.bakeLayer(OvenModel.OVEN));
+        this.glow = model;
+        this.shelfModel = new OvenShelfModel<>(pContext.bakeLayer(OvenShelfModel.OVEN_SHELF));
+    }
+
+    @Override
+    public void render(OvenBlockEntity oven, float pPartialTicks, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
+        renderBlock(oven, pPartialTicks, poseStack, multiBufferSource, i, i1);
+        renderShelf(oven, pPartialTicks, poseStack, multiBufferSource, i, i1);
+        renderItem(oven,pPartialTicks,poseStack,multiBufferSource,i1);
+    }
+
+    private void renderItem(OvenBlockEntity oven, float pPartialTicks,PoseStack poseStack, MultiBufferSource multiBufferSource, int i1){
+        Direction direction = oven.getBlockState().getValue(OvenBlock.FACING);
+        int posLong = (int) oven.getBlockPos().asLong();
+        for (int solt = 0; solt < oven.getItemHandler().getSlots(); solt++) {
+            ItemStack item = oven.getItem(solt);
+            if (!item.isEmpty()){
+                poseStack.pushPose();
+                float y = solt > 2 ? 0.3125f + 0.03125f : 0.5625f + 0.03125f;
+                Vec2[] vec2 = getVec2(direction);
+                final float LEFT_MOVE;
+                if (direction == Direction.SOUTH || direction == Direction.WEST){
+                    LEFT_MOVE = -0.0625f;
+                }else {
+                    LEFT_MOVE = 0.0625f;
+                }
+                float yp = item.is(CommonTags.UPRIGHT_ON_OVEN) ? 90f : 0f;
+                poseStack.translate(vec2[solt].x - LEFT_MOVE,y,vec2[solt].y - LEFT_MOVE);
+                poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot() - 180 + yp));
+                poseStack.scale(0.35f,0.35f,0.35f);
+                renderModel(item,oven,poseStack,multiBufferSource,i1,posLong);
+                poseStack.popPose();
+            }
+        }
+    }
+
+    private void renderModel(ItemStack stack,OvenBlockEntity oven, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedOverlay,int posLong){
+        Level level = oven.getLevel();
+        if (level != null){
+            boolean isBlock = stack.getItem() instanceof BlockItem;
+            if (isBlock) {
+                BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
+                BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(state);
+                Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.FIXED, false, poseStack, pBuffer, LevelRenderer.getLightColor(oven.getLevel(), oven.getBlockPos()), pPackedOverlay, model);
+            } else {
+                Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(oven.getLevel(), oven.getBlockPos()), pPackedOverlay, poseStack, pBuffer, oven.getLevel(), (int) (posLong + 1));
+            }
+        }
+    }
+
+    private void renderBlock(OvenBlockEntity oven, float pPartialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1){
+        Direction direction = oven.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
+        poseStack.pushPose();
+        poseStack.translate(0.5F, 1.5F, 0.5F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
+        poseStack.mulPose(Axis.XP.rotationDegrees(180F));
+        poseStack.scale(0.9995F, 0.9995F, 0.9995F);
+        boolean lit = oven.getBlockState().getValue(OvenBlock.LIT);
+        VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(lit ? TEXTURE_LIT : TEXTURE));
+        this.model.getDoor().xRot = (float) Math.toRadians(oven.getProgress(pPartialTick) * 75);
+        this.model.renderToBuffer(poseStack, vertexConsumer, i, i1);
+        if (lit){
+            VertexConsumer glow = multiBufferSource.getBuffer(RenderType.eyes(TEXTURE_GLOW));
+            this.glow.renderToBuffer(poseStack,glow,i, i1);
+        }
+        poseStack.popPose();
+    }
+
+    private void renderShelf(OvenBlockEntity oven, float pPartialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1){
+        BlockPos below = oven.getBlockPos().below();
+        if (oven.getLevel() != null){
+            if (oven.getLevel().getBlockState(below).is(BakeriesBlocks.OVEN)){
+                Direction direction = oven.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
+                if (oven.getLevel().getBlockState(below).getValue(BlockStateProperties.HORIZONTAL_FACING) == direction){
+                    poseStack.pushPose();
+                    poseStack.translate(0.5F, -0.125, 0.5F);
+                    poseStack.mulPose(Axis.YP.rotationDegrees(-direction.toYRot()));
+                    poseStack.scale(0.9995F, 0.9995F, 0.9995F);
+                    VertexConsumer shelf = multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(TEXTURE_SHELF));
+                    this.shelfModel.renderToBuffer(poseStack,shelf,i, i1);
+                    poseStack.popPose();
+                }
+            }
+        }
+    }
+
+    private Vec2[] getVec2(Direction direction){
+        switch (direction){
+            case NORTH,SOUTH -> {
+                return VEC2S_1;
+            }
+            case EAST,WEST -> {
+                return VEC2S_2;
+            }
+        }
+        return new Vec2[]{};
+    }
+}

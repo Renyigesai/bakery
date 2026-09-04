@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "type": "fluid_tag",
+      "amount": 250,
+      "fluid_tag": "c:milk"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "tag": "c:matcha"
+    },
+    {
+      "item": "bakeries:drink_cup"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "id": "bakeries:matcha_parfait"
+    }
+  ]
+}

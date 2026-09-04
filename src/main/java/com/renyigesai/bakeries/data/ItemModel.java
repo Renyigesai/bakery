@@ -93,7 +93,6 @@ public class ItemModel extends ItemModelProvider {
         customModelItem(BakeriesItems.MOKA_POT,"custom/moka_pot");
         customModelItem(BakeriesItems.MOKA_POT_FILL,"custom/moka_pot");
         customModelItem(BakeriesItems.DRINK_CUP,"block/drink_cup");
-        customModelItem(BakeriesItems.ETERNAL_BAGUETTE,"block/baguette_1");
 
         mouldPasteItem(BakeriesItems.MOULD_CAKE_PASTE);
         mouldPasteItem(BakeriesItems.MOULD_CARROT_CAKE_PASTE);

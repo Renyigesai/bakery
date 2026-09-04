@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/whole_wheat_bagel"
+  },
+  "base": {
+    "parent": "bakeries:block/whole_wheat_bagel_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/whole_wheat_bagel_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/whole_wheat_bagel_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/whole_wheat_bagel_2d"
+    }
+  }
+}

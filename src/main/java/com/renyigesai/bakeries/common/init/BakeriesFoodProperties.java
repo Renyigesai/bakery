@@ -53,6 +53,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties MASHED_TARO;
     public static final FoodProperties TARO_SALT_YOLK_BREAD;
     public static final FoodProperties TARO_MILK;
+    public static final FoodProperties TARO_CAKE;
 
     /*模组联动食物属性*/
     public static final FoodProperties RICE_BREAD;
@@ -63,6 +64,12 @@ public class BakeriesFoodProperties {
     public static final FoodProperties GARLIC_FLAVORED_BAGUETTE;
 
     public static final FoodProperties YUNTUI_MOONCAKE;
+
+    public static final FoodProperties CREAM_MUSHROOM_SOUP_WITH_BAGUETTE;
+    public static final FoodProperties CREAM_MUSHROOM_SOUP_WITH_BAGUETTE_KALEIDOSCOPE_COOKERY;
+
+    public static final FoodProperties DONGPO_PORK_HAMBURG;
+    public static final FoodProperties DONGPO_PORK_HAMBURG_KALEIDOSCOPE_COOKERY;
 
 
     static {
@@ -130,8 +137,8 @@ public class BakeriesFoodProperties {
 
         CREAM_BINGLE_COFFEE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
 
-        MATCHA_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
-        MATCHA_PARFAIT = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(9).saturationModifier(0.5f).alwaysEdible().build();
+        MATCHA_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.TEA_ASTRINGENT,1200),1f).nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
+        MATCHA_PARFAIT = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.TEA_ASTRINGENT,1200),1f).nutrition(9).saturationModifier(0.5f).alwaysEdible().build();
 
         DIRTY_CHOCO_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationModifier(1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY,1200),1F)
@@ -145,7 +152,9 @@ public class BakeriesFoodProperties {
                 .build();
 
         BERRY_BAGEL = new FoodProperties.Builder().nutrition(8).saturationModifier(0.625f)
-                .effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F).build();
+                .effect(new MobEffectInstance(MobEffects.REGENERATION,1200),1F)
+                .effect(()-> new MobEffectInstance(BakeriesMobEffects.BERRY_SOUR,600),1F)
+                .build();
 
         HONEY_BUTTER_SPREAD_TOAST = new FoodProperties.Builder().nutrition(8).saturationModifier(0.5f).alwaysEdible().build();
 
@@ -189,6 +198,8 @@ public class BakeriesFoodProperties {
 
         TARO_MILK = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(9).saturationModifier(0.5f).alwaysEdible().build();
 
+        TARO_CAKE = new FoodProperties.Builder().nutrition(8).saturationModifier(1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.SOFT,1800),1F).alwaysEdible().build();
+
 
         /*模组联动食物属性*/
         RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationModifier(0.4f)
@@ -205,5 +216,11 @@ public class BakeriesFoodProperties {
         GARLIC_FLAVORED_BAGUETTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,600),1f).nutrition(8).saturationModifier(0.5f).build();
 
         YUNTUI_MOONCAKE = new FoodProperties.Builder().nutrition(3).saturationModifier(1.0f).build();
+
+        CREAM_MUSHROOM_SOUP_WITH_BAGUETTE = new FoodProperties.Builder().nutrition(20).saturationModifier(0.75F).alwaysEdible().build();
+        CREAM_MUSHROOM_SOUP_WITH_BAGUETTE_KALEIDOSCOPE_COOKERY = new FoodProperties.Builder().nutrition(20).saturationModifier(0.75F).effect(()-> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.WARMTH,6000),1f).alwaysEdible().build();
+
+        DONGPO_PORK_HAMBURG = new FoodProperties.Builder().nutrition(15).saturationModifier(0.5F).alwaysEdible().build();
+        DONGPO_PORK_HAMBURG_KALEIDOSCOPE_COOKERY = new FoodProperties.Builder().nutrition(15).saturationModifier(0.5F).effect(()-> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.SATIATED_SHIELD,1200),1F).alwaysEdible().build();
     }
 }

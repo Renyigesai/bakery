@@ -57,7 +57,7 @@ public class BlockStates extends BlockStateProvider {
         pileBlock(BakeriesBlocks.CHEESE_CREAM_BREAD);
         pileBlock(BakeriesBlocks.BROWN_SUGAR_ROLL);
         pileBlock(BakeriesBlocks.PINEAPPLE_BUN);
-        pileBlock(BakeriesBlocks.PINEAPPLE_OIL);
+        pileBlock(BakeriesBlocks.PINEAPPLE_OIL,"pineapple_oil","pineapple_bun");
         pileBlock(BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL);
         pileBlock(BakeriesBlocks.CROISSANT);
         pileBlock(BakeriesBlocks.DIRTY_CHOCO_CROISSANT,"croissant","dirty_choco_croissant");
@@ -75,6 +75,9 @@ public class BlockStates extends BlockStateProvider {
         pileBlock(BakeriesBlocks.BEARNAISE);
         pileBlock(BakeriesBlocks.OLIVE_OIL);
         pileBlock(BakeriesBlocks.SALMON_SANDWICH);
+        pileBlock(BakeriesBlocks.CUP_CAKE);
+        pileBlock(BakeriesBlocks.TARO_CAKE);
+        pileBlock(BakeriesBlocks.DONGPO_PORK_HAMBURG);
 
         /*蛋糕方块*/
         cakeBaseBlock(BakeriesBlocks.CAKE_BASE);
@@ -94,6 +97,7 @@ public class BlockStates extends BlockStateProvider {
         drinkBlock(BakeriesBlocks.BROWN_SUGAR_LATTE);
         drinkBlock(BakeriesBlocks.MATCHA_LATTE);
         drinkBlock(BakeriesBlocks.TARO_MILK);
+        drinkBlock(BakeriesBlocks.ORANGE_AMERICAN);
 
         /*吐司*/
         toastBlock(BakeriesBlocks.TOAST);
@@ -119,6 +123,7 @@ public class BlockStates extends BlockStateProvider {
         directionBlock(BakeriesBlocks.DRINK_CUP);
         directionBlock(BakeriesBlocks.MENU);
         directionBlock(BakeriesBlocks.WOOD_TRAY);
+        directionBlock(BakeriesBlocks.MULTI_LAYER_CREAM_CAKE);
 
         breadBasketBlock(BakeriesBlocks.BREAD_BASKET::get);
     }
@@ -214,7 +219,7 @@ public class BlockStates extends BlockStateProvider {
                 for (int slice : ToastBlock.SLICE.getPossibleValues()) {
                     ModelFile modelFile = pile == 2 ?
                             this.models().withExistingParent(this.name(block.get()) + "_pile", this.modLoc("custom/toast" + "_pile")).texture("0", this.modLoc("block/" + this.name(block.get()))).texture("particle", this.modLoc("block/" + this.name(block.get()))).renderType(CUTOUT):
-                            this.models().withExistingParent(this.name(block.get()) + "_" + slice, this.modLoc("custom/toast_" + slice)).texture("0", this.modLoc("block/" + this.name(block.get()))).texture("particle", this.modLoc("block/" + this.name(block.get()))).renderType(CUTOUT);
+                            this.models().withExistingParent(this.name(block.get()) + "_" + slice, this.modLoc("custom/toast_" + slice)).texture("1", this.modLoc("block/" + this.name(block.get()))).texture("particle", this.modLoc("block/" + this.name(block.get()))).renderType(CUTOUT);
                     this.getVariantBuilder(block.get())
                             .partialState()
                             .with(ToastBlock.PILE, pile)

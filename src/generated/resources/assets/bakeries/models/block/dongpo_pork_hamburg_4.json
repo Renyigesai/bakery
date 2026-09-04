@@ -1,0 +1,8 @@
+{
+  "parent": "bakeries:custom/dongpo_pork_hamburg_4",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/dongpo_pork_hamburg",
+    "particle": "bakeries:block/dongpo_pork_hamburg"
+  }
+}

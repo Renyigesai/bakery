@@ -34,5 +34,9 @@ public class OvenRecipes extends Recipes {
         OvenRecipeBuilder.oven(BakeriesItems.MOULD_RED_VELVET_CAKE_BASE, 1, 300, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_RED_VELVET_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_RED_VELVET_CAKE_BASE.get()));
         OvenRecipeBuilder.oven(BakeriesItems.MOULD_MATCHA_CAKE, 1, 300, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_MATCHA_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_MATCHA_CAKE.get()));
         OvenRecipeBuilder.oven(BakeriesItems.MOULD_CARROT_CAKE, 1, 300, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_CARROT_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_CARROT_CAKE.get()));
+
+        OvenRecipeBuilder.oven(BakeriesItems.CUP_CAKE, 1, 200, 160, 190,180, Ingredient.of(new ItemStack(BakeriesItems.PAPER_CUP_CAKE_PASTE.get()))).save(output, name(BakeriesItems.CUP_CAKE.get()));
+
+        OvenRecipeBuilder.oven(BakeriesItems.MOULD_POUND_CAKE, 1, 200, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_POUND_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_POUND_CAKE.get()));
     }
 }

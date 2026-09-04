@@ -1,0 +1,71 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "bakeries:mould"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "bakeries:mould_toast_dough"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "bakeries:mould"
+        },
+        {
+          "item": "bakeries:round_bread_dough"
+        }
+      ],
+      "results": [
+        {
+          "id": "bakeries:mould"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "bakeries:mould"
+        },
+        {
+          "item": "bakeries:round_bread_dough"
+        }
+      ],
+      "results": [
+        {
+          "id": "bakeries:mould"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "bakeries:mould"
+        },
+        {
+          "item": "bakeries:round_bread_dough"
+        }
+      ],
+      "results": [
+        {
+          "id": "bakeries:mould"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "bakeries:mould"
+  }  
+}

@@ -164,16 +164,6 @@ public class BakeriesEvents {
         }
     }
 
-//    @SubscribeEvent
-//    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-//        Player entity = event.getEntity();
-//        if (!ModList.get().isLoaded("patchouli")){
-//            if (!entity.level().isClientSide){
-//                entity.displayClientMessage(Component.translatable("tooltips.bakeries.player_logged_in"), false);
-//            }
-//        }
-//    }
-
     @SubscribeEvent
     public static void onUseKnifeBlock(PlayerInteractEvent.RightClickBlock event){
         Player player = event.getEntity();
@@ -216,7 +206,7 @@ public class BakeriesEvents {
 
     @SubscribeEvent
     public static void addPackFinders(AddPackFindersEvent event) {
-        event.addPackFinders(ResourceLocation.fromNamespaceAndPath("bakeries","resourcepacks/b_16x"),PackType.CLIENT_RESOURCES,Component.literal("Bakeries 16x Texture"),PackSource.DEFAULT,true,Pack.Position.TOP);
+        event.addPackFinders(ResourceLocation.fromNamespaceAndPath("bakeries","resourcepacks/b_2d_icon"),PackType.CLIENT_RESOURCES,Component.translatable("pack.bakeries.2d_icon"),PackSource.DEFAULT,false,Pack.Position.TOP);
     }
 
     @SubscribeEvent

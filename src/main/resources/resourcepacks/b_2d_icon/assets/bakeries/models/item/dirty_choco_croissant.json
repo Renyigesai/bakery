@@ -1,0 +1,21 @@
+{
+  "parent": "item/generated",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "particle": "bakeries:block/dirty_choco_croissant"
+  },
+  "base": {
+    "parent": "bakeries:block/dirty_choco_croissant_1"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/dirty_choco_croissant_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/dirty_choco_croissant_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/dirty_choco_croissant_2d"
+    }
+  }
+}

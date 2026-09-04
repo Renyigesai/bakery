@@ -3,6 +3,9 @@ package com.renyigesai.bakeries.common.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.recipe.*;
 import com.renyigesai.bakeries.common.recipe.oven.OvenRecipe;
+import com.renyigesai.bakeries.integration.jei.recipe.IListRecipe;
+import mezz.jei.api.constants.ModIds;
+import mezz.jei.api.recipe.vanilla.IJeiFuelingRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;
@@ -60,5 +63,7 @@ public class BakeriesRecipeTypes {
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<FlourSieveRecipe>> FLOUR_SIEVE = mezz.jei.api.recipe.RecipeType.createFromVanilla(FlourSieveRecipe.Type.INSTANCE);
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<DrinkRecipe>> DRINK = mezz.jei.api.recipe.RecipeType.createFromVanilla(DrinkRecipe.Type.INSTANCE);
         public static final mezz.jei.api.recipe.RecipeType<RecipeHolder<FermentationBoxRecipe>> FERMENTATION_BOX = mezz.jei.api.recipe.RecipeType.createFromVanilla(FERMENTATION_BOX_TYPE.get());
+
+        public static final mezz.jei.api.recipe.RecipeType<IListRecipe> DISENGAGE = mezz.jei.api.recipe.RecipeType.create(BakeriesMod.MODID, "disengage", IListRecipe.class);
     }
 }

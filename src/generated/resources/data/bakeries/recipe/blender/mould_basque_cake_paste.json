@@ -1,0 +1,34 @@
+{
+  "type": "bakeries:blender",
+  "container": {
+    "count": 1,
+    "id": "bakeries:mould_two"
+  },
+  "ingredients": [
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "item": "bakeries:raw_egg_yolk"
+    },
+    {
+      "item": "bakeries:bottle_cream"
+    },
+    {
+      "item": "bakeries:fresh_cheese_cube"
+    },
+    {
+      "item": "bakeries:fresh_cheese_cube"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:flours"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "bakeries:mould_basque_cake_paste"
+  }
+}

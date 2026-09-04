@@ -2,7 +2,7 @@
   "parent": "bakeries:custom/pineapple_oil_3",
   "render_type": "minecraft:cutout",
   "textures": {
-    "0": "bakeries:block/pineapple_oil",
-    "particle": "bakeries:block/pineapple_oil"
+    "0": "bakeries:block/pineapple_bun",
+    "particle": "bakeries:block/pineapple_bun"
   }
 }
