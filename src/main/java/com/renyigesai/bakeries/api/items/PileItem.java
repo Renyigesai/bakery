@@ -8,17 +8,22 @@ import com.renyigesai.bakeries.common.blocks.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesDataComponents;
 import com.renyigesai.bakeries.common.init.BakeriesSounds;
+import com.renyigesai.bakeries.common.utils.ItemUtils;
 import com.renyigesai.bakeries.common.utils.TextUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -54,6 +59,28 @@ public class PileItem extends BlockItem {
         super(block, pileProperties.itemProperties);
         this.placeSound = pileProperties.placeSound;
         this.effectTooltip = pileProperties.effectTooltip;
+    }
+
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
+        FoodProperties foodproperties = stack.getFoodProperties(living);
+        if (foodproperties != null) {
+            living.eat(level, stack, foodproperties);
+        }
+
+        if (living instanceof ServerPlayer serverPlayer) {
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
+            serverPlayer.awardStat(Stats.ITEM_USED.get(this));
+        }
+
+        if (!(living instanceof Player player && player.getAbilities().instabuild)) {
+//            stack.shrink(1);
+        }
+
+        if (stack.isEmpty()) {
+            return stack.getCraftingRemainingItem();
+        }
+        return stack;
     }
 
     @Override
