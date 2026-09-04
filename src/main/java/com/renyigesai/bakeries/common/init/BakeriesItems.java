@@ -671,7 +671,7 @@ public class BakeriesItems {
         CHEESE_CREAM_BREAD = foodBreadBlock(BakeriesBlocks.CHEESE_CREAM_BREAD, BakeriesRarity.getAdvanced(), BakeriesFoodProperties.CHEESE_CREAM_BREAD,true);
         BROWN_SUGAR_ROLL = foodBreadBlock(BakeriesBlocks.BROWN_SUGAR_ROLL, BakeriesFoodProperties.BROWN_SUGAR_ROLL,true);
         PINEAPPLE_BUN = foodBreadBlock(BakeriesBlocks.PINEAPPLE_BUN, BakeriesFoodProperties.PINEAPPLE_BUN,true);
-        PINEAPPLE_OIL = foodBreadBlock(BakeriesBlocks.PINEAPPLE_OIL,BakeriesFoodProperties.PINEAPPLE_OIL,true);
+        PINEAPPLE_OIL = foodBreadBlock(BakeriesBlocks.PINEAPPLE_OIL,BakeriesRarity.getAdvanced(),BakeriesFoodProperties.PINEAPPLE_OIL,true);
         MEAT_FLOSS_BREAD_ROLL = foodBreadBlock(BakeriesBlocks.MEAT_FLOSS_BREAD_ROLL, BakeriesRarity.getAdvanced(), BakeriesFoodProperties.MEAT_FLOSS_BREAD);
         CROISSANT = foodBreadBlock(BakeriesBlocks.CROISSANT, BakeriesFoodProperties.CROISSANT,true);
         DIRTY_CHOCO_CROISSANT = foodBreadBlock(BakeriesBlocks.DIRTY_CHOCO_CROISSANT, BakeriesFoodProperties.DIRTY_CHOCO_CROISSANT,true);
