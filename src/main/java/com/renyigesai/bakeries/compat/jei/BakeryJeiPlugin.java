@@ -3,6 +3,8 @@ package com.renyigesai.bakeries.compat.jei;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.compat.jei.category.*;
+import com.renyigesai.bakeries.compat.jei.recipe.DisengageRecipe;
+import com.renyigesai.bakeries.compat.jei.recipe.IListRecipe;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesRecipeTypes;
@@ -39,6 +41,7 @@ public class BakeryJeiPlugin implements IModPlugin {
 	public static final mezz.jei.api.recipe.RecipeType<CoffeeRecipe> DRINK_TYPE = new mezz.jei.api.recipe.RecipeType<>(DrinkRecipeCategory.UID, CoffeeRecipe.class);
 	public static final mezz.jei.api.recipe.RecipeType<StoneKilnRecipe> STONE_KILN_TYPE = new mezz.jei.api.recipe.RecipeType<>(StoneKilnCategory.UID, StoneKilnRecipe.class);
 	public static final mezz.jei.api.recipe.RecipeType<FermentationBoxRecipe> FERMENTATION_TYPE = new mezz.jei.api.recipe.RecipeType<>(FermentationBoxCategory.UID, FermentationBoxRecipe.class);
+	public static final mezz.jei.api.recipe.RecipeType<IListRecipe> DISENGAGE = mezz.jei.api.recipe.RecipeType.create(BakeriesMod.MODID, "disengage", IListRecipe.class);
 	@Override
 	public @NotNull ResourceLocation getPluginUid() {
 		return new ResourceLocation(BakeriesMod.MODID,"jei_plugin");
@@ -54,6 +57,7 @@ public class BakeryJeiPlugin implements IModPlugin {
 		registration.addRecipeCategories(new DrinkRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
 		registration.addRecipeCategories(new StoneKilnCategory(registration.getJeiHelpers().getGuiHelper()));
 		registration.addRecipeCategories(new FermentationBoxCategory(registration.getJeiHelpers().getGuiHelper()));
+		registration.addRecipeCategories(new DisengageCategory(registration.getJeiHelpers().getGuiHelper()));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,6 +78,8 @@ public class BakeryJeiPlugin implements IModPlugin {
 		registration.addRecipes(STONE_KILN_TYPE, (List<StoneKilnRecipe>) getRecipesList(StoneKilnRecipe.Type.INSTANCE));
 
 		registration.addRecipes(FERMENTATION_TYPE, (List<FermentationBoxRecipe>) getRecipesList(BakeriesRecipeTypes.FERMENTATION_BOX.get()));
+
+		registration.addRecipes(DISENGAGE, DisengageRecipe.getDisengageRecipes());
 	}
 
 	@Override

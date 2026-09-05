@@ -87,6 +87,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CHEESE_CREAM.get());//奶酪奶油
                         output.accept(BakeriesItems.BUTTER_FLOUR_SAND.get());//黄油面砂
                         output.accept(BakeriesItems.HONEY_BUTTER.get());//蜂蜜黄油
+                        output.accept(BakeriesItems.BOXED_EGG.get());//盒装鸡蛋
                         output.accept(BakeriesItems.WHOLE_EGG.get());//全蛋
                         output.accept(BakeriesItems.RAW_PROTEIN.get());//生蛋白
                         output.accept(BakeriesItems.RAW_EGG_YOLK.get());//生蛋黄
@@ -157,6 +158,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.RED_VELVET_CAKE.get());//红丝绒蛋糕
                         output.accept(BakeriesItems.BASQUE_CAKE.get());//巴斯克蛋糕
                         output.accept(BakeriesItems.TARO_CAKE.get());//芋泥蛋糕
+                        output.accept(BakeriesItems.NIANGAO_CAKE.get());//年糕糕
                         output.accept(BakeriesItems.PIZZA.get());//披萨
                         output.accept(BakeriesItems.CUSTOM_PIZZA.get());//自定义披萨
                         /*
@@ -170,6 +172,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.MATCHA_LATTE.get());//抹茶拿铁
                         output.accept(BakeriesItems.MATCHA_PARFAIT.get());//抹茶巴菲
                         output.accept(BakeriesItems.TARO_MILK.get());//芋泥牛乳
+                        output.accept(BakeriesItems.MILK_TEA.get());//奶茶
                         /*
                         唱片
                         */

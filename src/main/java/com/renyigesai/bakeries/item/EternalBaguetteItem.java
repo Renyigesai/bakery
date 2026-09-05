@@ -102,6 +102,7 @@ public class EternalBaguetteItem extends Item implements Vanishable {
 
     @Override
     public boolean isEnchantable(ItemStack pStack) {
+
         return true;
     }
 }

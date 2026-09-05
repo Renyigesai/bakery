@@ -436,8 +436,9 @@ public class BlenderBlockEntity extends BaseContainerBlockEntity implements Bake
         if (outputStack.isEmpty()){
             return true;
         }
-        if (resultItem.is(outputStack.getItem()) && outputStack.getCount() != outputStack.getMaxStackSize()){
-            return true;
+        if (resultItem.is(outputStack.getItem())){
+            int count = resultItem.getCount();
+            return outputStack.getCount() + count <= outputStack.getMaxStackSize();
         }
         return false;
     }

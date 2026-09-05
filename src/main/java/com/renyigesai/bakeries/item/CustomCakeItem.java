@@ -21,6 +21,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -46,6 +47,20 @@ public class CustomCakeItem extends BlockItem {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
         pPlayer.startUsingItem(pUsedHand);
         return InteractionResultHolder.consume(itemstack);
+    }
+
+    /**1.3.1新增*/
+    @Override
+    public InteractionResult useOn(UseOnContext pContext) {
+        ItemStack stack = pContext.getItemInHand();
+        if (stack.getOrCreateTag().contains("EatCountMax")) {
+            int eatCount = stack.getOrCreateTag().getInt("EatCount");
+            int eatCountMax = stack.getOrCreateTag().getInt("EatCountMax");
+            if (eatCount < eatCountMax){
+                return InteractionResult.FAIL;
+            }
+        }
+        return super.useOn(pContext);
     }
 
     @Override

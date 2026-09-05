@@ -8,8 +8,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -26,6 +29,7 @@ public class CustomCakeBlockEntity extends BlockEntity {
     private int hunger;
     private float saturation;
     private List<MobEffectInstance> effects = new ArrayList<>();
+    private String candleId = "";
     private String name = "";
 
 
@@ -52,6 +56,7 @@ public class CustomCakeBlockEntity extends BlockEntity {
             list.add(effect.save(new CompoundTag()));
         }
         pTag.put("Effects", list);
+        pTag.putString("CandleId",this.candleId);
 
         pTag.putString("Name",this.name);
     }
@@ -83,6 +88,8 @@ public class CustomCakeBlockEntity extends BlockEntity {
             }
         }
 
+        this.candleId = pTag.getString("CandleId");
+
         this.name = pTag.getString("Name");
     }
 
@@ -100,6 +107,10 @@ public class CustomCakeBlockEntity extends BlockEntity {
 
     public String getName() {
         return name;
+    }
+
+    public String getCandleId() {
+        return candleId;
     }
 
     @Override
@@ -151,6 +162,10 @@ public class CustomCakeBlockEntity extends BlockEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setCandleId(String candleId) {
+        this.candleId = candleId;
     }
 
     public void setPartUse(byte[] partUse) {
@@ -209,9 +224,18 @@ public class CustomCakeBlockEntity extends BlockEntity {
             int effectDuration = cakePartData.getEffectDuration();
             this.effects.add(new MobEffectInstance(effect,effectDuration,effectAmplifier));
         }
+        update();
+    }
+
+    public void update(){
         setChanged();
         if (this.level != null) {
             this.level.sendBlockUpdated(this.getBlockPos(),this.getBlockState(),this.getBlockState(),3);
         }
+    }
+
+    public boolean hasCandle(){
+        Block block = BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(this.candleId));
+        return block != Blocks.AIR;
     }
 }

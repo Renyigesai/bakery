@@ -120,6 +120,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> RED_VELVET_CAKE_BASE;
     public static final RegistryObject<Block> RED_VELVET_CAKE;
     public static final RegistryObject<Block> TARO_CAKE;
+    public static final RegistryObject<Block> NIANGAO_CAKE;
     public static final RegistryObject<Block> SALMON_SANDWICH;
     public static final RegistryObject<Block> PINEAPPLE_OIL;
     public static final RegistryObject<Block> FLAT_CROISSANT;
@@ -164,6 +165,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> MATCHA_LATTE;
     public static final RegistryObject<Block> MATCHA_PARFAIT;
     public static final RegistryObject<Block> TARO_MILK;
+    public static final RegistryObject<Block> MILK_TEA;
     public static final RegistryObject<Block> TRAY_SCONE;
     public static final RegistryObject<Block> PAPER_CUP;
     public static final RegistryObject<Block> MOULD_POUND_CAKE;
@@ -180,6 +182,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> TRAY_YUNTUI_MOONCAKE;
     public static final RegistryObject<Block> CHANDELIER;
     public static final RegistryObject<Block> SWEET_BERRIES_JAM;
+    public static final RegistryObject<Block> BOXED_EGG;
 
     /*生披萨*/
     public static final RegistryObject<Block> RAW_PIZZA;
@@ -318,6 +321,11 @@ public class BakeriesBlocks {
 
         TARO_CAKE = BLOCK_REGISTRY.register("taro_cake",PileBlock::new);
 
+        NIANGAO_CAKE = BLOCK_REGISTRY.register("niangao_cake",()-> new InstanceCakeBlock(ItemUtils.addEffects(
+                new LazyMobEffectInstance(()-> BakeriesMobEffects.SOFT.get(),1200),
+                new LazyMobEffectInstance(()-> BakeriesMobEffects.ENJOY.get(),1200)
+        ),6,0.5f));
+
         /*普通方块*/
         FERMENTATION_TANK = BLOCK_REGISTRY.register("fermentation_tank", () ->
                 new FermentationTankBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).randomTicks()));
@@ -364,6 +372,7 @@ public class BakeriesBlocks {
         CREAM_BINGLE_COFFEE = coldDrinkBlock("cream_bingle_coffee");
         MATCHA_LATTE = coldDrinkBlock("matcha_latte");
         TARO_MILK = coldDrinkBlock("taro_milk");
+        MILK_TEA = coldDrinkBlock("milk_tea");
         MATCHA_PARFAIT = BLOCK_REGISTRY.register("matcha_parfait", MatchaParfaitBlock::new);
         COFFEE_PLANT = BLOCK_REGISTRY.register("coffee_plant",()->
                 new CoffeePlantBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT)));
@@ -387,6 +396,7 @@ public class BakeriesBlocks {
         TRAY_YUNTUI_MOONCAKE = BLOCK_REGISTRY.register("tray_yuntui_mooncake",()-> new TraySconeBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
         CHANDELIER = BLOCK_REGISTRY.register("chandelier",()-> new LanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)));
         SWEET_BERRIES_JAM = BLOCK_REGISTRY.register("sweet_berries_jam", PileBlock::new);
+        BOXED_EGG = BLOCK_REGISTRY.register("boxed_egg", BoxedEggsBlock::new);
         /*生披萨*/
         RAW_PIZZA = BLOCK_REGISTRY.register("raw_pizza", ()-> new RawPizzaBlock(BakeriesItems.RAW_PIZZA));
 

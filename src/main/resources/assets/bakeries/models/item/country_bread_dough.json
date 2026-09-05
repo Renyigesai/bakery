@@ -1,5 +1,5 @@
 {
-  "parent": "bakeries:custom/country_bread_1",
+  "parent": "bakeries:block/country_bread_1",
   "render_type": "minecraft:cutout",
   "textures": {
     "1": "bakeries:item/country_bread_dough"

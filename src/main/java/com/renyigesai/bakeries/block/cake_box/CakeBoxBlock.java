@@ -52,19 +52,16 @@ public class CakeBoxBlock extends BaseEntityBlock {
         }
     }
 
+    /**1.3.1修改，现在不能将库存内方块放出，仅掉落物品*/
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof CakeBoxBlockEntity boxBlock){
             if (!boxBlock.isEmpty()){
-                ItemStack stackInSlot = boxBlock.getInventory().getStackInSlot(0);
+                ItemStack stackInSlot = boxBlock.getInventory().getStackInSlot(0).copy();
                 boxBlock.getInventory().setStackInSlot(0,ItemStack.EMPTY);
                 pLevel.destroyBlock(pPos,false);
-                if (stackInSlot.getItem() instanceof BlockItem blockItem){
-                    pLevel.setBlock(pPos,blockItem.getBlock().defaultBlockState(),3);
-                }else {
-                    ItemUtils.spawnItemEntity(pLevel,stackInSlot,pPos);
-                }
+                ItemUtils.spawnItemEntity(pLevel,stackInSlot,pPos);
             }else {
                 pLevel.destroyBlock(pPos,false);
             }

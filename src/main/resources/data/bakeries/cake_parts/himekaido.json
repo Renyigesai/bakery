@@ -2,7 +2,7 @@
   "type": "bakeries:cake_topping",
   "ingredient": [
     {
-      "item": "minecraft:himekaido"
+      "item": "immortalers_delight:himekaido"
     }
   ],
   "potion_effect": "immortalers_delight:relieve_poison",

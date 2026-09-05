@@ -63,6 +63,7 @@ public class SiliconePaperBlock extends HorizontalDirectionalBlock {
             if (blockEntity instanceof CustomCakeBlockEntity cc){
                 cc.addCakePart(cakePartData);
             }
+            ItemUtils.shrink(hand,1,pPlayer);
             return InteractionResult.SUCCESS;
         }
 

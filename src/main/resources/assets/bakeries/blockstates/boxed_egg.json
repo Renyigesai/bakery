@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "pile=1,facing=east": {"model": "bakeries:block/boxed_egg_1", "y": 270},
+    "pile=2,facing=east": {"model": "bakeries:block/boxed_egg_2", "y": 270},
+
+    "pile=1,facing=north": {"model": "bakeries:block/boxed_egg_1", "y": 180},
+    "pile=2,facing=north": {"model": "bakeries:block/boxed_egg_2", "y": 180},
+
+    "pile=1,facing=south": {"model": "bakeries:block/boxed_egg_1"},
+    "pile=2,facing=south": {"model": "bakeries:block/boxed_egg_2"},
+
+    "pile=1,facing=west": {"model": "bakeries:block/boxed_egg_1", "y": 90},
+    "pile=2,facing=west": {"model": "bakeries:block/boxed_egg_2", "y": 90}
+  }
+}

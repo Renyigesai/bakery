@@ -48,6 +48,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties MATCHA_LATTE;
     public static final FoodProperties MATCHA_PARFAIT;
     public static final FoodProperties TARO_MILK;
+    public static final FoodProperties MILK_TEA;
     public static final FoodProperties BAGEL_FILLED_SAUCE;
     public static final FoodProperties EGG_TART;
     public static final FoodProperties SALMON_SANDWICH;
@@ -142,6 +143,8 @@ public class BakeriesFoodProperties {
         MATCHA_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.TEA_ASTRINGENT.get(),1200),1f).alwaysEat().build();
         MATCHA_PARFAIT = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.TEA_ASTRINGENT.get(),1200),1f).nutrition(9).saturationMod(0.5f).alwaysEat().build();
         TARO_MILK = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(9).saturationMod(0.5f).alwaysEat().build();
+
+        MILK_TEA = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(9).saturationMod(0.5f).alwaysEat().build();
 
         DIRTY_CHOCO_CROISSANT = new FoodProperties.Builder().nutrition(6).saturationMod(1f)
                 .effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY.get(),1200),1F)

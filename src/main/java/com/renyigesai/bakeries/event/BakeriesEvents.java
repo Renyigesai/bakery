@@ -3,15 +3,13 @@ package com.renyigesai.bakeries.event;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.CakeEffectRulesRegistrationEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
-import com.renyigesai.bakeries.block.custom_cake.CakePartData;
 import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.item.BaguetteItem;
 import com.renyigesai.bakeries.item.BreadKnifeItem;
 import com.renyigesai.bakeries.item.ColdDrinkItem;
-import com.renyigesai.bakeries.network.CakePartTypeSyncS2CPacket;
-import com.renyigesai.bakeries.network.Messages;
+import com.renyigesai.bakeries.item.EternalBaguetteItem;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.WorldUtil;
 import com.renyigesai.bakeries.util.measurer.CakeEffectRules;
@@ -28,6 +26,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.npc.Villager;
@@ -39,14 +38,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.OnDatapackSyncEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.function.Function;
@@ -179,6 +177,19 @@ public class BakeriesEvents {
                     }
                 });
                 break;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerDrop(LivingDeathEvent event) {
+        Entity entity = event.getEntity();
+        Entity source = event.getSource().getEntity();
+        if (entity instanceof Player player) {
+            if (source instanceof LivingEntity living && living.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof EternalBaguetteItem){
+                ItemStack headStack = new ItemStack(Items.PLAYER_HEAD);
+                headStack.getOrCreateTag().putString("SkullOwner", player.getName().getString());
+                player.drop(headStack, true, false);
             }
         }
     }

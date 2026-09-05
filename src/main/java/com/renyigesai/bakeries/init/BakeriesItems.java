@@ -57,6 +57,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> BUTTER_FLOUR_SAND;
     public static final RegistryObject<Item> WHOLE_EGG;
     public static final RegistryObject<Item> SALT_BUCKET;
+    public static final RegistryObject<Item> BOXED_EGG;
 
     /*
     生物品/面团
@@ -169,6 +170,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MOULD_RED_VELVET_CAKE;
     public static final RegistryObject<Item> RED_VELVET_CAKE_BASE;
     public static final RegistryObject<Item> RED_VELVET_CAKE;
+    public static final RegistryObject<Item> NIANGAO_CAKE;
     public static final RegistryObject<Item> TARO_CAKE;
 
     public static final RegistryObject<Item> CUSTOM_CAKE;
@@ -258,6 +260,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MATCHA_LATTE;
     public static final RegistryObject<Item> MATCHA_PARFAIT;
     public static final RegistryObject<Item> TARO_MILK;
+    public static final RegistryObject<Item> MILK_TEA;
 
     static {
         /*
@@ -289,6 +292,7 @@ public class BakeriesItems {
         BUTTER_FLOUR_SAND = item("butter_flour_sand");
         WHOLE_EGG = REGISTER.register("whole_egg",WholeEggItem::new);
         SALT_BUCKET = REGISTER.register("salt_bucket",()-> new Item(new Item.Properties().stacksTo(16).craftRemainder(Items.BUCKET)));
+        BOXED_EGG = REGISTER.register("boxed_egg",()-> new PileItem(BakeriesBlocks.BOXED_EGG.get(),new PileItem.PileProperties()));
         MATCHA_POWDER = item("matcha_powder");
         BEARNAISE = REGISTER.register("bearnaise",()-> new PileItem(BakeriesBlocks.BEARNAISE.get(),new PileItem.PileProperties().placeSound(SoundEvents.GLASS_PLACE).itemProperties(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16))));
         MOULD = block(BakeriesBlocks.MOULD);
@@ -473,6 +477,7 @@ public class BakeriesItems {
         RED_VELVET_CAKE_BASE = block(BakeriesBlocks.RED_VELVET_CAKE_BASE,16);
         RED_VELVET_CAKE = block(BakeriesBlocks.RED_VELVET_CAKE,16);
         TARO_CAKE = foodBlockItem(BakeriesBlocks.TARO_CAKE,BakeriesFoodProperties.TARO_CAKE,true,false,ItemUtils.TARO);
+        NIANGAO_CAKE = block(BakeriesBlocks.NIANGAO_CAKE,16);
 
         CUSTOM_CAKE = REGISTER.register("custom_cake",()-> new CustomCakeItem(BakeriesBlocks.CUSTOM_CAKE.get(),new Item.Properties().stacksTo(1).rarity(ItemUtils.ADVANCED)));
 
@@ -494,6 +499,7 @@ public class BakeriesItems {
         MATCHA_LATTE = coldDrinkItem(BakeriesBlocks.MATCHA_LATTE,BakeriesFoodProperties.MATCHA_LATTE,true,2,2,true,3);
         MATCHA_PARFAIT = coldDrinkItem(BakeriesBlocks.MATCHA_PARFAIT,BakeriesFoodProperties.MATCHA_PARFAIT,true,4);
         TARO_MILK = REGISTER.register("taro_milk", () -> new ColdDrinkItem(BakeriesBlocks.TARO_MILK.get(),new Item.Properties().craftRemainder(BakeriesItems.DRINK_CUP.get()).food(BakeriesFoodProperties.TARO_MILK).rarity(ItemUtils.TARO),true,false,4));
+        MILK_TEA = coldDrinkItem(BakeriesBlocks.MILK_TEA,BakeriesFoodProperties.MATCHA_LATTE,true,2,2,true,3);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

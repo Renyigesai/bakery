@@ -2,6 +2,7 @@ package com.renyigesai.bakeries.event;
 
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.api.BakeriesFilePackResource;
+import com.renyigesai.bakeries.config.BakeriesConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;

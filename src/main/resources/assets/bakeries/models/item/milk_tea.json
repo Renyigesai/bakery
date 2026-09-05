@@ -1,0 +1,18 @@
+{
+  "parent": "item/generated",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "bakeries:block/milk_tea"
+  },
+  "perspectives":{
+    "gui": {
+      "parent": "bakeries:item/milk_tea_2d"
+    },
+    "ground": {
+      "parent": "bakeries:item/milk_tea_2d"
+    },
+    "fixed": {
+      "parent": "bakeries:item/milk_tea_2d"
+    }
+  }
+}

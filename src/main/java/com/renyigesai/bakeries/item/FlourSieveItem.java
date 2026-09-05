@@ -57,7 +57,7 @@ public class FlourSieveItem extends Item {
         }
         ItemStack mainHandItem = pLivingEntity.getMainHandItem();
         Optional<FlourSieveRecipe> recipe = getCurrentRecipe(pLivingEntity, pLevel);
-        boolean success = recipe.isPresent() && hasRecipe(pLivingEntity,pLevel);
+        boolean success = recipe.isPresent();
 
         if (pLivingEntity instanceof Player player) {
             if (success) {

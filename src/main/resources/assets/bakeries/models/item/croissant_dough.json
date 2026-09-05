@@ -1,6 +1,7 @@
 {
-	"parent": "item/generated",
+	"parent": "bakeries:custom/croissant_1",
 	"textures": {
-		"layer0": "bakeries:item/croissant_dough"
+		"0": "bakeries:item/croissant_dough",
+		"particle": "bakeries:item/croissant_dough"
 	}
 }
