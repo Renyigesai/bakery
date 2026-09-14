@@ -106,23 +106,6 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         return super.mouseScrolled(pMouseX, pMouseY, pDelta);
     }
 
-//    @Override
-//    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
-//         zhi_zheng.mouseClicked(dragging, pMouseX, pMouseY, pButton);
-//        return super.mouseClicked(pMouseX, pMouseY, pButton);
-//    }
-//
-//    @Override
-//    public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
-//        zhi_zheng.mouseDragged(dragging, pMouseX, pMouseY, pButton, pDragX, pDragY);
-//        return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
-//    }
-//    @Override
-//    public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
-//        zhi_zheng.mouseReleased(dragging, pMouseX, pMouseY, pButton);
-//        return super.mouseReleased(pMouseX, pMouseY, pButton);
-//    }
-
     @Override
     public void containerTick() {
         super.containerTick();

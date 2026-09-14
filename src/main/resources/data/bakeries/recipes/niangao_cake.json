@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " e ",
+    "cbd",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "bakeries:cake_base"
+    },
+    "b": {
+      "item": "bakeries:foamed_cream"
+    },
+    "c": {
+      "item": "bakeries:moka_pot_fill"
+    },
+    "d": {
+      "item": "minecraft:poppy"
+    },
+    "e": {
+      "item": "minecraft:cornflower"
+    }
+  },
+  "result": {
+    "item": "bakeries:niangao_cake",
+    "count": 1
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "bakeries:iced_american",
+          "functions": [
+            { "function": "minecraft:explosion_decay" }
+          ]
+        }
+      ]
+    },
+    {
+      "bonus_rolls": 0.0,
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "bakeries:iced_american",
+          "properties": { "pile": "2" }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "bakeries:iced_american",
+          "functions": [
+            { "function": "minecraft:explosion_decay" }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "bakeries:blocks/iced_american"
+}

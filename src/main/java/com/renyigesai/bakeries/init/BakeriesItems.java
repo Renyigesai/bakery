@@ -499,7 +499,7 @@ public class BakeriesItems {
         MATCHA_LATTE = coldDrinkItem(BakeriesBlocks.MATCHA_LATTE,BakeriesFoodProperties.MATCHA_LATTE,true,2,2,true,3);
         MATCHA_PARFAIT = coldDrinkItem(BakeriesBlocks.MATCHA_PARFAIT,BakeriesFoodProperties.MATCHA_PARFAIT,true,4);
         TARO_MILK = REGISTER.register("taro_milk", () -> new ColdDrinkItem(BakeriesBlocks.TARO_MILK.get(),new Item.Properties().craftRemainder(BakeriesItems.DRINK_CUP.get()).food(BakeriesFoodProperties.TARO_MILK).rarity(ItemUtils.TARO),true,false,4));
-        MILK_TEA = coldDrinkItem(BakeriesBlocks.MILK_TEA,BakeriesFoodProperties.MATCHA_LATTE,true,2,2,true,3);
+        MILK_TEA = coldDrinkItem(BakeriesBlocks.MILK_TEA,BakeriesFoodProperties.MILK_TEA,true,2,2,true,3);
     }
 
     private static RegistryObject<Item> rawItem(String pName,String tips) {

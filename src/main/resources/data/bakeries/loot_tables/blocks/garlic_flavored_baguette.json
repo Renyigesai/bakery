@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakeries:baguette",
+          "name": "bakeries:garlic_flavored_baguette",
           "functions": [
             { "function": "minecraft:explosion_decay" }
           ]
@@ -20,14 +20,14 @@
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "bakeries:baguette",
+          "block": "bakeries:garlic_flavored_baguette",
           "properties": { "pile": "2" }
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakeries:baguette",
+          "name": "bakeries:garlic_flavored_baguette",
           "functions": [
             { "function": "minecraft:explosion_decay" }
           ]
@@ -40,14 +40,14 @@
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "bakeries:baguette",
+          "block": "bakeries:garlic_flavored_baguette",
           "properties": { "pile": "3" }
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakeries:baguette",
+          "name": "bakeries:garlic_flavored_baguette",
           "functions": [
             { "function": "minecraft:explosion_decay" }
           ]
@@ -60,14 +60,14 @@
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "bakeries:baguette",
+          "block": "bakeries:garlic_flavored_baguette",
           "properties": { "pile": "4" }
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "bakeries:baguette",
+          "name": "bakeries:garlic_flavored_baguette",
           "functions": [
             { "function": "minecraft:explosion_decay" }
           ]
@@ -75,5 +75,5 @@
       ]
     }
   ],
-  "random_sequence": "bakeries:blocks/baguette"
+  "random_sequence": "bakeries:blocks/garlic_flavored_baguette"
 }

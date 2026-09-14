@@ -3,16 +3,11 @@ package com.renyigesai.bakeries.init;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.compat.init.BakeriesCompatItems;
 import com.renyigesai.bakeries.config.BakeriesConfig;
-import com.renyigesai.bakeries.item.RepeatEatItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.List;
-import java.util.Set;
 
 public class BakeriesGroup {
 
@@ -87,7 +82,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.CHEESE_CREAM.get());//奶酪奶油
                         output.accept(BakeriesItems.BUTTER_FLOUR_SAND.get());//黄油面砂
                         output.accept(BakeriesItems.HONEY_BUTTER.get());//蜂蜜黄油
-                        output.accept(BakeriesItems.BOXED_EGG.get());//盒装鸡蛋
+//                        output.accept(BakeriesItems.BOXED_EGG.get());//盒装鸡蛋
                         output.accept(BakeriesItems.WHOLE_EGG.get());//全蛋
                         output.accept(BakeriesItems.RAW_PROTEIN.get());//生蛋白
                         output.accept(BakeriesItems.RAW_EGG_YOLK.get());//生蛋黄

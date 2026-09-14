@@ -38,7 +38,9 @@ public class ItemUtils {
     public static void shrinkAndReturn(ItemStack stack,int count,Player player){
         shrink(stack,count,player);
         if (stack.hasCraftingRemainingItem()){
-            givePlayerItem(player,new ItemStack(stack.getItem(),count));
+            ItemStack craftingRemainingItem = stack.getCraftingRemainingItem();
+            craftingRemainingItem.setCount(count);
+            givePlayerItem(player,craftingRemainingItem);
         }
     }
 

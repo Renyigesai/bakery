@@ -364,6 +364,8 @@
   "advancements.get_matcha_parfait.descr": "get Matcha Parfait.",
   "advancements.bakeries.get_tea_astringent.title": "No trespassing",
   "advancements.bakeries.get_tea_astringent.descr": "Get tea astringent effect.",
+  "advancements.bakeries.get_butter_latter.title": "Full Sugar!!",
+  "advancements.bakeries.get_butter_latter.descr": "get Butter Latte.",
   "guide.bakeries.descr.moka_pot": "You can use a mocha pot to brew coffee.",
   "guide.bakeries.descr.moka_pot_2": "Place the mocha pot above the $(l:baking_utensil/heat_source)Heat source/$, right-click to add the coffee powder, and the coffee will be cooked in a short while.",
   "guide.bakeries.entries.moka_pot": "Brew coffee in a mocha pot",

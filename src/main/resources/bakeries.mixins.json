@@ -7,10 +7,15 @@
   "mixins": [
     "FallingBlockEntityMixin",
     "LivingEntityMixin",
-    "SnifferMixin"
+    "SnifferMixin",
+    "accessor.CreativeModeTabBuilderAccessor"
   ],
   "client": [
-    "GameRendererMixin"
+    "BlockElementDeserializerMixin",
+    "CreativeModeInventoryScreenMixin",
+    "GameRendererMixin",
+    "accessor.CreativeModeInventoryScreenAccessor",
+    "accessor.CreativeModeInventoryScreenItemPickerMenuAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
