@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockElementDeserializerMixin {
 
     /**去掉Json模型角度限制*/
-    @Inject(method = "getAngle",at = @At("HEAD"), cancellable = true)
-    private void onGetAngle(JsonObject pJson, CallbackInfoReturnable<Float> cir) {
-        float f = GsonHelper.getAsFloat(pJson, "angle");
-        cir.setReturnValue(f);
-    }
+//    @Inject(method = "getAngle",at = @At("HEAD"), cancellable = true)
+//    private void onGetAngle(JsonObject pJson, CallbackInfoReturnable<Float> cir) {
+//        float f = GsonHelper.getAsFloat(pJson, "angle");
+//        cir.setReturnValue(f);
+//    }
 }
