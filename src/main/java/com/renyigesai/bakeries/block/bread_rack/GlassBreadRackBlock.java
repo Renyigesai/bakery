@@ -34,40 +34,24 @@ public class GlassBreadRackBlock extends BreadRackBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide){
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide){
             return InteractionResult.SUCCESS;
         }
-        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        BlockEntity blockEntity = level.getBlockEntity(pos);
         if (!(blockEntity instanceof BreadRackBlockEntity rackBlock)){
             return InteractionResult.FAIL;
         }
-        boolean open = pState.getValue(OPEN);
-        ItemStack itemInHand = pPlayer.getItemInHand(pHand);
-        if (open && pPlayer.isShiftKeyDown()){
-            return super.take(rackBlock,pState,pLevel,pPos,pPlayer,pHit);
-        }
-        if (rackBlock.getItemsCount() == 4){
-            pLevel.blockEvent(pPos,pState.getBlock(), 0,open ? 1 : 0);
-            pLevel.setBlock(pPos,pState.setValue(OPEN,!open),3);
-            pLevel.playSound(null,pPos, open? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
+        boolean open = state.getValue(OPEN);
+        if (!open || player.isShiftKeyDown()) {
+            boolean newOpen = !open;
+            level.blockEvent(pos, state.getBlock(), 0, newOpen ? 0 : 1);
+            rackBlock.setOpen(newOpen);
+            level.playSound(null, pos, newOpen ? SoundEvents.IRON_DOOR_OPEN : SoundEvents.IRON_DOOR_CLOSE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return InteractionResult.SUCCESS;
         }
-        if (itemInHand.isEmpty()){
-            pLevel.blockEvent(pPos,pState.getBlock(), 0,open ? 1 : 0);
-            pLevel.setBlock(pPos,pState.setValue(OPEN,!open),3);
-            pLevel.playSound(null,pPos, open? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
-        }else {
-            if (open){
-                return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-            }else {
-                pLevel.blockEvent(pPos,pState.getBlock(), 0,0);
-                pLevel.setBlock(pPos,pState.setValue(OPEN,true),3);
-                pLevel.playSound(null,pPos, SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
-                return InteractionResult.SUCCESS;
-            }
-        }
-        return InteractionResult.FAIL;
+
+        return super.use(state, level, pos, player, hand, hit);
     }
 
     @Nullable

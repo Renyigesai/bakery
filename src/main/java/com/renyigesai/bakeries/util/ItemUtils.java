@@ -36,12 +36,12 @@ public class ItemUtils {
     }
 
     public static void shrinkAndReturn(ItemStack stack,int count,Player player){
-        shrink(stack,count,player);
         if (stack.hasCraftingRemainingItem()){
             ItemStack craftingRemainingItem = stack.getCraftingRemainingItem();
             craftingRemainingItem.setCount(count);
             givePlayerItem(player,craftingRemainingItem);
         }
+        shrink(stack,count,player);
     }
 
     //By Farmer's Delight

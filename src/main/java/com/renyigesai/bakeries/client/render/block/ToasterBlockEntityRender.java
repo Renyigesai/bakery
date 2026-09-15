@@ -16,9 +16,10 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(value = Dist.CLIENT)
-public class ToasterBlockEntityRender implements BlockEntityRenderer<ToasterBlockEntity> {
+public class ToasterBlockEntityRender implements IBBlockEntityRenderer<ToasterBlockEntity> {
 
     private static final float SIZE = 0.03125F;
     private static final Vec2[] north = new Vec2[]{new Vec2(0.5f,0.625f - SIZE),new Vec2(0.5f,0.4375f - SIZE)};
@@ -29,22 +30,42 @@ public class ToasterBlockEntityRender implements BlockEntityRenderer<ToasterBloc
     public ToasterBlockEntityRender(BlockEntityRendererProvider.Context context) {
     }
 
+//    @Override
+//    public void render(ToasterBlockEntity toaster, float pPartialTick, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedOverlay, int  pPackedOverla) {
+//        Direction direction = toaster.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
+//        for (int slot = 0; slot < 2; slot++) {
+//            ItemStackHandler items = toaster.getItems();
+//            ItemStack stackInSlot = items.getStackInSlot(slot);
+//            if (!stackInSlot.isEmpty()){
+//                int posLong = (int) toaster.getBlockPos().asLong();
+//                float f1 = -direction.toYRot() - 180f;
+//                Vec2[] vec2 = transformPositionByDirection(direction);
+//                poseStack.pushPose();
+//                poseStack.translate(vec2[slot].x,0.5 + (toaster.getProgress(pPartialTick) * 0.25),vec2[slot].y);
+//                poseStack.mulPose(Axis.YP.rotationDegrees(f1));
+//                poseStack.scale(0.5f, 0.5f, 0.5f);
+//                if (toaster.getLevel() != null) {
+//                    Minecraft.getInstance().getItemRenderer().renderStatic(stackInSlot, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(toaster.getLevel(), toaster.getBlockPos()), pPackedOverlay, poseStack, pBuffer, toaster.getLevel(), (int) (posLong + 1));
+//                }
+//                poseStack.popPose();
+//            }
+//        }
+//    }
+
     @Override
-    public void render(ToasterBlockEntity toaster, float pPartialTick, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedOverlay, int  pPackedOverla) {
-        Direction direction = toaster.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
+    public void startRender(@NotNull ToasterBlockEntity be, float v, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int pPackedLight, int pPackedOverlay) {
         for (int slot = 0; slot < 2; slot++) {
-            ItemStackHandler items = toaster.getItems();
+            ItemStackHandler items = be.getItems();
             ItemStack stackInSlot = items.getStackInSlot(slot);
-            if (!stackInSlot.isEmpty()){
-                int posLong = (int) toaster.getBlockPos().asLong();
-                float f1 = -direction.toYRot() - 180f;
-                Vec2[] vec2 = transformPositionByDirection(direction);
+            if (!stackInSlot.isEmpty()) {
+                int posLong = (int) be.getBlockPos().asLong();
                 poseStack.pushPose();
-                poseStack.translate(vec2[slot].x,0.5 + (toaster.getProgress(pPartialTick) * 0.25),vec2[slot].y);
-                poseStack.mulPose(Axis.YP.rotationDegrees(f1));
+                float z = slot == 0 ? -0.09375f : 0.09375f;
+                poseStack.translate(0, 0.5 + (be.getProgress(v) * 0.25), z);
+                oppositeY(be, v, poseStack, multiBufferSource, pPackedLight, pPackedOverlay);
                 poseStack.scale(0.5f, 0.5f, 0.5f);
-                if (toaster.getLevel() != null) {
-                    Minecraft.getInstance().getItemRenderer().renderStatic(stackInSlot, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(toaster.getLevel(), toaster.getBlockPos()), pPackedOverlay, poseStack, pBuffer, toaster.getLevel(), (int) (posLong + 1));
+                if (be.getLevel() != null) {
+                    Minecraft.getInstance().getItemRenderer().renderStatic(stackInSlot, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos()), pPackedOverlay, poseStack, multiBufferSource, be.getLevel(), (int) (posLong + 1));
                 }
                 poseStack.popPose();
             }

@@ -4,6 +4,7 @@ import com.renyigesai.bakeries.api.creative_mode_tab.StackingCreativeModeTab;
 import com.renyigesai.bakeries.api.creative_mode_tab.TabEntry;
 import com.renyigesai.bakeries.mixin.accessor.CreativeModeInventoryScreenAccessor;
 import com.renyigesai.bakeries.mixin.accessor.CreativeModeInventoryScreenItemPickerMenuAccessor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -12,10 +13,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.CreativeModeTabRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.*;
@@ -108,40 +111,86 @@ public abstract class CreativeModeInventoryScreenMixin extends EffectRenderingIn
         }
     }
 
+    @Redirect(
+            method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraftforge/common/CreativeModeTabRegistry;getSortedCreativeModeTabs()Ljava/util/List;",
+                    remap = false
+            )
+    )
+    private List<CreativeModeTab> onInit() {
+        return CreativeModeTabRegistry.getSortedCreativeModeTabs().stream()
+                .filter(tab -> !(tab instanceof StackingCreativeModeTab sct) || !sct.isHide())
+                .toList();
+    }
+
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/CreativeModeInventoryScreen;renderTooltip(Lnet/minecraft/client/gui/GuiGraphics;II)V"))
     private void onRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         CreativeModeInventoryScreen screen = (CreativeModeInventoryScreen)(Object)this;
         CreativeModeInventoryScreen.ItemPickerMenu menu = screen.getMenu();
         float scrollOffs = ((CreativeModeInventoryScreenAccessor) screen).invokeGetScrollOffs();
         CreativeModeTab currentTab = ((CreativeModeInventoryScreenAccessor) screen).invokeGetSelectedTab();
-        int startRow =  ((CreativeModeInventoryScreenItemPickerMenuAccessor)menu).invokeGetRowIndexForScroll(scrollOffs);
+        int startRow = ((CreativeModeInventoryScreenItemPickerMenuAccessor)menu).invokeGetRowIndexForScroll(scrollOffs);
 
-        if (!(currentTab instanceof StackingCreativeModeTab)){
+        if (!(currentTab instanceof StackingCreativeModeTab)) {
             return;
         }
+
+        long gameTime = Minecraft.getInstance().level != null ? Minecraft.getInstance().level.getGameTime() : System.currentTimeMillis() / 50L;
 
         for (int visibleRow = 0; visibleRow < 5; visibleRow++) {
             int absoluteRow = startRow + visibleRow;
             int itemIndex = absoluteRow * 9;
-            boolean allEmpty = true;
-            for (int col = 0; col < 9; col++) {
-                int index = itemIndex + col;
-                if (index < menu.items.size() && !menu.items.get(index).isEmpty()) {
-                    allEmpty = false;
-                    break;
-                }
+
+            if (!isRowEmpty(menu, itemIndex)) {
+                continue;
             }
 
-            if (allEmpty) {
-                TabEntry entry = EMPTY_ROW_TO_TAB.get(absoluteRow);
-                if (entry != null) {
-                    CreativeModeTab insideTab = entry.tab.get();
-                    int x = screen.getGuiLeft() + 8;
-                    int y = (screen.getGuiTop() + 18 + visibleRow * 18) - 1;
-                    guiGraphics.blit(entry.getTexture(), x, y, 0, 0, 162, 18, 256, 256);
-                    guiGraphics.drawString(font, insideTab.getDisplayName(), x + 4, y + 5, selectedTab.getLabelColor(), false);
-                }
+            TabEntry entry = EMPTY_ROW_TO_TAB.get(absoluteRow);
+            if (entry != null) {
+                renderTabEntry(guiGraphics, screen, entry, visibleRow, gameTime);
             }
         }
+    }
+
+    private boolean isRowEmpty(CreativeModeInventoryScreen.ItemPickerMenu menu, int itemIndex) {
+        for (int col = 0; col < 9; col++) {
+            int index = itemIndex + col;
+            if (index < menu.items.size() && !menu.items.get(index).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void renderTabEntry(GuiGraphics guiGraphics, CreativeModeInventoryScreen screen,
+                                TabEntry entry, int visibleRow, long gameTime) {
+        CreativeModeTab insideTab = entry.tab.get();
+        int x = screen.getGuiLeft() + 8;
+        int y = (screen.getGuiTop() + 18 + visibleRow * 18) - 1;
+
+        renderTabTexture(guiGraphics, entry, x, y, gameTime);
+
+        Component title = !Objects.equals(entry.title, Component.empty()) ? entry.title : insideTab.getDisplayName();
+        int width = font.width(title.getString());
+        int addX = !entry.leftJustifying ? 162 - width - 4 : 4;
+        guiGraphics.drawString(font, title, x + addX + entry.titleX, y + 5 + entry.titleY, selectedTab.getLabelColor(), false);
+    }
+
+    private void renderTabTexture(GuiGraphics guiGraphics, TabEntry entry, int x, int y, long gameTime) {
+        final int FRAME_WIDTH = 162;
+        final int FRAME_HEIGHT = 18;
+
+        int vOffset = 0;
+        int totalHeight = FRAME_HEIGHT;
+
+        if (entry.amountOfSheets > 1 && entry.duration > 0) {
+            totalHeight = FRAME_HEIGHT * entry.amountOfSheets;
+            int frame = (int) ((gameTime / entry.duration) % entry.amountOfSheets);
+            vOffset = frame * FRAME_HEIGHT;
+        }
+
+        guiGraphics.blit(entry.getTexture(), x, y, 0, vOffset, FRAME_WIDTH, FRAME_HEIGHT, 162, totalHeight);
     }
 }

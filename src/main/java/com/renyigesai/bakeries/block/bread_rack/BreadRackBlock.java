@@ -49,46 +49,33 @@ public class BreadRackBlock extends HorizontalConnectBlock implements EntityBloc
         ItemStack itemInHand = pPlayer.getItemInHand(pHand);
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof BreadRackBlockEntity rackBlock){
-            if (pPlayer.isShiftKeyDown()){
-                return take(rackBlock,pState,pLevel,pPos,pPlayer,pHit);
-            }else {
-                return put(rackBlock,pState,pLevel,pPos,itemInHand,pHit);
-            }
+            return putOrTake(rackBlock,pPlayer,pState,pLevel,pPos,itemInHand,pHit) ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
-    public InteractionResult put(BreadRackBlockEntity rackBlock, BlockState pState, Level pLevel, BlockPos pPos, ItemStack itemInHand, BlockHitResult hitResult){
-        int slotFromHit = getSlotFromHit(hitResult.getLocation(), pPos, pState.getValue(FACING), hitResult.getDirection().getOpposite());
-        if (slotFromHit == -1){
-            return InteractionResult.FAIL;
+    public boolean putOrTake(BreadRackBlockEntity rackBlock,Player player, BlockState pState, Level pLevel, BlockPos pPos, ItemStack itemInHand, BlockHitResult hitResult){
+        int slot = getSlotFromHit(hitResult.getLocation(), pPos, pState.getValue(FACING), hitResult.getDirection().getOpposite());
+        if (slot == -1) {
+            return false;
         }
-        ItemStack copy = itemInHand.copy();
-        copy.setCount(1);
-        if (rackBlock.putItem(slotFromHit,copy)){
-            itemInHand.shrink(1);
-            pLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
-            return InteractionResult.SUCCESS;
+        ItemStack stackInSlot = rackBlock.getItems().getStackInSlot(slot);
+        if (stackInSlot.isEmpty()){
+            if (!itemInHand.isEmpty()){
+                ItemStack copy = itemInHand.copy();
+                copy.setCount(1);
+                if (rackBlock.putItem(slot,copy)){
+                    ItemUtils.shrink(itemInHand,1,player);
+                    pLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
+                    return true;
+                }
+            }
+            return false;
         }
-        return InteractionResult.FAIL;
-    }
-
-    public InteractionResult take(BreadRackBlockEntity rackBlock,BlockState pState, Level pLevel, BlockPos pPos,Player player,BlockHitResult hitResult){
-        if (rackBlock.isEmpty()){
-            return InteractionResult.FAIL;
-        }
-        int slotFromHit = getSlotFromHit(hitResult.getLocation(), pPos, pState.getValue(FACING), hitResult.getDirection().getOpposite());
-        if (slotFromHit == -1){
-            return InteractionResult.FAIL;
-        }
-        ItemStack itemStack = rackBlock.getItems().getStackInSlot(slotFromHit);
-        if (!itemStack.isEmpty()){
-            ItemUtils.givePlayerItem(player,itemStack.copy());
-            rackBlock.setItem(slotFromHit,ItemStack.EMPTY);
-            pLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.FAIL;
+        ItemUtils.givePlayerItem(player,stackInSlot.copy());
+        rackBlock.setItem(slot,ItemStack.EMPTY);
+        pLevel.playSound(null,pPos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS);
+        return true;
     }
 
     @Override

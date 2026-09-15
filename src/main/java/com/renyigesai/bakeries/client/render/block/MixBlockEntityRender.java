@@ -9,28 +9,24 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.glyphs.BakedGlyph;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(value = Dist.CLIENT)
-public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity> {
+public class MixBlockEntityRender implements IBBlockEntityRenderer<MixBlockEntity> {
     public static final float ADD_SIZE = 0.25f;
     public static final Vec2[][] VEC2S = {
             new Vec2[]{},
@@ -47,15 +43,16 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
     }
 
     @Override
-    public void render(MixBlockEntity entity, float pPartialTick, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void startRender(@NotNull MixBlockEntity entity, float v, @NotNull PoseStack poseStack, @NotNull MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         if (entity.isEmpty()) {
             return;
         }
-        Direction direction = entity.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
+
         int count = entity.getInventoryCount();
         if (count <= 0 || count >= VEC2S.length) {
             return;
         }
+
         Vec2[] positions = VEC2S[count];
         List<ItemStack> itemsToRender = new ArrayList<>();
         for (int i = 0; i < entity.getInventory().getSlots(); i++) {
@@ -64,99 +61,76 @@ public class MixBlockEntityRender implements BlockEntityRenderer<MixBlockEntity>
                 itemsToRender.add(stack);
             }
         }
+
         boolean isTray = entity.getBlockState().getValue(MixBlock.TRAY);
-        for (int i = 0; i < itemsToRender.size(); i++) {
-            if (i >= positions.length) {
-                break;
-            }
-            ItemStack stack = itemsToRender.get(i);
-            Vec2 position = positions[i];
-            renderItem(stack, entity, direction, position, poseStack, pBuffer, pPackedLight, pPackedOverlay,isTray);
+
+        for (int i = 0; i < itemsToRender.size() && i < positions.length; i++) {
+            renderItem(itemsToRender.get(i), entity, positions[i], poseStack, pBuffer, pPackedLight, pPackedOverlay, isTray);
         }
-        if (isTray){
-            renderTray(entity,direction,poseStack,pBuffer,pPackedOverlay);
+
+        if (isTray) {
+            renderTray(entity, poseStack, pBuffer, pPackedLight, pPackedOverlay);
         }
-        if (entity.getText() != null && !entity.getText().isEmpty()){
-            poseStack.pushPose();
-            renderText(entity,poseStack,pBuffer,pPackedLight,direction);
-            poseStack.popPose();
+
+        if (entity.getText() != null && !entity.getText().isEmpty()) {
+            renderText(entity, poseStack, pBuffer, pPackedLight,isTray);
         }
     }
 
-    private void renderItem(ItemStack stack, MixBlockEntity entity, Direction direction, Vec2 position, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay,boolean isTray) {
-        boolean isBlock = stack.getItem() instanceof BlockItem;
-        int posLong = (int) entity.getBlockPos().asLong();
-        float rotation = -direction.toYRot();
+    private void renderItem(ItemStack stack, MixBlockEntity entity, Vec2 position, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay, boolean isTray) {
         poseStack.pushPose();
-        Vec2 transformedPosition = transformPositionByDirection(position, direction);
-        poseStack.translate(transformedPosition.x, 0.125 + (isTray ? 0.0625 : 0), transformedPosition.y);
-
-        poseStack.mulPose(Axis.YP.rotationDegrees(rotation + 15));
-        poseStack.mulPose(Axis.XP.rotationDegrees(0));
-        float size = 0.55f;
-        poseStack.scale(size, size, size);
+        float offsetX = position.x - 0.5f;
+        float offsetZ = position.y - 0.5f;
+        poseStack.translate(offsetX, (isTray ? 0.0625 : 0), offsetZ);
+        poseStack.mulPose(Axis.YP.rotationDegrees( 15));
         if (entity.getLevel() != null) {
+            boolean isBlock = stack.getItem() instanceof BlockItem;
             if (isBlock) {
+                poseStack.pushPose();
+                poseStack.translate(-0.5f, 0f, -0.5f);
                 BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
-                BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(state);
-                Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.FIXED, false, poseStack, pBuffer, LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()), pPackedOverlay, model);
+                Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, poseStack, pBuffer, pPackedLight, pPackedOverlay);
+                poseStack.popPose();
             } else {
-                Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()), pPackedOverlay, poseStack, pBuffer, entity.getLevel(), (int) (posLong + 1));
+                Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, pPackedLight, pPackedOverlay, poseStack, pBuffer, entity.getLevel(), (int) entity.getBlockPos().asLong());
             }
         }
         poseStack.popPose();
     }
 
-    private void renderTray(MixBlockEntity entity, Direction direction,PoseStack poseStack, MultiBufferSource pBuffer, int pPackedOverlay){
+    private void renderTray(MixBlockEntity entity, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         BlockState state = BakeriesBlocks.WOOD_TRAY.get().defaultBlockState();
         poseStack.pushPose();
-        poseStack.scale(1f,1f,1f);
-        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state,poseStack,pBuffer,LevelRenderer.getLightColor(entity.getLevel(), entity.getBlockPos()),pPackedOverlay);
+        poseStack.translate(-0.5f, 0f, -0.5f);
+        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(state, poseStack, pBuffer, pPackedLight, pPackedOverlay);
         poseStack.popPose();
     }
 
-    private void renderText(MixBlockEntity entity, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, Direction direction){
-        poseStack.translate(0.5, 0.25, 0.5);
-
-        poseStack.scale(textScale, -textScale, textScale);
-        float yRot = 0;
-        Direction newDirection = direction.getOpposite();
-        if (newDirection == Direction.NORTH){
-            yRot = 180;
-        }
-        if (newDirection == Direction.SOUTH){
-            yRot = -180;
-        }
+    private void renderText(MixBlockEntity entity, PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight,boolean isTray) {
         String text = entity.getText();
-        if (text == null){
+        if (text == null || text.isEmpty()) {
             return;
         }
+
         int textWidth = font.width(text);
         int color = entity.getColor();
-        poseStack.mulPose(Axis.YP.rotationDegrees(newDirection.toYRot() + yRot));
-        poseStack.translate(0, 0, 0.5f/textScale);
+
+        poseStack.pushPose();
+        poseStack.translate(0f, -0.25f + (isTray ? 0.0625f : 0f), 0f);
+        poseStack.scale(textScale, -textScale, textScale);
         poseStack.mulPose(Axis.XP.rotationDegrees(45.0f));
-        startRender(text,textWidth,color,poseStack,pBuffer);
+        poseStack.translate(0f, 0f, 0.5f / textScale);
+        startRender(text, textWidth, color, poseStack, pBuffer);
+        poseStack.popPose();
     }
 
-    private void startRender(String text,int textWidth,int color,PoseStack poseStack,MultiBufferSource pBuffer){
+    private void startRender(String text, int textWidth, int color, PoseStack poseStack, MultiBufferSource pBuffer) {
         float x = 0.5f / textScale - textWidth;
-        font.drawInBatch(Component.literal(text).withStyle(ChatFormatting.BOLD), x, 1, color, false, poseStack.last().pose(), pBuffer, Font.DisplayMode.NORMAL, 0, 15728880);
+        font.drawInBatch(Component.literal(text).withStyle(ChatFormatting.BOLD), x, 1, color, false,
+                poseStack.last().pose(), pBuffer, Font.DisplayMode.NORMAL, 0, 15728880);
         if (pBuffer instanceof MultiBufferSource.BufferSource) {
             BakedGlyph texturedglyph = font.getFontSet(Style.DEFAULT_FONT).whiteGlyph();
-            ((MultiBufferSource.BufferSource)pBuffer).endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));
+            ((MultiBufferSource.BufferSource) pBuffer).endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));
         }
-    }
-
-    private Vec2 transformPositionByDirection(Vec2 position, Direction direction) {
-        float x = position.x;
-        float y = position.y;
-        return switch (direction) {
-            case NORTH -> new Vec2(1 - x, 1 - y);
-            case SOUTH -> new Vec2(x, y);
-            case EAST -> new Vec2(y, 1 - x);
-            case WEST -> new Vec2(1 - y, x);
-            default -> position;
-        };
     }
 }

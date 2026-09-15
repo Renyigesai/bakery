@@ -11,8 +11,10 @@ import java.util.List;
 
 public class StackingCreativeModeTab extends CreativeModeTab {
     public List<TabEntry> tabs = new ArrayList<>();
+    public final Builder builder;
     protected StackingCreativeModeTab(Builder builder) {
         super(builder);
+        this.builder = builder;
     }
 
     public final StackingCreativeModeTab add(TabEntry... tabs){
@@ -29,18 +31,23 @@ public class StackingCreativeModeTab extends CreativeModeTab {
         return super.getDisplayItems();
     }
 
+    public boolean isHide() {
+        return builder.hide;
+    }
+
     @SafeVarargs
     public static Builder builder(TabEntry... tabs) {
         return new Builder(Row.TOP, 0,tabs);
     }
 
     public static Builder builder() {
-        return new Builder(Row.TOP, 0);
+        return new Builder();
     }
 
     public static class Builder extends CreativeModeTab.Builder {
 
         private static final DisplayItemsGenerator DEFAULT_FILLING = (p_270422_, output) -> {output.accept(Items.STICK);};
+        public boolean hide = false;
 
         /**在构造器中将tabFactory设为StackingCreativeModeTab并填充displayItemsGenerator*/
 
@@ -55,6 +62,17 @@ public class StackingCreativeModeTab extends CreativeModeTab {
             this.tabFactory = builder -> new StackingCreativeModeTab((Builder) builder);
             this.displayItems(DEFAULT_FILLING);
         }
+
+        public Builder() {
+            super(Row.TOP, 0);
+            this.tabFactory = builder -> new StackingCreativeModeTab((Builder) builder);
+        }
+
+        public Builder hide(){
+            this.hide = true;
+            return this;
+        }
+
     }
 
 }

@@ -14,6 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,6 +28,8 @@ public class BreadRackBlockEntity extends BlockEntity {
         }
     };
 
+    private boolean open;
+    private boolean animationInitialized = false;
     public BreadRackBlockEntity.State state = BreadRackBlockEntity.State.CLOSE;
     public float progress;
     public float progressOld;
@@ -80,6 +84,21 @@ public class BreadRackBlockEntity extends BlockEntity {
         return count;
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+        if (level != null) {
+            BlockState state = level.getBlockState(worldPosition);
+            if (state.hasProperty(GlassBreadRackBlock.OPEN)) {
+                level.setBlock(worldPosition, state.setValue(GlassBreadRackBlock.OPEN, open), 3);
+            }
+        }
+        updateBlock();
+    }
+
     public boolean isEmpty(){
         for (int i = 0; i < items.getSlots(); i++) {
             if (!items.getStackInSlot(i).isEmpty()){
@@ -104,11 +123,13 @@ public class BreadRackBlockEntity extends BlockEntity {
         if (pTag.contains("Items")) {
             items.deserializeNBT(pTag.getCompound("Items"));
         }
+        open = pTag.getBoolean("Open");
     }
 
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
         pTag.put("Items", items.serializeNBT());
+        pTag.putBoolean("Open",open);
     }
 
     public void updateBlock() {
@@ -128,30 +149,38 @@ public class BreadRackBlockEntity extends BlockEntity {
     public boolean triggerEvent(int pId, int pType) {
         if (pId == 0) {
             if (pType == 0) {
-                this.state = BreadRackBlockEntity.State.OPEN_PROCESS;
+                this.state = State.OPEN_PROCESS;
+                this.open = true;
             }
             if (pType == 1) {
-                this.state = BreadRackBlockEntity.State.CLOSE_PROCESS;
+                this.state = State.CLOSE_PROCESS;
+                this.open = false;
             }
             doNeighborUpdates(this.getLevel(), this.worldPosition, this.getBlockState());
             return true;
-        } else {
-            return super.triggerEvent(pId, pType);
         }
+        return super.triggerEvent(pId, pType);
     }
 
     private static void doNeighborUpdates(Level pLevel, BlockPos pPos, BlockState pState) {
         pState.updateNeighbourShapes(pLevel, pPos, 3);
     }
 
-    public static void clientTick(Level level, BlockPos pos, BlockState state, BreadRackBlockEntity blockEntity){
+    public static void clientTick(Level level, BlockPos pos, BlockState state, BreadRackBlockEntity blockEntity) {
+        if (!blockEntity.animationInitialized) {
+            blockEntity.animationInitialized = true;
+            blockEntity.state = blockEntity.open ? State.OPEN : State.CLOSE;
+            blockEntity.progress = blockEntity.open ? 1.0F : 0.0F;
+            blockEntity.progressOld = blockEntity.progress;
+        }
+
         blockEntity.progressOld = blockEntity.progress;
         switch (blockEntity.state) {
             case OPEN_PROCESS:
                 blockEntity.progress += 0.25F;
                 if (blockEntity.progress >= 1.0F) {
                     blockEntity.progress = 1.0F;
-                    blockEntity.state = BreadRackBlockEntity.State.OPEN;
+                    blockEntity.state = State.OPEN;
                 }
                 break;
             case OPEN:
@@ -161,7 +190,7 @@ public class BreadRackBlockEntity extends BlockEntity {
                 blockEntity.progress -= 0.25F;
                 if (blockEntity.progress <= 0F) {
                     blockEntity.progress = 0F;
-                    blockEntity.state = BreadRackBlockEntity.State.CLOSE;
+                    blockEntity.state = State.CLOSE;
                 }
                 break;
             case CLOSE:

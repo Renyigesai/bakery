@@ -69,8 +69,7 @@ public class MilkTankBlock extends TankBlock {
         ItemStack hand = playerIn.getItemInHand(pHand);
         int milk = state.getValue(MILK);
         if (milk < 3){
-            level.setBlock(pos,state.setValue(MILK,milk +1),3);
-            hand.shrink(1);
+            level.setBlock(pos,state.setValue(MILK,milk + 1),3);
             ItemUtils.shrinkAndReturn(hand,1,playerIn);
         }return InteractionResult.SUCCESS;
     }
