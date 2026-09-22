@@ -30,28 +30,33 @@ public class TabEntry {
         return new ResourceLocation(id.getNamespace(),"textures/gui/" + id.getPath() + ".png");
     }
 
+    /**添加一张贴图*/
     public TabEntry texture(ResourceLocation path){
         this.id = path;
         return this;
     }
 
+    /**调整标题的显示位置*/
     public TabEntry titlePos(int x,int y){
         this.titleX = x;
         this.titleY = y;
         return this;
     }
 
+    /**添加自定义标题，添加后将覆盖getDisplayName()*/
     public TabEntry title(Component title){
         this.title = title;
         return this;
     }
 
+    /**设置贴图是否为动态贴图*/
     public TabEntry animation(int amountOfSheets,int duration){
         this.amountOfSheets = amountOfSheets;
         this.duration = duration;
         return this;
     }
 
+    /**设置标题位置为右对齐*/
     public TabEntry rightJustifying(){
         this.leftJustifying = false;
         return this;

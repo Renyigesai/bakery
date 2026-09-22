@@ -2,10 +2,13 @@ package com.renyigesai.bakeries.block.magnetic_plate;
 
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
@@ -55,6 +58,10 @@ public class MagneticPlateBlockEntity extends BlockEntity {
         }
 
         this.rotationFlag = pTag.getInt("RotationFlag");
+    }
+
+    public Block getBlock(){
+        return BuiltInRegistries.BLOCK.get(ResourceLocation.tryParse(blockId));
     }
 
     public void drops(MagneticPlateBlockEntity blockEntity) {
@@ -120,11 +127,12 @@ public class MagneticPlateBlockEntity extends BlockEntity {
         this.rotationFlag = rotationFlag;
     }
 
-    public void addRotationFlag(){
-        if (this.rotationFlag == 3){
-            this.rotationFlag = 0;
+    public void update() {
+        if (level == null){
             return;
         }
-        this.rotationFlag ++;
+        BlockState state = level.getBlockState(worldPosition);
+        setChanged(level, worldPosition, state);
+        level.sendBlockUpdated(worldPosition, state, state, 3);
     }
 }

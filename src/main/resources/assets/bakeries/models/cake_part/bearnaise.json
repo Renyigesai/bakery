@@ -1,4 +1,5 @@
 {
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "bakeries:block/cake_part/bearnaise"
 	},

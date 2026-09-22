@@ -58,7 +58,6 @@ import com.renyigesai.bakeries.block.wooden_tray.WoodenTrayBlockEntity;
 import com.renyigesai.bakeries.fluid.SaltWaterFluidsBlock;
 import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -127,6 +126,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> TARO_SALT_YOLK_BREAD;
     public static final RegistryObject<Block> BEARNAISE;
     public static final RegistryObject<Block> OLIVE_OIL;
+    public static final RegistryObject<Block> PORK_MOONCAKE;
 
     //common
     public static final RegistryObject<Block> OVEN;
@@ -280,6 +280,7 @@ public class BakeriesBlocks {
         TARO_SALT_YOLK_BREAD = BLOCK_REGISTRY.register("taro_salt_yolk_bread",PileBlock::new);
         BEARNAISE = BLOCK_REGISTRY.register("bearnaise",()-> new PileBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         OLIVE_OIL = BLOCK_REGISTRY.register("olive_oil",()-> new OliveOilBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        PORK_MOONCAKE = BLOCK_REGISTRY.register("pork_mooncake", PileBlock::new);
         /*蛋糕方块*/
         CUP_CAKE = BLOCK_REGISTRY.register("cup_cake",PileBlock::new);
 

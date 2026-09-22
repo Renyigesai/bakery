@@ -109,6 +109,7 @@ public class BakeriesGroup {
                         //面包/食物
                         output.accept(BakeriesItems.SCONE.get());//司康
                         output.accept(BakeriesItems.TRAY_SCONE.get());//盘装司康
+                        output.accept(BakeriesItems.PORK_MOONCAKE.get());//鲜肉月饼
                         output.accept(BakeriesItems.BAGEL.get());//贝果
                         output.accept(BakeriesItems.WHOLE_WHEAT_BAGEL.get());//全麦贝果
                         output.accept(BakeriesItems.ROUND_BREAD.get());//圆面包
@@ -199,6 +200,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.EGG_TART_SHELL.get());
                         output.accept(BakeriesItems.RAW_EGG_TART.get());
                         output.accept(BakeriesItems.SCONE_DOUGH.get());
+                        output.accept(BakeriesItems.RAW_PORK_MOONCAKE.get());
                         output.accept(BakeriesItems.MOULD_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_CARROT_CAKE_PASTE.get());
                         output.accept(BakeriesItems.MOULD_BASQUE_CAKE_PASTE.get());

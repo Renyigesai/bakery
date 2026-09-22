@@ -48,7 +48,6 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
         this.data = pData;
         this.addDataSlots(pData);
 
-
         BlockPos pos = null;
         if (byteBuf != null) {
             pos = byteBuf.readBlockPos();
@@ -61,25 +60,15 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
             boundBlockEntity = this.world.getBlockEntity(pos);
         }
 
-
         if (boundBlockEntity instanceof OvenBlockEntity oven) {
-            addSlot(new SlotItemHandler(oven.getItemHandler(),0,52, 16));
-            addSlot(new SlotItemHandler(oven.getItemHandler(),1, 70, 16));
-            addSlot(new SlotItemHandler(oven.getItemHandler(),2, 88, 16));
-            addSlot(new SlotItemHandler(oven.getItemHandler(),3, 52, 46));
-            addSlot(new SlotItemHandler(oven.getItemHandler(),4, 70, 46));
-            addSlot(new SlotItemHandler(oven.getItemHandler(),5, 88, 46));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),0,52, 20));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),1, 70, 20));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),2, 88, 20));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),3, 52, 50));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),4, 70, 50));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),5, 88, 40));
         }
-
-
-//        for (int si = 0; si < 3; ++si)
-//            for (int sj = 0; sj < 9; ++sj)
-//                this.addSlot(new Slot(inv, sj + (si + 1) * 9, 8 + sj * 18, 84 + si * 18));
-//        for (int si = 0; si < 9; ++si)
-//            this.addSlot(new Slot(inv, si, 8 + si * 18, 142));
-
         addPlayerSlots(8,84,inv);
-//        boundBlockEntity.getLevel().blockEvent(boundBlockEntity.getBlockPos(),boundBlockEntity.getBlockState().getBlock(), 0,0);
     }
 
     @Override

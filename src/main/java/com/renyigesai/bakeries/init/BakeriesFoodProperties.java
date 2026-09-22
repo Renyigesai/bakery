@@ -60,6 +60,7 @@ public class BakeriesFoodProperties {
     public static final FoodProperties TARO_SALT_YOLK_BREAD;
     public static final FoodProperties TARO_CAKE;
     public static final FoodProperties COCOA_CREAM;
+    public static final FoodProperties PORK_MOONCAKE;
 
     /**模组联动食物属性*/
     public static final FoodProperties RICE_BREAD;
@@ -194,6 +195,8 @@ public class BakeriesFoodProperties {
         TARO_CAKE = new FoodProperties.Builder().nutrition(8).saturationMod(1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.SOFT.get(),1800),1F).alwaysEat().build();
 
         COCOA_CREAM = new FoodProperties.Builder().nutrition(1).saturationMod(1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),400),1F).alwaysEat().build();
+
+        PORK_MOONCAKE = new FoodProperties.Builder().nutrition(6).saturationMod(0.5f).build();
 
         /*模组联动食物属性*/
         RICE_BREAD = new FoodProperties.Builder().nutrition(12).saturationMod(0.4f).effect(()-> new MobEffectInstance(BakeriesMobEffects.COCOA_MANIA.get(),600),1f).build();

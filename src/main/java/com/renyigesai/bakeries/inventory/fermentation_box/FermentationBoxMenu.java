@@ -36,12 +36,12 @@ public class FermentationBoxMenu extends AbstractContainerMenu {
         this.z = pos.getZ();
         // 添加输入槽 (0-5)
         ItemStackHandler items = blockEntity.getItems();
-        addSlot(new FermentationBoxSlot(items,0,52, 16));
-        addSlot(new FermentationBoxSlot(items,1, 70, 16));
-        addSlot(new FermentationBoxSlot(items,2, 88, 16));
-        addSlot(new FermentationBoxSlot(items,3, 52, 46));
-        addSlot(new FermentationBoxSlot(items,4, 70, 46));
-        addSlot(new FermentationBoxSlot(items,5, 88, 46));
+        addSlot(new FermentationBoxSlot(items,0,44, 21));
+        addSlot(new FermentationBoxSlot(items,1, 62, 21));
+        addSlot(new FermentationBoxSlot(items,2, 80, 21));
+        addSlot(new FermentationBoxSlot(items,3, 44, 51));
+        addSlot(new FermentationBoxSlot(items,4, 62, 51));
+        addSlot(new FermentationBoxSlot(items,5, 80, 51));
 
 
         addPlayerSlots(8,84);

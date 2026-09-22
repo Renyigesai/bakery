@@ -95,6 +95,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> RAW_YUNTUI_MOONCAKE;
     public static final RegistryObject<Item> RAW_PIZZA;
     public static final RegistryObject<Item> RAW_CUSTOM_PIZZA;
+    public static final RegistryObject<Item> RAW_PORK_MOONCAKE;
 
     /*
     功能物品
@@ -183,6 +184,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> CREAM_PUMPKIN_PIE;
     public static final RegistryObject<Item> EGG_TART;
     public static final RegistryObject<Item> CUSTOM_PIZZA;
+    public static final RegistryObject<Item> PORK_MOONCAKE;
 
     /*
     方块物品/一般物品
@@ -351,6 +353,7 @@ public class BakeriesItems {
         RAW_YUNTUI_MOONCAKE = rawItem("raw_yuntui_mooncake","170");
         RAW_PIZZA = block(BakeriesBlocks.RAW_PIZZA,16);
         RAW_CUSTOM_PIZZA = REGISTER.register("raw_custom_pizza", ()-> new CustomPizzaItem(BakeriesBlocks.RAW_PIZZA.get()));
+        RAW_PORK_MOONCAKE = rawItem("raw_pork_mooncake","170");
 
         /*
         功能物品
@@ -489,6 +492,7 @@ public class BakeriesItems {
         CREAM_PUMPKIN_PIE = block(BakeriesBlocks.CREAM_PUMPKIN_PIE);
         EGG_TART = foodBlockItem(BakeriesBlocks.EGG_TART,BakeriesFoodProperties.EGG_TART,true,false);
         CUSTOM_PIZZA = REGISTER.register("custom_pizza", ()-> new CustomPizzaItem(BakeriesBlocks.CUSTOM_PIZZA.get()));
+        PORK_MOONCAKE = foodBlockItem(BakeriesBlocks.PORK_MOONCAKE,BakeriesFoodProperties.PORK_MOONCAKE);
 
         /*饮料物品*/
         ICED_LATTE = coldDrinkItem(BakeriesBlocks.ICED_LATTE,BakeriesFoodProperties.ICED_LATTE,true,2,2,true,4);

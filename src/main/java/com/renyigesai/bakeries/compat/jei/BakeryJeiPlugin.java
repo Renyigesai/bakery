@@ -84,9 +84,9 @@ public class BakeryJeiPlugin implements IModPlugin {
 
 	@Override
 	public void registerGuiHandlers(IGuiHandlerRegistration registration){
-		registration.addRecipeClickArea(OvenScreen.class,110,16,8,54,
+		registration.addRecipeClickArea(OvenScreen.class,110,20,8,54,
 				OVEN_TYPE);
-		registration.addRecipeClickArea(BlenderScreen.class,136,38,13,10,
+		registration.addRecipeClickArea(BlenderScreen.class,126,41,19,10,
 				BLENDER_TYPE);
 		registration.addRecipeClickArea(FermentationBoxScreen.class,121,49,25,16,
 				FERMENTATION_TYPE);

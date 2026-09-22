@@ -29,6 +29,7 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         super(pMenu, pPlayerInventory, pTitle);
         this.imageWidth = 176; // GUI 宽度
         this.imageHeight = 166; // GUI 高度
+        this.titleLabelX = 6;
         this.titleLabelY = 4;// GUI标题高度
         this.blockEntity = menu.getBlockEntity();
         this.x = pMenu.x;
@@ -43,7 +44,7 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
         int x = this.leftPos;
         int y = this.topPos;
-        if (pMouseX >= x + 121 && pMouseX <= x + 145 && pMouseY >= y + 33 && pMouseY <= y + 48){
+        if (pMouseX >= x + 113 && pMouseX <= x + 137 && pMouseY >= y + 38 && pMouseY <= y + 53){
             if (blockEntity instanceof FermentationBoxBlockEntity box) {
                 renderTemperatureTooltip(pGuiGraphics, pMouseX, pMouseY,box);
             }
@@ -68,13 +69,18 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         pGuiGraphics.pose().pushPose();
         pGuiGraphics.blit(TEXTURE, this.leftPos, this.topPos,this.imageWidth,this.imageHeight, 0,0,this.imageWidth, this.imageHeight, 256, 256);
         pGuiGraphics.blit(TEXTURE,this.leftPos + 128, this.topPos + 19,22, 166,2,38, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 36, 0, 166, getProgressbarW(boxBlock,0), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 36, 0, 166, getProgressbarW(boxBlock,1), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 36, 0, 166, getProgressbarW(boxBlock,2), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 66, 0, 166, getProgressbarW(boxBlock,3), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 66, 0, 166, getProgressbarW(boxBlock,4), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 66, 0, 166, getProgressbarW(boxBlock,5), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 45, this.topPos + 41, 0, 166, getProgressbarW(boxBlock,0), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 63, this.topPos + 41, 0, 166, getProgressbarW(boxBlock,1), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 81, this.topPos + 41, 0, 166, getProgressbarW(boxBlock,2), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 45, this.topPos + 71, 0, 166, getProgressbarW(boxBlock,3), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 63, this.topPos + 71, 0, 166, getProgressbarW(boxBlock,4), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 81, this.topPos + 71, 0, 166, getProgressbarW(boxBlock,5), 2, 256, 256);
         pGuiGraphics.pose().popPose();
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
     }
 
     public int getProgressbarW(FermentationBoxBlockEntity boxBlock, int slot) {

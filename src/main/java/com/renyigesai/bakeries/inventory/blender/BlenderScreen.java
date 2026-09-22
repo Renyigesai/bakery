@@ -37,6 +37,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         super(menu, playerInventory, title);
         this.imageWidth = 176; // GUI 宽度
         this.imageHeight = 166; // GUI 高度
+        this.titleLabelX = 6;
         this.titleLabelY = 4;// GUI标题高度
         this.blockEntity = menu.getBlockEntity();
         this.x = menu.x;
@@ -63,10 +64,15 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         if (isFiltration) {
             poseStack.blit(FLOAT_PANEL, filtrationX, filtrationY, 0, 0, 63, 90);
         }
-        if (mouseX >= this.leftPos + 15 && mouseX <= this.leftPos + 38 && mouseY >= this.topPos + 30 && mouseY <= this.topPos + 53){
-            poseStack.blit(TEXTURE, this.leftPos + 15, this.topPos + 30, 0, 190, 24, 24, 256, 256);
+        if (mouseX >= this.leftPos + 10 && mouseX <= this.leftPos + 35 && mouseY >= this.topPos + 33 && mouseY <= this.topPos + 58){
+            poseStack.blit(TEXTURE, this.leftPos + 10, this.topPos + 35, 0, 190, 24, 24, 256, 256);
         }
         renderTooltip(poseStack, mouseX, mouseY);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
     }
 
     @Override
@@ -113,7 +119,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
             });
             this.addRenderableWidget(button);
         }
-        ImageButton filtration = new ImageButton(this.leftPos + 15, this.topPos + 30, 24, 24, 0, 166, 0, TEXTURE, 256, 256, e -> {
+        ImageButton filtration = new ImageButton(this.leftPos + 10, this.topPos + 35, 24, 24, 0, 166, 0, TEXTURE, 256, 256, e -> {
             this.isFiltration = !this.isFiltration;
         });
         this.addRenderableWidget(filtration);

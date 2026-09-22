@@ -41,7 +41,7 @@ public class CakeBoxBlockEntityRender implements BlockEntityRenderer<CakeBoxBloc
             /*1.3.1新增，渲染自定义蛋糕*/
             if (stack.getItem() instanceof CustomCakeItem){
                 List<String> partIds = CustomCakeItem.getPartIds(stack);
-                CustomCakeRenderer.renderCake(partIds,direction,pPartialTick,poseStack,buffer,pPackedLight,packedOverlay,false,null);
+                CustomCakeRenderer.renderCake(partIds,entity.getLevel(),entity.getBlockState(),entity.getBlockPos(),direction,pPartialTick,poseStack,buffer,pPackedLight,packedOverlay,false,null);
                 return;
             }
             boolean isBlockItem = stack.getItem() instanceof BlockItem;

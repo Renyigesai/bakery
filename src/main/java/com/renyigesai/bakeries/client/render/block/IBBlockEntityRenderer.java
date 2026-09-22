@@ -1,23 +1,41 @@
 package com.renyigesai.bakeries.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.ChunkRenderTypeSet;
+import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public interface IBBlockEntityRenderer<T extends BlockEntity> extends BlockEntityRenderer<T> {
 
     @Override
     default void render(@NotNull T be, float pPartialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource,  int pPackedLight, int pPackedOverlay){
         poseStack.pushPose();
-        basicsRotation(be, pPartialTick, poseStack, multiBufferSource, pPackedLight, pPackedOverlay);
+        actuaBasicsRotation(be, pPartialTick, poseStack, multiBufferSource, pPackedLight, pPackedOverlay);
         startRender(be, pPartialTick, poseStack, multiBufferSource, pPackedLight, pPackedOverlay);
         poseStack.popPose();
+    }
+
+    default void actuaBasicsRotation(@NotNull T be, float pPartialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource,  int pPackedLight, int pPackedOverlay){
+        basicsRotation(be, pPartialTick, poseStack, multiBufferSource, pPackedLight, pPackedOverlay);
     }
 
     default void basicsRotation(@NotNull T be, float pPartialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource,  int pPackedLight, int pPackedOverlay){
@@ -34,11 +52,23 @@ public interface IBBlockEntityRenderer<T extends BlockEntity> extends BlockEntit
                 case DOWN -> poseStack.mulPose(Axis.XN.rotationDegrees(90.0F));
             }
         }
-
     }
 
     default void oppositeY(@NotNull T be, float pPartialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int pPackedLight, int pPackedOverlay){
         poseStack.mulPose(Axis.YP.rotationDegrees(180));
+    }
+
+    default void renderModel(Level level, BlockState state, BlockPos pos, BakedModel model, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        RandomSource rand = RandomSource.create(42L);
+        ModelData data = ModelData.EMPTY;
+
+        ModelBlockRenderer renderer = Minecraft.getInstance().getBlockRenderer().getModelRenderer();
+
+        for (RenderType renderType : model.getRenderTypes(state, rand, data)) {
+            VertexConsumer consumer = buffer.getBuffer(renderType);
+
+            renderer.tesselateWithAO(level,model,state,pos,poseStack,consumer,true,RandomSource.create(),42L,packedOverlay,data,renderType);
+        }
     }
 
     void startRender(@NotNull T be, float v, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource,  int pPackedLight, int pPackedOverlay);

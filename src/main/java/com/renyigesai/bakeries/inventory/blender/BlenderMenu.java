@@ -34,8 +34,8 @@ public class BlenderMenu extends AbstractContainerMenu {
         this.x = pos.getX();
         this.y = pos.getY();
         this.z = pos.getZ();
-        int ix = 54;
-        int iy = 17;
+        int ix = 44;
+        int iy = 20;
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 3; ++x) {
                 int slotIndex = y * 3 + x;
@@ -43,9 +43,9 @@ public class BlenderMenu extends AbstractContainerMenu {
             }
         }
         // 添加容器槽 (9)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 116, 35));
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 9, 106, 38));
         // 添加输出槽 (10)
-        addSlot(new SlotItemHandler(blockEntity.getInventory(), 10, 153, 35));
+        addSlot(new SlotItemHandler(blockEntity.getInventory(), 10, 149, 38));
         // 添加过滤槽 (0-8)
             int fx = 8; // 起始 X 坐标
             int fy = 17; // 起始 Y 坐标
@@ -57,8 +57,7 @@ public class BlenderMenu extends AbstractContainerMenu {
             }
             addSlot(new FiltrationSlot(blockEntity.getFiltrationinventory(), 9, 32, 51));
         // 添加玩家物品栏
-        addPlayerSlots(8,84);
-//        blockEntity.getLevel().blockEvent(blockEntity.getBlockPos(),blockEntity.getBlockState().getBlock(), 0,0);
+        addPlayerSlots(8,84);;
     }
 
     @Override

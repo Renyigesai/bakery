@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.block.magnetic_plate;
 
+import com.renyigesai.bakeries.util.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,9 +19,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -31,9 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MagneticPlateBlock extends HorizontalDirectionalBlock implements EntityBlock {
+
+    public static BooleanProperty CONTENT;
+
     public MagneticPlateBlock(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(CONTENT,false).setValue(FACING, Direction.NORTH));
     }
 
     public static final ResourceLocation SKILLET;
@@ -60,67 +66,60 @@ public class MagneticPlateBlock extends HorizontalDirectionalBlock implements En
             return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         }
 
-        if (itemInHand.isEmpty()) {
-            if (pPlayer.isShiftKeyDown()){
-                return onRotation(mp,pState,pLevel,pPos,pPlayer,pHand,pHit);
+        float[] hitUV = getSlotFromHit(pHit.getLocation(), pPos, pState.getValue(FACING), pHit.getDirection().getOpposite());
+
+        int slot = getClosestSlot(mp, hitUV[0], hitUV[1]);
+        if (slot != -1) {
+            return onOutput(mp, pState, pLevel, pPos, pPlayer, pHand, pHit, hitUV);
+        }
+
+        if (itemInHand.getItem() instanceof BlockItem blockItem) {
+            BlockState blockState = blockItem.getBlock().defaultBlockState();
+            if (blockState.isCollisionShapeFullBlock(pLevel, pPos)) {
+                return onSetBlock(mp, itemInHand, pState, pLevel, pPos, pPlayer, pHand, pHit);
             }
-            return onOutput(mp,pState,pLevel,pPos,pPlayer,pHand,pHit);
         }
 
-        if (itemInHand.is(ItemTags.TOOLS) || BuiltInRegistries.ITEM.getKey(itemInHand.getItem()).equals(SKILLET)) {
-            return onInput(mp,itemInHand,pState,pLevel,pPos,pPlayer,pHand,pHit);
+        if (!itemInHand.isEmpty()) {
+            return onInput(mp, itemInHand, pState, pLevel, pPos, pPlayer, pHand, pHit, hitUV);
         }
-        return onSetBlock(mp,itemInHand,pState,pLevel,pPos,pPlayer,pHand,pHit);
+
+        return InteractionResult.PASS;
     }
 
-    public InteractionResult onRotation(MagneticPlateBlockEntity mp,BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
-        mp.addRotationFlag();
-        mp.setChanged();
-        pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_ALL);
-        return InteractionResult.SUCCESS;
-    }
-
-    public InteractionResult onOutput(MagneticPlateBlockEntity mp,BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
-        float[] hitUV = getSlotFromHit(pHit.getLocation(), pPos, pState.getValue(FACING),
-                pHit.getDirection().getOpposite());
-        float u = hitUV[0];
-        float v = hitUV[1];
+    public InteractionResult onOutput(MagneticPlateBlockEntity mp,BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit,float[] uv){
+        float u = uv[0];
+        float v = uv[1];
         int slot = getClosestSlot(mp, u, v);
         if (slot != -1) {
             ItemStack taken = mp.getItems().getStackInSlot(slot);
             if (!taken.isEmpty()) {
-                if (!pPlayer.getInventory().add(taken.copy())) {
-                    pPlayer.drop(taken.copy(), false);
-                }
+                ItemUtils.givePlayerItem(pPlayer,taken.copy());
                 mp.getItems().setStackInSlot(slot, ItemStack.EMPTY);
-                mp.setChanged();
-                pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_ALL);
+                mp.update();
                 return InteractionResult.sidedSuccess(pLevel.isClientSide);
             }
         }
         return InteractionResult.PASS;
     }
 
-    public InteractionResult onInput(MagneticPlateBlockEntity mp,ItemStack itemInHand,BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand hand,BlockHitResult pHit){
+    public InteractionResult onInput(MagneticPlateBlockEntity mp,ItemStack itemInHand,BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand hand,BlockHitResult pHit,float[] uv){
         for (int i = 0; i < mp.getItems().getSlots(); i++) {
             ItemStack stackInSlot = mp.getItems().getStackInSlot(i);
             if (stackInSlot.isEmpty()) {
-                float[] slotFromHit = getSlotFromHit(pHit.getLocation(), pPos,
-                        pState.getValue(FACING), pHit.getDirection().getOpposite());
                 if (i > 0) {
-                    mp.setXyo1(slotFromHit);
+                    mp.setXyo1(uv);
                 } else {
-                    mp.setXyo0(slotFromHit);
+                    mp.setXyo0(uv);
                 }
                 mp.getItems().setStackInSlot(i, itemInHand.copy());
                 itemInHand.shrink(1);
-                mp.setChanged();
-                pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_ALL);
+                mp.update();
                 pLevel.playSound(null,pPos, SoundEvents.METAL_PLACE, SoundSource.BLOCKS);
                 return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.CONSUME;
     }
 
     public InteractionResult onSetBlock(MagneticPlateBlockEntity mp,ItemStack itemInHand,BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand hand,BlockHitResult pHit){
@@ -128,6 +127,7 @@ public class MagneticPlateBlock extends HorizontalDirectionalBlock implements En
             BlockState blockState = blockItem.getBlock().defaultBlockState();
             if (blockState.isCollisionShapeFullBlock(pLevel,pPos)){
                 mp.setBlockId(BuiltInRegistries.BLOCK.getKey(blockItem.getBlock()).toString());
+                pLevel.setBlock(pPos,pState.setValue(CONTENT,true),3);
                 mp.setChanged();
                 pLevel.sendBlockUpdated(pPos, pState, pState, Block.UPDATE_ALL);
                 pLevel.playSound(null,pPos,blockItem.getBlock().getSoundType(blockState).getPlaceSound(),SoundSource.BLOCKS);
@@ -193,7 +193,7 @@ public class MagneticPlateBlock extends HorizontalDirectionalBlock implements En
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(CONTENT,FACING);
     }
 
     @Override
@@ -207,7 +207,13 @@ public class MagneticPlateBlock extends HorizontalDirectionalBlock implements En
         return new MagneticPlateBlockEntity(blockPos,blockState);
     }
 
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return pState.getValue(CONTENT) ? RenderShape.ENTITYBLOCK_ANIMATED : super.getRenderShape(pState);
+    }
+
     static {
+        CONTENT = BooleanProperty.create("content");
         SKILLET = new ResourceLocation("farmersdelight","skillet");
     }
 }

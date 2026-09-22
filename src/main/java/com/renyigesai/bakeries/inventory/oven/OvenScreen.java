@@ -51,8 +51,8 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         this.z = container.z;
         this.imageWidth = 176;//设置GUI宽度
         this.imageHeight = 166;//设置GUI高度
-        this.titleLabelY = 4;//设置GUI标题高度
-
+        this.titleLabelX = 6;
+        this.titleLabelY = 4;// GUI标题高度
     }
     private static final ResourceLocation TEXTURE = new ResourceLocation(BakeriesMod.MODID,"textures/gui/oven_gui.png");
 
@@ -64,7 +64,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
         int x = this.leftPos;
         int y = this.topPos;
-        if (pMouseX >= x + 125 && pMouseX <= x + 132 && pMouseY >= y + 16 && pMouseY <= y + 62){
+        if (pMouseX >= x + 125 && pMouseX <= x + 132 && pMouseY >= y + 20 && pMouseY <= y + 66){
             if (boundBlockEntity instanceof OvenBlockEntity oven) {
                 renderTemperatureTooltip(pGuiGraphics, pMouseX, pMouseY,oven);
             }
@@ -77,20 +77,20 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         pGuiGraphics.blit(TEXTURE, this.leftPos, this.topPos,this.imageWidth,this.imageHeight, 0,0,this.imageWidth, this.imageHeight, 256, 256);
 
         int progressH = (int) (38 * ((float)this.menu.data.get(0) / 500.0f));
-        pGuiGraphics.blit(TEXTURE,this.leftPos + 128, this.topPos + (57 - progressH),20, 166,2,progressH, 256, 256);
-        pGuiGraphics.blit(TEXTURE,this.leftPos + 128, this.topPos + 19,22, 166,2,38, 256, 256);
+        pGuiGraphics.blit(TEXTURE,this.leftPos + 128, this.topPos + (61 - progressH),20, 166,2,progressH, 256, 256);
+        pGuiGraphics.blit(TEXTURE,this.leftPos + 128, this.topPos + 23,22, 166,2,38, 256, 256);
 
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 36, 0, 181, this.menu.data.get(1), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 40, 0, 181, this.menu.data.get(1), 2, 256, 256);
 
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 36, 0, 181, this.menu.data.get(2), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 40, 0, 181, this.menu.data.get(2), 2, 256, 256);
 
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 36, 0, 181, this.menu.data.get(3), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 40, 0, 181, this.menu.data.get(3), 2, 256, 256);
 
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 66, 0, 181, this.menu.data.get(4), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 70, 0, 181, this.menu.data.get(4), 2, 256, 256);
 
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 66, 0, 181, this.menu.data.get(5), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 70, 0, 181, this.menu.data.get(5), 2, 256, 256);
 
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 66, 0, 181, this.menu.data.get(6), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 70, 0, 181, this.menu.data.get(6), 2, 256, 256);
         pGuiGraphics.pose().popPose();
     }
 
@@ -98,7 +98,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
     public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
         int x = this.leftPos;
         int y = this.topPos;
-        if (pMouseX >= x + 125 && pMouseX <= x + 132 && pMouseY >= y + 16 && pMouseY <= y + 62){
+        if (pMouseX >= x + 125 && pMouseX <= x + 132 && pMouseY >= y + 20 && pMouseY <= y + 666){
             boolean flag = pDelta == 1.0;
             Messages.sendToServer(new OvenButtonMessage(flag ? OvenButtonMessage.ADD : OvenButtonMessage.SUBTRACT, this.x, this.y, this.z, Screen.hasShiftDown() ? 1 : 10, textstate));
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_HAT, 2.0F));
@@ -126,7 +126,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
 
         super.init();
 
-        ImageButton imagebutton_add = new ImageButton(this.leftPos + 123, this.topPos + 65, 5, 6, 0, 166, 6, TEXTURE, 256, 256, e -> {
+        ImageButton imagebutton_add = new ImageButton(this.leftPos + 123, this.topPos + 69, 5, 6, 0, 166, 6, TEXTURE, 256, 256, e -> {
             if (boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500 / 52.0) + 17);
                 Messages.sendToServer(new OvenButtonMessage(OvenButtonMessage.ADD, x, y, z, 1, textstate));
@@ -135,7 +135,7 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
         guistate.put("button:imagebutton_add", imagebutton_add);
         this.addRenderableWidget(imagebutton_add);
 
-        ImageButton imagebutton_sub = new ImageButton(this.leftPos + 130, this.topPos + 65, 5, 6, 5, 166, 6, TEXTURE, 256, 256, e -> {
+        ImageButton imagebutton_sub = new ImageButton(this.leftPos + 130, this.topPos + 69, 5, 6, 5, 166, 6, TEXTURE, 256, 256, e -> {
             if (boundBlockEntity instanceof OvenBlockEntity ovenBlockEntity) {
                 zhen_y = (int) ((500 - ovenBlockEntity.getTemperature(ovenBlockEntity)) / (500 / 52.0) + 17);
                 Messages.sendToServer(new OvenButtonMessage(OvenButtonMessage.SUBTRACT, x, y, z,1, textstate));
@@ -153,12 +153,14 @@ public class OvenScreen extends AbstractContainerScreen<OvenMenu> {
             });
             this.addRenderableWidget(button);
         }
-
-
-
     }
 
-    protected void renderTemperatureTooltip(GuiGraphics gui, int mouseX, int mouseY,OvenBlockEntity oven) {
+    @Override
+    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+    }
+
+    protected void renderTemperatureTooltip(GuiGraphics gui, int mouseX, int mouseY, OvenBlockEntity oven) {
         if (this.minecraft != null && this.minecraft.player != null && this.menu.getCarried().isEmpty()) {
             List<Component> tooltip = new ArrayList<>();
             String string = Component.translatable("gui.bakeries.oven.temperature").getString();

@@ -95,6 +95,7 @@ public class BakeriesClientHandler {
             ResourceLocation modelId = new ResourceLocation(BakeriesMod.MODID, "cake_part/" + fileName);
             event.register(modelId);
         }
+
     }
 
     private static void registerItemModel(ResourceLocation itemId, ModelEvent.ModifyBakingResult event){
