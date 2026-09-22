@@ -1,48 +1,28 @@
 package com.renyigesai.bakeries.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.block.magnetic_plate.MagneticPlateBlock;
 import com.renyigesai.bakeries.block.magnetic_plate.MagneticPlateBlockEntity;
 import com.renyigesai.bakeries.client.model.MagneticPlateModel;
-import com.renyigesai.bakeries.client.model.RemappedTextureBakedModel;
-import com.renyigesai.bakeries.client.model.ShapeAWithTextureBModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.ChunkRenderTypeSet;
-import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class MagneticPlateRenderer implements IBBlockEntityRenderer<MagneticPlateBlockEntity> {
 
-    private final MagneticPlateModel<?> model;
     public static final ResourceLocation DEFAULT_TEXTURE =
             new ResourceLocation("bakeries", "textures/block/magnetic_plate.png");
 
     public MagneticPlateRenderer(BlockEntityRendererProvider.Context pContext) {
-        this.model = new MagneticPlateModel<>(pContext.bakeLayer(MagneticPlateModel.MAGNETIC_PLATE));
+
     }
 
     @Override
@@ -110,10 +90,10 @@ public class MagneticPlateRenderer implements IBBlockEntityRenderer<MagneticPlat
         BakedModel blockModel = Minecraft.getInstance().getBlockRenderer().getBlockModel(tile.getBlock().defaultBlockState());
         BakedModel mpModel = Minecraft.getInstance().getBlockRenderer().getBlockModel(tile.getBlockState());
 
-        ShapeAWithTextureBModel shapeAWithTextureBModel = new ShapeAWithTextureBModel(mpModel, blockModel,tile.getBlock().defaultBlockState());
+        MagneticPlateModel magneticPlateModel = new MagneticPlateModel(mpModel, blockModel,tile.getBlock().defaultBlockState());
 
         poseStack.pushPose();
-        renderModel(tile.getLevel(),tile.getBlockState(),tile.getBlockPos(),shapeAWithTextureBModel, poseStack, buffer, packedLight, packedOverlay);
+        renderModel(tile.getLevel(),tile.getBlockState(),tile.getBlockPos(),magneticPlateModel, poseStack, buffer, packedLight, packedOverlay);
         poseStack.popPose();
     }
 }

@@ -52,7 +52,6 @@ public class BakeriesClientHandler {
         event.registerLayerDefinition(MokaPotModel.MOKA_POT, MokaPotModel::createBodyLayer);
         event.registerLayerDefinition(FermentationBoxModel.FERMENTATION_BOX, FermentationBoxModel::createBodyLayer);
         event.registerLayerDefinition(GlassBreadRackDoorModel.LAYER_LOCATION, GlassBreadRackDoorModel::createBodyLayer);
-        event.registerLayerDefinition(MagneticPlateModel.MAGNETIC_PLATE, MagneticPlateModel::createBodyLayer);
     }
 
     @SubscribeEvent
