@@ -2,9 +2,11 @@ package com.renyigesai.bakeries.inventory.blender;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.api.MouseFix;
 import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.network.SwitchButtonMessage;
 import com.renyigesai.bakeries.network.Messages;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -14,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.lwjgl.glfw.GLFW;
 
 public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
     // GUI 纹理路径
@@ -114,6 +117,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
             int finalI = i;
             ImageButton button = new ImageButton(this.leftPos + i * 17, this.topPos - 17, 18, 18, 0, 0, 1, new ResourceLocation(BakeriesMod.MODID, "textures/gui/switch_button_" + (i + 1) + ".png"), 18, 18, e -> {
                 if (!(blockEntity instanceof BlenderBlockEntity && finalI == 0)) {
+                    MouseFix.mouseSaved();
                     Messages.sendToServer(new SwitchButtonMessage(finalI,x,y,z));
                 }
             });

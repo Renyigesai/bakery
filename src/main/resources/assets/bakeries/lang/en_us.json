@@ -227,6 +227,10 @@
   "block.generic.steel_pipe": "",
   "block.bakeries.cream_mushroom_soup_with_baguette": "Cream Mushroom Soup With Baguette",
   "block.bakeries.niangao_cake": "Niangao Cake",
+  "block.bakeries.raw_mooncake": "Raw Mooncake",
+  "block.bakeries.mooncake": "Mooncake",
+  "item.bakeries.raw_mooncake": "Raw Mooncake",
+  "item.bakeries.mooncake": "Mooncake",
   "entity.generic.shake": "Shake",
   "entity.minecraft.villager.bakeries.pistrinamaster": "Pistrina Master",
   "entity.minecraft.villager.pistrinamaster": "Pistrina Master",
@@ -265,6 +269,7 @@
   "item.bakeries.mould_matcha_cake_paste": "Mould Matcha Cake Paste",
   "item.bakeries.salt_bucket": "Salt Bucket",
   "item.bakeries.butter_latte": "Butter Latte",
+  "item.bakeries.round_mould": "Round Mould",
   "container.dough_crafting_table": "Dough Crafting Table",
   "guide.bakeries.categories.bread_making_process": "§6Bread Making Process",
   "guide.bakeries.categories.food_ingredient": "§6Food Ingredientg",
@@ -420,6 +425,9 @@
   "tip.bakeries.toaster_2": "%s and right-click to retrieve the item.",
   "tip.bakeries.magnetic_plate_1": "Use the right-click on the complete square to change the texture",
   "tip.bakeries.magnetic_plate_2": "Right-click to place the tool or %s + right-click to rotate the texture",
+  "tip.bakeries.mooncake": "%sFilling",
+  "tip.bakeries.raw_mooncake": "Any food can be used as the filling to be combined together.",
+  "tip.bakeries.give_mooncake": "You have received mooncakes from %s",
   "gui.bakeries.oven.temperature": "Current Temperature",
   "gui.bakeries.rolling": "§oRolling adjustment",
   "gui.bakeries.fermentation_box.humidity": "Current Humidity",
@@ -435,5 +443,6 @@
   "cake_part.bakeries.bakeries:cake_base": "Cake Base",
   "cake_part.bakeries.bakeries:cake_filling": "Cake Filling",
   "cake_part.bakeries.bakeries:cake_cream": "Cake Cream",
-  "cake_part.bakeries.bakeries:cake_topping": "Cake Topping"
+  "cake_part.bakeries.bakeries:cake_topping": "Cake Topping",
+  "jei.bakeries.mooncake.info": "Any kind of food can be used."
 }

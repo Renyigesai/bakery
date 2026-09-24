@@ -18,9 +18,9 @@ public class WholeEggItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack hand = pPlayer.getItemInHand(pUsedHand);
         if (hand.is(BakeriesItems.WHOLE_EGG.get())){
-            ItemUtils.shrink(hand,1,pPlayer);
             ItemUtils.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.RAW_PROTEIN.get()));
             ItemUtils.givePlayerItem(pPlayer,new ItemStack(BakeriesItems.RAW_EGG_YOLK.get()));
+            ItemUtils.shrink(hand,1,pPlayer);
             return InteractionResultHolder.success(hand);
         }
         return super.use(pLevel, pPlayer, pUsedHand);

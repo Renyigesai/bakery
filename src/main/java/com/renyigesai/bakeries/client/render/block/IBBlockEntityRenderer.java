@@ -7,22 +7,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.ChunkRenderTypeSet;
 import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public interface IBBlockEntityRenderer<T extends BlockEntity> extends BlockEntityRenderer<T> {
 
@@ -61,14 +56,9 @@ public interface IBBlockEntityRenderer<T extends BlockEntity> extends BlockEntit
     default void renderModel(Level level, BlockState state, BlockPos pos, BakedModel model, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
         RandomSource rand = RandomSource.create(42L);
         ModelData data = ModelData.EMPTY;
-
         ModelBlockRenderer renderer = Minecraft.getInstance().getBlockRenderer().getModelRenderer();
-
-        for (RenderType renderType : model.getRenderTypes(state, rand, data)) {
-            VertexConsumer consumer = buffer.getBuffer(renderType);
-
-            renderer.tesselateWithAO(level,model,state,pos,poseStack,consumer,true,RandomSource.create(),42L,packedOverlay,data,renderType);
-        }
+        VertexConsumer consumer = buffer.getBuffer(RenderType.translucent());
+        renderer.tesselateWithAO(level,model,state,pos,poseStack,consumer,true,RandomSource.create(),42L,packedOverlay,data,RenderType.translucent());
     }
 
     void startRender(@NotNull T be, float v, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource,  int pPackedLight, int pPackedOverlay);

@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.network;
 
+import com.renyigesai.bakeries.api.MouseFix;
 import com.renyigesai.bakeries.api.block.BakeriesWorkBlock;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
 import com.renyigesai.bakeries.util.WorldUtil;

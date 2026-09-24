@@ -37,6 +37,15 @@ public class FermentationBoxRender implements IBBlockEntityRenderer<Fermentation
             new Vec2(ADD, 0f)
     };
 
+    public static final float[] YS = new float[]{
+            0.005f,
+            -0.005f,
+            0.005f,
+            -0.005f,
+            0.005f,
+            -0.005f,
+    };
+
     public FermentationBoxRender(BlockEntityRendererProvider.Context pContext) {
         this.model = new FermentationBoxModel<>(pContext.bakeLayer(FermentationBoxModel.FERMENTATION_BOX));
     }
@@ -59,7 +68,7 @@ public class FermentationBoxRender implements IBBlockEntityRenderer<Fermentation
             poseStack.pushPose();
             float y = slot > 2 ? 0.3125f + 0.03125f - 0.0625f : 0.5625f + 0.03125f;
             Vec2 vec2 = VEC2S[slot];
-            poseStack.translate(vec2.x, y, vec2.y);
+            poseStack.translate(vec2.x, y + YS[slot], vec2.y);
             poseStack.scale(0.35f, 0.35f, 0.35f);
             renderModel(item, box, poseStack, multiBufferSource, i1, posLong);
             poseStack.popPose();

@@ -16,17 +16,22 @@ import com.renyigesai.bakeries.recipe.flour_sieve.FlourSieveRecipe;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.recipe.category.extensions.IExtendableRecipeCategory;
+import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
+import mezz.jei.api.recipe.category.extensions.vanilla.smithing.IExtendableSmithingRecipeCategory;
+import mezz.jei.api.registration.*;
+import mezz.jei.common.platform.IPlatformRecipeHelper;
+import mezz.jei.common.platform.Services;
+import mezz.jei.library.plugins.vanilla.anvil.SmithingTransformCategoryExtension;
+import mezz.jei.library.plugins.vanilla.anvil.SmithingTrimCategoryExtension;
+import mezz.jei.library.plugins.vanilla.crafting.CraftingCategoryExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -102,6 +107,12 @@ public class BakeryJeiPlugin implements IModPlugin {
 		registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DRINK_CUP.get()), DRINK_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.STONE_KILN.get()), STONE_KILN_TYPE);
 		registration.addRecipeCatalyst(new ItemStack(BakeriesBlocks.FERMENTATION_BOX.get()), FERMENTATION_TYPE);
+	}
+
+	@Override
+	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+		IExtendableRecipeCategory<CraftingRecipe, ICraftingCategoryExtension> craftingCategory = registration.getCraftingCategory();
+		craftingCategory.addCategoryExtension(MooncakeRecipe.class, CraftingCategoryExtension::new);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -29,6 +29,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
    final Slot resultSlot;
    Runnable slotUpdateListener = () -> {
    };
+
    public final Container container = new SimpleContainer(1) {
       public void setChanged() {
          super.setChanged();
@@ -36,19 +37,24 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
          DoughCraftingTableMenu.this.slotUpdateListener.run();
       }
    };
+
    final ResultContainer resultContainer = new ResultContainer();
+
    public DoughCraftingTableMenu(int pContainerId, Inventory pPlayerInventory) {
       this(pContainerId, pPlayerInventory, ContainerLevelAccess.NULL);
    }
+
    public DoughCraftingTableMenu(int pContainerId, Inventory pPlayerInventory, final ContainerLevelAccess pAccess) {
       super(BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get(), pContainerId);
       this.access = pAccess;
       this.level = pPlayerInventory.player.level();
       this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
       this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
+
          public boolean mayPlace(@NotNull ItemStack p_40362_) {
             return false;
          }
+
          public void onTake(@NotNull Player p_150672_, @NotNull ItemStack p_150673_) {
             p_150673_.onCraftedBy(p_150672_.level(), p_150672_, p_150673_.getCount());
             DoughCraftingTableMenu.this.resultContainer.awardUsedRecipes(p_150672_, this.getRelevantItems());
@@ -66,35 +72,42 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
             });
             super.onTake(p_150672_, p_150673_);
          }
+
          private List<ItemStack> getRelevantItems() {
             return List.of(DoughCraftingTableMenu.this.inputSlot.getItem());
          }
       });
+
       for(int i = 0; i < 3; ++i) {
          for(int j = 0; j < 9; ++j) {
             this.addSlot(new Slot(pPlayerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
          }
       }
+
       for(int k = 0; k < 9; ++k) {
          this.addSlot(new Slot(pPlayerInventory, k, 8 + k * 18, 142));
       }
+
       this.addDataSlot(this.selectedRecipeIndex);
    }
    public int getSelectedRecipeIndex() {
       return this.selectedRecipeIndex.get();
    }
+
    public int getNumRecipes() {
       return this.recipes.size();
    }
+
    public boolean hasInputItem() {
       boolean hasItem = this.inputSlot.hasItem();
       boolean hasRecipes = !this.recipes.isEmpty();
-//      System.out.println("Has input item: " + hasItem + ", Has recipes: " + hasRecipes);
       return hasItem && hasRecipes;
    }
+
    public boolean stillValid(@NotNull Player pPlayer) {
       return stillValid(this.access, pPlayer, BakeriesBlocks.DOUGH_CRAFTING_TABLE.get());
    }
+
    public boolean clickMenuButton(@NotNull Player pPlayer, int pId) {
       if (this.isValidRecipeIndex(pId)) {
          this.selectedRecipeIndex.set(pId);
@@ -102,26 +115,28 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       }
       return true;
    }
+
    private boolean isValidRecipeIndex(int pRecipeIndex) {
       return pRecipeIndex >= 0 && pRecipeIndex < this.recipes.size();
    }
+
    public void slotsChanged(@NotNull Container pInventory) {
       ItemStack itemstack = this.inputSlot.getItem();
       if (!itemstack.is(this.input.getItem())) {
          this.input = itemstack.copy();
          this.setupRecipeList(pInventory, itemstack);
       }
-
    }
+
    private void setupRecipeList(Container pContainer, ItemStack pStack) {
       this.recipes.clear();
       this.selectedRecipeIndex.set(-1);
       this.resultSlot.set(ItemStack.EMPTY);
       if (!pStack.isEmpty()) {
          this.recipes = this.level.getRecipeManager().getRecipesFor(DoughCraftingRecipe.Type.INSTANCE, pContainer, this.level);
-         System.out.println("Found recipes: " + this.recipes.size());
       }
    }
+
    void setupResultSlot() {
       if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
          DoughCraftingRecipe doughCraftingRecipe = this.recipes.get(this.selectedRecipeIndex.get());
@@ -137,15 +152,19 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       }
       this.broadcastChanges();
    }
+
    public @NotNull MenuType<?> getType() {
       return BakeriesMenuType.DOUGH_CRAFTING_TABLE_MENU.get();
    }
+
    public void registerUpdateListener(Runnable pListener) {
       this.slotUpdateListener = pListener;
    }
+
    public boolean canTakeItemForPickAll(@NotNull ItemStack pStack, Slot pSlot) {
       return pSlot.container != this.resultContainer && super.canTakeItemForPickAll(pStack, pSlot);
    }
+
    public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
       ItemStack itemstack = ItemStack.EMPTY;
       Slot slot = this.slots.get(pIndex);
@@ -186,6 +205,7 @@ public class DoughCraftingTableMenu extends AbstractContainerMenu {
       }
       return itemstack;
    }
+
    public void removed(@NotNull Player pPlayer) {
       super.removed(pPlayer);
       this.resultContainer.removeItemNoUpdate(1);

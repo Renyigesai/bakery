@@ -34,16 +34,23 @@ public class GlassBreadRackBlock extends BreadRackBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide){
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
+                                 InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
+
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof BreadRackBlockEntity rackBlock)){
+        if (!(blockEntity instanceof BreadRackBlockEntity rackBlock)) {
             return InteractionResult.FAIL;
         }
+
         boolean open = state.getValue(OPEN);
-        if (!open || player.isShiftKeyDown()) {
+
+        int slot = getSlotFromHit(hit.getLocation(), pos, state.getValue(FACING), hit.getDirection().getOpposite());
+        boolean clickedEmptySlot = slot != -1 && rackBlock.getItems().getStackInSlot(slot).isEmpty() && player.getItemInHand(hand).isEmpty();
+
+        if (!open || player.isShiftKeyDown() || clickedEmptySlot) {
             boolean newOpen = !open;
             level.blockEvent(pos, state.getBlock(), 0, newOpen ? 0 : 1);
             rackBlock.setOpen(newOpen);

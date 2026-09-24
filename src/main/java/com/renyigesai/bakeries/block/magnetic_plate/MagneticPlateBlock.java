@@ -80,7 +80,7 @@ public class MagneticPlateBlock extends HorizontalDirectionalBlock implements En
             }
         }
 
-        if (!itemInHand.isEmpty()) {
+        if (!itemInHand.isEmpty() && (itemInHand.is(ItemTags.TOOLS) || BuiltInRegistries.ITEM.getKey(itemInHand.getItem()).equals(SKILLET))) {
             return onInput(mp, itemInHand, pState, pLevel, pPos, pPlayer, pHand, pHit, hitUV);
         }
 

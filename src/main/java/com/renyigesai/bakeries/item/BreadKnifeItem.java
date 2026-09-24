@@ -173,7 +173,7 @@ public class BreadKnifeItem extends DiggerItem {
                 List<CuttingBoardRecipe> recipeList = level.getRecipeManager().getRecipesFor((RecipeType)ModRecipeTypes.CUTTING.get(), recipeWrapper, level);
                 if (recipeList.isEmpty()) {
                     if (player != null) {
-                        player.displayClientMessage(TextUtils.getTranslation("block.cutting_board.invalid_item", new Object[0]), true);
+                        player.displayClientMessage(TextUtils.getTranslation("block.farmersdelight.cutting_board.invalid_item", new Object[0]), true);
                     }
 
                     return Optional.empty();

@@ -41,6 +41,15 @@ public class OvenRender implements IBBlockEntityRenderer<OvenBlockEntity> {
             new Vec2(0.1625f,0f)
     };
 
+    public static final float[] YS = new float[]{
+            0.005f,
+            -0.005f,
+            0.005f,
+            -0.005f,
+            0.005f,
+            -0.005f,
+    };
+
     public OvenRender(BlockEntityRendererProvider.Context pContext) {
         this.model = new OvenModel<>(pContext.bakeLayer(OvenModel.OVEN));
         this.glow = model;
@@ -62,7 +71,7 @@ public class OvenRender implements IBBlockEntityRenderer<OvenBlockEntity> {
                 float y = slot > 2 ? 0.3125f + 0.03125f : 0.5625f + 0.03125f;
                 Vec2 vec2 = VEC2S[slot];
                 float yp = item.is(BakeriesItemTag.UPRIGHT_ON_OVEN) ? 90f : 0f;
-                poseStack.translate(vec2.x, y, vec2.y);
+                poseStack.translate(vec2.x, y + YS[slot], vec2.y);
                 poseStack.mulPose(Axis.YP.rotationDegrees(yp));
                 poseStack.scale(0.35f,0.35f,0.35f);
                 renderModel(item,oven,poseStack,multiBufferSource,i1,posLong);

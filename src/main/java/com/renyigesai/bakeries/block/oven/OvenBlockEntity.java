@@ -1,11 +1,11 @@
 package com.renyigesai.bakeries.block.oven;
 
 import com.renyigesai.bakeries.api.block.BakeriesWorkBlock;
-import com.renyigesai.bakeries.block.blender.BlenderBlock;
-import com.renyigesai.bakeries.block.blender.BlenderBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesBlocks;
+import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.inventory.oven.OvenMenu;
+import com.renyigesai.bakeries.item.MooncakeItem;
 import com.renyigesai.bakeries.recipe.oven.OvenRecipe;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
@@ -391,12 +391,22 @@ public class OvenBlockEntity extends BaseContainerBlockEntity implements Worldly
         if (recipe.isPresent()) {
             ItemStack result = recipe.get().getResultItem(null);
             ItemStack takeItem = new ItemStack(result.getItem(), result.getCount());
+            takeItem = craftMooncake(ovenBlockEntity,slot,recipe.get(),takeItem);
             if (perfect){
                 takeItem.getOrCreateTag().putBoolean("perfect", true);
             }
             this.itemHandler.setStackInSlot(slot, takeItem);
             updateBlock(ovenBlockEntity);
         }
+    }
+
+    private ItemStack craftMooncake(OvenBlockEntity oven, int slot,OvenRecipe recipe,ItemStack old){
+        ItemStack input = oven.getItemHandler().getStackInSlot(slot);
+        if (input.is(BakeriesItems.RAW_MOONCAKE.get())){
+            ItemStack output = recipe.getResultItem(null);
+            return MooncakeItem.copyAttribute(input, output);
+        }
+        return old;
     }
 
     private boolean hasRecipe(int slot) {

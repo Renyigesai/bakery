@@ -40,6 +40,8 @@ import com.renyigesai.bakeries.block.menu.MenuBlock;
 import com.renyigesai.bakeries.block.menu.MenuBlockEntity;
 import com.renyigesai.bakeries.block.moka_pot.MokaPotBlock;
 import com.renyigesai.bakeries.block.moka_pot.MokaPotBlockEntity;
+import com.renyigesai.bakeries.block.mooncake.MooncakeBlock;
+import com.renyigesai.bakeries.block.mooncake.MooncakeBlockEntity;
 import com.renyigesai.bakeries.block.oven.OvenBlock;
 import com.renyigesai.bakeries.block.oven.OvenBlockEntity;
 import com.renyigesai.bakeries.block.pizza.CustomPizzaBlock;
@@ -126,6 +128,7 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> TARO_SALT_YOLK_BREAD;
     public static final RegistryObject<Block> BEARNAISE;
     public static final RegistryObject<Block> OLIVE_OIL;
+    public static final RegistryObject<Block> YUNTUI_MOONCAKE;
     public static final RegistryObject<Block> PORK_MOONCAKE;
 
     //common
@@ -238,6 +241,9 @@ public class BakeriesBlocks {
     public static final RegistryObject<Block> CUSTOM_CAKE;
     public static final RegistryObject<BlockEntityType<CustomCakeBlockEntity>> CUSTOM_CAKE_ENTITY;
 
+    public static final RegistryObject<Block> MOONCAKE;
+    public static final RegistryObject<BlockEntityType<MooncakeBlockEntity>> MOONCAKE_ENTITY;
+
     static {
         /*面包方块*/
         BAGEL = BLOCK_REGISTRY.register("bagel", PileBlock::new);
@@ -280,6 +286,7 @@ public class BakeriesBlocks {
         TARO_SALT_YOLK_BREAD = BLOCK_REGISTRY.register("taro_salt_yolk_bread",PileBlock::new);
         BEARNAISE = BLOCK_REGISTRY.register("bearnaise",()-> new PileBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
         OLIVE_OIL = BLOCK_REGISTRY.register("olive_oil",()-> new OliveOilBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+        YUNTUI_MOONCAKE = BLOCK_REGISTRY.register("yuntui_mooncake",PileBlock::new);
         PORK_MOONCAKE = BLOCK_REGISTRY.register("pork_mooncake", PileBlock::new);
         /*蛋糕方块*/
         CUP_CAKE = BLOCK_REGISTRY.register("cup_cake",PileBlock::new);
@@ -484,6 +491,9 @@ public class BakeriesBlocks {
 
         CUSTOM_CAKE = BLOCK_REGISTRY.register("custom_cake", ()-> new CustomCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
         CUSTOM_CAKE_ENTITY = BLOCK_ENTITY_REGISTRY.register("custom_cake",()-> BlockEntityType.Builder.of(CustomCakeBlockEntity::new,CUSTOM_CAKE.get()).build(null));
+
+        MOONCAKE = BLOCK_REGISTRY.register("mooncake", MooncakeBlock::new);
+        MOONCAKE_ENTITY = BLOCK_ENTITY_REGISTRY.register("mooncake",()-> BlockEntityType.Builder.of(MooncakeBlockEntity::new,MOONCAKE.get()).build(null));
 
     }
 

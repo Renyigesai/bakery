@@ -66,7 +66,7 @@ public class OvenMenu extends AbstractContainerMenu implements Supplier<Map<Inte
             addSlot(new SlotItemHandler(oven.getItemHandler(),2, 88, 20));
             addSlot(new SlotItemHandler(oven.getItemHandler(),3, 52, 50));
             addSlot(new SlotItemHandler(oven.getItemHandler(),4, 70, 50));
-            addSlot(new SlotItemHandler(oven.getItemHandler(),5, 88, 40));
+            addSlot(new SlotItemHandler(oven.getItemHandler(),5, 88, 50));
         }
         addPlayerSlots(8,84,inv);
     }

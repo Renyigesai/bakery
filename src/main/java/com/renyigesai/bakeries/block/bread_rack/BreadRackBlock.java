@@ -90,7 +90,7 @@ public class BreadRackBlock extends HorizontalConnectBlock implements EntityBloc
         }
     }
 
-    private int getSlotFromHit(Vec3 hitPos, BlockPos blockPos, Direction facing, Direction hitFace) {
+    public int getSlotFromHit(Vec3 hitPos, BlockPos blockPos, Direction facing, Direction hitFace) {
         if (hitFace == Direction.UP || hitFace == Direction.DOWN || hitFace != facing) {
             return -1;
         }

@@ -95,6 +95,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> RAW_YUNTUI_MOONCAKE;
     public static final RegistryObject<Item> RAW_PIZZA;
     public static final RegistryObject<Item> RAW_CUSTOM_PIZZA;
+    public static final RegistryObject<Item> RAW_MOONCAKE;
     public static final RegistryObject<Item> RAW_PORK_MOONCAKE;
 
     /*
@@ -184,6 +185,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> CREAM_PUMPKIN_PIE;
     public static final RegistryObject<Item> EGG_TART;
     public static final RegistryObject<Item> CUSTOM_PIZZA;
+    public static final RegistryObject<Item> MOONCAKE;
     public static final RegistryObject<Item> PORK_MOONCAKE;
 
     /*
@@ -204,6 +206,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> DOUGH_CRAFTING_TABLE;
     public static final RegistryObject<Item> MOULD;
     public static final RegistryObject<Item> MOULD_TWO;
+    public static final RegistryObject<Item> ROUND_MOULD;
     public static final RegistryObject<Item> MOULD_TOAST_DOUGH;
     public static final RegistryObject<Item> MOULD_TOAST;
     public static final RegistryObject<Item> MOULD_CHEESE_COCOA_TOAST;
@@ -299,6 +302,7 @@ public class BakeriesItems {
         BEARNAISE = REGISTER.register("bearnaise",()-> new PileItem(BakeriesBlocks.BEARNAISE.get(),new PileItem.PileProperties().placeSound(SoundEvents.GLASS_PLACE).itemProperties(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16))));
         MOULD = block(BakeriesBlocks.MOULD);
         MOULD_TWO = block(BakeriesBlocks.MOULD_TWO);
+        ROUND_MOULD = REGISTER.register("round_mould",()-> new RoundMouldItem(new Item.Properties().durability(64)));
         RAW_SALT_BLOCK = block(BakeriesBlocks.RAW_SALT_BLOCK);
         WOOD_COUNTER = block(BakeriesBlocks.WOOD_COUNTER);
         PASTRY = item("pastry");
@@ -353,6 +357,7 @@ public class BakeriesItems {
         RAW_YUNTUI_MOONCAKE = rawItem("raw_yuntui_mooncake","170");
         RAW_PIZZA = block(BakeriesBlocks.RAW_PIZZA,16);
         RAW_CUSTOM_PIZZA = REGISTER.register("raw_custom_pizza", ()-> new CustomPizzaItem(BakeriesBlocks.RAW_PIZZA.get()));
+        RAW_MOONCAKE = REGISTER.register("raw_mooncake",()-> new MooncakeItem(BakeriesBlocks.MOONCAKE.get(),new Item.Properties().stacksTo(16)));
         RAW_PORK_MOONCAKE = rawItem("raw_pork_mooncake","170");
 
         /*
@@ -492,6 +497,7 @@ public class BakeriesItems {
         CREAM_PUMPKIN_PIE = block(BakeriesBlocks.CREAM_PUMPKIN_PIE);
         EGG_TART = foodBlockItem(BakeriesBlocks.EGG_TART,BakeriesFoodProperties.EGG_TART,true,false);
         CUSTOM_PIZZA = REGISTER.register("custom_pizza", ()-> new CustomPizzaItem(BakeriesBlocks.CUSTOM_PIZZA.get()));
+        MOONCAKE = REGISTER.register("mooncake",()-> new  MooncakeItem(BakeriesBlocks.MOONCAKE.get(),new Item.Properties().stacksTo(16).food(BakeriesFoodProperties.MOONCAKE)));
         PORK_MOONCAKE = foodBlockItem(BakeriesBlocks.PORK_MOONCAKE,BakeriesFoodProperties.PORK_MOONCAKE);
 
         /*饮料物品*/

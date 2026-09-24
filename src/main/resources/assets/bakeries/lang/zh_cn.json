@@ -166,6 +166,8 @@
   "block.bakeries.luminous_light_sign": "发光灯牌",
   "block.bakeries.toaster": "烤吐司机",
   "block.bakeries.cream_mushroom_soup_with_baguette": "奶油蘑菇汤配法棍",
+  "block.bakeries.raw_mooncake": "生月饼",
+  "block.bakeries.mooncake": "月饼",
   "entity.generic.shake": "摇晃",
   "entity.minecraft.villager.bakeries.pistrinamaster": "面包师",
   "entity.minecraft.villager.pistrinamaster": "面包师",
@@ -230,6 +232,9 @@
   "item.bakeries.boxed_egg": "盒装鸡蛋",
   "item.bakeries.raw_pork_mooncake": "生鲜肉月饼",
   "item.bakeries.pork_mooncake": "鲜肉月饼",
+  "item.bakeries.raw_mooncake": "生月饼",
+  "item.bakeries.mooncake": "月饼",
+  "item.bakeries.round_mould": "圆形模具",
   "block.bakeries.raw_pizza": "生披萨",
   "block.bakeries.custom_pizza": "披萨",
   "block.bakeries.mould_red_velvet_cake": "红丝绒蛋糕胚",
@@ -418,6 +423,9 @@
   "tip.bakeries.toaster_2": "%s加右键以取出物品",
   "tip.bakeries.magnetic_plate_1": "使用完整方块右键以改变纹理",
   "tip.bakeries.magnetic_plate_2": "右键放置工具或%s加右键旋转纹理",
+  "tip.bakeries.mooncake": "%s馅",
+  "tip.bakeries.raw_mooncake": "可放入任意食物作为馅料合成",
+  "tip.bakeries.give_mooncake": "您收到了来自%s的月饼",
   "tooltip.bakeries.cake_part": "可用于蛋糕：%s",
   "gui.bakeries.oven.temperature": "当前温度",
   "gui.bakeries.rolling": "§o滚动调整",
@@ -433,5 +441,6 @@
   "cake_part.bakeries.bakeries:cake_base": "蛋糕胚",
   "cake_part.bakeries.bakeries:cake_filling": "内馅",
   "cake_part.bakeries.bakeries:cake_cream": "奶油层",
-  "cake_part.bakeries.bakeries:cake_topping": "顶部"
+  "cake_part.bakeries.bakeries:cake_topping": "顶部",
+  "jei.bakeries.mooncake.info": "可使用任意食物。"
 }

@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.inventory.dough_crafting_table;
 
 import com.renyigesai.bakeries.BakeriesMod;
+import com.renyigesai.bakeries.api.MouseFix;
 import com.renyigesai.bakeries.network.SwitchButtonMessage;
 import com.renyigesai.bakeries.network.Messages;
 import com.renyigesai.bakeries.recipe.DoughCraftingRecipe;
@@ -33,16 +34,19 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
    public int x,y,z;
    private final Inventory pPlayerInventory;
    private double savedMouseX, savedMouseY;
+
    public DoughCraftingTableScreen(DoughCraftingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);
-       this.pPlayerInventory = pPlayerInventory;
-       pMenu.registerUpdateListener(this::containerChanged);
+      this.pPlayerInventory = pPlayerInventory;
+      pMenu.registerUpdateListener(this::containerChanged);
       --this.titleLabelY;
    }
+
    public void render(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
       super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
       this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
    }
+
    protected void renderBg(@NotNull GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
       this.renderBackground(pGuiGraphics);
       int i = this.leftPos;
@@ -56,6 +60,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
       this.renderButtons(pGuiGraphics, pMouseX, pMouseY, l, i1, j1);
       this.renderRecipes(pGuiGraphics, l, i1, j1);
    }
+
    protected void renderTooltip(@NotNull GuiGraphics pGuiGraphics, int pX, int pY) {
       super.renderTooltip(pGuiGraphics, pX, pY);
       if (this.displayRecipes) {
@@ -73,6 +78,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          }
       }
    }
+
    private void renderButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex) {
       for(int i = this.startIndex; i < pLastVisibleElementIndex && i < this.menu.getNumRecipes(); ++i) {
          int j = i - this.startIndex;
@@ -88,6 +94,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          pGuiGraphics.blit(BG_LOCATION, k, i1 - 1, 0, j1, 16, 18);
       }
    }
+
    private void renderRecipes(GuiGraphics pGuiGraphics, int pX, int pY, int pStartIndex) {
       List<DoughCraftingRecipe> list = this.menu.getRecipes();
       for(int i = this.startIndex; i < pStartIndex && i < this.menu.getNumRecipes(); ++i) {
@@ -98,6 +105,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          pGuiGraphics.renderItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, i1);
       }
    }
+
    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
       this.scrolling = false;
       if (this.displayRecipes) {
@@ -143,12 +151,15 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
       }
       return true;
    }
+
    private boolean isScrollBarActive() {
       return this.displayRecipes && this.menu.getNumRecipes() > 12;
    }
+
    protected int getOffscreenRows() {
       return (this.menu.getNumRecipes() + 4 - 1) / 4 - 3;
    }
+
    private void containerChanged() {
       this.displayRecipes = this.menu.hasInputItem();
       if (!this.displayRecipes) {
@@ -160,10 +171,12 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
    @Override
    protected void init() {
       super.init();
+      MouseFix.mouseRecovery();
       for (int i = 0; i < 3; i++) {
          int finalI = i;
          ImageButton button = new ImageButton(this.leftPos + i * 17, this.topPos - 17, 18, 18, 0, 0, 1, new ResourceLocation(BakeriesMod.MODID, "textures/gui/switch_button_" + (i + 1) + ".png"), 18, 18, e -> {
             Player player = pPlayerInventory.player;
+            MouseFix.mouseSaved();
             Messages.sendToServer(new SwitchButtonMessage(finalI,player.getBlockX(),player.getBlockY(),player.getBlockZ()));
          });
          this.addRenderableWidget(button);

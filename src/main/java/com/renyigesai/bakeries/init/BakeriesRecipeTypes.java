@@ -1,6 +1,7 @@
 package com.renyigesai.bakeries.init;
 
 import com.renyigesai.bakeries.recipe.FermentationBoxRecipe;
+import com.renyigesai.bakeries.recipe.MooncakeRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -10,6 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class BakeriesRecipeTypes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES;
     public static final RegistryObject<RecipeType<FermentationBoxRecipe>> FERMENTATION_BOX;
+    public static final RegistryObject<RecipeType<MooncakeRecipe>> MOONCAKE;
 
     public BakeriesRecipeTypes() {
     }
@@ -25,5 +27,6 @@ public class BakeriesRecipeTypes {
     static {
         RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, "bakeries");
         FERMENTATION_BOX = RECIPE_TYPES.register("fermentation_box", () -> registerRecipeType("fermentation_box"));
+        MOONCAKE = RECIPE_TYPES.register("mooncake", () -> registerRecipeType("mooncake"));
     }
 }

@@ -13,15 +13,15 @@ import java.util.List;
 
 public class RawItem extends Item {
 
-    public final String TIPS;
+    public final String tips;
 
     public RawItem(Properties pProperties,String tips) {
         super(pProperties);
-        TIPS = tips;
+        this.tips = tips;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-            pTooltipComponents.add(Component.translatable("Min" + TIPS + "°C").withStyle(ChatFormatting.BLUE));
+        pTooltipComponents.add(Component.literal("Min" + tips + "°C").withStyle(ChatFormatting.BLUE));
     }
 }
