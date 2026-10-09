@@ -24,6 +24,7 @@ public class CommonTags {
     public static final TagKey<Item> UPRIGHT_ON_OVEN = commonItemTag("bakeries","upright_on_oven");
     public static final TagKey<Item> BREAD_KNIFE = commonItemTag("bakeries","bread_knife");
     public static final TagKey<Item> EGG = commonItemTag("c","eggs");
+    public static final TagKey<Item> LEAVES = commonItemTag("minecraft","leaves");
 
     public CommonTags() {
     }

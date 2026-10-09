@@ -148,7 +148,8 @@ public class Tags {
                             BakeriesBlocks.LUMINOUS_LIGHT_SIGN.get(),
                             BakeriesBlocks.BLACK_WHITE_CONCRETE.get(),
                             BakeriesBlocks.MOULD_CAKE.get(),
-                            BakeriesBlocks.MOULD_POUND_CAKE.get()
+                            BakeriesBlocks.MOULD_POUND_CAKE.get(),
+                            BakeriesBlocks.MAGNETIC_PLATE.get()
                     );
 
             /* Minecraft标签 - 斧子可挖掘 */

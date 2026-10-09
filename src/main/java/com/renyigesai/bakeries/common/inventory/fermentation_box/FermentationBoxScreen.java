@@ -39,7 +39,8 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
         int x = this.leftPos;
         int y = this.topPos;
-        if (pMouseX >= x + 121 && pMouseX <= x + 145 && pMouseY >= y + 33 && pMouseY <= y + 48){
+        // ★ 温度悬停检测：121~145 → 113~137，33~48 → 38~53
+        if (pMouseX >= x + 113 && pMouseX <= x + 137 && pMouseY >= y + 38 && pMouseY <= y + 53){
             if (blockEntity instanceof FermentationBoxBlockEntity box) {
                 renderTemperatureTooltip(pGuiGraphics, pMouseX, pMouseY,box);
             }
@@ -47,9 +48,15 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
     }
 
     @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int p_282681_, int p_283686_) {
+        guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+    }
+
+    @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         int x = this.leftPos;
         int y = this.topPos;
+        // 滚轮检测区域与第二个一致（121~145, 33~48），无需改动
         if (mouseX >= x + 121 && mouseX <= x + 145 && mouseY >= y + 33 && mouseY <= y + 48){
             boolean flag = scrollY == 1.0;
             PacketDistributor.sendToServer(new FermentationBoxMessage(flag ? "add" : "sub",blockEntity.getBlockPos(),Screen.hasShiftDown() ? 1 : 10));
@@ -64,12 +71,13 @@ public class FermentationBoxScreen extends AbstractContainerScreen<FermentationB
         pGuiGraphics.pose().pushPose();
         pGuiGraphics.blit(TEXTURE, this.leftPos, this.topPos,this.imageWidth,this.imageHeight, 0,0,this.imageWidth, this.imageHeight, 256, 256);
         pGuiGraphics.blit(TEXTURE,this.leftPos + 128, this.topPos + 19,22, 166,2,38, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 36, 0, 166, getProgressbarW(boxBlock,0), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 36, 0, 166, getProgressbarW(boxBlock,1), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 36, 0, 166, getProgressbarW(boxBlock,2), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 53, this.topPos + 66, 0, 166, getProgressbarW(boxBlock,3), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 71, this.topPos + 66, 0, 166, getProgressbarW(boxBlock,4), 2, 256, 256);
-        pGuiGraphics.blit(TEXTURE, this.leftPos + 89, this.topPos + 66, 0, 166, getProgressbarW(boxBlock,5), 2, 256, 256);
+        // ★ 6 个进度条位置：53/71/89 + 36/66 → 45/63/81 + 41/71
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 45, this.topPos + 41, 0, 166, getProgressbarW(boxBlock,0), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 63, this.topPos + 41, 0, 166, getProgressbarW(boxBlock,1), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 81, this.topPos + 41, 0, 166, getProgressbarW(boxBlock,2), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 45, this.topPos + 71, 0, 166, getProgressbarW(boxBlock,3), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 63, this.topPos + 71, 0, 166, getProgressbarW(boxBlock,4), 2, 256, 256);
+        pGuiGraphics.blit(TEXTURE, this.leftPos + 81, this.topPos + 71, 0, 166, getProgressbarW(boxBlock,5), 2, 256, 256);
         pGuiGraphics.pose().popPose();
     }
 

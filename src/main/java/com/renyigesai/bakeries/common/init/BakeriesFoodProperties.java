@@ -28,6 +28,8 @@ public class BakeriesFoodProperties {
     public static final FoodProperties ICED_AMERICAN;
     public static final FoodProperties ICED_LATTE;
     public static final FoodProperties BROWN_SUGAR_LATTE;
+    public static final FoodProperties BUTTER_LATTE;
+    public static final FoodProperties MILK_TEA;
     public static final FoodProperties FOCACCIA;
     public static final FoodProperties DIRTY_CHOCO_CROISSANT;
     public static final FoodProperties BAGUETTE_WITH_FILLING;
@@ -54,6 +56,8 @@ public class BakeriesFoodProperties {
     public static final FoodProperties TARO_SALT_YOLK_BREAD;
     public static final FoodProperties TARO_MILK;
     public static final FoodProperties TARO_CAKE;
+    public static final FoodProperties MOONCAKE;
+    public static final FoodProperties PORK_MOONCAKE;
 
     /*模组联动食物属性*/
     public static final FoodProperties RICE_BREAD;
@@ -199,6 +203,14 @@ public class BakeriesFoodProperties {
         TARO_MILK = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).nutrition(9).saturationModifier(0.5f).alwaysEdible().build();
 
         TARO_CAKE = new FoodProperties.Builder().nutrition(8).saturationModifier(1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.SOFT,1800),1F).alwaysEdible().build();
+
+        MOONCAKE = new FoodProperties.Builder().nutrition(6).saturationModifier(0.5f).effect(()-> new MobEffectInstance(BakeriesMobEffects.ENJOY,600),1f).build();
+
+        PORK_MOONCAKE = new FoodProperties.Builder().nutrition(6).saturationModifier(0.5f).build();
+
+        BUTTER_LATTE = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.SATURATION,5),1f).nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
+
+        MILK_TEA = new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600),1f).effect(new MobEffectInstance(MobEffects.DIG_SPEED,600),1f).effect(()-> new MobEffectInstance(BakeriesMobEffects.TEA_ASTRINGENT,1200),1f).nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
 
 
         /*模组联动食物属性*/

@@ -26,12 +26,16 @@ import com.renyigesai.bakeries.common.blocks.glass_drink_cup.GlassDrinkCupBlock;
 import com.renyigesai.bakeries.common.blocks.glass_drink_cup.GlassDrinkCupBlockEntity;
 import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlock;
 import com.renyigesai.bakeries.common.blocks.luminous_light_sign.LuminousLightSignBlockEntity;
+import com.renyigesai.bakeries.common.blocks.magnetic_plate.MagneticPlateBlock;
+import com.renyigesai.bakeries.common.blocks.magnetic_plate.MagneticPlateBlockEntity;
 import com.renyigesai.bakeries.common.blocks.menu.MenuBlock;
 import com.renyigesai.bakeries.common.blocks.menu.MenuBlockEntity;
 import com.renyigesai.bakeries.common.blocks.mix_block.MixBlock;
 import com.renyigesai.bakeries.common.blocks.mix_block.MixBlockEntity;
 import com.renyigesai.bakeries.common.blocks.moka_pot.MokaPotBlock;
 import com.renyigesai.bakeries.common.blocks.moka_pot.MokaPotBlockEntity;
+import com.renyigesai.bakeries.common.blocks.mooncake.MooncakeBlock;
+import com.renyigesai.bakeries.common.blocks.mooncake.MooncakeBlockEntity;
 import com.renyigesai.bakeries.common.blocks.mould_cake.MouldCakeBlock;
 import com.renyigesai.bakeries.common.blocks.mould_cake.MouldCakeBlockEntity;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
@@ -120,6 +124,12 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> DONGPO_PORK_HAMBURG;
     /**奶油蘑菇法棍*/
     public static final DeferredBlock<Block> CREAM_MUSHROOM_SOUP_WITH_BAGUETTE;
+    /**月饼*/
+    public static final DeferredBlock<Block> MOONCAKE;
+    /**鲜肉月饼*/
+    public static final DeferredBlock<Block> PORK_MOONCAKE;
+    /**云腿月饼*/
+    public static final DeferredBlock<Block> YUNTUI_MOONCAKE;
 
     /**自定义蛋糕*/
     public static final DeferredBlock<Block> CUSTOM_CAKE;
@@ -132,6 +142,7 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> TIRAMISU;
     public static final DeferredBlock<Block> CARROT_CAKE;
     public static final DeferredBlock<Block> BASQUE_CAKE;
+    public static final DeferredBlock<Block> NIANGAO_CAKE;
     public static final DeferredBlock<Block> TARO_CAKE;
     public static final DeferredBlock<Block> POUND_CAKE;
     public static final DeferredBlock<Block> MOULD_POUND_CAKE;
@@ -207,6 +218,8 @@ public class BakeriesBlocks {
     public static final DeferredBlock<Block> MATCHA_PARFAIT;
     public static final DeferredBlock<Block> TARO_MILK;
     public static final DeferredBlock<Block> ORANGE_AMERICAN;
+    public static final DeferredBlock<Block> BUTTER_LATTE;
+    public static final DeferredBlock<Block> MILK_TEA;
 
     /**蛋黄酱酱*/
     public static final DeferredBlock<Block> OLIVE_OIL;
@@ -222,6 +235,7 @@ public class BakeriesBlocks {
     public static final DeferredBlock<GlassDrinkCupBlock> DRINK_CUP;
     public static final DeferredBlock<ToasterBlock> TOASTER;
     public static final DeferredBlock<Block> MOULD_CAKE;
+    public static final DeferredBlock<Block> MAGNETIC_PLATE;
 
     /**盐水*/
     public static final DeferredBlock<LiquidBlock> SALT_WATER_BLOCK;
@@ -264,6 +278,9 @@ public class BakeriesBlocks {
         CUP_CAKE = register("cup_cake",BreadBlock::new);
         DONGPO_PORK_HAMBURG = register("dongpo_pork_hamburg",BreadBlock::new);
         CREAM_MUSHROOM_SOUP_WITH_BAGUETTE = REGISTER.register("cream_mushroom_soup_with_baguette",()-> new CreamMushroomSoupWithBaguetteBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
+        MOONCAKE = register("mooncake", MooncakeBlock::new);
+        PORK_MOONCAKE = register("pork_mooncake",BreadBlock::new);
+        YUNTUI_MOONCAKE = register("yuntui_mooncake",BreadBlock::new);
 
         /*蛋糕*/
         CUSTOM_CAKE = REGISTER.register("custom_cake",()-> new CustomCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
@@ -292,6 +309,11 @@ public class BakeriesBlocks {
                 new LazyMobEffectInstance(BakeriesMobEffects.CHEESE_POWER,1200)),
                 6,0.4f));
 
+        NIANGAO_CAKE = REGISTER.register("niangao_cake",()-> new CakeBaseBlock(ItemUtils.addEffects(
+                new LazyMobEffectInstance(BakeriesMobEffects.SOFT,1200),
+                new LazyMobEffectInstance(BakeriesMobEffects.ENJOY,1200)),
+                6,0.5f));
+
         TARO_CAKE = register("taro_cake",BreadBlock::new);
 
         POUND_CAKE = REGISTER.register("pound_cake",()-> new ToastBlock(BlockBehaviour.Properties.of().sound(BakeriesSoundType.PASTRY).strength(0.5F,0.5F),BakeriesItems.SLICED_POUND_CAKE));
@@ -312,6 +334,8 @@ public class BakeriesBlocks {
         MATCHA_PARFAIT = REGISTER.register("matcha_parfait",MatchaParfaitBlock::new);
         TARO_MILK = drinkBlock("taro_milk");
         ORANGE_AMERICAN = drinkBlock("orange_american");
+        BUTTER_LATTE = drinkBlock("butter_latte");
+        MILK_TEA = drinkBlock("milk_tea");
 
         OLIVE_OIL = register("olive_oil",TanPieBlock::new);
         BEARNAISE = register("bearnaise",TanPieBlock::new);
@@ -376,6 +400,7 @@ public class BakeriesBlocks {
         DRINK_CUP = REGISTER.register("drink_cup",()-> new GlassDrinkCupBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).strength(0.1F,0.1F)));
         TOASTER = REGISTER.register("toaster",()-> new ToasterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
         MOULD_CAKE = REGISTER.register("mould_cake",()-> new MouldCakeBlock(BlockBehaviour.Properties.ofFullCopy(MOULD_TWO.get())));
+        MAGNETIC_PLATE = REGISTER.register("magnetic_plate", ()-> new MagneticPlateBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
 
         SALT_WATER_BLOCK = REGISTER.register("salt_water_block", SaltWaterFluidsBlock::new);
 
@@ -424,8 +449,10 @@ public class BakeriesBlocks {
         public static final Supplier<BlockEntityType<MenuBlockEntity>> MENU_ENTITY = REGISTER.register("menu", () -> BlockEntityType.Builder.of(MenuBlockEntity::new, MENU.get()).build(null));
         public static final Supplier<BlockEntityType<BreadRackBlockEntity>> BREAD_RACK_ENTITY = REGISTER.register("bread_rack", () -> BlockEntityType.Builder.of(BreadRackBlockEntity::new, BREAD_RACK.get(),GLASS_BREAD_RACK.get()).build(null));
         public static final Supplier<BlockEntityType<FermentationBoxBlockEntity>> FERMENTATION_BOX_ENTITY = REGISTER.register("fermentation_box", () -> BlockEntityType.Builder.of(FermentationBoxBlockEntity::new, FERMENTATION_BOX.get()).build(null));
-        public static Supplier<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY = REGISTER.register("luminous_light_sign_", () -> BlockEntityType.Builder.of(LuminousLightSignBlockEntity::new, LUMINOUS_LIGHT_SIGN.get()).build(null));;
-        public static Supplier<BlockEntityType<CustomCakeBlockEntity>> CUSTOM_CAKE_ENTITY = REGISTER.register("custom_cake", () -> BlockEntityType.Builder.of(CustomCakeBlockEntity::new, CUSTOM_CAKE.get()).build(null));;
-        public static Supplier<BlockEntityType<MouldCakeBlockEntity>> MOULD_CAKE_ENTITY = REGISTER.register("mould_cake", () -> BlockEntityType.Builder.of(MouldCakeBlockEntity::new, MOULD_CAKE.get()).build(null));;
+        public static final Supplier<BlockEntityType<LuminousLightSignBlockEntity>> LUMINOUS_LIGHT_SIGN_ENTITY = REGISTER.register("luminous_light_sign_", () -> BlockEntityType.Builder.of(LuminousLightSignBlockEntity::new, LUMINOUS_LIGHT_SIGN.get()).build(null));;
+        public static final Supplier<BlockEntityType<CustomCakeBlockEntity>> CUSTOM_CAKE_ENTITY = REGISTER.register("custom_cake", () -> BlockEntityType.Builder.of(CustomCakeBlockEntity::new, CUSTOM_CAKE.get()).build(null));;
+        public static final Supplier<BlockEntityType<MouldCakeBlockEntity>> MOULD_CAKE_ENTITY = REGISTER.register("mould_cake", () -> BlockEntityType.Builder.of(MouldCakeBlockEntity::new, MOULD_CAKE.get()).build(null));;
+        public static final Supplier<BlockEntityType<MagneticPlateBlockEntity>> MAGNETIC_PLATE_ENTITY = REGISTER.register("magnetic_plate", () -> BlockEntityType.Builder.of(MagneticPlateBlockEntity::new, MAGNETIC_PLATE.get()).build(null));;
+        public static final Supplier<BlockEntityType<MooncakeBlockEntity>> MOONCAKE_ENTITY = REGISTER.register("mooncake",()-> BlockEntityType.Builder.of(MooncakeBlockEntity::new, MOONCAKE.get()).build(null));
     }
 }

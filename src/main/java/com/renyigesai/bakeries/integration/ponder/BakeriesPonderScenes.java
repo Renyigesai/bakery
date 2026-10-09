@@ -1,14 +1,14 @@
 package com.renyigesai.bakeries.integration.ponder;
 
-import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
 import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.common.blocks.FermentationTankBlock;
 import com.renyigesai.bakeries.common.blocks.YeastTankBlock;
+import com.renyigesai.bakeries.common.blocks.magnetic_plate.MagneticPlateBlock;
+import com.renyigesai.bakeries.common.blocks.magnetic_plate.MagneticPlateBlockEntity;
 import com.renyigesai.bakeries.common.blocks.oven.OvenBlock;
 import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
-import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
-import com.simibubi.create.foundation.ponder.element.BeltItemElement;
+import com.simibubi.create.content.logistics.tableCloth.TableClothBlock;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.ponder.api.element.ElementLink;
 import net.createmod.ponder.api.element.EntityElement;
@@ -20,7 +20,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
 public class BakeriesPonderScenes {
@@ -614,6 +613,48 @@ public class BakeriesPonderScenes {
         scene.world().setBlock(cupPos, BakeriesBlocks.ICED_AMERICAN.get().defaultBlockState(), false); // Replace with appropriate filled cup block state if different
         scene.effects().indicateSuccess(cupPos);
         scene.idle(40);
+
+        scene.markAsFinished();
+    }
+
+    public static void magneictPlateScene(SceneBuilder scene, SceneBuildingUtil util){
+        scene.title("magneict_plate_set", "Magneict Plate");
+        scene.configureBasePlate(0, 0, 3);
+        scene.scaleSceneView(0.925F);
+        scene.setSceneOffsetY(-0.5F);
+        scene.showBasePlate();
+        scene.idle(10);
+
+        BlockPos mpPos = util.grid().at(1, 1, 1);
+        Vec3 controlNode = util.vector().topOf(mpPos);
+
+        scene.world().showSection(util.select().position(mpPos), Direction.DOWN);
+        scene.idle(10);
+
+        scene.overlay().showControls(controlNode, Pointing.DOWN, 10).rightClick().withItem(new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+        scene.effects().indicateSuccess(util.grid().at(1, 1, 1));
+        scene.world().modifyBlockEntity(util.grid().at(1,1,1), MagneticPlateBlockEntity.class, be -> {
+            be.setXyo0(new float[]{0.5f,0.5f});
+            be.getItems().setStackInSlot(0,new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+            be.update();
+        });
+        scene.idle(10);
+        scene.overlay().showText(20).placeNearTarget().text("The Magneict Plate can be used to display tools.").pointAt(util.vector().blockSurface(mpPos, Direction.WEST));
+        scene.idle(30);
+
+        scene.overlay().showControls(controlNode, Pointing.DOWN, 10).rightClick().withItem(new ItemStack(Items.IRON_BLOCK));
+        scene.effects().indicateSuccess(util.grid().at(1, 1, 1));
+        scene.world().cycleBlockProperty(util.grid().at(1,1,1), MagneticPlateBlock.CONTENT);
+        scene.world().modifyBlockEntity(util.grid().at(1,1,1), MagneticPlateBlockEntity.class, be -> {
+            be.getBlockState().setValue(MagneticPlateBlock.CONTENT,true);
+            be.setXyo0(new float[]{0.5f,0.5f});
+            be.getItems().setStackInSlot(0,new ItemStack(BakeriesItems.BREAD_KNIFE.get()));
+            be.setBlockId("minecraft:iron_block");
+            be.update();
+        });
+        scene.idle(10);
+        scene.overlay().showText(20).placeNearTarget().text("Any complete square can be used to change the texture of the Magneict Plate.").pointAt(util.vector().blockSurface(mpPos, Direction.WEST));
+        scene.idle(30);
 
         scene.markAsFinished();
     }

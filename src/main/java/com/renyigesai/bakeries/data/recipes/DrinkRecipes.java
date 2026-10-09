@@ -19,5 +19,8 @@ public class DrinkRecipes extends Recipes{
         DrinkBuilder.drink(BakeriesItems.MATCHA_LATTE.get(),1).addIngredient(Items.ICE).addIngredient(CommonTags.MILK).addIngredient(CommonTags.MATCHA).build(output);
         DrinkBuilder.drink(BakeriesItems.CREAM_BINGLE_COFFEE.get(),1).addIngredient(Items.PACKED_ICE).addIngredient(CommonTags.MILK).addIngredient(BakeriesItems.MOKA_POT_FILL.get()).addIngredient(BakeriesItems.FOAMED_CREAM).build(output);
         DrinkBuilder.drink(BakeriesItems.TARO_MILK.get(),1).addIngredient(Items.ICE).addIngredient(CommonTags.MILK).addIngredient(BakeriesItems.MASHED_TARO.get()).build(output);
+
+        DrinkBuilder.drink(BakeriesItems.BUTTER_LATTE.get(),1).addIngredient(Items.ICE).addIngredient(CommonTags.MILK).addIngredient(CommonTags.BUTTER).addIngredient(BakeriesItems.MOKA_POT_FILL.get()).build(output);
+        DrinkBuilder.drink(BakeriesItems.MILK_TEA.get(),1).addIngredient(Items.ICE).addIngredient(CommonTags.MILK).addIngredient(CommonTags.LEAVES).addIngredient(Items.ENDER_PEARL).build(output);
     }
 }

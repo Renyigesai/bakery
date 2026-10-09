@@ -192,11 +192,6 @@ public class BreadKnifeItem extends DiggerItem {
     }
 
     @Override
-    public int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
-        return 14;
-    }
-
-    @Override
     public int getEnchantmentValue(ItemStack stack) {
         return 14;
     }

@@ -38,5 +38,12 @@ public class OvenRecipes extends Recipes {
         OvenRecipeBuilder.oven(BakeriesItems.CUP_CAKE, 1, 200, 160, 190,180, Ingredient.of(new ItemStack(BakeriesItems.PAPER_CUP_CAKE_PASTE.get()))).save(output, name(BakeriesItems.CUP_CAKE.get()));
 
         OvenRecipeBuilder.oven(BakeriesItems.MOULD_POUND_CAKE, 1, 200, 170, 180, Ingredient.of(new ItemStack(BakeriesItems.MOULD_POUND_CAKE_PASTE.get()))).save(output, name(BakeriesItems.MOULD_POUND_CAKE.get()));
+
+        OvenRecipeBuilder.oven(BakeriesItems.SCONE, 1, 200, 180, 200, Ingredient.of(new ItemStack(BakeriesItems.SCONE_DOUGH.get()))).save(output, name(BakeriesItems.SCONE.get()));
+
+        OvenRecipeBuilder.oven(BakeriesItems.PORK_MOONCAKE, 1, 200, 170, 180,180, Ingredient.of(new ItemStack(BakeriesItems.RAW_PORK_MOONCAKE.get()))).save(output, name(BakeriesItems.PORK_MOONCAKE.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.YUNTUI_MOONCAKE, 1, 200, 180, 200, Ingredient.of(new ItemStack(BakeriesItems.RAW_YUNTUI_MOONCAKE.get()))).save(output, name(BakeriesItems.YUNTUI_MOONCAKE.get()));
+        OvenRecipeBuilder.oven(BakeriesItems.MOONCAKE, 1, 200, 170, 180,180, Ingredient.of(new ItemStack(BakeriesItems.RAW_MOONCAKE.get()))).save(output, name(BakeriesItems.MOONCAKE.get()));
+
     }
 }

@@ -78,6 +78,8 @@ public class BlockStates extends BlockStateProvider {
         pileBlock(BakeriesBlocks.CUP_CAKE);
         pileBlock(BakeriesBlocks.TARO_CAKE);
         pileBlock(BakeriesBlocks.DONGPO_PORK_HAMBURG);
+        mooncakeBlock(BakeriesBlocks.PORK_MOONCAKE);
+        mooncakeBlock(BakeriesBlocks.YUNTUI_MOONCAKE);
 
         /*蛋糕方块*/
         cakeBaseBlock(BakeriesBlocks.CAKE_BASE);
@@ -98,6 +100,8 @@ public class BlockStates extends BlockStateProvider {
         drinkBlock(BakeriesBlocks.MATCHA_LATTE);
         drinkBlock(BakeriesBlocks.TARO_MILK);
         drinkBlock(BakeriesBlocks.ORANGE_AMERICAN);
+        drinkBlock(BakeriesBlocks.BUTTER_LATTE);
+        drinkBlock(BakeriesBlocks.MILK_TEA);
 
         /*吐司*/
         toastBlock(BakeriesBlocks.TOAST);
@@ -141,6 +145,25 @@ public class BlockStates extends BlockStateProvider {
             for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
                 for (int size : pile.getPileProperty().getPossibleValues()) {
                     ModelFile modelFile = this.models().withExistingParent(this.name(block.get()) + "_" + size, this.modLoc("custom/" + modelName + "_" + size)).texture("0", this.modLoc("block/" + textureName)).texture("particle", this.modLoc("block/" + textureName)).renderType(CUTOUT);
+                    this.getVariantBuilder(block.get())
+                            .partialState()
+                            .with(pile.getPileProperty(), size)
+                            .with(BlockStateProperties.HORIZONTAL_FACING, direction)
+                            .modelForState()
+                            .rotationY((int) direction.getOpposite().toYRot())
+                            .modelFile(modelFile)
+                            .addModel();
+                }
+            }
+        }
+    }
+
+    public void mooncakeBlock(Supplier<Block> block){
+        String name = this.name(block.get());
+        if (block.get() instanceof AbstractPileBlock pile) {
+            for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
+                for (int size : pile.getPileProperty().getPossibleValues()) {
+                    ModelFile modelFile = this.models().withExistingParent(this.name(block.get()) + "_" + size, this.modLoc("custom/" + name + "_" + size)).texture("0", this.modLoc("block/" + name)).texture("1",this.modLoc("block/" + "wood_tray")).texture("particle", this.modLoc("block/" + name)).renderType(CUTOUT);
                     this.getVariantBuilder(block.get())
                             .partialState()
                             .with(pile.getPileProperty(), size)

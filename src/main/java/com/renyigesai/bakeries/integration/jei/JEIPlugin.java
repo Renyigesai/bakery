@@ -57,11 +57,6 @@ public class JEIPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerIngredientAliases(IIngredientAliasRegistration registration) {
-        registration.addAlias(BakeriesItems.MOULD_CAKE_BASE.asItem().getDefaultInstance(),"cake");
-    }
-
-    @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.OVEN.get()), BakeriesRecipeTypes.JEI.OVEN);
         registration.addRecipeCatalyst(new ItemStack(BakeriesItems.DOUGH_CRAFTING_TABLE.get()), BakeriesRecipeTypes.JEI.DOUGH_CRAFTING);

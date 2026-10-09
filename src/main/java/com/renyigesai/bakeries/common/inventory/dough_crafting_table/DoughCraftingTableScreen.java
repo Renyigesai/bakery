@@ -65,6 +65,12 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          }
       }
    }
+
+   @Override
+   protected void renderLabels(GuiGraphics guiGraphics, int p_282681_, int p_283686_) {
+      guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+   }
+
    private void renderButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex) {
       for(int i = this.startIndex; i < pLastVisibleElementIndex && i < this.menu.getNumRecipes(); ++i) {
          int j = i - this.startIndex;

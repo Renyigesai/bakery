@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:oven",
+  "ingredient": {
+    "item": "bakeries:raw_yuntui_mooncake"
+  },
+  "max": 200,
+  "min": 180,
+  "result": {
+    "count": 1,
+    "id": "bakeries:yuntui_mooncake"
+  },
+  "time": 200
+}

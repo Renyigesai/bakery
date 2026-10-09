@@ -190,7 +190,7 @@ public class BakeriesEvents {
         Player entity = event.getEntity();
         if (!ModList.get().isLoaded("patchouli")){
             if (!entity.level().isClientSide){
-                entity.displayClientMessage(Component.translatable("tooltip.bakeries.player_logged_in"), false);
+                entity.displayClientMessage(Component.translatable("tooltips.bakeries.player_logged_in"), false);
                 return;
             }
         }

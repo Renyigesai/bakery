@@ -33,6 +33,9 @@ public class BakeriesRecipeTypes {
     public static final Supplier<RecipeType<FermentationBoxRecipe>> FERMENTATION_BOX_TYPE = RECIPE_TYPE.register("fermentation_box", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"fermentation_box")));
     public static final Supplier<RecipeSerializer<?>> FERMENTATION_BOX_SERIALIZERS = SERIALIZERS.register("fermentation_box", ()-> new MultiOutputSingleItemRecipe.Serializer<>(FermentationBoxRecipe::new));
 
+    public static final Supplier<RecipeType<MooncakeRecipe>> MOONCAKE_TYPE = RECIPE_TYPE.register("mooncake", () -> RecipeType.simple(ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"mooncake")));
+    public static final Supplier<RecipeSerializer<?>> MOONCAKE_SERIALIZERS = SERIALIZERS.register("mooncake", MooncakeRecipe.Serializer::new);
+
     @SubscribeEvent
     public static void register(FMLConstructModEvent event) {
         event.enqueueWork(() -> {

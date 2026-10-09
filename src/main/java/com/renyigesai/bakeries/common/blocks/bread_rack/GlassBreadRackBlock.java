@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,39 +33,32 @@ public class GlassBreadRackBlock extends BreadRackBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand hand, BlockHitResult hitResult) {
-        if (pLevel.isClientSide){
+        if (pLevel.isClientSide) {
             return ItemInteractionResult.SUCCESS;
         }
+
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (!(blockEntity instanceof BreadRackBlockEntity rackBlock)){
+        if (!(blockEntity instanceof BreadRackBlockEntity rackBlock)) {
             return ItemInteractionResult.FAIL;
         }
+
         boolean open = pState.getValue(OPEN);
-        ItemStack itemInHand = pPlayer.getItemInHand(hand);
-        if (open && pPlayer.isShiftKeyDown()){
-            return super.take(rackBlock,pState,pLevel,pPos,pPlayer,hitResult);
-        }
-        if (rackBlock.getItemsCount() == 4){
-            pLevel.blockEvent(pPos,pState.getBlock(), 0,open ? 1 : 0);
-            pLevel.setBlock(pPos,pState.setValue(OPEN,!open),3);
-            pLevel.playSound(null,pPos, open? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
+
+        int slot = getSlotFromHit(hitResult.getLocation(), pPos, pState.getValue(FACING), hitResult.getDirection().getOpposite());
+        boolean clickedEmptySlot = slot != -1 && rackBlock.getItems().getStackInSlot(slot).isEmpty() && pPlayer.getItemInHand(hand).isEmpty();
+
+        if (!open || pPlayer.isShiftKeyDown() || clickedEmptySlot) {
+            boolean newOpen = !open;
+            pLevel.blockEvent(pPos, pState.getBlock(), 0, newOpen ? 0 : 1);
+            rackBlock.setOpen(newOpen);
+            pLevel.playSound(null, pPos, newOpen ? SoundEvents.IRON_DOOR_OPEN : SoundEvents.IRON_DOOR_CLOSE, SoundSource.PLAYERS, 0.8F, 0.8F);
             return ItemInteractionResult.SUCCESS;
         }
-        if (itemInHand.isEmpty()){
-            pLevel.blockEvent(pPos,pState.getBlock(), 0,open ? 1 : 0);
-            pLevel.setBlock(pPos,pState.setValue(OPEN,!open),3);
-            pLevel.playSound(null,pPos, open? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
-        }else {
-            if (open){
-                return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, hand, hitResult);
-            }else {
-                pLevel.blockEvent(pPos,pState.getBlock(), 0,0);
-                pLevel.setBlock(pPos,pState.setValue(OPEN,true),3);
-                pLevel.playSound(null,pPos, SoundEvents.IRON_DOOR_OPEN, SoundSource.PLAYERS, 0.8F, 0.8F);
-            }
-        }
-        return ItemInteractionResult.FAIL;
+
+        return super.useItemOn(stack, pState, pLevel, pPos, pPlayer, hand, hitResult);
     }
+
+
 
     @Nullable
     @Override

@@ -23,6 +23,7 @@ public class BreadRackBlockEntity extends BlockEntity {
             return 1;
         }
     };
+    private boolean open;
 
     public State state = State.CLOSE;
     public float progress;
@@ -45,7 +46,11 @@ public class BreadRackBlockEntity extends BlockEntity {
         }
     }
 
-    public boolean setItem(int slot ,ItemStack stack){
+    public boolean isOpen() {
+        return open;
+    }
+
+    public boolean setItem(int slot , ItemStack stack){
         items.setStackInSlot(slot,stack);
         updateBlock();
         return true;
@@ -103,12 +108,14 @@ public class BreadRackBlockEntity extends BlockEntity {
         if (tag.contains("Items")) {
             items.deserializeNBT(registries,tag.getCompound("Items"));
         }
+        open = tag.getBoolean("Open");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.put("Items",items.serializeNBT(registries));
+        tag.putBoolean("Open",open);
     }
 
     public void updateBlock() {
@@ -168,6 +175,17 @@ public class BreadRackBlockEntity extends BlockEntity {
                 blockEntity.progress = 0.0F;
                 break;
         }
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+        if (level != null) {
+            BlockState state = level.getBlockState(worldPosition);
+            if (state.hasProperty(GlassBreadRackBlock.OPEN)) {
+                level.setBlock(worldPosition, state.setValue(GlassBreadRackBlock.OPEN, open), 3);
+            }
+        }
+        updateBlock();
     }
 
     public enum State {

@@ -1,0 +1,9 @@
+{
+  "parent": "bakeries:custom/yuntui_mooncake_4",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "bakeries:block/yuntui_mooncake",
+    "1": "bakeries:block/wood_tray",
+    "particle": "bakeries:block/yuntui_mooncake"
+  }
+}

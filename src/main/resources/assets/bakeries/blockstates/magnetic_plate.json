@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=east": {"model": "bakeries:block/magnetic_plate", "y": 270},
+
+    "facing=north": {"model": "bakeries:block/magnetic_plate", "y": 180},
+
+    "facing=south": {"model": "bakeries:block/magnetic_plate"},
+
+    "facing=west": {"model": "bakeries:block/magnetic_plate", "y": 90}
+  }
+}

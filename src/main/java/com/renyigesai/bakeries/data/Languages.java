@@ -87,6 +87,9 @@ public class Languages extends AbstractLanguageProvider {
         add(setTooltips(BakeriesMod.MODID, "perfect_fermentation"), "Perfect Fermentation", "完美发酵");
         add(setTooltips(BakeriesMod.MODID, "pile_item_place"), "Place", "可放置");
         add(setTooltips(BakeriesMod.MODID, "player_logged_in"), "§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book", "§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
+        add(setTooltips(BakeriesMod.MODID, "mooncake"), "%sFilling", "%s馅");
+        add(setTooltips(BakeriesMod.MODID, "raw_mooncake"), "Any food can be used as the filling to be combined together.", "可放入任意食物作为馅料合成");
+        add(setTooltips(BakeriesMod.MODID, "give_mooncake"), "You have received mooncakes from %s", "您收到了来自%s的月饼");
         add("bakeries.book.name","Baking Guide","烘焙教科书");
         add("key.bakeries.bakeries","Bakeries","烘焙坊");
         add("key.bakeries.auxiliary","Auxiliary","辅助按键");
@@ -197,6 +200,7 @@ public class Languages extends AbstractLanguageProvider {
         addAdvancement("get_taro",translateText("Meetion","芋见你"),translateText("Get Taro.","获得芋头。"));
         addAdvancement("get_cream_cake",translateText("Cake! Eat Cake!","蛋糕！吃下蛋糕！"),translateText("Get Cream Cake.","获得一个奶油蛋糕。"));
         addAdvancement("get_tea_astringent",translateText("No trespassing","不可侵"),translateText("Get tea astringent effect.","获得茶涩效果。"));
+        addAdvancement("get_butter_latter",translateText("Full Sugar!!","全糖！！"),translateText("get Butter Latte.","获得黄油拿铁。"));
     }
 
     private void addPatchoulis(){
@@ -406,5 +410,17 @@ public class Languages extends AbstractLanguageProvider {
         add("bakeries.ponder.moka_pot_brewing.text_5",
                 "Use the filled Moka Pot with other ingredients to make coffee",
                 "使用装满的摩卡壶加上其他材料来制成咖啡");
+
+        add("bakeries.ponder.magneict_plate_set.header",
+                "Use the Magneict Plate display tool",
+                "使用磁板展示工具");
+
+        add("bakeries.ponder.magneict_plate_set.text_1",
+                "The Magneict Plate can be used to display tools.",
+                "磁板可以用来展示工具");
+
+        add("bakeries.ponder.magneict_plate_set.text_2",
+                "Any complete square can be used to change the texture of the Magneict Plate.",
+                "使用任意完整方块更改磁板纹理");
     }
 }

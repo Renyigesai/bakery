@@ -180,5 +180,12 @@ public class BlenderRecipes extends Recipes{
                 .addIngredient(CommonTags.FLOUR)
                 .addIngredient(Items.SUGAR)
                 .build(output);
+
+        BlenderBuilder.blender(BakeriesItems.CRISPY_DOUGH,1)
+                .addIngredient(BakeriesItems.BUTTER_FLOUR_SAND)
+                .addIngredient(BakeriesItems.BUTTER_FLOUR_SAND)
+                .addIngredient(CommonTags.EGG)
+                .addIngredient(BakeriesItems.BOTTLE_CREAM)
+                .build(output);
     }
 }

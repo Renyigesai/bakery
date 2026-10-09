@@ -2,17 +2,7 @@ package com.renyigesai.bakeries.common.init;
 
 import com.google.common.collect.ImmutableList;
 import com.renyigesai.bakeries.BakeriesMod;
-import com.renyigesai.bakeries.common.client.render.block.BlenderRenderer;
-import com.renyigesai.bakeries.common.client.render.block.BreadRackRender;
-import com.renyigesai.bakeries.common.client.render.block.CustomCakeRenderer;
-import com.renyigesai.bakeries.common.client.render.block.FermentationBoxRender;
-import com.renyigesai.bakeries.common.client.render.block.LuminousLightSignBlockEntityRender;
-import com.renyigesai.bakeries.common.client.render.block.MenuRender;
-import com.renyigesai.bakeries.common.client.render.block.MixBlockRender;
-import com.renyigesai.bakeries.common.client.render.block.MokaPotRender;
-import com.renyigesai.bakeries.common.client.render.block.MouldCakeRenderer;
-import com.renyigesai.bakeries.common.client.render.block.OvenRender;
-import com.renyigesai.bakeries.common.client.render.block.ToasterRender;
+import com.renyigesai.bakeries.common.client.render.block.*;
 import com.renyigesai.bakeries.common.client.model.*;
 import com.renyigesai.bakeries.common.items.MouldPasteItem;
 import net.minecraft.client.Minecraft;
@@ -50,6 +40,7 @@ public class BakeriesClientHandler {
         event.registerBlockEntityRenderer(BakeriesBlocks.Entities.LUMINOUS_LIGHT_SIGN_ENTITY.get(), LuminousLightSignBlockEntityRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.Entities.MOULD_CAKE_ENTITY.get(), MouldCakeRenderer::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.Entities.CUSTOM_CAKE_ENTITY.get(), CustomCakeRenderer::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.Entities.MAGNETIC_PLATE_ENTITY.get(), MagneticPlateRenderer::new);
     }
 
     @SubscribeEvent

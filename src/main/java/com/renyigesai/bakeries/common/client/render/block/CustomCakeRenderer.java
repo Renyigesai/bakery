@@ -9,17 +9,21 @@ import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,12 +41,15 @@ public class CustomCakeRenderer implements BlockEntityRenderer<CustomCakeBlockEn
         String candleId = cc.getCandleId();
         Direction direction = cc.getBlockState().getValue(CustomCakeBlock.FACING);
 
-        renderCake(partIds,direction,v,poseStack,multiBufferSource,i,i1,true,candleId);
+        if (cc.getLevel() == null){
+            return;
+        }
+        renderCake(partIds,cc.getLevel(),cc.getBlockState(),cc.getBlockPos(),direction,v,poseStack,multiBufferSource,i,i1,true,candleId);
 
     }
 
     /**1.3.1新增，可直接在调用自定义蛋糕渲染*/
-    public static void renderCake(List<String> partIds,Direction direction,float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1,boolean renderParer,@Nullable String candleId){
+    public static void renderCake(List<String> partIds,Level level,BlockState state,BlockPos pos,Direction direction,float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1,boolean renderParer,@Nullable String candleId){
 
         if (renderParer){
             poseStack.pushPose();
@@ -62,7 +69,7 @@ public class CustomCakeRenderer implements BlockEntityRenderer<CustomCakeBlockEn
             }
             poseStack.translate(-0.5, 0.0, -0.5);
             poseStack.scale(1, 1, 1);
-            renderModel(model, poseStack, multiBufferSource, i, i1);
+            renderModel(level,state,pos,model,poseStack,multiBufferSource,i,i1);
             poseStack.popPose();
         }
 
@@ -83,19 +90,16 @@ public class CustomCakeRenderer implements BlockEntityRenderer<CustomCakeBlockEn
         }
     }
 
-    private static void renderModel(BakedModel model, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
-        RenderType renderType = RenderType.cutout();
-        VertexConsumer consumer = buffer.getBuffer(renderType);
+    private static void renderModel(Level level, BlockState state, BlockPos pos, BakedModel model, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        RandomSource rand = RandomSource.create(42L);
+        ModelData data = ModelData.EMPTY;
 
-        for (Direction direction : Direction.values()) {
-            List<BakedQuad> quads = model.getQuads(null, direction, RandomSource.create(), ModelData.EMPTY, renderType);
-            for (BakedQuad quad : quads) {
-                consumer.putBulkData(poseStack.last(), quad, 1.0f, 1.0f, 1.0f,1.0f, light, overlay);
-            }
-        }
-        List<BakedQuad> generalQuads = model.getQuads(null, null, RandomSource.create(), ModelData.EMPTY, renderType);
-        for (BakedQuad quad : generalQuads) {
-            consumer.putBulkData(poseStack.last(), quad, 1.0f, 1.0f, 1.0f,1.0f, light, overlay);
+        ModelBlockRenderer renderer = Minecraft.getInstance().getBlockRenderer().getModelRenderer();
+
+        for (RenderType renderType : model.getRenderTypes(state, rand, data)) {
+            VertexConsumer consumer = buffer.getBuffer(renderType);
+
+            renderer.tesselateWithAO(level,model,state,pos,poseStack,consumer,true,RandomSource.create(),42L,packedOverlay,data,renderType);
         }
     }
 

@@ -62,7 +62,11 @@ public class BlockLootTables extends VanillaBlockLoot {
                 BakeriesBlocks.SALMON_SANDWICH.get(),
                 BakeriesBlocks.CUP_CAKE.get(),
                 BakeriesBlocks.TARO_CAKE.get(),
-                BakeriesBlocks.DONGPO_PORK_HAMBURG.get()
+                BakeriesBlocks.DONGPO_PORK_HAMBURG.get(),
+                BakeriesBlocks.PORK_MOONCAKE.get(),
+                BakeriesBlocks.YUNTUI_MOONCAKE.get(),
+                BakeriesBlocks.BUTTER_LATTE.get(),
+                BakeriesBlocks.MILK_TEA.get()
         );
         this.dropSelf(BakeriesBlocks.SALT_ORE.get());
         this.dropSelf(BakeriesBlocks.DEEPSLATE_SALT_ORE.get());
@@ -94,6 +98,7 @@ public class BlockLootTables extends VanillaBlockLoot {
         this.dropSelf(BakeriesBlocks.LUMINOUS_LIGHT_SIGN.get());
         this.dropSelf(BakeriesBlocks.BLACK_WHITE_CONCRETE.get());
         this.dropSelf(BakeriesBlocks.BREAD_HOLDERS.get());
+        this.dropSelf(BakeriesBlocks.MAGNETIC_PLATE.get());
     }
     private void forAddAllBread(Block... blocks){
         List<Block> blockList = List.of(blocks);

@@ -48,12 +48,12 @@ public class OvenMenu extends AbstractContainerMenu{
         this.container = pContainer;
         this.addDataSlots(pData);
 
-        addSlot(new OvenSlot(pContainer,0,52, 16));
-        addSlot(new OvenSlot(pContainer,1, 70, 16));
-        addSlot(new OvenSlot(pContainer,2, 88, 16));
-        addSlot(new OvenSlot(pContainer,3, 52, 46));
-        addSlot(new OvenSlot(pContainer,4, 70, 46));
-        addSlot(new OvenSlot(pContainer,5, 88, 46));
+        addSlot(new OvenSlot(pContainer,0,52, 20));
+        addSlot(new OvenSlot(pContainer,1, 70, 20));
+        addSlot(new OvenSlot(pContainer,2, 88, 20));
+        addSlot(new OvenSlot(pContainer,3, 52, 50));
+        addSlot(new OvenSlot(pContainer,4, 70, 50));
+        addSlot(new OvenSlot(pContainer,5, 88, 50));
 
         for (int si = 0; si < 3; ++si)
             for (int sj = 0; sj < 9; ++sj)

@@ -10,7 +10,6 @@
     "SnifferMixin"
   ],
   "client": [
-    "AdvancementTabMixin",
     "CreativeModeInventoryScreenMixin",
     "GameRendererMixin"
   ],

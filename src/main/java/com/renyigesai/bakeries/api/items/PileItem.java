@@ -73,10 +73,6 @@ public class PileItem extends BlockItem {
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        if (!(living instanceof Player player && player.getAbilities().instabuild)) {
-//            stack.shrink(1);
-        }
-
         if (stack.isEmpty()) {
             return stack.getCraftingRemainingItem();
         }

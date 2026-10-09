@@ -1,6 +1,8 @@
 package com.renyigesai.bakeries.common.blocks.oven;
 
 
+import com.renyigesai.bakeries.common.init.BakeriesItems;
+import com.renyigesai.bakeries.common.items.MooncakeItem;
 import io.netty.buffer.Unpooled;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -358,12 +360,22 @@ public class OvenBlockEntity extends BlockEntity implements Container, MenuProvi
             OvenRecipe recipeValue = recipe.get().value();
             ItemStack result = recipeValue.getResultItem(null);
             ItemStack takeItem = new ItemStack(result.getItem(), result.getCount());
+            takeItem = craftMooncake(ovenBlockEntity,slot, recipe.get().value(),takeItem);
             if (perfect){
                 takeItem.set(BakeriesDataComponents.PERFECT.get(), true);
             }
             this.itemHandler.setStackInSlot(slot, takeItem);
             updateBlock(ovenBlockEntity);
         }
+    }
+
+    private ItemStack craftMooncake(OvenBlockEntity oven, int slot,OvenRecipe recipe,ItemStack old){
+        ItemStack input = oven.getItemHandler().getStackInSlot(slot);
+        if (input.is(BakeriesItems.RAW_MOONCAKE.get())){
+            ItemStack output = recipe.getResultItem(null);
+            return MooncakeItem.copyAttribute(input, output);
+        }
+        return old;
     }
 
     private boolean hasRecipe(int slot) {

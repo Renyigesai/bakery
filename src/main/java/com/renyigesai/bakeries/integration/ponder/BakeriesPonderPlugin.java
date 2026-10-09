@@ -56,6 +56,12 @@ public class BakeriesPonderPlugin implements PonderPlugin {
                 BakeriesPonderScenes::mokaPotScene,
                 BAKERIES_TAG
         );
+        HELPER.forComponents(
+                BakeriesItems.MAGNETIC_PLATE
+        ).addStoryBoard(
+                "magneict_plate",
+                BakeriesPonderScenes::magneictPlateScene
+        );
     }
 
     @Override

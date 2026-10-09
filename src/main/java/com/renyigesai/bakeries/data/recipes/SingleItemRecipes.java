@@ -27,10 +27,6 @@ public class SingleItemRecipes extends Recipes{
     }
 
     private static void onDoughCrafting(RecipeOutput output){
-//        List<ICondition> conditions = List.of(
-//                new ConfigCondition("","","")
-//        );
-//        ConfigCondition configCondition = new ConfigCondition("fermentationGameplay", "boolean", "false");
         addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SWEET_DOUGH),Ingredient.of(BakeriesItems.SWEET_DOUGH_FERMENTATION),BakeriesItems.BAGEL_DOUGH,4,output);
         addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.WHOLE_WHEAT_DOUGH),Ingredient.of(BakeriesItems.WHOLE_WHEAT_DOUGH_FERMENTATION),BakeriesItems.WHOLE_WHEAT_BAGEL_DOUGH,4,output);
         addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SWEET_DOUGH),Ingredient.of(BakeriesItems.SWEET_DOUGH_FERMENTATION),BakeriesItems.ROUND_BREAD_DOUGH,6,output);
@@ -39,6 +35,7 @@ public class SingleItemRecipes extends Recipes{
         addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SALTED_DOUGH),Ingredient.of(BakeriesItems.SALTED_DOUGH_FERMENTATION),BakeriesItems.CIABATTA_DOUGH,4,output);
         addDoughCraftingFermentationGameplay(Ingredient.of(BakeriesItems.SALTED_DOUGH),Ingredient.of(BakeriesItems.SALTED_DOUGH_FERMENTATION),BakeriesItems.COUNTRY_BREAD_DOUGH,1,output);
         addDoughCrafting(Ingredient.of(BakeriesItems.PASTRY),BakeriesItems.EGG_TART_SHELL,3,output);
+        addDoughCrafting(Ingredient.of(BakeriesItems.CRISPY_DOUGH),BakeriesItems.SCONE_DOUGH,8,output);
     }
 
     private static void onBreadKnife(RecipeOutput output){
