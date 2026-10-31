@@ -32,6 +32,22 @@ public class AddPackEvent {
                 if (pack1 != null) {
                     consumer.accept(pack1);
                 }
+
+                Pack pack2 = Pack.readMetaAndCreate(BakeriesMod.prefix("b_xiris").toString(),
+                        Component.translatable("pack.bakeries.xiris"), false, id ->
+                                new BakeriesFilePackResource(id, modFile, "resourcepacks/b_xiris"),
+                        PackType.CLIENT_RESOURCES, Pack.Position.TOP, PackSource.BUILT_IN);
+                if (pack2 != null) {
+                    consumer.accept(pack2);
+                }
+
+                Pack pack3 = Pack.readMetaAndCreate(BakeriesMod.prefix("b_gui").toString(),
+                        Component.translatable("pack.bakeries.gui"), false, id ->
+                                new BakeriesFilePackResource(id, modFile, "resourcepacks/b_gui"),
+                        PackType.CLIENT_RESOURCES, Pack.Position.TOP, PackSource.BUILT_IN);
+                if (pack3 != null) {
+                    consumer.accept(pack3);
+                }
             });
         }
     }

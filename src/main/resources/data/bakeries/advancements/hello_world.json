@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:grass_block"
+    },
+    "title": {
+      "translate": "advancements.bakeries.hello_world.title"
+    },
+    "description": {
+      "translate": "advancements.bakeries.hello_world.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "hello_world": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "bakeries:root"
+}

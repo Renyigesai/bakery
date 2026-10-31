@@ -1,21 +1,11 @@
 package com.renyigesai.bakeries.mixin;
 
-import com.renyigesai.bakeries.api.event.SnifferDropSeedEvent;
-import com.renyigesai.bakeries.init.BakeriesItems;
+import com.renyigesai.bakeries.util.BakeriesHooks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.common.MinecraftForge;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +25,6 @@ public abstract class SnifferMixin extends Animal {
     private void dropSeed(CallbackInfo ci){
         Level level = this.level();
         BlockPos headBlock = this.getHeadBlock();
-        SnifferDropSeedEvent snifferDropSeedEvent = new SnifferDropSeedEvent(level,headBlock);
-        MinecraftForge.EVENT_BUS.post(snifferDropSeedEvent);
+        BakeriesHooks.onSnifferDropSeed(level,headBlock);
     }
 }

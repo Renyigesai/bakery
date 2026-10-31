@@ -15,6 +15,7 @@ import java.util.Objects;
 public class LuminousLightSignBlockEntity extends BlockEntity {
     private String text;
     private int color;
+    private boolean center = true;
     public LuminousLightSignBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BakeriesBlocks.LUMINOUS_LIGHT_SIGN_ENTITY.get(), pPos, pBlockState);
     }
@@ -35,11 +36,20 @@ public class LuminousLightSignBlockEntity extends BlockEntity {
         this.color = color;
     }
 
+    public boolean isCenter() {
+        return center;
+    }
+
+    public void setCenter(boolean center) {
+        this.center = center;
+    }
+
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
         pTag.putString("Text", Objects.requireNonNullElse(text, ""));
         pTag.putInt("Color",color);
+        pTag.putBoolean("Center",center);
     }
 
     @Override
@@ -49,6 +59,7 @@ public class LuminousLightSignBlockEntity extends BlockEntity {
             text = pTag.getString("Text");
         }
         color = pTag.getInt("Color");
+        center = pTag.getBoolean("Center");
     }
 
     public CompoundTag getUpdateTag() {
@@ -59,6 +70,15 @@ public class LuminousLightSignBlockEntity extends BlockEntity {
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    public void update() {
+        if (level == null){
+            return;
+        }
+        BlockState state = level.getBlockState(worldPosition);
+        setChanged(level, worldPosition, state);
+        level.sendBlockUpdated(worldPosition, state, state, 3);
     }
 
 

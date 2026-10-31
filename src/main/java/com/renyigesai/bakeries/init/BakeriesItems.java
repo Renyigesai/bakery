@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -184,6 +185,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> TRAY_SCONE;
     public static final RegistryObject<Item> CREAM_PUMPKIN_PIE;
     public static final RegistryObject<Item> EGG_TART;
+    public static final RegistryObject<Item> LONG_EGG_TART;
     public static final RegistryObject<Item> CUSTOM_PIZZA;
     public static final RegistryObject<Item> MOONCAKE;
     public static final RegistryObject<Item> PORK_MOONCAKE;
@@ -247,6 +249,7 @@ public class BakeriesItems {
     public static final RegistryObject<Item> EGG_TART_SHELL;
     public static final RegistryObject<Item> PIZZA_FLATBREAD;
     public static final RegistryObject<Item> LUMINOUS_LIGHT_SIGN;
+    public static final RegistryObject<Item> LIGHT_BOX;
     public static final RegistryObject<Item> FERMENTATION_BOX;
     public static final RegistryObject<Item> CHANDELIER;
     public static final RegistryObject<Item> SWEET_BERRIES_JAM;
@@ -266,6 +269,8 @@ public class BakeriesItems {
     public static final RegistryObject<Item> MATCHA_PARFAIT;
     public static final RegistryObject<Item> TARO_MILK;
     public static final RegistryObject<Item> MILK_TEA;
+
+    public static final RegistryObject<Item> DEBUG_ITEM = item("debug_item");
 
     static {
         /*
@@ -415,6 +420,7 @@ public class BakeriesItems {
         CASH_REGISTER_COMPUTER = block(BakeriesBlocks.CASH_REGISTER_COMPUTER);
         PIZZA_FLATBREAD = block(BakeriesBlocks.PIZZA_FLATBREAD);
         LUMINOUS_LIGHT_SIGN = block(BakeriesBlocks.LUMINOUS_LIGHT_SIGN);
+        LIGHT_BOX = block(BakeriesBlocks.LIGHT_BOX);
         FERMENTATION_BOX = block(BakeriesBlocks.FERMENTATION_BOX);
         CHANDELIER = block(BakeriesBlocks.CHANDELIER);
         SWEET_BERRIES_JAM = REGISTER.register("sweet_berries_jam",()-> new PileItem(BakeriesBlocks.SWEET_BERRIES_JAM.get(),new PileItem.PileProperties().placeSound(SoundEvents.GLASS_PLACE).itemProperties(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16))));
@@ -496,8 +502,11 @@ public class BakeriesItems {
         TRAY_SCONE = REGISTER.register("tray_scone",()->new BlockItem(BakeriesBlocks.TRAY_SCONE.get(),new Item.Properties().craftRemainder(BakeriesItems.WOOD_TRAY.get()).stacksTo(1)));
         CREAM_PUMPKIN_PIE = block(BakeriesBlocks.CREAM_PUMPKIN_PIE);
         EGG_TART = foodBlockItem(BakeriesBlocks.EGG_TART,BakeriesFoodProperties.EGG_TART,true,false);
+        LONG_EGG_TART = REGISTER.register("long_egg_tart",()-> new RepeatEatItem(BakeriesBlocks.LONG_EGG_TART.get(), PileBlock.integerProperty,new Item.Properties().food(BakeriesFoodProperties.EGG_TART).stacksTo(1),4,true,false) {
+
+        });
         CUSTOM_PIZZA = REGISTER.register("custom_pizza", ()-> new CustomPizzaItem(BakeriesBlocks.CUSTOM_PIZZA.get()));
-        MOONCAKE = REGISTER.register("mooncake",()-> new  MooncakeItem(BakeriesBlocks.MOONCAKE.get(),new Item.Properties().stacksTo(16).food(BakeriesFoodProperties.MOONCAKE)));
+        MOONCAKE = REGISTER.register("mooncake",()-> new MooncakeItem(BakeriesBlocks.MOONCAKE.get(),new Item.Properties().stacksTo(16).food(BakeriesFoodProperties.MOONCAKE)));
         PORK_MOONCAKE = foodBlockItem(BakeriesBlocks.PORK_MOONCAKE,BakeriesFoodProperties.PORK_MOONCAKE);
 
         /*饮料物品*/

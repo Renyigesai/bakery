@@ -33,7 +33,6 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
    private boolean displayRecipes;
    public int x,y,z;
    private final Inventory pPlayerInventory;
-   private double savedMouseX, savedMouseY;
 
    public DoughCraftingTableScreen(DoughCraftingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
       super(pMenu, pPlayerInventory, pTitle);
@@ -53,7 +52,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
       int j = this.topPos;
       pGuiGraphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
       int k = (int)(41.0F * this.scrollOffs);
-      pGuiGraphics.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12, 15);
+      pGuiGraphics.blit(BG_LOCATION, i + 119, j + 15 + k, 176 + (this.isScrollBarActive() ? 0 : 12), 0, 12 , 15);
       int l = this.leftPos + 52;
       int i1 = this.topPos + 14;
       int j1 = this.startIndex + 12;
@@ -104,6 +103,11 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
          int i1 = pY + l * 18 + 2;
          pGuiGraphics.renderItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, i1);
       }
+   }
+
+   @Override
+   protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+      pGuiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
    }
 
    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
@@ -170,6 +174,7 @@ public class DoughCraftingTableScreen extends AbstractContainerScreen<DoughCraft
 
    @Override
    protected void init() {
+      super.init();
       super.init();
       MouseFix.mouseRecovery();
       for (int i = 0; i < 3; i++) {

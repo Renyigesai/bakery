@@ -38,9 +38,8 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
 
     public BlenderScreen(BlenderMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = 176; // GUI 宽度
+        this.imageWidth = 175; // GUI 宽度
         this.imageHeight = 166; // GUI 高度
-        this.titleLabelX = 6;
         this.titleLabelY = 4;// GUI标题高度
         this.blockEntity = menu.getBlockEntity();
         this.x = menu.x;
@@ -56,7 +55,7 @@ public class BlenderScreen extends AbstractContainerScreen<BlenderMenu> {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
-        pGuiGraphics.blit(TEXTURE, x+7, y+17, 176, 0, 42, 52);
+        pGuiGraphics.blit(TEXTURE, x + 7, y + 17, 176, 0, 42, 52);
     }
 
     @Override

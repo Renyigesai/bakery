@@ -1,10 +1,9 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
+import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -29,7 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
-public class ToastBlock extends AKnifeCutBlock {
+public class ToastBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
     /*由于吐司只是一个单纯的方块，他的物品不需要可食用*/
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
     protected static final VoxelShape X_BOX = Block.box(6.0D, 0.0D, 4.0D, 10.0D, 5.0D, 12.0D);
@@ -47,10 +47,6 @@ public class ToastBlock extends AKnifeCutBlock {
     public @NotNull InteractionResult use(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         int pile = pState.getValue(PILE);
-        if (isKnifeItem(hand) && pile == 1){
-            cut(pLevel,pState,pPos,pPlayer,hand,pHand);
-            return InteractionResult.SUCCESS;
-        }
         int slice = pState.getValue(SLICE);
         if (hand.is(asItem()) && pile < 2 && slice == 4){
             if (!pPlayer.getAbilities().instabuild) {
@@ -78,6 +74,11 @@ public class ToastBlock extends AKnifeCutBlock {
 
     public Item getSliceItem() {
         return this.sliceItem.get();
+    }
+
+    @Override
+    public boolean isCut(BlockState state) {
+        return state.getValue(PILE) == 1;
     }
 
     protected InteractionResult pileUp(Level level, BlockPos pos, BlockState state){

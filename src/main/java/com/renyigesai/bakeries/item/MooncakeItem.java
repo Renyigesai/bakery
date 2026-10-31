@@ -6,6 +6,7 @@ import com.renyigesai.bakeries.block.mooncake.MooncakeBlockEntity;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import com.renyigesai.bakeries.init.BakeriesSounds;
 import com.renyigesai.bakeries.util.ItemUtils;
+import com.renyigesai.bakeries.util.TextUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -187,14 +188,16 @@ public class MooncakeItem extends ItemNameBlockItem {
         if (pStack.is(BakeriesItems.RAW_MOONCAKE.get())){
             pTooltip.add(Component.translatable("tip.bakeries.raw_mooncake").withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.ITALIC));
             pTooltip.add(Component.literal("Min170°C").withStyle(ChatFormatting.BLUE));
-        }
-        if (pStack.getOrCreateTag().getBoolean("perfect")) {
-            pTooltip.add(Component.translatable("item.bakeries.tips.perfect_temperature").withStyle(ChatFormatting.GOLD));
-        }
-        StringBuffer buffer = new StringBuffer();
-        getItemIds(pStack).forEach(id -> buffer.append(BuiltInRegistries.ITEM.get(new ResourceLocation(id)).getDescription().getString()));
-        if (!buffer.isEmpty()){
-            pTooltip.add(Component.translatable("tip.bakeries.mooncake",buffer.toString()).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.ITALIC));
+        }else {
+            if (pStack.getOrCreateTag().getBoolean("perfect")) {
+                pTooltip.add(Component.translatable("item.bakeries.tips.perfect_temperature").withStyle(ChatFormatting.GOLD));
+            }
+            StringBuffer buffer = new StringBuffer();
+            getItemIds(pStack).forEach(id -> buffer.append(BuiltInRegistries.ITEM.get(new ResourceLocation(id)).getDescription().getString()));
+            if (!buffer.isEmpty()){
+                pTooltip.add(Component.translatable("tip.bakeries.mooncake",buffer.toString()).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.ITALIC));
+            }
+            TextUtils.addFoodEffectTooltip(pStack, pTooltip, 1.0F);
         }
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

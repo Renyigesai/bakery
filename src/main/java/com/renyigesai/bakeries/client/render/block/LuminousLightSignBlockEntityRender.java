@@ -1,7 +1,6 @@
 package com.renyigesai.bakeries.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import com.renyigesai.bakeries.block.luminous_light_sign.LuminousLightSignBlockEntity;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.glyphs.BakedGlyph;
@@ -27,8 +26,8 @@ public class LuminousLightSignBlockEntityRender implements IBBlockEntityRenderer
     private static final SimpleDateFormat HH = new SimpleDateFormat("HH");
     private static final SimpleDateFormat MM = new SimpleDateFormat("mm");
 
-    // 文字在方块空间中的高度（底部中心上方 0.875）
     private static final float TEXT_HEIGHT = 0.625f + 0.25f;
+    private static final float LEFT_MARGIN = -20.5f;
 
     public LuminousLightSignBlockEntityRender(BlockEntityRendererProvider.Context pContext) {
         this.font = pContext.getFont();
@@ -43,13 +42,11 @@ public class LuminousLightSignBlockEntityRender implements IBBlockEntityRenderer
             return;
         }
 
-        // 文字非空 → 渲染文字
         if (!text.isEmpty()) {
             renderText(entity, text, poseStack, pBuffer);
             return;
         }
 
-        // 文字为空 → 渲染时间 + 冒号
         renderTime(entity, poseStack, pBuffer);
         renderSecond(entity, poseStack, pBuffer);
     }
@@ -60,37 +57,39 @@ public class LuminousLightSignBlockEntityRender implements IBBlockEntityRenderer
         }
         int textWidth = font.width(":");
         applyTextTransform(poseStack);
-        startRender(":", textWidth, entity.getColor(), poseStack, pBuffer);
+        startRender(":", textWidth, entity.getColor(), poseStack, pBuffer,true);
     }
 
     private void renderTime(LuminousLightSignBlockEntity entity, PoseStack poseStack, MultiBufferSource pBuffer) {
         int textWidth = font.width(lazyTime);
         applyTextTransform(poseStack);
-        startRender(lazyTime, textWidth, entity.getColor(), poseStack, pBuffer);
+        startRender(lazyTime, textWidth, entity.getColor(), poseStack, pBuffer,true);
     }
 
     private void renderText(LuminousLightSignBlockEntity entity, String text, PoseStack poseStack, MultiBufferSource pBuffer) {
         int textWidth = font.width(text);
         applyTextTransform(poseStack);
-        startRender(text, textWidth, entity.getColor(), poseStack, pBuffer);
+        startRender(text, textWidth, entity.getColor(), poseStack, pBuffer,entity.isCenter());
     }
+
 
     /** 统一的文字变换：抬到方块中心上方 + 缩放 */
     private void applyTextTransform(PoseStack poseStack) {
         poseStack.pushPose();
-        // 基础变换后原点在方块底部中心，只需向上抬
         poseStack.translate(0f, TEXT_HEIGHT, 0f);
         poseStack.scale(0.023F, -0.025F, 0.023F);
     }
 
-    private void startRender(String text, int textWidth, int color, PoseStack poseStack, MultiBufferSource pBuffer) {
-        this.font.drawInBatch(
-                Component.nullToEmpty(text),
-                (float) -textWidth / 2 + 1, 1, color, false,
+    private void startRender(String text, int textWidth, int color,
+                             PoseStack poseStack, MultiBufferSource pBuffer, boolean center) {
+        float x = center ? (float) -textWidth / 2 + 1 : LEFT_MARGIN;
+
+        this.font.drawInBatch(Component.literal(text),
+                x, 1, color, false,
                 poseStack.last().pose(), pBuffer, Font.DisplayMode.NORMAL, 0, 15728880);
         if (pBuffer instanceof MultiBufferSource.BufferSource) {
-            BakedGlyph texturedglyph = font.getFontSet(Style.DEFAULT_FONT).whiteGlyph();
-            ((MultiBufferSource.BufferSource) pBuffer).endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));
+            BakedGlyph texturedGlyph = font.getFontSet(Style.DEFAULT_FONT).whiteGlyph();
+            ((MultiBufferSource.BufferSource) pBuffer).endBatch(texturedGlyph.renderType(Font.DisplayMode.NORMAL));
         }
         poseStack.popPose();
     }
@@ -100,7 +99,8 @@ public class LuminousLightSignBlockEntityRender implements IBBlockEntityRenderer
         @SubscribeEvent
         public static void onClientTick(TickEvent.ClientTickEvent event) {
             if (event.phase == TickEvent.Phase.END) {
-                count++;
+                count ++;
+
                 if (count == 10) {
                     colonVisible = !colonVisible;
                 }

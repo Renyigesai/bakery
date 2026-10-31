@@ -41,6 +41,7 @@ public class BakeriesGroup {
                         output.accept(BakeriesItems.SOFA_RED.get());                 // 红色沙发
                         output.accept(BakeriesItems.CASH_REGISTER_COMPUTER.get());   // 收银电脑
                         output.accept(BakeriesItems.LUMINOUS_LIGHT_SIGN.get());      // 发光灯牌
+//                        output.accept(BakeriesItems.LIGHT_BOX.get());                // 灯箱
                         output.accept(BakeriesItems.MAGNETIC_PLATE.get());           // 磁性盘子
                         output.accept(BakeriesItems.BLACK_WHITE_CONCRETE.get());     // 黑白混凝土
                         output.accept(BakeriesItems.MENU.get());                     // 菜单

@@ -1,6 +1,6 @@
 package com.renyigesai.bakeries.block;
 
-import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
+import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.init.BakeriesItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +17,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -27,7 +28,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public class CountryBreadBlock extends AKnifeCutBlock {
+public class CountryBreadBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
     /*由于乡村面包只是一个单纯的方块，他的物品不需要可食用*/
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
     protected static final VoxelShape X_BOX = Block.box(5.0D, 0.0D, 4.0D, 11.0D, 4.0D, 12.0D);//待更改
@@ -60,6 +61,11 @@ public class CountryBreadBlock extends AKnifeCutBlock {
     }
 
     @Override
+    public boolean isCut(BlockState state) {
+        return state.getValue(PILE) == 1;
+    }
+
+    @Override
     public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Direction direction = state.getValue(FACING);
         int pile = state.getValue(PILE);
@@ -73,12 +79,6 @@ public class CountryBreadBlock extends AKnifeCutBlock {
     public @NotNull InteractionResult use(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         ItemStack hand = pPlayer.getItemInHand(pHand);
         int pile = pState.getValue(PILE);
-        if (isKnifeItem(hand) && pile == 1){
-//            return cut(pLevel,pPos,pPlayer,hand,pHand);
-            cut(pLevel,pState,pPos,pPlayer,hand,pHand);
-            return InteractionResult.SUCCESS;
-        }
-
         if (hand.is(asItem()) && pile < 2){
             hand.shrink(1);
             return pileUp(pLevel,pPos,pState,pPlayer);

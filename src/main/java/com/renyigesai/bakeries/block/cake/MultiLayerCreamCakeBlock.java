@@ -91,4 +91,9 @@ public class MultiLayerCreamCakeBlock extends HorizontalDirectionalBlock impleme
     public Item getSliceItem() {
         return BakeriesItems.CREAM_CAKE_CUBE.get();
     }
+
+    @Override
+    public boolean isCut(BlockState state) {
+        return true;
+    }
 }

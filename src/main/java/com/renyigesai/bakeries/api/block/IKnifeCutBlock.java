@@ -15,11 +15,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 
 public interface IKnifeCutBlock {
     /*KnifeCutBlock的接口变种,对于已有继承的方块可以使用这个*/
 
+    IntegerProperty SLICE = IntegerProperty.create("slice",1,4);
     /*获取传入的物品是否为可用的刀*/
     default boolean isKnifeItem(ItemStack itemStack) {
         return itemStack.is(BakeriesItemTag.BREAD_KNIFE) || itemStack.is(ItemTags.create(new ResourceLocation("forge","tools/knives")));
@@ -37,27 +39,7 @@ public interface IKnifeCutBlock {
     /*返回每一次切片的掉落物数量*/
     Item getSliceItem();
 
-    /*切片逻辑的具体实现,切片时调用这个方法*/
-    default void cut(Level level, BlockState state, BlockPos pos, Player player, ItemStack hand, InteractionHand pUsedHand) {
-        boolean b1 = getSliceProperty() != null;
-        boolean b2 = false;
-        if (b1) {
-            int slice = state.getValue(getSliceProperty());
-            if (slice > getMaxSlice()) {
-                level.setBlock(pos, state.setValue(getSliceProperty(), slice - 1), 3);
-            }else {
-                b2 = true;
-            }
-        }
-        if (!b1 || b2){
-            level.removeBlock(pos,false);
-        }
-        ItemUtils.spawnItemEntity(level, new ItemStack(getSliceItem(), getSliceItemCount()),pos);
-        if (!player.getAbilities().instabuild){
-            hand.hurtAndBreak(1,player, (p_41300_) -> p_41300_.broadcastBreakEvent(pUsedHand));
-        }
-        level.playSound(null, pos, SoundEvents.WOOL_STEP, SoundSource.BLOCKS, 0.8F, 0.8F);
-    }
+    boolean isCut(BlockState state);
 
     default void cut(Level level, BlockState state, BlockPos pos, LivingEntity entity, ItemStack hand, EquipmentSlot slot) {
         boolean b1 = getSliceProperty() != null;

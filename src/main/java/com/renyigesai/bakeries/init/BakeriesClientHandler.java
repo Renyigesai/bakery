@@ -43,6 +43,7 @@ public class BakeriesClientHandler {
         event.registerBlockEntityRenderer(BakeriesBlocks.BREAD_RACK_ENTITY.get(), BreadRackRender::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.MAGNETIC_PLATE_ENTITY.get(), MagneticPlateRenderer::new);
         event.registerBlockEntityRenderer(BakeriesBlocks.CUSTOM_CAKE_ENTITY.get(), CustomCakeRenderer::new);
+        event.registerBlockEntityRenderer(BakeriesBlocks.LIGHT_BOX_ENTITY.get(), LightBoxRender::new);
     }
 
     @SubscribeEvent
@@ -58,7 +59,9 @@ public class BakeriesClientHandler {
     public static void onRegisterModifyModel(ModelEvent.ModifyBakingResult event) {
 
         registerItemModel(new ResourceLocation(BakeriesMod.MODID, "eternal_baguette"),event);
+        registerItemModel(new ResourceLocation(BakeriesMod.MODID, "long_egg_tart"),event);
         renderBlockModel(BakeriesBlocks.LUMINOUS_LIGHT_SIGN.get(), event);
+        renderBlockModel(BakeriesBlocks.LIGHT_BOX.get(), event);
 
         Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
         ModelResourceLocation baseLocation = new ModelResourceLocation(new ResourceLocation(BakeriesMod.MODID,"custom_cake"), "inventory");

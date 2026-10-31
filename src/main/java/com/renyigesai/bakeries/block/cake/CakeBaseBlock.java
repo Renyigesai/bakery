@@ -40,33 +40,33 @@ public class CakeBaseBlock extends InstanceCakeBlock implements IKnifeCutBlock {
         return 5;
     }
 
-    @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide) {
-            return cutOrEat(pState, pLevel, pPos, pPlayer, pHand);
-        }
-
-        return cutOrEat(pState, pLevel, pPos, pPlayer, pHand);
-    }
-
-    public InteractionResult cutOrEat(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand){
-        int bites = pState.getValue(BITES);
-        ItemStack hand = pPlayer.getItemInHand(pHand);
-        if (this.isKnifeItem(hand)){
-            if (bites != 0){
-                return eat(pLevel,pPos,pState,pPlayer);
-            }
-            cut(pLevel,pState,pPos,pPlayer,hand,pHand);
-            return InteractionResult.SUCCESS;
-        }
-        if (hand.is(BakeriesItems.MASHED_TARO.get()) && hand.getCount() >= 4){
-            pLevel.setBlock(pPos, BakeriesBlocks.TARO_CAKE.get().defaultBlockState(),3);
-            ItemUtils.shrink(hand,4,pPlayer);
-            return InteractionResult.SUCCESS;
-        }
-
-        return eat(pLevel,pPos,pState,pPlayer);
-    }
+//    @Override
+//    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+//        if (pLevel.isClientSide) {
+//            return cutOrEat(pState, pLevel, pPos, pPlayer, pHand);
+//        }
+//
+//        return cutOrEat(pState, pLevel, pPos, pPlayer, pHand);
+//    }
+//
+//    public InteractionResult cutOrEat(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand){
+//        int bites = pState.getValue(BITES);
+//        ItemStack hand = pPlayer.getItemInHand(pHand);
+//        if (this.isKnifeItem(hand)){
+//            if (bites != 0){
+//                return eat(pLevel,pPos,pState,pPlayer);
+//            }
+//            cut(pLevel,pState,pPos,pPlayer,hand,pHand);
+//            return InteractionResult.SUCCESS;
+//        }
+//        if (hand.is(BakeriesItems.MASHED_TARO.get()) && hand.getCount() >= 4){
+//            pLevel.setBlock(pPos, BakeriesBlocks.TARO_CAKE.get().defaultBlockState(),3);
+//            ItemUtils.shrink(hand,4,pPlayer);
+//            return InteractionResult.SUCCESS;
+//        }
+//
+//        return eat(pLevel,pPos,pState,pPlayer);
+//    }
 
     @Override
     public Property<Integer> getSliceProperty() {
@@ -86,5 +86,10 @@ public class CakeBaseBlock extends InstanceCakeBlock implements IKnifeCutBlock {
     @Override
     public Item getSliceItem() {
         return BakeriesItems.CUT_CAKE_BASE.get();
+    }
+
+    @Override
+    public boolean isCut(BlockState state) {
+        return state.getValue(BITES) == 0 && state.is(BakeriesBlocks.CAKE_BASE.get());
     }
 }

@@ -1,5 +1,6 @@
 package com.renyigesai.bakeries.event;
 
+import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.CakeEffectRulesRegistrationEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
@@ -24,8 +25,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
@@ -34,7 +37,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.OnDatapackSyncEvent;
@@ -215,6 +220,23 @@ public class BakeriesEvents {
     @SubscribeEvent
     public static void onDatapackSync(OnDatapackSyncEvent event){
         CakePartMeasurer.loadAllClientPartsType(event);
+    }
+
+    @SubscribeEvent
+    public static void onUseKnifeBlock(PlayerInteractEvent.RightClickBlock event){
+        Player player = event.getEntity();
+        ItemStack itemStack = event.getItemStack();
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+        BlockState blockState = level.getBlockState(pos);
+        Block block = blockState.getBlock();
+        if (block instanceof IKnifeCutBlock iKnifeCutBlock){
+            if (iKnifeCutBlock.isKnifeItem(itemStack) && iKnifeCutBlock.isCut(blockState)){
+                event.setCanceled(true);
+                iKnifeCutBlock.cut(level, blockState, pos,(LivingEntity) player,itemStack,event.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+            }
+        }
     }
 
 }

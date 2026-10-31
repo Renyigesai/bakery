@@ -1,13 +1,12 @@
 package com.renyigesai.bakeries.mixin;
 
-import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
+import com.renyigesai.bakeries.util.BakeriesHooks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,8 +24,7 @@ public abstract class GameRendererMixin {
                 if (level != null) {
                     BlockState state = level.getBlockState(pos);
                     if (!state.isAir()){
-                        PlayerLookBlockEvent playerLookBlockEvent = new PlayerLookBlockEvent(mc.player, pos,state);
-                        MinecraftForge.EVENT_BUS.post(playerLookBlockEvent);
+                        BakeriesHooks.onPlayerLookBlock(mc.player, pos,state);
                     }
                 }
             }
