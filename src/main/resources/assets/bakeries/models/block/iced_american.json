@@ -1,5 +1,5 @@
 {
-	"render_type": "minecraft:cutout",
+	"render_type": "minecraft:translucent",
 	"textures": {
 		"0": "bakeries:block/iced_american",
 		"particle": "minecraft:block/glass"

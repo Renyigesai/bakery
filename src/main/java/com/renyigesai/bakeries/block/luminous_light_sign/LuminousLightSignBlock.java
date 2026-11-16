@@ -60,7 +60,6 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
             if (blockEntity instanceof LuminousLightSignBlockEntity){
                 Component hoverName = itemInHand.getHoverName();
                 continuousSetText(pLevel,pPos,hoverName,0,true);
-                triggerAdvancement(pLevel,pPlayer);
                 if (isHelloWorld(hoverName.getString())){
                     triggerAdvancement(pLevel,pPlayer);
                 }

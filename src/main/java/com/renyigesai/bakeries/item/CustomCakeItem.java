@@ -258,4 +258,12 @@ public class CustomCakeItem extends BlockItem {
         int eatCountMax = stack.getOrCreateTag().getInt("EatCountMax");
         return eatCount < eatCountMax;
     }
+
+    public static boolean contains(ItemStack stack,String id){
+        if (stack.getItem() instanceof CustomCakeItem){
+            return CustomCakeItem.getPartIds(stack).contains(id);
+        }
+        return false;
+    }
+
 }

@@ -5,12 +5,11 @@ import com.renyigesai.bakeries.api.event.AnvilLandingEvent;
 import com.renyigesai.bakeries.api.event.CakeEffectRulesRegistrationEvent;
 import com.renyigesai.bakeries.api.event.PlayerLookBlockEvent;
 import com.renyigesai.bakeries.client.LookBlockEntityRegistries;
+import com.renyigesai.bakeries.compat.CompatMod;
+import com.renyigesai.bakeries.compat.create.CreateCompat;
 import com.renyigesai.bakeries.config.BakeriesConfig;
 import com.renyigesai.bakeries.init.BakeriesItems;
-import com.renyigesai.bakeries.item.BaguetteItem;
-import com.renyigesai.bakeries.item.BreadKnifeItem;
-import com.renyigesai.bakeries.item.ColdDrinkItem;
-import com.renyigesai.bakeries.item.EternalBaguetteItem;
+import com.renyigesai.bakeries.item.*;
 import com.renyigesai.bakeries.util.ItemUtils;
 import com.renyigesai.bakeries.util.WorldUtil;
 import com.renyigesai.bakeries.util.measurer.CakeEffectRules;
@@ -239,4 +238,10 @@ public class BakeriesEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onUseBlazeBurner(PlayerInteractEvent.RightClickBlock event){
+        if (CompatMod.CREATE){
+            CreateCompat.onUseBlazeBurner(event);
+        }
+    }
 }
