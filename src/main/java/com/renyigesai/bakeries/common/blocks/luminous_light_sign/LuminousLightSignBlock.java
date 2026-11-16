@@ -3,11 +3,16 @@ package com.renyigesai.bakeries.common.blocks.luminous_light_sign;
 import com.renyigesai.bakeries.BakeriesMod;
 import com.renyigesai.bakeries.common.blocks.HorizontalConnectBlock;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
+import com.renyigesai.bakeries.common.utils.WorldUtils;
 import com.renyigesai.bakeries.common.utils.measurer.ClientUtilsMeasurer;
 import com.renyigesai.bakeries.common.utils.measurer.IUtilsMeasurer;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +32,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 public class LuminousLightSignBlock extends HorizontalConnectBlock implements EntityBlock {
     public LuminousLightSignBlock() {
@@ -55,13 +62,11 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
         if (itemInHand.getItem() instanceof NameTagItem){
             if (blockEntity instanceof LuminousLightSignBlockEntity sign){
                 Component hoverName = itemInHand.getHoverName();
-                IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
-                if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
-                    int length = clientUtilsMeasurer.getLength(hoverName.getString(), 45);
-                    String string = hoverName.getString(length);
-                    sign.setText(string);
-                    return ItemInteractionResult.SUCCESS;
+                continuousSetText(level,pos,hoverName,0,true);
+                if (isHelloWorld(hoverName.getString())){
+                    triggerAdvancement(level,player);
                 }
+                return ItemInteractionResult.SUCCESS;
             }
         }else {
             if (itemInHand.getItem() instanceof DyeItem dye){
@@ -73,6 +78,56 @@ public class LuminousLightSignBlock extends HorizontalConnectBlock implements En
             }
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    private void continuousSetText(Level level,BlockPos pos,Component component,int depth,boolean isCenter){
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof LuminousLightSignBlockEntity sign){
+            IUtilsMeasurer utilsMeasurer = BakeriesMod.utilsMeasurer;
+            String text = component.getString();
+            if (utilsMeasurer instanceof ClientUtilsMeasurer clientUtilsMeasurer){
+                int length = clientUtilsMeasurer.getLength(text);
+                String cutText = component.getString(clientUtilsMeasurer.getLength(text,45));
+                sign.setText(cutText);
+                sign.setCenter(isCenter);
+                sign.update();
+
+                Direction direction = level.getBlockState(pos).getValue(FACING);
+                Direction right = direction.getClockWise(Direction.Axis.Y);
+                BlockPos rightPos = pos.relative(right);
+                BlockState rightState = level.getBlockState(rightPos);
+                depth ++;
+                if (depth >= 16 || length < 45 || !rightState.is(this) || rightState.getValue(FACING) != direction){
+                    return;
+                }
+                int consumed = Math.min(cutText.length(), text.length());
+                String remaining = text.substring(consumed);
+                if (remaining.isEmpty()) {
+                    return;
+                }
+                continuousSetText(level, rightPos, Component.literal(remaining), depth,false);
+            }
+        }
+    }
+
+    private boolean isHelloWorld(String input) {
+        if (input == null) return false;
+        String normalized = input.toUpperCase(Locale.ROOT)
+                .replace(",", "")
+                .trim()
+                .replaceAll("\\s+", " ");
+        return normalized.equals("HELLO WORLD");
+    }
+
+    public void triggerAdvancement(Level level,Player player){
+        if (!WorldUtils.isDoneAdvancement(player,level,ResourceLocation.fromNamespaceAndPath(BakeriesMod.MODID,"hello_world"))){
+            if (player instanceof ServerPlayer serverPlayer){
+                AdvancementHolder advancement = serverPlayer.server.getAdvancements().get(ResourceLocation.fromNamespaceAndPath("bakeries","hello_world"));
+                if (advancement != null) {
+                    serverPlayer.getAdvancements().award(advancement,"hello_world");
+                }
+            }
+        }
     }
 
     public boolean propagatesSkylightDown(BlockState p_154824_, BlockGetter p_154825_, BlockPos p_154826_) {

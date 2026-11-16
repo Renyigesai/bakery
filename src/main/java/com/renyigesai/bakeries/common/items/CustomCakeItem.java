@@ -248,4 +248,11 @@ public class CustomCakeItem extends BlockItem {
     public static boolean isRepeatEat(ItemStack stack){
         return stack.has(BakeriesDataComponents.EAT_COUNT_MAX) && stack.has(BakeriesDataComponents.EAT_COUNT);
     }
+
+    public static boolean contains(ItemStack stack,String id){
+        if (stack.getItem() instanceof CustomCakeItem){
+            return CustomCakeItem.getPartIds(stack).contains(id);
+        }
+        return false;
+    }
 }

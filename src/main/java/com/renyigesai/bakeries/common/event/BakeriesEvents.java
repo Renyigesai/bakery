@@ -14,9 +14,11 @@ import com.renyigesai.bakeries.common.init.BakeriesBlocks;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.items.RepeatEatItem;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
+import com.renyigesai.bakeries.common.utils.ModIsLoaded;
 import com.renyigesai.bakeries.common.utils.WorldUtils;
 import com.renyigesai.bakeries.common.utils.measurer.CakeEffectRules;
 import com.renyigesai.bakeries.common.utils.measurer.CakePartMeasurer;
+import com.renyigesai.bakeries.integration.create.CreateCompat;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -207,6 +209,8 @@ public class BakeriesEvents {
     @SubscribeEvent
     public static void addPackFinders(AddPackFindersEvent event) {
         event.addPackFinders(ResourceLocation.fromNamespaceAndPath("bakeries","resourcepacks/b_2d_icon"),PackType.CLIENT_RESOURCES,Component.translatable("pack.bakeries.2d_icon"),PackSource.DEFAULT,false,Pack.Position.TOP);
+        event.addPackFinders(ResourceLocation.fromNamespaceAndPath("bakeries","resourcepacks/b_gui"),PackType.CLIENT_RESOURCES,Component.translatable("pack.bakeries.gui"),PackSource.DEFAULT,false,Pack.Position.TOP);
+        event.addPackFinders(ResourceLocation.fromNamespaceAndPath("bakeries","resourcepacks/b_xiris"),PackType.CLIENT_RESOURCES,Component.translatable("pack.bakeries.xiris"),PackSource.DEFAULT,false,Pack.Position.TOP);
     }
 
     @SubscribeEvent
@@ -266,5 +270,12 @@ public class BakeriesEvents {
                 BakeriesBlocks.Entities.FERMENTATION_BOX_ENTITY.get(),
                 (blockEntity, side) -> blockEntity.getHandlerItems()
         );
+    }
+
+    @SubscribeEvent
+    public static void onUseBlazeBurner(PlayerInteractEvent.RightClickBlock event){
+        if (ModIsLoaded.CREATE){
+            CreateCompat.onUseBlazeBurner(event);
+        }
     }
 }

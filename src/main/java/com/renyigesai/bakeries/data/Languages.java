@@ -95,6 +95,8 @@ public class Languages extends AbstractLanguageProvider {
         add("key.bakeries.auxiliary","Auxiliary","辅助按键");
         add("block.bakeries.custom_cake","Custom Cake","自定义蛋糕");
         add("pack.bakeries.2d_icon","[Bakeries]2D Icon","【烘焙坊】2D图标材质包");
+        add("pack.bakeries.xiris","[Bakeries]Xiris Texture","【烘焙坊】希绘材质包");
+        add("pack.bakeries.gui","[Bakeries]GUI Texture","【烘焙坊】GUI材质包");
         add(setTooltips(BakeriesMod.MODID,"player_logged_in"),"§6[Bakeries]§fInstall Patchouli to obtain the mod tutorial book","§6【烘焙坊】§f安装帕秋莉手册以获得模组教程书");
         add("gui.jei.category.bakeries_disengage","Disengage","脱模");
     }
@@ -201,6 +203,7 @@ public class Languages extends AbstractLanguageProvider {
         addAdvancement("get_cream_cake",translateText("Cake! Eat Cake!","蛋糕！吃下蛋糕！"),translateText("Get Cream Cake.","获得一个奶油蛋糕。"));
         addAdvancement("get_tea_astringent",translateText("No trespassing","不可侵"),translateText("Get tea astringent effect.","获得茶涩效果。"));
         addAdvancement("get_butter_latter",translateText("Full Sugar!!","全糖！！"),translateText("get Butter Latte.","获得黄油拿铁。"));
+        addAdvancement("hello_world",translateText("HELLO WORLD","HELLO WORLD"),translateText("Input \"HELLO WORLD\" into the Luminous Light Sign (hidden advancement)","向发光灯牌输入“HELLO WORLD”（隐藏进度）"));
     }
 
     private void addPatchoulis(){

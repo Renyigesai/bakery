@@ -9,6 +9,7 @@ import com.renyigesai.bakeries.common.utils.ModIsLoaded;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -17,6 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -47,15 +49,15 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipeInput;
+import vectorwing.farmersdelight.common.crafting.ingredient.ChanceResult;
 import vectorwing.farmersdelight.common.registry.ModAdvancements;
 import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class BreadKnifeItem extends DiggerItem {
     public static final Set<ItemAbility> KNIFE_ACTIONS;
@@ -116,7 +118,7 @@ public class BreadKnifeItem extends DiggerItem {
         Optional<RecipeHolder<CuttingBoardRecipe>> matchingRecipe = getCuttingRecipe(level,itemEntity.getItem());
 
         matchingRecipe.ifPresent(recipe -> {
-            List<ItemStack> results = recipe.value().rollResults(level.random, EnchantmentHelper.getTagEnchantmentLevel(level.holder(Enchantments.FORTUNE).get(), hand));
+            List<ItemStack> results = rollResults(level.random,getFortuneLevel(level,player),recipe.value().getRollableResults());
             for (ItemStack resultStack : results) {
                 vectorwing.farmersdelight.common.utility.ItemUtils.spawnItemEntity(level,resultStack.copy(),x,y,z,0,0,0);
             }
@@ -133,6 +135,29 @@ public class BreadKnifeItem extends DiggerItem {
         });
 
         return matchingRecipe.isPresent();
+    }
+
+    private List<ItemStack> rollResults(RandomSource random, int fortuneLevel, NonNullList<ChanceResult> rollableResults) {
+        List<ItemStack> results = new ArrayList();
+        Iterator var6 = rollableResults.iterator();
+
+        while(var6.hasNext()) {
+            ChanceResult output = (ChanceResult)var6.next();
+            ItemStack stack = output.rollOutput(random, fortuneLevel);
+            if (!stack.isEmpty()) {
+                results.add(stack);
+            }
+        }
+
+        return results;
+    }
+
+    private int getFortuneLevel(Level level,Player player){
+        Optional<Holder.Reference<Enchantment>> holder = level.holder(Enchantments.FORTUNE);
+        if (holder.isPresent() && player != null){
+            return EnchantmentHelper.getEnchantmentLevel(holder.get(),player);
+        }
+        return 0;
     }
 
     private Optional<RecipeHolder<BreadKnifeRecipe>> getBreadKnifeRecipe(Level level, ItemStack stack) {

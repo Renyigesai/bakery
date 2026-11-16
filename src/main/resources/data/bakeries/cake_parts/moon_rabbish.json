@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:cake_topping",
+  "ingredient": [
+    {
+      "item": "delighto_flight:moon_rabbish"
+    }
+  ],
+  "potion_effect": "delighto_flight:grind_herbs",
+  "effect_duration": 2400,
+  "hunger": 4,
+  "saturation": 0.7,
+  "load_id": "delighto_flight"
+}

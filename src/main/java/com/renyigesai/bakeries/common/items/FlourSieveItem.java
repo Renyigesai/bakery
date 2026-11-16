@@ -52,70 +52,40 @@ public class FlourSieveItem extends Item {
         return SoundEvents.SAND_BREAK;
     }
 
-//    @Override
-//    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-//        ItemStack mainHandItem = pPlayer.getMainHandItem();
-//        if (mainHandItem.is(this)){
-//            return super.use(pLevel, pPlayer, pUsedHand);
-//        }
-//        Optional<RecipeHolder<FlourSieveRecipe>> recipeFor = CHECK.getRecipeFor(new SingleRecipeInput(mainHandItem), pLevel);
-//        if (recipeFor.isEmpty()){
-//            pPlayer.getCooldowns().addCooldown(this,20);
-//            pPlayer.displayClientMessage(Component.translatable(getFlourSieveRandomText()), true);
-//            return super.use(pLevel, pPlayer, pUsedHand);
-//        }
-//        pPlayer.startUsingItem(pUsedHand);
-//        return new InteractionResultHolder(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
-//    }
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack sieveStack = pPlayer.getItemInHand(pUsedHand);
-        if (!pLevel.isClientSide) {
-            if (!pPlayer.getMainHandItem().isEmpty()) {
-                pPlayer.startUsingItem(pUsedHand);
-                return InteractionResultHolder.consume(sieveStack);
-            }
+        ItemStack ingredient = pPlayer.getItemInHand(getIngredientHand(pUsedHand));
+        if (!pLevel.isClientSide && !ingredient.isEmpty()) {
+            pPlayer.startUsingItem(pUsedHand);
+            return InteractionResultHolder.consume(sieveStack);
         }
         return InteractionResultHolder.pass(sieveStack);
     }
 
-//    @Override
-//    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-//        Player player = (Player)pLivingEntity;
-//        ItemStack mainHandItem = player.getMainHandItem();
-//
-//        Optional<RecipeHolder<FlourSieveRecipe>> currentRecipe = getCurrentRecipe(pLevel, player.getMainHandItem());
-//        if (currentRecipe.isPresent()){
-//            SingleRecipeInput singleRecipeInput = new SingleRecipeInput(player.getMainHandItem());
-//            ItemStack resultItemStack = CHECK.getRecipeFor(singleRecipeInput, pLevel).map((p_344662_) -> p_344662_.value().assemble(singleRecipeInput, pLevel.registryAccess())).orElse(player.getMainHandItem());
-//            if (!player.getAbilities().instabuild) {
-//                mainHandItem.shrink(1);
-//                pStack.hurtAndBreak(1,player, EquipmentSlot.OFFHAND);
-//            }
-//            ItemUtils.givePlayerItem(player,resultItemStack);
-//        }
-//        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
-//    }
-
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        if (pLevel.isClientSide){
+        if (pLevel.isClientSide) {
             return pStack;
         }
-        ItemStack mainHandItem = pLivingEntity.getMainHandItem();
-        Optional<RecipeHolder<FlourSieveRecipe>> recipe = getCurrentRecipe(pLevel,mainHandItem);
-        boolean success = recipe.isPresent();
+
+        InteractionHand sieveHand = pLivingEntity.getUsedItemHand();
+        InteractionHand ingredientHand = getIngredientHand(sieveHand);
+        ItemStack ingredient = pLivingEntity.getItemInHand(ingredientHand);
+        Optional<RecipeHolder<FlourSieveRecipe>> recipe = getCurrentRecipe(pLevel, ingredient);
+
 
         if (pLivingEntity instanceof Player player) {
-            if (success) {
-                mainHandItem.shrink(1);
-                pStack.hurtAndBreak(1,player, EquipmentSlot.OFFHAND);
-                player.getInventory().placeItemBackInInventory(recipe.get().value().getResultItem(null));
+            if (recipe.isPresent()) {
+                ingredient.shrink(1);
+                pStack.hurtAndBreak(1, pLivingEntity, (player.getMainHandItem().getItem() instanceof FlourSieveItem) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                player.getInventory().placeItemBackInInventory(
+                        recipe.get().value().getResultItem(null));
             } else {
                 player.getCooldowns().addCooldown(this, 20);
-                int randomInt = new Random().nextInt(1, 4);
-                player.displayClientMessage(Component.translatable("tooltips.bakeries.flour_sieve_" + randomInt), true);
+                int randomInt = new Random().nextInt(0, 3);
+                player.displayClientMessage(
+                        Component.translatable("tooltips.bakeries.flour_sieve_" + randomInt), true);
             }
         }
         return pStack;
@@ -126,6 +96,12 @@ public class FlourSieveItem extends Item {
             return Optional.empty();
         }
         return CHECK.getRecipeFor(new SingleRecipeInput(stack),level);
+    }
+
+    public InteractionHand getIngredientHand(InteractionHand sieveHand) {
+        return sieveHand == InteractionHand.MAIN_HAND
+                ? InteractionHand.OFF_HAND
+                : InteractionHand.MAIN_HAND;
     }
 
     @Override
@@ -175,9 +151,21 @@ public class FlourSieveItem extends Item {
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
-        ItemStack offhand = player.getOffhandItem();
-        if (offhand.getItem() instanceof FlourSieveItem) {
-            event.setCanceled(true);
+        if (player.isShiftKeyDown()) return;
+
+        for (InteractionHand hand : InteractionHand.values()) {
+            ItemStack stack = player.getItemInHand(hand);
+            if (!(stack.getItem() instanceof FlourSieveItem sieve)) continue;
+
+            InteractionHand otherHand = sieve.getIngredientHand(hand);
+            ItemStack ingredient = player.getItemInHand(otherHand);
+            if (ingredient.isEmpty()) continue;
+
+            Optional<RecipeHolder<FlourSieveRecipe>> recipe = sieve.getCurrentRecipe(player.level(), ingredient);
+            if (recipe.isPresent()) {
+                event.setCanceled(true);
+                return;
+            }
         }
     }
 

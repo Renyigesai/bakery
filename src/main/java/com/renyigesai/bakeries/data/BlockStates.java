@@ -187,7 +187,7 @@ public class BlockStates extends BlockStateProvider {
         if (block.get() instanceof AbstractPileBlock pile) {
             for (Direction direction : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
                 for (int size : pile.getPileProperty().getPossibleValues()) {
-                    ModelFile modelFile = this.models().withExistingParent(this.name(block.get()) + "_" + size, this.modLoc("custom/drink_" + size)).texture("0", this.modLoc("block/" + name)).texture("particle", ResourceLocation.fromNamespaceAndPath("minecraft","block/glass")).renderType(CUTOUT);
+                    ModelFile modelFile = this.models().withExistingParent(this.name(block.get()) + "_" + size, this.modLoc("custom/drink_" + size)).texture("0", this.modLoc("block/" + name)).texture("particle", ResourceLocation.fromNamespaceAndPath("minecraft","block/glass")).renderType(TRANSLUCENT);
                     this.getVariantBuilder(block.get())
                             .partialState()
                             .with(pile.getPileProperty(), size)

@@ -1,0 +1,13 @@
+{
+  "type": "bakeries:cake_base",
+  "ingredient": [
+    {
+      "item": "create:blaze_cake"
+    }
+  ],
+  "potion_effect": "minecraft:fire_resistance",
+  "effect_duration": 3600,
+  "hunger": 4,
+  "saturation": 0.7,
+  "load_id": "create"
+}

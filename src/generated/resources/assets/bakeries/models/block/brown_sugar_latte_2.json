@@ -1,6 +1,6 @@
 {
   "parent": "bakeries:custom/drink_2",
-  "render_type": "minecraft:cutout",
+  "render_type": "minecraft:translucent",
   "textures": {
     "0": "bakeries:block/brown_sugar_latte",
     "particle": "minecraft:block/glass"

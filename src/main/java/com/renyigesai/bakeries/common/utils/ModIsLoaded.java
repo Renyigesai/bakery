@@ -5,6 +5,7 @@ import net.neoforged.fml.ModList;
 public class ModIsLoaded {
     private static Boolean isFarmerSDelight;
     public static Boolean isKaleidoscopeCookery = ModList.get().isLoaded("kaleidoscope_cookery");
+    public static final boolean CREATE = ModList.get().isLoaded("create");
     public static boolean isFarmerSDelight() {
         if (isFarmerSDelight == null) {
             isFarmerSDelight = ModList.get().isLoaded("farmersdelight");

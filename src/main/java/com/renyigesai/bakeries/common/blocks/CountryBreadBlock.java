@@ -1,7 +1,7 @@
 package com.renyigesai.bakeries.common.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.renyigesai.bakeries.api.block.AKnifeCutBlock;
+import com.renyigesai.bakeries.api.block.IKnifeCutBlock;
 import com.renyigesai.bakeries.common.init.BakeriesItems;
 import com.renyigesai.bakeries.common.utils.ItemUtils;
 import net.minecraft.core.BlockPos;
@@ -29,7 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public class CountryBreadBlock extends AKnifeCutBlock {
+public class CountryBreadBlock extends HorizontalDirectionalBlock implements IKnifeCutBlock {
     /*由于乡村面包只是一个单纯的方块，他的物品不需要可食用*/
     public static final IntegerProperty PILE = IntegerProperty.create("pile",1,2);
     protected static final VoxelShape X_BOX = Block.box(5.0D, 0.0D, 4.0D, 11.0D, 4.0D, 12.0D);//待更改
@@ -67,6 +67,11 @@ public class CountryBreadBlock extends AKnifeCutBlock {
     }
 
     @Override
+    public boolean isCut(BlockState state) {
+        return state.getValue(PILE) == 1;
+    }
+
+    @Override
     public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         Direction direction = state.getValue(FACING);
         int pile = state.getValue(PILE);
@@ -80,11 +85,6 @@ public class CountryBreadBlock extends AKnifeCutBlock {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack handItem = player.getItemInHand(hand);
         int pile = state.getValue(PILE);
-        if (isKnifeItem(handItem) && pile == 1){
-            cut(level,state,pos,player,handItem,hand);
-            return ItemInteractionResult.SUCCESS;
-        }
-
         if (handItem.is(asItem()) && pile < 2){
             ItemUtils.shrink(handItem,1,player);
             return pileUp(level,pos,state,player);
