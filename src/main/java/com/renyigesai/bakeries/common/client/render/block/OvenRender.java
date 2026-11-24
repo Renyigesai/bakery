@@ -83,8 +83,10 @@ public class OvenRender implements IBBlockEntityRenderer<OvenBlockEntity> {
         if (level != null){
             if (BakeriesMod.utilsMeasurer instanceof ClientUtilsMeasurer measurer){
                 if (measurer.isItem3D(stack)){
-                    BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
-                    BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(state);
+                    // Non-block items can also use three-dimensional baked models.
+                    BakedModel model = stack.getItem() instanceof BlockItem blockItem
+                            ? Minecraft.getInstance().getBlockRenderer().getBlockModel(blockItem.getBlock().defaultBlockState())
+                            : Minecraft.getInstance().getItemRenderer().getModel(stack, level, null, 0);
                     Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.FIXED, false, poseStack, pBuffer, LevelRenderer.getLightColor(oven.getLevel(), oven.getBlockPos()), pPackedOverlay, model);
                 }else {
                     poseStack.pushPose();
