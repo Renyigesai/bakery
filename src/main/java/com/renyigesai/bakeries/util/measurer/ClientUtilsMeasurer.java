@@ -65,13 +65,12 @@ public class ClientUtilsMeasurer implements IUtilsMeasurer {
     }
 
     public boolean isItem3D(ItemStack stack){
-        boolean isBlock = stack.getItem() instanceof BlockItem;
         BakedModel itemModel = Minecraft.getInstance().getItemRenderer().getModel(stack, null, null, 0);
         boolean is3d;
         if (itemModel instanceof SeparateTransformsModel.Baked){
-            is3d = isBlock && (itemModel.isGui3d() || itemModel.applyTransform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND,new PoseStack(),false).isGui3d());
+            is3d = itemModel.isGui3d() || itemModel.applyTransform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND,new PoseStack(),false).isGui3d();
         }else {
-            is3d = isBlock && itemModel.isGui3d();
+            is3d = itemModel.isGui3d();
         }
         return is3d;
     }

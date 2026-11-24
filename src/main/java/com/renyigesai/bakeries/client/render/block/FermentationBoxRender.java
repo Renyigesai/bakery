@@ -82,8 +82,9 @@ public class FermentationBoxRender implements IBBlockEntityRenderer<Fermentation
         }
         if (BakeriesMod.utilsMeasurer instanceof ClientUtilsMeasurer measurer){
             if (measurer.isItem3D(stack)){
-                BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
-                BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(state);
+                BakedModel model = stack.getItem() instanceof BlockItem blockItem
+                        ? Minecraft.getInstance().getBlockRenderer().getBlockModel(blockItem.getBlock().defaultBlockState())
+                        : Minecraft.getInstance().getItemRenderer().getModel(stack, level, null, posLong + 1);
                 Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.FIXED, false, poseStack, pBuffer, LevelRenderer.getLightColor(box.getLevel(), box.getBlockPos()), pPackedOverlay, model);
             }else {
                 poseStack.pushPose();
