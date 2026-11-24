@@ -40,7 +40,7 @@ public class BreadRackBlockEntity extends BlockEntity {
 
     public void drops(BreadRackBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.items.getSlots());
-        for (int i = 0; i < blockEntity.items.getSlots()-1; i++) {
+        for (int i = 0; i < blockEntity.items.getSlots(); i++) {
             ItemStack stackInSlot = blockEntity.items.getStackInSlot(i);
             if (!stackInSlot.isEmpty()){
                 inventory.setItem(i, blockEntity.items.getStackInSlot(i));
